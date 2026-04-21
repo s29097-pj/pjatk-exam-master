@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egzamin PJATK - Pulpit Dowodzenia</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="main-header-wrapper">
+        <h1>Zestaw zagadnień na egzamin dyplomowy inżynierski</h1>
+        <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div id="progressMenu" class="progress-container">
+        <div class="progress-top-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+
+            <div class="stats-text" style="white-space: nowrap;">Postęp: <span id="progress-val">0</span>/146</div>
+
+            <div class="search-box" style="flex-grow: 1; margin: 0 15px; min-width: 200px; position: relative;">
+                <input type="text" id="searchInput" placeholder="🔍 Szukaj po numerze lub słowie kluczowym..."
+                       style="width: 100%; padding: 6px 12px; border: 1px solid #dcdde1; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.3s;">
+
+                <div id="searchResults" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #dcdde1; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 350px; overflow-y: auto; z-index: 1000; margin-top: 5px;"></div>
+            </div>
+
+            <div class="progress-actions" style="white-space: nowrap;">
+                <button class="btn-discrete" onclick="generateRandomSet()" title="Wylosuj 3 pytania">🎲 Losuj zestaw</button>
+                <button id="globalToggleBtn" class="btn-discrete" onclick="toggleAll()">↔️ Zwiń wszystko</button>
+            </div>
+
+        </div>
+        <div class="progress-bar-bg">
+            <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()"></div>
+    <div id="modalExam" class="modal-exam">
+        <h3 style="margin-top:0; color: #2c3e50;">Twój zestaw losowy (Symulacja Egzaminu):</h3>
+        <div id="random-questions-list"></div>
+        <button class="btn-global" style="margin-top:20px; width:100%" onclick="closeModal()">Zamknij</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+
+        <aside class="sidebar">
+            <button class="nav-block-btn nav-b1 active" onclick="switchTab('blok1')">BLOK 1: Cyber, Sieci i OS</button>
+            <button class="nav-block-btn nav-b2" onclick="switchTab('blok2')">BLOK 2: Inżynieria i Org.</button>
+            <button class="nav-block-btn nav-b3" onclick="switchTab('blok3')">BLOK 3: Programowanie i Web</button>
+            <button class="nav-block-btn nav-b4" onclick="switchTab('blok4')">BLOK 4: Algorytmy i Bazy</button>
+            <button class="nav-block-btn nav-b5" onclick="switchTab('blok5')">BLOK 5: Sztuczna Inteligencja</button>
+            <button class="nav-block-btn nav-b6" onclick="switchTab('blok6')">BLOK 6: Matematyka i Fizyka</button>
+            <button class="nav-block-btn nav-b7" onclick="switchTab('blok7')">BLOK 7: Grafika Komputerowa</button>
+            <button class="nav-block-btn nav-b8" onclick="switchTab('blok8')">BLOK 8: Elektronika i IoT</button>
+        </aside>
+
+        <main class="content-area">
+
+            <div id="blok1" class="block-panel active">
+                <h2 class="panel-title" style="color: var(--b1-color);">BLOK 1: Cyberbezpieczeństwo, Sieci i OS</h2>
+                <div class="course">
+                    <div class="course-header c1" onclick="toggleBlock(this)">Systemy operacyjne <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/096.html" class="question-link"><span class="q-text">96. Szeregowanie procesów w systemach operacyjnych komputerów.</span></a></li>
+                            <li class="question-item"><a href="questions/097.html" class="question-link"><span class="q-text">97. Metody synchronizacji procesów w programach komputerowych.</span></a></li>
+                            <li class="question-item"><a href="questions/98.html" class="question-link"><span class="q-text">98. Adresy logiczne i fizyczne w systemach komputerowych.</span></a></li>
+                            <li class="question-item"><a href="questions/99.html" class="question-link"><span class="q-text">99. Blokada (zakleszczenie) w programie: geneza, wykrywanie i zapobieganie.</span></a></li>
+                            <li class="question-item"><a href="questions/100.html" class="question-link"><span class="q-text">100. Charakterystyka mechanizmów mutex i semaforów.</span></a></li>
+                            <li class="question-item"><a href="questions/101.html" class="question-link"><span class="q-text">101. Strategie przydziału segmentów pamięci.</span></a></li>
+                            <li class="question-item"><a href="questions/102.html" class="question-link"><span class="q-text">102. Podsystemy wejścia wyjścia w systemach cyfrowych.</span></a></li>
+                            <li class="question-item"><a href="questions/103.html" class="question-link"><span class="q-text">103. System plików i jego realizacja.</span></a></li>
+                            <li class="question-item"><a href="questions/119.html" class="question-link"><span class="q-text">119. Przełączanie kontekstu.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c1" onclick="toggleBlock(this)">Sieci komputerowe <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/088.html" class="question-link"><span class="q-text">88. Klasyfikacje sieci komputerowych - rodzaje i charakterystyka.</span></a></li>
+                            <li class="question-item"><a href="questions/89.html" class="question-link"><span class="q-text">89. Protokół TCP a UDP - podobieństwa, różnice, budowa, zastosowanie.</span></a></li>
+                            <li class="question-item"><a href="questions/90.html" class="question-link"><span class="q-text">90. Konfiguracja i testowanie sieci w oparciu o router.</span></a></li>
+                            <li class="question-item"><a href="questions/91.html" class="question-link"><span class="q-text">91. Technologie sieciowe przewodowe i bezprzewodowe LAN.</span></a></li>
+                            <li class="question-item"><a href="questions/92.html" class="question-link"><span class="q-text">92. Protokoły rozgłoszeniowe a protokoły multicast.</span></a></li>
+                            <li class="question-item"><a href="questions/120.html" class="question-link"><span class="q-text">120. Charakterystyka protokołów HTTP, FTP, SMTP.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c1" onclick="toggleBlock(this)">Architektura komputerów <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/84.html" class="question-link"><span class="q-text">84. Struktura blokowa i działanie współczesnego komputera.</span></a></li>
+                            <li class="question-item"><a href="questions/85.html" class="question-link"><span class="q-text">85. Organizacja i cechy mikroprocesora.</span></a></li>
+                            <li class="question-item"><a href="questions/86.html" class="question-link"><span class="q-text">86. Organizacja pamięci i mechanizmy adresowania.</span></a></li>
+                            <li class="question-item"><a href="questions/87.html" class="question-link"><span class="q-text">87. Cechy architekturalne procesorów typu RISC/CISC.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c1" onclick="toggleBlock(this)">Bezpieczeństwo i Specjalizacja <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/93.html" class="question-link"><span class="q-text">93. Problemy bezpieczeństwa systemów i sieci komputerowych.</span></a></li>
+                            <li class="question-item"><a href="questions/94.html" class="question-link"><span class="q-text">94. Bezpieczeństwo informacji.</span></a></li>
+                            <li class="question-item"><a href="questions/95.html" class="question-link"><span class="q-text">95. Autoryzacja i uwierzytelnianie użytkowników.</span></a></li>
+                            <span class="special-label">SPECJALIZACJA CYBERSECURITY:</span>
+                            <li class="question-item"><a href="questions/cyb-001.html" class="question-link"><span class="q-text">1. Uprawnienia podstawowe i specjalne w systemach uniksowych.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_2.html" class="question-link"><span class="q-text">2. Narzędzia analizy logów.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_3.html" class="question-link"><span class="q-text">3. Narzędzia analizy i zarządzania ruchem sieciowym.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_4.html" class="question-link"><span class="q-text">4. Metody i narzędzia wykorzystywane przy łamaniu haseł.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_5.html" class="question-link"><span class="q-text">5. Kodowaniem oraz szyfrowanie.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_6.html" class="question-link"><span class="q-text">6. Kluczowe aspekty zabezpieczania systemów IT i OT.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_7.html" class="question-link"><span class="q-text">7. Advanced Persistent Threat (APT).</span></a></li>
+                            <li class="question-item"><a href="questions/spec_8.html" class="question-link"><span class="q-text">8. Ataki typu Distributed Denial of Service (DDoS).</span></a></li>
+                            <li class="question-item"><a href="questions/spec_9.html" class="question-link"><span class="q-text">9. Znaczenie szkoleń uświadamiających dla pracowników.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_10.html" class="question-link"><span class="q-text">10. Ataki Man-in-the-Middle (MitM).</span></a></li>
+                            <li class="question-item"><a href="questions/spec_11.html" class="question-link"><span class="q-text">11. Rola zespołu SOC (Security Operations Center).</span></a></li>
+                            <li class="question-item"><a href="questions/spec_12.html" class="question-link"><span class="q-text">12. Testy penetracyjne.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_13.html" class="question-link"><span class="q-text">13. Uwierzytelnianie wieloskładnikowe (MFA).</span></a></li>
+                            <li class="question-item"><a href="questions/spec_14.html" class="question-link"><span class="q-text">14. Hardening systemów i urządzeń.</span></a></li>
+                            <li class="question-item"><a href="questions/spec_15.html" class="question-link"><span class="q-text">15. Zarządzanie podatnościami w systemach IT.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok2" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b2-color);">BLOK 2: Inżynieria Oprogramowania i Organizacja</h2>
+                <div class="course">
+                    <div class="course-header c2" onclick="toggleBlock(this)">Projektowanie i Integracja systemów <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/56.html" class="question-link"><span class="q-text">56. Definicja i rola inżynierii oprogramowania.</span></a></li>
+                            <li class="question-item"><a href="questions/57.html" class="question-link"><span class="q-text">57. Definicja, główne właściwości i charakterystyka projektu IT.</span></a></li>
+                            <li class="question-item"><a href="questions/58.html" class="question-link"><span class="q-text">58. Cele i zakres prac w fazie przedprojektowej (planowania).</span></a></li>
+                            <li class="question-item"><a href="questions/59.html" class="question-link"><span class="q-text">59. Przedmiot i działania inżynierii wymagań.</span></a></li>
+                            <li class="question-item"><a href="questions/60.html" class="question-link"><span class="q-text">60. Proces i produkty obiektowej analizy wymagań.</span></a></li>
+                            <li class="question-item"><a href="questions/61.html" class="question-link"><span class="q-text">61. Podział wymagań. Klasyfikacja wymagań niefunkcjonalnych.</span></a></li>
+                            <li class="question-item"><a href="questions/62.html" class="question-link"><span class="q-text">62. Strategie i produkty projektowania architektury oprogramowania.</span></a></li>
+                            <li class="question-item"><a href="questions/63.html" class="question-link"><span class="q-text">63. Modele UML w analizie i projektowaniu oprogramowania.</span></a></li>
+                            <li class="question-item"><a href="questions/64.html" class="question-link"><span class="q-text">64. Podejście oparte o komponenty i podsystemy.</span></a></li>
+                            <li class="question-item"><a href="questions/65.html" class="question-link"><span class="q-text">65. Interfejs programowania aplikacji (API).</span></a></li>
+                            <li class="question-item"><a href="questions/66.html" class="question-link"><span class="q-text">66. Proces wytwarzania oprogramowania: cykl życia projektu IT...</span></a></li>
+                            <li class="question-item"><a href="questions/67.html" class="question-link"><span class="q-text">67. Tradycyjne modele wytwarzania oprogramowania...</span></a></li>
+                            <li class="question-item"><a href="questions/68.html" class="question-link"><span class="q-text">68. Model przyrostowy a model iteracyjny.</span></a></li>
+                            <li class="question-item"><a href="questions/69.html" class="question-link"><span class="q-text">69. Modele zwinne (agile): główne zasady manifestu Agile...</span></a></li>
+                            <li class="question-item"><a href="questions/71.html" class="question-link"><span class="q-text">71. Środowiska i narzędzia wspomagające (kontrola wersji).</span></a></li>
+                            <li class="question-item"><a href="questions/72.html" class="question-link"><span class="q-text">72. Instalacja i przekazanie systemu (Wdrażanie).</span></a></li>
+                            <li class="question-item"><a href="questions/73.html" class="question-link"><span class="q-text">73. Pielęgnacja i ewolucja oprogramowania.</span></a></li>
+                            <li class="question-item"><a href="questions/74.html" class="question-link"><span class="q-text">74. Pojęcie jakości oprogramowania, metody zapewniania jakości.</span></a></li>
+                            <li class="question-item"><a href="questions/75.html" class="question-link"><span class="q-text">75. Obszary zarządzania projektem informatycznym.</span></a></li>
+                            <li class="question-item"><a href="questions/76.html" class="question-link"><span class="q-text">76. Metodyki zarządzania projektem z produktem IT.</span></a></li>
+                            <li class="question-item"><a href="questions/79.html" class="question-link"><span class="q-text">79. Założenia analizy rozszerzonej z wykorzystaniem SODIS.</span></a></li>
+                            <li class="question-item"><a href="questions/80.html" class="question-link"><span class="q-text">80. Ryzyka projektowe.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c2" onclick="toggleBlock(this)">Społeczne aspekty informatyki <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/77.html" class="question-link"><span class="q-text">77. Pojęcie i obszary problemowe etyki komputerowej.</span></a></li>
+                            <li class="question-item"><a href="questions/78.html" class="question-link"><span class="q-text">78. Profesjonalizm zawodowy inżyniera informatyka.</span></a></li>
+                            <li class="question-item"><a href="questions/81.html" class="question-link"><span class="q-text">81. Praca zespołowa.</span></a></li>
+                            <li class="question-item"><a href="questions/82.html" class="question-link"><span class="q-text">82. Parafraza, uogólnienie i konkretyzacja w kontakcie z klientem.</span></a></li>
+                            <li class="question-item"><a href="questions/83.html" class="question-link"><span class="q-text">83. Komunikacja i empatyzowanie w realizacji projektu...</span></a></li>
+                            <li class="question-item"><a href="questions/124.html" class="question-link"><span class="q-text">124. Metody współpracy zespołów IT z użytkownikami (Agile).</span></a></li>
+                            <li class="question-item"><a href="questions/135.html" class="question-link"><span class="q-text">135. Modelowanie procesów biznesowych - podejścia i metody.</span></a></li>
+                            <li class="question-item"><a href="questions/136.html" class="question-link"><span class="q-text">136. Techniki generowania pomysłów w pracy zespołowej.</span></a></li>
+                            <li class="question-item"><a href="questions/137.html" class="question-link"><span class="q-text">137. Analiza SWOT w planowaniu projektu informatycznego.</span></a></li>
+                            <li class="question-item"><a href="questions/138.html" class="question-link"><span class="q-text">138. Identyfikacja oczekiwań użytkowników i pozyskiwanie wymagań...</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok3" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b3-color);">BLOK 3: Programowanie, Wzorce i Tech. Webowe</h2>
+                <div class="course">
+                    <div class="course-header c3" onclick="toggleBlock(this)">Podstawy programowania <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/16.html" class="question-link"><span class="q-text">16. Struktura programów w różnych językach programowania.</span></a></li>
+                            <li class="question-item"><a href="questions/17.html" class="question-link"><span class="q-text">17. Zmienne w językach programowania.</span></a></li>
+                            <li class="question-item"><a href="questions/18.html" class="question-link"><span class="q-text">18. Deklarowanie i definiowanie funkcji.</span></a></li>
+                            <li class="question-item"><a href="questions/19.html" class="question-link"><span class="q-text">19. Metody przekazywania parametrów.</span></a></li>
+                            <li class="question-item"><a href="questions/20.html" class="question-link"><span class="q-text">20. Reprezentacja zmiennych a pamięć operacyjna.</span></a></li>
+                            <li class="question-item"><a href="questions/21.html" class="question-link"><span class="q-text">21. Podstawowe cechy obiektów dynamicznych.</span></a></li>
+                            <li class="question-item"><a href="questions/22.html" class="question-link"><span class="q-text">22. Zasady hermetyzacji.</span></a></li>
+                            <li class="question-item"><a href="questions/23.html" class="question-link"><span class="q-text">23. Problematyka dziedziczenia.</span></a></li>
+                            <li class="question-item"><a href="questions/24.html" class="question-link"><span class="q-text">24. Istota polimorfizmu.</span></a></li>
+                            <li class="question-item"><a href="questions/25.html" class="question-link"><span class="q-text">25. W jakich sytuacjach może nastąpić wyciek pamięci.</span></a></li>
+                            <li class="question-item"><a href="questions/26.html" class="question-link"><span class="q-text">26. Realizacja wielozadaniowości w językach programowania.</span></a></li>
+                            <li class="question-item"><a href="questions/34.html" class="question-link"><span class="q-text">34. Paradygmaty programowania.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c3" onclick="toggleBlock(this)">Programowanie obiektowe w Javie <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/27.html" class="question-link"><span class="q-text">27. Zasady wytwarzania oprogramowania SOLID, CQS, DRY, KISS.</span></a></li>
+                            <li class="question-item"><a href="questions/28.html" class="question-link"><span class="q-text">28. Kontenery zależności i wzorzec loC.</span></a></li>
+                            <li class="question-item"><a href="questions/29.html" class="question-link"><span class="q-text">29. Oprogramowanie baz danych w oparciu o mapowanie (ORM).</span></a></li>
+                            <li class="question-item"><a href="questions/30.html" class="question-link"><span class="q-text">30. Wzorce Projektowe: Repository i Unit Of Work.</span></a></li>
+                            <li class="question-item"><a href="questions/31.html" class="question-link"><span class="q-text">31. Testowanie i walidacja oprogramowania; poziomy testowania.</span></a></li>
+                            <li class="question-item"><a href="questions/32.html" class="question-link"><span class="q-text">32. Wzorce Projektowe: kreacyjne, strukturalne i behawioralne.</span></a></li>
+                            <li class="question-item"><a href="questions/33.html" class="question-link"><span class="q-text">33. Rodzaje testów aplikacji (jednostkowe, integracyjne).</span></a></li>
+                            <li class="question-item"><a href="questions/35.html" class="question-link"><span class="q-text">35. Narzędzia wspomagające cykl rozwoju aplikacji.</span></a></li>
+                            <li class="question-item"><a href="questions/70.html" class="question-link"><span class="q-text">70. Wzorce analizy i projektowania; wykorzystanie wzorców.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c3" onclick="toggleBlock(this)">Technologie Internetu <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/121.html" class="question-link"><span class="q-text">121. Języki programowania i budowa warstwy frontend.</span></a></li>
+                            <li class="question-item"><a href="questions/122.html" class="question-link"><span class="q-text">122. Metody zarządzania i budowania aplikacji internetowej.</span></a></li>
+                            <li class="question-item"><a href="questions/123.html" class="question-link"><span class="q-text">123. Responsive Web Design - geneza, techniki, dobre praktyki.</span></a></li>
+                            <li class="question-item"><a href="questions/125.html" class="question-link"><span class="q-text">125. Realizacja testów użyteczności z użytkownikami.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok4" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b4-color);">BLOK 4: Algorytmy i Bazy Danych</h2>
+                <div class="course">
+                    <div class="course-header c4" onclick="toggleBlock(this)">Algorytmy i struktury danych <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/36.html" class="question-link"><span class="q-text">36. Metoda dziel i zwyciężaj.</span></a></li>
+                            <li class="question-item"><a href="questions/37.html" class="question-link"><span class="q-text">37. Metody reprezentacji danych.</span></a></li>
+                            <li class="question-item"><a href="questions/38.html" class="question-link"><span class="q-text">38. Organizacja dostępu do zbiorów skończonych (stosy, kolejki).</span></a></li>
+                            <li class="question-item"><a href="questions/39.html" class="question-link"><span class="q-text">39. Złożoność obliczeniowa algorytmów.</span></a></li>
+                            <li class="question-item"><a href="questions/40.html" class="question-link"><span class="q-text">40. Algorytmy sortowania; przykładowe algorytmy i złożoność.</span></a></li>
+                            <li class="question-item"><a href="questions/41.html" class="question-link"><span class="q-text">41. Metody wyszukiwania informacji.</span></a></li>
+                            <li class="question-item"><a href="questions/42.html" class="question-link"><span class="q-text">42. Dynamiczne struktury danych (listy i drzewa).</span></a></li>
+                            <li class="question-item"><a href="questions/44.html" class="question-link"><span class="q-text">44. Abstrakcje wykorzystywane in informatyce.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c4" onclick="toggleBlock(this)">Relacyjne bazy danych <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/45.html" class="question-link"><span class="q-text">45. Podstawowe cechy relacyjnych baz danych.</span></a></li>
+                            <li class="question-item"><a href="questions/46.html" class="question-link"><span class="q-text">46. Charakterystyka relacyjnych i nierelacyjnych baz danych.</span></a></li>
+                            <li class="question-item"><a href="questions/47.html" class="question-link"><span class="q-text">47. Podstawowe elementy diagramów ERD.</span></a></li>
+                            <li class="question-item"><a href="questions/48.html" class="question-link"><span class="q-text">48. Konstrukcje języka SQL.</span></a></li>
+                            <li class="question-item"><a href="questions/49.html" class="question-link"><span class="q-text">49. Redundancja, zależności funkcyjne i postacie normalne.</span></a></li>
+                            <li class="question-item"><a href="questions/50.html" class="question-link"><span class="q-text">50. Elementy programistyczne (procedury wyzwalane).</span></a></li>
+                            <li class="question-item"><a href="questions/51.html" class="question-link"><span class="q-text">51. Reguły integralności w bazie danych.</span></a></li>
+                            <li class="question-item"><a href="questions/52.html" class="question-link"><span class="q-text">52. Zasady optymalizacji zapytań (indeksy).</span></a></li>
+                            <li class="question-item"><a href="questions/53.html" class="question-link"><span class="q-text">53. Problemy współbieżnego dostępu (transakcje, blokady).</span></a></li>
+                            <li class="question-item"><a href="questions/54.html" class="question-link"><span class="q-text">54. Bezpieczeństwo w bazach danych, uprawnienia.</span></a></li>
+                            <li class="question-item"><a href="questions/55.html" class="question-link"><span class="q-text">55. Hurtownie danych.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok5" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b5-color);">BLOK 5: Sztuczna Inteligencja</h2>
+                <div class="course">
+                    <div class="course-header c5" onclick="toggleBlock(this)">Narzędzia sztucznej inteligencji <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/126.html" class="question-link"><span class="q-text">126. Rozwiązania oparte o LLM w kontekście interakcji użytkowników.</span></a></li>
+                            <li class="question-item"><a href="questions/127.html" class="question-link"><span class="q-text">127. Pojęcie przestrzeni stanów i jego zastosowanie.</span></a></li>
+                            <li class="question-item"><a href="questions/128.html" class="question-link"><span class="q-text">128. Wnioskowanie logiczne jako narzędzie.</span></a></li>
+                            <li class="question-item"><a href="questions/129.html" class="question-link"><span class="q-text">129. Drzewa decyzyjne.</span></a></li>
+                            <li class="question-item"><a href="questions/130.html" class="question-link"><span class="q-text">130. Algorytmy heurystyczne.</span></a></li>
+                            <li class="question-item"><a href="questions/131.html" class="question-link"><span class="q-text">131. Algorytmy wyznaczania najkrótszej ścieżki.</span></a></li>
+                            <li class="question-item"><a href="questions/132.html" class="question-link"><span class="q-text">132. Sztuczne sieci neuronowe.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="course">
+                    <div class="course-header c5" onclick="toggleBlock(this)">Statystyczna analiza danych <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/133.html" class="question-link"><span class="q-text">133. Klasyfikacja, regresja i regresja logistyczna.</span></a></li>
+                            <li class="question-item"><a href="questions/134.html" class="question-link"><span class="q-text">134. Podstawowe metryki wykorzystywane do oceny modeli predykcyjnych.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok6" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b6-color);">BLOK 6: Matematyka i Fizyka</h2>
+                <div class="course">
+                    <div class="course-header c6" onclick="toggleBlock(this)">Algebra, Analiza, Mat. dyskretna, Fizyka <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/1.html" class="question-link"><span class="q-text">1. Podstawowe działania na macierzach.</span></a></li>
+                            <li class="question-item"><a href="questions/2.html" class="question-link"><span class="q-text">2. Liczby zespolone.</span></a></li>
+                            <li class="question-item"><a href="questions/3.html" class="question-link"><span class="q-text">3. Układy równań liniowych.</span></a></li>
+                            <li class="question-item"><a href="questions/4.html" class="question-link"><span class="q-text">4. Przestrzeń 3D.</span></a></li>
+                            <li class="question-item"><a href="questions/5.html" class="question-link"><span class="q-text">5. Ciągi liczbowe.</span></a></li>
+                            <li class="question-item"><a href="questions/6.html" class="question-link"><span class="q-text">6. Funkcje ciągłe i różniczkowalne. Obliczanie pochodnych.</span></a></li>
+                            <li class="question-item"><a href="questions/7.html" class="question-link"><span class="q-text">7. Całka nieoznaczona i całka Riemanna.</span></a></li>
+                            <li class="question-item"><a href="questions/8.html" class="question-link"><span class="q-text">8. Równania różniczkowe zwyczajne.</span></a></li>
+                            <li class="question-item"><a href="questions/9.html" class="question-link"><span class="q-text">9. Systemy liczbowe.</span></a></li>
+                            <li class="question-item"><a href="questions/10.html" class="question-link"><span class="q-text">10. Arytmetyka modularna i jej zastosowanie w informatyce.</span></a></li>
+                            <li class="question-item"><a href="questions/11.html" class="question-link"><span class="q-text">11. Zbiory i relacje. Działania na nich i zastosowania.</span></a></li>
+                            <li class="question-item"><a href="questions/12.html" class="question-link"><span class="q-text">12. Formuły logiczne jako narzędzie do wyrażania faktów.</span></a></li>
+                            <li class="question-item"><a href="questions/13.html" class="question-link"><span class="q-text">13. Algorytmy rekurencyjne; rola rekurencji i indukcji.</span></a></li>
+                            <li class="question-item"><a href="questions/14.html" class="question-link"><span class="q-text">14. Wartość oczekiwana i wariancja zmiennej losowej.</span></a></li>
+                            <li class="question-item"><a href="questions/15.html" class="question-link"><span class="q-text">15. Zliczanie obiektów kombinatorycznych: ciągi, podzbiory, permutacje.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok7" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b7-color);">BLOK 7: Grafika Komputerowa</h2>
+                <div class="course">
+                    <div class="course-header c7" onclick="toggleBlock(this)">Grafika komputerowa <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/104.html" class="question-link"><span class="q-text">104. Potok renderowania grafiki w OpenGL; shadery wierzchołków...</span></a></li>
+                            <li class="question-item"><a href="questions/105.html" class="question-link"><span class="q-text">105. Podstawy teksturowania.</span></a></li>
+                            <li class="question-item"><a href="questions/106.html" class="question-link"><span class="q-text">106. Transformacje afiniczne 2D i 3D; macierze transformacji.</span></a></li>
+                            <li class="question-item"><a href="questions/107.html" class="question-link"><span class="q-text">107. Modele oświetlenia i cieniowania w grafice 3D.</span></a></li>
+                            <li class="question-item"><a href="questions/108.html" class="question-link"><span class="q-text">108. Algorytmy rastrowe.</span></a></li>
+                            <li class="question-item"><a href="questions/109.html" class="question-link"><span class="q-text">109. Formaty plików graficznych.</span></a></li>
+                            <li class="question-item"><a href="questions/110.html" class="question-link"><span class="q-text">110. Modele barw.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blok8" class="block-panel">
+                <h2 class="panel-title" style="color: var(--b8-color);">BLOK 8: Elektronika i Systemy Wbudowane</h2>
+                <div class="course">
+                    <div class="course-header c8" onclick="toggleBlock(this)">Elektronika / Systemy wbudowane <span class="arrow"></span></div>
+                    <div class="course-content">
+                        <ul>
+                            <li class="question-item"><a href="questions/111.html" class="question-link"><span class="q-text">111. Właściwości techniki analogowej i cyfrowej.</span></a></li>
+                            <li class="question-item"><a href="questions/112.html" class="question-link"><span class="q-text">112. Właściwości i zastosowanie typowych elementów półprzewodnikowych.</span></a></li>
+                            <li class="question-item"><a href="questions/113.html" class="question-link"><span class="q-text">113. Fazy procesu pomiarowego, metody pośrednie i bezpośrednie.</span></a></li>
+                            <li class="question-item"><a href="questions/114.html" class="question-link"><span class="q-text">114. Podstawowe klasyfikacje i właściwości układów scalonych.</span></a></li>
+                            <li class="question-item"><a href="questions/115.html" class="question-link"><span class="q-text">115. Filtracja sygnałów i jej zastosowania.</span></a></li>
+                            <li class="question-item"><a href="questions/116.html" class="question-link"><span class="q-text">116. Metody redukcji poboru mocy współczesnych procesorów.</span></a></li>
+                            <li class="question-item"><a href="questions/117.html" class="question-link"><span class="q-text">117. Programistyczne przyspieszanie pracy systemów wbudowanych.</span></a></li>
+                            <li class="question-item"><a href="questions/118.html" class="question-link"><span class="q-text">118. Wymagania stawiane systemom czasu rzeczywistego.</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</div> </body>
+</html>
