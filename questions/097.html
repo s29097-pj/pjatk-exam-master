@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 97 - Synchronizacja procesów</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="container">
+    <a href="../index.html" class="btn-back" onclick="history.back(); return false;">← Wróć do spisu treści</a>
+
+    <div class="question-box">
+        <h2>97. Metody synchronizacji procesów w programach komputerowych.</h2>
+
+        <div class="answer-section">
+            <div class="answer-step">
+                <strong>1. Definicja (Czym to jest?):</strong><br>
+                Synchronizacja to mechanizm, który koordynuje wykonywanie współbieżnych procesów (lub wątków), aby zapewnić im bezpieczny dostęp do współdzielonych zasobów (np. pamięci, pliku, bazy danych) i zapobiec niespójności danych (np. nadpisywaniu się informacji).
+            </div>
+
+            <div class="answer-step">
+                <strong>2. Mechanizm (Główne metody):</strong><br>
+                Podstawowym pojęciem jest <b>sekcja krytyczna</b> (fragment kodu, w którym proces korzysta ze wspólnego zasobu). Do jej ochrony stosuje się:
+                <ul>
+                    <li><b>Muteksy (Mutex - Mutual Exclusion):</b> "Klucz do toalety". Tylko jeden proces może go mieć. Inny proces czeka pod drzwiami.</li>
+                    <li><b>Semafory:</b> "Licznik miejsc na parkingu". Pozwala na dostęp określonej liczbie procesów. Semafor binarny to w praktyce muteks.</li>
+                    <li><b>Monitory:</b> Wyższopoziomowy konstrukt (często wbudowany w języki obiektowe np. Java), łączący w sobie muteks z tzw. zmiennymi warunkowymi.</li>
+                </ul>
+            </div>
+
+            <div class="answer-step">
+                <strong>3. Kontekst inżynierski (Dlaczego to ważne?):</strong><br>
+                Brak synchronizacji prowadzi do błędu <i>Race Condition</i> (wyścigu). W Cybersecurity (np. w architekturze Zero Trust) to krytyczna podatność (TOCTOU - Time-Of-Check to Time-Of-Use) – atakujący może próbować zmodyfikować plik w ułamku sekundy między jego sprawdzeniem przez system a faktycznym użyciem. Odpowiednia synchronizacja zamyka ten wektor ataku.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
