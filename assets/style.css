@@ -1,0 +1,536 @@
+/* =========================================
+   ZMIENNE (KOLORY I MOTYWY)
+   ========================================= */
+:root {
+    /* Główne kolory bloków */
+    --b1-color: #2980b9; --b2-color: #27ae60; --b3-color: #e67e22;
+    --b4-color: #8e44ad; --b5-color: #f1c40f; --b6-color: #16a085;
+    --b7-color: #d35400; --b8-color: #c0392b;
+
+    /* Pastelowe tła dla kursów */
+    --c1-bg: #eaf2f8; --c2-bg: #e9f7ef; --c3-bg: #fdf2e9;
+    --c4-bg: #f5eef8; --c5-bg: #fef9e7; --c6-bg: #e8f6f3;
+    --c7-bg: #fbeee6; --c8-bg: #fdedec;
+
+    /* Kolory statusów */
+    --b0-color: #bdc3c7; /* Szary (niezdefiniowane) */
+    --c0-bg: #f8f9f9;
+
+    --bg-color: #f4f7f6;
+    --text-color: #2c3e50;
+}
+
+/* =========================================
+   STYLE GLOBALNE
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color); color: var(--text-color);
+    line-height: 1.6; margin: 0; padding: 20px;
+}
+.container { max-width: 1200px; margin: 0 auto; } /* Poszerzony kontener dla Sidebara */
+
+/* Nagłówek i Hamburger Menu */
+.main-header-wrapper {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; margin-bottom: 20px;
+}
+h1 {
+    color: #34495e; border-bottom: 3px solid #34495e;
+    padding-bottom: 10px; margin: 0; text-align: center; width: 100%;
+}
+.hamburger-btn {
+    display: none; flex-direction: column; justify-content: space-between;
+    width: 30px; height: 21px; background: none; border: none; cursor: pointer; padding: 0;
+}
+.hamburger-btn span {
+    width: 100%; height: 3px; background-color: #34495e; border-radius: 3px; transition: all 0.3s;
+}
+.hamburger-btn.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
+.hamburger-btn.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+.btn-global {
+    background-color: #34495e; color: white; border: none; padding: 10px 20px;
+    font-size: 1em; border-radius: 5px; cursor: pointer; font-weight: bold;
+    transition: background-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.btn-global:hover { background-color: #2c3e50; }
+
+/* =========================================
+   PASEK POSTĘPU (MENU GŁÓWNE)
+   ========================================= */
+/* --- NOWOCZESNY I DYSKRETNY PANEL POSTĘPU --- */
+.progress-container {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+.progress-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stats-text {
+    font-weight: 600;
+    color: #7f8c8d; /* Spokojny, szary kolor */
+    font-size: 0.95em;
+}
+
+.progress-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* PRZYCISKI DYSKRETNE (GHOST BUTTONS) */
+.btn-discrete {
+    background: transparent;
+    border: 1px solid #e0e6ed;
+    color: #95a5a6;
+    padding: 4px 12px;
+    font-size: 0.85em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.btn-discrete:hover {
+    border-color: #34495e;
+    color: #34495e;
+    background: #f8f9f9;
+}
+
+/* CIENKI PASEK POSTĘPU */
+.progress-bar-bg {
+    background: #f0f3f4;
+    height: 6px; /* Cieńszy, mniej inwazyjny */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    height: 100%;
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* DOPASOWANIE DLA MOBILE */
+@media (max-width: 600px) {
+    .progress-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .progress-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .btn-discrete {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* =========================================
+   MODAL (SYMULACJA EGZAMINU)
+   ========================================= */
+.modal-exam {
+    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1000; width: 80%; max-width: 600px;
+}
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
+
+/* =========================================
+   NOWY UKŁAD: SIDEBAR + TREŚĆ
+   ========================================= */
+.dashboard-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+/* --- LEWA KOLUMNA: SIDEBAR --- */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px; /* Przykleja się do góry ekranu przy scrollowaniu */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-block-btn {
+    text-align: left;
+    padding: 14px 18px;
+    background: white;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 6px solid #bdc3c7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.nav-block-btn:hover {
+    background: #f8f9f9;
+    transform: translateX(4px); /* Lekko wysuwa się w prawo przy najechaniu */
+}
+.nav-block-btn.active {
+    background: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    color: #2c3e50;
+}
+
+/* Kolory akcentów dla sidebara */
+.nav-b1.active, .nav-b1:hover { border-left-color: var(--b1-color); }
+.nav-b2.active, .nav-b2:hover { border-left-color: var(--b2-color); }
+.nav-b3.active, .nav-b3:hover { border-left-color: var(--b3-color); }
+.nav-b4.active, .nav-b4:hover { border-left-color: var(--b4-color); }
+.nav-b5.active, .nav-b5:hover { border-left-color: var(--b5-color); }
+.nav-b6.active, .nav-b6:hover { border-left-color: var(--b6-color); }
+.nav-b7.active, .nav-b7:hover { border-left-color: var(--b7-color); }
+.nav-b8.active, .nav-b8:hover { border-left-color: var(--b8-color); }
+
+/* --- PRAWA KOLUMNA: TREŚĆ (PANELE I KURSY) --- */
+.content-area {
+    flex-grow: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    min-height: 500px;
+    width: 100%;
+}
+
+.panel-title {
+    margin-top: 0; padding-bottom: 15px;
+    border-bottom: 2px solid #f0f3f4; margin-bottom: 25px;
+}
+
+.block-panel {
+    display: none;
+    animation: fadeInTab 0.3s ease;
+}
+.block-panel.active { display: block; }
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.course { margin: 10px 0 15px 0; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); background: #fff; }
+.course-header { padding: 12px 15px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; color: #333; }
+.course-content { padding: 15px; border: 1px solid #eee; border-top: none; display: none; }
+
+.c1 { background-color: var(--c1-bg); border-left: 5px solid var(--b1-color); }
+.c2 { background-color: var(--c2-bg); border-left: 5px solid var(--b2-color); }
+.c3 { background-color: var(--c3-bg); border-left: 5px solid var(--b3-color); }
+.c4 { background-color: var(--c4-bg); border-left: 5px solid var(--b4-color); }
+.c5 { background-color: var(--c5-bg); border-left: 5px solid var(--b5-color); }
+.c6 { background-color: var(--c6-bg); border-left: 5px solid var(--b6-color); }
+.c7 { background-color: var(--c7-bg); border-left: 5px solid var(--b7-color); }
+.c8 { background-color: var(--c8-bg); border-left: 5px solid var(--b8-color); }
+
+.arrow::after { content: ' ▼'; font-size: 0.8em; opacity: 0.7; }
+.active .arrow::after { content: ' ▲'; }
+.special-label { font-weight: bold; color: #c0392b; margin: 15px 0 10px 0; display: block; font-size: 0.9em;}
+
+/* =========================================
+   KARTY PYTAŃ I STATUSY
+   ========================================= */
+ul { list-style-type: none; padding: 0; margin: 0; }
+li.question-item {
+    margin-bottom: 10px; border: 1px solid #e0e6ed; border-radius: 6px;
+    background-color: #fff; transition: all 0.2s ease;
+}
+li.question-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #bdc3c7; }
+.question-link {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 12px 15px; text-decoration: none; color: #34495e; font-weight: 500; font-size: 0.95em;
+}
+.q-text { flex-grow: 1; padding-right: 15px; }
+
+.status-dots { display: flex; gap: 5px; margin-left: 10px; }
+.dot {
+    width: 25px; height: 25px; border-radius: 50%; cursor: pointer;
+    border: 2px solid transparent; opacity: 0.3; transition: 0.2s;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+}
+.dot:hover { opacity: 1; transform: scale(1.1); }
+.dot.active { opacity: 1; border-color: #34495e; transform: scale(1.1); }
+.dot-grey { background-color: var(--b0-color); color: white; }
+.dot-red { background-color: #e74c3c; color: white; }
+.dot-yellow { background-color: #f1c40f; color: black; }
+.dot-green { background-color: #2ecc71; color: white; }
+
+@keyframes highlightReturn {
+    0% { background-color: #f1c40f; transform: scale(1.02); box-shadow: 0 4px 15px rgba(241, 196, 15, 0.6); }
+    100% { background-color: inherit; transform: scale(1); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+}
+.highlight-return { animation: highlightReturn 1.5s ease-out; }
+
+/* =========================================
+   PODSTRONA PYTANIA (ZEN READING MODE)
+   ========================================= */
+.top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 15px;
+}
+
+.nav-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: #95a5a6; text-decoration: none; font-weight: 500;
+    transition: color 0.2s; font-size: 0.9em;
+}
+.nav-back:hover { color: var(--b1-color); }
+
+.audio-controls-top {
+    display: flex; align-items: center; gap: 15px;
+    color: #7f8c8d; font-size: 0.85em;
+}
+.btn-audio-minimal {
+    background: transparent; border: 1px solid #bdc3c7; color: #34495e;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px; font-weight: 500;
+}
+.btn-audio-minimal:hover { background: #f4f6f7; border-color: #7f8c8d; }
+
+.voice-toggles { display: flex; gap: 12px; }
+.voice-toggles label { cursor: pointer; display: flex; align-items: center; gap: 4px; opacity: 0.8; transition: opacity 0.2s; margin:0;}
+.voice-toggles label:hover { opacity: 1; }
+
+.question-box {
+    background: white; padding: 40px; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Miękki, nowoczesny cień */
+    max-width: 850px; margin: 0 auto; /* Optymalna szerokość do czytania */
+}
+.question-box h2 { color: #2c3e50; margin-top: 0; margin-bottom: 15px; font-size: 1.5em; border-bottom: 1px solid #f0f3f4; padding-bottom: 15px; }
+
+.answer-section { margin-top: 20px; font-size: 1.05em; color: #34495e; line-height: 1.8; }
+.answer-step { background: #fdfefe; border-left: 4px solid var(--b1-color); padding: 15px 20px; margin-bottom: 20px; border-radius: 0 5px 5px 0;}
+
+/* Subtelny Panel Samooceny (Wstrzykiwany przez JS) */
+.assessment-panel-minimal {
+    max-width: 850px; margin: 50px auto 0 auto; padding-top: 20px; border-top: 1px dashed #bdc3c7;
+    display: flex; justify-content: space-between; align-items: center;
+    color: #95a5a6; font-size: 0.9em; flex-wrap: wrap; gap: 15px;
+}
+.status-buttons-minimal { display: flex; gap: 10px; }
+.btn-stat {
+    background: transparent; border: 1px solid #e0e6ed; padding: 8px 18px;
+    border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    color: #7f8c8d; font-weight: 500; font-size: 0.95em;
+}
+.btn-stat:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+.minimal-red:hover { color: #c0392b; border-color: #e74c3c; background: #fdedec; }
+.minimal-yellow:hover { color: #d35400; border-color: #f1c40f; background: #fef9e7; }
+.minimal-green:hover { color: #27ae60; border-color: #2ecc71; background: #e9f7ef; }
+
+/* =========================================
+   RESPONSYWNOŚĆ (TABLETY I SMARTFONY)
+   ========================================= */
+
+/* Tablet: Sidebar zamienia się w poziome, scrollowane zakładki */
+@media (max-width: 991px) {
+    .dashboard-wrapper { flex-direction: column; gap: 15px; }
+
+    .sidebar {
+        width: 100%; position: relative; top: 0;
+        flex-direction: row; overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .sidebar::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        background: linear-gradient(to right, rgba(255,255,255,0), #f4f7f6);
+        pointer-events: none; /* Żeby nie blokowało klikania */
+    }
+
+    /* Własny pasek przewijania dla zakładek */
+    .sidebar::-webkit-scrollbar { height: 6px; }
+    .sidebar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #bdc3c7; border-radius: 10px; }
+
+    .nav-block-btn {
+        flex-shrink: 0;
+        width: 260px; /* Szerokość kart na tablecie/telefonie */
+        scroll-snap-align: start;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .content-area { padding: 20px 15px; }
+}
+
+/* Smartfon: Hamburger, pionowe karty pytań */
+@media (max-width: 600px) {
+    .main-header-wrapper { justify-content: space-between; border-bottom: 2px solid #34495e; padding-bottom: 10px; }
+    h1 { margin: 0; border: none; padding: 0; font-size: 1.3em; text-align: left; }
+    .hamburger-btn { display: flex; z-index: 1001; }
+
+    .progress-container {
+        display: none; position: absolute; top: 75px; left: 10px; right: 10px; z-index: 1000;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 1px solid #e0e6ed;
+    }
+    .progress-container.mobile-open { display: block; animation: fadeInDown 0.25s ease-out; }
+
+    .question-link { flex-direction: column; align-items: stretch; gap: 15px; }
+    .q-text { padding-right: 0; font-size: 1em; }
+    .status-dots {
+        margin-left: 0; justify-content: space-around; background: #fdfefe;
+        padding: 8px; border-radius: 20px; border: 1px solid #f0f3f4;
+    }
+    .dot { width: 32px; height: 32px; font-size: 14px; }
+    .progress-container > div:last-child { flex-direction: column; }
+    .btn-global { width: 100%; margin-bottom: 5px; }
+
+    .question-box { padding: 20px; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   TRYB DRUKOWANIA (Ctrl + P)
+   ========================================= */
+@media print {
+    .top-bar, .assessment-panel-minimal, .progress-container, .btn-global, .main-header-wrapper button, .sidebar {
+        display: none !important;
+    }
+    body { background: white; padding: 0; margin: 0; color: black; }
+    .container { max-width: 100%; margin: 0; }
+    .question-box { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+    .answer-step { border-left: 2px solid black; padding-left: 10px; margin-bottom: 10px; }
+}
+
+/* =========================================
+   ACTIVE RECALL (ROZMYCIE I SŁOWA KLUCZOWE)
+   ========================================= */
+.content-blur-wrapper {
+    position: relative;
+    margin-top: 10px;
+}
+
+/* Stan przed odkryciem */
+.content-blurred {
+    filter: blur(8px);
+    opacity: 0.5;
+    pointer-events: none; /* Blokuje zaznaczanie tekstu i klikanie */
+    user-select: none;
+    transition: filter 0.5s ease, opacity 0.5s ease;
+}
+
+/* Stan po kliknięciu */
+.content-revealed {
+    filter: blur(0);
+    opacity: 1;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+/* Przycisk na środku mgły */
+.reveal-btn-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+}
+
+.btn-reveal {
+    background: linear-gradient(135deg, var(--b1-color), #2c3e50);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.05em;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-reveal:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Sektory Słów Kluczowych */
+.keywords-box {
+    margin-top: 30px;
+    padding: 15px 20px;
+    background: #fdfefe;
+    border-left: 4px solid var(--b3-color);
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.keywords-title {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.8em;
+}
+
+.keyword-tag {
+    display: inline-block;
+    background: #f4f7f6;
+    border: 1px solid #bdc3c7;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin: 0 8px 8px 0;
+    color: #34495e;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mniejszy, pomarańczowy przycisk dla podpowiedzi */
+.btn-reveal-kw {
+    background: linear-gradient(135deg, var(--b3-color), #d35400);
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+.kw-wrapper {
+    margin-top: 15px; /* Dodatkowy odstęp między tekstem a słowami kluczowymi */
+}
+
+.answer-step {
+    text-align: justify;
+    hyphens: auto; /* Opcjonalnie: dodaje automatyczne dzielenie wyrazów */
+    line-height: 1.6; /* Zwiększenie interlinii poprawia czytelność przy justowaniu */
+    margin-bottom: 15px;
+}
