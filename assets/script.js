@@ -28,41 +28,64 @@ function switchTab(tabId) {
 }
 
 // --- 2. ZARZĄDZANIE GŁOSEM I CZYTANIEM ---
-let isSpeaking = false;
+let synthUtterance = null; // Trzymamy referencję do aktualnego tekstu
+let isSpeakingState = false; // Ręczna flaga czytania
+let isPausedState = false;   // Ręczna flaga pauzy
 
 function setVoicePreference(gender) {
     localStorage.setItem('voiceGender', gender);
-    if (isSpeaking) {
-        window.speechSynthesis.cancel();
-        isSpeaking = false;
-        const btn = document.getElementById('audioBtn');
-        if (btn) btn.innerHTML = '🔊 Czytaj';
-    }
+    stopSpeech();
 }
 
 function getVoicePreference() {
     return localStorage.getItem('voiceGender') || 'female';
 }
 
+function stopSpeech() {
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    isSpeakingState = false;
+    isPausedState = false;
+    synthUtterance = null; // Czyścimy referencję
+
+    const playBtn = document.getElementById('audioBtn');
+    const stopBtn = document.getElementById('stopAudioBtn');
+    if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
+    if (stopBtn) stopBtn.style.display = 'none';
+}
+
 function toggleSpeech() {
     const synth = window.speechSynthesis;
-    const btn = document.getElementById('audioBtn');
+    const playBtn = document.getElementById('audioBtn');
+    const stopBtn = document.getElementById('stopAudioBtn');
 
-    if (isSpeaking) {
-        synth.cancel();
-        isSpeaking = false;
-        if (btn) btn.innerHTML = '🔊 Czytaj';
+    // 1. Jeśli czyta i NIE JEST zapauzowany -> PAUZA
+    if (isSpeakingState && !isPausedState) {
+        synth.pause();
+        isPausedState = true;
+        if (playBtn) playBtn.innerHTML = '▶️ Wznów';
         return;
     }
 
+    // 2. Jeśli jest zapauzowany -> WZNÓW
+    if (isSpeakingState && isPausedState) {
+        synth.resume();
+        isPausedState = false;
+        if (playBtn) playBtn.innerHTML = '⏸️ Pauza';
+        return;
+    }
+
+    // 3. Jeśli w ogóle nie czyta -> START (Od nowa)
     const titleElement = document.getElementById('q-title');
     const contentElement = document.getElementById('q-content');
     if (!titleElement || !contentElement) return;
 
+    synth.cancel(); // Twardy reset przed startem
+
     const textToRead = titleElement.innerText + " ... " + contentElement.innerText;
-    const utterance = new SpeechSynthesisUtterance(textToRead);
-    utterance.lang = 'pl-PL';
-    utterance.rate = 1.05;
+    synthUtterance = new SpeechSynthesisUtterance(textToRead);
+    synthUtterance.lang = 'pl-PL';
+    synthUtterance.rate = 1.05;
 
     const voices = synth.getVoices();
     const polishVoices = voices.filter(v => v.lang.includes('pl') || v.lang.includes('PL'));
@@ -75,17 +98,36 @@ function toggleSpeech() {
             polishVoices.find(v => v.name.includes('Premium')) ||
             polishVoices.find(v => v.name.includes('Google')) ||
             polishVoices[0];
-        utterance.voice = bestVoice;
+        synthUtterance.voice = bestVoice;
     }
 
-    utterance.onend = function() {
-        isSpeaking = false;
-        if (btn) btn.innerHTML = '🔊 Czytaj';
+    synthUtterance.onend = function() {
+        isSpeakingState = false;
+        isPausedState = false;
+        synthUtterance = null;
+        if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
+        if (stopBtn) stopBtn.style.display = 'none';
     };
 
-    synth.speak(utterance);
-    isSpeaking = true;
-    if (btn) btn.innerHTML = '⏹️ Zatrzymaj';
+    synthUtterance.onerror = function(e) {
+        // Ignorujemy błąd 'interrupted', który występuje naturalnie przy kliknięciu 'stop'
+        if(e.error !== 'interrupted') {
+            console.error("Speech Synthesis Error:", e);
+        }
+        isSpeakingState = false;
+        isPausedState = false;
+        synthUtterance = null;
+        if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
+        if (stopBtn) stopBtn.style.display = 'none';
+    };
+
+    synth.speak(synthUtterance);
+
+    isSpeakingState = true;
+    isPausedState = false;
+
+    if (playBtn) playBtn.innerHTML = '⏸️ Pauza';
+    if (stopBtn) stopBtn.style.display = 'inline-block';
 }
 
 // --- 3. ZAPISYWANIE OCENY I POWRÓT ---
@@ -229,33 +271,30 @@ window.addEventListener('DOMContentLoaded', () => {
     const questionContent = document.getElementById('q-content');
     const container = document.querySelector('.container');
 
+    // ZMIANA: Szukamy słów kluczowych globalnie na całej stronie
+    const keywordsBox = document.querySelector('.keywords-box');
+
     if (questionContent && container) {
 
         // 0. WSTRZYKIWANIE TOP BARU (Nawigacja i Audio)
         const topBar = document.createElement('div');
         topBar.className = 'top-bar';
         topBar.innerHTML = `
-            <a href="../index.html" class="nav-back" onclick="window.speechSynthesis.cancel()">← Wróć do spisu treści</a>
+            <a href="../index.html" class="nav-back" onclick="stopSpeech()">← Wróć do spisu treści</a>
             <div class="audio-controls-top">
                 <div class="voice-toggles">
                     <label><input type="radio" name="voice" value="female" onclick="setVoicePreference('female')"> Zofia</label>
                     <label><input type="radio" name="voice" value="male" onclick="setVoicePreference('male')"> Marek</label>
                 </div>
                 <button id="audioBtn" class="btn-audio-minimal" onclick="toggleSpeech()">🔊 Czytaj</button>
+                <button id="stopAudioBtn" class="btn-audio-minimal" onclick="stopSpeech()" style="display: none; margin-left: 5px; color: #e74c3c; border-color: #fadbd8; background-color: #fdedec;">⏹️ Stop</button>
             </div>
         `;
         // Wstawiamy Top Bar na samą górę kontenera
         container.insertBefore(topBar, container.firstChild);
 
-        // 1. Separacja słów kluczowych od głównego tekstu
-        const keywordsBox = questionContent.querySelector('.keywords-box');
-        if (keywordsBox) {
-            // Wyciągamy słowa kluczowe poza główny kontener tekstu
-            questionContent.parentNode.insertBefore(keywordsBox, questionContent.nextSibling);
-        }
-
-        // 2. Tworzenie kontenerów i przycisków
-        // Wrapper dla TEKSTU
+        // 1. Tworzenie kontenerów i przycisków
+        // Wrapper dla TEKSTU GŁÓWNEGO
         const textWrapper = document.createElement('div');
         textWrapper.className = 'content-blur-wrapper';
         const textBtnContainer = document.createElement('div');
@@ -272,17 +311,11 @@ window.addEventListener('DOMContentLoaded', () => {
             kwBtnContainer = document.createElement('div');
             kwBtnContainer.className = 'reveal-btn-container';
             kwRevealBtn = document.createElement('button');
-            kwRevealBtn.className = 'btn-reveal btn-reveal-kw'; // Inny styl dla podpowiedzi
+            kwRevealBtn.className = 'btn-reveal btn-reveal-kw';
             kwRevealBtn.innerHTML = '💡 Podpowiedź (Słowa kluczowe)';
         }
 
-        // 3. Pakowanie elementów w mgłę
-        questionContent.parentNode.insertBefore(textWrapper, questionContent);
-        questionContent.classList.add('content-blurred');
-        textWrapper.appendChild(questionContent);
-        textBtnContainer.appendChild(textRevealBtn);
-        textWrapper.appendChild(textBtnContainer);
-
+        // 2. Pakowanie elementów w mgłę (w miejscach, gdzie aktualnie stoją w HTML)
         if (keywordsBox) {
             keywordsBox.parentNode.insertBefore(kwWrapper, keywordsBox);
             keywordsBox.classList.add('content-blurred');
@@ -291,10 +324,16 @@ window.addEventListener('DOMContentLoaded', () => {
             kwWrapper.appendChild(kwBtnContainer);
         }
 
-        // 4. Generowanie ukrytego panelu ocen
+        questionContent.parentNode.insertBefore(textWrapper, questionContent);
+        questionContent.classList.add('content-blurred');
+        textWrapper.appendChild(questionContent);
+        textBtnContainer.appendChild(textRevealBtn);
+        textWrapper.appendChild(textBtnContainer);
+
+        // 3. Generowanie ukrytego panelu ocen (Zawsze pod głównym tekstem)
         const assessmentPanel = document.createElement('div');
         assessmentPanel.className = 'assessment-panel-minimal';
-        assessmentPanel.style.display = 'none'; // Domślnie schowany
+        assessmentPanel.style.display = 'none';
         assessmentPanel.innerHTML = `
             <span>Jak oceniasz swoją wiedzę?</span>
             <div class="status-buttons-minimal">
@@ -303,12 +342,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 <button class="btn-stat minimal-green" onclick="saveAndReturn('green')">🟢 Umiem</button>
             </div>
         `;
+        textWrapper.parentNode.insertBefore(assessmentPanel, textWrapper.nextSibling);
 
-        // Wstawiamy panel na sam dół (pod słowa kluczowe lub pod tekst)
-        const lastElement = kwWrapper ? kwWrapper : textWrapper;
-        lastElement.parentNode.insertBefore(assessmentPanel, lastElement.nextSibling);
-
-        // 5. Logika odkrywania (Kliknięcia)
+        // 4. Logika odkrywania (Kliknięcia)
         if (keywordsBox) {
             kwRevealBtn.onclick = () => {
                 keywordsBox.classList.remove('content-blurred');
