@@ -4,23 +4,34 @@
 
 // --- 1. NAWIGACJA SIDEBARA (TABY) ---
 function switchTab(tabId) {
-    // Ukryj wszystkie panele treści
+    // 1. Ukryj wszystkie panele treści
     document.querySelectorAll('.block-panel').forEach(panel => {
         panel.classList.remove('active');
     });
-    // Odznacz wszystkie przyciski w sidebarze
+
+    // 2. Odznacz wszystkie przyciski w sidebarze
     document.querySelectorAll('.nav-block-btn').forEach(btn => {
         btn.classList.remove('active');
     });
 
-    // Pokaż właściwy panel i zaznacz przycisk
+    // 3. Pokaż właściwy panel
     const targetPanel = document.getElementById(tabId);
     if (targetPanel) targetPanel.classList.add('active');
 
+    // 4. Znajdź aktywny przycisk, zaznacz go i WYCENTRUJ na ekranie
     const targetBtn = document.querySelector(`.nav-block-btn[onclick="switchTab('${tabId}')"]`);
-    if (targetBtn) targetBtn.classList.add('active');
+    if (targetBtn) {
+        targetBtn.classList.add('active');
 
-    // Na mobile: zamknij menu po wyborze (opcjonalne, ale wygodne)
+        // MAGIA UX: Przewinięcie paska tak, aby kliknięty blok był na środku
+        targetBtn.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    }
+
+    // 5. Na mobile: zamknij menu (jeśli używasz hamburgera do progress baru)
     const menu = document.getElementById('progressMenu');
     if (menu && menu.classList.contains('mobile-open')) {
         toggleMobileMenu();
@@ -305,14 +316,16 @@ window.addEventListener('DOMContentLoaded', () => {
         const topBar = document.createElement('div');
         topBar.className = 'top-bar';
         topBar.innerHTML = `
-            <a href="../index.html" class="nav-back" onclick="stopSpeech()">← Wróć do spisu treści</a>
-            <div class="audio-controls-top">
-                <div class="voice-toggles">
-                    <label><input type="radio" name="voice" value="female" onclick="setVoicePreference('female')"> Zofia</label>
-                    <label><input type="radio" name="voice" value="male" onclick="setVoicePreference('male')"> Marek</label>
+            <div class="top-bar-inner">
+                <a href="../index.html" class="nav-back" onclick="stopSpeech()">← Wróć do spisu treści</a>
+                <div class="audio-controls-top">
+                    <div class="voice-toggles">
+                        <label><input type="radio" name="voice" value="female" onclick="setVoicePreference('female')"> Zofia</label>
+                        <label><input type="radio" name="voice" value="male" onclick="setVoicePreference('male')"> Marek</label>
+                    </div>
+                    <button id="audioBtn" class="btn-audio-minimal" onclick="toggleSpeech()">🔊 Czytaj</button>
+                    <button id="stopAudioBtn" class="btn-audio-minimal" onclick="stopSpeech()" style="display: none; margin-left: 5px; color: #e74c3c; border-color: #fadbd8; background-color: #fdedec;">⏹️ Stop</button>
                 </div>
-                <button id="audioBtn" class="btn-audio-minimal" onclick="toggleSpeech()">🔊 Czytaj</button>
-                <button id="stopAudioBtn" class="btn-audio-minimal" onclick="stopSpeech()" style="display: none; margin-left: 5px; color: #e74c3c; border-color: #fadbd8; background-color: #fdedec;">⏹️ Stop</button>
             </div>
         `;
         // Wstawiamy Top Bar na samą górę kontenera
@@ -548,4 +561,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
+
+// ==========================================
+// --- 11. PRZYCISK "SCROLL TO TOP" ---
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Tworzymy przycisk w locie i dodajemy do body
+    const scrollTopBtn = document.createElement('button');
+    scrollTopBtn.className = 'scroll-to-top';
+    scrollTopBtn.innerHTML = '↑';
+    scrollTopBtn.title = 'Wróć na górę';
+    document.body.appendChild(scrollTopBtn);
+
+    // Nasłuchujemy przewijania strony
+    window.addEventListener('scroll', () => {
+        // Jeśli zjechaliśmy więcej niż 300px w dół -> pokaż przycisk
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    // Płynne przewijanie do góry po kliknięciu
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
