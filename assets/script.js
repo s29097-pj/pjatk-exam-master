@@ -27,66 +27,57 @@ function switchTab(tabId) {
     }
 }
 
-// --- 2. ZARZĄDZANIE GŁOSEM I CZYTANIEM ---
-let synthUtterance = null; // Trzymamy referencję do aktualnego tekstu
-let isSpeakingState = false; // Ręczna flaga czytania
-let isPausedState = false;   // Ręczna flaga pauzy
+// --- 2. ZARZĄDZANIE GŁOSEM I CZYTANIEM (SILNIK CHUNKOWANIA) ---
+let speechChunks = [];
+let currentChunkIndex = 0;
+let isSpeakingState = false;
+let isPausedState = false;
+let currentUtterance = null;
 
 function setVoicePreference(gender) {
     localStorage.setItem('voiceGender', gender);
-    stopSpeech();
+    stopSpeech(); // Po zmianie głosu resetujemy odtwarzacz
 }
 
 function getVoicePreference() {
     return localStorage.getItem('voiceGender') || 'female';
 }
 
-function stopSpeech() {
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    isSpeakingState = false;
-    isPausedState = false;
-    synthUtterance = null; // Czyścimy referencję
-
+function updateAudioUI(playText, stopDisplay) {
     const playBtn = document.getElementById('audioBtn');
     const stopBtn = document.getElementById('stopAudioBtn');
-    if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
-    if (stopBtn) stopBtn.style.display = 'none';
+    if (playBtn) playBtn.innerHTML = playText;
+    if (stopBtn) stopBtn.style.display = stopDisplay;
 }
 
-function toggleSpeech() {
+// Twardy reset całego systemu czytania
+function stopSpeech() {
+    window.speechSynthesis.cancel();
+    speechChunks = [];
+    currentChunkIndex = 0;
+    isSpeakingState = false;
+    isPausedState = false;
+    currentUtterance = null;
+    updateAudioUI('🔊 Czytaj', 'none');
+}
+
+// Funkcja wyciągająca i odtwarzająca kolejne zdanie z kolejki
+function playNextChunk() {
+    // 1. Sprawdzamy czy dotarliśmy do końca tekstu
+    if (currentChunkIndex >= speechChunks.length) {
+        stopSpeech();
+        return;
+    }
+
+    // 2. Blokada, jeśli użytkownik wcisnął pauzę w międzyczasie
+    if (isPausedState) return;
+
+    const text = speechChunks[currentChunkIndex];
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.lang = 'pl-PL';
+    currentUtterance.rate = 1.05;
+
     const synth = window.speechSynthesis;
-    const playBtn = document.getElementById('audioBtn');
-    const stopBtn = document.getElementById('stopAudioBtn');
-
-    // 1. Jeśli czyta i NIE JEST zapauzowany -> PAUZA
-    if (isSpeakingState && !isPausedState) {
-        synth.pause();
-        isPausedState = true;
-        if (playBtn) playBtn.innerHTML = '▶️ Wznów';
-        return;
-    }
-
-    // 2. Jeśli jest zapauzowany -> WZNÓW
-    if (isSpeakingState && isPausedState) {
-        synth.resume();
-        isPausedState = false;
-        if (playBtn) playBtn.innerHTML = '⏸️ Pauza';
-        return;
-    }
-
-    // 3. Jeśli w ogóle nie czyta -> START (Od nowa)
-    const titleElement = document.getElementById('q-title');
-    const contentElement = document.getElementById('q-content');
-    if (!titleElement || !contentElement) return;
-
-    synth.cancel(); // Twardy reset przed startem
-
-    const textToRead = titleElement.innerText + " ... " + contentElement.innerText;
-    synthUtterance = new SpeechSynthesisUtterance(textToRead);
-    synthUtterance.lang = 'pl-PL';
-    synthUtterance.rate = 1.05;
-
     const voices = synth.getVoices();
     const polishVoices = voices.filter(v => v.lang.includes('pl') || v.lang.includes('PL'));
     const preferredGender = getVoicePreference();
@@ -98,36 +89,70 @@ function toggleSpeech() {
             polishVoices.find(v => v.name.includes('Premium')) ||
             polishVoices.find(v => v.name.includes('Google')) ||
             polishVoices[0];
-        synthUtterance.voice = bestVoice;
+        currentUtterance.voice = bestVoice;
     }
 
-    synthUtterance.onend = function() {
-        isSpeakingState = false;
-        isPausedState = false;
-        synthUtterance = null;
-        if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
-        if (stopBtn) stopBtn.style.display = 'none';
-    };
-
-    synthUtterance.onerror = function(e) {
-        // Ignorujemy błąd 'interrupted', który występuje naturalnie przy kliknięciu 'stop'
-        if(e.error !== 'interrupted') {
-            console.error("Speech Synthesis Error:", e);
+    // Kiedy skończy czytać zdanie, odpal kolejne
+    currentUtterance.onend = function() {
+        if (!isPausedState) {
+            currentChunkIndex++;
+            playNextChunk();
         }
-        isSpeakingState = false;
-        isPausedState = false;
-        synthUtterance = null;
-        if (playBtn) playBtn.innerHTML = '🔊 Czytaj';
-        if (stopBtn) stopBtn.style.display = 'none';
     };
 
-    synth.speak(synthUtterance);
+    // Zabezpieczenie na błędy przerywania
+    currentUtterance.onerror = function(e) {
+        if (e.error !== 'interrupted' && e.error !== 'canceled') {
+            console.error("Speech API Error:", e);
+        }
+    };
 
+    synth.speak(currentUtterance);
+}
+
+// Główna logika (Start / Pauza / Wznów)
+function toggleSpeech() {
+    const synth = window.speechSynthesis;
+
+    // 1. Jeśli CZYTA -> PAUZA
+    if (isSpeakingState && !isPausedState) {
+        isPausedState = true;
+        synth.cancel(); // Twarde przerwanie na mobile zapobiega bugom pamięciowym
+        updateAudioUI('▶️ Wznów', 'inline-block');
+        return;
+    }
+
+    // 2. Jeśli jest ZAPAUZOWANY -> WZNÓW
+    if (isSpeakingState && isPausedState) {
+        isPausedState = false;
+        updateAudioUI('⏸️ Pauza', 'inline-block');
+        playNextChunk(); // Puszcza ponownie to samo zdanie, na którym skończyliśmy
+        return;
+    }
+
+    // 3. Jeśli NIC NIE CZYTA -> ZBUDUJ KOLEJKĘ I START
+    const titleElement = document.getElementById('q-title');
+    const contentElement = document.getElementById('q-content');
+    if (!titleElement || !contentElement) return;
+
+    synth.cancel(); // Czyścimy pamięć
+
+    // Pobieramy surowy tekst z HTML i sprzątamy zbedne spacje
+    const rawText = titleElement.innerText + ". " + contentElement.innerText;
+    const cleanText = rawText.replace(/\s+/g, ' ');
+
+    // Magia Regex: Dzielimy tekst na tablicę zdań (rozbijamy po kropkach, znakach zapytania i wykrzyknikach)
+    speechChunks = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
+
+    // Sprzątamy puste kawałki
+    speechChunks = speechChunks.map(s => s.trim()).filter(s => s.length > 2);
+
+    currentChunkIndex = 0;
     isSpeakingState = true;
     isPausedState = false;
 
-    if (playBtn) playBtn.innerHTML = '⏸️ Pauza';
-    if (stopBtn) stopBtn.style.display = 'inline-block';
+    updateAudioUI('⏸️ Pauza', 'inline-block');
+    playNextChunk(); // Odpalamy pierwszy kawałek
 }
 
 // --- 3. ZAPISYWANIE OCENY I POWRÓT ---
