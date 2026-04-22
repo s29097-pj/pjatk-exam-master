@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 008</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">008. Ataki typu Distributed Denial of Service (DDoS).</h2>
+
+        <div class="keywords-box" style="margin-bottom: 25px;">
+            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">DoS vs DDoS (Distributed)</span>
+            <span class="keyword-tag">Botnet / C2 (Command and Control)</span>
+            <span class="keyword-tag">Wektory: Wolumetryczne, Protokolarne, Aplikacyjne (L7)</span>
+            <span class="keyword-tag">Amplification / Reflection (Wzmocnienie i Odbicie)</span>
+            <span class="keyword-tag">SYN Flood / TCP 3-way handshake</span>
+            <span class="keyword-tag">IP Spoofing (Fałszowanie adresu)</span>
+            <span class="keyword-tag">Anycast / Scrubbing Centers (Centra czyszczące)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step">
+                <strong>1. Definicja i Architektura (DoS vs DDoS)</strong> <br><br>
+                Celem ataku <strong>Denial of Service (Odmowa Usługi)</strong> nie jest kradzież danych, lecz doprowadzenie systemu do stanu, w którym nie może on obsługiwać legalnych użytkowników. Może to nastąpić poprzez wysycenie łącza sieciowego (brak przepustowości) lub wyczerpanie zasobów serwera (CPU, RAM, tablice połączeń).<br><br>
+                Zwykły atak DoS pochodzi z jednego źródła, co łatwo zablokować na zaporze (Firewall). Dlatego hakerzy używają <strong>DDoS (Distributed Denial of Service / Rozproszona Odmowa Usługi)</strong>. Atak wyprowadzany jest z dziesiątek tysięcy zainfekowanych urządzeń rozproszonych po całym świecie.
+                <br><br>
+                <strong>Architektura Botnetu (Sieci Zombie):</strong><br>
+                Atakujący (tzw. <em>Bot Herder</em>) nie łączy się bezpośrednio z celem. Kontroluje on <strong>Serwer C2 (Command and Control)</strong>. Ten serwer wysyła rozkaz ataku do zarażonych urządzeń (często są to źle zabezpieczone kamery IP, domowe routery - tzw. urządzenia IoT), które symultanicznie uderzają w cel.
+            </div>
+
+            <svg viewBox="0 0 800 220" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Architektura ataku DDoS (Botnet)</text>
+
+                <rect x="50" y="80" width="60" height="60" rx="5" fill="#34495e"/>
+                <text x="80" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Haker</text>
+
+                <path d="M 110 110 L 160 110" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrow-red)"/>
+                <text x="135" y="100" font-family="sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">Rozkaz</text>
+
+                <rect x="170" y="80" width="80" height="60" rx="5" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="210" y="110" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e74c3c" text-anchor="middle">C2</text>
+                <text x="210" y="125" font-family="sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(Serwer)</text>
+
+                <path d="M 250 110 Q 300 70 330 60" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arrow-orange)"/>
+                <path d="M 250 110 L 330 110" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arrow-orange)"/>
+                <path d="M 250 110 Q 300 150 330 160" fill="none" stroke="#e67e22" stroke-width="2" marker-end="url(#arrow-orange)"/>
+
+                <rect x="340" y="40" width="60" height="40" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="370" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Bot</text>
+
+                <rect x="340" y="90" width="60" height="40" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="370" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Bot</text>
+
+                <rect x="340" y="140" width="60" height="40" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="370" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Bot</text>
+
+                <text x="370" y="200" font-family="sans-serif" font-size="10" font-weight="bold" fill="#7f8c8d" text-anchor="middle">Sieć Zombie (IoT)</text>
+
+                <path d="M 410 60 Q 500 60 550 100" fill="none" stroke="#c0392b" stroke-width="4" marker-end="url(#arrow-darkred)"/>
+                <path d="M 410 110 L 550 110" fill="none" stroke="#c0392b" stroke-width="4" marker-end="url(#arrow-darkred)"/>
+                <path d="M 410 160 Q 500 160 550 120" fill="none" stroke="#c0392b" stroke-width="4" marker-end="url(#arrow-darkred)"/>
+
+                <text x="480" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Tysiące żądań</text>
+
+                <rect x="570" y="70" width="100" height="80" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="620" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">Cel</text>
+                <text x="620" y="125" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">(Serwer WWW)</text>
+
+                <defs>
+                    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#e74c3c"/>
+                    </marker>
+                    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#e67e22"/>
+                    </marker>
+                    <marker id="arrow-darkred" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step">
+                <strong>2. Typy Ataków: Wolumetryczne (Wzmocnienie i Odbicie)</strong> <br><br>
+                Celem ataku wolumetrycznego jest zapchanie rury (łącza) ofiary. Mierzy się je w Gigabitach (Gbps) lub Terabitach (Tbps) na sekundę. Aby wygenerować tak gigantyczny ruch, hakerzy używają techniki <strong>Amplification and Reflection (Wzmocnienie i Odbicie)</strong>.<br><br>
+                Wymaga to użycia <strong>IP Spoofingu (Fałszowania IP)</strong>. Haker wysyła małe zapytanie (np. 64 bajty) do legalnego, publicznego serwera DNS lub NTP, ale w polu "Adres Zwrotny" wpisuje IP swojej ofiary. Legalny serwer odpowiada wielkim blokiem danych (np. 3000 bajtów - współczynnik wzmocnienia x50) prosto do ofiary. Ofiara jest zalewana ruchem z legalnych serwerów w internecie.
+            </div>
+
+            <svg viewBox="0 0 800 200" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">NTP/DNS Amplification Attack (Odbicie i Wzmocnienie)</text>
+
+                <rect x="50" y="100" width="60" height="40" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="80" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">Bot</text>
+
+                <path d="M 110 105 L 340 65" fill="none" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrow-grey)"/>
+                <text x="180" y="80" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e74c3c" text-anchor="middle">Małe zapytanie (64 B)</text>
+                <text x="180" y="95" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Spoofowane IP zwrotne = Cel</text>
+
+                <rect x="350" y="50" width="100" height="60" rx="8" fill="#e8f6f3" stroke="#16a085" stroke-width="2"/>
+                <text x="400" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#16a085" text-anchor="middle">Publiczny</text>
+                <text x="400" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#16a085" text-anchor="middle">Serwer NTP</text>
+
+                <path d="M 420 110 L 610 140" fill="none" stroke="#c0392b" stroke-width="12" marker-end="url(#arrow-massive)"/>
+                <text x="510" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Gigantyczna odpowiedź (3000 B)</text>
+                <text x="510" y="165" font-family="sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Wzmocnienie x50</text>
+
+                <rect x="630" y="110" width="80" height="60" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="670" y="135" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">Cel</text>
+
+                <defs>
+                    <marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8c8d"/>
+                    </marker>
+                    <marker id="arrow-massive" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step">
+                <strong>3. Typy Ataków: Protokolarne (np. SYN Flood)</strong> <br><br>
+                Zamiast zapychać łącze, ten atak zapycha tablice stanów (pamięć RAM i kolejki systemu operacyjnego) sprzętu sieciowego (Firewalle, Load Balancery).<br><br>
+                Klasykiem jest <strong>TCP SYN Flood</strong>. Wykorzystuje on mechanizm nawiązywania połączenia <em>3-way handshake</em>. Atakujący wysyła tysiące pakietów inicjujących (SYN). Serwer ofiary odpowiada (SYN-ACK) i rezerwuje pamięć w swojej kolejce na nadchodzące dane, czekając na finalne potwierdzenie (ACK). Atakujący celowo milczy (nie wysyła ACK). Pamięć serwera zapełnia się "pół-otwartymi" połączeniami, aż w końcu brakuje mu miejsca dla nowych, legalnych użytkowników.
+            </div>
+
+            <svg viewBox="0 0 800 240" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Atak protokolarny: TCP SYN Flood</text>
+
+                <text x="200" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2c3e50" text-anchor="middle">Atakujący</text>
+                <line x1="200" y1="70" x2="200" y2="230" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+
+                <text x="600" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2c3e50" text-anchor="middle">Serwer Ofiary</text>
+                <line x1="600" y1="70" x2="600" y2="230" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+
+                <path d="M 210 90 L 590 100" fill="none" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrow-red)"/>
+                <text x="400" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e74c3c" text-anchor="middle">Wysyła SYN (Fałszywe IP)</text>
+
+                <path d="M 590 120 L 210 130" fill="none" stroke="#16a085" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+                <text x="400" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#16a085" text-anchor="middle">Serwer odpowiada SYN-ACK i otwiera stan w pamięci</text>
+
+                <text x="200" y="160" font-family="sans-serif" font-size="24" font-weight="bold" fill="#c0392b" text-anchor="middle">✗</text>
+                <text x="250" y="160" font-family="sans-serif" font-size="10" font-style="italic" fill="#c0392b" text-anchor="start">Atakujący celowo milczy (nie odsyła ACK)</text>
+
+                <rect x="620" y="100" width="120" height="100" rx="5" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="680" y="125" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e74c3c" text-anchor="middle">Tablica Połączeń</text>
+                <rect x="630" y="135" width="100" height="15" fill="#c0392b"/>
+                <rect x="630" y="155" width="100" height="15" fill="#c0392b"/>
+                <rect x="630" y="175" width="100" height="15" fill="#c0392b"/>
+                <text x="680" y="215" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">PRZEPEŁNIONA!</text>
+
+                <defs>
+                    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a085"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step">
+                <strong>4. Typy Ataków: Aplikacyjne (L7) i Mitygacja (Obrona)</strong> <br><br>
+                <strong>Ataki w warstwie 7 (Application Layer):</strong> Skupiają się na wyczerpaniu procesora i bazy danych aplikacji. Przykładem jest <em>HTTP GET Flood</em> lub atak <em>Slowloris</em>. Są najtrudniejsze do wykrycia, ponieważ z punktu widzenia sieci (Warstwa 4), połączenia TCP są nawiązane prawidłowo, a żądania wyglądają jak zachowanie normalnych, aczkolwiek wolnych użytkowników.<br><br>
+                <strong>Jak inżynierowie chronią się przed DDoS?</strong><br>
+                Blokowanie IP na własnym firewallu nic nie da, gdy łącze przed firewallem jest już zapchane (100 Gbps). Rozwiązania muszą być wdrożone u operatora lub na krawędzi Internetu:<br>
+                • <strong>Sieci Anycast / CDN:</strong> Rozpraszanie ruchu na dziesiątki gigantycznych serwerowni na całym świecie (np. Cloudflare, Akamai). Zamiast uderzać w jeden serwer w Warszawie, ruch atakujących z Azji wchłaniany jest przez serwery w Azji.<br>
+                • <strong>Scrubbing Centers (Centra Czyszczenia):</strong> BGP przekierowuje cały ruch kierowany do ofiary na specjalne urządzenia z ogromną przepustowością, które za pomocą algorytmów AI oddzielają "brudny" ruch od legalnego (czyszczenie paczek), i przesyłają do ofiary tylko poprawne żądania.<br>
+                • <strong>RTBH (Remotely Triggered Black Hole):</strong> W ostateczności operator uśmierca ruch do atakowanego IP, wysyłając go w "czarną dziurę" rutingową, aby uchronić resztę swojej sieci przed padnięciem. (Ofiara jest offline, ale ratujemy sieć nadrzędną).
+            </div>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Dokumentacja techniczna Cloudflare (DDoS Mitigation), "Sieci komputerowe" (A. Tanenbaum), CISA Guidelines on DDoS, Opracowanie inżynierskie własne.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

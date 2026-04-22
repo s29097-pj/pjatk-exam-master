@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 007</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">007. Advanced Persistent Threat (APT) - Zaawansowane Trwałe Zagrożenie.</h2>
+
+        <div class="keywords-box" style="margin-bottom: 25px;">
+            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">APT (Zaawansowane Trwałe Zagrożenie)</span>
+            <span class="keyword-tag">Cyber Kill Chain (Łańcuch ataku)</span>
+            <span class="keyword-tag">Lateral Movement (Ruch boczny)</span>
+            <span class="keyword-tag">C2 / C&C (Command and Control / Dowodzenie i kontrola)</span>
+            <span class="keyword-tag">Zero-day exploit (Podatność dnia zerowego)</span>
+            <span class="keyword-tag">Spear-phishing / Watering Hole</span>
+            <span class="keyword-tag">Exfiltration (Eksfiltracja / Wyprowadzanie danych)</span>
+            <span class="keyword-tag">LotL (Living off the Land)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step">
+                <strong>1. Definicja i charakterystyka (Czym jest APT?)</strong> <br><br>
+                <strong>Advanced Persistent Threat (APT)</strong>, czyli Zaawansowane Trwałe Zagrożenie, to nie jest pojedynczy wirus, lecz powolna, wieloetapowa kampania cybernetyczna. Różni się drastycznie od zwykłego złośliwego oprogramowania (malware), które działa szybko i głośno. Analizując akronim:<br><br>
+                • <strong>Advanced (Zaawansowane):</strong> Atakujący używają wysoce specjalistycznych technik, w tym własnego, dedykowanego oprogramowania, socjotechniki oraz luk typu <strong>Zero-day</strong> (podatności nieznane jeszcze producentom oprogramowania). Często unikają tradycyjnych wirusów na rzecz techniki <em>Living off the Land (LotL)</em> – używają legalnych, wbudowanych narzędzi administratora (np. PowerShell, WMI), aby nie obudzić antywirusa.<br>
+                • <strong>Persistent (Trwałe):</strong> Celem ataku nie jest szybkie zniszczenie systemu (jak w Ransomware), lecz ciche zagnieżdżenie się w sieci ofiary. Hakerzy potrafią przebywać w infrastrukturze korporacji miesiącami, a nawet latami (tzw. <em>Dwell Time</em>), powoli mapując sieć i zdobywając coraz wyższe uprawnienia.<br>
+                • <strong>Threat (Zagrożenie):</strong> To atak sterowany przez człowieka (często całe zespoły ekspertów o budżetach ryczałtowych). Grupy APT (np. APT28, Lazarus) są zazwyczaj sponsorowane przez państwa (<em>State-sponsored</em>) lub potężne organizacje przestępcze. Celują w rządy, infrastrukturę krytyczną, wojsko lub własność intelektualną gigantów technologicznych.
+            </div>
+
+            <div class="answer-step">
+                <strong>2. Anatomia ataku: Cyber Kill Chain (Łańcuch ataku)</strong> <br><br>
+                Aby zrozumieć i powstrzymać APT, inżynierowie bezpieczeństwa posługują się modelem <strong>Cyber Kill Chain</strong> (opracowanym przez Lockheed Martin). Dzieli on kampanię na 7 sekwencyjnych faz. Przerwanie tego łańcucha na <em>dowolnym</em> z wczesnych etapów unieszkodliwia cały atak.<br><br>
+                <strong>Fazy ataku:</strong>
+                <ol>
+                    <li><strong>Reconnaissance (Rozpoznanie):</strong> Zbieranie informacji (OSINT) o infrastrukturze, pracownikach (np. z LinkedIn), adresach IP i stosowanych technologiach.</li>
+                    <li><strong>Weaponization (Uzbrojenie):</strong> Tworzenie złośliwego ładunku (payloadu) dopasowanego pod ofiarę. Może to być złośliwy plik PDF z ukrytym makrem, sparowany z exploitem.</li>
+                    <li><strong>Delivery (Dostarczenie):</strong> Przekazanie ładunku do sieci. Najczęstsze wektory to <strong>Spear-phishing</strong> (spersonalizowane maile do konkretnych prezesów/pracowników) lub <strong>Watering Hole Attack</strong> (zarażenie legalnej strony internetowej, którą ofiary często odwiedzają).</li>
+                    <li><strong>Exploitation (Eksploatacja):</strong> Wykorzystanie podatności w systemie (kod uruchamia się na komputerze ofiary).</li>
+                    <li><strong>Installation (Instalacja):</strong> Instalacja backdoora (tylnej furtki) lub tzw. RAT (Remote Access Trojan), aby zapewnić sobie <em>trwałość</em> (persistence) w systemie (np. uruchamianie złośliwego kodu przy każdym starcie Windowsa).</li>
+                    <li><strong>Command & Control (C2):</strong> Zarażony host nawiązuje zaszyfrowane, często ukryte połączenie (np. udając ruch DNS lub HTTPS) z serwerem kontrolowanym przez atakującego. Od tej pory haker ma zdalną konsolę w sieci ofiary.</li>
+                    <li><strong>Actions on Objectives (Działania na celach):</strong> Ostatnia faza. Hakerzy wykonują swój plan – najczęściej jest to <strong>Exfiltration (Eksfiltracja)</strong>, czyli powolne, skompresowane i zaszyfrowane wyprowadzanie terabajtów poufnych danych na zewnątrz.</li>
+                </ol>
+            </div>
+
+            <svg viewBox="0 0 800 220" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Model Cyber Kill Chain (Fazy ataku APT)</text>
+
+                <defs>
+                    <marker id="chain-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#bdc3c7"/>
+                    </marker>
+                </defs>
+
+                <rect x="20" y="70" width="85" height="50" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="62" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1976d2" text-anchor="middle">Rozpoznanie</text>
+                <text x="62" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(OSINT)</text>
+                <path d="M 105 95 L 125 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="130" y="70" width="85" height="50" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="172" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1976d2" text-anchor="middle">Uzbrojenie</text>
+                <text x="172" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(Payload)</text>
+                <path d="M 215 95 L 235 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="240" y="70" width="85" height="50" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="282" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e67e22" text-anchor="middle">Dostarczenie</text>
+                <text x="282" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(Phishing)</text>
+                <path d="M 325 95 L 345 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="350" y="70" width="85" height="50" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="392" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e67e22" text-anchor="middle">Eksploatacja</text>
+                <text x="392" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(Zero-day)</text>
+                <path d="M 435 95 L 455 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="460" y="70" width="85" height="50" rx="5" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="502" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e74c3c" text-anchor="middle">Instalacja</text>
+                <text x="502" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(Backdoor)</text>
+                <path d="M 545 95 L 565 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="570" y="70" width="85" height="50" rx="5" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="612" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e74c3c" text-anchor="middle">Komunikacja</text>
+                <text x="612" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(C2 Server)</text>
+                <path d="M 655 95 L 675 95" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#chain-arrow)"/>
+
+                <rect x="680" y="70" width="100" height="50" rx="5" fill="#f5eef8" stroke="#8e44ad" stroke-width="2"/>
+                <text x="730" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#8e44ad" text-anchor="middle">Akcja na celu</text>
+                <text x="730" y="110" font-family="sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">(Eksfiltracja)</text>
+
+                <path d="M 20 140 L 20 150 L 235 150 L 235 140" fill="none" stroke="#1976d2" stroke-width="2"/>
+                <text x="127" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1976d2" text-anchor="middle">Przygotowanie</text>
+
+                <path d="M 240 140 L 240 150 L 565 150 L 565 140" fill="none" stroke="#e67e22" stroke-width="2"/>
+                <text x="402" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e67e22" text-anchor="middle">Włamanie i osadzenie się</text>
+
+                <path d="M 570 140 L 570 150 L 780 150 L 780 140" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                <text x="675" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e74c3c" text-anchor="middle">Właściwy Atak (Działanie)</text>
+            </svg>
+
+            <div class="answer-step">
+                <strong>3. Najważniejszy element: Lateral Movement (Ruch boczny)</strong> <br><br>
+                Grupy APT nie potrafią zazwyczaj od razu włamać się na główny serwer bazy danych – jest on zbyt dobrze chroniony. Atak polega na zdobyciu <strong>Przyczółka (Beachhead)</strong>, np. poprzez zainfekowanie laptopa sekretarki. Następnie hakerzy wykorzystują <strong>Lateral Movement (Ruch Boczny)</strong>. <br><br>
+                Zainfekowany, mało istotny komputer służy jako baza wypadowa. Atakujący skanują sieć wewnętrzną z tego komputera, wykradają lokalne hasła (np. narzędziem Mimikatz), przejmują poświadczenia z Active Directory i powoli, cicho "przeskakują" z komputera na komputer (Pivot), aż dotrą do serwerów z kluczowymi danymi.
+            </div>
+
+            <svg viewBox="0 0 800 240" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Architektura APT: Ruch boczny i kanał C2</text>
+
+                <rect x="30" y="60" width="120" height="140" rx="8" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="90" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e74c3c" text-anchor="middle">Internet</text>
+
+                <circle cx="90" cy="115" r="20" fill="#34495e"/>
+                <text x="90" y="150" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Grupa APT</text>
+
+                <rect x="50" y="160" width="80" height="30" rx="3" fill="#fff" stroke="#e74c3c" stroke-width="2"/>
+                <text x="90" y="178" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e74c3c" text-anchor="middle">Serwer C2</text>
+
+                <rect x="200" y="60" width="20" height="140" fill="#e67e22"/>
+                <text x="210" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90 210,130)">FIREWALL</text>
+
+                <rect x="270" y="60" width="500" height="140" rx="8" fill="#e8f6f3" stroke="#16a085" stroke-width="2"/>
+                <text x="520" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#16a085" text-anchor="middle">Wewnętrzna sieć korporacyjna (Zaufana)</text>
+
+                <rect x="300" y="110" width="90" height="60" rx="5" fill="#fff" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="345" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2c3e50" text-anchor="middle">PC (Księgowość)</text>
+                <text x="345" y="150" font-family="sans-serif" font-size="9" fill="#e74c3c" text-anchor="middle">[Przyczółek]</text>
+
+                <rect x="620" y="100" width="100" height="80" rx="5" fill="#fef5e7" stroke="#f39c12" stroke-width="2"/>
+                <text x="670" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#f39c12" text-anchor="middle">Serwer Bazy</text>
+                <text x="670" y="140" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">(Dane Klientów)</text>
+                <text x="670" y="165" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">CEL</text>
+
+                <rect x="470" y="140" width="80" height="40" rx="5" fill="#fff" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="510" y="160" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">PC Admina</text>
+
+                <path d="M 130 175 L 300 150" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#chain-arrow)"/>
+                <text x="210" y="185" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e74c3c" text-anchor="middle">Tunel C2 (HTTPS)</text>
+
+                <path d="M 390 140 Q 430 140 470 155" fill="none" stroke="#8e44ad" stroke-width="2" marker-end="url(#chain-arrow)"/>
+                <path d="M 550 155 Q 580 140 620 140" fill="none" stroke="#8e44ad" stroke-width="2" marker-end="url(#chain-arrow)"/>
+                <text x="500" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#8e44ad" text-anchor="middle">Ruch boczny (Pivoting)</text>
+
+                <path d="M 670 100 Q 670 40 400 40 Q 150 40 90 60" fill="none" stroke="#2980b9" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#chain-arrow)"/>
+                <text x="400" y="35" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2980b9" text-anchor="middle">Eksfiltracja zarchiwizowanych i zaszyfrowanych danych</text>
+
+            </svg>
+
+            <div class="answer-step">
+                <strong>4. Mechanizmy obrony i detekcji</strong> <br><br>
+                Zwykły antywirus (bazujący na sygnaturach) jest bezradny wobec APT, ponieważ atakujący używają narzędzi dedykowanych (nieznanych) lub wbudowanych (legalnych). Inżynieria bezpieczeństwa opiera się tu na koncepcji <strong>Defense in Depth (Obrony w głąb)</strong>:<br><br>
+                • <strong>EDR / XDR (Endpoint/Extended Detection and Response):</strong> Systemy behawioralne instalowane na końcówkach. Zamiast szukać wirusa, EDR analizuje nietypowe zachowania. (np. <em>Dlaczego proces MS Word uruchomił nagle powłokę PowerShell i łączy się z zagranicznym adresem IP?</em>).<br>
+                • <strong>Segmentacja sieci i Zero Trust:</strong> Dzielenie sieci na mikrostrefy. Dzięki temu, jeśli haker przejmie PC w księgowości, jego "ruch boczny" zostanie zablokowany na wewnętrznym firewallu przed dotarciem do serwerów.<br>
+                • <strong>Threat Hunting (Polowanie na zagrożenia):</strong> Proaktywne działanie analityków SOC (Security Operations Center), polegające na ciągłym przeglądaniu logów systemowych (w SIEM) w poszukiwaniu tzw. wskaźników kompromitacji (IoC - Indicators of Compromise), zanim hakerzy zdążą wyprowadzić dane.
+            </div>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Lockheed Martin "The Cyber Kill Chain", MITRE ATT&CK Framework, Raporty Mandiant (M-Trends), Opracowanie inżynierskie własne.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

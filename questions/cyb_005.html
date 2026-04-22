@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 005</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">005. Kodowanie oraz szyfrowanie - różnice, mechanika i zastosowania.</h2>
+
+        <div class="keywords-box" style="margin-bottom: 25px;">
+            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Kodowanie (Encoding) vs Szyfrowanie (Encryption)</span>
+            <span class="keyword-tag">Brak klucza vs Wymóg klucza</span>
+            <span class="keyword-tag">Base64, ASCII, URL Encoding</span>
+            <span class="keyword-tag">Szyfrowanie Symetryczne (AES)</span>
+            <span class="keyword-tag">Szyfrowanie Asymetryczne (RSA, ECC)</span>
+            <span class="keyword-tag">Poufność (Confidentiality) vs Integralność formatu</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step">
+                <strong>1. Fundament inżynierski: Cel transformacji danych</strong> <br><br>
+                Zarówno kodowanie, jak i szyfrowanie zamieniają czytelne dane (Plaintext) w ciąg znaków, który na pierwszy rzut oka jest niezrozumiały (np. <code>SGVsbG8=</code>). Jednak <strong>intencja (cel)</strong> tych procesów jest fundamentalnie różna:<br><br>
+                • <strong>Kodowanie (Encoding):</strong> Służy do <strong>ochrony formatu danych</strong> podczas ich przesyłania przez systemy, które mogą nie obsługiwać znaków specjalnych lub danych binarnych. Celem jest <em>użyteczność</em>, a nie bezpieczeństwo.<br>
+                • <strong>Szyfrowanie (Encryption):</strong> Służy do <strong>ochrony poufności danych</strong>. Celem jest ukrycie informacji przed osobami trzecimi, nawet jeśli przejmą one cały strumień danych.
+            </div>
+
+            <svg viewBox="0 0 800 250" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Kodowanie vs Szyfrowanie (Brak klucza vs Wymóg klucza)</text>
+
+                <rect x="50" y="60" width="300" height="150" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="200" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">KODOWANIE (Brak tajemnicy)</text>
+
+                <text x="100" y="125" font-family="monospace" font-size="14" fill="#2c3e50" text-anchor="middle">"Test"</text>
+                <path d="M 130 120 L 190 120" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+                <rect x="160" y="105" width="80" height="30" fill="#fff" stroke="#1976d2" stroke-width="1"/>
+                <text x="200" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1976d2" text-anchor="middle">Algorytm</text>
+                <path d="M 210 120 L 270 120" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+                <text x="300" y="125" font-family="monospace" font-size="14" fill="#2c3e50" text-anchor="middle">"VGVzdA=="</text>
+
+                <text x="200" y="165" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">Każdy, kto zna algorytm (np. Base64),</text>
+                <text x="200" y="180" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">może odwrócić proces. Brak hasła/klucza.</text>
+
+                <rect x="450" y="60" width="300" height="150" rx="8" fill="#fdedec" stroke="#e74c3c" stroke-width="2"/>
+                <text x="600" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e74c3c" text-anchor="middle">SZYFROWANIE (Wymaga klucza)</text>
+
+                <text x="500" y="125" font-family="monospace" font-size="14" fill="#2c3e50" text-anchor="middle">"Test"</text>
+                <path d="M 530 120 L 590 120" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+                <rect x="560" y="105" width="80" height="30" fill="#fff" stroke="#e74c3c" stroke-width="1"/>
+                <text x="600" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e74c3c" text-anchor="middle">AES + Klucz</text>
+                <path d="M 610 120 L 670 120" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+                <text x="700" y="125" font-family="monospace" font-size="14" fill="#2c3e50" text-anchor="middle">"0x9F4A..."</text>
+
+                <text x="600" y="165" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">Odwrócenie procesu (deszyfracja) jest</text>
+                <text x="600" y="180" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">niemożliwe bez matematycznego klucza.</text>
+
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#bdc3c7"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step">
+                <strong>2. Kodowanie (W głębi)</strong> <br><br>
+                Większość historycznych protokołów komunikacyjnych (np. SMTP do e-maili) została zaprojektowana do przesyłania wyłącznie 7-bitowego tekstu ASCII. Jeśli spróbujemy wysłać przez nie plik binarny (np. obrazek JPG lub plik .exe), system "wywali się" na niedrukowalnych znakach sterujących. Aby temu zapobiec, stosujemy kodowanie.<br><br>
+                • <strong>Base64:</strong> Najpopularniejszy schemat kodowania. Bierze dowolne binarne dane i przekształca je używając tylko 64 bezpiecznych znaków (A-Z, a-z, 0-9, + i /). Kosztem jest <strong>rozrost rozmiaru pliku o około 33%</strong>. Charakterystyczne dla Base64 są znaki równości (<code>=</code> lub <code>==</code>) na końcu, służące jako <em>padding</em> (wypełnienie, gdy brakuje bitów do pełnego bloku).<br>
+                • <strong>URL Encoding (Percent-encoding):</strong> Zamienia znaki spacjalne w adresach URL na format <code>%HEX</code> (np. spacja to <code>%20</code>). Dzięki temu URL nie psuje zapytań HTTP.
+            </div>
+
+            <div class="answer-step">
+                <strong>3. Szyfrowanie (W głębi)</strong> <br><br>
+                Opiera się na kryptografii, czyli rygorystycznej matematyce. Podzielone jest na dwie główne gałęzie, w zależności od tego, jak zarządzane są klucze kryptograficzne:<br><br>
+                • <strong>Szyfrowanie Symetryczne (Z kluczem prywatnym):</strong><br>
+                Ten sam tajny klucz jest używany zarówno do zaszyfrowania, jak i odszyfrowania danych. Jest <strong>bardzo szybkie</strong> i idealne do szyfrowania dużych ilości danych (np. całych dysków twardych - BitLocker).<br>
+                <em>Najważniejszy standard:</em> <strong>AES (Advanced Encryption Standard)</strong> (klucze 128, 192, 256 bitów).<br>
+                <em>Problem:</em> Jak bezpiecznie przekazać ten jeden klucz odbiorcy przez niezabezpieczony Internet?<br><br>
+                • <strong>Szyfrowanie Asymetryczne (Z kluczem publicznym):</strong><br>
+                Wymaga matematycznej pary kluczy. <strong>Klucz Publiczny</strong> rozdajesz całemu światu – każdy może nim zaszyfrować wiadomość dla Ciebie. Jednak tylko Ty, posiadając <strong>Klucz Prywatny</strong>, możesz ją odszyfrować. Znacznie wolniejsze od symetrycznego, ale rozwiązuje problem wymiany klucza w sieci.<br>
+                <em>Najważniejszy standard:</em> <strong>RSA</strong> oraz szyfrowanie oparte na krzywych eliptycznych (<strong>ECC</strong>).
+            </div>
+
+            <svg viewBox="0 0 800 280" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Rodzaje Szyfrowania Kryptograficznego</text>
+
+                <text x="200" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Szyfrowanie Symetryczne (np. AES)</text>
+
+                <rect x="70" y="90" width="60" height="40" rx="5" fill="#fff" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="100" y="115" font-family="sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle">Plik</text>
+
+                <path d="M 140 110 L 260 110" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+
+                <rect x="180" y="95" width="40" height="30" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="200" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e67e22" text-anchor="middle">AES</text>
+                <circle cx="200" cy="140" r="10" fill="#f1c40f"/>
+                <text x="200" y="165" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Klucz A</text>
+
+                <rect x="270" y="90" width="80" height="40" rx="5" fill="#34495e"/>
+                <text x="310" y="115" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">*Szyfrogram*</text>
+
+                <text x="200" y="195" font-family="sans-serif" font-size="11" font-style="italic" fill="#7f8c8d" text-anchor="middle">Ten sam klucz blokuje i odblokowuje.</text>
+
+                <line x1="400" y1="60" x2="400" y2="240" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+
+                <text x="600" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#8e44ad" text-anchor="middle">Szyfrowanie Asymetryczne (np. RSA)</text>
+
+                <rect x="440" y="90" width="60" height="40" rx="5" fill="#fff" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="470" y="115" font-family="sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle">Plik</text>
+
+                <path d="M 510 110 L 690 110" fill="none" stroke="#bdc3c7" stroke-width="3" marker-end="url(#arrow)"/>
+
+                <rect x="530" y="95" width="40" height="30" rx="5" fill="#f5eef8" stroke="#8e44ad" stroke-width="2"/>
+                <text x="550" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#8e44ad" text-anchor="middle">RSA</text>
+                <circle cx="550" cy="140" r="10" fill="#3498db"/>
+                <text x="550" y="165" font-family="sans-serif" font-size="10" fill="#3498db" text-anchor="middle">Klucz PUB</text>
+
+                <rect x="590" y="90" width="60" height="40" rx="5" fill="#34495e"/>
+                <text x="620" y="115" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">***</text>
+
+                <rect x="670" y="95" width="40" height="30" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+                <text x="690" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c2185b" text-anchor="middle">RSA</text>
+                <circle cx="690" cy="140" r="10" fill="#e74c3c"/>
+                <text x="690" y="165" font-family="sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">Klucz PRV</text>
+
+                <text x="600" y="195" font-family="sans-serif" font-size="11" font-style="italic" fill="#7f8c8d" text-anchor="middle">Klucz Publiczny zamknął plik.</text>
+                <text x="600" y="210" font-family="sans-serif" font-size="11" font-style="italic" fill="#7f8c8d" text-anchor="middle">Otworzyć go może TYLKO klucz Prywatny.</text>
+            </svg>
+
+            <div class="answer-step">
+                <strong>4. Protokół hybrydowy w praktyce (np. TLS/HTTPS)</strong> <br><br>
+                Z inżynierskiego punktu widzenia systemy produkcyjne rzadko opierają się tylko na jednym typie szyfrowania. Asymetryczne jest zbyt wolne do przesyłania filmów, a symetryczne ma problem z dystrybucją klucza. Rozwiązaniem jest <strong>Podejście Hybrydowe</strong>, stosowane np. w przeglądarkach internetowych (SSL/TLS):<br>
+                1. Twoja przeglądarka i serwer używają wolnego <strong>szyfrowania asymetrycznego (RSA)</strong> tylko po to, aby bezpiecznie ustalić i wymienić jeden wspólny klucz sesji.<br>
+                2. Gdy klucz sesji jest bezpiecznie wymieniony, obie strony przełączają się na błyskawiczne <strong>szyfrowanie symetryczne (AES)</strong> do przesyłania właściwych danych ze strony WWW.
+            </div>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Kryptografia w teorii i praktyce" (D. Stinson), Dokumentacja IETF RFC dla protokołów TLS i Base64, Opracowanie inżynierskie w ramach przedmiotu Podstawy Bezpieczeństwa Informacji.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

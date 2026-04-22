@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 006</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">006. Kluczowe aspekty zabezpieczania systemów IT i OT.</h2>
+
+        <div class="keywords-box" style="margin-bottom: 25px;">
+            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">IT (Information Technology) vs OT (Operational Technology)</span>
+            <span class="keyword-tag">Triada CIA vs Triada AIC (Priorytety)</span>
+            <span class="keyword-tag">Model Purdue (PERA)</span>
+            <span class="keyword-tag">Air-gapping i Diody Danych (Data Diodes)</span>
+            <span class="keyword-tag">SCADA / PLC / HMI</span>
+            <span class="keyword-tag">Legacy Systems (Brak łatania)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step">
+                <strong>1. Paradoks Priorytetów: CIA vs AIC</strong> <br><br>
+                Zabezpieczanie systemów dzieli się na dwa światy, które mają zupełnie odmienne cele biznesowe. Zrozumienie tej różnicy to fundament bezpieczeństwa infrastruktury krytycznej.<br><br>
+                • <strong>Świat IT (Systemy Informacyjne):</strong> Skupia się na danych. Najważniejsza jest <strong>Poufność (Confidentiality)</strong>. Jeśli bank wykryje włamanie, woli wyłączyć serwery (poświęcić dostępność), aby nie dopuścić do wycieku danych klientów.<br>
+                • <strong>Świat OT (Systemy Operacyjne / Przemysłowe):</strong> Skupia się na procesach fizycznych (np. sterowanie turbiną elektrowni, produkcja leków). Najważniejsza jest <strong>Dostępność (Availability) i Bezpieczeństwo ludzi (Safety)</strong>. Wyciek danych o temperaturze pieca nie jest groźny, ale opóźnienie w przesłaniu sygnału "wyłącz piec" (brak dostępności) może spowodować wybuch.
+            </div>
+
+            <svg viewBox="0 0 800 240" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Odwrócone priorytety bezpieczeństwa</text>
+
+                <polygon points="200,60 120,180 280,180" fill="#e3f2fd" stroke="#1976d2" stroke-width="3"/>
+                <text x="200" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">1. Poufność</text>
+                <text x="200" y="120" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">(Confidentiality)</text>
+
+                <text x="140" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1976d2" text-anchor="middle">2. Integralność</text>
+                <text x="260" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1976d2" text-anchor="middle">3. Dostępność</text>
+
+                <text x="200" y="215" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2c3e50" text-anchor="middle">Świat IT (Triada CIA)</text>
+
+                <polygon points="600,60 520,180 680,180" fill="#fdedec" stroke="#e74c3c" stroke-width="3"/>
+                <text x="600" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e74c3c" text-anchor="middle">1. Dostępność</text>
+                <text x="600" y="120" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">(Availability & Safety)</text>
+
+                <text x="540" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e74c3c" text-anchor="middle">2. Integralność</text>
+                <text x="660" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e74c3c" text-anchor="middle">3. Poufność</text>
+
+                <text x="600" y="215" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2c3e50" text-anchor="middle">Świat OT (Triada AIC)</text>
+            </svg>
+
+            <div class="answer-step">
+                <strong>2. Konwergencja i Model Purdue</strong> <br><br>
+                Historycznie systemy OT (sterowniki PLC, systemy SCADA) były fizycznie odcięte od Internetu (tzw. <strong>Air-gap</strong>). Dziś, z powodu Przemysłu 4.0 i IIoT (Industrial IoT), zarządy chcą analizować dane z fabryk w chmurze. Zjawisko łączenia tych sieci nazywamy <strong>Konwergencją IT/OT</strong>, co otwiera hakerom drogę z sieci biurowej do hal produkcyjnych.<br><br>
+                Aby zapobiec atakom z IT na OT, stosuje się <strong>Model Purdue (PERA)</strong> – architekturę ścisłej segmentacji warstwowej. Komunikacja między warstwami jest dozwolona tylko przez rygorystyczne zapory sieciowe (Firewalle) i strefy zdemilitaryzowane (DMZ).
+            </div>
+
+            <svg viewBox="0 0 800 320" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Model Segmentacji Purdue (Uproszczony)</text>
+
+                <rect x="50" y="50" width="700" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="70" y="80" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2">Poziom 4 i 5: Enterprise IT (ERP, Chmura, Biuro)</text>
+
+                <rect x="50" y="110" width="700" height="40" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="70" y="135" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e67e22">Poziom 3.5: Industrial DMZ (Strefa buforowa, Serwery Proxy/Jump)</text>
+
+                <rect x="380" y="90" width="40" height="30" rx="3" fill="#e74c3c"/>
+                <text x="400" y="110" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">FW</text>
+                <rect x="380" y="140" width="40" height="30" rx="3" fill="#e74c3c"/>
+                <text x="400" y="160" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">FW</text>
+
+                <rect x="50" y="160" width="700" height="40" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+                <text x="70" y="185" font-family="sans-serif" font-size="14" font-weight="bold" fill="#27ae60">Poziom 2 i 3: SCADA / HMI (Dyspozytornie, Monitory systemów)</text>
+
+                <rect x="50" y="210" width="700" height="40" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+                <text x="70" y="235" font-family="sans-serif" font-size="14" font-weight="bold" fill="#27ae60">Poziom 1: Basic Control (Sterowniki PLC, RTU)</text>
+
+                <rect x="50" y="260" width="700" height="40" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+                <text x="70" y="285" font-family="sans-serif" font-size="14" font-weight="bold" fill="#27ae60">Poziom 0: Physical Process (Fizyczne Sensory, Zawory, Silniki)</text>
+            </svg>
+
+            <div class="answer-step">
+                <strong>3. Środowiska Legacy i specyfika łatania</strong> <br><br>
+                Zarządzanie podatnościami (Patch Management) w OT drastycznie różni się od IT. W biurze instalujemy aktualizację Windowsa w "Patch Tuesday" i restartujemy komputery. W fabryce sterującej chemią przemysłową, proces trwa bez przerwy (24/7/365). Zatrzymanie sprzętu na aktualizację to miliony strat.<br>
+                Z tego powodu sieci OT są pełne systemów <strong>Legacy</strong> (np. Windows XP/7 bez wsparcia Microsoftu). Broni się ich nie poprzez łatanie, lecz przez tzw. <em>Wirtualne Łatanie</em> (IPS blokujący dany exploit na firewallu) oraz skrajną izolację (VLANy).
+            </div>
+
+            <div class="answer-step">
+                <strong>4. Diody Danych (Unidirectional Gateways)</strong> <br><br>
+                W sektorach ultra-krytycznych (elektrownie atomowe) zaufanie do oprogramowania firewalla to za mało (firewall może mieć buga i przepuścić ruch). Stosuje się tam zabezpieczenia sprzętowe, oparte na prawach fizyki.<br>
+                <strong>Dioda danych</strong> to urządzenie z jedną diodą nadawczą (TX) z jednej strony i tylko jedną diodą odbiorczą (RX) z drugiej. Światło może podróżować tylko w jedną stronę. Fabryka może wysyłać statystyki produkcyjne do biura IT, ale fizycznie niemożliwe jest, aby haker z sieci IT wysłał komendę sterującą do fabryki.
+            </div>
+
+            <svg viewBox="0 0 800 200" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Zasada działania sprzętowej Diody Danych (Data Diode)</text>
+
+                <rect x="50" y="60" width="150" height="100" rx="8" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+                <text x="125" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">Sieć OT</text>
+                <text x="125" y="130" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">(Fabryka, SCADA)</text>
+
+                <rect x="250" y="80" width="300" height="60" rx="5" fill="#34495e"/>
+                <text x="400" y="115" font-family="sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Fizyczna Dioda Danych</text>
+
+                <circle cx="280" cy="110" r="10" fill="#27ae60"/>
+                <text x="280" y="135" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">TX</text>
+
+                <circle cx="520" cy="110" r="10" fill="#f1c40f"/>
+                <text x="520" y="135" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">RX</text>
+
+                <path d="M 290 110 L 510 110" fill="none" stroke="#2ecc71" stroke-width="4" stroke-dasharray="8,4" marker-end="url(#arrow-green)"/>
+
+                <rect x="600" y="60" width="150" height="100" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="675" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1976d2" text-anchor="middle">Sieć IT</text>
+                <text x="675" y="130" font-family="sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle">(Biuro, Chmura)</text>
+
+                <text x="400" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Dane wypływają (Statystyki)</text>
+                <text x="400" y="185" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e74c3c" text-anchor="middle">✗ Atak z zewnątrz jest fizycznie niemożliwy</text>
+            </svg>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Wytyczne NIST SP 800-82 (Guide to Industrial Control Systems Security), Podręczniki SANS ICS, Opracowanie inżynierskie własne.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

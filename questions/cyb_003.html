@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 003</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">003. Narzędzia analizy i zarządzania ruchem sieciowym.</h2>
+
+        <div class="keywords-box" style="margin-bottom: 25px;">
+            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Packet Sniffing / DPI</span>
+            <span class="keyword-tag">Wireshark / tcpdump</span>
+            <span class="keyword-tag">NetFlow / sFlow (Telemetria)</span>
+            <span class="keyword-tag">Port Mirroring (SPAN)</span>
+            <span class="keyword-tag">SNMP (Simple Network Management Protocol)</span>
+            <span class="keyword-tag">QoS (Quality of Service)</span>
+            <span class="keyword-tag">IDS / IPS (Snort, Suricata)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step">
+                <strong>1. Analiza pakietów (Deep Packet Inspection - DPI)</strong> <br><br>
+                Najniższy poziom analizy, polegający na przechwytywaniu całych ramek i pakietów krążących w sieci. Wymaga ustawienia interfejsu sieciowego w tzw. <em>promiscuous mode</em> (nasłuchiwanie całego ruchu, a nie tylko adresowanego do siebie) lub użycia portu lustrzanego (SPAN) na przełączniku.<br><br>
+                • <strong>Wireshark:</strong> Najpopularniejszy analizator z graficznym interfejsem (GUI). Potrafi zdekodować setki protokołów. Używany do dogłębnego analizowania problemów z aplikacjami (np. dlaczego sesja TCP się zrywa, podgląd niezaszyfrowanych haseł). Zapisuje dane w formacie <code>.pcap</code>.<br>
+                • <strong>tcpdump:</strong> Lekki odpowiednik działający w trybie tekstowym (CLI). Niezastąpiony na serwerach bez środowiska graficznego. Stosuje filtry BPF (Berkeley Packet Filter), aby nie przeciążyć procesora przy łapaniu pakietów.
+            </div>
+
+            <div class="answer-step">
+                <strong>2. Analiza przepływów (Flow telemetry)</strong> <br><br>
+                Gdy sieć przesyła gigabity danych na sekundę, zapisywanie każdego pakietu (jak w Wiresharku) "zabije" dyski twarde w kilka minut. Zamiast tego analizuje się <strong>metadane</strong> (kto z kim rozmawiał, jak długo, na jakim porcie i ile danych przesłał). Przypomina to biling telefoniczny – widać historię połączeń, ale nie słychać treści rozmowy.<br><br>
+                • <strong>NetFlow (Cisco) / IPFIX / sFlow:</strong> Protokoły, w których routery lub switche (tzw. eksporterzy) wysyłają pakiety ze statystykami o przepływach do centralnego serwera (Kolektora). Pozwala to na analizę pasma, wykrywanie wąskich gardeł oraz ataków DDoS (np. nagły pik połączeń SYN z jednego IP).
+            </div>
+
+            <svg viewBox="0 0 800 280" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
+                <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Architektura monitorowania ruchu (SPAN vs NetFlow)</text>
+
+                <ellipse cx="100" cy="90" rx="40" ry="25" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+                <text x="100" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#7f8c8d" text-anchor="middle">WAN</text>
+
+                <path d="M 140 90 L 190 90" stroke="#2c3e50" stroke-width="4"/>
+
+                <circle cx="230" cy="90" r="40" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+                <text x="230" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">Router</text>
+
+                <path d="M 270 90 L 370 90" stroke="#2c3e50" stroke-width="4"/>
+
+                <rect x="370" y="70" width="100" height="40" rx="5" fill="#e8f5e9" stroke="#27ae60" stroke-width="2"/>
+                <text x="420" y="95" font-family="sans-serif" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Switch</text>
+
+                <path d="M 470 90 L 550 90" stroke="#2c3e50" stroke-width="4"/>
+
+                <rect x="550" y="70" width="80" height="40" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="590" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1976d2" text-anchor="middle">LAN</text>
+
+                <text x="320" y="80" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Ruch produkcyjny</text>
+
+                <rect x="180" y="190" width="100" height="40" rx="5" fill="#fef5e7" stroke="#e67e22" stroke-width="2"/>
+                <text x="230" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e67e22" text-anchor="middle">Kolektor</text>
+                <path d="M 230 130 L 230 190" fill="none" stroke="#e67e22" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-orange)"/>
+                <text x="175" y="160" font-family="sans-serif" font-size="10" fill="#e67e22" text-anchor="end">NetFlow</text>
+                <text x="175" y="175" font-family="sans-serif" font-size="10" fill="#e67e22" text-anchor="end">(Tylko metadane)</text>
+
+                <rect x="370" y="190" width="100" height="40" rx="5" fill="#f5eef8" stroke="#8e44ad" stroke-width="2"/>
+                <text x="420" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">Analizator</text>
+                <path d="M 420 110 L 420 190" fill="none" stroke="#8e44ad" stroke-width="3" marker-end="url(#arrow-purple)"/>
+                <text x="430" y="150" font-family="sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">Port Mirroring (SPAN)</text>
+                <text x="430" y="165" font-family="sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">Kopia WSZYSTKICH pakietów</text>
+                <text x="430" y="180" font-family="sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">(Wireshark / IDS)</text>
+
+                <defs>
+                    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#e67e22"/>
+                    </marker>
+                    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#8e44ad"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step">
+                <strong>3. Narzędzia do proaktywnego zarządzania i monitorowania</strong> <br><br>
+                Zarządzanie siecią to nie tylko analiza ruchu, ale też dbanie o kondycję samych urządzeń (routerów, przełączników).<br><br>
+                • <strong>SNMP (Simple Network Management Protocol):</strong> Standardowy protokół typu klient-serwer. Serwer NMS (np. Zabbix, PRTG) cyklicznie odpytuje urządzenia w sieci. Urządzenia te posiadają "drzewo zmiennych" MIB (Management Information Base), z którego można wyczytać np. temperaturę procesora, użycie portów czy status wentylatorów. Posiada też funkcję <em>SNMP Trap</em> (urządzenie samo wysyła alarm, gdy coś się psuje). Obecnie stosuje się wersję <strong>SNMPv3</strong>, która w końcu zapewnia szyfrowanie i silne uwierzytelnianie.<br><br>
+                • <strong>QoS (Quality of Service):</strong> Mechanizmy konfigurowane na ruterach, służące do zarządzania ruchem i gwarantowania pasma. Obejmują:
+                <br>&nbsp;&nbsp;- <em>Klasyfikację i oznaczanie (Marking):</em> Oznaczanie pakietów (np. DSCP) np. jako "Ruch głosowy VoIP".
+                <br>&nbsp;&nbsp;- <em>Kształtowanie (Shaping):</em> Buforowanie nadmiarowego ruchu, aby nie przekroczyć opłaconego u operatora pasma i uniknąć odrzucania pakietów.
+                <br>&nbsp;&nbsp;- <em>Zarządzanie zatorami (Queuing):</em> Gdy łącze jest pełne, pakiety VoIP przelatują jako pierwsze (kolejkowanie priorytetowe), a pakiety Torrent są opóźniane.<br><br>
+                • <strong>IDS / IPS (Intrusion Detection/Prevention System):</strong> Narzędzia takie jak <strong>Snort</strong> czy <strong>Suricata</strong>. Działają podobnie jak oprogramowanie antywirusowe, ale dla całego ruchu sieciowego. Analizują pakiety "w locie" szukając sygnatur ataków (np. znane payloady exploitów). IDS tylko alarmuje, IPS potrafi dodatkowo zablokować złośliwy ruch.
+            </div>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Sieci komputerowe" (A. Tanenbaum), Dokumentacja Cisco NetFlow i QoS, Opracowanie własne na potrzeby egzaminu inżynierskiego.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
