@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 006 – Funkcje ciągłe i różniczkowalne. Metody numeryczne pochodnej.</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">006. Funkcje ciągłe i różniczkowalne. Metody numeryczne pochodnej.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e7f3ff 0%, #d4e9ff 100%); border-left: 6px solid #2196F3; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(33,150,243,0.12);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – Metafora drogi:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a5c; line-height: 1.7;">
+                        Wyobraź sobie, że funkcja <code style="background:#bbdefb; padding:2px 8px; border-radius:4px;">f(x)</code> to <strong>tor jazdy samochodem</strong>, a Ty siedzisz za kierownicą.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a5c; line-height: 1.8;">
+                        <li><strong>🔵 Ciągłość</strong> – możesz przejechać całą trasę <em>bez odrywania kół od asfaltu</em>. Nie ma dziur, teleportacji ani przerw w nawierzchni. Droga jest „jednym kawałkiem”.</li>
+                        <li><strong>🟠 Różniczkowalność</strong> – możesz prowadzić <em>płynnie</em>, bez gwałtownego szarpania kierownicą. Zakręty są łagodne – żadnych ostrych kantów pod kątem 90°.</li>
+                        <li><strong>🔴 Kluczowa intuicja:</strong> ostry zakręt <em>jest</em> ciągły (nie ma dziury w asfalcie), ale <em>nie jest</em> różniczkowalny – w wierzchołku musiałbyś w ułamku sekundy przestawić kierownicę z „skręć w lewo” na „skręć w prawo”. Fizyka mówi: <strong>nie da się</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Ciągłość / Granica lewo- i prawostronna</span>
+            <span class="keyword-tag">Różniczkowalność / Styczna</span>
+            <span class="keyword-tag">Pochodna f'(x) / Iloraz różnicowy</span>
+            <span class="keyword-tag">Szereg Taylora – fundament metod</span>
+            <span class="keyword-tag">Różnica progresywna / wsteczna / centralna</span>
+            <span class="keyword-tag">Błąd ucięcia O(h), O(h²)</span>
+            <span class="keyword-tag">Błąd zaokrągleń / Catastrophic cancellation</span>
+            <span class="keyword-tag">Optymalny krok h – trade-off</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CIĄGŁOŚĆ – GŁĘBOKA INTUICJA                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Ciągłość – Matematyczne „spójne przejście”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7;">
+                    Funkcja <i>f(x)</i> jest <strong>ciągła w punkcie <i>a</i></strong>, gdy spełnione są <em>trzy warunki</em>:
+                </p>
+                <ol style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Istnieje wartość:</strong> <code>f(a)</code> jest określona (punkt należy do dziedziny).</li>
+                    <li><strong>Istnieje granica:</strong> <code>lim<sub>x→a</sub> f(x)</code> istnieje – granica lewostronna i prawostronna są <strong>równe</strong>.</li>
+                    <li><strong>Są sobie równe:</strong> <code>lim<sub>x→a</sub> f(x) = f(a)</code> – granica „trafia” dokładnie w wartość funkcji.</li>
+                </ol>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Jeśli którykolwiek z tych warunków zawiedzie, mamy <strong>nieciągłość</strong>. W inżynierii oznacza to np. skok napięcia w obwodzie, pęknięcie belki czy nagłą zmianę fazy w materiale.
+                </p>
+            </div>
+
+            <!-- SVG: CIĄGŁOŚĆ vs NIECIĄGŁOŚĆ – DUŻY, ILUSTRACYJNY -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <!-- Tło siatki -->
+                <defs>
+                    <pattern id="gridCont" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridCont)" opacity="0.5"/>
+
+                <!-- Etykieta lewa: Funkcja ciągła -->
+                <rect x="25" y="15" width="370" height="190" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" opacity="0.7"/>
+                <text x="210" y="42" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#2e7d32">✅ Funkcja ciągła – droga bez dziur</text>
+                <!-- Krzywa ciągła (sinusoidalna) -->
+                <path d="M 55 120 Q 100 40, 150 90 T 240 60 T 330 110 T 370 80"
+                      stroke="#2e7d32" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Punkt a -->
+                <circle cx="200" cy="75" r="7" fill="#1565c0" stroke="#fff" stroke-width="2"/>
+                <text x="200" y="62" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0" font-weight="bold">a</text>
+                <!-- Opis -->
+                <text x="210" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">lim f(x) = f(a) – „wszystko się zgadza”</text>
+
+                <!-- Etykieta prawa: Nieciągłość – skok -->
+                <rect x="425" y="15" width="375" height="190" rx="10" fill="#ffebee" stroke="#e53935" stroke-width="1.5" opacity="0.7"/>
+                <text x="612" y="42" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#c62828">❌ Nieciągłość – „teleportacja”</text>
+                <!-- Dwa kawałki krzywej -->
+                <path d="M 445 85 Q 490 50, 540 65" stroke="#c62828" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle cx="540" cy="65" r="6" fill="#fff" stroke="#c62828" stroke-width="2.5"/>
+                <path d="M 560 145 Q 610 120, 700 100" stroke="#c62828" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle cx="560" cy="145" r="6" fill="#c62828"/>
+                <!-- Strzałka skoku -->
+                <line x1="540" y1="75" x2="560" y2="135" stroke="#ef6c00" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="570" y="108" font-family="sans-serif" font-size="13" fill="#ef6c00" font-weight="bold">SKOK!</text>
+                <text x="612" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c62828">Granica lewa ≠ Granica prawa</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: RÓŻNICZKOWALNOŚĆ – GROKKING DEEP DIVE           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Różniczkowalność – „Płynność zmiany”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Różniczkowalność to <strong>silniejszy warunek</strong> niż ciągłość. Funkcja jest różniczkowalna w punkcie <i>a</i>, jeśli istnieje <strong>pochodna</strong>:
+                </p>
+                <div style="text-align: center; margin: 12px 0; font-size: 1.2rem;">
+                    <code style="background:#fff3e0; padding:8px 20px; border-radius:8px; font-weight:bold; letter-spacing:0.5px;">
+                        f'(a) = lim<sub>h→0</sub> [f(a+h) − f(a)] / h
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Geometrycznie: pochodna to <strong>współczynnik kierunkowy stycznej</strong> do wykresu w punkcie. Jeśli z lewej strony zbliżamy się z jednym nachyleniem, a z prawej z innym – styczna nie istnieje (jest niejednoznaczna). Klasyczny przykład: <code>f(x) = |x|</code> w punkcie <code>x = 0</code> – z lewej nachylenie −1, z prawej +1. <strong>Dwie różne styczne → brak pochodnej.</strong>
+                </p>
+                <div style="background: #fff8e1; border-left: 5px solid #ff8f00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
+                    <strong>🔑 Zależność kluczowa na egzamin:</strong> <span style="color:#e65100; font-weight:bold;">Różniczkowalność ⇒ Ciągłość</span>, ale <span style="color:#c62828; font-weight:bold;">Ciągłość ⇏ Różniczkowalność</span>. Każda funkcja różniczkowalna jest ciągła, ale nie odwrotnie!
+                </div>
+            </div>
+
+            <!-- SVG: RÓŻNICZKOWALNOŚĆ – ZOOMOWANIE NA KRZYWĄ -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridDiff" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridDiff)" opacity="0.5"/>
+
+                <!-- Lewa strona: Funkcja gładka (różniczkowalna) -->
+                <rect x="15" y="10" width="380" height="255" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" opacity="0.6"/>
+                <text x="205" y="38" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#2e7d32">✅ Gładka krzywa – JEDNA styczna</text>
+                <!-- Krzywa gładka -->
+                <path d="M 40 180 Q 120 60, 200 100 T 370 130"
+                      stroke="#2e7d32" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Punkt styczności -->
+                <circle cx="200" cy="100" r="7" fill="#1565c0" stroke="#fff" stroke-width="2"/>
+                <!-- Styczna -->
+                <line x1="80" y1="140" x2="320" y2="60" stroke="#ff6f00" stroke-width="2.5" stroke-dasharray="8,4"/>
+                <text x="325" y="55" font-family="sans-serif" font-size="12" fill="#ff6f00" font-weight="bold">styczna</text>
+                <text x="205" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">f'(a) – jednoznaczna</text>
+
+                <!-- Prawa strona: Ostrze (|x|) – brak różniczkowalności -->
+                <rect x="425" y="10" width="380" height="255" rx="10" fill="#ffebee" stroke="#e53935" stroke-width="1.5" opacity="0.6"/>
+                <text x="615" y="38" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#c62828">❌ Ostrze – DWIE „kandydujące” styczne</text>
+                <!-- Kształt V (|x|) -->
+                <path d="M 460 180 L 560 60 L 660 180" stroke="#c62828" stroke-width="4" fill="none" stroke-linejoin="round"/>
+                <circle cx="560" cy="60" r="7" fill="#fff" stroke="#c62828" stroke-width="3"/>
+                <!-- Dwie pseudo-styczne -->
+                <line x1="490" y1="140" x2="555" y2="65" stroke="#ff6f00" stroke-width="2.5" stroke-dasharray="6,3" opacity="0.8"/>
+                <line x1="630" y1="140" x2="565" y2="65" stroke="#7b1fa2" stroke-width="2.5" stroke-dasharray="6,3" opacity="0.8"/>
+                <text x="470" y="150" font-family="sans-serif" font-size="12" fill="#ff6f00" font-weight="bold">nachyl. −1</text>
+                <text x="640" y="150" font-family="sans-serif" font-size="12" fill="#7b1fa2" font-weight="bold">nachyl. +1</text>
+                <text x="615" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c62828">f'(0) – NIE ISTNIEJE</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: METODY NUMERYCZNE – JAK MYŚLI KOMPUTER           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Metody numeryczne pochodnej – Oczami komputera</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Komputer nie „widzi” wzoru funkcji – zna tylko <strong>dyskretne punkty</strong> (np. pomiary z czujnika co 0,1 s). Pochodną musi <strong>oszacować</strong> na podstawie sąsiednich wartości. Narzędziem jest <strong>iloraz różnicowy</strong>, a jego teoretycznym fundamentem – <strong>szereg Taylora</strong>.
+                </p>
+            </div>
+
+            <!-- SEKCJA: SZEREG TAYLORA – WIZUALNIE -->
+            <div style="background: #f3e5f5; border-left: 6px solid #7b1fa2; padding: 18px 22px; margin-bottom: 24px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem; color: #4a148c;">📐 Fundament: Szereg Taylora – „Przepis na przewidywanie przyszłości funkcji”</strong>
+                <p style="margin: 8px 0 0 0; line-height: 1.8; color: #311b92;">
+                    Szereg Taylora mówi, że znając wartość funkcji i wszystkich jej pochodnych w punkcie <i>x</i>, możemy <strong>odtworzyć</strong> wartość funkcji w punkcie <i>x+h</i>:
+                </p>
+                <div style="text-align: center; margin: 10px 0; font-size: 0.95rem; overflow-x: auto;">
+                    <code style="background:#e1bee7; padding:6px 14px; border-radius:6px; white-space:nowrap;">
+                        f(x+h) = f(x) + h·f'(x) + (h²/2!)·f''(x) + (h³/3!)·f'''(x) + ...
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #311b92;">
+                    <strong>Sztuczka polega na tym, żeby to równanie „odwrócić”</strong> – wyciągnąć z niego <code>f'(x)</code>, a wszystkie wyrazy z <i>h²</i> i wyższymi potęgami <strong>odrzucić</strong> (są bardzo małe, gdy <i>h</i> jest małe). To odrzucenie to właśnie <strong>błąd ucięcia (truncation error)</strong>.
+                </p>
+            </div>
+
+            <!-- SVG: TRZY METODY ILORAZÓW RÓŻNICOWYCH – GEOMETRIA -->
+            <svg viewBox="0 0 820 420" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/>
+                    </marker>
+                    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/>
+                    </marker>
+                </defs>
+                <!-- Tło -->
+                <rect x="0" y="0" width="820" height="420" fill="#fefefe" rx="12"/>
+
+                <!-- Tytuł -->
+                <text x="410" y="32" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#263238">Trzy podejścia do ilorazu różnicowego – geometria</text>
+
+                <!-- Krzywa referencyjna (lekko wygięta) dla wszystkich 3 -->
+                <path d="M 40 340 Q 130 200, 250 160 T 500 120 T 750 150" stroke="#bdbdbd" stroke-width="3" fill="none" stroke-dasharray="4,3" opacity="0.7"/>
+
+                <!-- ============ PANEL 1: PROGRESYWNA (FORWARD) ============ -->
+                <rect x="20" y="50" width="245" height="350" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" opacity="0.7"/>
+                <text x="142" y="78" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="13" fill="#0d47a1">🔵 Progresywna (Forward)</text>
+                <!-- Punkty na krzywej -->
+                <circle cx="140" cy="190" r="6" fill="#1565c0" stroke="#fff" stroke-width="2"/>
+                <text x="140" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">x</text>
+                <circle cx="200" cy="170" r="6" fill="#42a5f5" stroke="#fff" stroke-width="2"/>
+                <text x="200" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1976d2">x+h</text>
+                <!-- Sieczna (progresywna) -->
+                <line x1="140" y1="190" x2="200" y2="170" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <!-- Wzór -->
+                <rect x="35" y="240" width="215" height="55" rx="6" fill="#bbdefb"/>
+                <text x="142" y="262" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1" font-weight="bold">f'(x) ≈ [f(x+h)−f(x)]/h</text>
+                <text x="142" y="282" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Błąd: O(h) – rząd 1.</text>
+                <!-- Komentarz -->
+                <text x="142" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#37474f">„Patrzę tylko w przód”</text>
+                <text x="142" y="350" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#78909c">Najprostsza, najmniej dokładna</text>
+
+                <!-- ============ PANEL 2: WSTECZNA (BACKWARD) ============ -->
+                <rect x="287" y="50" width="245" height="350" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5" opacity="0.7"/>
+                <text x="409" y="78" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="13" fill="#e65100">🟠 Wsteczna (Backward)</text>
+                <circle cx="360" cy="165" r="6" fill="#ef6c00" stroke="#fff" stroke-width="2"/>
+                <text x="360" y="150" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">x−h</text>
+                <circle cx="420" cy="180" r="6" fill="#ff9800" stroke="#fff" stroke-width="2"/>
+                <text x="420" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">x</text>
+                <line x1="360" y1="165" x2="420" y2="180" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
+                <rect x="302" y="240" width="215" height="55" rx="6" fill="#ffe0b2"/>
+                <text x="409" y="262" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100" font-weight="bold">f'(x) ≈ [f(x)−f(x−h)]/h</text>
+                <text x="409" y="282" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Błąd: O(h) – rząd 1.</text>
+                <text x="409" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#37474f">„Patrzę tylko w tył”</text>
+                <text x="409" y="350" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#78909c">Przydatna na końcu zakresu danych</text>
+
+                <!-- ============ PANEL 3: CENTRALNA (CENTRAL) ============ -->
+                <rect x="554" y="50" width="250" height="350" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" opacity="0.8"/>
+                <!-- Gwiazdka – złoty standard -->
+                <text x="679" y="72" text-anchor="middle" font-family="sans-serif" font-size="18">⭐</text>
+                <text x="679" y="95" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="13" fill="#1b5e20">🟢 Centralna (Central)</text>
+                <circle cx="600" cy="160" r="6" fill="#2e7d32" stroke="#fff" stroke-width="2"/>
+                <text x="600" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">x−h</text>
+                <circle cx="680" cy="175" r="7" fill="#fff" stroke="#1b5e20" stroke-width="3"/>
+                <text x="680" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20" font-weight="bold">x</text>
+                <circle cx="750" cy="200" r="6" fill="#66bb6a" stroke="#fff" stroke-width="2"/>
+                <text x="750" y="220" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">x+h</text>
+                <line x1="600" y1="160" x2="750" y2="200" stroke="#2e7d32" stroke-width="3.5"/>
+                <!-- Symetryczne strzałki -->
+                <rect x="569" y="240" width="220" height="55" rx="6" fill="#c8e6c9"/>
+                <text x="679" y="262" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20" font-weight="bold">f'(x)≈[f(x+h)−f(x−h)]/2h</text>
+                <text x="679" y="282" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32" font-weight="bold">Błąd: O(h²) – rząd 2. ✨</text>
+                <text x="679" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20" font-weight="bold">„ZŁOTY STANDARD”</text>
+                <text x="679" y="350" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#37474f">Najdokładniejsza – wybieraj zawsze,</text>
+                <text x="679" y="368" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#37474f">gdy masz dostęp do obu sąsiadów</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ANALIZA BŁĘDÓW – INŻYNIERSKI TRADE-OFF          -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Inżynierski trade-off: Błąd ucięcia vs. Błąd zaokrągleń</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Intuicja podpowiada: „Im mniejszy krok <i>h</i>, tym dokładniejsza pochodna”. <strong>To prawda – ale tylko do pewnego momentu.</strong> W komputerze działającym na liczbach zmiennoprzecinkowych (IEEE 754) zbyt małe <i>h</i> prowadzi do katastrofy precyzji.
+                </p>
+            </div>
+
+            <!-- SVG: KRZYWA BŁĘDU – TRADE-OFF -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <linearGradient id="gradOpt" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#e53935"/>
+                        <stop offset="40%" stop-color="#ff8f00"/>
+                        <stop offset="55%" stop-color="#43a047"/>
+                        <stop offset="70%" stop-color="#ff8f00"/>
+                        <stop offset="100%" stop-color="#e53935"/>
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="820" height="300" fill="#fefefe" rx="12"/>
+                <text x="410" y="30" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="15" fill="#263238">Błąd całkowity w funkcji kroku h – „Sweet Spot”</text>
+
+                <!-- Osie -->
+                <line x1="70" y1="250" x2="760" y2="250" stroke="#455a64" stroke-width="2"/>
+                <text x="770" y="255" font-family="sans-serif" font-size="12" fill="#455a64" font-weight="bold">h →</text>
+                <text x="400" y="290" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Krok h (skala logarytmiczna: duże h ← → małe h)</text>
+
+                <!-- Krzywa błędu ucięcia (opadająca) -->
+                <path d="M 80 60 Q 200 80, 400 150 Q 550 210, 720 240" stroke="#e53935" stroke-width="2.5" fill="none" stroke-dasharray="8,4"/>
+                <text x="550" y="135" font-family="sans-serif" font-size="12" fill="#e53935" font-weight="bold">Błąd ucięcia ~ O(h) lub O(h²)</text>
+                <text x="555" y="150" font-family="sans-serif" font-size="10" fill="#c62828">(maleje, gdy h maleje ✓)</text>
+
+                <!-- Krzywa błędu zaokrągleń (rosnąca w lewo) -->
+                <path d="M 720 245 Q 500 220, 400 150 Q 300 90, 120 55" stroke="#1565c0" stroke-width="2.5" fill="none" stroke-dasharray="8,4"/>
+                <text x="80" y="55" font-family="sans-serif" font-size="12" fill="#1565c0" font-weight="bold">Błąd zaokrągleń</text>
+                <text x="40" y="70" font-family="sans-serif" font-size="10" fill="#1976d2">(rośnie, gdy h maleje ✗)</text>
+                <text x="35" y="82" font-family="sans-serif" font-size="10" fill="#1976d2">Catastrophic cancellation!</text>
+
+                <!-- Krzywa błędu całkowitego (U-kształtna) -->
+                <path d="M 95 70 Q 200 100, 350 155 Q 450 155, 550 130 Q 650 90, 720 70"
+                      stroke="url(#gradOpt)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+
+                <!-- Optymalne h -->
+                <circle cx="410" cy="148" r="10" fill="#43a047" stroke="#fff" stroke-width="3"/>
+                <line x1="410" y1="148" x2="410" y2="250" stroke="#43a047" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="410" y="130" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1b5e20" font-weight="bold">★ OPTIMUM ★</text>
+                <text x="410" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">h_opt ≈ √(ε_machine)</text>
+                <text x="410" y="284" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Dla double: ~10⁻⁸</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PRAKTYCZNE ZASTOSOWANIA INŻYNIERSKIE            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">5. Gdzie to się przydaje? – Konkretne przykłady inżynierskie</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px;">
+                    <!-- Kafelek 1 -->
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🏗️ Mechanika</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Prędkość i przyspieszenie z danych pozycji (enkoder). Pochodna → prędkość kątowa wału.</span>
+                    </div>
+                    <!-- Kafelek 2 -->
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>⚡ Elektronika</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">dV/dt w obwodach RC – szybkość narastania napięcia na kondensatorze z próbek ADC.</span>
+                    </div>
+                    <!-- Kafelek 3 -->
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🤖 Robotyka</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Różniczkowanie trajektorii – z pozycji zadanej na prędkość i przyspieszenie przegubów.</span>
+                    </div>
+                    <!-- Kafelek 4 -->
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>📊 Przetwarzanie sygnałów</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Wykrywanie krawędzi w obrazie (gradient Sobel – to też iloraz różnicowy 2D!).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: POCHODNE WYŻSZYCH RZĘDÓW NUMERYCZNIE            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.1rem; color: #4527a0;">6. Bonus: Druga pochodna numerycznie</strong>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Do wyznaczenia drugiej pochodnej stosujemy <strong>różnicę centralną drugiego rzędu</strong> (wyprowadza się ją z szeregu Taylora dla <i>f(x+h)</i> i <i>f(x−h)</i>, dodając równania stronami):
+                </p>
+                <div style="text-align: center; margin: 10px 0;">
+                    <code style="background:#ede7f6; padding:6px 16px; border-radius:6px; font-size:1rem;">
+                        f''(x) ≈ [f(x+h) − 2f(x) + f(x−h)] / h²
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Błąd tej aproksymacji to <strong>O(h²)</strong>. Jest to wzór niezwykle ważny w metodzie elementów skończonych (MES) i przy rozwiązywaniu równań różniczkowych cząstkowych.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: PODSUMOWANIE – CHEAT SHEET WIZUALNY             -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa intuicja</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pułapka egzaminacyjna</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Ciągłość</td>
+                        <td style="padding: 10px;">„Brak teleportacji” – granica = wartość</td>
+                        <td style="padding: 10px; color: #c62828;">Ciągłość nie gwarantuje różniczkowalności!</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Różniczkowalność</td>
+                        <td style="padding: 10px;">„Płynna jazda” – jedna styczna</td>
+                        <td style="padding: 10px; color: #c62828;">|x| w zerze – ciągła, ale nie różniczkowalna</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Różnica centralna</td>
+                        <td style="padding: 10px;">Złoty standard – błąd O(h²)</td>
+                        <td style="padding: 10px; color: #c62828;">Wymaga punktów po obu stronach – nie działa na brzegu</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Optymalne h</td>
+                        <td style="padding: 10px;">Trade-off ucięcie vs. zaokrąglenia</td>
+                        <td style="padding: 10px; color: #c62828;">Za małe h → catastrophic cancellation → bezsensowny wynik</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKA EGZAMINACYJNA – WYRÓŻNIONA                       -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapka Egzaminacyjna – klasyczne pytanie:</strong>
+                <p style="margin: 8px 0 0 0; line-height: 1.7; color: #7f0000;">
+                    <em>„Czy zmniejszanie kroku <i>h</i> w nieskończoność zawsze poprawia dokładność numerycznego różniczkowania?”</em><br>
+                    <strong>Odpowiedź: NIE.</strong> W arytmetyce zmiennoprzecinkowej (IEEE 754) przy zbyt małym <i>h</i> wartości <code>f(x+h)</code> i <code>f(x)</code> stają się niemal identyczne. Ich odejmowanie powoduje <strong>catastrophic cancellation</strong> – tracimy większość cyfr znaczących, a wynik staje się zdominowany przez szum numeryczny. Istnieje <strong>optymalne h</strong> (rzędu √ε_machine, czyli ~10⁻⁸ dla double), poniżej którego błąd zaczyna <strong>rosnąć</strong>.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- ŹRÓDŁA                                                    -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 24px; border-top: 1px solid #dcdde1; padding-top: 12px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Źródła:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Numerical Recipes: The Art of Scientific Computing” (Press, Teukolsky, Vetterling, Flannery) ·
+                    Krysicki, Włodarski – „Analiza matematyczna w zadaniach” ·
+                    Heath – „Scientific Computing: An Introductory Survey” ·
+                    Manning – „Grokking Algorithms” (styl dydaktyczny)
+                </span>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Ciągłość = nie ma dziur. Różniczkowalność = nie ma kantów. Numeryka = wiesz, kiedy przestać zmniejszać <i>h</i>.</span>
+                </p>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
