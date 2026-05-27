@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 023 – Problematyka dziedziczenia</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">023. Problematyka dziedziczenia.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧬</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Dziedziczenie to „Drzewo genealogiczne, które może zamienić się w gąszcz”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #5d1a1a; line-height: 1.7;">
+                        Wyobraź sobie rodzinę, w której każde dziecko dziedziczy cechy po rodzicach. <strong>Dziedziczenie w programowaniu</strong> działa podobnie – klasa potomna automatycznie przejmuje pola i metody od klasy bazowej. To potężna oszczędność czasu: nie musisz na nowo wymyślać kół, tylko rozszerzasz istniejący mechanizm. Ale tak jak w rodzinie, zbyt skomplikowane koligacje prowadzą do konfliktów. Co, jeśli dziecko dziedziczy po dwóch rodzicach tę samą cechę? Która wersja jest właściwa? To słynny <strong>problem diamentu</strong>. A co, jeśli zmiana u dziadka nieoczekiwanie psuje zachowanie wszystkich potomków? To <strong>krucha klasa bazowa</strong>. Zamiast dziedziczyć wszystko z wielkiego przodka, często lepiej składać obiekty z mniejszych, niezależnych komponentów – jak budowanie z <strong>klocków Lego</strong> zamiast rzeźbienia z jednego pnia.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #5d1a1a; line-height: 1.8;">
+                        <li><strong>🔵 Dziedziczenie (inheritance)</strong> – mechanizm przejmowania pól i metod z klasy bazowej. Relacja „jest” (is-a).</li>
+                        <li><strong>🟠 Problem diamentu (diamond problem)</strong> – wielodziedziczenie prowadzące do niejednoznaczności, gdy dwa nadrzędne typy mają wspólnego przodka.</li>
+                        <li><strong>🟢 Krucha klasa bazowa (fragile base class)</strong> – zmiana w klasie bazowej nieoczekiwanie psuje działanie klas pochodnych.</li>
+                        <li><strong>🟣 Kompozycja zamiast dziedziczenia</strong> – relacja „ma” (has-a). Budujesz złożone obiekty z prostszych części, zamiast tworzyć długie łańcuchy dziedziczenia.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Dziedziczenie (inheritance)</span>
+            <span class="keyword-tag">Relacja „jest” (is-a)</span>
+            <span class="keyword-tag">Klasa bazowa / pochodna (parent/child)</span>
+            <span class="keyword-tag">Przesłanianie (overriding) / przeciążanie (overloading)</span>
+            <span class="keyword-tag">Problem diamentu (diamond problem)</span>
+            <span class="keyword-tag">Wielodziedziczenie (multiple inheritance)</span>
+            <span class="keyword-tag">Krucha klasa bazowa (fragile base class)</span>
+            <span class="keyword-tag">Interfejsy (interface) / klasy abstrakcyjne</span>
+            <span class="keyword-tag">Kompozycja zamiast dziedziczenia</span>
+            <span class="keyword-tag">Zasada Liskov (SOLID)</span>
+            <span class="keyword-tag">Virtual / override / abstract</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CZYM JEST DZIEDZICZENIE?                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Dziedziczenie – „Genetyczny spadek po przodkach”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Dziedziczenie</strong> to fundamentalny mechanizm programowania obiektowego, który pozwala nowej klasie (pochodnej, podklasie) automatycznie przejąć wszystkie pola i metody istniejącej klasy (bazowej, nadklasy). Klasa pochodna może dodawać nowe składowe oraz <strong>przesłaniać (override)</strong> metody odziedziczone, aby zmienić ich zachowanie. Kluczowa jest tu relacja <strong>„jest” (is-a)</strong>: Pies <em>jest</em> Zwierzęciem, więc klasa Pies może dziedziczyć po klasie Zwierzę.
+                </p>
+                <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Zasada podstawienia Liskov (LSP):</strong> Gdziekolwiek oczekujesz obiektu klasy bazowej, możesz bezpiecznie podstawić obiekt klasy pochodnej, nie psując poprawności programu. To jest test, czy Twoje dziedziczenie ma sens.
+                </div>
+            </div>
+
+            <!-- SVG: HIERARCHIA DZIEDZICZENIA -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridInh" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridInh)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Dziedziczenie – hierarchia „Zwierzę → Pies → Owczarek”</text>
+
+                <!-- Zwierzę -->
+                <rect x="310" y="50" width="200" height="50" rx="8" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="75" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Zwierzę</text>
+                <text x="410" y="92" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">+ oddychaj()</text>
+
+                <!-- Strzałki -->
+                <line x1="360" y1="100" x2="250" y2="140" stroke="#c62828" stroke-width="2"/>
+                <line x1="460" y1="100" x2="570" y2="140" stroke="#c62828" stroke-width="2"/>
+
+                <!-- Pies -->
+                <rect x="150" y="140" width="200" height="50" rx="8" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
+                <text x="250" y="165" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Pies</text>
+                <text x="250" y="182" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">+ szczekaj() (przesłania oddychaj?)</text>
+
+                <!-- Kot -->
+                <rect x="470" y="140" width="200" height="50" rx="8" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
+                <text x="570" y="165" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Kot</text>
+                <text x="570" y="182" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">+ miaucz()</text>
+
+                <!-- Podpis -->
+                <text x="410" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Pies i Kot „są” Zwierzętami. Dziedziczą oddychaj(), dodają własne metody.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: GŁÓWNE PROBLEMY DZIEDZICZENIA                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Główne problemy dziedziczenia – „Ciemna strona mocy”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Mimo swoich zalet, dziedziczenie niesie ze sobą poważne zagrożenia, które ujawniają się w dużych i ewoluujących systemach.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #bf360c;">
+                    <li><strong>Krucha klasa bazowa:</strong> zmiana w klasie bazowej (nawet pozornie niewinna) może złamać działanie wszystkich klas pochodnych. Twórca klasy bazowej musi przewidzieć, jak zostanie użyta – a to bardzo trudne.</li>
+                    <li><strong>Problem diamentu:</strong> przy wielodziedziczeniu klasa D dziedziczy od B i C, które obie dziedziczą od A. Powstaje pytanie: czy D ma jedną kopię danych z A, czy dwie? I która wersja metody z A obowiązuje?</li>
+                    <li><strong>Sztywne hierarchie:</strong> zbyt głębokie i sztywne drzewa dziedziczenia są trudne do modyfikacji, gdy wymagania biznesowe się zmienią. Próba wciśnięcia nowej klasy gdzieś pośrodku może wymagać przebudowy całej hierarchii.</li>
+                    <li><strong>Naruszenie hermetyzacji:</strong> klasa pochodna może mieć dostęp do chronionych (protected) składowych bazy, co tworzy silne sprzężenie między nimi.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: PROBLEM DIAMENTU – WIELODZIEDZICZENIE           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Problem diamentu (Diamond Problem) – „Którędy do przodka?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To najsłynniejszy problem związany z wielodziedziczeniem. Występuje, gdy dwie klasy (B i C) dziedziczą po tej samej klasie bazowej A, a następnie klasa D dziedziczy zarówno po B, jak i po C. Jeśli A posiada metodę <code>foo()</code>, to którą wersję widzi D? Przez B, czy przez C? Co, jeśli B i C przesłoniły <code>foo()</code> na różne sposoby? Różne języki rozwiązują ten problem różnie.
+                </p>
+            </div>
+
+            <!-- SVG: DIAGRAM DIAMENTU -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridInh)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Problem diamentu – wielodziedziczenie klas A → B, C → D</text>
+
+                <!-- Klasa A (góra) -->
+                <rect x="310" y="50" width="200" height="45" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="73" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">A</text>
+                <text x="410" y="88" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">+ foo()</text>
+
+                <!-- Strzałki do B i C -->
+                <line x1="360" y1="95" x2="250" y2="135" stroke="#8e24aa" stroke-width="2"/>
+                <line x1="460" y1="95" x2="570" y2="135" stroke="#8e24aa" stroke-width="2"/>
+
+                <!-- Klasa B (lewo) -->
+                <rect x="150" y="140" width="200" height="45" rx="8" fill="#ce93d8" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="250" y="163" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">B</text>
+                <text x="250" y="178" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">+ foo() // nadpisana</text>
+
+                <!-- Klasa C (prawo) -->
+                <rect x="470" y="140" width="200" height="45" rx="8" fill="#ce93d8" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="570" y="163" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">C</text>
+                <text x="570" y="178" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">+ foo() // też nadpisana</text>
+
+                <!-- Strzałki do D -->
+                <line x1="250" y1="185" x2="360" y2="225" stroke="#7b1fa2" stroke-width="2"/>
+                <line x1="570" y1="185" x2="460" y2="225" stroke="#7b1fa2" stroke-width="2"/>
+
+                <!-- Klasa D (dół) -->
+                <rect x="310" y="230" width="200" height="40" rx="8" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="255" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">D</text>
+                <text x="410" y="268" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">Którą wersję foo() widzi? B::foo() czy C::foo()?</text>
+
+                <!-- Opis rozwiązań -->
+                <rect x="600" y="50" width="195" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="697" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Rozwiązania:</text>
+                <text x="697" y="98" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">C++: wirtualna baza (virtual)</text>
+                <text x="697" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Java: brak wielodziedziczenia klas (tylko interfejsy)</text>
+                <text x="697" y="138" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Python: MRO (C3 Linearization)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ROZWIĄZANIA W RÓŻNYCH JĘZYKACH                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Jak różne języki radzą sobie z problemami dziedziczenia?</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>⚙️ C++</strong><br>
+                        <span style="font-size:0.85rem;">Obsługuje wielodziedziczenie. Problem diamentu rozwiązuje przez <strong>wirtualne klasy bazowe</strong> (<code>virtual public A</code>) – wtedy D ma jedną kopię A. Bez tego – dwie kopie.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>☕ Java</strong><br>
+                        <span style="font-size:0.85rem;">Zabrania wielodziedziczenia klas (extends tylko jedna klasa). Oferuje <strong>interfejsy</strong> (implements wiele) – mają tylko deklaracje metod, nie ma konfliktu implementacji.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>🐍 Python</strong><br>
+                        <span style="font-size:0.85rem;">Obsługuje wielodziedziczenie. Problem diamentu rozwiązuje przez <strong>MRO (Method Resolution Order)</strong> – algorytm C3, który wyznacza jednoznaczną kolejność przeszukiwania klas.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: KOMPOZYCJA ZAMIAST DZIEDZICZENIA               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Kompozycja zamiast dziedziczenia – „Klocki Lego zamiast rzeźbienia”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zamiast budować głębokie hierarchie dziedziczenia, często lepiej jest tworzyć obiekty składające się z innych, mniejszych obiektów (relacja <strong>„ma” – has-a</strong>). Kompozycja jest elastyczniejsza: możesz wymieniać komponenty w czasie wykonania, nie tworzysz sztywnych zależności od implementacji bazowej, a testowanie jest łatwiejsze.
+                </p>
+                <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🧠 Złota rada Gang of Four:</strong> „Faworyzuj kompozycję nad dziedziczeniem”. Dziedzicz tylko wtedy, gdy naprawdę zachodzi relacja „jest” i jesteś pewien, że hierarchia będzie stabilna.
+                </div>
+            </div>
+
+            <!-- SVG: KOMPOZYCJA vs DZIEDZICZENIE -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridInh)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Dziedziczenie (is-a) vs Kompozycja (has-a)</text>
+
+                <!-- Panel lewy: Dziedziczenie -->
+                <rect x="30" y="50" width="350" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="205" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Dziedziczenie (is-a)</text>
+                <rect x="130" y="95" width="150" height="35" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="205" y="117" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">class Samochód {}</text>
+                <line x1="205" y1="130" x2="205" y2="145" stroke="#c62828" stroke-width="2" marker-end="url(#arrowDown)"/>
+                <rect x="130" y="150" width="150" height="35" rx="4" fill="#ef9a9a" stroke="#c62828" stroke-width="1"/>
+                <text x="205" y="172" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">class Tesla extends Samochód {}</text>
+                <text x="205" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Tesla JEST Samochodem. Sztywna hierarchia.</text>
+
+                <!-- Panel prawy: Kompozycja -->
+                <rect x="440" y="50" width="350" height="180" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
+                <text x="615" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#004d40">Kompozycja (has-a)</text>
+                <rect x="480" y="95" width="270" height="35" rx="4" fill="#b2dfdb" stroke="#00897b" stroke-width="1"/>
+                <text x="615" y="117" text-anchor="middle" font-family="monospace" font-size="11" fill="#004d40">class Tesla { Silnik s; Koła k; }</text>
+                <text x="615" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Tesla MA Silnik, MA Koła.</text>
+                <text x="615" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Elastyczne – łatwo wymienić komponenty.</text>
+                <text x="615" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Brak sztywnego związku z bazą.</text>
+
+                <defs>
+                    <marker id="arrowDown" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Konstruktory nie są dziedziczone</strong> w C++ i Javie (chyba że jawnie je wywołasz w liście inicjalizacyjnej). Klasa pochodna musi mieć własny konstruktor, który wywołuje konstruktor bazy.</li>
+                    <li><strong>Przesłanianie (override) ≠ przeciążanie (overload).</strong> Przesłanianie to ta sama sygnatura w podklasie. Przeciążanie to różne sygnatury w tej samej klasie.</li>
+                    <li><strong>W C++ metoda musi być wirtualna</strong> (<code>virtual</code>), aby polimorfizm działał przez wskaźnik/referencję do bazy. W Javie wszystkie niestatyczne metody są domyślnie wirtualne.</li>
+                    <li><strong>Dziedziczenie prywatne / protected</strong> – w C++ możesz zmienić widoczność odziedziczonych składowych. To rzadkość, ale warto wiedzieć.</li>
+                    <li><strong>Python MRO:</strong> <code>super()</code> w Pythonie podąża za kolejnością MRO, niekoniecznie wołając bezpośrednią klasę bazową. W diamentowej strukturze wywoła metodę z właściwej klasy zgodnie z C3.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – problematyka dziedziczenia:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Problem</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rozwiązania</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Krucha klasa bazowa</td>
+                        <td style="padding: 10px;">Zmiana w bazie psuje klasy pochodne</td>
+                        <td style="padding: 10px;">Zasada otwarte/zamknięte (SOLID), kompozycja</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Problem diamentu</td>
+                        <td style="padding: 10px;">Niejednoznaczność przy wielodziedziczeniu</td>
+                        <td style="padding: 10px;">virtual (C++), interfejsy (Java), MRO (Python)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Sztywne hierarchie</td>
+                        <td style="padding: 10px;">Trudność w modyfikacji drzewa klas</td>
+                        <td style="padding: 10px;">Kompozycja, interfejsy</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dziedziczenie to potężne narzędzie – jak młot pneumatyczny. W rękach mistrza buduje katedry, w rękach nowicjusza burzy ściany. Zanim narysujesz strzałkę od klasy A do B, zapytaj: czy B naprawdę JEST A? Czy nie lepiej, by B miało A jako swój składnik? Odpowiedź na to pytanie oszczędzi Ci wielu nieprzespanych nocy przy refaktoryzacji.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Design Patterns: Elements of Reusable Object-Oriented Software” (Gang of Four) · „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · Dokumentacje C++17, Java 17, Python 3.12.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
