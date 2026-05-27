@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 018 – Deklarowanie i definiowanie funkcji</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">018. Deklarowanie i definiowanie funkcji.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.12);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – Deklaracja to „Plakat reklamowy”, definicja to „Hala produkcyjna”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a5c; line-height: 1.7;">
+                        Wyobraź sobie, że funkcja to usługa oferowana przez fabrykę kodu. <strong>Deklaracja</strong> (zwana też prototypem) to plakat przed fabryką – mówi przechodniom (kompilatorowi): „Tu możesz zamówić usługę o nazwie X, potrzebujesz takich materiałów (parametry), a dostaniesz taki produkt (typ zwracany)”. <strong>Definicja</strong> to wnętrze fabryki – rzeczywiste maszyny i robotnicy (ciało funkcji), którzy wykonują pracę. Plakat nie wystarczy, żeby wyprodukować towar – potrzebujesz hali. W językach takich jak C i C++ to rozdzielenie jest fundamentalne, bo pozwala na ogromne projekty składające się z setek plików.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a5c; line-height: 1.8;">
+                        <li><strong>🔵 Deklaracja (prototyp)</strong> – mówi kompilatorowi: „Taka funkcja istnieje”. Zawiera nazwę, typ zwracany i typy parametrów.</li>
+                        <li><strong>🟠 Definicja</strong> – zawiera rzeczywiste ciało funkcji (kod do wykonania). Każda definicja jest jednocześnie deklaracją, ale nie odwrotnie.</li>
+                        <li><strong>🟢 Pliki nagłówkowe (.h)</strong> – katalogi usług pełne deklaracji. Pliki źródłowe (.c) – hale produkcyjne z definicjami.</li>
+                        <li><strong>🟣 Zasada pojedynczej definicji (ODR)</strong> – możesz rozwiesić wiele identycznych plakatów (deklaracji), ale halę produkcyjną (definicję) musisz mieć dokładnie jedną.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Deklaracja funkcji (function declaration / prototype)</span>
+            <span class="keyword-tag">Definicja funkcji (function definition)</span>
+            <span class="keyword-tag">Sygnatura (nazwa + typy parametrów)</span>
+            <span class="keyword-tag">Plik nagłówkowy (.h) vs źródłowy (.c)</span>
+            <span class="keyword-tag">Zasada ODR (One Definition Rule)</span>
+            <span class="keyword-tag">Parametr formalny vs aktualny</span>
+            <span class="keyword-tag">Argumenty domyślne (default args)</span>
+            <span class="keyword-tag">Przeciążanie funkcji (overloading)</span>
+            <span class="keyword-tag">Dyrektywy preprocesora (#ifndef, #include)</span>
+            <span class="keyword-tag">Kompilacja wieloplikowa / linkowanie</span>
+            <span class="keyword-tag">Interfejs API</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: DEKLARACJA vs DEFINICJA – ESENCJA               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Deklaracja vs Definicja – „Plakat i fabryka”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W C/C++ oddzielenie <strong>deklaracji</strong> od <strong>definicji</strong> jest świadomym wyborem projektowym, który umożliwia kompilację wieloplikową i ukrywanie implementacji. Deklaracja to obietnica, że funkcja istnieje – definicja to jej spełnienie.
+                </p>
+            </div>
+
+            <!-- SVG: DEKLARACJA vs DEFINICJA – GRAFIKA PORÓWNAWCZA -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridFunc" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridFunc)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Deklaracja (plakat) vs Definicja (hala produkcyjna) w C/C++</text>
+
+                <!-- Plakat (deklaracja) -->
+                <rect x="40" y="55" width="330" height="250" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="205" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">📢 Deklaracja (prototyp)</text>
+                <text x="205" y="102" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">w pliku nagłówkowym (.h)</text>
+                <rect x="60" y="115" width="290" height="60" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="205" y="140" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">int dodaj(int a, int b);</text>
+                <text x="205" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">średnik na końcu – brak ciała!</text>
+                <text x="205" y="195" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Co daje kompilatorowi?</text>
+                <text x="205" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ Nazwę funkcji</text>
+                <text x="205" y="233" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ Typ zwracany (int)</text>
+                <text x="205" y="251" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ Typy i liczbę parametrów</text>
+                <text x="205" y="269" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✗ Ale NIE wie, jak działa!</text>
+
+                <!-- Strzałka -->
+                <path d="M 380 180 L 440 180" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowDecl)"/>
+                <text x="410" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">obiecywać</text>
+                <text x="410" y="195" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">≠ definiować</text>
+
+                <!-- Hala (definicja) -->
+                <rect x="450" y="55" width="330" height="250" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="615" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">🏭 Definicja (implementacja)</text>
+                <text x="615" y="102" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">w pliku źródłowym (.c)</text>
+                <rect x="470" y="115" width="290" height="80" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="615" y="138" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">int dodaj(int a, int b) {</text>
+                <text x="615" y="158" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">    return a + b;</text>
+                <text x="615" y="178" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">}</text>
+                <text x="615" y="210" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Co zawiera?</text>
+                <text x="615" y="230" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ Nagłówek (jak w deklaracji)</text>
+                <text x="615" y="248" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ Ciało funkcji (w nawiasach { })</text>
+                <text x="615" y="266" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✓ To jest jedna, jedyna implementacja</text>
+
+                <defs>
+                    <marker id="arrowDecl" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: PLIKI .h i .c – PRAKTYCZNY SCHEMAT              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Struktura wieloplikowa – „Katalog usług i hale produkcyjne”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W profesjonalnych projektach C/C++ deklaracje funkcji (oraz definicje typów, makr, stałych) umieszcza się w <strong>plikach nagłówkowych (.h)</strong>. Definicje funkcji trafiają do <strong>plików źródłowych (.c, .cpp)</strong>. Inne pliki dołączają nagłówki przez <code>#include</code>, co daje im dostęp do obietnic. Linker na końcu łączy wszystkie hale w jeden spójny program.
+                </p>
+                <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Zasada ODR (One Definition Rule):</strong> Definicja funkcji (lub zmiennej globalnej) może wystąpić w całym programie <strong>tylko raz</strong>. Deklaracje mogą być powtarzane dowolnie wiele razy.
+                </div>
+            </div>
+
+            <!-- SVG: DIAGRAM WIELOPLIKOWEJ KOMPILACJI -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridFunc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Struktura projektu C – pliki nagłówkowe i źródłowe</text>
+
+                <!-- math.h -->
+                <rect x="40" y="55" width="230" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="155" y="78" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#0d47a1">math.h</text>
+                <text x="155" y="98" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">int dodaj(int a, int b);</text>
+                <text x="155" y="115" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">int odejmij(int a, int b);</text>
+                <text x="155" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Plakat – deklaracje</text>
+
+                <!-- math.c -->
+                <rect x="40" y="170" width="230" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="155" y="193" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#1b5e20">math.c</text>
+                <text x="155" y="213" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">#include "math.h"</text>
+                <text x="155" y="233" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">int dodaj(...){ return a+b; }</text>
+                <text x="155" y="258" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Hala – definicje</text>
+
+                <!-- main.c -->
+                <rect x="310" y="170" width="230" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="425" y="193" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#b71c1c">main.c</text>
+                <text x="425" y="213" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">#include "math.h"</text>
+                <text x="425" y="233" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">int main(){ dodaj(2,3); }</text>
+                <text x="425" y="258" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Klient – używa deklaracji</text>
+
+                <!-- Strzałki kompilacji i linkowania -->
+                <path d="M 270 195 L 305 195" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="287" y="188" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#78909c">linker</text>
+
+                <path d="M 155 155 L 155 165" fill="none" stroke="#546e7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="170" y="160" font-family="sans-serif" font-size="9" fill="#78909c">#include</text>
+
+                <!-- Wynik – plik wykonywalny -->
+                <rect x="580" y="100" width="200" height="70" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="680" y="130" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c">program.exe</text>
+                <text x="680" y="152" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6a1b9a">(połączony kod maszynowy)</text>
+                <path d="M 540 195 L 680 170" fill="none" stroke="#7b1fa2" stroke-width="1.5" stroke-dasharray="4,3"/>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: PARAMETRY FORMALNE vs AKTUALNE, DOMYŚLNE       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Parametry – „Materiały do produkcji”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Parametry formalne</strong> (w deklaracji/definicji) to nazwy zastępcze dla danych, które funkcja otrzyma. <strong>Parametry aktualne</strong> (argumenty) to konkretne wartości przekazane przy wywołaniu. Niektóre języki (C++, Python) pozwalają na <strong>argumenty domyślne</strong> – jeśli klient nie poda materiału, fabryka użyje standardowego.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#6a1b9a;">Domyślne (C++, Python)</strong><br>
+                        <code>int potega(int x, int wykl=2) { … }</code><br>
+                        <span style="font-size:0.85rem;">Wywołanie: potega(5) → x=5, wykl=2. potega(5,3) → x=5, wykl=3.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#6a1b9a;">Przeciążanie (C++, Java)</strong><br>
+                        <code>int max(int a, int b);</code><br>
+                        <code>double max(double a, double b);</code><br>
+                        <span style="font-size:0.85rem;">Ta sama nazwa, różne typy/liczba parametrów. Kompilator wybiera właściwą wersję.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PORÓWNANIE C, PYTHON, JAVA                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Jak to wygląda w innych językach?</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🐍 Python</strong><br>
+                        <span style="font-size:0.9rem;">Brak oddzielnych deklaracji. <code>def nazwa(param):</code> jest jednocześnie deklaracją i definicją. Wszystko jest dynamiczne. Moduły przez <code>import</code>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>☕ Java</strong><br>
+                        <span style="font-size:0.9rem;">Wszystko jest metodą w klasie. Nagłówek metody to deklaracja. Ciało w { } to definicja. Interfejsy (<code>interface</code>) zawierają wyłącznie deklaracje.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>⚙️ C</strong><br>
+                        <span style="font-size:0.9rem;">Ścisłe rozdzielenie deklaracji (.h) i definicji (.c). Konieczność ochrony przed wielokrotnym dołączaniem (#ifndef).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: FUNKCJE A STOS WYWOŁAŃ (KRÓTKO)                -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.1rem; color: #c62828;">5. Jak działa wywołanie funkcji? – Stos wywołań</strong>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Przy wywołaniu funkcji tworzona jest <strong>ramka stosu</strong> zawierająca parametry aktualne, adres powrotu i zmienne lokalne. Gdy funkcja kończy działanie, ramka jest niszczona, a sterowanie wraca do miejsca wywołania.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Deklaracja ≠ definicja.</strong> W C możesz zadeklarować funkcję wiele razy, ale zdefiniować tylko raz. Brak definicji = błąd linkera.</li>
+                    <li><strong>W C deklaracja bez parametrów to (void), nie puste nawiasy!</strong> <code>int foo();</code> oznacza „nieokreślona liczba parametrów”, nie „zero parametrów”.</li>
+                    <li><strong>Nagłówki bez strażników:</strong> <code>#ifndef MATH_H</code> / <code>#define MATH_H</code> … <code>#endif</code> zapobiega wielokrotnemu dołączaniu.</li>
+                    <li><strong>Argumenty domyślne w C++ tylko od prawej!</strong> <code>int f(int a, int b=2, int c)</code> jest błędem. Domyślne muszą być na końcu.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – deklaracje i definicje:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Język</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Deklaracja</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Definicja</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Uwagi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">C</td>
+                        <td style="padding: 10px;"><code>int f(int a);</code> (.h)</td>
+                        <td style="padding: 10px;"><code>int f(int a) {…}</code> (.c)</td>
+                        <td style="padding: 10px;">Ścisłe rozdzielenie, ODR</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Python</td>
+                        <td style="padding: 10px;">–</td>
+                        <td style="padding: 10px;"><code>def f(a): …</code></td>
+                        <td style="padding: 10px;">Definicja = deklaracja</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Java</td>
+                        <td style="padding: 10px;">W interfejsie lub abstrakcyjna</td>
+                        <td style="padding: 10px;">W klasie, z ciałem</td>
+                        <td style="padding: 10px;">Wszystko wewnątrz klas</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Deklaracja to obietnica – mówisz kompilatorowi „zaufaj mi, ta funkcja istnieje”. Definicja to dowód – dostarczasz rzeczywistą implementację. Rozdzielając je, budujesz kod jak z klocków: wymienny, testowalny i czytelny.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The C Programming Language” (Kernighan, Ritchie) · „C++ Primer” (Lippman, Lajoie, Moo) · Dokumentacja ISO C11, ISO C++17.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
