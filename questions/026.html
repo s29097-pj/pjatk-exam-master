@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 026 – Realizacja wielozadaniowości w językach programowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">026. Realizacja wielozadaniowości w językach programowania.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">👥</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wielozadaniowość to „Wielu kucharzy w jednej kuchni”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie restaurację w godzinach szczytu. Jeśli masz tylko <strong>jednego kucharza</strong>, wszystkie zamówienia są realizowane po kolei – to <strong>program jednowątkowy</strong>. Zatrudniasz <strong>dwóch kucharzy</strong>, którzy pracują jednocześnie przy różnych stanowiskach – to <strong>współbieżność z wątkami (threads)</strong>. Muszą jednak dzielić między sobą ograniczone zasoby: jedną patelnię, jeden piekarnik, jedną zmywarkę. Jeśli dwóch kucharzy jednocześnie sięgnie po tę samą patelnię, powstaje chaos (wyścig – race condition). Potrzebujesz systemu rezerwacji zasobów – <strong>synchronizacji</strong>. Co więcej, niektórzy kucharze mogą <strong>czekać na dostawę składników</strong> – zamiast stać bezczynnie, mogą w tym czasie obierać ziemniaki (asynchroniczność). A jeśli kucharze zaczną czekać na siebie nawzajem (ja czekam na Twoją patelnię, Ty na mój piekarnik), kuchnia staje – to <strong>zakleszczenie (deadlock)</strong>.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Współbieżność (concurrency)</strong> – wielu kucharzy działa naprzemiennie, dzieląc czas. Nie muszą pracować fizycznie w tym samym momencie.</li>
+                        <li><strong>🟠 Równoległość (parallelism)</strong> – wielu kucharzy pracuje fizycznie jednocześnie na wielu rdzeniach procesora.</li>
+                        <li><strong>🟢 Asynchroniczność (asynchrony)</strong> – kucharz wysyła pomocnika po składniki i nie czeka bezczynnie – robi inne rzeczy, aż składniki dotrą.</li>
+                        <li><strong>🟣 Modele programowania</strong> – od niskopoziomowych wątków i muteksów, przez pule wątków i async/await, po model aktorów (każdy kucharz to izolowany aktor).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Współbieżność vs Równoległość</span>
+            <span class="keyword-tag">Wątek (Thread)</span>
+            <span class="keyword-tag">Proces vs Wątek</span>
+            <span class="keyword-tag">Sekcja krytyczna (Critical section)</span>
+            <span class="keyword-tag">Wyścig (Race condition)</span>
+            <span class="keyword-tag">Muteks / Semafory / Blokady</span>
+            <span class="keyword-tag">Zakleszczenie (Deadlock)</span>
+            <span class="keyword-tag">Pula wątków (Thread pool)</span>
+            <span class="keyword-tag">Async / Await (C#, Python, JS)</span>
+            <span class="keyword-tag">Model aktorów (Actor model)</span>
+            <span class="keyword-tag">GIL (Global Interpreter Lock – Python)</span>
+            <span class="keyword-tag">Fork / Join</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: WSPÓŁBIEŻNOŚĆ vs RÓWNOLEGŁOŚĆ                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">1. Współbieżność a równoległość – dwie różne historie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To rozróżnienie jest fundamentalne i często sprawdzane na egzaminach. <strong>Współbieżność (concurrency)</strong> dotyczy struktury programu – wiele zadań jest wykonywanych w tym samym okresie, ale niekoniecznie w tej samej chwili (np. przeplatanie na jednym rdzeniu). <strong>Równoległość (parallelism)</strong> to fizyczne wykonywanie wielu zadań jednocześnie na wielu rdzeniach CPU. Możesz mieć program współbieżny, ale nie równoległy (np. JavaScript na jednym wątku z pętlą zdarzeń) oraz program równoległy, ale nie współbieżny (np. przetwarzanie potokowe).
+                </p>
+                <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🧠 Zapamiętaj:</strong> Współbieżność = struktura (jak podzielić zadania). Równoległość = sprzęt (ile rdzeni). Program może być współbieżny na jednym rdzeniu, ale nie wykorzysta równoległości bez wielu rdzeni.
+                </div>
+            </div>
+
+            <!-- SVG: WSPÓŁBIEŻNOŚĆ vs RÓWNOLEGŁOŚĆ (OŚ CZASU) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridConc" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridConc)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Współbieżność (Concurrency) vs Równoległość (Parallelism)</text>
+
+                <!-- Współbieżność -->
+                <rect x="30" y="50" width="370" height="90" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#004d40">Współbieżność – jeden rdzeń, zadania przeplatane</text>
+                <rect x="50" y="88" width="50" height="18" rx="3" fill="#26a69a"/><text x="75" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">A</text>
+                <rect x="115" y="88" width="50" height="18" rx="3" fill="#4db6ac"/><text x="140" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">B</text>
+                <rect x="180" y="88" width="50" height="18" rx="3" fill="#26a69a"/><text x="205" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">A</text>
+                <rect x="245" y="88" width="50" height="18" rx="3" fill="#4db6ac"/><text x="270" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">B</text>
+                <rect x="310" y="88" width="50" height="18" rx="3" fill="#26a69a"/><text x="335" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">A</text>
+                <text x="215" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Oba zadania postępują, ale nie w tym samym momencie.</text>
+
+                <!-- Równoległość -->
+                <rect x="420" y="50" width="370" height="90" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Równoległość – dwa rdzenie, zadania jednoczesne</text>
+                <rect x="440" y="88" width="150" height="18" rx="3" fill="#66bb6a"/><text x="515" y="102" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">A (rdzeń 1)</text>
+                <rect x="440" y="110" width="150" height="18" rx="3" fill="#43a047"/><text x="515" y="124" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">B (rdzeń 2)</text>
+                <text x="605" y="145" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Oba zadania wykonują się fizycznie w tym samym czasie.</text>
+
+                <!-- Procesy vs Wątki -->
+                <rect x="130" y="170" width="560" height="80" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="410" y="195" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Procesy vs Wątki</text>
+                <text x="410" y="218" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Proces – izolowana przestrzeń adresowa, ciężki. Wątek – lekki, współdzieli pamięć procesu.</text>
+                <text x="410" y="238" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Wątki tego samego procesu dzielą kod, dane i deskryptory plików. Błąd jednego wątku może uszkodzić dane całego procesu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: PROBLEMY SYNCHRONIZACJI                         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Synchronizacja – „Kto może użyć patelni?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy wiele wątków współdzieli dane (np. zmienną globalną, kolekcję), powstaje <strong>wyścig (race condition)</strong> – wynik zależy od kolejności wykonania wątków. Aby temu zapobiec, definiujemy <strong>sekcje krytyczne</strong> – fragmenty kodu, które w danym momencie może wykonywać tylko jeden wątek. Mechanizmy synchronizacji:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #b71c1c;">
+                    <li><strong>Muteks (mutex)</strong> – zamek. Przed wejściem do sekcji krytycznej wątek blokuje zamek, po wyjściu odblokowuje. Inne czekają.</li>
+                    <li><strong>Semafory</strong> – uogólnione zamki. Pozwalają wejść N wątkom jednocześnie (np. ograniczenie liczby zapytań do bazy).</li>
+                    <li><strong>Zmienne warunkowe (condition variables)</strong> – wątek czeka na sygnał od innego wątku (np. „bufor ma dane”).</li>
+                    <li><strong>Operacje atomowe</strong> – sprzętowo niepodzielne inkrementacje (np. <code>std::atomic</code> w C++).</li>
+                </ul>
+            </div>
+
+            <!-- SVG: SEKCJA KRYTYCZNA I MUTEKS -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridConc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Muteks – zamek chroniący sekcję krytyczną</text>
+
+                <!-- Wątek A -->
+                <rect x="50" y="55" width="160" height="50" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="130" y="78" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">Wątek A</text>
+                <text x="130" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">lock(mutex)</text>
+
+                <!-- Strzałka do sekcji -->
+                <path d="M 210 80 L 300 80" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowCrit)"/>
+
+                <!-- Sekcja krytyczna -->
+                <rect x="310" y="55" width="200" height="50" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="78" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">SEKCJA KRYTYCZNA</text>
+                <text x="410" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#b71c1c">modyfikacja shared_data</text>
+
+                <!-- Strzałka z sekcji -->
+                <path d="M 510 80 L 600 80" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowUnlock)"/>
+                <text x="555" y="73" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e7d32">unlock(mutex)</text>
+
+                <!-- Wątek B czekający -->
+                <rect x="610" y="55" width="160" height="50" rx="6" fill="#ef9a9a" stroke="#c62828" stroke-width="1"/>
+                <text x="690" y="78" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">Wątek B</text>
+                <text x="690" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">lock(mutex) – czeka</text>
+
+                <!-- Wizualizacja zamka -->
+                <rect x="360" y="155" width="100" height="50" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">🔒 ZAMEK</text>
+                <text x="410" y="195" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">mutex locked</text>
+
+                <defs>
+                    <marker id="arrowCrit" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrowUnlock" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ZAKLESZCZENIE (DEADLOCK)                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Zakleszczenie (Deadlock) – „Patowa sytuacja w kuchni”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zakleszczenie</strong> występuje, gdy dwa (lub więcej) wątki wzajemnie na siebie czekają, trzymając zasoby potrzebne drugiemu. Klasyczny scenariusz: wątek A trzyma zamek Z1 i czeka na Z2, podczas gdy wątek B trzyma Z2 i czeka na Z1. Żaden nie może kontynuować – program się zawiesza. Warunki konieczne do zakleszczenia (wszystkie cztery muszą być spełnione jednocześnie): wzajemne wykluczanie, trzymaj i czekaj, brak wywłaszczania, cykliczne oczekiwanie. Zapobieganie polega na wyeliminowaniu jednego z nich – np. zawsze blokowanie zamków w tej samej kolejności.
+                </p>
+            </div>
+
+            <!-- SVG: ZAKLESZCZENIE – DIAGRAM KOŁOWY -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridConc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Zakleszczenie (Deadlock) – cykliczne oczekiwanie</text>
+
+                <!-- Wątek A -->
+                <rect x="80" y="60" width="220" height="60" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="190" y="85" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100">Wątek A</text>
+                <text x="190" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#bf360c">Trzyma Zamek1 · Czeka na Zamek2</text>
+
+                <!-- Wątek B -->
+                <rect x="520" y="60" width="220" height="60" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="630" y="85" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100">Wątek B</text>
+                <text x="630" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#bf360c">Trzyma Zamek2 · Czeka na Zamek1</text>
+
+                <!-- Strzałki cyklu -->
+                <path d="M 190 120 Q 190 170 410 180 Q 630 170 630 120" fill="none" stroke="#c62828" stroke-width="2.5" marker-end="url(#arrowDead)"/>
+                <text x="410" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">Cykliczne oczekiwanie – oba czekają na siebie nawzajem</text>
+
+                <!-- Rozwiązanie -->
+                <rect x="150" y="140" width="100" height="25" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="200" y="157" text-anchor="middle" font-family="monospace" font-size="9" fill="#1b5e20">Zamek1</text>
+                <rect x="570" y="140" width="100" height="25" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="620" y="157" text-anchor="middle" font-family="monospace" font-size="9" fill="#1b5e20">Zamek2</text>
+
+                <defs>
+                    <marker id="arrowDead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: MODELE WIELOZADANIOWOŚCI W RÓŻNYCH JĘZYKACH    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Modele realizacji wielozadaniowości w różnych językach</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>⚙️ C++ (wątki, async, mutex)</strong><br>
+                        <span style="font-size:0.85rem;"><code>std::thread</code>, <code>std::mutex</code>, <code>std::lock_guard</code>, <code>std::async</code>, <code>std::future</code>. Pełna kontrola i odpowiedzialność. Równoległość na wielu rdzeniach.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>☕ Java (wątki, pule, synchronized)</strong><br>
+                        <span style="font-size:0.85rem;"><code>Thread</code>, <code>Runnable</code>, <code>ExecutorService</code> (pule wątków), <code>synchronized</code>, <code>Lock</code>, <code>ConcurrentHashMap</code>. Zaawansowane kolekcje współbieżne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🐍 Python (GIL, threading, asyncio)</strong><br>
+                        <span style="font-size:0.85rem;"><strong>GIL</strong> ogranicza równoległość w CPythonie. <code>threading</code> do zadań I/O, <code>multiprocessing</code> do CPU, <code>asyncio</code> do asynchroniczności kooperacyjnej.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: ASYNC / AWAIT – MODEL KOOPERACYJNY              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">5. Async / Await – „Nie blokuj, idź dalej”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W modelu asynchronicznym (C#, Python, JavaScript) zadania same oddają sterowanie (<code>await</code>), gdy czekają na I/O. Nie blokują wątku – ten może obsłużyć inne zadanie. To idealne dla serwerów z tysiącami połączeń. W Pythonie <code>asyncio</code> działa w jednym wątku, przełączając między korutynami (współprogramami). W przeciwieństwie do wątków, tutaj przełączenie zachodzi tylko w jawnie oznaczonych miejscach (<code>await</code>), co eliminuje wyścigi na poziomie przełączania (ale nie na danych współdzielonych!).
+                </p>
+            </div>
+
+            <!-- SVG: ASYNC AWAIT – PRZEPŁYW STEROWANIA -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridConc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Async / Await – nie blokuj, oddaj sterowanie</text>
+
+                <!-- Zadanie A -->
+                <rect x="40" y="55" width="200" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="140" y="75" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">Zadanie A: await fetch()</text>
+
+                <!-- Zadanie B -->
+                <rect x="40" y="100" width="200" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="140" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">Zadanie B: wykonuje się</text>
+
+                <!-- Opis -->
+                <rect x="300" y="55" width="480" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="540" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Gdy A czeka na I/O, oddaje sterowanie. B działa.</text>
+                <text x="540" y="105" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Gdy I/O się zakończy, A wznawia od miejsca await.</text>
+                <text x="540" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Jeden wątek obsługuje wiele zadań – idealne dla serwerów.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: MODEL AKTORÓW (ACTOR MODEL)                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">6. Model aktorów – „Każdy kucharz ma swój blat”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W modelu aktorów (znanym z Erlanga, Akka dla Javy/Scali) każdy wątek to <strong>izolowany aktor</strong>, który ma swoją prywatną skrzynkę na wiadomości. Aktory nie współdzielą pamięci – komunikują się wyłącznie przez wysyłanie sobie wiadomości. To eliminuje problemy z synchronizacją i wyścigi. Każdy aktor przetwarza wiadomości po kolei, jedno po drugim. Jeśli potrzebuje odpowiedzi od innego aktora, wysyła wiadomość i kontynuuje pracę (albo czeka na odpowiedź).
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: ZASTOSOWANIA I PORÓWNANIE MODELI               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">7. Kiedy czego użyć? – Porównanie modeli</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🔴 Wątki + blokady</strong><br>
+                        <span style="font-size:0.85rem;">Dla zadań CPU-bound, wymagających maksymalnej wydajności i kontroli. Ryzyko: wyścigi, zakleszczenia.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🔵 Async / Await</strong><br>
+                        <span style="font-size:0.85rem;">Dla zadań I/O-bound (sieć, dysk, bazy danych). Wysoka skalowalność, niski narzut. W Pythonie omija GIL.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🟢 Model aktorów</strong><br>
+                        <span style="font-size:0.85rem;">Dla systemów rozproszonych, gdzie izolacja i odporne na błędy komunikaty są ważniejsze niż wydajność surowej synchronizacji.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Współbieżność ≠ równoległość.</strong> Program może być współbieżny na jednym rdzeniu. Pytanie często brzmi: „Czy program współbieżny zawsze jest równoległy?” Odpowiedź: NIE.</li>
+                    <li><strong>GIL w Pythonie</strong> – tylko jeden wątek może wykonywać kod Pythona naraz. <code>threading</code> nie przyspieszy zadań CPU-bound, tylko I/O-bound.</li>
+                    <li><strong>Deadlock wymaga spełnienia 4 warunków jednocześnie</strong> – wzajemne wykluczanie, trzymaj i czekaj, brak wywłaszczania, cykliczne oczekiwanie. Wystarczy zlikwidować jeden.</li>
+                    <li><strong>Async/await nie oznacza wielowątkowości!</strong> W Pythonie i JavaScripcie to wciąż jeden wątek – przełączanie zachodzi tylko na <code>await</code>. Jeśli masz zadanie CPU-bound, zablokuje ono całą pętlę zdarzeń.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – wielozadaniowość:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Model</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zastosowanie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Główne ryzyko</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Języki</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Wątki + mutex</td>
+                        <td style="padding: 10px;">Zadania CPU-bound</td>
+                        <td style="padding: 10px;">Wyścigi, deadlock</td>
+                        <td style="padding: 10px;">C++, Java, Python</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Async / Await</td>
+                        <td style="padding: 10px;">Zadania I/O-bound</td>
+                        <td style="padding: 10px;">Blokowanie pętli zdarzeń</td>
+                        <td style="padding: 10px;">Python (asyncio), JS, C#</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Model aktorów</td>
+                        <td style="padding: 10px;">Systemy rozproszone</td>
+                        <td style="padding: 10px;">Przepełnienie skrzynki, kolejność</td>
+                        <td style="padding: 10px;">Erlang, Scala (Akka)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wielozadaniowość to sztuka organizacji pracy – czy to wielu wątków z blokadami, czy asynchronicznych korutyn, czy niezależnych aktorów. Każdy model ma swoją kuchnię, swoje zasady i swoje pułapki. Wybierz mądrze, a Twój program będzie działał szybko i stabilnie.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „C++ Concurrency in Action” (A. Williams) · „Java Concurrency in Practice” (B. Goetz) · Dokumentacja Python asyncio · Erlang/OTP documentation.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
