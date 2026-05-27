@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pytanie 027 – Zasady wytwarzania oprogramowania</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <div class="question-box">
+    <h2 id="q-title">027. Zasady wytwarzania oprogramowania w oparciu o SOLID, CQS, DRY, KISS.</h2>
+
+    <!-- ============================================================ -->
+    <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+    <!-- ============================================================ -->
+    <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #303f9f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(48,63,159,0.15);">
+      <div style="display: flex; align-items: flex-start; gap: 14px;">
+        <span style="font-size: 2.2rem; flex-shrink: 0;">🏛️</span>
+        <div>
+          <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zasady wytwarzania to „Kodeks mistrza rzemiosła”:</strong>
+          <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
+            Wyobraź sobie, że budujesz dom. Możesz postawić go "na oko", z przypadkowych materiałów, bez planu – będzie stał, dopóki nie przyjdzie pierwszy wiatr. Ale możesz też trzymać się sprawdzonego kodeksu budowlanego: fundamenty z żelbetu, ściany nośne w odpowiednich miejscach, instalacje w łatwo dostępnych kanałach. Ten dom przetrwa dekady, a każdy elektryk czy hydraulik od razu zrozumie, gdzie co jest. <strong>Zasady wytwarzania oprogramowania</strong> to właśnie taki kodeks dla programistów. <strong>SOLID</strong> to pięć zasad projektowania klas, które sprawiają, że kod jest odporny na zmiany. <strong>DRY</strong> (Don't Repeat Yourself) to święta wojna z powielaniem – każda reguła biznesowa powinna mieć jedno, autorytatywne źródło. <strong>KISS</strong> (Keep It Simple, Stupid) to modlitwa o prostotę – nie komplikuj, jeśli nie musisz. A <strong>CQS</strong> (Command-Query Separation) uczy, że pytanie (zapytanie) nie powinno zmieniać stanu, a rozkaz (polecenie) nie powinno nic zwracać – to jak rozdzielenie przycisku "sprawdź saldo" od przycisku "wypłać pieniądze".
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+    <!-- ============================================================ -->
+    <div class="keywords-box" style="margin-bottom: 28px;">
+      <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+      <span class="keyword-tag">SOLID</span>
+      <span class="keyword-tag">Single Responsibility (SRP)</span>
+      <span class="keyword-tag">Open/Closed (OCP)</span>
+      <span class="keyword-tag">Liskov Substitution (LSP)</span>
+      <span class="keyword-tag">Interface Segregation (ISP)</span>
+      <span class="keyword-tag">Dependency Inversion (DIP)</span>
+      <span class="keyword-tag">DRY (Don't Repeat Yourself)</span>
+      <span class="keyword-tag">KISS (Keep It Simple, Stupid)</span>
+      <span class="keyword-tag">CQS (Command-Query Separation)</span>
+      <span class="keyword-tag">CQRS (Command Query Responsibility Segregation)</span>
+      <span class="keyword-tag">Duplikacja wiedzy vs. kodu</span>
+      <span class="keyword-tag">Projektowanie czystego kodu</span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+    <!-- ============================================================ -->
+    <div id="q-content" class="answer-section">
+
+      <!-- ======================================================== -->
+      <!-- PART 1: SOLID – PIĘĆ FILARÓW ARCHITEKTURY               -->
+      <!-- ======================================================== -->
+      <div class="answer-step" style="margin-bottom: 24px;">
+        <strong style="font-size: 1.2rem; color: #303f9f;">1. SOLID – „Konstytucja obiektowości”</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          SOLID to akronim pięciu zasad, które pomagają tworzyć oprogramowanie łatwe w utrzymaniu, testowaniu i rozszerzaniu. Sformułowane przez Roberta C. Martina (Uncle Bob), stały się fundamentem współczesnej inżynierii oprogramowania.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 16px;">
+          <!-- SRP -->
+          <div style="background: #e8eaf6; border-radius: 10px; padding: 16px; border: 1px solid #7986cb;">
+            <strong style="color:#1a237e;">🔵 S – Single Responsibility</strong>
+            <p style="margin:4px 0; font-size:0.9rem;">Klasa powinna mieć tylko jeden powód do zmiany. Innymi słowy: odpowiedzialność jest spójna – dotyczy jednego aspektu systemu. Jeśli klasa przetwarza zamówienia i jednocześnie zajmuje się formatowaniem HTML – ma dwa powody do zmiany i jest zła.</p>
+            <p style="font-size:0.85rem; color:#3949ab;"><em>Cel: uniknąć efektu domina przy zmianach.</em></p>
+          </div>
+
+          <!-- OCP -->
+          <div style="background: #fff3e0; border-radius: 10px; padding: 16px; border: 1px solid #ffb74d;">
+            <strong style="color:#e65100;">🟠 O – Open/Closed</strong>
+            <p style="margin:4px 0; font-size:0.9rem;">Moduły powinny być otwarte na rozszerzenia, ale zamknięte na modyfikacje. Nową funkcjonalność dodajemy przez tworzenie nowego kodu (dziedziczenie, kompozycja, pluginy), nie przez grzebanie w istniejącym. Klasyczny przykład: polimorfizm zamiast łańcucha <code>if isinstance</code>.</p>
+          </div>
+
+          <!-- LSP -->
+          <div style="background: #e8f5e9; border-radius: 10px; padding: 16px; border: 1px solid #81c784;">
+            <strong style="color:#1b5e20;">🟢 L – Liskov Substitution</strong>
+            <p style="margin:4px 0; font-size:0.9rem;">Podtypy muszą być w pełni podstawialne w miejsce swoich typów bazowych, bez zmiany poprawności programu. Jeśli klasa Ptak ma metodę <code>leć()</code>, a Pingwin jej nie obsługuje i rzuca wyjątkiem – narusza LSP. Pingwin nie powinien dziedziczyć z Ptaka w tej hierarchii.</p>
+          </div>
+
+          <!-- ISP -->
+          <div style="background: #f3e5f5; border-radius: 10px; padding: 16px; border: 1px solid #ce93d8;">
+            <strong style="color:#6a1b9a;">🟣 I – Interface Segregation</strong>
+            <p style="margin:4px 0; font-size:0.9rem;">Wiele wyspecjalizowanych interfejsów jest lepsze niż jeden ogólny. Nie zmuszaj klienta do zależności od metod, których nie używa. Jeśli interfejs Urządzenie ma metody <code>drukuj()</code>, <code>skanuj()</code>, <code>faksuj()</code>, a skaner obsługuje tylko skanowanie – podziel na mniejsze interfejsy.</p>
+          </div>
+
+          <!-- DIP -->
+          <div style="background: #ffebee; border-radius: 10px; padding: 16px; border: 1px solid #ef9a9a;">
+            <strong style="color:#b71c1c;">🔴 D – Dependency Inversion</strong>
+            <p style="margin:4px 0; font-size:0.9rem;">Zależność od abstrakcji, nie od konkretów. Warstwa wysokopoziomowa nie powinna zależeć od niskopoziomowej – obie powinny zależeć od interfejsów. Nie <code>new EmailSender()</code>, tylko wstrzykiwanie zależności przez konstruktor: <code>class Zamowienie { constructor(sender: INotifier) {} }</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVG: SOLID – DIAGRAM WZAJEMNYCH ZALEŻNOŚCI (DIP) -->
+      <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <defs>
+          <pattern id="gridSol" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+        <rect x="0" y="0" width="820" height="180" fill="url(#gridSol)" opacity="0.4"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Dependency Inversion – odwrócenie zależności</text>
+
+        <!-- Zła zależność -->
+        <rect x="40" y="50" width="340" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+        <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Bez DIP (sztywne sprzężenie)</text>
+        <rect x="170" y="85" width="80" height="25" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+        <text x="210" y="102" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">Warstwa wyższa</text>
+        <rect x="170" y="115" width="80" height="25" rx="4" fill="#ef9a9a" stroke="#c62828" stroke-width="1"/>
+        <text x="210" y="132" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">Warstwa niższa</text>
+        <line x1="210" y1="110" x2="210" y2="115" stroke="#c62828" stroke-width="2" marker-end="url(#arrowDown)"/>
+
+        <!-- Dobra zależność (DIP) -->
+        <rect x="440" y="50" width="340" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Z DIP (luźne sprzężenie)</text>
+        <rect x="500" y="85" width="100" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="550" y="102" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">INotifier (interfejs)</text>
+        <rect x="560" y="115" width="80" height="25" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1"/>
+        <text x="600" y="132" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">EmailSender</text>
+        <line x1="550" y1="110" x2="580" y2="115" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowImpl)"/>
+
+        <defs>
+          <marker id="arrowDown" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#c62828"/></marker>
+          <marker id="arrowImpl" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+        </defs>
+      </svg>
+
+      <!-- ======================================================== -->
+      <!-- PART 2: DRY – NIE POWTARZAJ SIĘ                        -->
+      <!-- ======================================================== -->
+      <div class="answer-step" style="margin-bottom: 20px;">
+        <strong style="font-size: 1.2rem; color: #e65100;">2. DRY (Don't Repeat Yourself) – „Święta wojna z powielaniem”</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Zasada DRY mówi, że <strong>każdy fragment wiedzy w systemie powinien mieć pojedynczą, jednoznaczną i autorytatywną reprezentację</strong>. Nie chodzi tylko o kopiowanie kodu – chodzi o powielanie logiki, reguł biznesowych, definicji. Jeśli zmiana jednego faktu wymaga modyfikacji w kilku miejscach, to narusza DRY. Jednak nie każdy podobny kod to powielenie – czasem to przypadkowa zbieżność, która nie powinna być łączona na siłę (to się nazywa <strong>unikanie fałszywej wspólności</strong>). Wzorce takie jak szablony, funkcje pomocnicze, czy reguły biznesowe wyciągnięte do osobnej biblioteki to realizacja DRY.
+        </p>
+      </div>
+
+      <!-- SVG: DRY – WYKRES KOŁOWY POWIELANIA -->
+      <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <rect x="0" y="0" width="820" height="200" fill="url(#gridSol)" opacity="0.3"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">DRY – jedno źródło prawdy (Single Source of Truth)</text>
+
+        <!-- Przed DRY -->
+        <rect x="40" y="50" width="340" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+        <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Powielona logika (zły wzorzec)</text>
+        <rect x="60" y="85" width="80" height="25" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+        <text x="100" y="102" text-anchor="middle" font-family="monospace" font-size="9" fill="#b71c1c">Podatek = 23%</text>
+        <rect x="160" y="85" width="80" height="25" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+        <text x="200" y="102" text-anchor="middle" font-family="monospace" font-size="9" fill="#b71c1c">Podatek = 23%</text>
+        <rect x="280" y="85" width="80" height="25" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+        <text x="320" y="102" text-anchor="middle" font-family="monospace" font-size="9" fill="#b71c1c">Podatek = 23%</text>
+        <text x="210" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">3 miejsca do zmiany!</text>
+
+        <!-- Po DRY -->
+        <rect x="440" y="50" width="340" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">DRY (dobry wzorzec)</text>
+        <rect x="530" y="85" width="160" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="610" y="102" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">const STAWKA = 0.23</text>
+        <text x="610" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">1 miejsce do zmiany!</text>
+      </svg>
+
+      <!-- ======================================================== -->
+      <!-- PART 3: KISS – PROSTOTA PONAD WSZYSTKO                -->
+      <!-- ======================================================== -->
+      <div class="answer-step" style="margin-bottom: 20px;">
+        <strong style="font-size: 1.2rem; color: #2e7d32;">3. KISS (Keep It Simple, Stupid) – „Nie komplikuj”</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Najprostsze rozwiązanie, które działa, jest prawie zawsze najlepsze. Unikaj przedwczesnej optymalizacji i nadmiernego inżynieringu (over-engineering). Nie implementuj dziedziczenia i polimorfizmu, gdy wystarczy zwykła instrukcja <code>if</code>. Nie rób fabryk abstrakcyjnych, gdy potrzebujesz tylko jednego obiektu. Piękno KISS polega na tym, że prosty kod łatwiej zrozumieć, testować i modyfikować. Złożoność dodaje się warstwami, tylko tam gdzie to konieczne – nigdy na zapas.
+        </p>
+      </div>
+
+      <!-- SVG: KISS – PORÓWNANIE ZŁOŻONOŚCI -->
+      <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <rect x="0" y="0" width="820" height="200" fill="url(#gridSol)" opacity="0.3"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">KISS – prostota jest wyrafinowana</text>
+
+        <!-- Over-engineering -->
+        <rect x="40" y="50" width="340" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+        <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Nadmierne skomplikowanie</text>
+        <text x="210" y="100" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">IFactoryBuilder</text>
+        <text x="210" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">AbstractSingletonProxyFactoryBean</text>
+        <text x="210" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">Potrzebny był tylko prosty kalkulator...</text>
+
+        <!-- KISS -->
+        <rect x="440" y="50" width="340" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">KISS – proste rozwiązanie</text>
+        <text x="610" y="105" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">function dodaj(a, b) { return a + b; }</text>
+        <text x="610" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">Wystarczy jedna czysta funkcja.</text>
+      </svg>
+
+      <!-- ======================================================== -->
+      <!-- PART 4: CQS – COMMAND-QUERY SEPARATION                   -->
+      <!-- ======================================================== -->
+      <div class="answer-step" style="margin-bottom: 24px;">
+        <strong style="font-size: 1.2rem; color: #6a1b9a;">4. CQS (Command-Query Separation) – „Zapytaj albo zrób, nigdy oba”</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Zasada CQS (sformułowana przez Bertranda Meyera) dzieli metody obiektu na dwie kategorie:
+        </p>
+        <ul style="line-height: 1.9; padding-left: 24px; color: #4a148c;">
+          <li><strong>Zapytania (Queries)</strong> – zwracają dane i <strong>nie modyfikują stanu</strong> systemu. Nie mają efektów ubocznych. Możesz je wywoływać wielokrotnie bez obaw.</li>
+          <li><strong>Polecenia (Commands)</strong> – modyfikują stan, ale <strong>nie zwracają wartości</strong> (zwracają void lub informację o sukcesie/porażce, ale nie dane biznesowe).</li>
+        </ul>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Rozszerzeniem CQS jest <strong>CQRS (Command Query Responsibility Segregation)</strong> – wzorzec architektoniczny, gdzie modele do odczytu i zapisu są fizycznie rozdzielone (inne tabele, inne serwisy, często inne bazy danych). Stosowany w systemach o wysokiej skali, gdzie odczytów jest znacznie więcej niż zapisów.
+        </p>
+      </div>
+
+      <!-- SVG: CQS – PORÓWNANIE POPRAWNEGO I BŁĘDNEGO PODEJŚCIA -->
+      <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <rect x="0" y="0" width="820" height="220" fill="url(#gridSol)" opacity="0.3"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Command-Query Separation – separacja zapytań i poleceń</text>
+
+        <!-- Naruszenie CQS -->
+        <rect x="30" y="50" width="360" height="70" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+        <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Naruszenie CQS (efekt uboczny)</text>
+        <text x="210" y="98" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">stack.pop() -> zwraca element i zmienia stos</text>
+
+        <!-- Zgodność z CQS -->
+        <rect x="430" y="50" width="360" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+        <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Zgodność z CQS (czysta separacja)</text>
+        <text x="610" y="98" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">stack.top() – zwraca element / stack.pop() – usuwa, zwraca void</text>
+
+        <!-- CQRS Diagram -->
+        <rect x="130" y="145" width="560" height="55" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+        <text x="410" y="168" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">CQRS – rozdzielenie modeli zapisu i odczytu</text>
+        <text x="410" y="190" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Write Model (Commands) – baza normalizowana → Read Model (Queries) – baza zdenormalizowana</text>
+      </svg>
+
+      <!-- ======================================================== -->
+      <!-- PART 5: PODSUMOWANIE – ZŁOTA MYŚL PRZEWODNIA          -->
+      <!-- ======================================================== -->
+      <div class="answer-step" style="margin-bottom: 20px;">
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          SOLID, DRY, KISS i CQS to nie religia, ale drogowskazy. Mistrz rzemiosła wie, kiedy ich użyć, a kiedy można od nich odstąpić. W praktyce <strong>SOLID</strong> stosuje się przede wszystkim w rdzeniu systemu, gdzie stabilność ma kluczowe znaczenie. <strong>DRY</strong> jest świętością, dopóki nie prowadzi do zbyt silnych sprzężeń. <strong>KISS</strong> przypomina, że złożoność musi się opłacać. A <strong>CQS</strong> to potężny sojusznik w walce z niezrozumiałymi efektami ubocznymi.
+        </p>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+      <!-- ======================================================== -->
+      <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+        <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+        <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+          <li><strong>DRY to nie tylko kod.</strong> Chodzi o wiedzę. Dwa identyczne kawałki kodu mogą być różną wiedzą (np. ta sama formuła w dwóch niezależnych kontekstach) – nie łącz ich na siłę.</li>
+          <li><strong>Liskov nie dotyczy tylko klas.</strong> Dotyczy każdego kontraktu. Metoda przesłaniająca nie może zaostrzać warunków wstępnych ani osłabiać warunków końcowych.</li>
+          <li><strong>CQS a side-effecty:</strong> Getter, który modyfikuje stan (np. leniwa inicjalizacja), technicznie narusza CQS, ale jest akceptowalny, jeśli efekt uboczny jest niewidoczny dla klienta (np. cache).</li>
+          <li><strong>KISS a over-engineering:</strong> "Zróbmy na zapas" to najczęstsza przyczyna gulaszu architektonicznego. Projektuj na dziś, z myślą o jutrze, ale nie implementuj jutra.</li>
+        </ul>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- CHEAT-SHEET                                              -->
+      <!-- ======================================================== -->
+      <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+        <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Zasady wytwarzania oprogramowania:</strong>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <thead>
+          <tr style="background: #eceff1;">
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasada</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pełna nazwa</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Jednozdaniowy cel</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1a237e;">SRP</td>
+            <td style="padding: 10px;">Single Responsibility</td>
+            <td style="padding: 10px;">Jeden powód do zmiany.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1a237e;">OCP</td>
+            <td style="padding: 10px;">Open/Closed</td>
+            <td style="padding: 10px;">Otwarte na rozbudowę, zamknięte na modyfikację.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1a237e;">LSP</td>
+            <td style="padding: 10px;">Liskov Substitution</td>
+            <td style="padding: 10px;">Podtyp musi być w pełni zastępowalny.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1a237e;">ISP</td>
+            <td style="padding: 10px;">Interface Segregation</td>
+            <td style="padding: 10px;">Nie zmuszaj do implementowania nieużywanych metod.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1a237e;">DIP</td>
+            <td style="padding: 10px;">Dependency Inversion</td>
+            <td style="padding: 10px;">Zależności od abstrakcji, nie od konkretów.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #e65100;">DRY</td>
+            <td style="padding: 10px;">Don't Repeat Yourself</td>
+            <td style="padding: 10px;">Jedno źródło prawdy dla każdej wiedzy.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">KISS</td>
+            <td style="padding: 10px;">Keep It Simple, Stupid</td>
+            <td style="padding: 10px;">Prostota jest celem, złożoność środkiem ostatecznym.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">CQS</td>
+            <td style="padding: 10px;">Command-Query Separation</td>
+            <td style="padding: 10px;">Zapytanie nie modyfikuje, polecenie nie zwraca danych.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+      <!-- ======================================================== -->
+      <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+        <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+          🧠 <strong>Grokking means truly understanding.</strong><br>
+          <span style="font-size: 0.9rem; opacity: 0.85;">Zasady SOLID, DRY, KISS i CQS to Twój kodeks budowlany. Nie są celem samym w sobie – są środkiem do tworzenia kodu, który żyje długo i nie boli przy dotykaniu. Stosuj je mądrze, nie jak dogmat, a jak drogowskazy na drodze do mistrzostwa rzemiosła.</span>
+        </p>
+      </div>
+
+      <!-- ŹRÓDŁA -->
+      <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+        <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+        <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Clean Code” (Robert C. Martin) · „The Pragmatic Programmer” (Hunt, Thomas) · „Domain-Driven Design” (Eric Evans) · Dokumentacje C++, Java, Python.
+                </span>
+      </div>
+
+    </div><!-- /answer-section -->
+  </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
