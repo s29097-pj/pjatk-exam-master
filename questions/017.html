@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 017 – Zmienne w językach programowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">017. Zmienne w językach programowania.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zmienna to „Skrytka depozytowa z etykietą”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
+                        Wyobraź sobie ogromny magazyn danych – pamięć RAM Twojego komputera. <strong>Zmienna</strong> to Twoja osobista skrytka w tym magazynie. Ma unikalną <strong>etykietę (nazwę)</strong>, która pozwala Ci ją szybko znaleźć. Ma określony <strong>rozmiar (typ)</strong> – nie zmieścisz słonia do pudełka na liczby. <strong>Wartość</strong> to zawartość, którą włożyłeś. Możesz ją w każdej chwili wyjąć i zastąpić inną (chyba że skrytka jest zamknięta na klucz – wtedy to <strong>stała</strong>). Różne języki programowania to różne regulaminy magazynu – niektóre są bardzo surowe (C – sam zarządzasz kluczami i sprzątasz), inne oferują pełną obsługę (Python – magazynier pilnuje wszystkiego za Ciebie).
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a3000; line-height: 1.8;">
+                        <li><strong>🔵 Nazwa (identyfikator)</strong> – etykieta na skrytce. Musi być unikalna w swoim obszarze.</li>
+                        <li><strong>🟠 Typ danych</strong> – kształt i rozmiar pudełka. Decyduje, co można włożyć i ile miejsca zajmuje.</li>
+                        <li><strong>🟢 Wartość</strong> – aktualna zawartość skrytki. Można odczytać lub zastąpić.</li>
+                        <li><strong>🟣 Adres w pamięci</strong> – numer skrytki (szuflady). Wskaźniki i referencje to klucze do cudzych skrytek.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Zmienna (variable)</span>
+            <span class="keyword-tag">Deklaracja / definicja / inicjalizacja</span>
+            <span class="keyword-tag">Typ danych (data type)</span>
+            <span class="keyword-tag">Typowanie statyczne vs dynamiczne</span>
+            <span class="keyword-tag">Typowanie silne vs słabe</span>
+            <span class="keyword-tag">Zasięg (scope) – lokalny / globalny</span>
+            <span class="keyword-tag">Czas życia (lifetime) – stos / sterta</span>
+            <span class="keyword-tag">Stałe (const, final, readonly)</span>
+            <span class="keyword-tag">Przekazywanie przez wartość / referencję</span>
+            <span class="keyword-tag">Wskaźnik (pointer) / referencja</span>
+            <span class="keyword-tag">Identyfikator (nazwa)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CZYM JEST ZMIENNA?                               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Zmienna – „Skrytka z trzema atrybutami”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W każdym języku programowania <strong>zmienna</strong> to abstrakcja reprezentująca komórkę pamięci. Składa się z trzech fundamentalnych elementów: <strong>nazwy</strong> (identyfikatora), <strong>typu</strong> (określającego dozwolone wartości i operacje) oraz <strong>wartości</strong> (aktualnej zawartości). W zależności od języka i kontekstu zmienna może być też związana z konkretnym <strong>adresem w pamięci</strong>.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;">
+                    <div style="flex: 1; min-width: 200px; background: #fff8e1; border-radius: 8px; padding: 12px; border: 1px solid #ffb74d;">
+                        <strong>Deklaracja</strong><br>
+                        <span style="font-size:0.85rem; color:#e65100;">Mówi kompilatorowi o istnieniu zmiennej i jej typie. Np. <code>int x;</code> (C) – nie przypisuje wartości.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #fff8e1; border-radius: 8px; padding: 12px; border: 1px solid #ffb74d;">
+                        <strong>Definicja</strong><br>
+                        <span style="font-size:0.85rem; color:#e65100;">Rezerwuje pamięć. W Pythonie: <code>x = 5</code> (deklaracja + definicja + inicjalizacja naraz).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #fff8e1; border-radius: 8px; padding: 12px; border: 1px solid #ffb74d;">
+                        <strong>Inicjalizacja</strong><br>
+                        <span style="font-size:0.85rem; color:#e65100;">Pierwsze nadanie wartości. W C: <code>int x = 5;</code> Zmienne niezinicjalizowane w C to proszenie się o kłopoty.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: ZMIENNA JAKO PUDEŁKO Z ETYKIETĄ -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridVar" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridVar)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Zmienna jako skrytka depozytowa – trzy podstawowe cechy</text>
+
+                <!-- Pudełko zmiennej -->
+                <rect x="120" y="65" width="180" height="80" rx="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2.5"/>
+                <text x="210" y="95" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#e65100">42</text>
+                <text x="210" y="120" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">wartość (zawartość)</text>
+
+                <!-- Etykieta -->
+                <rect x="140" y="35" width="80" height="25" rx="4" fill="#ffcc80" stroke="#ef6c00" stroke-width="1"/>
+                <text x="180" y="52" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100">wiek</text>
+                <line x1="180" y1="60" x2="180" y2="65" stroke="#ef6c00" stroke-width="1.5"/>
+
+                <!-- Typ -->
+                <rect x="120" y="155" width="180" height="25" rx="4" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="210" y="172" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">int (typ: 4 bajty)</text>
+
+                <!-- Adres -->
+                <text x="210" y="200" text-anchor="middle" font-family="monospace" font-size="11" fill="#546e7a">adres: 0x7ffd2a4c</text>
+
+                <!-- Połączenia -->
+                <path d="M 300 105 L 400 70" fill="none" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                <!-- Panel z opisem nazwy -->
+                <rect x="410" y="45" width="370" height="55" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="595" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Nazwa (identyfikator)</text>
+                <text x="595" y="88" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Zasady: [a-zA-Z_][a-zA-Z0-9_]* · wielkość liter ma znaczenie (C, Python) · nie słowa kluczowe</text>
+
+                <rect x="410" y="115" width="370" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="595" y="138" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Inicjalizacja</text>
+                <text x="595" y="160" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">int wiek;        // C: wartość nieokreślona</text>
+                <text x="595" y="180" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">wiek = 42;       // C: przypisanie</text>
+                <text x="595" y="200" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">int wiek = 42;   // C: deklaracja + definicja + inicjalizacja</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: TYPY DANYCH I SYSTEMY TYPOWANIA                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Typy danych i systemy typowania – „Kształt pudełka i regulamin magazynu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Typ danych</strong> definiuje zbiór wartości, które zmienna może przechowywać, oraz operacje dozwolone na tych wartościach. System typowania języka określa, kiedy i jak rygorystycznie są sprawdzane typy.
+                </p>
+            </div>
+
+            <!-- SVG: PORÓWNANIE TYPOWANIA – STATYCZNE vs DYNAMICZNE, SILNE vs SŁABE -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridVar)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Systemy typowania – porównanie między językami</text>
+
+                <!-- Macierz 2x2: statyczne/dynamiczne × silne/słabe -->
+                <rect x="30" y="50" width="370" height="130" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Statyczne + Silne (Java, C++)</text>
+                <text x="215" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">int x = "hello"; // BŁĄD kompilacji</text>
+                <text x="215" y="125" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Typ sprawdzany w czasie kompilacji.</text>
+                <text x="215" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Nie można przypisać stringa do int.</text>
+
+                <rect x="420" y="50" width="370" height="130" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Dynamiczne + Silne (Python)</text>
+                <text x="605" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">x = 5; x = "hello" # OK!</text>
+                <text x="605" y="125" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Typ sprawdzany w czasie wykonania.</text>
+                <text x="605" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ale: 5 + "5" → TypeError (silne)</text>
+
+                <rect x="30" y="195" width="370" height="120" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="223" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Słabe typowanie (JavaScript, PHP)</text>
+                <text x="215" y="248" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">"5" + 2 → "52" (koercja)</text>
+                <text x="215" y="273" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Automatyczna konwersja typów.</text>
+                <text x="215" y="293" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Wygodne, ale ryzykowne (bugi!).</text>
+
+                <!-- Oś: statyczne vs dynamiczne -->
+                <text x="410" y="340" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#78909c">Oś pozioma: kiedy sprawdzany jest typ (kompilacja vs wykonanie) · Oś pionowa: jak rygorystycznie (silne vs słabe)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ZASIĘG I CZAS ŻYCIA ZMIENNYCH                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Zasięg (scope) i czas życia – „Które skrytki są dostępne i jak długo?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zasięg</strong> określa fragment kodu, w którym zmienna jest widoczna i może być użyta. <strong>Czas życia</strong> to okres od utworzenia zmiennej do jej zniszczenia (zwolnienia pamięci).
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong style="color:#1b5e20;">Lokalne (stos)</strong><br>
+                        <span style="font-size:0.9rem;">Wewnątrz funkcji/bloku. Tworzone przy wejściu, niszczone przy wyjściu. Szybkie, bezpieczne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong style="color:#1b5e20;">Globalne (segment danych)</strong><br>
+                        <span style="font-size:0.9rem;">Poza funkcjami, dostępne wszędzie. Żyją cały czas działania programu. Unikać w dużych projektach.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong style="color:#1b5e20;">Statyczne (static)</strong><br>
+                        <span style="font-size:0.9rem;">W C: zmienna lokalna, która zachowuje wartość między wywołaniami. W Javie: pole klasy (jedno dla całej klasy).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong style="color:#1b5e20;">Dynamiczne (sterta)</strong><br>
+                        <span style="font-size:0.9rem;">Tworzone przez malloc/new. Żyją aż do jawnego zwolnienia (C) lub usunięcia przez GC (Java, Python).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: STOS I STERTA – GDZIE ŻYJĄ ZMIENNE -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridVar)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Stos i sterta – gdzie mieszkają zmienne?</text>
+
+                <!-- Stos -->
+                <rect x="40" y="50" width="250" height="200" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="165" y="75" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Stos (stack)</text>
+                <rect x="55" y="85" width="220" height="25" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="165" y="102" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">int x = 5; (lokalna)</text>
+                <rect x="55" y="115" width="220" height="25" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="165" y="132" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">float pi = 3.14;</text>
+                <text x="165" y="170" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Automatyczne zarządzanie</text>
+                <text x="165" y="190" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Szybki dostęp (LIFO)</text>
+                <text x="165" y="210" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ograniczony rozmiar (~1-8 MB)</text>
+
+                <!-- Sterta -->
+                <rect x="530" y="50" width="250" height="200" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="655" y="75" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Sterta (heap)</text>
+                <rect x="545" y="85" width="220" height="25" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="655" y="102" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">int* p = malloc(…);</text>
+                <rect x="545" y="115" width="220" height="25" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="655" y="132" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">list = [1,2,3] (Python)</text>
+                <text x="655" y="170" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ręczne lub GC</text>
+                <text x="655" y="190" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Duża pojemność (GB)</text>
+                <text x="655" y="210" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Wolniejszy dostęp</text>
+
+                <!-- Strzałki wskaźników -->
+                <path d="M 370 100 L 530 100" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowHeap)"/>
+                <text x="450" y="93" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">wskaźnik →</text>
+
+                <defs>
+                    <marker id="arrowHeap" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PRZEKAZYWANIE PRZEZ WARTOŚĆ / REFERENCJĘ       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Przekazywanie przez wartość vs referencję – „Kopiowanie skrytki czy klucza?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy wywołujesz funkcję, argumenty można przekazać na dwa sposoby:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #4a148c;">
+                    <li><strong>Przez wartość:</strong> funkcja dostaje <strong>kopię</strong> wartości. Oryginał jest bezpieczny. Domyślnie w C, Javie (dla typów prymitywnych) i Pythonie (ale uwaga na mutowalne!).</li>
+                    <li><strong>Przez referencję:</strong> funkcja dostaje <strong>adres</strong> oryginalnej zmiennej. Modyfikacje wewnątrz funkcji zmieniają oryginał. W C – jawne wskaźniki (*). W C++ – referencje (&).</li>
+                </ul>
+            </div>
+
+            <!-- SVG: PRZEKAZYWANIE PRZEZ WARTOŚĆ vs REFERENCJĘ -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridVar)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Przekazywanie przez wartość vs przez referencję</text>
+
+                <!-- Przez wartość -->
+                <rect x="30" y="50" width="360" height="140" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Przez wartość (kopia)</text>
+                <rect x="60" y="90" width="60" height="35" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="90" y="113" text-anchor="middle" font-family="monospace" font-size="14" fill="#0d47a1">42</text>
+                <text x="130" y="110" font-family="sans-serif" font-size="14" fill="#546e7a">→</text>
+                <rect x="150" y="90" width="60" height="35" rx="4" fill="#90caf9" stroke="#1976d2" stroke-width="1"/>
+                <text x="180" y="113" text-anchor="middle" font-family="monospace" font-size="14" fill="#0d47a1">42</text>
+                <text x="130" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Funkcja dostaje kopię. Oryginał bez zmian.</text>
+
+                <!-- Przez referencję -->
+                <rect x="430" y="50" width="360" height="140" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Przez referencję / wskaźnik (adres)</text>
+                <rect x="460" y="90" width="60" height="35" rx="4" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="490" y="113" text-anchor="middle" font-family="monospace" font-size="14" fill="#bf360c">42</text>
+                <text x="530" y="110" font-family="sans-serif" font-size="14" fill="#546e7a">→</text>
+                <rect x="550" y="85" width="80" height="45" rx="4" fill="#ffcc80" stroke="#ef6c00" stroke-width="1"/>
+                <text x="590" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">adres:</text>
+                <text x="590" y="123" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">0x7ffd2a4c</text>
+                <text x="610" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Funkcja dostaje klucz do oryginału. Modyfikuje oryginał.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: STAŁE I NIEZMIENNIKI (IMMUTABLE)               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Stałe – „Zamknięta skrytka”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Stała</strong> to zmienna, której wartość nie może być zmieniona po inicjalizacji. W C: <code>const int x = 10;</code>. W Javie: <code>final int x = 10;</code>. W Pythonie konwencja: WIELKIE_LITERY = 10. Stałe zwiększają czytelność (zamiast „magic numbers”) i zapobiegają przypadkowym modyfikacjom.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Python: wszystko jest obiektem, wszystko jest referencją.</strong> <code>x = 5; y = x; y = 6</code> – x nadal 5 (int jest niemutowalny). Ale dla list: <code>a = [1]; b = a; b.append(2)</code> – a też się zmieniło!</li>
+                    <li><strong>C: zmienna niezainicjalizowana to śmieć.</strong> Nie ma domyślnego zera. Użycie takiej zmiennej to undefined behavior.</li>
+                    <li><strong>Java: typy prymitywne (int, char…) przekazywane przez wartość, obiekty – przez wartość referencji</strong>. Nie ma jawnego przekazywania przez referencję jak w C++.</li>
+                    <li><strong>Zmienne globalne:</strong> wygodne w małym skrypcie, ale w dużym projekcie to proszenie się o konflikty i trudne do debugowania błędy.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – zmienne w językach programowania:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">C</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Java</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Python</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Deklaracja</td>
+                        <td style="padding: 10px;"><code>int x;</code></td>
+                        <td style="padding: 10px;"><code>int x;</code> (prymityw) lub <code>String s;</code> (obiekt)</td>
+                        <td style="padding: 10px;"><code>x = 5</code> (dynamicznie typowane)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Typowanie</td>
+                        <td style="padding: 10px;">Statyczne, słabe</td>
+                        <td style="padding: 10px;">Statyczne, silne</td>
+                        <td style="padding: 10px;">Dynamiczne, silne</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Stała</td>
+                        <td style="padding: 10px;"><code>const int X = 10;</code> lub <code>#define X 10</code></td>
+                        <td style="padding: 10px;"><code>final int X = 10;</code></td>
+                        <td style="padding: 10px;">Konwencja: <code>X = 10</code> (WIELKIE_LITERY)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Przekazywanie</td>
+                        <td style="padding: 10px;">Domyślnie przez wartość. Przez wskaźnik: symulacja referencji.</td>
+                        <td style="padding: 10px;">Prymitywy: wartość. Obiekty: wartość referencji.</td>
+                        <td style="padding: 10px;">Wszystko przez referencję (ale uwaga na mutowalność!).</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Zmienna to nie tylko „szufladka na dane” – to kontrakt z językiem programowania, który mówi, co można do niej włożyć, skąd można się do niej dostać i jak długo będzie żyć. Znajomość tych reguł to podstawa bezpiecznego i wydajnego kodu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The C Programming Language” (Kernighan, Ritchie) · „Effective Java” (Bloch) · „Fluent Python” (Ramalho) · Dokumentacje języków C11, Java 17, Python 3.12.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
