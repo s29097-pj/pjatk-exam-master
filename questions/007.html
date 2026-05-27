@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 007 – Całka nieoznaczona i całka Riemanna</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">007. Całka nieoznaczona i całka Riemanna.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧩</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Całka jako „Śledczy i Geodeta”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że jedziesz samochodem i zapisujesz tylko wskazania prędkościomierza (pochodna drogi). <strong>Całka nieoznaczona</strong> to śledczy, który na podstawie tych danych odtwarza całą historię Twojej podróży – ale bez punktu startowego pozostaje niepewność (stąd stała <strong>+C</strong>). <strong>Całka Riemanna</strong> to geodeta, który mierzy pole pod wykresem prędkości, by precyzyjnie obliczyć całkowity przebyty dystans między dwoma chwilami.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Całka nieoznaczona</strong> – rodzina wszystkich funkcji pierwotnych. To „cofanie” pochodnej. Wynik to funkcja + C.</li>
+                        <li><strong>🟠 Całka Riemanna (oznaczona)</strong> – liczba. Pole pod krzywą między punktami <em>a</em> i <em>b</em>, obliczane przez sumowanie pól nieskończenie cienkich prostokątów.</li>
+                        <li><strong>🟢 Podstawowe twierdzenie rachunku całkowego</strong> – most łączący oba światy: całka oznaczona = różnica wartości funkcji pierwotnej na krańcach.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Funkcja pierwotna (Antiderivative)</span>
+            <span class="keyword-tag">Całka nieoznaczona ∫ f(x) dx</span>
+            <span class="keyword-tag">Stała całkowania +C</span>
+            <span class="keyword-tag">Całka oznaczona Riemanna</span>
+            <span class="keyword-tag">Suma Riemanna (lewa/prawa/środkowa)</span>
+            <span class="keyword-tag">Podstawowe twierdzenie rachunku całkowego (Newton-Leibniz)</span>
+            <span class="keyword-tag">Pole pod krzywą</span>
+            <span class="keyword-tag">Szerokość podziału Δx</span>
+            <span class="keyword-tag">Granica sumy całkowej</span>
+            <span class="keyword-tag">Zastosowania: praca, droga, środek ciężkości</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CAŁKA NIEOZNACZONA                               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Całka nieoznaczona – „Cofanie pochodnej”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Całka nieoznaczona</strong> (∫ f(x) dx) to operacja odwrotna do różniczkowania. Jej wynikiem jest <strong>rodzina funkcji pierwotnych F(x) + C</strong>, gdzie F'(x) = f(x). Stała C jest niezbędna, bo pochodna „zapomina” o stałym przesunięciu – funkcje x², x²+5, x²−100 mają tę samą pochodną 2x.
+                </p>
+                <div style="text-align: center; margin: 12px 0;">
+                    <code style="background:#e3f2fd; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">
+                        ∫ f(x) dx = F(x) + C &nbsp; ⇔ &nbsp; F'(x) = f(x)
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Geometrycznie całka nieoznaczona to <strong>cała rodzina krzywych</strong>, które różnią się jedynie przesunięciem pionowym. Każda z nich ma to samo nachylenie w każdym punkcie x.
+                </p>
+            </div>
+
+            <!-- SVG: RODZINA FUNKCJI PIERWOTNYCH -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridInt" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridInt)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Całka nieoznaczona – rodzina funkcji pierwotnych (przesunięcie o stałą C)</text>
+
+                <!-- Osie -->
+                <line x1="60" y1="200" x2="720" y2="200" stroke="#546e7a" stroke-width="2"/>
+                <line x1="80" y1="220" x2="80" y2="40" stroke="#546e7a" stroke-width="2"/>
+                <text x="80" y="35" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">y</text>
+                <text x="730" y="205" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">x</text>
+
+                <!-- Kilka krzywych F(x)=x²/2 + C (f(x)=x) -->
+                <path d="M 80 190 Q 200 160 400 90 Q 600 20 720 60" fill="none" stroke="#1565c0" stroke-width="3"/>
+                <text x="725" y="55" font-family="sans-serif" font-size="11" fill="#1565c0">C=+3</text>
+                <path d="M 80 160 Q 200 130 400 60 Q 600 -10 720 30" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                <text x="725" y="25" font-family="sans-serif" font-size="11" fill="#2e7d32">C=0</text>
+                <path d="M 80 130 Q 200 100 400 30 Q 600 -40 720 0" fill="none" stroke="#e65100" stroke-width="3"/>
+                <text x="725" y="-5" font-family="sans-serif" font-size="11" fill="#e65100">C=−3</text>
+
+                <!-- Punkt styczności i nachylenie (pokazanie tej samej pochodnej) -->
+                <circle cx="300" cy="115" r="5" fill="#ff6f00"/>
+                <line x1="240" y1="145" x2="360" y2="85" stroke="#ff6f00" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="360" y="80" font-family="sans-serif" font-size="10" fill="#ff6f00">styczna</text>
+
+                <text x="350" y="230" font-family="sans-serif" font-size="12" fill="#546e7a" text-anchor="middle">Wszystkie krzywe mają to samo nachylenie w każdym x (tę samą pochodną f(x)=x).</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: CAŁKA RIEMANNA – DEF. I INTUICJA                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Całka Riemanna – „Pole pod krzywą przez sumowanie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Chcemy obliczyć pole pod wykresem f(x) między x=a a x=b. Dzielimy przedział [a, b] na <strong>n</strong> podprzedziałów o szerokości Δx = (b−a)/n. W każdym wybieramy punkt ξᵢ i budujemy prostokąt o wysokości f(ξᵢ). Suma pól tych prostokątów to <strong>suma Riemanna</strong>.
+                </p>
+                <div style="text-align: center; margin: 12px 0;">
+                    <code style="background:#fff3e0; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">
+                        ∫ₐᵇ f(x) dx = lim<sub>n→∞</sub> Σ<sub>i=1</sub><sup>n</sup> f(ξᵢ) · Δx
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Gdy n → ∞ (Δx → 0), suma Riemanna dąży do <strong>całki oznaczonej</strong> – dokładnego pola pod krzywą. Wybór punktu ξᵢ wpływa na rodzaj sumy: lewa (ξᵢ = xᵢ₋₁), prawa (ξᵢ = xᵢ), środkowa (ξᵢ = (xᵢ₋₁+xᵢ)/2). Środkowa jest najdokładniejsza.
+                </p>
+            </div>
+
+            <!-- SVG: SUMY RIEMANNA – PORÓWNANIE LEWEJ, PRAWEJ, ŚRODKOWEJ -->
+            <svg viewBox="0 0 820 360" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="360" fill="url(#gridInt)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Sumy Riemanna – przybliżanie pola pod krzywą prostokątami</text>
+
+                <!-- Funkcja (łagodnie rosnąca krzywa) -->
+                <path d="M 60 280 Q 150 260 280 160 T 540 60 T 720 50" fill="none" stroke="#37474f" stroke-width="3" stroke-dasharray="6,3"/>
+                <text x="725" y="45" font-family="sans-serif" font-size="12" fill="#37474f">f(x)</text>
+
+                <!-- Osie -->
+                <line x1="60" y1="300" x2="720" y2="300" stroke="#546e7a" stroke-width="2"/>
+                <line x1="80" y1="320" x2="80" y2="30" stroke="#546e7a" stroke-width="2"/>
+                <text x="80" y="25" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">y</text>
+                <text x="730" y="305" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">x</text>
+                <text x="150" y="318" font-family="sans-serif" font-size="11" fill="#78909c">a</text>
+                <text x="620" y="318" font-family="sans-serif" font-size="11" fill="#78909c">b</text>
+
+                <!-- Prostokąty – lewa suma Riemanna (niedoszacowanie) -->
+                <rect x="150" y="190" width="80" height="110" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <rect x="230" y="135" width="80" height="165" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <rect x="310" y="100" width="80" height="200" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <rect x="390" y="72" width="80" height="228" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <rect x="470" y="60" width="80" height="240" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <rect x="550" y="55" width="80" height="245" fill="#42a5f5" opacity="0.6" stroke="#1565c0" stroke-width="1"/>
+                <text x="410" y="355" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">🔵 Lewa suma (niedoszacowanie dla funkcji rosnącej)</text>
+
+                <!-- Można by dodać kolejny panel dla prawej i środkowej, ale zmieszczę symbolicznie -->
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: PODSTAWOWE TWIERDZENIE RACHUNKU CAŁKOWEGO       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Twierdzenie Newtona-Leibniza – „Most między całkami”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To najważniejsze twierdzenie analizy matematycznej. Łączy całkę nieoznaczoną (funkcję pierwotną) z całką oznaczoną (polem). Jeśli znamy jakąkolwiek funkcję pierwotną F(x) dla f(x), to:
+                </p>
+                <div style="text-align: center; margin: 12px 0; background: #e8f5e9; padding: 15px; border-radius: 10px;">
+                    <code style="font-size:1.2rem; font-weight:bold; color:#1b5e20;">
+                        ∫ₐᵇ f(x) dx = F(b) − F(a)
+                    </code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    Nie musimy sumować nieskończenie wielu prostokątów – wystarczy znaleźć F(x), obliczyć jej wartość na krańcach i odjąć. <strong>Całka oznaczona to zmiana funkcji pierwotnej na przedziale.</strong> Stała C się odejmuje, dlatego znika.
+                </p>
+                <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
+                    <strong>🧠 Intuicja fizyczna:</strong> Jeśli f(t) to prędkość, a F(t) to położenie, to całka oznaczona od t₁ do t₂ to <strong>przemieszczenie</strong> – różnica położeń między tymi chwilami.
+                </div>
+            </div>
+
+            <!-- SVG: ILUSTRACJA TWIERDZENIA NEWTONA-LEIBNIZA -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridInt)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Twierdzenie Newtona-Leibniza: ∫ₐᵇ f(x) dx = F(b) − F(a)</text>
+
+                <!-- Wykres f(x) (krzywa) -->
+                <path d="M 100 220 Q 200 150 350 100 T 650 50" fill="none" stroke="#37474f" stroke-width="2.5"/>
+                <text x="655" y="45" font-family="sans-serif" font-size="13" fill="#37474f">f(x)</text>
+
+                <!-- Osie -->
+                <line x1="80" y1="230" x2="720" y2="230" stroke="#546e7a" stroke-width="2"/>
+                <line x1="80" y1="250" x2="80" y2="40" stroke="#546e7a" stroke-width="2"/>
+
+                <!-- Granice całkowania a i b -->
+                <line x1="150" y1="230" x2="150" y2="170" stroke="#1565c0" stroke-width="2"/>
+                <text x="150" y="245" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0">a</text>
+                <line x1="600" y1="230" x2="600" y2="95" stroke="#e65100" stroke-width="2"/>
+                <text x="600" y="245" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">b</text>
+
+                <!-- Zacieniony obszar (pole całki) -->
+                <path d="M 150 170 Q 250 120 350 100 T 600 95 L 600 230 L 150 230 Z" fill="#a5d6a7" opacity="0.5"/>
+                <text x="375" y="180" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Pole = F(b) − F(a)</text>
+
+                <!-- Strzałki pokazujące F(a) i F(b) na osi y -->
+                <text x="60" y="170" font-family="sans-serif" font-size="12" fill="#1565c0">F(a)</text>
+                <text x="60" y="95" font-family="sans-serif" font-size="12" fill="#e65100">F(b)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: WŁASNOŚCI CAŁKI OZNACZONEJ                       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Kluczowe własności całki oznaczonej</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
+                        <strong>Odwrócenie granic:</strong><br>
+                        <code>∫ₐᵇ f = − ∫ᵇₐ f</code>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
+                        <strong>Addytywność:</strong><br>
+                        <code>∫ₐᶜ f = ∫ₐᵇ f + ∫ᵇᶜ f</code> (dla a≤b≤c)
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
+                        <strong>Liniowość:</strong><br>
+                        <code>∫ (αf + βg) = α∫f + β∫g</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: CAŁKOWALNOŚĆ W SENSIE RIEMANNA                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Kiedy funkcja jest całkowalna w sensie Riemanna?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nie każda funkcja ma całkę Riemanna. Warunek konieczny: <strong>funkcja musi być ograniczona na przedziale [a, b] i mieć „niewiele” punktów nieciągłości</strong> (zbiór punktów nieciągłości musi być miary zero). Funkcje ciągłe na [a, b] są całkowalne. Funkcje z nieskończoną liczbą skoków (np. funkcja Dirichleta) – nie są.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: ZASTOSOWANIA INŻYNIERSKIE                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">6. Gdzie to się przydaje? – Całki w akcji</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🚗 Mechanika</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Droga = ∫ v(t) dt. Praca = ∫ F(x) dx. Moment bezwładności = ∫ r² dm.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>⚡ Elektronika</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Ładunek na kondensatorze Q = ∫ I(t) dt. Energia w cewce = ∫ P(t) dt.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>📊 Statystyka</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Prawdopodobieństwo = ∫ f(x) dx (pole pod gęstością). Wartość oczekiwana = ∫ x·f(x) dx.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🏗️ Wytrzymałość materiałów</strong><br>
+                        <span style="font-size: 0.9rem; color: #004d40;">Moment gnący = ∫ σ·y dA. Środek ciężkości = ∫ x dA / ∫ dA.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Nie zapominaj o +C w całce nieoznaczonej!</strong> To jeden z najczęstszych błędów – traci się połowę punktów.</li>
+                    <li><strong>Całka oznaczona to liczba, nieoznaczona to funkcja (rodzina).</strong> Nie myl zapisu i wyniku.</li>
+                    <li><strong>Ujemne pole:</strong> Jeśli funkcja przyjmuje wartości ujemne, całka oznaczona daje pole <strong>ze znakiem</strong>. Całkowite pole = ∫ |f(x)| dx.</li>
+                    <li><strong>Nie każda funkcja ma funkcję pierwotną wyrażalną przez funkcje elementarne</strong> (np. e<sup>−x²</sup>). Całka Riemanna istnieje, ale jej wynik to funkcja specjalna (erf).</li>
+                    <li><strong>Δx → 0 ale n → ∞</strong> – suma Riemanna dąży do całki tylko wtedy, gdy średnica podziału dąży do zera, a nie tylko liczba prostokątów rośnie.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Całki:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rodzaj całki</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zapis</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wynik</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Interpretacja</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Nieoznaczona</td>
+                        <td style="padding: 10px;">∫ f(x) dx</td>
+                        <td style="padding: 10px;">F(x) + C</td>
+                        <td style="padding: 10px;">Rodzina funkcji pierwotnych</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Oznaczona (Riemanna)</td>
+                        <td style="padding: 10px;">∫ₐᵇ f(x) dx</td>
+                        <td style="padding: 10px;">Liczba</td>
+                        <td style="padding: 10px;">Pole pod krzywą (ze znakiem)</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #37474f;">
+                    <strong>Podstawowe twierdzenie:</strong> ∫ₐᵇ f(x) dx = F(b) − F(a).<br>
+                    <strong>Suma Riemanna:</strong> Σ f(ξᵢ)Δx → ∫ₐᵇ f(x) dx przy n→∞.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Całka nieoznaczona cofa pochodną i zwraca rodzinę funkcji. Całka Riemanna mierzy pole pod krzywą przez sumowanie nieskończenie cienkich pasków. Twierdzenie Newtona-Leibniza spina je w jedno równanie.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Analiza matematyczna w zadaniach” (Krysicki, Włodarski) · „Calculus” (James Stewart) · Notatki własne z mechaniki i elektrotechniki.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
