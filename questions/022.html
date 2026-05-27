@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 022 – Zasady hermetyzacji</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">022. Zasady hermetyzacji.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔐</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #263238; display: block; margin-bottom: 6px;">💡 Aha! Moment – Hermetyzacja to „Sejf z klawiaturą, a nie otwarta półka”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2328; line-height: 1.7;">
+                        Wyobraź sobie <strong>bankomat</strong>. Z zewnątrz widzisz tylko elegancki panel: ekran, klawiaturę i otwór na kartę. To wszystko, z czym możesz wejść w interakcję – to <strong>interfejs publiczny</strong>. Nie masz dostępu do sejfu z gotówką, mechanizmu liczenia banknotów ani połączenia z bankiem – to <strong>wewnętrzna implementacja</strong>, szczelnie ukryta za stalową obudową. <strong>Hermetyzacja (enkapsulacja)</strong> w programowaniu działa dokładnie tak samo: ukrywa wewnętrzny stan obiektu i szczegóły jego działania, wystawiając na zewnątrz tylko bezpieczny, kontrolowany interfejs. Dzięki temu możesz zmienić mechanizm sortowania banknotów (poprawić implementację) bez obawy, że ktoś na zewnątrz przestanie móc wypłacać pieniądze (zepsuje się kod klienta).
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a2328; line-height: 1.8;">
+                        <li><strong>🔵 Ukrycie stanu (data hiding)</strong> – pola obiektu są prywatne. Nikt z zewnątrz nie może ich bezpośrednio zmodyfikować w niekontrolowany sposób.</li>
+                        <li><strong>🟠 Kontrolowany dostęp</strong> – publiczne metody (gettery, settery) pośredniczą w dostępie do pól. Mogą sprawdzać poprawność danych.</li>
+                        <li><strong>🟢 Separacja interfejsu od implementacji</strong> – zmiana wnętrza klasy nie wpływa na kod, który jej używa, o ile interfejs pozostaje taki sam.</li>
+                        <li><strong>🟣 Zwiększenie bezpieczeństwa i łatwości utrzymania</strong> – ograniczasz ryzyko przypadkowego popsucia stanu obiektu i zyskujesz swobodę refaktoryzacji.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Hermetyzacja (Encapsulation)</span>
+            <span class="keyword-tag">Ukrywanie danych (Data hiding)</span>
+            <span class="keyword-tag">Modyfikatory dostępu (private, protected, public)</span>
+            <span class="keyword-tag">Gettery (akcesory) / Settery (mutatory)</span>
+            <span class="keyword-tag">Interfejs publiczny</span>
+            <span class="keyword-tag">Implementacja prywatna</span>
+            <span class="keyword-tag">Niezmienniki (invariants)</span>
+            <span class="keyword-tag">Czarna skrzynka (black box)</span>
+            <span class="keyword-tag">Zasada najmniejszego uprzywilejowania</span>
+            <span class="keyword-tag">Python: name mangling (__)</span>
+            <span class="keyword-tag">Java: JavaBeans</span>
+            <span class="keyword-tag">SOLID – Open/Closed Principle</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: ISTOTA HERMETY ZACJI                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #455a64;">1. Istota hermetyzacji – „Sejf, nie półka”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Hermetyzacja</strong> to jedna z czterech fundamentalnych zasad programowania obiektowego (obok abstrakcji, dziedziczenia i polimorfizmu). Polega na <strong>ukryciu wewnętrznych danych obiektu</strong> przed nieuprawnionym dostępem z zewnątrz i udostępnieniu wyłącznie kontrolowanego interfejsu do manipulacji tymi danymi. To nie tylko techniczny trick – to filozofia projektowania: obiekt jest odpowiedzialny za własny stan i nie pozwala nikomu postawić go w niespójnej sytuacji.
+                </p>
+                <div style="background: #eceff1; border-left: 5px solid #455a64; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Złota zasada:</strong> Pola obiektu deklaruj jako <strong>prywatne</strong>. Udostępniaj je tylko przez <strong>publiczne metody</strong>, które mogą egzekwować reguły biznesowe (np. wiek nie może być ujemny, saldo nie może spaść poniżej zera bez zgody na debet).
+                </div>
+            </div>
+
+            <!-- SVG: WARSTWY HERMETYZACJI – BANKOMAT JAKO KLASA -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridEnc" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="320" fill="url(#gridEnc)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#263238">Hermetyzacja jako warstwy ochrony – bankomat (klasa Bankomat)</text>
+
+                <!-- Zewnętrzna skorupa (interfejs publiczny) -->
+                <rect x="120" y="50" width="280" height="240" rx="12" fill="#cfd8dc" stroke="#546e7a" stroke-width="3"/>
+                <text x="260" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#263238">Interfejs publiczny</text>
+                <line x1="135" y1="90" x2="385" y2="90" stroke="#90a4ae" stroke-width="1.5"/>
+
+                <!-- Przyciski publiczne -->
+                <rect x="145" y="105" width="230" height="30" rx="5" fill="#fff" stroke="#546e7a" stroke-width="1"/>
+                <text x="260" y="125" text-anchor="middle" font-family="monospace" font-size="12" fill="#263238">+ wyplac(kwota): bool</text>
+                <rect x="145" y="145" width="230" height="30" rx="5" fill="#fff" stroke="#546e7a" stroke-width="1"/>
+                <text x="260" y="165" text-anchor="middle" font-family="monospace" font-size="12" fill="#263238">+ sprawdzSaldo(): double</text>
+                <rect x="145" y="185" width="230" height="30" rx="5" fill="#fff" stroke="#546e7a" stroke-width="1"/>
+                <text x="260" y="205" text-anchor="middle" font-family="monospace" font-size="12" fill="#263238">+ zmienPIN(stary, nowy): bool</text>
+
+                <!-- Wnętrze (prywatne) -->
+                <rect x="155" y="230" width="210" height="45" rx="6" fill="#ef9a9a" stroke="#c62828" stroke-width="2" stroke-dasharray="5,4"/>
+                <text x="260" y="250" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">− saldo: double</text>
+                <text x="260" y="266" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">− numerPIN: string</text>
+
+                <!-- Opisy po bokach -->
+                <rect x="450" y="60" width="320" height="80" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="610" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Z zewnątrz (klient klasy)</text>
+                <text x="610" y="108" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Widzisz tylko metody publiczne.</text>
+                <text x="610" y="125" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Nie wiesz, jak zaimplementowano saldo.</text>
+
+                <rect x="450" y="180" width="320" height="80" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                <text x="610" y="205" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Wewnątrz (implementacja)</text>
+                <text x="610" y="228" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Pola prywatne – niedostępne bezpośrednio.</text>
+                <text x="610" y="245" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Możesz zmienić implementację bez wpływu na klientów.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: MODYFIKATORY DOSTĘPU                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Modyfikatory dostępu – „Klucze do sejfu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Większość języków obiektowych udostępnia mechanizmy do jawnego określania, kto ma dostęp do poszczególnych składowych klasy.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">🔒 Private (prywatny)</strong><br>
+                        <span style="font-size:0.9rem;">Dostęp tylko z wnętrza tej samej klasy. Nawet dziedziczące klasy nie mają dostępu (w C++ jest słowo <code>protected</code> dla podklas).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🔐 Protected (chroniony)</strong><br>
+                        <span style="font-size:0.9rem;">Dostęp w klasie i jej podklasach. W C++ także w funkcjach zaprzyjaźnionych. W Javie także w tym samym pakiecie.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong style="color:#1b5e20;">🌍 Public (publiczny)</strong><br>
+                        <span style="font-size:0.9rem;">Dostęp z dowolnego miejsca w programie. To jest Twój oficjalny interfejs – obiecujesz, że będzie stabilny i bezpieczny.</span>
+                    </div>
+                </div>
+                <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;">
+                    <strong>Python</strong> nie ma ścisłych modyfikatorów – opiera się na <strong>konwencji</strong>: <code>_pole</code> (chronione, nie ruszaj) i <code>__pole</code> (prywatne, name mangling zmienia nazwę na <code>_NazwaKlasy__pole</code>).
+                </p>
+            </div>
+
+            <!-- SVG: MODYFIKATORY DOSTĘPU – DIAGRAM WARSTW -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridEnc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Modyfikatory dostępu – warstwy widoczności</text>
+
+                <!-- Koncentryczne okręgi -->
+                <circle cx="410" cy="170" r="150" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="40" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Public – wszyscy</text>
+                <circle cx="410" cy="170" r="100" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">Protected – klasa i podklasy</text>
+                <circle cx="410" cy="170" r="50" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Private</text>
+                <text x="410" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">tylko klasa</text>
+
+                <!-- Strzałki z zewnątrz -->
+                <text x="80" y="100" font-family="sans-serif" font-size="11" fill="#546e7a">Kod klienta</text>
+                <path d="M 150 100 L 250 130" fill="none" stroke="#546e7a" stroke-width="1.5" marker-end="url(#arrowPub)"/>
+                <text x="80" y="220" font-family="sans-serif" font-size="11" fill="#546e7a">Podklasa</text>
+                <path d="M 150 220 L 300 195" fill="none" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrowProt)"/>
+
+                <defs>
+                    <marker id="arrowPub" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowProt" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef6c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: GETTERY I SETTERY                                -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Gettery i settery – „Kontrolowane okienko kasjera”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Getter (akcesor)</strong> to publiczna metoda zwracająca wartość prywatnego pola. <strong>Setter (mutator)</strong> to metoda ustawiająca wartość pola, często z walidacją. Pozwalają one na dodanie logiki przy dostępie do danych – np. sprawdzenie, czy wypłacana kwota nie przekracza salda, albo czy ustawiany wiek jest dodatni.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#4a148c;">Bez hermetyzacji</strong><br>
+                        <code style="font-size:0.85rem;">obiekt.wiek = -5; // OK, ale bez sensu!</code><br>
+                        <span style="font-size:0.85rem; color:#c62828;">Pole publiczne – każdy może ustawić byle co.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#4a148c;">Z hermetyzacją</strong><br>
+                        <code style="font-size:0.85rem;">obiekt.setWiek(-5); // rzuca wyjątek!</code><br>
+                        <span style="font-size:0.85rem; color:#2e7d32;">Setter sprawdza poprawność przed zapisem.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ZALETY HERM ETYZACJI                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Dlaczego hermetyzacja jest tak ważna?</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🛡️ Ochrona niezmienników</strong><br>
+                        <span style="font-size:0.9rem;">Obiekt nigdy nie znajdzie się w stanie sprzecznym. Np. data zawsze ma dzień 1-31, miesiąc 1-12.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🔧 Swoboda refaktoryzacji</strong><br>
+                        <span style="font-size:0.9rem;">Zmiana wewnętrznej reprezentacji (np. z tablicy na listę) nie wymaga zmian w kodzie klientów.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🧩 Modularność</strong><br>
+                        <span style="font-size:0.9rem;">Kod staje się czarną skrzynką – łatwiejszą do zrozumienia, testowania i ponownego użycia.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: HERM ETYZACJA W RÓŻNYCH JĘZYKACH               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Hermetyzacja w praktyce – różne języki, różne narzędzia</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong>C++</strong><br>
+                        <code style="font-size:0.85rem;">private:, protected:, public:</code><br>
+                        <span style="font-size:0.85rem;">Domyślny dostęp dla klas: private.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong>Java</strong><br>
+                        <code style="font-size:0.85rem;">private, protected, public</code><br>
+                        <span style="font-size:0.85rem;">Dodatkowo: dostęp pakietowy (brak modyfikatora).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong>Python</strong><br>
+                        <span style="font-size:0.85rem;">Konwencja: <code>_chronione</code>, <code>__prywatne</code><br>Dekorator @property – pythoniczne gettery/settery.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Hermetyzacja ≠ tylko gettery i settery.</strong> Prawdziwa hermetyzacja to ukrywanie zachowania, nie tylko pól. Czasem lepiej dać metodę <code>wyplac()</code> niż getter do salda i setter do salda.</li>
+                    <li><strong>Python: <code>__pole</code> to nie „nietykalne”.</strong> Name mangling zmienia nazwę, ale dostęp jest nadal możliwy (przez <code>_NazwaKlasy__pole</code>). To tylko konwencja zabezpieczająca przed przypadkowym przesłonięciem w podklasach.</li>
+                    <li><strong>Zwracanie referencji do prywatnego obiektu mutowalnego</strong> (np. listy) przez getter łamie hermetyzację. Zwracaj kopię lub niemutowalny widok.</li>
+                    <li><strong>Nie przesadzaj z setterami</strong> – obiekt powinien być zawsze w poprawnym stanie. Jeśli ustawienie jednego pola wymaga zmiany drugiego, zamiast osobnych setterów daj metodę wykonującą operację atomowo.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – hermetyzacja:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Znaczenie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład (Java)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #455a64;">Private</td>
+                        <td style="padding: 10px;">Tylko wewnątrz klasy</td>
+                        <td style="padding: 10px;"><code>private double saldo;</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #455a64;">Public</td>
+                        <td style="padding: 10px;">Dostępne wszędzie</td>
+                        <td style="padding: 10px;"><code>public double getSaldo() { … }</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #455a64;">Protected</td>
+                        <td style="padding: 10px;">W klasie, podklasach i tym samym pakiecie</td>
+                        <td style="padding: 10px;"><code>protected double limitDebetu;</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Hermetyzacja to nie tylko techniczny szczegół – to fundament bezpiecznego i łatwego w utrzymaniu kodu. Chowasz swoje dane za solidną obudową i dajesz światu tylko te przyciski, które są bezpieczne. Reszta to Twój sekret – i Twoja swoboda zmian.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Effective Java” (Joshua Bloch) · „Design Patterns” (Gang of Four) · „Clean Code” (Robert C. Martin) · Dokumentacje C++17, Java 17, Python 3.12.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
