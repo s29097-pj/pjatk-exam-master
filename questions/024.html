@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 024 – Istota polimorfizmu</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">024. Istota polimorfizmu.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🎮</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Polimorfizm to „Uniwersalny pilot do wszystkich urządzeń”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że masz w ręku pilota z jednym zielonym przyciskiem <strong>„Play”</strong>. Celujesz nim w telewizor – włącza się film. Celujesz w odtwarzacz CD – zaczyna grać muzyka. Celujesz w konsolę do gier – startuje rozgrywka. Przycisk jest ten sam, polecenie jest to samo (<code>play()</code>), ale każde urządzenie reaguje inaczej, zgodnie ze swoją naturą. To jest właśnie <strong>polimorfizm</strong> (z greckiego: poly – wiele, morphe – forma). W programowaniu oznacza to zdolność różnych obiektów do odpowiadania na to samo wywołanie metody w sposób specyficzny dla swojej klasy. Ty jako programista nie musisz wiedzieć, jakie konkretnie urządzenie trzymasz – wystarczy, że wiesz, że ma ono przycisk Play.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Jedna nazwa, wiele zachowań</strong> – ta sama metoda <code>play()</code> wywołuje kod specyficzny dla klasy Telewizor, OdtwarzaczCD lub Konsola.</li>
+                        <li><strong>🟠 Późne wiązanie (late binding)</strong> – decyzja, który konkretnie kod wykonać, zapada dopiero w czasie działania programu, na podstawie rzeczywistego typu obiektu.</li>
+                        <li><strong>🟢 Polimorfizm statyczny (przeciążanie)</strong> – kompilator wybiera właściwą wersję metody na podstawie typów parametrów już w czasie kompilacji.</li>
+                        <li><strong>🟣 Zasada podstawienia Liskov (LSP)</strong> – fundament polimorfizmu: obiekt podklasy musi móc zastąpić obiekt nadklasy bez psucia programu.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Polimorfizm (Polymorphism)</span>
+            <span class="keyword-tag">Późne wiązanie (Late binding)</span>
+            <span class="keyword-tag">Funkcja wirtualna (Virtual function)</span>
+            <span class="keyword-tag">Tabela wirtualna (vtable)</span>
+            <span class="keyword-tag">Przesłanianie (Override)</span>
+            <span class="keyword-tag">Przeciążanie (Overload)</span>
+            <span class="keyword-tag">Klasa abstrakcyjna / Interfejs</span>
+            <span class="keyword-tag">Zasada Liskov (LSP)</span>
+            <span class="keyword-tag">Polimorfizm statyczny / dynamiczny</span>
+            <span class="keyword-tag">Metoda czysto wirtualna (= 0 / abstract)</span>
+            <span class="keyword-tag">Rzutowanie w górę (Upcasting)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: ISTOTA POLIMORFIZMU – METAFORA PILOTA           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Istota polimorfizmu – „Ten sam pilot, różne urządzenia”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Polimorfizm</strong> (wielopostaciowość) to jeden z czterech filarów programowania obiektowego. Pozwala on traktować obiekty różnych klas w jednolity sposób, o ile te klasy współdzielą wspólny interfejs lub klasę bazową. Mechanizm ten opiera się na <strong>późnym wiązaniu (late binding)</strong> – konkretna implementacja metody jest wybierana dopiero w czasie wykonania, na podstawie rzeczywistego (dynamicznego) typu obiektu, a nie typu zadeklarowanego zmiennej.
+                </p>
+                <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🧠 Kluczowa intuicja:</strong> Polimorfizm to kod, który mówi: „Hej, obiekcie, wykonaj swoją wersję metody X”. Nie obchodzi mnie, kim dokładnie jesteś – ważne, że umiesz to zrobić po swojemu.
+                </div>
+            </div>
+
+            <!-- SVG: PILOT I URZĄDZENIA – POLIMORFIZM W AKCJI -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridPoly" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="320" fill="url(#gridPoly)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Polimorfizm – jeden pilot, wiele urządzeń</text>
+
+                <!-- Pilot -->
+                <rect x="80" y="60" width="160" height="60" rx="8" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
+                <text x="160" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">🎮 Pilot</text>
+                <rect x="100" y="100" width="120" height="18" rx="4" fill="#fff" stroke="#2e7d32" stroke-width="1"/>
+                <text x="160" y="113" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">► play()</text>
+
+                <!-- Strzałki do urządzeń -->
+                <path d="M 240 130 L 300 130" fill="none" stroke="#1b5e20" stroke-width="2" marker-end="url(#arrowPlay)"/>
+                <text x="270" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1b5e20">wywołanie</text>
+
+                <!-- Telewizor -->
+                <rect x="310" y="60" width="140" height="70" rx="8" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+                <text x="380" y="88" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17">📺 Telewizor</text>
+                <text x="380" y="112" text-anchor="middle" font-family="monospace" font-size="11" fill="#f57f17">play() → film</text>
+
+                <!-- Odtwarzacz CD -->
+                <rect x="310" y="150" width="140" height="70" rx="8" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+                <text x="380" y="178" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17">💿 OdtwarzaczCD</text>
+                <text x="380" y="202" text-anchor="middle" font-family="monospace" font-size="11" fill="#f57f17">play() → muzyka</text>
+
+                <!-- Konsola -->
+                <rect x="310" y="240" width="140" height="70" rx="8" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+                <text x="380" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17">🕹️ Konsola</text>
+                <text x="380" y="292" text-anchor="middle" font-family="monospace" font-size="11" fill="#f57f17">play() → gra</text>
+
+                <!-- Panel z kodem -->
+                <rect x="520" y="60" width="270" height="160" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="655" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">W kodzie (Java/C++):</text>
+                <text x="655" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">Urzadzenie u;</text>
+                <text x="655" y="128" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">u = new Telewizor();</text>
+                <text x="655" y="148" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">u.play(); // film</text>
+                <text x="655" y="175" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">u = new OdtwarzaczCD();</text>
+                <text x="655" y="195" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">u.play(); // muzyka</text>
+
+                <defs>
+                    <marker id="arrowPlay" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1b5e20"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: POLIMORFIZM STATYCZNY vs DYNAMICZNY             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Dwa oblicza polimorfizmu – statyczny i dynamiczny</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">⏱️ Statyczny (przeciążanie, szablony)</strong><br>
+                        <span style="font-size:0.9rem;">Decyzja w czasie kompilacji. Np. przeciążona funkcja <code>max(int, int)</code> vs <code>max(double, double)</code>. Kompilator wybiera właściwą na podstawie typów argumentów. Szybszy, ale mniej elastyczny.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">🔄 Dynamiczny (przesłanianie, wirtualność)</strong><br>
+                        <span style="font-size:0.9rem;">Decyzja w czasie wykonania. Wymaga metod wirtualnych i dziedziczenia. Umożliwia traktowanie różnych obiektów przez wspólny interfejs. To jest esencja polimorfizmu OOP.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: MECHANIZM VTABLE – JAK TO DZIAŁA POD MASką      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Tabela wirtualna (vtable) – „Spis treści dla metod”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy klasa posiada metody wirtualne, kompilator tworzy dla niej <strong>tabelę wirtualną (vtable)</strong> – ukrytą tablicę wskaźników do odpowiednich implementacji. Każdy obiekt takiej klasy przechowuje ukryty wskaźnik (vptr) do vtable swojej rzeczywistej klasy. Gdy wywołujesz metodę wirtualną, program pośrednio skacze do adresu pobranego z vtable – to jest właśnie <strong>dynamic dispatch</strong>.
+                </p>
+            </div>
+
+            <!-- SVG: SCHEMAT VTABLE -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridPoly)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Mechanizm dynamic dispatch – tabela wirtualna (vtable) w C++</text>
+
+                <!-- Obiekt klasy Pies -->
+                <rect x="50" y="60" width="200" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="150" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Obiekt pies</text>
+                <rect x="70" y="95" width="160" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="150" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">vptr →</text>
+                <rect x="70" y="120" width="160" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="150" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">imie = "Burek"</text>
+
+                <!-- Strzałka vptr do vtable -->
+                <path d="M 230 105 L 300 100" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowVptr)"/>
+
+                <!-- Tabela vtable dla Pies -->
+                <rect x="310" y="60" width="200" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">vtable Pies</text>
+                <rect x="330" y="95" width="160" height="20" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="410" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">&Zwierzę::oddychaj</text>
+                <rect x="330" y="120" width="160" height="20" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="410" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">&Pies::dajGlos</text>
+
+                <!-- Obiekt klasy Kot -->
+                <rect x="50" y="175" width="200" height="90" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="2"/>
+                <text x="150" y="198" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Obiekt kot</text>
+                <rect x="70" y="208" width="160" height="20" rx="3" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="150" y="223" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">vptr →</text>
+                <rect x="70" y="233" width="160" height="20" rx="3" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="150" y="248" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">imie = "Mruczek"</text>
+
+                <!-- Strzałka vptr do vtable -->
+                <path d="M 230 218 L 300 205" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowVptr2)"/>
+
+                <!-- Tabela vtable dla Kot -->
+                <rect x="310" y="175" width="200" height="90" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="198" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">vtable Kot</text>
+                <rect x="330" y="208" width="160" height="20" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="410" y="223" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">&Zwierzę::oddychaj</text>
+                <rect x="330" y="233" width="160" height="20" rx="3" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                <text x="410" y="248" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">&Kot::dajGlos</text>
+
+                <!-- Opis -->
+                <rect x="550" y="100" width="240" height="80" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="670" y="125" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a148c">Wywołanie u->dajGlos()</text>
+                <text x="670" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">→ *(vptr[1])()</text>
+                <text x="670" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Dla psa: Pies::dajGlos</text>
+                <text x="670" y="180" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Dla kota: Kot::dajGlos</text>
+
+                <defs>
+                    <marker id="arrowVptr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowVptr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PRZECIĄŻANIE vs PRZESŁANIANIE                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Przeciążanie (overload) ≠ przesłanianie (override)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To dwa różne mechanizmy często mylone na egzaminach. <strong>Przeciążanie</strong> ma miejsce w obrębie jednej klasy (lub w hierarchii) – ta sama nazwa metody, różne parametry. <strong>Przesłanianie</strong> występuje między klasą bazową a pochodną – metoda o identycznej sygnaturze w podklasie zastępuje wersję z nadklasy.
+                </p>
+            </div>
+
+            <!-- SVG: PRZECIĄŻANIE vs PRZESŁANIANIE (TABELA PORÓWNAWCZA) -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridPoly)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Przeciążanie (Overload) vs Przesłanianie (Override)</text>
+
+                <!-- Overload -->
+                <rect x="30" y="50" width="360" height="120" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Przeciążanie (Overload)</text>
+                <text x="210" y="102" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">void dodaj(int a, int b);</text>
+                <text x="210" y="122" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">void dodaj(double a, double b);</text>
+                <text x="210" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Ta sama nazwa, różne parametry. W tej samej klasie.</text>
+
+                <!-- Override -->
+                <rect x="430" y="50" width="360" height="120" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Przesłanianie (Override)</text>
+                <text x="610" y="102" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">class A { virtual void foo(); }</text>
+                <text x="610" y="122" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">class B : A { void foo() override; }</text>
+                <text x="610" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Ta sama sygnatura w podklasie. Wymaga virtual w bazie.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: POLIMORFIZM W RÓŻNYCH JĘZYKACH                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Polimorfizm w praktyce – różne języki, różne odcienie</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>⚙️ C++</strong><br>
+                        <span style="font-size:0.85rem;">Polimorfizm dynamiczny przez <code>virtual</code>. Czysto wirtualne (<code>= 0</code>) tworzą interfejsy. Destruktor wirtualny jest niezbędny przy polimorficznym usuwaniu. Przeciążanie operatorów to polimorfizm statyczny.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>☕ Java</strong><br>
+                        <span style="font-size:0.85rem;">Wszystkie niestatyczne metody są domyślnie wirtualne. <code>abstract</code> dla klas i metod abstrakcyjnych. Interfejsy (<code>interface</code>) od Javy 8 mogą mieć metody domyślne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🐍 Python</strong><br>
+                        <span style="font-size:0.85rem;">Typowanie kaczki (duck typing): „jeśli chodzi jak kaczka i kwacze jak kaczka, to jest kaczką”. Nie wymaga wspólnej bazy – liczy się obecność metody.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Brak virtual w C++ = brak polimorfizmu!</strong> Jeśli w C++ nie oznaczysz metody jako wirtualnej, wywołanie przez wskaźnik do bazy zawsze uruchomi wersję z klasy bazowej (wczesne wiązanie).</li>
+                    <li><strong>Destruktor wirtualny</strong> – jeśli usuwasz obiekt pochodny przez wskaźnik do bazy, destruktor bazy musi być wirtualny. Inaczej wywoła się tylko destruktor bazy → wyciek.</li>
+                    <li><strong>Przesłanianie zmienia zachowanie, nie typ.</strong> Przez wskaźnik do bazy możesz wywołać tylko metody zadeklarowane w bazie, nawet jeśli obiekt pochodny ma dodatkowe metody publiczne.</li>
+                    <li><strong>Python: duck typing jest potężny, ale ryzykowny</strong> – brak błędu kompilacji oznacza, że błąd (AttributeError) pojawi się dopiero w czasie wykonania, gdy obiekt nie ma danej metody.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – polimorfizm:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przeciążanie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przesłanianie (polimorfizm)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Czas decyzji</td>
+                        <td style="padding: 10px;">Kompilacja (statyczny)</td>
+                        <td style="padding: 10px;">Wykonanie (dynamiczny)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Sygnatura</td>
+                        <td style="padding: 10px;">Różne parametry</td>
+                        <td style="padding: 10px;">Identyczna</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Miejsce</td>
+                        <td style="padding: 10px;">Ta sama klasa (lub hierarchia)</td>
+                        <td style="padding: 10px;">Klasa pochodna</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Słowo klucz</td>
+                        <td style="padding: 10px;">–</td>
+                        <td style="padding: 10px;">virtual (C++), @Override (Java)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Polimorfizm to sztuka mówienia obiektom „zrób to, co do Ciebie należy”, bez znajomości ich dokładnego typu. To on sprawia, że kod jest otwarty na rozszerzenia, a zamknięty na modyfikacje – fundament SOLID i klucz do elastycznej architektury.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · „Design Patterns” (Gang of Four) · Dokumentacje C++17, Java 17, Python 3.12.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
