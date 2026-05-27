@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 012 – Formuły logiczne w informatyce</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">012. Formuły logiczne jako narzędzie do wyrażania faktów informatycznych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #d1d9ff 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – Logika to „Język, którym rozmawia komputer z samym sobą”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
+                        Wyobraź sobie, że każda instrukcja warunkowa w Twoim kodzie (<code>if</code>, <code>while</code>, <code>WHERE</code>) to pytanie zadawane maszynie. Maszyna nie rozumie intencji – rozumie wyłącznie <strong>prawdę (true)</strong> lub <strong>fałsz (false)</strong>. Formuły logiczne to gramatyka tych pytań – precyzyjna, jednoznaczna i absolutnie fundamentalna. Bez logiki nie ma ani jednego działającego programu, ani jednego poprawnego zapytania SQL, ani jednego układu cyfrowego.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #283593; line-height: 1.8;">
+                        <li><strong>🔵 Rachunek zdań</strong> – najprostsza forma: zdania są prawdziwe albo fałszywe. Łączymy je spójnikami AND, OR, NOT, IMPLIES.</li>
+                        <li><strong>🟠 Logika predykatów</strong> – dodaje zmienne i kwantyfikatory (∀, ∃). Pozwala mówić o własnościach obiektów, nie tylko o konkretnych faktach.</li>
+                        <li><strong>🟢 Algebra Boole'a</strong> – matematyczny fundament bramek logicznych (AND, OR, NOT) i całej elektroniki cyfrowej.</li>
+                        <li><strong>🟣 Zastosowania</strong> – od warunków w kodzie, przez zapytania SQL (WHERE), po sztuczną inteligencję i automatyczne dowodzenie twierdzeń.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Rachunek zdań (Propositional logic)</span>
+            <span class="keyword-tag">Spójniki logiczne: ¬, ∧, ∨, ⇒, ⇔</span>
+            <span class="keyword-tag">Tabela prawdy (Truth table)</span>
+            <span class="keyword-tag">Logika predykatów (Predicate logic)</span>
+            <span class="keyword-tag">Kwantyfikator ogólny ∀ i szczegółowy ∃</span>
+            <span class="keyword-tag">Algebra Boole'a</span>
+            <span class="keyword-tag">Prawa de Morgana</span>
+            <span class="keyword-tag">Implikacja (→) i jej pułapki</span>
+            <span class="keyword-tag">Formuła atomowa / złożona</span>
+            <span class="keyword-tag">SQL WHERE, HAVING</span>
+            <span class="keyword-tag">Bramki logiczne (AND, OR, NOT, NAND)</span>
+            <span class="keyword-tag">SAT, spełnialność, tautologia</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: RACHUNEK ZDAŃ – FUNDAMENTY                       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1a237e;">1. Rachunek zdań – „Alfabet myślenia maszyny”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Rachunek zdań</strong> operuje na zdaniach, które mogą przyjmować wyłącznie jedną z dwóch wartości logicznych: <strong>prawda (1, true, T)</strong> lub <strong>fałsz (0, false, F)</strong>. Zdania proste (atomowe) łączymy za pomocą <strong>spójników logicznych</strong>, tworząc formuły złożone. W informatyce każde wyrażenie warunkowe (<code>if (x &gt; 0 && y &lt; 10)</code>) jest formułą logiczną.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 100px; background: #e8eaf6; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #7986cb;">
+                        <strong>¬</strong><br>NOT (negacja)
+                    </div>
+                    <div style="flex: 1; min-width: 100px; background: #e8eaf6; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #7986cb;">
+                        <strong>∧</strong><br>AND (koniunkcja)
+                    </div>
+                    <div style="flex: 1; min-width: 100px; background: #e8eaf6; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #7986cb;">
+                        <strong>∨</strong><br>OR (alternatywa)
+                    </div>
+                    <div style="flex: 1; min-width: 100px; background: #e8eaf6; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #7986cb;">
+                        <strong>⇒</strong><br>IMPLIES (implikacja)
+                    </div>
+                    <div style="flex: 1; min-width: 100px; background: #e8eaf6; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #7986cb;">
+                        <strong>⇔</strong><br>IFF (równoważność)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: TABELE PRAWDY DLA SPÓJNIKÓW -->
+            <svg viewBox="0 0 820 520" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridLogic" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="520" fill="url(#gridLogic)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Spójniki logiczne – tabele prawdy (definicje)</text>
+
+                <!-- AND -->
+                <rect x="20" y="45" width="180" height="200" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="110" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">AND (∧)</text>
+                <line x1="30" y1="82" x2="190" y2="82" stroke="#90caf9" stroke-width="1"/>
+                <text x="70" y="105" font-family="monospace" font-size="13" fill="#0d47a1">p=0, q=0 → 0</text>
+                <text x="70" y="128" font-family="monospace" font-size="13" fill="#0d47a1">p=0, q=1 → 0</text>
+                <text x="70" y="151" font-family="monospace" font-size="13" fill="#0d47a1">p=1, q=0 → 0</text>
+                <text x="70" y="174" font-family="monospace" font-size="13" fill="#0d47a1">p=1, q=1 → 1</text>
+                <text x="110" y="210" font-family="sans-serif" font-size="11" fill="#546e7a">Prawda tylko gdy oba 1.</text>
+
+                <!-- OR -->
+                <rect x="220" y="45" width="180" height="200" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="310" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">OR (∨)</text>
+                <line x1="230" y1="82" x2="390" y2="82" stroke="#a5d6a7" stroke-width="1"/>
+                <text x="270" y="105" font-family="monospace" font-size="13" fill="#1b5e20">p=0, q=0 → 0</text>
+                <text x="270" y="128" font-family="monospace" font-size="13" fill="#1b5e20">p=0, q=1 → 1</text>
+                <text x="270" y="151" font-family="monospace" font-size="13" fill="#1b5e20">p=1, q=0 → 1</text>
+                <text x="270" y="174" font-family="monospace" font-size="13" fill="#1b5e20">p=1, q=1 → 1</text>
+                <text x="310" y="210" font-family="sans-serif" font-size="11" fill="#546e7a">Prawda gdy przynajmniej jedno 1.</text>
+
+                <!-- NOT -->
+                <rect x="420" y="45" width="130" height="200" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="485" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">NOT (¬)</text>
+                <line x1="430" y1="82" x2="540" y2="82" stroke="#ef9a9a" stroke-width="1"/>
+                <text x="485" y="105" font-family="monospace" font-size="13" fill="#b71c1c">p=0 → 1</text>
+                <text x="485" y="128" font-family="monospace" font-size="13" fill="#b71c1c">p=1 → 0</text>
+
+                <!-- IMPLIKACJA -->
+                <rect x="570" y="45" width="230" height="200" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="685" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">IMPLIKACJA (p ⇒ q)</text>
+                <line x1="580" y1="82" x2="790" y2="82" stroke="#ffcc80" stroke-width="1"/>
+                <text x="620" y="105" font-family="monospace" font-size="13" fill="#bf360c">p=0, q=0 → 1</text>
+                <text x="620" y="128" font-family="monospace" font-size="13" fill="#bf360c">p=0, q=1 → 1</text>
+                <text x="620" y="151" font-family="monospace" font-size="13" fill="#bf360c">p=1, q=0 → 0</text>
+                <text x="620" y="174" font-family="monospace" font-size="13" fill="#bf360c">p=1, q=1 → 1</text>
+                <text x="685" y="210" font-family="sans-serif" font-size="11" fill="#546e7a">Fałsz tylko gdy p=1 i q=0.</text>
+                <text x="685" y="226" font-family="sans-serif" font-size="11" fill="#e65100">„Z fałszu może wynikać prawda”.</text>
+
+                <!-- PRAWA DE MORGANA -->
+                <line x1="20" y1="260" x2="800" y2="260" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="4,4"/>
+
+                <rect x="20" y="280" width="780" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="410" y="305" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Prawa de Morgana – kluczowe do upraszczania warunków w kodzie</text>
+                <text x="250" y="340" text-anchor="middle" font-family="monospace" font-size="15" fill="#6a1b9a">¬(p ∧ q) ≡ (¬p) ∨ (¬q)</text>
+                <text x="570" y="340" text-anchor="middle" font-family="monospace" font-size="15" fill="#6a1b9a">¬(p ∨ q) ≡ (¬p) ∧ (¬q)</text>
+                <text x="410" y="370" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Przykład w kodzie: if (!(x &gt; 0 && y &gt; 0)) ≡ if (x &lt;= 0 || y &lt;= 0)</text>
+
+                <!-- PRAKTYKA W KODZIE -->
+                <line x1="20" y1="400" x2="800" y2="400" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="4,4"/>
+
+                <rect x="20" y="415" width="780" height="85" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
+                <text x="410" y="440" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#004d40">Przekładka: Logika → Kod programistyczny → SQL → Układ cyfrowy</text>
+                <text x="410" y="465" text-anchor="middle" font-family="monospace" font-size="12" fill="#00695c">Logika:  (wiek &gt;= 18) ∧ (obywatel = true)  →  Kod:  if (age &gt;= 18 && citizen) { ... }</text>
+                <text x="410" y="485" text-anchor="middle" font-family="monospace" font-size="12" fill="#00695c">SQL:  SELECT * FROM osoby WHERE wiek &gt;= 18 AND obywatel = TRUE;</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: LOGIKA PREDYKATÓW – KWANTYFIKATORY              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">2. Logika predykatów – „Mówimy o własnościach, nie tylko faktach”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Rachunek zdań jest ograniczony – nie możemy w nim wyrazić np. „każdy student ma indeks”. Do tego służy <strong>logika predykatów</strong> (logika pierwszego rzędu). Wprowadza ona <strong>predykaty</strong> (funkcje zwracające prawdę/fałsz), <strong>zmienne</strong> oraz <strong>kwantyfikatory</strong>:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #4a148c;">
+                    <li><strong>Kwantyfikator ogólny ∀</strong> – „dla każdego”. ∀x P(x) jest prawdą, gdy P(x) zachodzi dla <em>wszystkich</em> elementów dziedziny.</li>
+                    <li><strong>Kwantyfikator szczegółowy ∃</strong> – „istnieje”. ∃x P(x) jest prawdą, gdy P(x) zachodzi dla <em>przynajmniej jednego</em> elementu.</li>
+                </ul>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    <strong>Przykład informatyczny:</strong> Sprawdzenie, czy w tablicy <code>A</code> wszystkie elementy są dodatnie: <code>∀i ∈ {0..n-1} A[i] &gt; 0</code>. Sprawdzenie, czy istnieje element równy zero: <code>∃i A[i] = 0</code>.
+                </p>
+            </div>
+
+            <!-- SVG: KWANTYFIKATORY – ILUSTRACJA ZE ZBIOREM -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridLogic)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Kwantyfikatory: ∀ (dla każdego) i ∃ (istnieje)</text>
+
+                <!-- Panel lewy: ∀ -->
+                <rect x="30" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">∀x ∈ D : P(x)</text>
+                <text x="215" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">„Każdy element zbioru D ma własność P”</text>
+                <!-- Ilustracja: zbiór obiektów, wszystkie zielone -->
+                <rect x="60" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <rect x="110" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <rect x="160" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <rect x="210" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <rect x="260" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <rect x="310" y="120" width="30" height="30" rx="4" fill="#66bb6a"/>
+                <text x="215" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">∀ = wszystkie spełniają → PRAWDA</text>
+
+                <!-- Panel prawy: ∃ -->
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">∃x ∈ D : P(x)</text>
+                <text x="605" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ef6c00">„Istnieje co najmniej jeden element o własności P”</text>
+                <!-- Ilustracja: zbiór obiektów, jeden pomarańczowy -->
+                <rect x="450" y="120" width="30" height="30" rx="4" fill="#bbdefb"/>
+                <rect x="500" y="120" width="30" height="30" rx="4" fill="#bbdefb"/>
+                <rect x="550" y="120" width="30" height="30" rx="4" fill="#ef6c00" stroke="#e65100" stroke-width="2"/>
+                <rect x="600" y="120" width="30" height="30" rx="4" fill="#bbdefb"/>
+                <rect x="650" y="120" width="30" height="30" rx="4" fill="#bbdefb"/>
+                <rect x="700" y="120" width="30" height="30" rx="4" fill="#bbdefb"/>
+                <text x="605" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">∃ = przynajmniej jeden spełnia → PRAWDA</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ALGEBRA BOOLE'A – BRAMKI I UKŁADY CYFROWE        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">3. Algebra Boole'a – „Logika w sprzęcie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algebra Boole'a to matematyczny model logiki, w którym operujemy na wartościach {0, 1} z działaniami AND, OR, NOT. Każda bramka logiczna w procesorze realizuje jedno z tych działań. Złożone układy cyfrowe (sumatory, multipleksery, jednostki ALU) są projektowane przez upraszczanie formuł boolowskich (np. metoda Karnaugha).
+                </p>
+            </div>
+
+            <!-- SVG: BRAMKI LOGICZNE -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridLogic)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Algebra Boole'a – od logiki do bramek logicznych w procesorze</text>
+
+                <!-- AND gate -->
+                <rect x="40" y="55" width="140" height="80" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="110" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">AND</text>
+                <path d="M 45 100 L 55 100 L 55 130 L 45 130" fill="none" stroke="#1976d2" stroke-width="2"/>
+                <path d="M 45 115 L 55 115 L 55 115" fill="none" stroke="#1976d2" stroke-width="2"/>
+                <text x="35" y="90" font-family="monospace" font-size="10" fill="#0d47a1">A</text>
+                <text x="35" y="140" font-family="monospace" font-size="10" fill="#0d47a1">B</text>
+                <text x="165" y="120" font-family="monospace" font-size="10" fill="#0d47a1">A·B</text>
+
+                <!-- OR gate -->
+                <rect x="210" y="55" width="140" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="280" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">OR</text>
+                <text x="335" y="120" font-family="monospace" font-size="10" fill="#1b5e20">A+B</text>
+
+                <!-- NOT gate -->
+                <rect x="380" y="55" width="140" height="80" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="450" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">NOT</text>
+                <text x="505" y="120" font-family="monospace" font-size="10" fill="#b71c1c">Ā</text>
+
+                <!-- NAND gate (uniwersalna) -->
+                <rect x="550" y="55" width="140" height="80" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="620" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">NAND</text>
+                <text x="675" y="120" font-family="monospace" font-size="10" fill="#4a148c">¬(A·B)</text>
+
+                <!-- Opis: NAND jest uniwersalna -->
+                <rect x="40" y="155" width="740" height="40" rx="6" fill="#ede7f6" stroke="#b39ddb" stroke-width="1"/>
+                <text x="410" y="180" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">Bramka NAND jest uniwersalna – za pomocą samych NAND można zbudować dowolny układ cyfrowy (AND, OR, NOT, XOR…).</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: FORMUŁY LOGICZNE W KODZIE I SQL                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Wyrażanie faktów informatycznych – praktyczne zastosowania</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🖥️ Warunki w kodzie</strong><br>
+                        <code style="font-size:0.85rem;">if (x &gt; 0 && x &lt; 10)</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;">Wyrażenie logiczne decyduje o wykonaniu bloku kodu.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🗄️ Zapytania SQL</strong><br>
+                        <code style="font-size:0.85rem;">WHERE wiek &gt;= 18 AND miasto = 'Warszawa'</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;">Filtrowanie rekordów spełniających formułę logiczną.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🤖 AI / Systemy eksperckie</strong><br>
+                        <span style="font-size:0.85rem; color:#004d40;">Baza wiedzy = zbiór faktów + reguł (implikacji). Wnioskowanie = sprawdzanie spełnialności.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>✅ Walidacja formularzy</strong><br>
+                        <code style="font-size:0.85rem;">email ≠ '' ∧ password.length ≥ 8</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;">Formuła logiczna opisująca poprawne dane wejściowe.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: SAT, TAUTOLOGIA, SPEŁNIALNOŚĆ                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">5. Własności formuł logicznych – „Klasyfikacja formuł”</strong>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #bf360c;">
+                    <li><strong>Tautologia</strong> – formuła zawsze prawdziwa, niezależnie od wartości zmiennych. Np. p ∨ ¬p (zasada wyłączonego środka).</li>
+                    <li><strong>Kontrtautologia (sprzeczność)</strong> – formuła zawsze fałszywa. Np. p ∧ ¬p.</li>
+                    <li><strong>Spełnialność (SAT)</strong> – formuła jest spełnialna, jeśli istnieje przynajmniej jedno wartościowanie zmiennych, przy którym jest prawdziwa. Problem SAT jest fundamentalny w teorii złożoności obliczeniowej.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: IMPLIKACJA – KRÓLOWA PUŁAPEK                    -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Implikacja (p ⇒ q) jest fałszywa TYLKO gdy p=1 i q=0.</strong> Z fałszu wynika wszystko – to częste źródło nieporozumień.</li>
+                    <li><strong>Kolejność kwantyfikatorów ma znaczenie!</strong> ∀x ∃y P(x,y) ≠ ∃y ∀x P(x,y). Pierwsze: każdy ma swojego y. Drugie: istnieje uniwersalny y dla wszystkich x.</li>
+                    <li><strong>Prawa de Morgana</strong> – przy negacji warunków w kodzie łatwo o błąd. Użyj ich do uproszczeń.</li>
+                    <li><strong>NULL w SQL</strong> – logika trójwartościowa (true, false, unknown). NULL AND false = false, ale NULL OR true = true.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – logika w informatyce:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Symbol</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Znaczenie / Odpowiednik w kodzie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1a237e;">Koniunkcja</td>
+                        <td style="padding: 10px;">p ∧ q</td>
+                        <td style="padding: 10px;"><code>p && q</code> (AND)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1a237e;">Alternatywa</td>
+                        <td style="padding: 10px;">p ∨ q</td>
+                        <td style="padding: 10px;"><code>p || q</code> (OR)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1a237e;">Negacja</td>
+                        <td style="padding: 10px;">¬p</td>
+                        <td style="padding: 10px;"><code>!p</code> (NOT)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1a237e;">Implikacja</td>
+                        <td style="padding: 10px;">p ⇒ q</td>
+                        <td style="padding: 10px;"><code>!p || q</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">∀</td>
+                        <td style="padding: 10px;">∀x P(x)</td>
+                        <td style="padding: 10px;">Pętla + sprawdzenie wszystkich (AND)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">∃</td>
+                        <td style="padding: 10px;">∃x P(x)</td>
+                        <td style="padding: 10px;">Pętla + znalezienie pierwszego (OR)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Formuły logiczne to nie tylko akademicka abstrakcja – to podstawowy budulec każdej instrukcji warunkowej, każdego zapytania SQL i każdej bramki w procesorze. Bez nich komputery byłyby głuche i ślepe.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Matematyka dyskretna” (Ross, Wright) · „Introduction to Logic” (Copi, Cohen) · „SQL and Relational Theory” (C. J. Date) · Notatki własne z algorytmiki i architektury komputerów.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
