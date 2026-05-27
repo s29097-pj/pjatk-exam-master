@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 020 – Reprezentacja zmiennych w pamięci operacyjnej</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">020. Reprezentacja zmiennych w językach programowania w kontekście fizycznego umiejscowienia w pamięci operacyjnej.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Pamięć operacyjna to „Ogromny magazyn z biurkiem i regałami”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie ogromny magazyn (RAM). <strong>Stos (stack)</strong> to Twoje biurko – masz na nim rzeczy, nad którymi właśnie pracujesz. Jest czyste, szybkie i uporządkowane, ale ma bardzo ograniczoną powierzchnię. Kiedy kończysz zadanie, wszystko z biurka jest automatycznie odkładane na miejsce. <strong>Sterta (heap)</strong> to rozległe regały magazynowe. Możesz na nie odkładać duże przedmioty na dłuższy czas. Musisz jednak pamiętać, gdzie co położyłeś i samodzielnie sprzątnąć (albo zatrudnić ekipę sprzątającą – Garbage Collector). Jeśli o tym zapomnisz, magazyn się zapycha – to słynny <strong>wyciek pamięci</strong>.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Segment kodu (Text)</strong> – instrukcje obsługi, niezmienne i chronione.</li>
+                        <li><strong>🟠 Segment danych (Data/BSS)</strong> – zmienne globalne i statyczne, które żyją przez cały czas działania programu.</li>
+                        <li><strong>🟢 Stos (Stack)</strong> – zmienne lokalne, parametry funkcji. Dyscyplina LIFO, automatyczne zarządzanie.</li>
+                        <li><strong>🟣 Sterta (Heap)</strong> – obiekty tworzone dynamicznie przez <code>malloc</code> / <code>new</code>. Żyją, dopóki nie zostaną jawnie zwolnione lub usunięte przez GC.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Pamięć operacyjna (RAM)</span>
+            <span class="keyword-tag">Segmenty pamięci (Text, Data, BSS, Heap, Stack)</span>
+            <span class="keyword-tag">Stos (Stack) / Sterta (Heap)</span>
+            <span class="keyword-tag">Ramka stosu (Stack Frame)</span>
+            <span class="keyword-tag">Wskaźnik (Pointer) / Referencja</span>
+            <span class="keyword-tag">Alokacja dynamiczna (malloc/new)</span>
+            <span class="keyword-tag">Garbage Collector (GC)</span>
+            <span class="keyword-tag">Stack Overflow</span>
+            <span class="keyword-tag">Wyciek pamięci (Memory Leak)</span>
+            <span class="keyword-tag">Fragmentacja pamięci</span>
+            <span class="keyword-tag">RAII / Smart Pointer (C++)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PRZESTRZEŃ ADRESOWA PROCESU                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Przestrzeń adresowa – „Mapa magazynu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każdy proces w systemie operacyjnym otrzymuje swoją wirtualną przestrzeń adresową, która jest podzielona na logiczne <strong>segmenty</strong>. Układ tych segmentów jest przewidywalny: kod na dole, dane powyżej, sterta rośnie w górę, a stos rośnie w dół od najwyższego adresu.
+                </p>
+            </div>
+
+            <!-- SVG: MAPA PAMIĘCI PROCESU -->
+            <svg viewBox="0 0 820 380" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridMem" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="380" fill="url(#gridMem)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Wirtualna przestrzeń adresowa procesu w systemie Linux</text>
+
+                <!-- Słupek pamięci -->
+                <rect x="350" y="50" width="100" height="300" fill="none" stroke="#37474f" stroke-width="3"/>
+                <!-- Podział -->
+                <rect x="350" y="50" width="100" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="400" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Stos (Stack)</text>
+                <text x="460" y="75" font-family="sans-serif" font-size="11" fill="#546e7a">0xFFFF...</text>
+
+                <rect x="350" y="90" width="100" height="50" fill="#fff9c4" stroke="#fbc02d" stroke-width="1"/>
+                <text x="400" y="120" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#f57f17">↓ Wolne ↓</text>
+
+                <rect x="350" y="140" width="100" height="80" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="400" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Sterta (Heap)</text>
+                <text x="400" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">↑ rośnie ↑</text>
+
+                <rect x="350" y="220" width="100" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/>
+                <text x="400" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">BSS (Zero-init)</text>
+
+                <rect x="350" y="250" width="100" height="30" fill="#ce93d8" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="400" y="270" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">Data (Init)</text>
+
+                <rect x="350" y="280" width="100" height="30" fill="#90caf9" stroke="#1976d2" stroke-width="1"/>
+                <text x="400" y="300" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Text (Kod)</text>
+                <text x="460" y="300" font-family="sans-serif" font-size="11" fill="#546e7a">0x0000...</text>
+
+                <!-- Opisy segmentów -->
+                <rect x="50" y="60" width="240" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                <text x="170" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Stos (Stack)</text>
+                <text x="170" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Zmienne lokalne, parametry</text>
+                <text x="170" y="120" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Funkcje, rekurencja</text>
+                <text x="170" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Automatyczne sprzątanie</text>
+
+                <rect x="50" y="200" width="240" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="170" y="225" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Sterta (Heap)</text>
+                <text x="170" y="245" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Dynamiczna alokacja</text>
+                <text x="170" y="260" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">malloc/new, GC</text>
+                <text x="170" y="275" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ryzyko wycieków, fragmentacji</text>
+
+                <rect x="530" y="60" width="250" height="130" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="655" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Pozostałe segmenty</text>
+                <text x="655" y="108" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Text – kod maszynowy (read-only)</text>
+                <text x="655" y="126" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Data – zmienne globalne init</text>
+                <text x="655" y="144" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">BSS – globalne zero-init</text>
+                <text x="655" y="162" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(Block Started by Symbol)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: STOS – BIURKO Z RAMKAMI                         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Stos (Stack) – „Dyscyplina LIFO na biurku”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każde wywołanie funkcji tworzy <strong>ramkę stosu (stack frame)</strong>, w której przechowywane są: adres powrotu (skąd przyszliśmy), parametry wywołania oraz zmienne lokalne. Gdy funkcja kończy pracę, jej ramka jest po prostu usuwana ze szczytu stosu. To niezwykle szybkie, ale oznacza, że zmienne lokalne <strong>nie mogą przeżyć swojej funkcji</strong> – w tym celu potrzebujemy sterty.
+                </p>
+            </div>
+
+            <!-- SVG: STOS W AKCJI -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridMem)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Stos wywołań – ramki dla main() → foo() → bar()</text>
+
+                <!-- Stos -->
+                <rect x="100" y="50" width="250" height="200" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="4"/>
+                <text x="225" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Stos (rośnie w dół)</text>
+
+                <!-- Ramka bar() -->
+                <rect x="110" y="60" width="230" height="55" rx="3" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="225" y="78" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">bar() { int z = 3; }</text>
+                <text x="225" y="95" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">zmienna z, adres powrotu</text>
+                <text x="225" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">← SP (Stack Pointer)</text>
+
+                <!-- Ramka foo() -->
+                <rect x="110" y="120" width="230" height="55" rx="3" fill="#ef9a9a" stroke="#c62828" stroke-width="1"/>
+                <text x="225" y="138" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">foo() { int y = 2; bar(); }</text>
+                <text x="225" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">zmienna y, adres powrotu do main</text>
+
+                <!-- Ramka main() -->
+                <rect x="110" y="180" width="230" height="55" rx="3" fill="#e53935" stroke="#b71c1c" stroke-width="1"/>
+                <text x="225" y="198" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">main() { int x = 1; foo(); }</text>
+                <text x="225" y="215" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ffcdd2">zmienna x, adres powrotu do OS</text>
+
+                <!-- Sterta obok -->
+                <rect x="450" y="60" width="180" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="540" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Sterta (Heap)</text>
+                <text x="540" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">malloc(sizeof(int))</text>
+                <text x="540" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">obiekt żyje po wyjściu</text>
+                <text x="540" y="143" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">z funkcji</text>
+
+                <!-- Wskaźnik ze stosu na stertę -->
+                <path d="M 340 170 L 450 110" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowStack)"/>
+                <text x="395" y="145" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">wskaźnik</text>
+
+                <defs>
+                    <marker id="arrowStack" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: STERTA – REGAŁY Z WSKAŹNIKAMI                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Sterta (Heap) – „Regały i ich problemy”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Sterta jest używana, gdy rozmiar danych nie jest znany w czasie kompilacji lub gdy dane muszą istnieć po zakończeniu funkcji. Alokacja następuje jawnie (C: <code>malloc</code>, C++: <code>new</code>) lub niejawnie (Python, Java). Zwolnienie pamięci jest największym wyzwaniem – prowadzi do <strong>wycieków pamięci</strong> (zgubiony wskaźnik) lub błędów typu <strong>dangling pointer</strong> (użycie po zwolnieniu).
+                </p>
+                <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🧠 Fragmentacja:</strong> Jeśli alokujesz i zwalniasz bloki o różnych rozmiarach, na stercie powstają "dziury". Mimo że sumarycznie jest wystarczająco dużo wolnego miejsca, może nie być jednego ciągłego bloku na duży obiekt.
+                </div>
+            </div>
+
+            <!-- SVG: STERTA I FRAGMENTACJA -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridMem)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Sterta – alokacja, dealokacja i fragmentacja</text>
+
+                <!-- Bloki sterty -->
+                <rect x="60" y="60" width="100" height="40" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1"/>
+                <text x="110" y="85" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">używany</text>
+                <rect x="180" y="60" width="60" height="40" rx="4" fill="#ffab91" stroke="#e65100" stroke-width="1"/>
+                <text x="210" y="85" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">wolny</text>
+                <rect x="260" y="60" width="140" height="40" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1"/>
+                <text x="330" y="85" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">używany (duży)</text>
+                <rect x="420" y="60" width="30" height="40" rx="4" fill="#ffab91" stroke="#e65100" stroke-width="1"/>
+                <text x="435" y="75" text-anchor="middle" font-family="monospace" font-size="8" fill="#bf360c">wolny</text>
+                <rect x="470" y="60" width="90" height="40" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1"/>
+                <text x="515" y="85" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">używany</text>
+
+                <!-- Opis -->
+                <text x="410" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Po kilku cyklach alokacji i zwalniania sterta staje się „postrzępiona”.</text>
+                <text x="410" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Chociaż wolnego miejsca jest 60+30=90 bajtów, nie można zaalokować bloku o rozmiarze 80 bajtów.</text>
+                <text x="410" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">To jest właśnie zjawisko fragmentacji zewnętrznej.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PORÓWNANIE JĘZYKÓW                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Różne języki – różne strategie zarządzania</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>⚙️ C (ręczne)</strong><br>
+                        <span style="font-size:0.85rem;">Alokacja: <code>malloc()</code><br>Dealokacja: <code>free()</code><br>Ryzyko: wycieki, dangling pointers. Pełna kontrola.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🔧 C++ (RAII)</strong><br>
+                        <span style="font-size:0.85rem;">Alokacja: <code>new</code><br>Dealokacja: <code>delete</code> / destruktory<br>Smart pointers: <code>unique_ptr</code>, <code>shared_ptr</code>. Resource Acquisition Is Initialization.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>☕ Java / C# (GC)</strong><br>
+                        <span style="font-size:0.85rem;">Alokacja: <code>new</code><br>Dealokacja: Garbage Collector (automatycznie). Nie ma wycieków, ale są "stop-the-world" pauzy.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🐍 Python (GC)</strong><br>
+                        <span style="font-size:0.85rem;">Zliczanie referencji + odśmiecacz cykliczny. Wszystko jest obiektem na stercie (nawet int).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Zwracanie wskaźnika do zmiennej lokalnej</strong> – zmienna na stosie przestaje istnieć po wyjściu z funkcji. To proszenie się o "undefined behavior".</li>
+                    <li><strong>Wyciek pamięci (memory leak)</strong> – zgubiłeś wskaźnik, nie zwolniłeś bloku. W C/C++ to katastrofa, w Javie też możliwa (np. zapomniane listenery).</li>
+                    <li><strong>Stack overflow</strong> – zbyt głęboka rekurencja lub zbyt duże zmienne lokalne (tablice) na stosie. Stos jest ograniczony (~1-8 MB).</li>
+                    <li><strong>Dangling pointer</strong> – używasz wskaźnika po tym, jak obiekt został już zwolniony (use-after-free).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – reprezentacja zmiennych w pamięci:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Segment</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Co przechowuje</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Czas życia</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zarządzanie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Stos</td>
+                        <td style="padding: 10px;">Zmienne lokalne, parametry</td>
+                        <td style="padding: 10px;">Czas trwania funkcji/bloku</td>
+                        <td style="padding: 10px;">Automatyczne (kompilator)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Sterta</td>
+                        <td style="padding: 10px;">Obiekty dynamiczne</td>
+                        <td style="padding: 10px;">Od ręcznej alokacji do zwolnienia / GC</td>
+                        <td style="padding: 10px;">Ręczne (C), RAII (C++), GC (Java/Python)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Data / BSS</td>
+                        <td style="padding: 10px;">Zmienne globalne, statyczne</td>
+                        <td style="padding: 10px;">Cały czas działania programu</td>
+                        <td style="padding: 10px;">Automatyczne (system operacyjny)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamięć to nie tylko zasób – to fizyczne miejsce, w którym żyją Twoje zmienne. Rozumiejąc, gdzie co leży (stos, sterta, segment danych) i jak długo żyje, zyskujesz supermoc przewidywania wydajności i unikania najgroźniejszych błędów w kodzie.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Computer Systems: A Programmer's Perspective” (Bryant, O'Hallaron) · „The C Programming Language” (Kernighan, Ritchie) · Dokumentacje JVM, CPython.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
