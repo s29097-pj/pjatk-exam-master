@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 025 – Wyciek pamięci i metody zapobiegania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">025. W jakich sytuacjach może nastąpić wyciek pamięci oraz jak temu zapobiegać.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">💧</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wyciek pamięci to „Niedokręcony kran w Twoim programie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #5d1a1a; line-height: 1.7;">
+                        Wyobraź sobie, że każda alokacja pamięci (<code>malloc</code>, <code>new</code>) to odkręcenie kurka z wodą w Twoim mieszkaniu. Jeśli za każdym razem po umyciu rąk zapominasz zakręcić kurek (nie wywołujesz <code>free</code> / <code>delete</code>), woda zaczyna powoli zalewać łazienkę. Na początku to tylko kilka kropel – nic groźnego. Ale jeśli Twój program działa godzinami, dniami, a nawet miesiącami (jak serwer), kapanina zamienia się w powódź. Kończy się dostępna pamięć RAM, system zaczyna szwankować, a ostatecznie Twój program zostaje ubity przez system operacyjny (OOM Killer). Wyciek pamięci to podstępny wróg – nie rzuca wyjątkami, nie crashuje od razu. Po prostu powoli dusi Twój system.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #5d1a1a; line-height: 1.8;">
+                        <li><strong>🔵 Zgubiony wskaźnik</strong> – alokujesz blok, ale tracisz do niego adres (nadpisujesz wskaźnik nową alokacją). Stary blok zostaje „osierocony” i nieosiągalny.</li>
+                        <li><strong>🟠 Brak dealokacji przy wyjątkach</strong> – wyjątek wylatuje, zanim zdążysz zwolnić pamięć. Stos się zwija, ale sterta pozostaje zaśmiecona.</li>
+                        <li><strong>🟢 Referencje cykliczne</strong> – dwa obiekty wskazują na siebie nawzajem. Nawet GC nie zawsze sobie z tym radzi (np. w Pythonie przed Python 3.4).</li>
+                        <li><strong>🟣 Zapominanie o <code>delete</code> w destruktorze</strong> – w C++ alokujesz w konstruktorze, ale nie zwalniasz w destruktorze. Obiekt umiera, blok zostaje.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Wyciek pamięci (Memory leak)</span>
+            <span class="keyword-tag">Zgubiony wskaźnik (Lost pointer)</span>
+            <span class="keyword-tag">RAII (Resource Acquisition Is Initialization)</span>
+            <span class="keyword-tag">Smart pointer (unique_ptr, shared_ptr)</span>
+            <span class="keyword-tag">Garbage Collector (GC)</span>
+            <span class="keyword-tag">Dangling pointer (wiszący wskaźnik)</span>
+            <span class="keyword-tag">Profilowanie pamięci (Valgrind, ASan)</span>
+            <span class="keyword-tag">Referencje cykliczne (circular references)</span>
+            <span class="keyword-tag">Wyjątki a wycieki (exception safety)</span>
+            <span class="keyword-tag">Fragmentacja pamięci</span>
+            <span class="keyword-tag">OOM Killer (Linux)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CZYM JEST WYCIEK I DLACZEGO JEST GROŹNY        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Wyciek pamięci – „Cicha śmierć przez zalanie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Wyciek pamięci (memory leak)</strong> to sytuacja, gdy program alokuje blok pamięci na stercie, po czym traci do niego dostęp (nie ma już wskaźnika/referencji do tego bloku), a jednocześnie nie zwraca go do systemu. Blok pozostaje zajęty, ale nieużywany. Przy długotrwałym działaniu programu (serwery, aplikacje embedded) wyciek prowadzi do wyczerpania dostępnej pamięci RAM, spowolnienia systemu (swap) i w końcu do awarii. To najtrudniejszy do wykrycia błąd w C/C++, bo nie objawia się natychmiast.
+                </p>
+                <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Kluczowa różnica:</strong> <strong>Wyciek pamięci</strong> = pamięć niezwolniona i nieosiągalna. <strong>Dangling pointer</strong> = pamięć zwolniona, ale wskaźnik nadal wskazuje na stary adres (użycie prowadzi do UB).
+                </div>
+            </div>
+
+            <!-- SVG: WYCIEK PAMIĘCI – SCHEMAT Z GUBIENIEM WSKAŹNIKA -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridLeak" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridLeak)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Wyciek pamięci – zgubiony wskaźnik (utrata referencji do bloku)</text>
+
+                <!-- Wskaźnik p -->
+                <rect x="80" y="60" width="100" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="130" y="80" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">int* p;</text>
+
+                <!-- Strzałka do bloku 1 (pierwotny) -->
+                <path d="M 180 75 L 260 75" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowLeak)"/>
+                <text x="220" y="68" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">1. malloc(4)</text>
+
+                <!-- Blok 1 (osierocony) -->
+                <rect x="270" y="55" width="100" height="40" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="320" y="78" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">blok A</text>
+                <text x="320" y="92" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#b71c1c">adres 0x100</text>
+                <!-- Osierocenie – strzałka przerywana -->
+                <path d="M 180 85 L 260 85" fill="none" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+                <!-- Nowy blok 2 -->
+                <path d="M 180 95 L 380 95" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowLeak)"/>
+                <text x="280" y="105" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">2. malloc(4) – przypisanie do p</text>
+                <rect x="390" y="75" width="100" height="40" rx="4" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
+                <text x="440" y="98" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">blok B</text>
+                <text x="440" y="112" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#b71c1c">adres 0x200</text>
+
+                <!-- Krzyżyk na bloku A -->
+                <text x="320" y="120" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#c62828">✗</text>
+                <text x="320" y="135" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">NIEDOSIĘGALNY</text>
+
+                <!-- Opis -->
+                <rect x="540" y="55" width="250" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                <text x="665" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">Wynik: blok A (0x100) wciąż</text>
+                <text x="665" y="98" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">zajmuje pamięć, ale nie ma</text>
+                <text x="665" y="116" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">do niego dostępu. Wyciek!</text>
+                <text x="665" y="138" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Z czasem takich bloków</text>
+                <text x="665" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">przybywa → OOM.</text>
+
+                <defs>
+                    <marker id="arrowLeak" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: SYTUACJE PROWADZĄCE DO WYCIEKÓW                -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Scenariusze wycieków w różnych językach</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🔴 C / C++ (ręczne zarządzanie)</strong>
+                        <ul style="font-size:0.85rem; padding-left: 18px;">
+                            <li>Zgubienie wskaźnika (nadpisanie)</li>
+                            <li>Brak <code>free</code> / <code>delete</code></li>
+                            <li>Wyjątek przed zwolnieniem</li>
+                            <li>Zapomnienie o destruktorze wirtualnym</li>
+                            <li>Tablica alokowana <code>new[]</code> zwalniana <code>delete</code> (bez [])</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">☕ Java (GC)</strong>
+                        <ul style="font-size:0.85rem; padding-left: 18px;">
+                            <li>Trzymanie referencji w długożyciowych strukturach (np. nieodpięte listenery)</li>
+                            <li>Referencje statyczne do obiektów</li>
+                            <li>Zasoby natywne (JNI) – ręczne zwalnianie</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🐍 Python (GC)</strong>
+                        <ul style="font-size:0.85rem; padding-left: 18px;">
+                            <li>Referencje cykliczne (__del__ blokuje GC)</li>
+                            <li>Obiekty z <code>__del__</code> w cyklu</li>
+                            <li>Ręcznie alokowane zasoby (pliki, sockety) bez <code>with</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: WYJĄTKI A WYCIEKI -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridLeak)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Wyjątek przed zwolnieniem – klasyczny wyciek w C++ (bez RAII)</text>
+
+                <!-- Kod -->
+                <rect x="40" y="50" width="340" height="140" rx="6" fill="#263238" stroke="#455a64" stroke-width="1"/>
+                <text x="210" y="75" text-anchor="middle" font-family="monospace" font-size="11" fill="#8bc34a">void funkcja() {</text>
+                <text x="210" y="95" text-anchor="middle" font-family="monospace" font-size="11" fill="#8bc34a">  int* p = new int(42);</text>
+                <text x="210" y="115" text-anchor="middle" font-family="monospace" font-size="11" fill="#8bc34a">  możeRzucićWyjątek();</text>
+                <text x="210" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="#8bc34a">  delete p; // nigdy nie wykonane!</text>
+                <text x="210" y="155" text-anchor="middle" font-family="monospace" font-size="11" fill="#8bc34a">}</text>
+
+                <!-- Opis -->
+                <rect x="420" y="55" width="360" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="600" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Jeśli możeRzucićWyjątek() rzuci,</text>
+                <text x="600" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">stos się zwija, delete p pominięty.</text>
+                <text x="600" y="120" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Blok int przecieka.</text>
+                <text x="600" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Rozwiązanie: RAII / smart_ptr</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ZAPOBIEGANIE W C – DYSCYPLINA I NARZĘDZIA      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Zapobieganie w C – „Dyscyplina i Valgrind”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W czystym C nie ma RAII ani smart pointerów. Jedyną ochroną jest <strong>żelazna dyscyplina programisty</strong>: każdy <code>malloc</code> musi mieć swój <code>free</code> w każdej możliwej ścieżce wykonania. W praktyce używa się narzędzi takich jak <strong>Valgrind (memcheck)</strong> lub <strong>AddressSanitizer (ASan)</strong>, które wykrywają wycieki i błędne dostępy do pamięci w czasie wykonania.
+                </p>
+                <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔧 Narzędzia:</strong> <code>valgrind --leak-check=full ./program</code> wypisze wszystkie bloki, które nie zostały zwolnione. <code>gcc -fsanitize=address</code> doda ochronę przed błędami pamięci.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ZAPOBIEGANIE W C++ – RAII I SMART POINTERY     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Zapobieganie w C++ – „RAII i Smart Pointers”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    C++ oferuje idiom <strong>RAII (Resource Acquisition Is Initialization)</strong>: zasób (pamięć, plik, wątek) jest przydzielany w konstruktorze i zwalniany w destruktorze. Dzięki temu, nawet gdy wystąpi wyjątek, stos jest zwijany, a destruktory lokalnych obiektów automatycznie zwalniają zasoby. Współczesny C++ dostarcza <strong>smart pointery</strong>: <code>std::unique_ptr</code> (wyłączne posiadanie), <code>std::shared_ptr</code> (współdzielone, zliczanie referencji), <code>std::weak_ptr</code> (słaba referencja, nie blokuje usunięcia).
+                </p>
+            </div>
+
+            <!-- SVG: SMART POINTER – unique_ptr vs zwykły wskaźnik -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridLeak)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">RAII i smart pointer – automatyczne sprzątanie</text>
+
+                <!-- Zwykły wskaźnik (zły) -->
+                <rect x="40" y="50" width="340" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Zwykły wskaźnik (podatny na wyciek)</text>
+                <rect x="55" y="85" width="310" height="20" rx="3" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="210" y="99" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">int* p = new int(5); // trzeba pamiętać o delete</text>
+                <text x="210" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">delete p; // łatwo zapomnieć przy wyjątku</text>
+
+                <!-- unique_ptr (dobry) -->
+                <rect x="420" y="50" width="360" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="600" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">unique_ptr (automatyczne zwolnienie)</text>
+                <rect x="435" y="85" width="330" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="600" y="99" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">auto p = std::make_unique<int>(5);</text>
+                <text x="600" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Koniec zasięgu → destruktor → delete automatycznie.</text>
+
+                <!-- Diagram czasowy -->
+                <rect x="120" y="180" width="580" height="70" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">shared_ptr / weak_ptr</text>
+                <text x="410" y="220" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a1b9a">shared_ptr – zliczanie referencji; weak_ptr – nie blokuje usunięcia (do cykli)</text>
+                <text x="410" y="240" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Cykl shared_ptr → wyciek. Rozwiązanie: weak_ptr.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: ZAPOBIEGANIE W JAVA / PYTHON – GC              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Garbage Collector – „Automatyczny sprzątacz, ale nie czarodziej”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Języki z GC (Java, Python, C#, JavaScript) automatycznie zwalniają obiekty, które nie są już osiągalne z korzeni (stosu, rejestrów, zmiennych globalnych). To eliminuje wiele wycieków, ale <strong>nie wszystkie</strong>. Programista może wciąż stworzyć wyciek, trzymając niepotrzebne referencje (np. w statycznych kolekcjach, listenerach). W Pythonie dodatkowo referencje cykliczne z metodą <code>__del__</code> mogą zablokować GC.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PROFILOWANIE I NARZĘDZIA                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">6. Narzędzia do wykrywania wycieków</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>Valgrind (Linux)</strong><br>
+                        <span style="font-size:0.85rem;">Detekcja wycieków, niezainicjalizowanej pamięci, błędów dostępu. Standard w C/C++.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>AddressSanitizer (ASan)</strong><br>
+                        <span style="font-size:0.85rem;">Kompilator (GCC/Clang) dodaje sprawdzanie błędów pamięci. Szybszy niż Valgrind.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>JVM: VisualVM / MAT</strong><br>
+                        <span style="font-size:0.85rem;">Analiza zrzutów sterty (heap dump), ścieżek do GC roots. Szukanie niepotrzebnych referencji.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Wyciek ≠ wysoki odsetek użycia pamięci.</strong> Program z wyciekiem może mieć stałe zużycie, jeśli wyciek jest cykliczny (np. co iterację pętli gubi blok).</li>
+                    <li><strong>Java: GC nie zapobiega wszystkim wyciekom.</strong> Referencja z klasy statycznej do obiektu – obiekt nigdy nie zostanie usunięty.</li>
+                    <li><strong>RAII chroni przed wyjątkami, ale nie przed zapętleniem referencji.</strong> <code>shared_ptr</code> w cyklu → wyciek. Rozwiązanie: <code>weak_ptr</code>.</li>
+                    <li><strong>Python: <code>__del__</code> w cyklu → obiekty trafiają do <code>gc.garbage</code> i nie są usuwane.</strong> Lepiej używać <code>contextlib</code> i <code>with</code>.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – wycieki pamięci i zapobieganie:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Język</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Najczęstsze przyczyny wycieków</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Metody zapobiegania</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">C</td>
+                        <td style="padding: 10px;">Zgubiony wskaźnik, brak free</td>
+                        <td style="padding: 10px;">Dyscyplina, Valgrind, ASan</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">C++</td>
+                        <td style="padding: 10px;">Brak RAII, wyjątki, cykle shared_ptr</td>
+                        <td style="padding: 10px;">RAII, unique_ptr, weak_ptr</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Java</td>
+                        <td style="padding: 10px;">Statyczne kolekcje, nieodpięte listenery</td>
+                        <td style="padding: 10px;">Nullowanie referencji, WeakHashMap</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Python</td>
+                        <td style="padding: 10px;">Cykle z __del__, nieużywane referencje</td>
+                        <td style="padding: 10px;">Unikanie __del__, weakref, context manager</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wyciek pamięci to nie wyrok – to konsekwencja złego zarządzania zasobami. W C/C++ bądź jak księgowy – każdy przychód (malloc) musi mieć rozchód (free). W C++ polegaj na RAII i smart pointerach. W Javie i Pythonie pamiętaj, że GC to pomocnik, a nie cudotwórca – wciąż możesz mu przeszkodzić trzymając niepotrzebne referencje.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · Valgrind documentation · Python gc module documentation.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
