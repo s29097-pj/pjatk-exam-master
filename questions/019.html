@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 019 – Metody przekazywania parametrów</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">019. Metody przekazywania parametrów.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔑</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Przekazywanie parametrów to „Wydawanie kluczy do sejfu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
+                        Wyobraź sobie, że funkcja to specjalista, który ma wykonać zadanie na pewnych danych. Ty jesteś właścicielem sejfu z tymi danymi. <strong>Przekazanie przez wartość</strong> to skopiowanie zawartości sejfu do zupełnie nowego sejfu i oddanie go specjaliście – może z nim robić, co chce, a Twój oryginał pozostaje nietknięty. <strong>Przekazanie przez referencję / wskaźnik</strong> to wręczenie specjaliście klucza do Twojego sejfu – pracuje bezpośrednio na Twoich danych; każda zmiana zostaje na stałe. W Pythonie każdy dostaje klucz do sejfu, ale niektóre sejfy (niemutowalne, np. liczby) są zamknięte na kłódkę – nie da się ich zmodyfikować, można tylko wstawić nowy sejf.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #311b92; line-height: 1.8;">
+                        <li><strong>🔵 Przez wartość (by value)</strong> – kopia danych. Oryginał bezpieczny, ale kopiowanie kosztuje.</li>
+                        <li><strong>🟠 Przez wskaźnik / referencję (by pointer/reference)</strong> – adres oryginału. Modyfikujesz bezpośrednio, bez kopiowania.</li>
+                        <li><strong>🟢 Python: przez referencję do obiektu (pass-by-object-reference)</strong> – dostajesz klucz do istniejącego obiektu. Modyfikacje na mutowalnych są widoczne.</li>
+                        <li><strong>🟣 Java: przez wartość referencji</strong> – dla obiektów przekazujesz kopię klucza. Możesz zmienić zamek, ale nie dorobić nowego klucza u właściciela.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Przez wartość (pass by value)</span>
+            <span class="keyword-tag">Przez wskaźnik (pass by pointer)</span>
+            <span class="keyword-tag">Przez referencję (pass by reference)</span>
+            <span class="keyword-tag">C++: referencja do stałej (const &)</span>
+            <span class="keyword-tag">C++: przekazywanie przez przeniesienie (&&)</span>
+            <span class="keyword-tag">Python: przekazywanie przez referencję do obiektu</span>
+            <span class="keyword-tag">Java: wartość referencji</span>
+            <span class="keyword-tag">Niemutowalność (immutability)</span>
+            <span class="keyword-tag">Semantyka kopiowania / przenoszenia</span>
+            <span class="keyword-tag">Wydajność – unikanie kopii</span>
+            <span class="keyword-tag">Modyfikacja oryginału</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PRZEZ WARTOŚĆ                                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">1. Przekazywanie przez wartość – „Kserokopia dokumentu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W tej metodzie <strong>parametr formalny otrzymuje kopię wartości parametru aktualnego</strong>. Wszelkie modyfikacje dokonywane wewnątrz funkcji dotyczą wyłącznie tej kopii – oryginalna zmienna na zewnątrz pozostaje nienaruszona. Mechanizm ten jest domyślny w C, Javie (dla typów prymitywnych) oraz Pythonie (ale tam kopia jest referencją, co komplikuje sprawę).
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#4a148c;">Zalety:</strong><br>
+                        <span style="font-size:0.85rem;">✅ Bezpieczeństwo – oryginał chroniony.<br>✅ Prostota – brak efektów ubocznych.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color:#4a148c;">Wady:</strong><br>
+                        <span style="font-size:0.85rem;">❌ Koszt kopiowania – duże struktury = dużo czasu i pamięci.<br>❌ Nie można zmodyfikować oryginału, gdyby była taka potrzeba.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: PRZEZ WARTOŚĆ vs PRZEZ REFERENCJĘ – SEJFY -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridParam" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridParam)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Przekazywanie przez wartość vs przez referencję (metafora sejfu)</text>
+
+                <!-- Sejf oryginalny -->
+                <rect x="40" y="60" width="160" height="120" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="120" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Sejf oryginalny</text>
+                <text x="120" y="105" text-anchor="middle" font-family="monospace" font-size="14" fill="#311b92">int x = 42;</text>
+                <text x="120" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">adres: 0x100</text>
+
+                <!-- Strzałka do kopii -->
+                <path d="M 200 120 L 260 120" fill="none" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+                <text x="230" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">kopia</text>
+
+                <!-- Sejf kopia (wartość) -->
+                <rect x="270" y="60" width="160" height="120" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="350" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Kopia (wartość)</text>
+                <text x="350" y="105" text-anchor="middle" font-family="monospace" font-size="14" fill="#1565c0">int a = 42;</text>
+                <text x="350" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1976d2">funkcja zmienia a → 99</text>
+                <text x="120" y="160" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">x nadal = 42 ✓</text>
+
+                <!-- Sejf oryginalny dla referencji -->
+                <rect x="40" y="190" width="160" height="120" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="120" y="215" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Sejf oryginalny</text>
+                <text x="120" y="235" text-anchor="middle" font-family="monospace" font-size="14" fill="#311b92">int x = 42;</text>
+                <text x="120" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">adres: 0x100</text>
+
+                <!-- Klucz do sejfu (referencja) -->
+                <path d="M 200 250 L 260 250" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowOrange)"/>
+                <text x="230" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">klucz</text>
+
+                <!-- Referencja -->
+                <rect x="270" y="190" width="160" height="120" rx="6" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
+                <text x="350" y="215" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Referencja (klucz)</text>
+                <text x="350" y="235" text-anchor="middle" font-family="monospace" font-size="14" fill="#bf360c">int &a = x;</text>
+                <text x="350" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">funkcja zmienia a → 99</text>
+                <text x="120" y="310" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">x też zmieniony na 99!</text>
+
+                <defs>
+                    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: PRZEZ WSKAŹNIK (C) ORAZ PRZEZ REFERENCJĘ (C++) -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Wskaźniki (C) i referencje (C++) – „Adres czy alias?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W <strong>C</strong> nie ma referencji – przekazywanie adresu symuluje się za pomocą <strong>wskaźników</strong>. Funkcja otrzymuje kopię adresu, ale może użyć operatora <code>*</code> do modyfikacji oryginału. W <strong>C++</strong> wprowadzono <strong>referencje (<code>&</code>)</strong>, które są aliasem do istniejącej zmiennej – nie ma potrzeby używania <code>*</code> przy dostępie, a składnia jest bardziej elegancka. Referencja nie może być pusta (null), co zwiększa bezpieczeństwo. C++ oferuje też <strong>referencje do stałej (<code>const T&</code>)</strong> – przekazujesz duży obiekt bez kopiowania, ale chronisz go przed modyfikacją.
+                </p>
+                <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Złota zasada C++:</strong> Dla wejścia (<em>in</em>) – <code>const T&amp;</code>; dla wyjścia/wyjścia-wejścia (<em>out/in-out</em>) – <code>T&amp;</code>; dla przenoszenia – <code>T&amp;&amp;</code>.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: PYTHON – PRZEZ REFERENCJĘ DO OBIEKTU           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Python – przekazywanie przez referencję do obiektu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Python używa mechanizmu zwanego <strong>„pass-by-object-reference”</strong>. Funkcja otrzymuje referencję do tego samego obiektu, który został przekazany jako argument. Jeśli obiekt jest <strong>mutowalny</strong> (lista, słownik, własna klasa), funkcja może go trwale zmodyfikować. Jeśli obiekt jest <strong>niemutowalny</strong> (int, str, tuple), przypisanie nowej wartości wewnątrz funkcji tworzy nowy obiekt i nie wpływa na zewnętrzną zmienną.
+                </p>
+            </div>
+
+            <!-- SVG: PYTHON – MUTOWALNE vs NIEMUTOWALNE -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridParam)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Python – przekazywanie przez referencję do obiektu (pass-by-object-reference)</text>
+
+                <!-- Panel: Niemutowalny (int) -->
+                <rect x="30" y="50" width="360" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Niemutowalny (np. int)</text>
+                <text x="210" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">def foo(a): a = a + 1</text>
+                <text x="210" y="122" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">x = 5; foo(x)</text>
+                <text x="210" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">W foo(a): a = a + 1 tworzy nowy obiekt 6.</text>
+                <text x="210" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Zewnętrzny x nadal wskazuje na 5.</text>
+                <rect x="130" y="185" width="160" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="210" y="205" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">print(x) # 5</text>
+
+                <!-- Panel: Mutowalny (lista) -->
+                <rect x="430" y="50" width="360" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Mutowalny (np. lista)</text>
+                <text x="610" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">def bar(lst): lst.append(4)</text>
+                <text x="610" y="122" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">L = [1,2,3]; bar(L)</text>
+                <text x="610" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">W bar(lst): modyfikujesz zawartość tego samego obiektu.</text>
+                <text x="610" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Efekt widoczny na zewnątrz.</text>
+                <rect x="530" y="185" width="160" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="610" y="205" text-anchor="middle" font-family="monospace" font-size="14" fill="#b71c1c">print(L) # [1,2,3,4]</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: JAVA – PRZEZ WARTOŚĆ REFERENCJI                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Java – „Przekazywanie przez wartość referencji”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W Javie <strong>wszystkie argumenty są przekazywane przez wartość</strong>. Dla typów prymitywnych jest to kopia wartości. Dla obiektów – kopia <strong>referencji</strong> do obiektu. Masz więc dostęp do oryginalnego obiektu i możesz modyfikować jego stan (jeśli obiekt posiada mutujące metody), ale nie możesz sprawić, by zmienna poza funkcją zaczęła wskazywać na inny obiekt.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: INNE JĘZYKI I MECHANIZMY                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Inne języki – przegląd mechanizmów</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>C#</strong><br>
+                        <span style="font-size:0.85rem;">Domyślnie przez wartość. <code>ref</code> – przez referencję. <code>out</code> – tylko do wyjścia. <code>in</code> – tylko wejście.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>JavaScript</strong><br>
+                        <span style="font-size:0.85rem;">Zachowuje się podobnie do Pythona: prymitywy przez wartość, obiekty przez referencję (kopię referencji).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>C++ move semantics</strong><br>
+                        <span style="font-size:0.85rem;"><code>std::move</code> pozwala przekazać własność zasobów bez kopiowania. Parametr <code>T&&</code>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Python: przypisanie ≠ mutacja.</strong> <code>a = a + [4]</code> (nowa lista) vs <code>a.append(4)</code> (mutacja). Tylko drugie wpłynie na zewnętrzną zmienną.</li>
+                    <li><strong>Java przekazuje wszystko przez wartość.</strong> Dla obiektów wartością jest kopia referencji – możesz zmienić obiekt, ale nie możesz zmienić samej referencji zewnętrznej.</li>
+                    <li><strong>W C++ referencja nie może być pusta (null).</strong> W przeciwieństwie do wskaźnika, referencja zawsze musi być zainicjalizowana istniejącym obiektem.</li>
+                    <li><strong>Konwersje typów przy przekazywaniu przez wartość mogą tworzyć tymczasowe kopie.</strong></li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – metody przekazywania parametrów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Język</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typy prymitywne</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Obiekty / struktury</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Modyfikacja oryginału?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">C</td>
+                        <td style="padding: 10px;">Przez wartość</td>
+                        <td style="padding: 10px;">Przez wskaźnik (symulacja ref.)</td>
+                        <td style="padding: 10px;">Tak, jeśli przekazano adres</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">C++</td>
+                        <td style="padding: 10px;">Wartość / referencja / const&</td>
+                        <td style="padding: 10px;">Referencja, const&, move</td>
+                        <td style="padding: 10px;">Zależy od wybranej metody</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Python</td>
+                        <td style="padding: 10px;">Ref. do obiektu (niemutowalne)</td>
+                        <td style="padding: 10px;">Ref. do obiektu (mutowalne)</td>
+                        <td style="padding: 10px;">Tylko przez mutację obiektu</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Java</td>
+                        <td style="padding: 10px;">Przez wartość</td>
+                        <td style="padding: 10px;">Przez wartość referencji</td>
+                        <td style="padding: 10px;">Stan obiektu: tak; referencji: nie</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Sposób przekazywania parametrów decyduje o tym, czy funkcja pracuje na kopii, czy na oryginale. Wybór odpowiedniej metody to balans między bezpieczeństwem a wydajnością – jak decyzja, czy dać komuś klucz do sejfu, czy tylko wydruk jego zawartości.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The C++ Programming Language” (B. Stroustrup) · „Effective Java” (J. Bloch) · „Fluent Python” (L. Ramalho) · Dokumentacje języków.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
