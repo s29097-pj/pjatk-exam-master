@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 021 – Podstawowe cechy obiektów dynamicznych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">021. Podstawowe cechy obiektów dynamicznych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🍕</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Obiekt dynamiczny to „Pizza zamawiana na żądanie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
+                        Wyobraź sobie, że program to głodny klient. Jeśli z góry wiesz, że zjesz dokładnie 3 kawałki pizzy, możesz przygotować je przed imprezą na talerzu (zmienna lokalna na stosie). Ale co, jeśli goście zamawiają na bieżąco, a Ty nie wiesz, ile ostatecznie zamówią? <strong>Obiekt dynamiczny</strong> to pizza, którą zamawiasz przez telefon (malloc / new) dokładnie w momencie, gdy jest potrzebna. Dostajesz ją w kartonowym pudełku (blok pamięci na stercie), konsumujesz (używasz w programie), a po imprezie musisz pamiętać o wyrzuceniu pustego pudełka do śmieci (free / delete / GC). Jeśli zapomnisz – mieszkanie zamienia się w wysypisko (wyciek pamięci). Jeśli spróbujesz zjeść z pudełka, które już wyrzuciłeś – grozi Ci niestrawność (dangling pointer).
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a3000; line-height: 1.8;">
+                        <li><strong>🔵 Tworzenie na żądanie</strong> – nie musisz znać rozmiaru w czasie kompilacji. Pizzę (pamięć) zamawiasz przez <code>malloc</code>, <code>new</code> lub odpowiednik.</li>
+                        <li><strong>🟠 Życie na stercie</strong> – pudełko stoi na regale (heap), nie na Twoim biurku (stack). Może istnieć długo po zakończeniu funkcji.</li>
+                        <li><strong>🟢 Dostęp przez wskaźnik/referencję</strong> – nie trzymasz całej pizzy w dłoni, tylko numerek z pizzerii (adres), który mówi, gdzie pudełko się znajduje.</li>
+                        <li><strong>🟣 Odpowiedzialność za sprzątanie</strong> – w C/C++ sam musisz wyrzucić karton. W Javie/Pythonie robi to za Ciebie automatyczny śmieciarz (GC).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Obiekt dynamiczny (dynamic object)</span>
+            <span class="keyword-tag">Sterta (heap) vs Stos (stack)</span>
+            <span class="keyword-tag">Alokacja (malloc / new / gc)</span>
+            <span class="keyword-tag">Dealokacja (free / delete / GC)</span>
+            <span class="keyword-tag">Wskaźnik (pointer) / referencja</span>
+            <span class="keyword-tag">Czas życia obiektu (lifetime)</span>
+            <span class="keyword-tag">Wyciek pamięci (memory leak)</span>
+            <span class="keyword-tag">Dangling pointer (wiszący wskaźnik)</span>
+            <span class="keyword-tag">RAII (Resource Acquisition Is Initialization)</span>
+            <span class="keyword-tag">Smart pointer (unique_ptr, shared_ptr)</span>
+            <span class="keyword-tag">Garbage Collector (GC)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: CZYM JEST OBIEKT DYNAMICZNY?                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Obiekt dynamiczny – „Pudełko na regale, nie talerz na biurku”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W przeciwieństwie do zmiennych lokalnych, które są <strong>statycznie alokowane na stosie</strong> i znikają wraz z końcem funkcji, <strong>obiekty dynamiczne</strong> są tworzone jawnie w czasie wykonania programu na <strong>stercie (heap)</strong>. Ich rozmiar nie musi być znany w momencie kompilacji, a czas życia przekracza ramy pojedynczej funkcji. Dostęp do nich odbywa się pośrednio – poprzez <strong>wskaźnik</strong> (C/C++) lub <strong>referencję</strong> (Java, Python). To właśnie ta pośredniość daje im elastyczność, ale też stanowi źródło najtrudniejszych do wykrycia błędów.
+                </p>
+            </div>
+
+            <!-- SVG: OBIEKT DYNAMICZNY NA STERCIE vs ZMIENNA NA STOSIE -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridDyn" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridDyn)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Zmienne na stosie vs obiekty dynamiczne na stercie</text>
+
+                <!-- Stos (lewa strona) -->
+                <rect x="40" y="50" width="180" height="200" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="130" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Stos (stack)</text>
+                <rect x="60" y="90" width="140" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="130" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">int x = 42;</text>
+                <rect x="60" y="130" width="140" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="130" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">int* p;</text>
+                <text x="130" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Szybkie, automatyczne</text>
+                <text x="130" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Znikają z końcem funkcji</text>
+                <text x="130" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Ograniczony rozmiar</text>
+
+                <!-- Strzałka wskaźnika -->
+                <path d="M 220 145 L 300 100" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowDyn)"/>
+                <text x="260" y="135" font-family="sans-serif" font-size="10" fill="#e65100">wskaźnik p</text>
+
+                <!-- Sterta (prawa strona) -->
+                <rect x="320" y="50" width="200" height="200" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="420" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Sterta (heap)</text>
+                <rect x="340" y="95" width="160" height="40" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1"/>
+                <text x="420" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">malloc(4) → 42</text>
+                <text x="420" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">adres 0x5555…</text>
+                <text x="420" y="175" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Trwa dopóki nie zwolniony</text>
+                <text x="420" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Rozmiar może być dynamiczny</text>
+                <text x="420" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Ryzyko wycieków</text>
+
+                <defs>
+                    <marker id="arrowDyn" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: CECHY CHARAKTERYSTYCZNE OBIEKTÓW DYNAMICZNYCH  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Podstawowe cechy – „DNA obiektu dynamicznego”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">📦 Alokacja na stercie</strong><br>
+                        <span style="font-size:0.9rem;">Obiekt tworzony jest w czasie wykonania, poza stosem. Jego adres nie jest przewidywalny w czasie kompilacji.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">🔗 Dostęp przez referencję</strong><br>
+                        <span style="font-size:0.9rem;">Do obiektu odwołujemy się poprzez wskaźnik lub referencję. Sam wskaźnik może być na stosie lub w innym obiekcie.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">⏳ Określony czas życia</strong><br>
+                        <span style="font-size:0.9rem;">Od jawnego utworzenia do jawnego zwolnienia (lub automatycznego przez GC). Żyje tak długo, jak potrzebujesz – nawet po zakończeniu funkcji.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">📏 Dynamiczny rozmiar</strong><br>
+                        <span style="font-size:0.9rem;">Rozmiar może być znany dopiero w czasie wykonania (np. tablica o długości podanej przez użytkownika).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: CYKL ŻYCIA OBIEKTU DYNAMICZNEGO -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridDyn)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Cykl życia obiektu dynamicznego</text>
+
+                <!-- Alokacja -->
+                <rect x="50" y="60" width="150" height="70" rx="8" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="125" y="88" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">1. Alokacja</text>
+                <text x="125" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">malloc / new</text>
+                <text x="125" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">rezerwacja bloku</text>
+
+                <!-- Strzałka -->
+                <path d="M 210 95 L 260 95" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowLife1)"/>
+
+                <!-- Używanie -->
+                <rect x="270" y="60" width="150" height="70" rx="8" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="345" y="88" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">2. Używanie</text>
+                <text x="345" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">*p = 42;</text>
+                <text x="345" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">odczyt/zapis</text>
+
+                <!-- Strzałka -->
+                <path d="M 430 95 L 480 95" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowLife1)"/>
+
+                <!-- Dealokacja -->
+                <rect x="490" y="60" width="150" height="70" rx="8" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="565" y="88" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">3. Dealokacja</text>
+                <text x="565" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">free(p) / delete</text>
+                <text x="565" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">zwolnienie bloku</text>
+
+                <!-- Strzałka do błędu -->
+                <path d="M 640 95 L 690 95" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowLife2)"/>
+
+                <!-- Dangling pointer / użycie po dealokacji -->
+                <rect x="520" y="145" width="250" height="80" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="645" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">⚠️ Po dealokacji</text>
+                <text x="645" y="190" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">*p = 99; // undefined!</text>
+                <text x="645" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">Dangling pointer!</text>
+
+                <defs>
+                    <marker id="arrowLife1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowLife2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ZARZĄDZANIE CZASEM ŻYCIA – PORÓWNANIE JĘZYKÓW -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Kto sprząta? – Różne filozofie zarządzania pamięcią</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>⚙️ C (ręczne)</strong><br>
+                        <span style="font-size:0.85rem;">Pełna kontrola, pełna odpowiedzialność. <code>malloc</code> / <code>free</code>. Najmniejszy narzut, największe ryzyko błędów.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🔧 C++ (RAII)</strong><br>
+                        <span style="font-size:0.85rem;">Destruktory, smart pointers (<code>unique_ptr</code>, <code>shared_ptr</code>), <code>vector</code>. Automatyzacja przez semantykę czasu życia.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>☕ Java / Python (GC)</strong><br>
+                        <span style="font-size:0.85rem;">Obiekty żyją, dopóki są osiągalne. Garbage Collector zwalnia nieużywane. Wygoda kosztem wydajności i nieprzewidywalności.</span>
+                    </div>
+                </div>
+                <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 14px;">
+                    <strong>🧠 Kluczowa różnica:</strong> W C/C++ to programista mówi „zwolnij”. W GC to system sam decyduje, kiedy zwolnić – zazwyczaj gdy obiekt przestaje być osiągalny z korzeni (stosu, rejestrów, zmiennych globalnych).
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: WYCIEK PAMIĘCI I DANGILING POINTER              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Dwie największe zmory obiektów dynamicznych</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 280px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong style="color:#b71c1c;">💧 Wyciek pamięci (memory leak)</strong><br>
+                        <span style="font-size:0.9rem;">Alokujesz obiekt i gubisz do niego wskaźnik (lub zapominasz zwolnić). Blok pozostaje zajęty, ale nieużywany. Z czasem zużywa całą dostępną pamięć.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong style="color:#b71c1c;">🔫 Dangling pointer (wiszący wskaźnik)</strong><br>
+                        <span style="font-size:0.9rem;">Zwalniasz obiekt, ale wskaźnik nadal trzyma jego stary adres. Użycie go to „strzał w ciemno” – zachowanie niezdefiniowane.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: WYCIEK vs DANGILING POINTER -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridDyn)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Wyciek pamięci vs Dangling Pointer</text>
+
+                <!-- Wyciek -->
+                <rect x="40" y="50" width="350" height="140" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="215" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">💧 Wyciek pamięci</text>
+                <text x="215" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">int* p = malloc(sizeof(int));</text>
+                <text x="215" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">p = malloc(sizeof(int)); // stary blok stracony!</text>
+                <text x="215" y="150" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Stary blok wciąż zajęty, ale już nieosiągalny.</text>
+
+                <!-- Dangling -->
+                <rect x="430" y="50" width="350" height="140" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="605" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">🔫 Dangling pointer</text>
+                <text x="605" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">int* p = malloc(sizeof(int));</text>
+                <text x="605" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">free(p); *p = 42; // użycie po zwolnieniu!</text>
+                <text x="605" y="150" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Wskaźnik wskazuje na zwolniony (lub już przydzielony komuś innemu) obszar.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Wskaźnik na stos ≠ obiekt na stercie.</strong> Sam wskaźnik to często zmienna lokalna (na stosie), ale obiekt, na który wskazuje, leży na stercie.</li>
+                    <li><strong>GC nie zapobiega wszystkim wyciekom</strong> – w Javie/Pythonie możesz trzymać referencję do obiektu w strukturze danych, która żyje długo, i nigdy jej nie usunąć (np. nieodpięty listener).</li>
+                    <li><strong>W C++ wskaźnik po delete nie staje się automatycznie nullptr</strong> – nadal przechowuje stary adres. Ręcznie ustaw na <code>nullptr</code> lub użyj smart pointera.</li>
+                    <li><strong>Deep copy vs shallow copy</strong> – kopiowanie wskaźnika kopiuje adres, nie obiekt. Oba wskaźniki wskazują na ten sam obiekt. Jeśli chcesz niezależną kopię, musisz alokować nowy obiekt i przekopiować zawartość.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – obiekty dynamiczne:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">C</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">C++</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Java / Python</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Tworzenie</td>
+                        <td style="padding: 10px;"><code>malloc</code></td>
+                        <td style="padding: 10px;"><code>new</code>, <code>make_unique</code></td>
+                        <td style="padding: 10px;"><code>new</code> / <code>ClassName()</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Dealokacja</td>
+                        <td style="padding: 10px;"><code>free</code></td>
+                        <td style="padding: 10px;"><code>delete</code> / destruktor</td>
+                        <td style="padding: 10px;">GC (automatycznie)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Dostęp</td>
+                        <td style="padding: 10px;">Wskaźnik (<code>T*</code>)</td>
+                        <td style="padding: 10px;">Wskaźnik, referencja, smart ptr</td>
+                        <td style="padding: 10px;">Referencja (niejawnie)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Obiekty dynamiczne dają Ci wolność tworzenia danych na żądanie, bez znania rozmiaru z góry. Ceną jest odpowiedzialność: musisz wiedzieć, gdzie są, jak długo mają żyć i – w zależności od języka – kto po nich sprząta. Ta wiedza oddziela programistę od rzemieślnika.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The C Programming Language” (Kernighan, Ritchie) · „Effective Modern C++” (Meyers) · Dokumentacje JVM, CPython.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
