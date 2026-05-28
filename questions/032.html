@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pytanie 032 – Wzorce Projektowe</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <div class="question-box">
+    <h2 id="q-title">032. Wzorce Projektowe: kreacyjne, strukturalne i behawioralne.</h2>
+
+    <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+      <div style="display: flex; align-items: flex-start; gap: 14px;">
+        <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+        <div>
+          <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – "Projekty architektoniczne dla programistów":</strong>
+          <p style="margin: 0 0 8px 0; color: #2e0f3d; line-height: 1.7;">
+            Wzorce projektowe (ang. <em>Design Patterns</em>) <strong>nie są gotowymi fragmentami kodu</strong>. To wypróbowane, uniwersalne szablony rozwiązywania powtarzających się problemów architektonicznych.<br><br>
+            Wyobraź sobie inżyniera budownictwa. Kiedy musi zaprojektować przejście między pokojami, nie wymyśla od nowa koncepcji dziury w ścianie z zawiasami – używa wzorca zwanego "Drzwi". W programowaniu jest podobnie. Gang Czworga (<strong>GoF - Gang of Four</strong>) skatalogował w 1994 roku 23 klasyczne wzorce, dzieląc je na 3 rodziny:
+          </p>
+          <ul style="margin: 0; padding-left: 20px; color: #2e0f3d; line-height: 1.8;">
+            <li><strong>🔵 Kreacyjne:</strong> Jak mądrze TWORZYĆ nowe obiekty (zamiast rzucać wszędzie <code>new Object()</code>).</li>
+            <li><strong>🟠 Strukturalne:</strong> Jak ŁĄCZYĆ klasy i obiekty w większe, działające struktury (jak wtyczki i przejściówki).</li>
+            <li><strong>🟢 Behawioralne:</strong> Jak obiekty mają się ze sobą KOMUNIKOWAĆ i delegować zadania (jak szef i pracownicy).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="keywords-box" style="margin-bottom: 28px;">
+      <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+      <span class="keyword-tag">GoF (Gang of Four)</span>
+      <span class="keyword-tag">Kreacyjne (Creational)</span>
+      <span class="keyword-tag">Strukturalne (Structural)</span>
+      <span class="keyword-tag">Behawioralne (Behavioral)</span>
+      <span class="keyword-tag">Singleton, Factory, Builder</span>
+      <span class="keyword-tag">Adapter, Facade (Fasada), Decorator</span>
+      <span class="keyword-tag">Observer (Obserwator), Strategy (Strategia)</span>
+      <span class="keyword-tag">Luźne powiązanie (Loose coupling)</span>
+    </div>
+
+    <div id="q-content" class="answer-section">
+
+      <div class="answer-step" style="margin-bottom: 24px;">
+        <strong style="font-size: 1.2rem; color: #1565c0;">1. Wzorce Kreacyjne (Creational) – Maszyny do robienia obiektów</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Bezpośrednie używanie operatora <code>new</code> twardo wiąże nasz kod z konkretną klasą. Wzorce kreacyjne izolują logikę tworzenia od logiki biznesowej aplikacji. Daje to elastyczność w decydowaniu <em>co, jak i kiedy</em> ma zostać utworzone.
+        </p>
+        <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+          <li><strong>Singleton:</strong> Gwarantuje, że w całej aplikacji istnieje <em>tylko jedna instancja</em> danej klasy (np. połączenie z bazą danych, menedżer logów).</li>
+          <li><strong>Factory Method (Metoda Fabrykująca):</strong> Klasa-fabryka sama decyduje, jakiego typu obiekt zwrócić. Zamiast <code>new Car()</code>, wołasz <code>Factory.create("Auto")</code>.</li>
+          <li><strong>Builder (Budowniczy):</strong> Służy do konstruowania bardzo złożonych obiektów krok po kroku (np. <code>new Burger().addCheese().addMeat().build()</code>).</li>
+        </ul>
+      </div>
+
+      <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <defs>
+          <pattern id="gridKreacyjne" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+        <rect x="0" y="0" width="820" height="220" fill="url(#gridKreacyjne)" opacity="0.5"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Wzorce Kreacyjne w Akcji</text>
+
+        <rect x="50" y="60" width="300" height="130" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+        <text x="200" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e88e5" text-anchor="middle">Singleton (Tylko JEDEN!)</text>
+
+        <rect x="150" y="110" width="100" height="60" rx="5" fill="#1e88e5"/>
+        <text x="200" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Baza Danych</text>
+
+        <circle cx="90" cy="115" r="15" fill="#90caf9"/>
+        <circle cx="90" cy="165" r="15" fill="#90caf9"/>
+        <circle cx="310" cy="140" r="15" fill="#90caf9"/>
+
+        <path d="M 105 115 L 145 130" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+        <path d="M 105 165 L 145 150" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+        <path d="M 295 140 L 255 140" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+        <text x="200" y="210" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wszyscy uderzają do tej samej instancji</text>
+
+        <rect x="420" y="60" width="350" height="130" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+        <text x="595" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e88e5" text-anchor="middle">Metoda Fabrykująca</text>
+
+        <rect x="450" y="110" width="80" height="60" rx="5" fill="#ffb74d" stroke="#f57c00" stroke-width="2"/>
+        <text x="490" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Fabryka</text>
+
+        <path d="M 535 125 L 580 110" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-orange)"/>
+        <path d="M 535 155 L 580 170" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-orange)"/>
+
+        <rect x="590" y="95" width="60" height="30" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+        <text x="620" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Ciężarówka</text>
+
+        <circle cx="620" cy="170" r="15" fill="#fff" stroke="#f44336" stroke-width="2"/>
+        <text x="620" y="174" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Auto</text>
+
+        <text x="690" y="140" font-family="sans-serif" font-size="10" fill="#1565c0" font-style="italic">Fabryka decyduje co</text>
+        <text x="690" y="155" font-family="sans-serif" font-size="10" fill="#1565c0" font-style="italic">powstanie na bazie</text>
+        <text x="690" y="170" font-family="sans-serif" font-size="10" fill="#1565c0" font-style="italic">przekazanych argumentów.</text>
+
+        <defs>
+          <marker id="arrow-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+          <marker id="arrow-orange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+        </defs>
+      </svg>
+
+      <div class="answer-step" style="margin-bottom: 24px;">
+        <strong style="font-size: 1.2rem; color: #e65100;">2. Wzorce Strukturalne (Structural) – Przejściówki i ułatwiacze</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Skupiają się na tym, jak złożyć klasy w większe struktury w taki sposób, aby były elastyczne. Wykorzystują głównie <strong>kompozycję (Composition)</strong> zamiast dziedziczenia.
+        </p>
+        <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+          <li><strong>Adapter:</strong> Zmienia interfejs jednej klasy na interfejs innej. Działa jak przejściówka podróżna z gniazdka UK na EU. Klasyczny przypadek: podłączanie starego kodu (Legacy) do nowego systemu.</li>
+          <li><strong>Fasada (Facade):</strong> Udostępnia uproszczony interfejs dla bardzo skomplikowanego podsystemu. Klient wciska jeden guzik "Uruchom Kino", a Fasada w tle włącza TV, ustawia głośność, gasi światło i odpala Netflixa.</li>
+          <li><strong>Dekorator (Decorator):</strong> Pozwala dynamicznie dodawać nowe funkcje do obiektu bez modyfikowania jego kodu bazowego (zamiast tworzyć setki subklas).</li>
+        </ul>
+      </div>
+
+      <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <rect x="0" y="0" width="820" height="220" fill="url(#gridKreacyjne)" opacity="0.3"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Wzorce Strukturalne: Łączenie puzzli</text>
+
+        <rect x="50" y="60" width="300" height="130" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="200" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f57c00" text-anchor="middle">Adapter (Przejściówka)</text>
+
+        <rect x="80" y="110" width="60" height="50" fill="#34495e"/>
+        <polygon points="140,120 155,120 155,150 140,150" fill="#34495e"/> <rect x="170" y="100" width="60" height="70" rx="5" fill="#ffb74d" stroke="#e65100" stroke-width="2"/>
+        <text x="200" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">ADAPTER</text>
+
+        <rect x="260" y="110" width="60" height="50" fill="#e74c3c"/>
+        <polygon points="260,115 245,125 245,145 260,155" fill="#e74c3c"/> <text x="200" y="210" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Pozwala współpracować niekompatybilnym klasom</text>
+
+        <rect x="420" y="60" width="350" height="130" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+        <text x="595" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f57c00" text-anchor="middle">Fasada (Uproszczony Interfejs)</text>
+
+        <circle cx="460" cy="135" r="15" fill="#1abc9c"/> <text x="460" y="165" font-family="sans-serif" font-size="10" font-weight="bold" fill="#16a085" text-anchor="middle">Klient</text>
+
+        <path d="M 480 135 L 530 135" fill="none" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow-dark)"/>
+        <text x="505" y="125" font-family="monospace" font-size="10" fill="#2c3e50" text-anchor="middle">turnOn()</text>
+
+        <rect x="540" y="95" width="40" height="80" rx="5" fill="#f57c00"/>
+
+        <path d="M 585 110 L 640 100" fill="none" stroke="#f57c00" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-orange)"/>
+        <path d="M 585 135 L 640 135" fill="none" stroke="#f57c00" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-orange)"/>
+        <path d="M 585 160 L 640 170" fill="none" stroke="#f57c00" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-orange)"/>
+
+        <rect x="650" y="90" width="90" height="20" fill="#bdc3c7"/>
+        <rect x="650" y="125" width="90" height="20" fill="#bdc3c7"/>
+        <rect x="650" y="160" width="90" height="20" fill="#bdc3c7"/>
+        <text x="695" y="104" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Podsystem Audio</text>
+        <text x="695" y="139" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Podsystem Wideo</text>
+        <text x="695" y="174" font-family="sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Podsystem Światło</text>
+
+        <defs>
+          <marker id="arrow-dark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2c3e50"/></marker>
+        </defs>
+      </svg>
+
+      <div class="answer-step" style="margin-bottom: 24px;">
+        <strong style="font-size: 1.2rem; color: #2e7d32;">3. Wzorce Behawioralne (Behavioral) – Relacje międzyludzkie klas</strong>
+        <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+          Zajmują się algorytmami i przydziałem odpowiedzialności. Odpowiadają na pytanie: "Kto z kim rozmawia i jak to zorganizować, by klasy nie wiedziały o sobie za dużo (Luźne powiązanie)?".
+        </p>
+        <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+          <li><strong>Obserwator (Observer):</strong> Model Subskrypcji. Gdy "Wydawca" zmieni stan, wszyscy "Subskrybenci" są o tym automatycznie informowani (np. system zdarzeń / powiadomienia na YouTube).</li>
+          <li><strong>Strategia (Strategy):</strong> Pozwala wyciągnąć algorytm z klasy głównej do osobnych klas-strategii. Klient decyduje w locie, jakiego algorytmu użyć. Np. w aplikacji z mapami masz metody: jedź autem, idź pieszo, jedź rowerem.</li>
+          <li><strong>Polecenie (Command):</strong> Zamienia żądanie w samodzielny obiekt. Idealny do tworzenia logiki "Cofnij/Ponów" (Undo/Redo) lub kolejkowania zadań.</li>
+        </ul>
+      </div>
+
+      <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+        <rect x="0" y="0" width="820" height="240" fill="url(#gridKreacyjne)" opacity="0.3"/>
+        <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#2e7d32">Wzorce Behawioralne: Algorytmy i Komunikacja</text>
+
+        <rect x="50" y="60" width="300" height="150" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+        <text x="200" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#388e3c" text-anchor="middle">Obserwator (Subskrypcja)</text>
+
+        <rect x="80" y="110" width="70" height="60" rx="5" fill="#388e3c"/>
+        <text x="115" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Wydawca</text>
+
+        <path d="M 160 120 L 220 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+        <path d="M 160 140 L 220 140" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+        <path d="M 160 160 L 220 180" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+        <rect x="230" y="90" width="80" height="20" rx="3" fill="#c8e6c9"/>
+        <rect x="230" y="130" width="80" height="20" rx="3" fill="#c8e6c9"/>
+        <rect x="230" y="170" width="80" height="20" rx="3" fill="#c8e6c9"/>
+        <text x="270" y="103" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Subskrybent 1</text>
+        <text x="270" y="143" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Subskrybent 2</text>
+        <text x="270" y="183" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Subskrybent 3</text>
+
+        <rect x="420" y="60" width="350" height="150" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+        <text x="595" y="85" font-family="sans-serif" font-size="13" font-weight="bold" fill="#388e3c" text-anchor="middle">Strategia (Algorytmy Wymienne)</text>
+
+        <rect x="450" y="110" width="80" height="60" rx="5" fill="#388e3c"/>
+        <text x="490" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Kontekst</text>
+        <text x="490" y="150" font-family="sans-serif" font-size="9" fill="#c8e6c9" text-anchor="middle">Nawigacja</text>
+
+        <path d="M 535 140 L 590 140" fill="none" stroke="#1b5e20" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+
+        <rect x="610" y="100" width="130" height="80" rx="5" fill="#fff" stroke="#4caf50" stroke-width="2" stroke-dasharray="5,5"/>
+        <text x="675" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Wybierz algorytm:</text>
+
+        <rect x="625" y="125" width="100" height="15" fill="#a5d6a7"/>
+        <text x="675" y="136" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Opcja: Autem</text>
+
+        <rect x="625" y="145" width="100" height="15" fill="#a5d6a7"/>
+        <text x="675" y="156" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Opcja: Pieszo</text>
+
+        <rect x="625" y="165" width="100" height="15" fill="#a5d6a7"/>
+        <text x="675" y="176" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Opcja: Rowerem</text>
+
+        <defs>
+          <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+        </defs>
+      </svg>
+
+      <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+        <strong style="font-size: 1.05rem; color: #c62828;">⚠️ Pułapki Egzaminacyjne (Overengineering):</strong>
+        <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+          <li><strong>Singleton jako globalna zmienna:</strong> To klasyczny antywzorzec. Jeśli używasz Singletona tylko po to, żeby mieć dostęp do zmiennej z każdego miejsca w kodzie, łamiesz zasady hermetyzacji kodu i ekstremalnie utrudniasz testy jednostkowe.</li>
+          <li><strong>Overengineering:</strong> "Użyłem 5 wzorców projektowych do napisania kalkulatora!". To najczęstszy błąd juniorów. Wzorce wprowadzają dodatkową warstwę abstrakcji (nowe klasy i interfejsy). Zastosuj wzorzec dopiero wtedy, gdy czujesz "ból" i problem architektoniczny faktycznie istnieje.</li>
+        </ul>
+      </div>
+
+      <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+        <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 GoF Cheat-Sheet:</strong>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <thead>
+          <tr style="background: #eceff1;">
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rodzina</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cel</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykłady / Analogie</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Kreacyjne</td>
+            <td style="padding: 10px;">Jak kontrolować proces wywoływania <code>new</code></td>
+            <td style="padding: 10px;"><strong>Singleton</strong> (Król jest jeden), <strong>Builder</strong> (Klocki Lego)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e0e0e0;">
+            <td style="padding: 10px; font-weight: bold; color: #e65100;">Strukturalne</td>
+            <td style="padding: 10px;">Jak sklejać klasy bez twardych zależności</td>
+            <td style="padding: 10px;"><strong>Adapter</strong> (Przejściówka), <strong>Facade</strong> (Panel sterowania)</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Behawioralne</td>
+            <td style="padding: 10px;">Jak dystrybuować obowiązki między obiektami</td>
+            <td style="padding: 10px;"><strong>Observer</strong> (Newsletter), <strong>Strategy</strong> (Metody płatności)</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+        <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+          🧠 <strong>Grokking means truly understanding.</strong><br>
+          <span style="font-size: 0.9rem; opacity: 0.85;">Wzorce projektowe to język, którym rozmawiają inżynierowie. Zamiast tłumaczyć przez 10 minut: "Zróbmy osobną klasę, która będzie sprawdzać zmiany w bazie i wysyłać ping do innych klas", po prostu powiedz "Użyjmy Obserwatora". Wzorce czynią kod zrozumiałym, testowalnym i łatwym do rozbudowy na lata do przodu.</span>
+        </p>
+      </div>
+
+    </div></div></div></body>
+</html>
