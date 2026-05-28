@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 038 – Stosy, kolejki i kopce</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">038. Organizacja dostępu do zbiorów skończonych: stosy, kolejki, kolejki priorytetowe.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🥞</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Talerze w stołówce, rura z wodą i sortownik na poczcie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
+                        Zbiorami skończonymi w pamięci RAM komputera można zarządzać na wiele sposobów, ale w informatyce królują trzy żelazne polityki dostępu:<br><br>
+                        <strong>STOS (Stack) to LIFO (Last In, First Out).</strong> Działa jak dyspenser na talerze w stołówce. Dokładasz talerz zawsze na <strong>samą górę</strong>. Kiedy klient przychodzi po obiad, bierze talerz z <strong>samej góry</strong>. Ostatni odłożony talerz jest pierwszym, który zostanie zabrany. Nie da się wyciągnąć talerza ze środka bez zrzucenia reszty.<br><br>
+                        <strong>KOLEJKA (Queue) to FIFO (First In, First Out).</strong> Działa jak rura, do której wrzucasz piłeczki ping-pongowe, albo jak kolejka do kasy. Kto pierwszy stanie, ten pierwszy wyjdzie. Nowe elementy wchodzą jednym końcem, a wychodzą drugim.<br><br>
+                        <strong>KOLEJKA PRIORYTETOWA (Priority Queue)</strong> to sortownik na poczcie. Ludzie wchodzą do kolejki, ale nie obsługuje się ich według czasu przybycia – zamiast tego najpierw obsługuje się „priorytetowych” (np. najpilniejsze przesyłki ekspresowe, najdroższe zlecenia). Kluczowa jest tu wartość priorytetu, a nie kolejność przybycia.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (rozszerzone)                 -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">LIFO (Last In, First Out)</span>
+            <span class="keyword-tag">FIFO (First In, First Out)</span>
+            <span class="keyword-tag">Push / Pop / Peek / Top</span>
+            <span class="keyword-tag">Enqueue / Dequeue</span>
+            <span class="keyword-tag">Stos wywołań (Call Stack)</span>
+            <span class="keyword-tag">Bufor cykliczny (Circular Buffer)</span>
+            <span class="keyword-tag">Kopiec binarny (Binary Heap)</span>
+            <span class="keyword-tag">Kolejka priorytetowa (Priority Queue)</span>
+            <span class="keyword-tag">Złożoność O(1) i O(log n)</span>
+            <span class="keyword-tag">Stack Overflow / Underflow</span>
+            <span class="keyword-tag">std::stack / std::queue (C++)</span>
+            <span class="keyword-tag">collections.deque (Python)</span>
+            <span class="keyword-tag">DFS vs BFS</span>
+            <span class="keyword-tag">Algorytm Dijkstry</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: STOS (STACK) – LIFO                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Stos (Stack) – Wejście i wyjście z tej samej strony (LIFO)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Stos to struktura danych, która gwarantuje złożoność czasową <strong>O(1)</strong> dla głównych operacji, ponieważ zawsze śledzimy tylko jeden wskaźnik: <code>Top</code> (wierzchołek). W pamięci jest to najczęściej zwykła tablica z jednym indeksem.
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Push(item):</strong> Zwiększ <code>Top</code> o 1, wstaw <code>item</code> na nowe miejsce.</li>
+                    <li><strong>Pop():</strong> Odczytaj wartość pod wskaźnikiem <code>Top</code>, a następnie zmniejsz <code>Top</code> o 1. (Uwaga: dane w RAM-ie nadal tam fizycznie są, my po prostu przesuwamy wskaźnik – zostaną nadpisane przy kolejnym Push!).</li>
+                    <li><strong>Peek() / Top():</strong> Odczytaj wartość z wierzchołka bez usuwania.</li>
+                </ul>
+                <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Zastosowania inżynierskie:</strong> Mechanizm „Cofnij” (Ctrl+Z) w edytorach tekstu · <em>Call Stack</em> (śledzenie, z której funkcji wrócić) · Odwracanie ciągów znaków · Obliczanie wyrażeń w ONP (Odwrotna Notacja Polska) · Przeszukiwanie w głąb (DFS – Depth First Search) w grafach i drzewach.
+                </div>
+            </div>
+
+            <!-- SVG: ANATOMIA STOSU (zachowany z oryginału, lekko poprawiony) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridStack" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridStack)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Anatomia Stosu (LIFO) – Tablica pionowa z operacjami</text>
+
+                <!-- Kontener stosu -->
+                <path d="M 360 50 L 360 200 L 460 200 L 460 50" fill="none" stroke="#455a64" stroke-width="4"/>
+
+                <!-- Elementy -->
+                <rect x="365" y="155" width="90" height="35" rx="4" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+                <text x="410" y="178" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">A</text>
+                <rect x="365" y="115" width="90" height="35" rx="4" fill="#bbdefb" stroke="#1e88e5" stroke-width="2"/>
+                <text x="410" y="138" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">B</text>
+                <rect x="365" y="75" width="90" height="35" rx="4" fill="#90caf9" stroke="#1e88e5" stroke-width="2"/>
+                <text x="410" y="98" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">C</text>
+
+                <!-- Wskaźnik Top -->
+                <line x1="270" y1="92" x2="350" y2="92" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
+                <text x="240" y="97" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Top = 2</text>
+
+                <!-- Operacje -->
+                <path d="M 520 50 Q 480 50 430 70" fill="none" stroke="#2e7d32" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowGreen)"/>
+                <rect x="530" y="30" width="100" height="30" rx="4" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="580" y="50" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Push(D) → O(1)</text>
+
+                <path d="M 430 100 Q 490 145 520 170" fill="none" stroke="#c62828" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+                <rect x="530" y="155" width="100" height="30" rx="4" fill="#ffebee" stroke="#ef5350" stroke-width="2"/>
+                <text x="580" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Pop() → C</text>
+
+                <defs>
+                    <marker id="arrowOrange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: KOLEJKA (QUEUE) – FIFO                          -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Kolejka (Queue) – Dwa wskaźniki, ruch dwukierunkowy (FIFO)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kolejka obsługuje wejście z jednej strony i wyjście z drugiej. Potrzebujemy dwóch wskaźników: <strong>Head</strong> (głowa – skąd pobieramy) oraz <strong>Tail</strong> (ogon – gdzie wstawiamy). Kluczowe operacje to <strong>Enqueue</strong> (dodaj na koniec) i <strong>Dequeue</strong> (pobierz z początku).
+                </p>
+                <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚙️ Zastosowania w IT:</strong> Pule wątków (Thread Pools) · Kolejki wiadomości (RabbitMQ, Kafka) · Buforowanie ruchu sieciowego · Algorytmy przeszukiwania wszerz (BFS – Breadth First Search) · Szeregowanie zadań w systemie operacyjnym.
+                </div>
+            </div>
+
+            <!-- SVG: BUFOR CYKLICZNY (zachowany z oryginału, poprawiony) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridStack)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Rozwiązanie problemu pamięci: Bufor Cykliczny O(1) dla kolejki</text>
+
+                <!-- Komórki bufora -->
+                <rect x="120" y="100" width="65" height="45" fill="#fff" stroke="#90a4ae" stroke-width="2" rx="3"/>
+                <text x="152" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#78909c">∅</text>
+
+                <rect x="185" y="100" width="65" height="45" fill="#fff" stroke="#90a4ae" stroke-width="2" rx="3"/>
+                <text x="217" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#78909c">∅</text>
+
+                <rect x="250" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="282" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">A</text>
+
+                <rect x="315" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="347" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">B</text>
+
+                <rect x="380" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="412" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">C</text>
+
+                <rect x="445" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="477" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">D</text>
+
+                <rect x="510" y="100" width="65" height="45" fill="#fff" stroke="#90a4ae" stroke-width="2" rx="3"/>
+                <text x="542" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#78909c">∅</text>
+
+                <rect x="575" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="607" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">X</text>
+
+                <rect x="640" y="100" width="65" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="3"/>
+                <text x="672" y="128" text-anchor="middle" font-family="monospace" font-size="14" fill="#1b5e20">Y</text>
+
+                <!-- Strzałka zawijania -->
+                <path d="M 705 145 Q 800 180 440 -10 Q 50 180 152 145" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowCircle)"/>
+                <text x="440" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Zamiast przesuwać tablicę, Tail zawraca na początek!</text>
+                <text x="440" y="72" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c" text-anchor="middle">Tail = (Tail + 1) % MAX_SIZE</text>
+
+                <!-- Wskaźniki -->
+                <line x1="282" y1="160" x2="282" y2="148" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueDown)"/>
+                <text x="282" y="180" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0">HEAD</text>
+
+                <line x1="477" y1="160" x2="477" y2="148" stroke="#c62828" stroke-width="3" marker-end="url(#arrowRedDown)"/>
+                <text x="477" y="180" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#c62828">TAIL</text>
+
+                <defs>
+                    <marker id="arrowCircle" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ff9800"/></marker>
+                    <marker id="arrowBlueDown" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowRedDown" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: KOLEJKA PRIORYTETOWA I KOPIEC BINARNY (NOWA!)   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Kolejka priorytetowa i Kopiec Binarny (Binary Heap) – „Sortownik na poczcie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Kolejka priorytetowa</strong> to struktura, w której każdy element ma przypisany <strong>priorytet</strong>. Element o najwyższym priorytecie jest zawsze obsługiwany jako pierwszy – niezależnie od kolejności dodawania. Najczęściej implementuje się ją za pomocą <strong>kopca binarnego (binary heap)</strong> – drzewa binarnego, w którym każdy rodzic ma wyższy priorytet niż jego dzieci (max-heap) lub niższy (min-heap).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #4a148c;">
+                    <li><strong>Insert / Push:</strong> Wstaw element na koniec, a następnie przesuwaj go w górę (heapify-up / bubble-up) aż do przywrócenia własności kopca. O(log n).</li>
+                    <li><strong>Extract-Max / Pop:</strong> Pobierz korzeń (największy priorytet), przenieś ostatni element na szczyt i przesuwaj go w dół (heapify-down / bubble-down). O(log n).</li>
+                    <li><strong>Peek:</strong> Odczytaj korzeń bez usuwania. O(1).</li>
+                </ul>
+                <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚙️ Zastosowania:</strong> Algorytm Dijkstry (najkrótsza ścieżka w grafie) · Sortowanie przez kopcowanie (Heapsort) · Efektywne znajdowanie mediany · Harmonogramowanie zadań w systemach czasu rzeczywistego.
+                </div>
+            </div>
+
+            <!-- SVG: KOPIEC BINARNY (MAX-HEAP) – WIZUALIZACJA -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridStack)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Kopiec Binarny (Max-Heap) – podstawa kolejki priorytetowej</text>
+
+                <!-- Korzeń (indeks 0) -->
+                <circle cx="410" cy="65" r="22" fill="#e1bee7" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="410" y="70" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c">99</text>
+                <text x="410" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">indeks 0</text>
+
+                <!-- Połączenia -->
+                <line x1="395" y1="83" x2="280" y2="130" stroke="#8e24aa" stroke-width="2"/>
+                <line x1="425" y1="83" x2="540" y2="130" stroke="#8e24aa" stroke-width="2"/>
+
+                <!-- Lewe dziecko (indeks 1) -->
+                <circle cx="270" cy="145" r="20" fill="#ce93d8" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="270" y="150" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#4a148c">72</text>
+                <text x="270" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">idx 1</text>
+
+                <!-- Prawe dziecko (indeks 2) -->
+                <circle cx="550" cy="145" r="20" fill="#ce93d8" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="550" y="150" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#4a148c">45</text>
+                <text x="550" y="172" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6a1b9a">idx 2</text>
+
+                <!-- Własność kopca -->
+                <rect x="530" y="60" width="250" height="50" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="655" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a148c">Własność kopca: rodzic ≥ dzieci</text>
+                <text x="655" y="98" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">arr[i] ≥ arr[2i+1] i arr[2i+2]</text>
+
+                <!-- Reprezentacja tablicowa -->
+                <rect x="130" y="195" width="560" height="30" rx="4" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="410" y="215" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Tablica: [99, 72, 45, …] – dzieci węzła i są na pozycjach 2i+1 oraz 2i+2</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: IMPLEMENTACJE W JĘZYKACH PROGRAMOWANIA (NOWE!)  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Implementacje w popularnych językach programowania</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>⚙️ C++ (STL)</strong><br>
+                        <code style="font-size:0.85rem;">std::stack&lt;int&gt; s; s.push(1); s.pop(); s.top();</code><br>
+                        <code style="font-size:0.85rem;">std::queue&lt;int&gt; q; q.push(1); q.pop(); q.front();</code><br>
+                        <code style="font-size:0.85rem;">std::priority_queue&lt;int&gt; pq; pq.push(5); pq.top(); pq.pop();</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;">Domyślnie max-heap. Dla min-heap: <code>std::priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt;</code>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🐍 Python</strong><br>
+                        <code style="font-size:0.85rem;">list jako stos: lst.append(1); lst.pop()</code><br>
+                        <code style="font-size:0.85rem;">collections.deque – szybka kolejka dwustronna</code><br>
+                        <code style="font-size:0.85rem;">heapq – moduł kopcowy (min-heap)</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;"><code>heapq.heappush(h, 5); heapq.heappop(h)</code>. Domyślnie min-heap. Dla max-heap: negacja priorytetu.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>☕ Java</strong><br>
+                        <code style="font-size:0.85rem;">Stack&lt;Integer&gt; s = new Stack&lt;&gt;(); s.push(1); s.pop();</code><br>
+                        <code style="font-size:0.85rem;">Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;(); q.offer(1); q.poll();</code><br>
+                        <code style="font-size:0.85rem;">PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(); pq.add(5); pq.peek(); pq.poll();</code><br>
+                        <span style="font-size:0.8rem; color:#004d40;">Domyślnie min-heap. Dla max-heap: <code>new PriorityQueue&lt;&gt;(Collections.reverseOrder())</code>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: DFS vs BFS – KLASYCZNE PRZYKŁADY UŻYCIA       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">5. DFS i BFS – bliźniacze algorytmy oparte na stosie i kolejce</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Przeszukiwanie grafów to idealna ilustracja różnicy między stosem a kolejką. <strong>DFS (Depth First Search)</strong> używa stosu – idzie w głąb tak daleko, jak to możliwe, zanim się cofnie. <strong>BFS (Breadth First Search)</strong> używa kolejki – eksploruje wszystkie węzły na danym poziomie przed przejściem głębiej. BFS gwarantuje znalezienie najkrótszej ścieżki w grafie nieważonym.
+                </p>
+                <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🧠 Algorytm Dijkstry:</strong> Używa kolejki priorytetowej, by zawsze rozpatrywać wierzchołek o najmniejszej aktualnej odległości od źródła. To klucz do systemów nawigacji GPS, routingu sieciowego (OSPF) i planowania tras.
+                </div>
+            </div>
+
+            <!-- SVG: DFS vs BFS WIZUALIZACJA (NOWA) -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridStack)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">DFS (stos) vs BFS (kolejka) – ta sama mapa, inna droga</text>
+
+                <!-- Panel lewy: DFS (stos) -->
+                <rect x="30" y="50" width="370" height="140" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">DFS – Stos (idzie w głąb)</text>
+                <!-- Symboliczna ścieżka DFS -->
+                <circle cx="120" cy="130" r="12" fill="#42a5f5"/><text x="120" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">A</text>
+                <line x1="132" y1="130" x2="178" y2="110" stroke="#1565c0" stroke-width="2"/>
+                <circle cx="190" cy="105" r="12" fill="#42a5f5"/><text x="190" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">B</text>
+                <line x1="202" y1="105" x2="248" y2="85" stroke="#1565c0" stroke-width="2"/>
+                <circle cx="260" cy="80" r="12" fill="#42a5f5"/><text x="260" y="85" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">D</text>
+                <line x1="248" y1="115" x2="290" y2="140" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,3"/>
+                <circle cx="300" cy="145" r="12" fill="#90caf9"/><text x="300" y="150" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">E</text>
+                <text x="215" y="178" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Schodzi głęboko zanim się cofnie</text>
+
+                <!-- Panel prawy: BFS (kolejka) -->
+                <rect x="420" y="50" width="370" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">BFS – Kolejka (idzie wszerz)</text>
+                <circle cx="520" cy="120" r="12" fill="#66bb6a"/><text x="520" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">A</text>
+                <line x1="532" y1="120" x2="568" y2="100" stroke="#2e7d32" stroke-width="2"/>
+                <circle cx="580" cy="95" r="12" fill="#66bb6a"/><text x="580" y="100" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">B</text>
+                <line x1="532" y1="125" x2="568" y2="145" stroke="#2e7d32" stroke-width="2"/>
+                <circle cx="580" cy="150" r="12" fill="#66bb6a"/><text x="580" y="155" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">C</text>
+                <line x1="592" y1="95" x2="640" y2="80" stroke="#2e7d32" stroke-width="2" stroke-dasharray="4,3"/>
+                <circle cx="650" cy="75" r="12" fill="#a5d6a7"/><text x="650" y="80" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">D</text>
+                <text x="605" y="178" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Eksploruje poziom za poziomem</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE (ROZSZERZONE)             -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Krawędzie bezpieczeństwa):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Stack Overflow:</strong> Zbiory te są <em>skończone</em>. Jeśli będziesz robić Push na pełny stos, pamięć się przepełni. Często dzieje się to przy wadliwej funkcji rekurencyjnej bez warunku wyjścia (wchodzi coraz głębiej na Call Stack komputera, aż system zamyka program).</li>
+                    <li><strong>Stack Underflow / Queue Empty:</strong> Próba Pop() lub Dequeue() na pustej strukturze. Dobrze napisana klasa powinna rzucić wyjątek (np. EmptyStackException) lub zwrócić null/None.</li>
+                    <li><strong>Kolejka na zwykłej tablicy bez bufora cyklicznego</strong> powoduje przesuwanie wszystkich elementów przy każdym Dequeue → złożoność O(n) zamiast O(1)!</li>
+                    <li><strong>Kopiec a drzewo BST:</strong> Kopiec nie jest drzewem przeszukiwań binarnych! Kopiec gwarantuje tylko własność między rodzicem a dziećmi, nie globalną kolejność. Znalezienie dowolnego elementu w kopcu to O(n), nie O(log n).</li>
+                    <li><strong>Python: lista jako kolejka to antywzorzec</strong> – <code>list.pop(0)</code> ma złożoność O(n)! Zawsze używaj <code>collections.deque</code>.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET (ROZSZERZONY)                                -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Porównanie Architektur Zbiorów Skończonych:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Struktura</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ dostępu</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Podstawowe metody</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Złożoność</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Klasyczny przypadek użycia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Stos (Stack)</td>
+                        <td style="padding: 10px;">LIFO</td>
+                        <td style="padding: 10px;">Push, Pop, Peek</td>
+                        <td style="padding: 10px;">O(1) każda</td>
+                        <td style="padding: 10px;">Algorytm DFS, Przycisk „Cofnij”</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Kolejka (Queue)</td>
+                        <td style="padding: 10px;">FIFO</td>
+                        <td style="padding: 10px;">Enqueue, Dequeue</td>
+                        <td style="padding: 10px;">O(1) z buforem cyklicznym</td>
+                        <td style="padding: 10px;">Buforowanie zdarzeń, Algorytm BFS</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Kolejka priorytetowa</td>
+                        <td style="padding: 10px;">Według ważności</td>
+                        <td style="padding: 10px;">Insert, Extract-Max</td>
+                        <td style="padding: 10px;">O(log n) każda</td>
+                        <td style="padding: 10px;">Algorytm Dijkstry, Heapsort</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamięć w komputerze to tylko linearna, płaska taśma. Stosy, kolejki i kopce to matematyczne kontrakty – reguły dostępu – które pozwalają pisać stabilniejsze algorytmy. Wybór właściwej struktury to decyzja architektoniczna: LIFO do cofania, FIFO do sprawiedliwej obsługi, a priorytet do optymalizacji. Każda z nich to inny sposób organizacji chaosu w przewidywalny, wydajny system.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Algorytmy i struktury danych” (Aho, Hopcroft, Ullman) · Dokumentacja C++ STL, Python collections, Java Collections Framework · Opracowanie inżynierskie buforów cyklicznych i kolejek priorytetowych.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
