@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 040 – Algorytmy sortowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">040. Algorytmy sortowania; przykładowe algorytmy i złożoność.</h2>
+
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🃏</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Sortowanie kart: Amator vs Krupier”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że dostajesz do ręki potasowaną talię 1000 kart i musisz ją ułożyć rosnąco.<br><br>
+                        <strong>Podejście amatora (Bubble Sort / O(N²)):</strong> Przeglądasz karty parami od lewej do prawej. Jeśli lewa jest większa od prawej, zamieniasz je miejscami. Powtarzasz to w kółko, dziesiątki razy, aż przejdziesz całą talię bez ani jednej zamiany. Działa? Tak. Ale jest potwornie wolne. Dla 1000 kart wykonasz milion operacji.<br><br>
+                        <strong>Podejście krupiera (Quick Sort / O(N log N)):</strong> Losujesz z talii jedną kartę (tzw. <em>Pivot</em>). Szybko przeglądasz resztę: karty mniejsze rzucasz na lewą kupkę, większe na prawą. Teraz masz dwa mniejsze, niezależne stosy. Robisz z nimi dokładnie to samo (rekurencja). Zamiast miliona porównań, uwiniesz się w ułamek tego czasu. Na tym polega potęga paradygmatu <em>Dziel i Zwyciężaj</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Bubble Sort (Bąbelkowe)</span>
+            <span class="keyword-tag">Insertion Sort (Przez wstawianie)</span>
+            <span class="keyword-tag">Merge Sort (Przez scalanie)</span>
+            <span class="keyword-tag">Quick Sort (Szybkie) & Pivot</span>
+            <span class="keyword-tag">Stabilność (Stability)</span>
+            <span class="keyword-tag">Sortowanie w miejscu (In-place)</span>
+            <span class="keyword-tag">Złożoność O(N²), O(N log N)</span>
+            <span class="keyword-tag">Pesymistyczny przypadek QuickSorta</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Algorytmy elementarne – Złożoność O(N²)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algorytmy te opierają się na <strong>zagnieżdżonych pętlach</strong>. Są intuicyjne, ale w zastosowaniach komercyjnych (duże bazy danych) ich użycie to gwarantowana katastrofa wydajnościowa.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Bubble Sort (Bąbelkowe):</strong> Najprostszy i najwolniejszy. Porównuje elementy parami i zamienia je, jeśli są w złej kolejności. Największe elementy "bąbelkują" na koniec tablicy w każdej iteracji. Używany wyłącznie w edukacji.</li>
+                    <li><strong>Insertion Sort (Przez wstawianie):</strong> Działa jak układanie kart w ręku. Bierzemy kolejny element i wstawiamy w odpowiednie miejsce w już posortowanej części tablicy. <strong>Sekret inżynierski:</strong> Dla tablic <em>prawie całkowicie posortowanych</em> ten algorytm deklasuje wszystkie inne (osiągając czas <strong>O(N)</strong>) i jest często używany jako optymalizacja na samym dnie QuickSorta/MergeSorta.</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridSort" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridSort)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">Wizualizacja: Mechanika algorytmów kwadratowych</text>
+
+                <rect x="50" y="60" width="340" height="120" rx="6" fill="#ffebee" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="220" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Bubble Sort (Zamiana sąsiadów)</text>
+
+                <rect x="90" y="110" width="40" height="40" fill="#fff" stroke="#e53935" stroke-width="2"/>
+                <text x="110" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#b71c1c">7</text>
+
+                <rect x="140" y="110" width="40" height="40" fill="#ffcdd2" stroke="#e53935" stroke-width="3"/>
+                <text x="160" y="138" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#b71c1c">9</text>
+
+                <rect x="190" y="110" width="40" height="40" fill="#ffcdd2" stroke="#e53935" stroke-width="3"/>
+                <text x="210" y="138" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#b71c1c">3</text>
+
+                <rect x="240" y="110" width="40" height="40" fill="#fff" stroke="#e53935" stroke-width="2"/>
+                <text x="260" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#b71c1c">2</text>
+
+                <path d="M 160 100 Q 185 70 210 100" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRed)"/>
+                <path d="M 210 160 Q 185 190 160 160" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRed)"/>
+                <text x="310" y="135" font-family="sans-serif" font-size="11" fill="#c62828">9 > 3, Swap!</text>
+
+                <rect x="420" y="60" width="360" height="120" rx="6" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.5"/>
+                <text x="600" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Insertion Sort (Wstawianie w posortowane)</text>
+
+                <rect x="460" y="110" width="40" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="480" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#1b5e20">2</text>
+
+                <rect x="510" y="110" width="40" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="530" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#1b5e20">5</text>
+
+                <rect x="560" y="110" width="40" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="580" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#1b5e20">8</text>
+
+                <rect x="610" y="110" width="40" height="40" fill="#a5d6a7" stroke="#1b5e20" stroke-width="3"/>
+                <text x="630" y="138" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#1b5e20">4</text>
+
+                <rect x="660" y="110" width="40" height="40" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="680" y="138" text-anchor="middle" font-family="monospace" font-size="18" fill="#1b5e20">9</text>
+
+                <path d="M 630 100 Q 580 50 530 100" fill="none" stroke="#2e7d32" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowGreen)"/>
+                <text x="550" y="168" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Cofamy '4' we właściwe miejsce</text>
+
+                <defs>
+                    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Potęga "Dziel i Zwyciężaj" – Złożoność O(N log N)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To algorytmy, które napędzają bazy danych i funkcje systemowe. Rozbijają gigantyczną tablicę na mniejsze fragmenty (rekurencja), rozwiązują je i scalają z powrotem.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Merge Sort (Przez scalanie):</strong> Brutalna matematyczna siła. Zawsze dzieli tablicę idealnie na pół, a następnie "scala" posortowane połówki. Jego czas to <strong>ZAAWSZE O(N log N)</strong> (niezależnie od danych).<br>
+                        <strong>Wada:</strong> Wymaga dodatkowej pamięci RAM (tablicy pomocniczej) na złączenie wyników – złożoność pamięciowa to <strong>O(N)</strong>.</li>
+
+                    <li><strong>Quick Sort (Szybkie):</strong> Król wydajności w prawdziwym świecie. Wybiera tzw. <strong>Pivot</strong> (punkt odniesienia). Wszystkie mniejsze liczby przerzuca na lewo od niego, większe na prawo. Pivot ląduje na swoim ostatecznym miejscu. Następnie sortuje obie połówki.<br>
+                        <strong>Zaleta:</strong> Nie wymaga dodatkowej pamięci – to sortowanie <strong>In-place (O(1) pamięci)</strong>. Działa genialnie szybko w architekturze współczesnych procesorów (cache-friendly).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="url(#gridSort)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Magia Quick Sort: Podział wokół Pivota (Partycjonowanie)</text>
+
+                <rect x="230" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="280" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="330" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="380" y="60" width="40" height="40" fill="#e3f2fd" stroke="#0d47a1" stroke-width="3"/> <rect x="430" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="480" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="530" y="60" width="40" height="40" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+
+                <text x="250" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">8</text>
+                <text x="300" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">2</text>
+                <text x="350" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">7</text>
+                <text x="400" y="86" font-family="monospace" font-size="16" font-weight="bold" fill="#0d47a1" text-anchor="middle">5</text> <text x="450" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">1</text>
+                <text x="500" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">9</text>
+                <text x="550" y="86" font-family="monospace" font-size="16" fill="#1565c0" text-anchor="middle">3</text>
+
+                <text x="400" y="50" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">PIVOT = 5</text>
+
+                <path d="M 400 110 L 400 130" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowDark)"/>
+
+                <rect x="230" y="150" width="40" height="40" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <rect x="280" y="150" width="40" height="40" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <rect x="330" y="150" width="40" height="40" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <rect x="380" y="150" width="40" height="40" fill="#bbdefb" stroke="#0d47a1" stroke-width="3"/>
+                <rect x="430" y="150" width="40" height="40" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="480" y="150" width="40" height="40" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="530" y="150" width="40" height="40" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+
+                <text x="250" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#2e7d32" text-anchor="middle">2</text>
+                <text x="300" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#2e7d32" text-anchor="middle">1</text>
+                <text x="350" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#2e7d32" text-anchor="middle">3</text>
+
+                <text x="400" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#0d47a1" text-anchor="middle">5</text> <text x="450" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#c62828" text-anchor="middle">8</text>
+                <text x="500" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#c62828" text-anchor="middle">7</text>
+                <text x="550" y="176" font-family="monospace" font-size="16" font-weight="bold" fill="#c62828" text-anchor="middle">9</text>
+
+                <text x="300" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">L Elementy &lt; 5</text>
+                <text x="400" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">GOTOWE!</text>
+                <text x="500" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">R Elementy &gt; 5</text>
+
+                <defs>
+                    <marker id="arrowDark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Egzaminacyjne krawędzie bezpieczeństwa (Zrozum te pojęcia!)</strong>
+
+                <div style="background: #f3e5f5; border-left: 5px solid #8e24aa; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🛡️ Stabilność sortowania (Stability):</strong><br>
+                    Algorytm jest <strong>stabilny</strong>, jeśli zachowuje oryginalną kolejność elementów o tej samej wartości. Wyobraź sobie, że masz listę użytkowników posortowaną najpierw po <em>Dacie utworzenia</em>. Następnie sortujesz ich po <em>Wieku</em>. W algorytmie stabilnym wszyscy 20-latkowie pozostaną posortowani po Dacie utworzenia. W niestabilnym (np. QuickSort) daty się wymieszają! Merge Sort i Insertion Sort są stabilne.
+                </div>
+
+                <div style="background: #fff5f5; border-left: 5px solid #dc3545; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚠️ Najgorszy scenariusz Quick Sorta (O(N²)):</strong><br>
+                    Wielu studentów mówi, że Quick Sort to zawsze O(N log N). To błąd! Jeśli wybierzesz na pivota element zawsze z brzegu, a tablica jest już (o ironio!) posortowana – Quick Sort zdegeneruje się do zwykłego algorytmu klasy O(N²) i "zje" cały stos wywołań. Aby tego uniknąć, nowoczesne implementacje losują pivota lub biorą medianę z trzech elementów.
+                </div>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjna Tabela Prawdy – Algorytmy Sortowania:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Algorytm</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Złożoność (Średnia)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Złożoność (Pesymistyczna)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Złożoność Pamięciowa</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Właściwości</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Bubble Sort</td>
+                        <td style="padding: 10px; font-family: monospace;">O(N²)</td>
+                        <td style="padding: 10px; font-family: monospace;">O(N²)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1)</td>
+                        <td style="padding: 10px;">Stabilny, In-place</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Insertion Sort</td>
+                        <td style="padding: 10px; font-family: monospace;">O(N²)</td>
+                        <td style="padding: 10px; font-family: monospace;">O(N²)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1)</td>
+                        <td style="padding: 10px;">Stabilny, dla posortowanych: O(N)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Merge Sort</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(N log N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(N log N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                        <td style="padding: 10px;">Stabilny, Bezpieczny, Zżera RAM</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Quick Sort</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(N log N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N²)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
+                        <td style="padding: 10px; color: #c62828;">Niestabilny, Najszybszy w praktyce</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Nie istnieje jeden idealny algorytm sortowania. Jeżeli projektujesz system o krytycznym znaczeniu, gdzie musisz gwarantować maksymalny czas odpowiedzi – wybierzesz w 100% przewidywalny <strong>Merge Sort</strong> (godząc się na utratę pamięci). Gdy projektujesz system operacyjny dla standardowego PC, zależy Ci na czystej prędkości działania operacji na cache'u L1 – wybierzesz brutalnie szybki <strong>Quick Sort</strong>. Inżynieria to sztuka świadomego wyboru kompromisów.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Grokking Algorithms” (Aditya Bhargava) · „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · Badania nad Timsortem (std::sort w C++ – hybrydą QuickSorta, Heapsorta i InsertionSorta).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
