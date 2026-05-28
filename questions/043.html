@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 043 – Architektury systemów komputerowych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">043. Typowe architektury systemów komputerowych (Von Neumann, Harvard, CISC, RISC).</h2>
+
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">👨‍🍳</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szef kuchni i organizacja spiżarni”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Procesor (CPU) to szef kuchni. Wykonuje polecenia. Ale skąd bierze przepisy (Instrukcje) i składniki (Dane)?<br><br>
+                        <strong>Architektura von Neumanna:</strong> Szef kuchni ma tylko <em>jedną wspólną szafkę</em> na przepisy i składniki, oraz tylko <em>jedne drzwi</em> (szynę systemową) do tej szafki. W danej sekundzie może wziąć ALBO kartkę z przepisem, ALBO pomidora. Nigdy naraz. To rodzi korki (tzw. Wąskie gardło).<br><br>
+                        <strong>Architektura harwardzka:</strong> Szef kuchni ma <em>osobny regał na książki z przepisami</em> i <em>osobną lodówkę na składniki</em>. Do obu prowadzą osobne drzwi. Może jednocześnie czytać przepis i wyciągać pomidora! Gotuje dwa razy szybciej, ale zbudowanie dwóch szafek i dwojga drzwi kosztuje o wiele więcej krzemu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Architektura von Neumanna (Wspólna pamięć)</span>
+            <span class="keyword-tag">Architektura harwardzka (Rozdzielona pamięć)</span>
+            <span class="keyword-tag">Zodyfikowana architektura harwardzka</span>
+            <span class="keyword-tag">CISC (Complex Instruction Set Computer)</span>
+            <span class="keyword-tag">RISC (Reduced Instruction Set Computer)</span>
+            <span class="keyword-tag">Wąskie gardło von Neumanna (Von Neumann bottleneck)</span>
+            <span class="keyword-tag">SMP (Symmetric Multiprocessing)</span>
+            <span class="keyword-tag">Architektura hybrydowa / Mikrooperacje</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Organizacja Pamięci: Von Neumann vs Harwardzka</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To podstawowy podział decydujący o tym, jak procesor (ALU + Control Unit) komunikuje się z pamięcią za pomocą magistrali (szyny danych, adresowej i sterującej).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Architektura von Neumanna (Klasyczna):</strong> Kod programu (instrukcje) i dane współdzielą tę samą fizyczną pamięć RAM i tę samą szynę komunikacyjną. Konstrukcyjnie bardzo prosta, tania i elastyczna (można płynnie zmieniać, ile RAMu dac na kod, a ile na dane). <strong>Problem:</strong> CPU jest dziś tysiące razy szybsze niż RAM. Czekanie na zwolnienie wspólnej szyny tworzy <em>Wąskie gardło von Neumanna</em>.</li>
+                    <li><strong>Architektura Harwardzka:</strong> Fizycznie osobna pamięć dla Danych, osobna dla Instrukcji. Dwie niezależne szyny. <strong>Zaleta:</strong> Równoległość! CPU pobiera instrukcję i potrzebne do niej dane w tym samym cyklu zegara. <strong>Zastosowanie:</strong> Mikrokontrolery (np. AVR / Arduino), układy DSP (przetwarzanie sygnałów w czasie rzeczywistym).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridArch" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridArch)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Topologia: Wspólna vs Rozdzielona Szyna</text>
+
+                <text x="205" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">Von Neumann (Wąskie gardło)</text>
+                
+                <rect x="155" y="90" width="100" height="60" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="205" y="125" font-family="monospace" font-size="18" font-weight="bold" fill="#0d47a1" text-anchor="middle">CPU</text>
+
+                <rect x="135" y="200" width="140" height="60" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <line x1="135" y1="230" x2="275" y2="230" stroke="#c62828" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="205" y="220" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">PAMIĘĆ GŁÓWNA</text>
+                <text x="205" y="245" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Instrukcje + Dane</text>
+
+                <path d="M 190 150 L 190 200" fill="none" stroke="#455a64" stroke-width="6"/>
+                <path d="M 220 150 L 220 200" fill="none" stroke="#455a64" stroke-width="6"/>
+                <polygon points="190,150 185,160 195,160" fill="#455a64"/>
+                <polygon points="190,200 185,190 195,190" fill="#455a64"/>
+                <polygon points="220,150 215,160 225,160" fill="#455a64"/>
+                <polygon points="220,200 215,190 225,190" fill="#455a64"/>
+
+                <text x="320" y="180" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">JEDNA SZYNA</text>
+                <text x="320" y="195" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">(Współdzielona)</text>
+
+                <line x1="410" y1="50" x2="410" y2="260" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="6,6"/>
+
+                <text x="615" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32" text-anchor="middle">Harwardzka (Równoległość)</text>
+                
+                <rect x="565" y="90" width="100" height="60" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="615" y="125" font-family="monospace" font-size="18" font-weight="bold" fill="#0d47a1" text-anchor="middle">CPU</text>
+
+                <rect x="440" y="200" width="110" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="495" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">PAMIĘĆ</text>
+                <text x="495" y="240" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">INSTRUKCJI</text>
+
+                <rect x="680" y="200" width="110" height="60" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="735" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">PAMIĘĆ</text>
+                <text x="735" y="240" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">DANYCH</text>
+
+                <path d="M 575 150 L 515 200" fill="none" stroke="#2e7d32" stroke-width="4"/>
+                <path d="M 565 150 L 505 200" fill="none" stroke="#2e7d32" stroke-width="4"/>
+                
+                <path d="M 655 150 L 715 200" fill="none" stroke="#ef6c00" stroke-width="4"/>
+                <path d="M 665 150 L 725 200" fill="none" stroke="#ef6c00" stroke-width="4"/>
+
+                <text x="510" y="165" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle" transform="rotate(35 510 165)">SZYNA INSTR.</text>
+                <text x="720" y="165" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle" transform="rotate(-35 720 165)">SZYNA DANYCH</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Architektura Instrukcji (ISA): CISC vs RISC</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To druga płaszczyzna podziału, odpowiadająca na pytanie: <em>"Jak mądre i skomplikowane powinny być polecenia, które rozumie procesor?"</em>
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">CISC (Complex Instruction Set)</strong><br>
+                        <span style="font-size:0.85rem;"><strong>Filozofia:</strong> Krótki kod, potężne operacje. Jedna linijka kodu maszynowego (np. <code>MULT</code>) może odczytać dane z RAM, pomnożyć je i zapisać wynik z powrotem.<br>
+                        <strong>Konsekwencje:</strong> Instrukcje mają różną długość i trwają różną liczbę cykli zegara. Wymaga skomplikowanego krzemu.<br>
+                        <strong>Przedstawiciele:</strong> Rodzina <b>Intel x86 / AMD64</b> (Twoje PC i serwery).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #a5d6a7;">
+                        <strong style="color:#2e7d32;">RISC (Reduced Instruction Set)</strong><br>
+                        <span style="font-size:0.85rem;"><strong>Filozofia:</strong> Długi kod, ale ekstremalnie proste operacje. Zamiast potężnego <code>MULT</code>, kompilator musi złożyć sekwencję: <code>LOAD</code>, <code>LOAD</code>, <code>MUL</code>, <code>STORE</code>.<br>
+                        <strong>Konsekwencje:</strong> Każda instrukcja jest stałej długości i wykonuje się zazwyczaj w 1 cyklu zegara! Idealne do potokowania (Pipelining).<br>
+                        <strong>Przedstawiciele:</strong> Architektury <b>ARM (Apple M1/M2/M3, telefony)</b>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Architektury dzisiaj to HYBRYDY!):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    Wykładowca zapyta: <em>"A czym jest architektura współczesnego procesora Intel Core i9?"</em><br>
+                    Czysty von Neumann i czysty CISC przestały istnieć w nowoczesnych komputerach!<br><br>
+                    <strong>1. Zmodyfikowana Architektura Harwardzka:</strong> Fizyczny RAM na płycie głównej jest von Neumannem (wspólna pamięć). Ale wewnątrz samego procesora, najszybsza pamięć <strong>Cache L1</strong> jest podzielona na osobny <em>L1 Data Cache</em> i osobny <em>L1 Instruction Cache</em> (Architektura harwardzka!). Procesor łączy zalety obu.<br><br>
+                    <strong>2. CISC rozbijany na RISC:</strong> Procesor Intela z zewnątrz przyjmuje skomplikowane instrukcje CISC (zgodność z oprogramowaniem x86), ale sprzętowo posiada <em>Dekoder</em>, który w locie rozbija te kobyły na małe, piorunująco szybkie <strong>mikrooperacje (μOps)</strong> w stylu RISC. Złote zdanie na egzamin: <em>Współczesne x86 to rdzeń RISC w przebraniu CISC.</em>
+                </p>
+            </div>
+
+            <div class="answer-step" style="margin-top: 24px; margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Skalowanie Systemów: SMP i Wielordzeniowość</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy pojedynczy rdzeń uderzył w barierę fizyki (tzw. Ściana termiczna / Power Wall – powyżej 5 GHz krzem się topi), inżynierowie przeszli na architekturę wielordzeniową (Multi-core).
+                </p>
+                <div style="background: #f3e5f5; border-left: 5px solid #ab47bc; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚙️ SMP (Symmetric Multiprocessing):</strong><br>
+                    To architektura systemów, z którą obcujesz na co dzień. Masz w komputerze np. 8 identycznych rdzeni CPU (symetria). Wszystkie mają <strong>równorzędny dostęp do wspólnej puli pamięci RAM</strong>. System operacyjny (np. Windows) dba o to, by rozrzucać wątki programów (Threads) pomiędzy wolne rdzenie. Wyzwaniem tej architektury jest <em>Cache Coherence</em> – dbanie o to, by zmiana zmiennej <code>X</code> w Cache Rdzenia nr 1 od razu została zauważona przez Rdzeń nr 4.
+                </div>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjna Tabela Prawdy – Architektury Komputerów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Oś klasyfikacji</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Model A</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Model B</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Stan współczesny</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Organizacja Pamięci</td>
+                        <td style="padding: 10px;"><strong>Von Neumann:</strong> Wspólny RAM i wspólna szyna (Wąskie gardło).</td>
+                        <td style="padding: 10px;"><strong>Harvard:</strong> Rozdzielona pamięć Instrukcji i Danych (2 szyny).</td>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Hybryda: Zmodyfikowany Harvard. Zewnętrzny RAM to v.Neumann, Cache L1 wewnątrz CPU to Harvard.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Zestaw Instrukcji (ISA)</td>
+                        <td style="padding: 10px;"><strong>CISC:</strong> Skomplikowane instrukcje o różnej długości. Łatwy kompilator. (Intel/AMD)</td>
+                        <td style="padding: 10px;"><strong>RISC:</strong> Bardzo proste instrukcje, 1 cykl zegara. Wymaga dobrego kompilatora. (ARM)</td>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Hybryda: Intel (CISC) dekoduje instrukcje wewnątrz sprzętu na mikrooperacje w stylu RISC.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Przetwarzanie danych</td>
+                        <td style="padding: 10px;"><strong>Jednordzeniowy:</strong> Kolejkuje zadania asynchronicznie (iluzja wielozadaniowości).</td>
+                        <td style="padding: 10px;"><strong>SMP (Symmetric):</strong> Wiele rdzeni współdzielących 1 RAM i OS.</td>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Standard: Architektury Multi-core (SMP) z potężnymi algorytmami spójności pamięci podręcznej.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Historia architektury komputerów to w rzeczywistości nieustanna pogoń procesora za powolną pamięcią RAM. Aby zredukować "Wąskie gardło von Neumanna", wprowadzono pamięci podręczne Cache, ułożono je w strukturę Harwardzką, wprowadzono rurociągi (Pipelining) i podzielono instrukcje CISC na szybki mikrokod RISC. Procesor, z którego dzisiaj korzystasz, jest cudem inżynierii łączącym w krzemie najlepsze pomysły z ostatnich 70 lat informatyki.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Architektura komputerów” (Andrew S. Tanenbaum) · „Struktura i organizacja systemów komputerowych” (David A. Patterson, John L. Hennessy).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
