@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 047 – Diagramy ERD</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">047. Diagramy związków encji (ERD) w projektowaniu baz danych.</h2>
+
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa drogowa dla programisty”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Wyobraź sobie budowę drapacza chmur bez planów architektonicznych. Wyglądałoby to tragicznie, prawda? <strong>ERD (Entity-Relationship Diagram)</strong> to właśnie plan architektoniczny dla Twojej bazy danych.<br><br>
+                        Zamiast od razu pisać komendy <code>CREATE TABLE...</code>, rysujesz mapę świata Twojej aplikacji. ERD pozwala Ci w 5 minut odkryć, że relacja, którą wymyśliłeś, jest niespójna, zanim włożysz w to 50 godzin kodowania. Diagramy ERD są <em>niezależne od silnika bazy danych</em> – to czysta logika biznesowa, którą później "tłumaczysz" na konkretny SQL (np. Postgresa czy MySQL).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Encja (Entity)</span>
+            <span class="keyword-tag">Atrybut (Attribute)</span>
+            <span class="keyword-tag">Relacja (Relationship)</span>
+            <span class="keyword-tag">Kardynalność (1:1, 1:N, N:M)</span>
+            <span class="keyword-tag">Klucz Główny (PK) / Klucz Obcy (FK)</span>
+            <span class="keyword-tag">Notacja Crow's Foot (kurza łapka)</span>
+            <span class="keyword-tag">Normalizacja danych</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Trzy fundamenty diagramu ERD</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    ERD operuje na trzech podstawowych pojęciach, które przekładasz bezpośrednio na strukturę relacyjną:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Encja (Entity):</strong> "Rzecz" w systemie, która ma swoje dane (np. Klient, Produkt, Zamówienie). W SQL zamieni się w <strong>tabelę</strong>.</li>
+                    <li><strong>Atrybut (Attribute):</strong> Cechy encji (np. Klient ma Imię, Nazwisko). Zamieni się w <strong>kolumny</strong>.</li>
+                    <li><strong>Relacja (Relationship):</strong> Związek między encjami. Najważniejsza część ERD, która mówi, jak tabele "rozmawiają" ze sobą poprzez klucze obce (FK).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#fffaf0" opacity="0.6"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Podstawowe symbole notacji ERD (Crow's Foot)</text>
+
+                <rect x="50" y="50" width="120" height="80" rx="4" fill="#fff" stroke="#333" stroke-width="2"/>
+                <text x="110" y="70" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">ENCJA (Tabela)</text>
+                
+                <g transform="translate(300, 50)">
+                    <rect x="0" y="10" width="220" height="80" rx="4" fill="#fff" stroke="#333" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="110" y="50" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">RELACJA (Związek)</text>
+                </g>
+
+                <circle cx="650" cy="90" r="15" fill="#fff" stroke="#e65100" stroke-width="3"/>
+                <text x="650" y="95" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">1:N</text>
+                <text x="650" y="140" font-family="sans-serif" font-size="11" fill="#e65100" text-anchor="middle">Kardynalność</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Kardynalność relacji – Jak projektować połączenia?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To serce projektowania bazy. Musisz określić, ile rekordów z jednej tabeli przypada na rekordy z drugiej:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>1:1 (Jeden do jednego):</strong> Bardzo rzadkie. Np. "Obywatel" ma jeden "Dowód Osobisty". (W praktyce często łączy się takie tabele w jedną).</li>
+                    <li><strong>1:N (Jeden do wielu):</strong> Najczęstsza relacja. Np. "Jeden Klient" ma "Wiele Zamówień". Klient_ID trafia do tabeli Zamówienia jako Klucz Obcy (FK).</li>
+                    <li><strong>N:M (Wiele do wielu):</strong> Np. "Wiele Produktów" może być na "Wielu Zamówieniach". <strong>Uwaga:</strong> W SQL nie da się tego wprost zapisać w dwóch tabelach! Musisz stworzyć <strong>tabelę łączącą</strong> (np. `PozycjeZamowienia`), która rozbija to na dwie relacje 1:N.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Architektoniczne grzechy):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Nadmierna normalizacja"</strong> – Rozbicie danych na 20 małych tabel (tzw. <em>tabelki-mikrusy</em>) zmusza bazę do robienia 19 JOIN-ów przy każdym zapytaniu. Baza umrze przy większym ruchu. Normalizuj dane, ale dbaj o wydajność odczytu.</li>
+                    <li><strong>Brak PK (Primary Key)</strong> – Każda encja MUSI mieć identyfikator. Bez niego baza nie może efektywnie indeksować danych, a Ty nie możesz bezpiecznie usuwać rekordów.</li>
+                    <li><strong>Zbyt szerokie typy danych</strong> – Jeśli w polu <code>Wiek</code> ustawisz <code>BIGINT</code> (8 bajtów), marnujesz miejsce i pamięć cache procesora. Wybieraj najmniejsze typy, które mieszczą Twoje dane (np. <code>TINYINT</code> dla wieku).</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">ERD to nie tylko diagram. To fundament, na którym powstanie logika całej Twojej aplikacji. Jeśli diagram ERD jest spójny, implementacja SQL będzie trywialna (<code>JOIN</code>-y zaczną "same" się układać). Błąd na etapie ERD to błąd, który na produkcji będzie Cię kosztował setki godzin refaktoryzacji bazy danych i migracji milionów rekordów. Projektuj powoli – implementuj szybko.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Systemy baz danych" (Hector Garcia-Molina) – rozdziały o projektowaniu koncepcyjnym · „UML w kropelce” (diagramy klas a ERD).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
