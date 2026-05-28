@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 045 – Relacyjne bazy danych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">045. Podstawowe cechy relacyjnych baz danych (RDBMS).</h2>
+
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗄️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Urząd Celny z połączonymi teczkami”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Wyobraź sobie relacyjną bazę danych (RDBMS - np. PostgreSQL, MySQL) nie jako bezdenny worek na dane, ale jako <strong>rygorystyczny urząd celny</strong> oparty na potężnych arkuszach kalkulacyjnych.<br><br>
+                        Zanim wpuścisz tam jakąkolwiek daną, musisz zdefiniować jej <strong>Schemat (Schema)</strong> – mówisz: "W tej kolumnie będą tylko liczby całkowite, a w tej teksty do 50 znaków". Jeśli spróbujesz zapisać tam coś innego, baza wyrzuci brutalny błąd.<br><br>
+                        Kluczem są jednak <strong>Relacje</strong>. Baza przypomina połączone teczki. Jeśli w "Teczce Zamówień" wpiszesz, że zamówienie złożył "Klient nr 5", baza natychmiast sprawdza w "Teczce Klientów", czy ktoś taki istnieje. Jeśli zechcesz usunąć Klienta nr 5, system zablokuje tę operację z krzykiem: <em>"Zaraz! Przecież ten człowiek ma u nas 3 niezrealizowane zamówienia!"</em>. To gwarantuje absolutną spójność danych.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Tabela (Relacja) / Rekord (Krotka)</span>
+            <span class="keyword-tag">Schemat (Schema) i ścisłe typowanie</span>
+            <span class="keyword-tag">Klucz główny (Primary Key - PK)</span>
+            <span class="keyword-tag">Klucz obcy (Foreign Key - FK)</span>
+            <span class="keyword-tag">Transakcje i zasady ACID</span>
+            <span class="keyword-tag">Integralne więzy (Referential Integrity)</span>
+            <span class="keyword-tag">Język SQL (deklaratywny)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Anatomia danych: Tabele, Klucze i Więzy Integralności</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W świecie relacyjnym (opartym na teorii mnogości E.F. Codda z 1970 roku), wszystko jest tabelą. Tabela składa się z kolumn (atrybutów) określających typy danych oraz z wierszy (krotek / rekordów) zawierających faktyczne dane.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Klucz Główny (Primary Key - PK):</strong> Unikalny identyfikator wiersza w tabeli (np. PESEL, numer konta, auto-inkrementowane ID). W tabeli nie mogą istnieć dwa wiersze z takim samym PK. Gwarantuje jednoznaczność.</li>
+                    <li><strong>Klucz Obcy (Foreign Key - FK):</strong> Kolumna w jednej tabeli, która wskazuje na Klucz Główny w innej tabeli. To one tworzą <em>Relacje</em>!</li>
+                    <li><strong>Więzy integralności (Referential Integrity):</strong> Żelazna zasada RDBMS. Baza nie pozwoli Ci wstawić Klucza Obcego, który nie istnieje w tabeli docelowej, ani usunąć wiersza z tabeli głównej, jeśli inne tabele wciąż się do niego odwołują (chyba że użyjesz kaskadowego usuwania – <code>CASCADE</code>).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridDB" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridDB)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Magia Relacji: Klucz Główny i Klucz Obcy (Relacja 1:N)</text>
+
+                <g transform="translate(60, 60)">
+                    <rect x="0" y="0" width="260" height="120" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                    <rect x="0" y="0" width="260" height="30" fill="#1565c0" rx="6"/>
+                    <rect x="0" y="15" width="260" height="15" fill="#1565c0"/> 
+                    <text x="130" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Tabela: KLIENCI</text>
+
+                    <line x1="0" y1="60" x2="260" y2="60" stroke="#cfd8dc" stroke-width="1"/>
+                    <line x1="0" y1="90" x2="260" y2="90" stroke="#cfd8dc" stroke-width="1"/>
+                    
+                    <line x1="60" y1="30" x2="60" y2="120" stroke="#cfd8dc" stroke-width="2"/>
+                    <line x1="160" y1="30" x2="160" y2="120" stroke="#cfd8dc" stroke-width="2"/>
+
+                    <text x="30" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">ID 🔑</text>
+                    <text x="110" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#546e7a" text-anchor="middle">Imie</text>
+                    <text x="210" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#546e7a" text-anchor="middle">Status</text>
+
+                    <rect x="2" y="62" width="56" height="26" fill="#bbdefb" opacity="0.5"/> <text x="30" y="80" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">101</text>
+                    <text x="110" y="80" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Anna</text>
+                    <text x="210" y="80" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">VIP</text>
+                    
+                    <text x="30" y="110" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">102</text>
+                    <text x="110" y="110" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Jan</text>
+                    <text x="210" y="110" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Zwykły</text>
+                </g>
+
+                <g transform="translate(480, 60)">
+                    <rect x="0" y="0" width="280" height="120" rx="6" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                    <rect x="0" y="0" width="280" height="30" fill="#e65100" rx="6"/>
+                    <rect x="0" y="15" width="280" height="15" fill="#e65100"/> 
+                    <text x="140" y="20" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Tabela: ZAMÓWIENIA</text>
+
+                    <line x1="0" y1="60" x2="280" y2="60" stroke="#cfd8dc" stroke-width="1"/>
+                    <line x1="0" y1="90" x2="280" y2="90" stroke="#cfd8dc" stroke-width="1"/>
+                    
+                    <line x1="60" y1="30" x2="60" y2="120" stroke="#cfd8dc" stroke-width="2"/>
+                    <line x1="160" y1="30" x2="160" y2="120" stroke="#cfd8dc" stroke-width="2"/>
+
+                    <text x="30" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">ID 🔑</text>
+                    <text x="110" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Klient_ID 🔗</text>
+                    <text x="220" y="50" font-family="monospace" font-size="11" font-weight="bold" fill="#546e7a" text-anchor="middle">Kwota</text>
+
+                    <text x="30" y="80" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">9001</text>
+                    <rect x="62" y="62" width="96" height="26" fill="#ffe0b2" opacity="0.6"/> <text x="110" y="80" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">101</text>
+                    <text x="220" y="80" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">500 PLN</text>
+
+                    <text x="30" y="110" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">9002</text>
+                    <rect x="62" y="92" width="96" height="26" fill="#ffe0b2" opacity="0.6"/> <text x="110" y="110" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">101</text>
+                    <text x="220" y="110" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">150 PLN</text>
+                </g>
+
+                <path d="M 540 140 Q 420 220 120 140" fill="none" stroke="#2e7d32" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowGreen)"/>
+                <text x="410" y="200" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Baza pilnuje, by wpisane tu 101 faktycznie istniało w tabeli Klienci!</text>
+
+                <defs>
+                    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Święty Graal Relacyjnych Baz Danych: ZASADY ACID</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To jest to, za co płacą korporacje. RDBMS traktuje zapytania w paczkach, zwanych <strong>Transakcjami</strong>. System gwarantuje cztery właściwości (skrót ACID), które chronią nas przed utratą danych w przypadku awarii prądu czy błędu sieci podczas przelewu bankowego.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #d81b60;">
+                        <strong style="color: #880e4f;">Atomicity (Atomowość)</strong><br>
+                        <span style="font-size:0.85rem;"><strong>"Wszystko albo nic".</strong> Jeśli transakcja składa się z 3 kroków (zabierz 100zł Jankowi, dodaj 100zł Ani, zapisz prowizję), a prąd zgaśnie na 2 kroku – baza po ponownym uruchomieniu <em>cofa</em> pierwszy krok (Rollback). Nie pozwala na stany pośrednie.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #d81b60;">
+                        <strong style="color: #880e4f;">Consistency (Spójność)</strong><br>
+                        <span style="font-size:0.85rem;">Baza przechodzi zawsze z jednego prawidłowego stanu w drugi. Jeśli na koncie nie może być debetu (reguła biznesowa w tabeli), to transakcja, która próbuje zrobić debet, zostanie w całości odrzucona przez silnik.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #d81b60;">
+                        <strong style="color: #880e4f;">Isolation (Izolacja)</strong><br>
+                        <span style="font-size:0.85rem;">Dwie transakcje dziejące się w tym samym ułamku sekundy nie "widzą" swoich brudnych, nieskończonych danych. Wykonują się równolegle, ale dają taki sam efekt, jakby ustawiły się gęsiego w kolejce.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #d81b60;">
+                        <strong style="color: #880e4f;">Durability (Trwałość)</strong><br>
+                        <span style="font-size:0.85rem;">Jeśli baza odpowie "Udało się" (Commit), dane są już fizycznie wyryte na dysku twardym (w tzw. <em>Write-Ahead Log</em>). Nawet jeśli ktoś wyrwie wtyczkę z serwera sekundę później, dane są bezpieczne na wieki.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Interfejs do maszyny: Język SQL (Structured Query Language)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Relacyjne bazy danych komunikują się za pomocą standardowego języka SQL. Najważniejszą cechą SQL jest to, że jest to <strong>język deklaratywny</strong>. Programista w ogóle nie pisze pętli iterujących po dysku. Pisze tylko: 
+                    <code style="background: #e8f5e9; padding: 2px 6px; border-radius: 4px; color: #1b5e20;">SELECT Imie FROM Klienci WHERE Status = 'VIP'</code>.
+                    <br><br>Magia polega na tym, że to potężny moduł zwany <strong>Query Optimizerem</strong> (Optymalizator Zapytań) wewnątrz bazy decyduje, JAK zdobyć te dane (czy skanować całą tabelę, czy użyć indeksu B-Tree w pamięci podręcznej).
+                </p>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki architektoniczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Relacja w bazie danych to połączenie (strzałka) między tabelami."</strong> – Uważaj! W <em>potocznym żargonie programistów</em> tak jest. Ale matematycznie (wg E.F. Codda) <strong>Sama Tabela to Relacja!</strong> Tabela jest matematyczną "relacją" (zbiorem) definiującą związki między jej kolumnami. Strzałka między tabelami to formalnie więzy klucza obcego.</li>
+                    <li><strong>NULL to nie jest pusty string ("") ani zero!</strong> NULL to w RDBMS potężna flaga oznaczająca "Brak wartości" lub "Wartość nieznana". Operacja matematyczna <code>5 + NULL</code> daje zawsze <code>NULL</code>, co często niszczy statystyki w źle napisanych raportach księgowych.</li>
+                    <li><strong>RDBMS nie zawsze jest najlepsze!</strong> Bazy relacyjne słabo radzą sobie ze skalowaniem poziomym (dokładaniem kolejnych tanich serwerów) oraz ze zmieniającym się formatem danych (tzw. "sztywny schemat"). Jeśli struktura dokumentu ciągle się zmienia, NoSQL wygrywa.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Relacyjny Cheat-Sheet inżyniera:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha Relacyjna</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Znaczenie (Po ludzku)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Korzyść Inżynierska</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Schema-first (Ścisły Schemat)</td>
+                        <td style="padding: 10px;">Dane muszą pasować do foremek zdefiniowanych w tablicy.</td>
+                        <td style="padding: 10px;">Brak brudnych danych i śmieci w logach; typy są wymuszone.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Normalizacja</td>
+                        <td style="padding: 10px;">Rozbijanie dużych tabel na małe powiązane (1:N), by nie powtarzać danych.</td>
+                        <td style="padding: 10px;">Aktualizacja nazwiska klienta w 1 miejscu (zamiast w 1000 faktur).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">ACID Transakcje</td>
+                        <td style="padding: 10px;">Wykonywanie skomplikowanych zmian "wszystko albo nic".</td>
+                        <td style="padding: 10px;">Fundament systemów finansowych, gwarancja braku zepsutych stanów.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #8e24aa;">Skalowanie Pionowe (Vertical)</td>
+                        <td style="padding: 10px;">Żeby obsłużyć więcej zapytań, kupujesz lepszy i droższy serwer dla bazy.</td>
+                        <td style="padding: 10px;">Baza zachowuje pełną spójność centralną (w przeciwieństwie do rozproszonych NoSQL).</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Bazy relacyjne to wynalazek tak genialny, że od lat 70. niepodzielnie rządzą architekturą korporacyjną. Kiedy budujesz Twittera czy TikToka – spójność danych nie jest krytyczna (zgubiony "Lajk" to nie koniec świata) i wybierzesz NoSQL dla nieskończonego skalowania. Ale kiedy budujesz system bankowy, giełdę papierów wartościowych czy sklep internetowy, zaufasz tylko systemowi z gwarancją ACID i twardymi relacjami. RDBMS chroni Twoje dane przed Tobą samym.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Systemy baz danych" (Hector Garcia-Molina, Jeffrey D. Ullman) · "Designing Data-Intensive Applications" (Martin Kleppmann - genialne rozdziały o transakcjach ACID).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
