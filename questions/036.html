@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 036 – Metoda dziel i zwyciężaj</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">036. Metoda dziel i zwyciężaj (Divide and Conquer).</h2>
+
+        <div style="background: linear-gradient(135deg, #ede7f6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🪓</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – "Delegowanie pracy w korporacji":</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś menedżerem i dostajesz zadanie: posortować ręcznie 10 000 ankiet od klientów. Jeśli zrobisz to sam, zajmie Ci to tygodnie (złożoność kwadratowa). Co robisz?<br><br>
+                        <strong>Dzielisz:</strong> Rozcinasz stos na pół (po 5000) i dajesz dwóm kierownikom.<br>
+                        <strong>Zwyciężasz:</strong> Oni robią to samo – dzielą na pół i oddają niżej, aż na samym dole drabiny każdy pracownik dostaje po 1 ankiecie. Z definicji stos z jedną ankietą jest już "posortowany"! (To tzw. <em>warunek brzegowy rekurencji</em>).<br>
+                        <strong>Łączysz:</strong> Pracownicy oddają ankiety w górę, a ich szefowie po prostu je "scalają" (Merge) jak zamek błyskawiczny. Gotowe! Zamiast tygodni, firma sortuje to w kilka godzin (złożoność logarytmiczna). Na tym dokładnie polega paradygmat <em>Divide and Conquer</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Dziel i zwyciężaj (Divide and Conquer)</span>
+            <span class="keyword-tag">Rekurencja (Recursion)</span>
+            <span class="keyword-tag">Warunek brzegowy (Base case)</span>
+            <span class="keyword-tag">Merge Sort (Sortowanie przez scalanie)</span>
+            <span class="keyword-tag">Quick Sort (Sortowanie szybkie)</span>
+            <span class="keyword-tag">Binary Search (Wyszukiwanie binarne)</span>
+            <span class="keyword-tag">Złożoność O(N log N)</span>
+            <span class="keyword-tag">Twierdzenie o rekurencji uniwersalnej (Master Theorem)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Trzy Filary Algorytmu (Architektura rozwiązania)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algorytmy z tej rodziny prawie zawsze implementuje się z użyciem <strong>rekurencji</strong> (funkcja wywołuje samą siebie). Każdy taki algorytm składa się z trzech nierozerwalnych faz:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>1. Dziel (Divide):</strong> Podziel problem na mniejsze podproblemy (zazwyczaj o połowę).</li>
+                    <li><strong>2. Zwyciężaj (Conquer):</strong> Rozwiąż te podproblemy wywołując funkcję rekurencyjnie. Jeśli problem jest na tyle mały, że nie da się go podzielić (np. tablica jednoelementowa), rozwiąż go bezpośrednio (<em>Base case</em>).</li>
+                    <li><strong>3. Połącz (Combine):</strong> Złącz wyniki podproblemów w jedno, ostateczne rozwiązanie dla pierwotnego problemu.</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridDC" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridDC)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#283593">Anatomia "Dziel i Zwyciężaj"</text>
+
+                <rect x="310" y="50" width="200" height="40" rx="8" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1a237e" text-anchor="middle">Problem (Rozmiar N)</text>
+
+                <path d="M 410 90 L 250 140" fill="none" stroke="#5c6bc0" stroke-width="2" marker-end="url(#arrow-indigo)"/>
+                <path d="M 410 90 L 570 140" fill="none" stroke="#5c6bc0" stroke-width="2" marker-end="url(#arrow-indigo)"/>
+                <text x="410" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3f51b5" text-anchor="middle">DZIEL</text>
+
+                <rect x="180" y="140" width="140" height="30" rx="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+                <text x="250" y="160" font-family="sans-serif" font-size="11" fill="#1a237e" text-anchor="middle">Podproblem (N/2)</text>
+
+                <rect x="500" y="140" width="140" height="30" rx="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+                <text x="570" y="160" font-family="sans-serif" font-size="11" fill="#1a237e" text-anchor="middle">Podproblem (N/2)</text>
+
+                <path d="M 250 170 L 250 200" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+                <path d="M 570 170 L 570 200" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+                
+                <text x="170" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">ZWYCIĘŻAJ</text>
+                <text x="650" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">ZWYCIĘŻAJ</text>
+
+                <rect x="200" y="200" width="100" height="30" rx="5" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="250" y="220" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Rozwiązanie 1</text>
+
+                <rect x="520" y="200" width="100" height="30" rx="5" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="570" y="220" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Rozwiązanie 2</text>
+
+                <path d="M 300 215 Q 410 260 520 215" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4"/>
+                <text x="410" y="250" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">POŁĄCZ (Merge)</text>
+
+                <defs>
+                    <marker id="arrow-indigo" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5c6bc0"/></marker>
+                    <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4caf50"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00838f;">2. Inżynierskie zastosowania (Przykłady)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Metoda ta jest używana wszędzie tam, gdzie podział znacznie redukuje złożoność obliczeniową. Najważniejsze przykłady z życia:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Merge Sort (Sortowanie przez scalanie):</strong> Idealny przykład. Dzieli tablicę na pół aż do pojedynczych elementów. Cała trudność (i magia) tkwi w fazie <em>Połącz</em>, gdzie dwie posortowane połówki są błyskawicznie "zazębiane" w jedną całość. Złożoność <code>O(N log N)</code> we wszystkich przypadkach.</li>
+                    <li><strong>Quick Sort (Sortowanie szybkie):</strong> Magia dzieje się w fazie <em>Dziel</em>. Wybieramy "Pivota" (element osiowy) i wrzucamy mniejsze liczby na lewo, większe na prawo. Faza <em>Połącz</em> praktycznie nie istnieje (tablica sortuje się "w miejscu"). Najszybsze w praktyce dla pamięci RAM (Cache-friendly).</li>
+                    <li><strong>Binary Search (Wyszukiwanie binarne):</strong> W posortowanej tablicy sprawdzamy środkowy element. Jeśli szukana liczba jest mniejsza, <strong>odrzucamy całą prawą połowę</strong> i powtarzamy rekurencję dla lewej. Złożoność to spektakularne <code>O(log N)</code>. Miliard rekordów przeszukamy w zaledwie 30 krokach!</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#00695c">Wizualizacja Merge Sort (Scalanie posortowanych podproblemów)</text>
+
+                <rect x="230" y="60" width="140" height="30" rx="3" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <line x1="300" y1="60" x2="300" y2="90" stroke="#00897b" stroke-width="2"/>
+                <text x="265" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">2</text>
+                <text x="335" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">7</text>
+                
+                <rect x="450" y="60" width="140" height="30" rx="3" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <line x1="520" y1="60" x2="520" y2="90" stroke="#00897b" stroke-width="2"/>
+                <text x="485" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">1</text>
+                <text x="555" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">5</text>
+
+                <path d="M 335 95 L 440 160" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-orange)"/>
+                <path d="M 485 95 L 360 160" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-orange)"/>
+                
+                <rect x="270" y="165" width="280" height="30" rx="3" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <line x1="340" y1="165" x2="340" y2="195" stroke="#f57c00" stroke-width="2"/>
+                <line x1="410" y1="165" x2="410" y2="195" stroke="#f57c00" stroke-width="2"/>
+                <line x1="480" y1="165" x2="480" y2="195" stroke="#f57c00" stroke-width="2"/>
+                
+                <text x="305" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">1</text>
+                <text x="375" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">2</text>
+                <text x="445" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">5</text>
+                <text x="515" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">7</text>
+
+                <text x="130" y="75" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Posortowane połówki</text>
+                <text x="130" y="180" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Scalanie w O(N)</text>
+
+                <defs>
+                    <marker id="arrow-orange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ff9800"/></marker>
+                </defs>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (D&C vs Programowanie Dynamiczne):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    Wykładowcy uwielbiają to pytanie: <em>"Czym różni się Dziel i Zwyciężaj od Programowania Dynamicznego (DP)?"</em>
+                    <br><br><strong>ODPOWIEDŹ:</strong><br>
+                    Obie metody dzielą problem na podproblemy. Ale w <strong>Dziel i Zwyciężaj podproblemy są NIEZALEŻNE</strong>. Np. w Merge Sort sortowanie lewej połowy tablicy nie ma nic wspólnego z sortowaniem prawej.
+                    <br>W <strong>Programowaniu Dynamicznym podproblemy się POKRYWAJĄ (Overlapping subproblems)</strong>. Np. przy obliczaniu ciągu Fibonacciego F(5) musisz policzyć F(4) i F(3). Ale żeby policzyć F(4), znowu musisz policzyć F(3)! D&C policzyłoby F(3) dwa razy, marnując czas. DP zapisuje wynik pierwszego obliczenia do pamięci (<em>Memoization</em>) i używa go ponownie.
+                </p>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Porównanie Architektury Algorytmów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Paradygmat Algorytmu</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Jak podchodzi do problemu?</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Sztandarowy Przykład</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #3f51b5;">Dziel i Zwyciężaj (D&C)</td>
+                            <td style="padding: 10px;">Dzieli z góry na dół na niezależne podproblemy. Łączy wyniki.</td>
+                            <td style="padding: 10px;">Merge Sort, Fast Fourier Transform (FFT)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #c2185b;">Prog. Dynamiczne (DP)</td>
+                            <td style="padding: 10px;">Rozwiązuje nakładające się podproblemy i ZAPISUJE wyniki (Memoization).</td>
+                            <td style="padding: 10px;">Fibonacci, Problem Plecakowy, Bellman-Ford</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Algorytmy Zachłanne</td>
+                            <td style="padding: 10px;">Podejmuje lokalnie najlepszą decyzję TU I TERAZ, nie patrząc w przód.</td>
+                            <td style="padding: 10px;">Algorytm Dijkstry, Kodowanie Huffmana</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dziel i Zwyciężaj to triumf logarytmów nad liniowością. Zrozumienie, że podzielenie problemu N na dwie połowy N/2 może drastycznie przyspieszyć działanie programu (schodząc ze złożoności O(N²) do O(N log N)), oddziela inżynierów od programistów. To ta sama koncepcja, która pozwala bazom danych błyskawicznie przeszukiwać miliardy rekordów używając struktur B-Tree.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Wprowadzenie do algorytmów" (Cormen, Leiserson, Rivest, Stein) · "Grokking Algorithms" (Aditya Bhargava).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
