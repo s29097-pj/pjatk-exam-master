@@ -4,8 +4,14 @@
 :root {
     /* Główne kolory bloków */
     --b1-color: #2980b9; --b2-color: #27ae60; --b3-color: #e67e22;
-    --b4-color: #8e44ad; --b5-color: #f1c40f; --b6-color: #16a085;
+    --b4-color: #9b59b6; --b5-color: #f1c40f; --b6-color: #16a085;
     --b7-color: #d35400; --b8-color: #c0392b;
+    --b9-color:  #e84393;  /* Grafika – różowy/magenta */
+    --b10-color: #636e72;  /* Elektronika – grafitowy */
+    --b11-color: #00b894;  /* Web/UX – miętowy */
+    --b12-color: #6c5ce7;  /* AI – fioletowy */
+    --b13-color: #fdcb6e;  /* Modelowanie – ciepły żółty */
+    --b14-color: #d63031;  /* Cybersecurity – mocna czerwień */
 
     /* Kolory statusów */
     --b0-color: #bdc3c7; /* Szary (niezdefiniowane) */
@@ -172,6 +178,7 @@ h1 {
     transition: all 0.2s ease;
     border-left: 6px solid #bdc3c7;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    min-height: 48px;  /* wszystkie przyciski równe */
 }
 .nav-block-btn:hover {
     background: #f8f9f9;
@@ -215,6 +222,30 @@ h1 {
 .nav-b8:hover, .nav-b8.active {
     background-color: color-mix(in srgb, var(--b8-color), white 92%) !important;
     border-left-color: var(--b8-color); color: var(--b8-color);
+}
+.nav-b9:hover, .nav-b9.active {
+    background-color: color-mix(in srgb, var(--b9-color), white 92%) !important;
+    border-left-color: var(--b9-color); color: var(--b9-color);
+}
+.nav-b10:hover, .nav-b10.active {
+    background-color: color-mix(in srgb, var(--b10-color), white 92%) !important;
+    border-left-color: var(--b10-color); color: var(--b10-color);
+}
+.nav-b11:hover, .nav-b11.active {
+    background-color: color-mix(in srgb, var(--b11-color), white 92%) !important;
+    border-left-color: var(--b11-color); color: var(--b11-color);
+}
+.nav-b12:hover, .nav-b12.active {
+    background-color: color-mix(in srgb, var(--b12-color), white 92%) !important;
+    border-left-color: var(--b12-color); color: var(--b12-color);
+}
+.nav-b13:hover, .nav-b13.active {
+    background-color: color-mix(in srgb, var(--b13-color), white 92%) !important;
+    border-left-color: var(--b13-color); color: var(--b13-color);
+}
+.nav-b14:hover, .nav-b14.active {
+    background-color: color-mix(in srgb, var(--b14-color), white 92%) !important;
+    border-left-color: var(--b14-color); color: var(--b14-color);
 }
 
 .content-area {
@@ -298,6 +329,12 @@ h1 {
 .c6 { background: color-mix(in srgb, var(--b6-color), transparent 88%); border-left: 6px solid var(--b6-color); }
 .c7 { background: color-mix(in srgb, var(--b7-color), transparent 88%); border-left: 6px solid var(--b7-color); }
 .c8 { background: color-mix(in srgb, var(--b8-color), transparent 88%); border-left: 6px solid var(--b8-color); }
+.c9  { background: color-mix(in srgb, var(--b9-color),  transparent 88%); border-left: 6px solid var(--b9-color); }
+.c10 { background: color-mix(in srgb, var(--b10-color), transparent 88%); border-left: 6px solid var(--b10-color); }
+.c11 { background: color-mix(in srgb, var(--b11-color), transparent 88%); border-left: 6px solid var(--b11-color); }
+.c12 { background: color-mix(in srgb, var(--b12-color), transparent 88%); border-left: 6px solid var(--b12-color); }
+.c13 { background: color-mix(in srgb, var(--b13-color), transparent 88%); border-left: 6px solid var(--b13-color); }
+.c14 { background: color-mix(in srgb, var(--b14-color), transparent 88%); border-left: 6px solid var(--b14-color); }
 
 .arrow::after { content: ' ▼'; font-size: 0.8em; opacity: 0.7; }
 .active .arrow::after { content: ' ▲'; }
