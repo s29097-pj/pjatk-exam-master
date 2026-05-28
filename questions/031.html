@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 031 – Testowanie i walidacja oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">031. Testowanie i walidacja oprogramowania; poziomy testowania, rodzaje testów.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔍</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Testowanie to „Kontrola jakości w fabryce oprogramowania”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie fabrykę produkującą samochody. Na pierwszym etapie inżynierowie sprawdzają <strong>każdą pojedynczą śrubkę i tłok</strong> – czy spełniają specyfikację, czy wytrzymują nacisk. To są <strong>testy jednostkowe</strong>. Potem montują podzespoły – silnik, skrzynię biegów – i sprawdzają, czy do siebie pasują, czy olej nie wycieka. To <strong>testy integracyjne</strong>. Gdy cały samochód jest złożony, wjeżdża na tor testowy – sprawdzają, czy odpala, czy hamuje, czy działa klimatyzacja przy 40°C. To <strong>testy systemowe</strong>. Na koniec siada za kierownicą klient – czy wygodnie mu się wsiada, czy bagażnik pomieści walizki. To <strong>testy akceptacyjne</strong>. Jeśli na którymkolwiek etapie coś jest nie tak, samochód wraca do poprawki – <strong>defekt zostaje zgłoszony i naprawiony</strong>. Bez tego procesu nikt nie wypuściłby auta na ulicę – i dokładnie tak samo jest z oprogramowaniem.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Testy jednostkowe (Unit tests)</strong> – sprawdzanie pojedynczych funkcji, metod, klas w izolacji. Szybkie, zautomatyzowane, uruchamiane przy każdej zmianie.</li>
+                        <li><strong>🟠 Testy integracyjne (Integration tests)</strong> – weryfikacja współpracy między modułami, z bazą danych, z API. Wolniejsze, ale wykrywają problemy na stykach.</li>
+                        <li><strong>🟢 Testy systemowe (System / E2E tests)</strong> – test całego systemu z perspektywy użytkownika. Symulują rzeczywiste scenariusze. Najwolniejsze, najbardziej kosztowne.</li>
+                        <li><strong>🟣 Testy akceptacyjne (Acceptance tests)</strong> – klient (lub jego reprezentant) potwierdza, że system spełnia wymagania biznesowe.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Piramida testów (Test Pyramid)</span>
+            <span class="keyword-tag">Test jednostkowy (Unit test)</span>
+            <span class="keyword-tag">Test integracyjny (Integration test)</span>
+            <span class="keyword-tag">Test systemowy / E2E</span>
+            <span class="keyword-tag">Test akceptacyjny (UAT)</span>
+            <span class="keyword-tag">Testy funkcjonalne / niefunkcjonalne</span>
+            <span class="keyword-tag">Test regresyjny (Regression test)</span>
+            <span class="keyword-tag">Smoke test / Sanity test</span>
+            <span class="keyword-tag">V-Model (Weryfikacja vs Walidacja)</span>
+            <span class="keyword-tag">CI/CD Pipeline</span>
+            <span class="keyword-tag">TDD (Test-Driven Development)</span>
+            <span class="keyword-tag">Mock / Stub / Fake</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PIRAMIDA TESTÓW – POZIOMY TESTOWANIA           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Piramida testów – „Od fundamentów do dachu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Piramida testów</strong> (Mike Cohn) ilustruje idealną proporcję między poziomami testów. Podstawą są liczne, szybkie <strong>testy jednostkowe</strong>. Środkowy poziom to mniej liczne <strong>testy integracyjne</strong>. Na szczycie znajduje się niewielka liczba <strong>testów E2E (end-to-end)</strong>. Im wyższy poziom, tym testy są wolniejsze, bardziej kosztowne w utrzymaniu i mniej precyzyjne w lokalizacji błędu. Zdrowy projekt ma wiele testów jednostkowych, trochę integracyjnych i kilka E2E.
+                </p>
+            </div>
+
+            <!-- SVG: PIRAMIDA TESTÓW -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridTest" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridTest)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Piramida testów – idealna proporcja poziomów</text>
+
+                <!-- Warstwa: E2E (szczyt) -->
+                <polygon points="410,60 300,140 520,140" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="115" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">E2E</text>
+                <text x="410" y="132" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Wolne, drogie</text>
+
+                <!-- Warstwa: Integracyjne (środek) -->
+                <polygon points="410,145 180,240 640,240" fill="#81c784" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff">Integracyjne</text>
+                <text x="410" y="218" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c8e6c9">Średnie tempo</text>
+
+                <!-- Warstwa: Jednostkowe (podstawa) -->
+                <polygon points="410,245 50,310 770,310" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="290" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff">Jednostkowe</text>
+                <text x="410" y="305" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c8e6c9">Szybkie, częste, podstawa</text>
+
+                <!-- Adnotacje -->
+                <rect x="30" y="55" width="180" height="70" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
+                <text x="120" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Selenium, Cypress</text>
+                <text x="120" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Cucumber (BDD)</text>
+                <text x="120" y="112" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Scenariusze UAT</text>
+
+                <rect x="600" y="160" width="200" height="70" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
+                <text x="700" y="183" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">TestContainers</text>
+                <text x="700" y="200" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Embedded DB</text>
+                <text x="700" y="217" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">API tests (Postman/REST Assured)</text>
+
+                <rect x="30" y="260" width="250" height="60" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
+                <text x="155" y="283" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">JUnit, NUnit, pytest</text>
+                <text x="155" y="300" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Mockito, Moq, unittest.mock</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: TESTY JEDNOSTKOWE – FUNDAMENTY                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Testy jednostkowe – „Sprawdzamy każdą śrubkę osobno”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Test jednostkowy</strong> weryfikuje pojedynczą funkcję, metodę lub klasę w całkowitej izolacji od reszty systemu. Zależności są zastępowane przez <strong>mocki</strong> (obiekty udające prawdziwe), co gwarantuje, że test sprawdza tylko logikę testowanej jednostki, a nie jej otoczenia. Testy jednostkowe powinny być <strong>szybkie</strong> (tysiące w kilka sekund) i <strong>powtarzalne</strong> (deterministyczne). Są uruchamiane przy każdym commitcie w CI/CD. Narzędzia: JUnit (Java), pytest (Python), NUnit/xUnit (.NET).
+                </p>
+                <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 TDD (Test-Driven Development):</strong> Najpierw pisz test (czerwony), potem kod (zielony), potem refaktoryzuj. Cykl Red-Green-Refactor. Gwarantuje, że każda linia kodu jest pokryta testem.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: TESTY INTEGRACYJNE I SYSTEMOWE                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Testy integracyjne i systemowe – „Czy silnik pasuje do skrzyni biegów?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Test integracyjny</strong> sprawdza współpracę między kilkoma modułami, np. czy serwis poprawnie zapisuje dane do bazy, czy API zwraca właściwe odpowiedzi. <strong>Test systemowy (E2E)</strong> symuluje rzeczywistego użytkownika – klika przyciski w przeglądarce, wypełnia formularze. Testy te są wolniejsze i bardziej podatne na awarie infrastruktury, dlatego jest ich mniej.
+                </p>
+            </div>
+
+            <!-- SVG: V-MODEL – WERYFIKACJA I WALIDACJA -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridTest)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">V-Model – Weryfikacja i Walidacja w procesie wytwarzania</text>
+
+                <!-- Lewa gałąź (projektowanie) -->
+                <rect x="40" y="60" width="160" height="35" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="120" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Wymagania</text>
+                <rect x="40" y="110" width="160" height="35" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="120" y="132" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Projekt wysokiego poziomu</text>
+                <rect x="40" y="160" width="160" height="35" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="120" y="182" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Projekt niskiego poziomu</text>
+                <rect x="40" y="210" width="160" height="35" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="120" y="232" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Kodowanie</text>
+
+                <!-- Prawa gałąź (testowanie) -->
+                <rect x="620" y="60" width="160" height="35" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="700" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Testy akceptacyjne</text>
+                <rect x="620" y="110" width="160" height="35" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="700" y="132" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Testy systemowe</text>
+                <rect x="620" y="160" width="160" height="35" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="700" y="182" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Testy integracyjne</text>
+                <rect x="620" y="210" width="160" height="35" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="700" y="232" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Testy jednostkowe</text>
+
+                <!-- Strzałki w dół (lewa) i w górę (prawa) – tworzą V -->
+                <path d="M 200 78 L 620 78" fill="none" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <path d="M 200 128 L 620 128" fill="none" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <path d="M 200 178 L 620 178" fill="none" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <path d="M 200 228 L 620 228" fill="none" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+                <!-- Etykiety weryfikacji i walidacji -->
+                <text x="410" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Walidacja (czy dobrze budujemy?)</text>
+                <text x="410" y="255" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Weryfikacja (czy budujemy dobrze?)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: RODZAJE TESTÓW – PRZEGLĄD                       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Rodzaje testów – „Każdy defekt ma swoje narzędzie”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>✅ Funkcjonalne</strong><br>
+                        <span style="font-size:0.85rem;">Sprawdzają, czy system robi to, co powinien. Testy jednostkowe, integracyjne, systemowe, akceptacyjne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>⚡ Niefunkcjonalne</strong><br>
+                        <span style="font-size:0.85rem;">Wydajnościowe (load, stress), bezpieczeństwa (penetracyjne), użyteczności (UX), niezawodności (soak tests).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🔄 Regresyjne</strong><br>
+                        <span style="font-size:0.85rem;">Uruchamiane po każdej zmianie, by upewnić się, że nic, co wcześniej działało, nie zostało zepsute. Automatyzowane.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🚬 Smoke / Sanity</strong><br>
+                        <span style="font-size:0.85rem;">Smoke: „czy aplikacja w ogóle odpala?”. Sanity: „czy ostatnia zmiana nie rozwaliła podstawowych funkcji?”.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: PIPELINE CI/CD Z ETAPAMI TESTOWANIA -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridTest)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Pipeline CI/CD – testowanie w procesie ciągłej integracji</text>
+
+                <!-- Commit -->
+                <rect x="30" y="60" width="100" height="40" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+                <text x="80" y="85" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">Commit</text>
+
+                <!-- Strzałka -->
+                <path d="M 130 80 L 175 80" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowPipe1)"/>
+
+                <!-- Unit Tests -->
+                <rect x="185" y="55" width="120" height="50" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="245" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Unit Tests</text>
+                <text x="245" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e7d32">~sekundy</text>
+
+                <!-- Strzałka -->
+                <path d="M 305 80 L 350 80" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowPipe1)"/>
+
+                <!-- Integration Tests -->
+                <rect x="360" y="55" width="120" height="50" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="420" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Integration</text>
+                <text x="420" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#bf360c">~minuty</text>
+
+                <!-- Strzałka -->
+                <path d="M 480 80 L 525 80" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowPipe1)"/>
+
+                <!-- E2E / Deploy -->
+                <rect x="535" y="55" width="120" height="50" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="595" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">E2E / Deploy</text>
+                <text x="595" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1565c0">~godziny</text>
+
+                <!-- Feedback loop -->
+                <path d="M 595 105 Q 595 150 245 150 Q 80 150 80 100" fill="none" stroke="#c62828" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowFeedback)"/>
+                <text x="340" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">Pętla zwrotna – błędy wracają do programisty natychmiast (fail fast)</text>
+
+                <defs>
+                    <marker id="arrowPipe1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowFeedback" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: TESTY AUTOMATYCZNE vs MANUALNE                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Automatyzacja i narzędzia – „Nie testuj ręcznie tego, co może zrobić maszyna”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Testy automatyczne</strong> są powtarzalne, szybkie i stanowią siatkę bezpieczeństwa przy refaktoryzacji. <strong>Testy manualne</strong> (eksploracyjne) są niezbędne do oceny UX, wykrywania nieoczekiwanych zachowań i walidacji wizualnej. W nowoczesnych zespołach testy automatyczne pokrywają regresję i podstawowe scenariusze, uwalniając testerów do eksploracji.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🖥️ Unit/Integration</strong><br>
+                        <span style="font-size:0.85rem;">JUnit, TestNG (Java), pytest (Python), xUnit (.NET), Jest (JavaScript). Mockito, Moq do mockowania.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🌐 E2E / UI</strong><br>
+                        <span style="font-size:0.85rem;">Selenium, Cypress, Playwright. Nagrywają interakcje z przeglądarką i odtwarzają je w testach.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>📊 Wydajnościowe</strong><br>
+                        <span style="font-size:0.85rem;">JMeter, Gatling, Locust. Symulują tysiące równoczesnych użytkowników i mierzą czasy odpowiedzi.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>100% pokrycia kodu ≠ brak błędów.</strong> Pokrycie mierzy, które linie zostały wykonane, ale nie czy testy są poprawne. Można mieć 100% coverage z asercjami, które nic nie sprawdzają.</li>
+                    <li><strong>Testy jednostkowe nie wykryją problemów integracyjnych.</strong> To, że każda klasa działa sama, nie znaczy, że będą ze sobą współpracować.</li>
+                    <li><strong>Smoke test ≠ Sanity test.</strong> Smoke to bardzo ogólny test „czy system żyje”. Sanity to wąski test sprawdzający konkretną naprawę lub zmianę.</li>
+                    <li><strong>Walidacja ≠ Weryfikacja.</strong> Weryfikacja: „czy budujemy produkt zgodnie ze specyfikacją?”. Walidacja: „czy budujemy właściwy produkt?” (czy spełnia potrzeby użytkownika).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – testowanie i walidacja:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Poziom / Rodzaj</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Co testuje?</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Narzędzia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Jednostkowy</td>
+                            <td style="padding: 10px;">Funkcje, metody w izolacji</td>
+                            <td style="padding: 10px;">JUnit, pytest, xUnit</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Integracyjny</td>
+                            <td style="padding: 10px;">Współpraca modułów, DB, API</td>
+                            <td style="padding: 10px;">TestContainers, REST Assured</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Systemowy / E2E</td>
+                            <td style="padding: 10px;">Cały system z perspektywy użytkownika</td>
+                            <td style="padding: 10px;">Selenium, Cypress, Playwright</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #c62828;">Akceptacyjny</td>
+                            <td style="padding: 10px;">Spełnienie wymagań biznesowych</td>
+                            <td style="padding: 10px;">Cucumber (BDD), testy UAT</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Regresyjny / Smoke</td>
+                            <td style="padding: 10px;">Czy zmiana nie zepsuła istniejących funkcji?</td>
+                            <td style="padding: 10px;">Zautomatyzowane zestawy testów</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Testowanie to nie koszt – to inwestycja w jakość i spokój programisty. Piramida testów prowadzi Cię od szybkich testów jednostkowych, przez integracyjne, aż po nieliczne E2E. Pamiętaj: weryfikacja sprawdza, czy budujesz zgodnie ze specyfikacją, a walidacja – czy w ogóle budujesz to, co trzeba. Automatyzuj co się da, testy manualne zostaw na kreatywność i UX.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Succeeding with Agile: Software Development Using Scrum” (Mike Cohn) – piramida testów · „Continuous Delivery” (Jez Humble, David Farley) · Dokumentacja JUnit, pytest, Selenium.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
