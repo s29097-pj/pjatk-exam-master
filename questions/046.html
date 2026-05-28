@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 046 – Relacyjne i nierelacyjne bazy danych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">046. Charakterystyka relacyjnych (SQL) i nierelacyjnych (NoSQL) baz danych.</h2>
+
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗂️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Rygorystyczny księgowy vs. Elastyczny archiwista”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wybór między bazą SQL a NoSQL to decyzja architektoniczna, którą można sprowadzić do metafory organizowania biura.<br><br>
+                        <strong>Relacyjne (SQL):</strong> Działają jak arkusz kalkulacyjny zarządzany przez rygorystycznego księgowego. Księgowy narzuca <em>Ścisły Schemat (Schema-on-write)</em>. Mówi: „W kolumnie 3 wpisujemy tylko daty!”. Jeśli spróbujesz wpisać tam tekst, wyrzuci Cię z biura. Wszystko jest powiązane sztywnymi relacjami (Klucze Obce). Gdy brakuje mu mocy przerobowych, musisz kupić mu droższy kalkulator i szybszy komputer (<strong>Skalowanie Pionowe</strong>).<br><br>
+                        <strong>Nierelacyjne (NoSQL):</strong> Działają jak elastyczny archiwista z kartonami na dokumenty. Każdy dokument (np. plik JSON) może mieć inny kształt. Jeden dokument klienta ma tylko imię i email, a drugi dodaje listę 50 ulubionych filmów – archiwista przyjmie wszystko (<em>Schema-on-read</em>). Gdy brakuje mu mocy, po prostu zatrudniasz 10 tanich stażystów do pomocy i każdy z nich obsługuje część kartonów (<strong>Skalowanie Poziome</strong>).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">SQL (Relacyjne) vs NoSQL (Not Only SQL)</span>
+            <span class="keyword-tag">ACID vs BASE (Eventual Consistency)</span>
+            <span class="keyword-tag">Twierdzenie CAP (Consistency, Availability, Partition Tolerance)</span>
+            <span class="keyword-tag">Skalowanie Pionowe (Vertical / Scale-up)</span>
+            <span class="keyword-tag">Skalowanie Poziome (Horizontal / Scale-out)</span>
+            <span class="keyword-tag">Schema-on-write vs Schema-on-read</span>
+            <span class="keyword-tag">Typy NoSQL: Dokumentowe, Klucz-Wartość, Kolumnowe, Grafowe</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Struktura Danych i Paradygmat Skalowania</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Największą różnicą między tymi dwoma światami nie jest język zapytań, ale sposób, w jaki dane leżą na dysku i jak system reaguje na rosnące obciążenie.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Bazy Relacyjne (np. PostgreSQL, MySQL, Oracle):</strong> Dane są silnie znormalizowane (rozbite na małe tabele, by unikać redundancji). Aby odczytać pełen profil klienta, baza musi dokonać kosztownego złączenia tabel (<code>JOIN</code>). Najlepiej działają na jednym, potężnym serwerze (Scale-up). Rozproszenie bazy relacyjnej na wiele serwerów jest ekstremalnie trudne, bo operacje <code>JOIN</code> i zasady transakcji wymagają synchronizacji całego systemu.</li>
+                    <li><strong>Bazy Nierelacyjne (np. MongoDB, Redis, Cassandra):</strong> Dane są zazwyczaj zdenormalizowane i trzymane w jednym dokumencie (Agregaty). Zamiast "kleić" dane z 5 tabel, pobierasz jeden kompletny dokument JSON. Brak sztywnych relacji pozwala w łatwy sposób pociąć bazę danych i rozrzucić ją na 100 tanich, niezależnych serwerów (Sharding / Scale-out).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridDB" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridDB)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zderzenie Paradygmatów: Skalowanie i Struktura</text>
+
+                <text x="205" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">RELACYJNE (SQL)</text>
+                
+                <rect x="165" y="150" width="80" height="40" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="205" y="175" font-family="monospace" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Serwer</text>
+
+                <path d="M 205 140 L 205 100" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
+                
+                <rect x="145" y="80" width="120" height="15" fill="#ffe0b2" stroke="#e65100"/>
+                <rect x="145" y="60" width="120" height="15" fill="#ffe0b2" stroke="#e65100"/>
+                <text x="120" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100">+ RAM</text>
+                <text x="120" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100">+ CPU</text>
+
+                <text x="205" y="210" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">Skalowanie Pionowe (Scale-up)</text>
+                <text x="205" y="225" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Kupujesz mocniejszą maszynę</text>
+
+                <rect x="50" y="240" width="140" height="30" fill="#fff" stroke="#1565c0" stroke-dasharray="2,2"/>
+                <rect x="220" y="240" width="140" height="30" fill="#fff" stroke="#1565c0" stroke-dasharray="2,2"/>
+                <path d="M 190 255 L 220 255" fill="none" stroke="#2e7d32" stroke-width="2"/>
+                <text x="120" y="258" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Tabele z JOIN</text>
+                <text x="290" y="258" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Ścisły Schemat</text>
+
+                <line x1="410" y1="50" x2="410" y2="260" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="6,6"/>
+
+                <text x="615" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32" text-anchor="middle">NIERELACYJNE (NoSQL)</text>
+
+                <rect x="575" y="110" width="80" height="40" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="615" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer 1</text>
+
+                <path d="M 665 130 L 710 130" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
+                
+                <rect x="720" y="110" width="80" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="760" y="135" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">Serwer 2</text>
+
+                <path d="M 565 130 L 520 130" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrangeL)"/>
+                
+                <rect x="430" y="110" width="80" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="470" y="135" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">Serwer 3</text>
+
+                <text x="615" y="210" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Skalowanie Poziome (Scale-out)</text>
+                <text x="615" y="225" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Dokładasz tanie serwery (Klaster)</text>
+
+                <rect x="520" y="240" width="190" height="30" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="1"/>
+                <text x="615" y="258" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">{ "user": "Jan", "orders": [...] }</text>
+
+                <defs>
+                    <marker id="arrowOrange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowOrangeL" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">2. Prawa Fizyki Rozproszonej: Twierdzenie CAP i paradygmat BASE</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To, dlaczego NoSQL skaluje się w nieskończoność, wynika z porzucenia sztywnych transakcji <strong>ACID</strong> na rzecz bardziej elastycznego podejścia <strong>BASE</strong> i zgody na zasady <strong>Twierdzenia CAP</strong>.
+                </p>
+                <div style="background: #f3e5f5; border-left: 5px solid #ab47bc; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔺 Twierdzenie CAP (Eric Brewer):</strong><br>
+                    W rozproszonym systemie komputerowym możesz zagwarantować maksymalnie dwie z trzech właściwości:<br>
+                    1. <strong>C (Consistency - Spójność):</strong> Każdy klient na każdym serwerze widzi zawsze te same, najnowsze dane.<br>
+                    2. <strong>A (Availability - Dostępność):</strong> System zawsze odpowiada na zapytania, nawet jeśli część serwerów padła.<br>
+                    3. <strong>P (Partition Tolerance - Tolerancja na partycjonowanie):</strong> System działa, nawet jeśli kabel sieciowy między serwerami zostanie odcięty.<br>
+                    <em>Ponieważ w sieci błędy (P) zawsze się zdarzają, architekt musi wybierać: system będzie CP (spójny, ale odrzuci klienta w trakcie awarii – to SQL) lub AP (dostępny zawsze, ale czasem poda "stare" dane – to wiele baz NoSQL).</em>
+                </div>
+                <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🌱 Zasada BASE (Opozycja do ACID):</strong><br>
+                    Zamiast sztywnych transakcji, NoSQL używa modelu <em>Eventual Consistency</em> (Spójność Ostateczna). Jeśli zaktualizujesz zdjęcie profilowe na Facebooku w USA, użytkownik w Europie może przez 2 sekundy widzieć stare zdjęcie. Ostatecznie dane rozprzestrzenią się na wszystkie serwery. Porzucenie absolutnej spójności w czasie rzeczywistym odblokowuje gigantyczną wydajność.
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Wielka Czwórka: Typy baz NoSQL</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    "NoSQL" to worek, do którego wrzucono wszystko, co nie ma tabel. W rzeczywistości bazy te drastycznie się od siebie różnią pod kątem przeznaczenia:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffb74d;">
+                        <strong style="color: #e65100;">📄 Dokumentowe (Document)</strong><br>
+                        <span style="font-size:0.85rem;">Dane zapisane jako dokumenty przypominające JSON/BSON. Najbardziej uniwersalne. Dobry balans elastyczności i możliwości zapytań.<br><em>Przykłady:</em> <strong>MongoDB, CouchDB</strong>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #64b5f6;">
+                        <strong style="color: #1565c0;">🔑 Klucz-Wartość (Key-Value)</strong><br>
+                        <span style="font-size:0.85rem;">Słownik na sterydach (Hash Map). Piekielnie szybki dostęp po kluczu w czasie O(1). Używane głównie do buforowania (Cache) i śledzenia sesji.<br><em>Przykłady:</em> <strong>Redis, Memcached, DynamoDB</strong>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #f06292;">
+                        <strong style="color: #c2185b;">📊 Rodziny Kolumn (Column-Family)</strong><br>
+                        <span style="font-size:0.85rem;">Optymalizowane do odczytu ogromnych ilości danych z wybranych kolumn, a nie całych rzędów. Idealne do IoT, analiz Big Data i logów.<br><em>Przykłady:</em> <strong>Cassandra, HBase</strong>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color: #6a1b9a;">🕸️ Grafowe (Graph)</strong><br>
+                        <span style="font-size:0.85rem;">Stworzone wyłącznie w celu modelowania potężnych relacji międzyludzkich i biznesowych (kto zna kogo, kto co kupił). Rekomendacje silnika sieci społecznościowych.<br><em>Przykłady:</em> <strong>Neo4j, Amazon Neptune</strong>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>NoSQL nie oznacza "NO SQL" (Brak SQL)!</strong> Ten skrót rozwija się jako <em>Not Only SQL</em>. Został wymyślony jako hasło w 2009 roku. Co więcej, wiele baz NoSQL (np. Cassandra z językiem CQL) oferuje języki łudząco podobne do składni SQL!</li>
+                    <li><strong>"NoSQL jest zawsze lepszy i szybszy."</strong> Bzdura! Do systemów finansowych, księgowych (gdzie spójność ACID to być albo nie być), system relacyjny (SQL) z twardymi schematami i relacjami 1:N / N:M jest wciąż bezkonkurencyjny.</li>
+                    <li><strong>Złudzenie braku relacji:</strong> W bazach dokumentowych (np. MongoDB) też można modelować powiązania danych (robimy to za pomocą tzw. <em>Embedded documents</em> – zagnieżdżania – lub <em>References</em>). Baza ta jednak nie ma wbudowanych więzów integralności, by chronić te powiązania sprzętowo.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Ostateczne starcie: SQL vs NoSQL:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Właściwość</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a; color: #1565c0;">Relacyjne (SQL)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a; color: #2e7d32;">Nierelacyjne (NoSQL)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Składowanie</td>
+                        <td style="padding: 10px;">Tabele, wiersze i kolumny (Płaska struktura).</td>
+                        <td style="padding: 10px;">Dokumenty (JSON), Klucz-Wartość, Grafy, Kolumny.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Schemat (Schema)</td>
+                        <td style="padding: 10px;">Sztywny, definiowany na początku (Schema-on-write).</td>
+                        <td style="padding: 10px;">Dynamiczny, elastyczny (Schema-on-read).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Skalowanie</td>
+                        <td style="padding: 10px;">Pionowe (Scale-up) – droższy, lepszy sprzęt.</td>
+                        <td style="padding: 10px;">Poziome (Scale-out) – rozbijanie na dziesiątki tanich serwerów.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Transakcyjność</td>
+                        <td style="padding: 10px;">Gwarancja ACID (Bezpieczeństwo operacji).</td>
+                        <td style="padding: 10px;">Zasada BASE (Szybkość i Eventual Consistency).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Zastosowanie (Usecase)</td>
+                        <td style="padding: 10px;">Systemy bankowe, ERP, CRM, skomplikowane złączenia.</td>
+                        <td style="padding: 10px;">Big Data, Koszyki e-commerce, Cache, Sieci społecznościowe.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">NoSQL nie zabiło bazy relacyjnej – udowodniło po prostu, że nie każdy problem jest gwoździem, więc nie zawsze potrzebujemy młotka. Architektura oprogramowania to dziś <strong>Polyglot Persistence</strong> (Zróżnicowane składowanie). Dobry inżynier projektując sklep internetowy, użyje bazy grafowej (NoSQL) do silnika rekomendacji, słownika Redis (NoSQL) do cache'owania koszyka z zakupami, dokumentowej bazy (MongoDB) do opisu produktów o różnych cechach, a sam przelew i stany magazynowe obłuży mosiężną transakcją w Postgresie (SQL ACID).</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Designing Data-Intensive Applications” (Martin Kleppmann) – absolutna biblia wiedzy o SQL, NoSQL i Twierdzeniu CAP.
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
