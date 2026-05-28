@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 039 – Złożoność obliczeniowa algorytmów</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">039. Złożoność obliczeniowa algorytmów. Notacja asymptotyczna.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📖</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szukanie nazwiska w książce telefonicznej”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b22; line-height: 1.7;">
+                        Inżynierowie nie mierzą szybkości algorytmów w sekundach. Dlaczego? Bo ten sam algorytm na starym laptopie wykona się w 5 sekund, a na superkomputerze w 0.1 sekundy. Mierzymy coś o wiele ważniejszego: <strong>jak rośnie liczba operacji, gdy rośnie rozmiar danych wejściowych (N)</strong>.<br><br>
+                        Wyobraź sobie książkę telefoniczną z 1 000 000 stron (<code>N = 1 000 000</code>). Szukasz nazwiska "Kowalski":<br>
+                        <strong>Naiwne podejście O(N):</strong> Sprawdzasz pierwszą stronę, potem drugą, trzecią... W najgorszym razie musisz przejrzeć <strong>milion stron</strong>.<br>
+                        <strong>Inżynierskie podejście O(log N):</strong> Otwierasz książkę na środku. Kowalski jest wcześniej? Wyrzucasz całą prawą połowę do kosza! Zostało 500 000 stron. Znów otwierasz na środku. Powtarzając ten podział, znajdziesz Kowalskiego w maksymalnie... <strong>20 krokach</strong>! (Zamiast miliona).<br><br>
+                        Notacja asymptotyczna opisuje ten trend. To język, w którym programiści rozmawiają o skalowalności. Ale to nie tylko Big-O – mamy trzy filary analizy: <strong>O (góra), Ω (dół) i Θ (środek)</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Notacja Big-O (górna granica, O)</span>
+            <span class="keyword-tag">Notacja Omega (dolna granica, Ω)</span>
+            <span class="keyword-tag">Notacja Theta (ścisłe ograniczenie, Θ)</span>
+            <span class="keyword-tag">Złożoność czasowa (Time complexity)</span>
+            <span class="keyword-tag">Złożoność pamięciowa (Space complexity)</span>
+            <span class="keyword-tag">Przypadek pesymistyczny / średni / optymistyczny</span>
+            <span class="keyword-tag">Asymptotyczne tempo wzrostu</span>
+            <span class="keyword-tag">O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ), O(n!)</span>
+            <span class="keyword-tag">Złożoność zamortyzowana (Amortized)</span>
+            <span class="keyword-tag">Twierdzenie o rekurencji uniwersalnej (Master Theorem)</span>
+            <span class="keyword-tag">Trade-off czas-pamięć (Space-time tradeoff)</span>
+            <span class="keyword-tag">NP-zupełność (wprowadzenie)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: ISTOTA NOTACJI ASYMPTOTYCZNEJ – TRZY FILARY   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Trzy filary analizy asymptotycznej – O, Ω i Θ</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Analiza asymptotyczna bada zachowanie algorytmu, gdy rozmiar danych <code>N</code> dąży do nieskończoności. Używamy do tego trzech notacji, które razem dają pełny obraz wydajności:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Big-O (O) – górna granica (worst-case):</strong> "Algorytm nigdy nie będzie gorszy niż…". To najczęściej używana notacja. Mówi o maksymalnej liczbie operacji dla pesymistycznych danych. Np. wyszukiwanie liniowe w tablicy to O(N) – szukany element może być na końcu.</li>
+                    <li><strong>Omega (Ω) – dolna granica (best-case):</strong> "Algorytm zawsze wykona co najmniej…". Np. wyszukiwanie liniowe może znaleźć element na pierwszej pozycji – to Ω(1). Nawet najlepszy algorytm sortowania przez porównania to Ω(N log N).</li>
+                    <li><strong>Theta (Θ) – ścisłe ograniczenie (tight bound):</strong> "Algorytm zachowuje się dokładnie jak…". Jeśli O i Ω są takie same, mamy Θ. Np. scalanie dwóch posortowanych tablic o łącznej długości N wymaga Θ(N) porównań – nie da się szybciej ani wolniej przy poprawnej implementacji.</li>
+                </ul>
+                <div style="background: #fce4ec; border-left: 5px solid #d81b60; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Odrzucanie stałych i składników niższego rzędu:</strong> Jeśli algorytm wykonuje <code>5N² + 3N + 100</code> operacji, zapisujemy to jako <strong>O(N²)</strong>. Gdy N = 10 000, N² = 100 000 000, a 3N = 30 000 – ten drugi składnik jest zaniedbywalny. Stała 5 też znika – Big-O ignoruje stałe mnożniki, bo opisuje <em>tempo wzrostu</em>, nie konkretną liczbę cykli CPU.
+                </div>
+            </div>
+
+            <!-- SVG: WYKRES – O, Ω, Θ (ROZBUDOWANY Z ORYGINAŁU) -->
+            <svg viewBox="0 0 820 380" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridBigO" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="380" fill="url(#gridBigO)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Porównanie klas złożoności oraz notacje O, Ω, Θ</text>
+
+                <!-- Osie -->
+                <line x1="80" y1="320" x2="720" y2="320" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <line x1="80" y1="320" x2="80" y2="40" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="730" y="325" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Rozmiar danych (N)</text>
+                <text x="70" y="30" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="end">Operacje / Czas</text>
+
+                <!-- Strefy wydajności -->
+                <rect x="82" y="250" width="630" height="68" fill="#e8f5e9" opacity="0.4"/>
+                <rect x="82" y="170" width="630" height="80" fill="#fff3e0" opacity="0.4"/>
+                <rect x="82" y="42" width="630" height="128" fill="#ffebee" opacity="0.4"/>
+                <text x="700" y="280" font-family="sans-serif" font-size="18" font-weight="bold" fill="#2e7d32" opacity="0.15" text-anchor="end">ŚWIETNE</text>
+                <text x="700" y="210" font-family="sans-serif" font-size="18" font-weight="bold" fill="#e65100" opacity="0.15" text-anchor="end">AKCEPTOWALNE</text>
+                <text x="700" y="110" font-family="sans-serif" font-size="18" font-weight="bold" fill="#c62828" opacity="0.15" text-anchor="end">TRAGICZNE</text>
+
+                <!-- Krzywe złożoności -->
+                <path d="M 80 290 L 680 290" fill="none" stroke="#2e7d32" stroke-width="4"/>
+                <text x="690" y="295" font-family="monospace" font-size="13" font-weight="bold" fill="#1b5e20">O(1)</text>
+
+                <path d="M 80 320 Q 200 270 680 240" fill="none" stroke="#8bc34a" stroke-width="4"/>
+                <text x="690" y="245" font-family="monospace" font-size="13" font-weight="bold" fill="#558b2f">O(log n)</text>
+
+                <path d="M 80 320 L 500 110" fill="none" stroke="#ffca28" stroke-width="4"/>
+                <text x="480" y="100" font-family="monospace" font-size="13" font-weight="bold" fill="#f57f17">O(n)</text>
+
+                <path d="M 80 320 Q 300 260 400 110" fill="none" stroke="#ff9800" stroke-width="4"/>
+                <text x="405" y="100" font-family="monospace" font-size="13" font-weight="bold" fill="#e65100">O(n log n)</text>
+
+                <path d="M 80 320 Q 200 310 280 110" fill="none" stroke="#f44336" stroke-width="4"/>
+                <text x="270" y="100" font-family="monospace" font-size="13" font-weight="bold" fill="#c62828">O(n²)</text>
+
+                <path d="M 80 320 Q 120 315 140 110" fill="none" stroke="#9c27b0" stroke-width="4"/>
+                <text x="140" y="100" font-family="monospace" font-size="13" font-weight="bold" fill="#6a1b9a">O(2ⁿ)</text>
+
+                <!-- Opis notacji Theta (Θ) – ścisłe ograniczenie -->
+                <rect x="540" y="300" width="250" height="65" rx="6" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1.5"/>
+                <text x="665" y="320" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1a237e">Θ (Theta): O(g) = Ω(g) = Θ(g)</text>
+                <text x="665" y="340" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3949ab">Algorytm jest ciasno ograniczony</text>
+                <text x="665" y="355" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3949ab">z góry i z dołu tą samą funkcją.</text>
+
+                <defs>
+                    <marker id="arrowDark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: TRZY PRZYPADKI ANALIZY – PESYMISTYCZNY, ŚREDNI, OPTYMISTYCZNY -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Przypadek pesymistyczny, średni i optymistyczny – „Którą twarz algorytmu mierzymy?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W zależności od danych wejściowych algorytm może zachowywać się zupełnie inaczej. Dlatego analizujemy go z trzech perspektyw:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong style="color:#b71c1c;">🔴 Pesymistyczny (Worst-case)</strong><br>
+                        <span style="font-size:0.85rem;">Najdłuższy czas dla możliwych danych o rozmiarze N. To <strong>Big-O</strong>. Gwarancja, że gorzej nie będzie. Np. Quicksort na posortowanej tablicy (bez randomizacji) = O(N²).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🟠 Średni (Average-case)</strong><br>
+                        <span style="font-size:0.85rem;">Oczekiwany czas przy losowych danych. Często trudniejszy do wyznaczenia. Np. Quicksort z losowym pivotem = O(N log N) średnio, choć pesymistycznie O(N²).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #a5d6a7;">
+                        <strong style="color:#1b5e20;">🟢 Optymistyczny (Best-case)</strong><br>
+                        <span style="font-size:0.85rem;">Najkrótszy możliwy czas. To <strong>Omega (Ω)</strong>. Np. wyszukiwanie liniowe znajduje element od razu = Ω(1). Rzadko kiedy występuje w praktyce.</span>
+                    </div>
+                </div>
+                <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;">
+                    <strong>W inżynierii najczęściej używamy przypadku pesymistycznego (Big-O)</strong>, bo chcemy gwarancji. Ale czasem, gdy dane są specyficzne (np. prawie posortowane), analiza średnia jest bardziej miarodajna.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: SZACOWANIE ZŁOŻONOŚCI Z KODU (ROZSZERZONE)    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Jak oszacować złożoność patrząc na kod? – Inżynierskie reguły</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Złożoność najczęściej ocenia się po <strong>zagnieżdżeniu pętli</strong> i strukturach iteracyjnych. Oto rozszerzony przewodnik:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong style="color: #00695c;">O(1) – Stała</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">int x = arr[5];<br>map.get("key");</code>
+                        <span style="font-size:0.8rem; color:#004d40;">Dostęp do indeksu, odczyt z HashMapy (zamortyzowane), operacje arytmetyczne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffb74d;">
+                        <strong style="color: #ef6c00;">O(log N) – Logarytmiczna</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">while(n > 1) { n = n/2; }</code>
+                        <span style="font-size:0.8rem; color:#e65100;">Binary Search, wyszukiwanie w BST, zmniejszanie problemu o połowę w każdym kroku.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #e57373;">
+                        <strong style="color: #c62828;">O(N) – Liniowa</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">for(int i=0; i&lt;N; i++)</code>
+                        <span style="font-size:0.8rem; color:#b71c1c;">Jedna pętla przechodząca przez wszystkie elementy.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #e57373;">
+                        <strong style="color: #c62828;">O(N log N)</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">Dziel i zwyciężaj: Merge Sort</code>
+                        <span style="font-size:0.8rem; color:#b71c1c;">Efektywne sortowanie. Dzielenie (log N) × scalanie (N).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #e57373;">
+                        <strong style="color: #c62828;">O(N²) – Kwadratowa</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">for(i=0;i&lt;N;i++)<br>  for(j=0;j&lt;N;j++)</code>
+                        <span style="font-size:0.8rem; color:#b71c1c;">Zagnieżdżone pętle. Bubble Sort, mnożenie macierzy naiwne.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong style="color: #6a1b9a;">O(2ⁿ) / O(N!) – Wykładnicza / Silnia</strong><br>
+                        <code style="font-size:0.85rem; background:#fff; display:block; padding:5px; margin-top:5px; border-radius:3px;">Rekurencyjny Fibonacci<br>Problem komiwojażera (TSP)</code>
+                        <span style="font-size:0.8rem; color:#4a148c;">Katastrofa wydajnościowa. N=20 → 1 048 576 operacji; N=30 → miliard. N=100? Wszechświat się skończy wcześniej.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: DLACZEGO UNIKAMY O(N²) – WIZUALIZACJA (Z ORYGINAŁU) -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="url(#gridBigO)" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c2185b">Wizualizacja: Dlaczego unikamy O(N²) jak ognia? (Przykład N = 5)</text>
+
+                <text x="200" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#f57f17" text-anchor="middle">O(N) – Pojedyncza pętla</text>
+                <rect x="100" y="80" width="40" height="40" fill="#fff8e1" stroke="#fbc02d" stroke-width="2"/>
+                <rect x="140" y="80" width="40" height="40" fill="#fff8e1" stroke="#fbc02d" stroke-width="2"/>
+                <rect x="180" y="80" width="40" height="40" fill="#fff8e1" stroke="#fbc02d" stroke-width="2"/>
+                <rect x="220" y="80" width="40" height="40" fill="#fff8e1" stroke="#fbc02d" stroke-width="2"/>
+                <rect x="260" y="80" width="40" height="40" fill="#fff8e1" stroke="#fbc02d" stroke-width="2"/>
+                <text x="200" y="145" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f57f17" text-anchor="middle">Zaledwie 5 komórek (operacji)</text>
+
+                <line x1="410" y1="50" x2="410" y2="160" stroke="#b0bec5" stroke-width="2" stroke-dasharray="6,4"/>
+
+                <text x="620" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">O(N²) – Pętla w pętli</text>
+                <g transform="translate(545, 75)">
+                    <rect x="0" y="0" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="15" y="0" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="30" y="0" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="45" y="0" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="60" y="0" width="15" height="15" fill="#ffebee" stroke="#e53935"/>
+                    <rect x="0" y="15" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="15" y="15" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="30" y="15" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="45" y="15" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="60" y="15" width="15" height="15" fill="#ffebee" stroke="#e53935"/>
+                    <rect x="0" y="30" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="15" y="30" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="30" y="30" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="45" y="30" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="60" y="30" width="15" height="15" fill="#ffebee" stroke="#e53935"/>
+                    <rect x="0" y="45" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="15" y="45" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="30" y="45" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="45" y="45" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="60" y="45" width="15" height="15" fill="#ffebee" stroke="#e53935"/>
+                    <rect x="0" y="60" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="15" y="60" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="30" y="60" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="45" y="60" width="15" height="15" fill="#ffebee" stroke="#e53935"/><rect x="60" y="60" width="15" height="15" fill="#ffebee" stroke="#e53935"/>
+                </g>
+                <text x="700" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828">Pole to N × N!</text>
+                <text x="700" y="130" font-family="sans-serif" font-size="12" fill="#c62828">Aż 25 operacji dla N=5</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ZŁOŻONOŚĆ PAMIĘCIOWA I TRADE-OFF (Z ORYGINAŁU) -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">4. Złożoność pamięciowa (Space Complexity) i złoty kompromis</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Notacja asymptotyczna dotyczy nie tylko czasu CPU. Mierzy się nią również zużycie pamięci RAM. Jeśli wewnątrz algorytmu tworzysz kopię tablicy N-elementowej, złożoność pamięciowa to <strong>O(N)</strong> (dodatkowa pamięć pomocnicza).
+                </p>
+                <div style="background: #e3f2fd; border-left: 5px solid #1565c0; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚖️ Space-Time Tradeoff (Kompromis Czasowo-Pamięciowy):</strong><br>
+                    W inżynierii nie ma nic za darmo. Często <strong>możesz drastycznie przyspieszyć działanie algorytmu (skrócić czas), jeśli poświęcisz więcej pamięci</strong>. Przykład: zamiast pętli w pętli O(N²) do znajdowania duplikatów, używasz słownika (Hash Set). Słownik zajmie dodatkowe miejsce O(N), ale obniży czas do O(N). RAM jest dziś tani, więc inżynierowie chętnie wybierają to rozwiązanie (cache, memoizacja).
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: ZŁOŻONOŚĆ ZAMORTYZOWANA (NOWA!)               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Złożoność zamortyzowana (Amortized Complexity) – „Rzadki koszt rozłożony na raty”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Niektóre operacje są zazwyczaj tanie, ale <strong>sporadycznie</strong> wymagają kosztownej reorganizacji. <strong>Złożoność zamortyzowana</strong> uśrednia ten rzadki, duży koszt na wiele tanich operacji.
+                </p>
+                <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>📦 Przykład – dynamiczna tablica (ArrayList w Javie, lista w Pythonie):</strong><br>
+                    Dodanie elementu (<code>append</code> / <code>add</code>) zwykle kosztuje O(1). Ale gdy tablica się przepełni, system alokuje nową (2× większą) i kopiuje wszystkie N elementów – to O(N). Jednak to zdarza się tylko raz na N operacji. Średni koszt na jedną operację to <strong>O(1)</strong> – to właśnie <strong>złożoność zamortyzowana O(1)</strong>.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: REKURENCJA I MASTER THEOREM (NOWA!)            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4527a0;">6. Analiza rekurencji – Twierdzenie o rekurencji uniwersalnej (Master Theorem)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algorytmy typu „dziel i zwyciężaj” (Merge Sort, QuickSort, Binary Search) dzielą problem na <strong>a</strong> podproblemów o rozmiarze <strong>N/b</strong> każdy, a potem scalają wyniki w czasie <strong>f(N)</strong>. Ich złożoność opisuje równanie rekurencyjne:
+                </p>
+                <div style="text-align: center; margin: 12px 0;">
+                    <code style="background:#ede7f6; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">T(N) = a · T(N/b) + f(N)</code>
+                </div>
+                <p style="line-height: 1.7; color: #2c3e50;">
+                    <strong>Master Theorem</strong> podaje gotowe rozwiązanie tego równania w trzech przypadkach (porównując f(N) z N<sup>log<sub>b</sub> a</sup>):
+                </p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px;">
+                    <thead>
+                    <tr style="background: #ede7f6;">
+                        <th style="padding: 8px; border: 1px solid #b39ddb;">Przypadek</th>
+                        <th style="padding: 8px; border: 1px solid #b39ddb;">Warunek</th>
+                        <th style="padding: 8px; border: 1px solid #b39ddb;">Wynik T(N)</th>
+                        <th style="padding: 8px; border: 1px solid #b39ddb;">Przykład</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">1</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = O(N<sup>c</sup>), c &lt; log<sub>b</sub> a</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(N<sup>log<sub>b</sub> a</sup>)</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">–</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">2</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = Θ(N<sup>c</sup> log<sup>k</sup> N), c = log<sub>b</sub> a</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(N<sup>c</sup> log<sup>k+1</sup> N)</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">Merge Sort: a=2, b=2, c=1 → Θ(N log N)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">3</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = Ω(N<sup>c</sup>), c &gt; log<sub>b</sub> a</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(f(N))</td>
+                        <td style="padding: 8px; border: 1px solid #b39ddb;">–</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 10px; line-height: 1.7; color: #2c3e50;">
+                    <strong>Przykład – Rekurencyjny Fibonacci:</strong> Naiwna rekurencja: T(N) = T(N−1) + T(N−2) + O(1). Master Theorem nie ma tu zastosowania, ale drzewo wywołań rośnie wykładniczo – <strong>O(2ⁿ)</strong>. Po dodaniu memoizacji (cache) spada do O(N).
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: ZŁOŻONOŚĆ PODSTAWOWYCH OPERACJI NA STRUKTURACH (NOWA!) -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">7. Ściągawka – Złożoność operacji na strukturach danych</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 12px;">
+                    <thead>
+                    <tr style="background: #ffebee;">
+                        <th style="padding: 8px; border: 1px solid #ef9a9a;">Struktura</th>
+                        <th style="padding: 8px; border: 1px solid #ef9a9a;">Dostęp (Access)</th>
+                        <th style="padding: 8px; border: 1px solid #ef9a9a;">Wyszukiwanie (Search)</th>
+                        <th style="padding: 8px; border: 1px solid #ef9a9a;">Wstawianie (Insert)</th>
+                        <th style="padding: 8px; border: 1px solid #ef9a9a;">Usuwanie (Delete)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">Tablica (Array)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N) (przesuwanie)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">Lista wiązana (Linked List)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1) (na początku)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">HashMap / Słownik</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">–</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1) średnio</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1) średnio</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1) średnio</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">BST (zrównoważony)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">Kopiec (Heap)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(1) (min/max)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                        <td style="padding: 8px; border: 1px solid #ef9a9a;">O(log N)</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.85rem; color:#546e7a; margin-top:8px;">* Wartości dla przypadku średniego. Pesymistycznie dla HashMapy (kolizje) może być O(N).</p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 8: PUŁAPKI EGZAMINACYJNE (ROZSZERZONE)             -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Co oznacza O(1)? Czy to jedna instrukcja?"</strong> NIE! O(1) oznacza, że czas jest <em>niezależny od N</em>. Algorytm O(1) może odpalać 5000 linii kodu – ważne, że zrobi to tak samo szybko dla tablicy o rozmiarze 10, jak i 10 milionów.</li>
+                    <li><strong>Najgorszy Przypadek (Worst Case):</strong> Gdy używamy O(...), domyślnie mamy na myśli czarny scenariusz. Np. dla liniowego wyszukiwania (Linear Search) szukany element może być na końcu → O(N), mimo że czasem jest na indeksie 0 (Ω(1)).</li>
+                    <li><strong>Amortyzowane O(1):</strong> Operacja <code>.add()</code> w dynamicznej tablicy zwykle działa w O(1). Ale gdy tablica się przepełni, tworzy nową (2× większą) i przepisuje elementy O(N). Mówimy wtedy <em>Amortyzowane O(1)</em> – sporadyczny koszt rozkłada się na wiele operacji.</li>
+                    <li><strong>O(N + M) – dwie zmienne:</strong> Gdy są dwa niezależne rozmiary wejścia (np. graf o V wierzchołkach i E krawędziach), złożoność zapisujemy jako O(V + E), nie O(N).</li>
+                    <li><strong>Ω(N log N) dla sortowania przez porównania:</strong> Dowolny algorytm sortujący przez porównania nie może być lepszy niż Ω(N log N) w przypadku pesymistycznym. To matematycznie udowodnione.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET (ROZSZERZONY)                                -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Tabela klas złożoności (od najlepszej do najgorszej):</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Notacja</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Nazwa</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład z IT</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">N=1 000 000 (operacje)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">O(1)</td>
+                        <td style="padding: 10px;">Stała</td>
+                        <td style="padding: 10px;">Odczyt arr[5], HashMap.get()</td>
+                        <td style="padding: 10px;">1</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #689f38;">O(log N)</td>
+                        <td style="padding: 10px;">Logarytmiczna</td>
+                        <td style="padding: 10px;">Binary Search, BST</td>
+                        <td style="padding: 10px;">~20</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #ffb300;">O(N)</td>
+                        <td style="padding: 10px;">Liniowa</td>
+                        <td style="padding: 10px;">Przeszukiwanie liniowe</td>
+                        <td style="padding: 10px;">1 000 000</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">O(N log N)</td>
+                        <td style="padding: 10px;">Liniowo-logarytmiczna</td>
+                        <td style="padding: 10px;">Merge Sort, QuickSort (avg)</td>
+                        <td style="padding: 10px;">~20 000 000</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">O(N²)</td>
+                        <td style="padding: 10px;">Kwadratowa</td>
+                        <td style="padding: 10px;">Bubble Sort, macierze</td>
+                        <td style="padding: 10px;">10¹² (1 bilion)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">O(2ⁿ)</td>
+                        <td style="padding: 10px;">Wykładnicza (Tragedia)</td>
+                        <td style="padding: 10px;">Rekurencyjny Fibonacci, TSP</td>
+                        <td style="padding: 10px;">Astronomiczna (niemożliwa)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Kod napisany w O(N²) zadziała świetnie na laptopie przy testowej paczce 10 elementów. Ale gdy do bazy trafi milion użytkowników, ten sam kod zablokuje cały serwer. Notacja asymptotyczna – O, Ω, Θ – to narzędzie analityczne, które pozwala przewidzieć katastrofę na kartce, zanim napiszesz pierwszą linijkę kodu. Pamiętaj też o Master Theorem do analizy rekurencji i o zamortyzowanej złożoności przy strukturach dynamicznych.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Grokking Algorithms” (Aditya Bhargava) · „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Cracking the Coding Interview” (G. McDowell) · „Algorytmy i struktury danych” (Aho, Hopcroft, Ullman).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
