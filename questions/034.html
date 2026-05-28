@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 034 – Paradygmaty programowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">034. Paradygmaty programowania – Fundamenty myślenia inżynierskiego.</h2>
+
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – "Mikrozarządzanie vs Delegowanie zadań":</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b22; line-height: 1.7;">
+                        Paradygmat (z gr. <em>parádeigma</em> - wzór) to nie język programowania. To <strong>styl myślenia</strong> o strukturze programu. Wyobraź sobie, że chcesz zamówić pizzę w restauracji.<br><br>
+                        <strong>Podejście Imperatywne (Jak to zrobić?):</strong> Wchodzisz do kuchni i mówisz kucharzowi: "Weź 200g mąki, dolej 100ml wody, wyrób ciasto przez 5 minut, połóż ser, wstaw do pieca na 200°C na 10 minut". Sterujesz każdym krokiem, zarządzasz <em>stanem</em> i <em>kolejnością</em>.<br>
+                        <strong>Podejście Deklaratywne (Co chcę osiągnąć?):</strong> Siadasz przy stoliku i mówisz kelnerowi: "Chcę Margheritę". Nie interesuje Cię, jak kucharz to zrobi. Skupiasz się na <em>rezultacie</em>.<br><br>
+                        Języki programowania dostarczają narzędzi do realizacji tych paradygmatów, a współcześni inżynierowie płynnie łączą je w zależności od problemu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Imperatywny (Proceduralny, OOP)</span>
+            <span class="keyword-tag">Deklaratywny (Funkcyjny, Logiczny)</span>
+            <span class="keyword-tag">Stan mutowalny (Mutable state)</span>
+            <span class="keyword-tag">Skutki uboczne (Side effects)</span>
+            <span class="keyword-tag">Programowanie zorientowane obiektowo (OOP)</span>
+            <span class="keyword-tag">Programowanie funkcyjne (FP)</span>
+            <span class="keyword-tag">Czyste funkcje (Pure functions)</span>
+            <span class="keyword-tag">Niezmienność (Immutability)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Wielki Podział: Imperatywny vs Deklaratywny</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Cały świat inżynierii oprogramowania dzieli się na dwa bazowe nurty, z których wyrastają konkretne paradygmaty (jak gałęzie z pnia drzewa).
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Paradygmat Imperatywny:</strong> Bliski sprzętowi (architektura von Neumanna). Kod to sekwencja instrukcji, która linijka po linijce modyfikuje stan pamięci komputera. Posiada pętle (<code>for</code>, <code>while</code>) i instrukcje warunkowe (<code>if</code>). Należą do niego <em>Paradygmat Proceduralny</em> oraz <em>Paradygmat Obiektowy (OOP)</em>.</li>
+                    <li><strong>Paradygmat Deklaratywny:</strong> Oparty na matematyce (np. rachunek lambda, logika). Zamiast podawać instrukcje krok po kroku, opisujemy logikę obliczeń i definicje. Najlepszy przykład to <strong>SQL</strong> (mówisz <code>SELECT * FROM Users WHERE age > 18</code>, a baza sama wymyśla, jakich pętli i indeksów użyć). Należą do niego <em>Paradygmat Funkcyjny</em>, <em>Logiczny (Prolog)</em> oraz <em>Reaktywny</em>.</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridParadigm" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridParadigm)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Jak myśli kod? Dwa światy</text>
+
+                <line x1="410" y1="50" x2="410" y2="230" stroke="#cfd8dc" stroke-width="3" stroke-dasharray="8,4"/>
+
+                <text x="205" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">IMPERATYWNY (JAK?)</text>
+
+                <rect x="50" y="90" width="310" height="130" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+                <text x="65" y="115" font-family="monospace" font-size="12" fill="#1565c0">List&lt;User&gt; adults = new List();</text>
+                <text x="65" y="135" font-family="monospace" font-size="12" fill="#1565c0">for(int i = 0; i &lt; users.length; i++) {</text>
+                <text x="85" y="155" font-family="monospace" font-size="12" fill="#1565c0">if(users[i].age &gt;= 18) {</text>
+                <text x="105" y="175" font-family="monospace" font-size="12" fill="#1565c0" font-weight="bold">adults.add(users[i]); // Modyfikacja stanu!</text>
+                <text x="85" y="195" font-family="monospace" font-size="12" fill="#1565c0">}</text>
+                <text x="65" y="210" font-family="monospace" font-size="12" fill="#1565c0">}</text>
+
+                <text x="615" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32" text-anchor="middle">DEKLARATYWNY (CO?)</text>
+
+                <rect x="460" y="90" width="310" height="130" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="475" y="145" font-family="monospace" font-size="12" fill="#1b5e20">List&lt;User&gt; adults = users</text>
+                <text x="520" y="165" font-family="monospace" font-size="12" fill="#1b5e20" font-weight="bold">.filter(u -&gt; u.age &gt;= 18);</text>
+
+                <text x="615" y="205" font-family="sans-serif" font-size="11" fill="#2e7d32" font-style="italic" text-anchor="middle">"Odfiltruj dorosłych. Reszta mnie nie obchodzi."</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">2. Ewolucja Imperatywna: Proceduralny → Obiektowy (OOP)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedyś programy pisało się <strong>proceduralnie (C, Pascal)</strong>. Dane (zmienne) leżały w jednym miejscu, a procedury (funkcje), które je modyfikowały, w innym. Przy dużych systemach robił się z tego "spaghetti code" – każda funkcja mogła zepsuć globalne dane.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Odpowiedzią był <strong>Paradygmat Obiektowy (OOP - Java, C#, C++)</strong>. Zamknęliśmy dane (stan) oraz metody (zachowanie) w jednej kapsule zwanej Obiektem (<strong>Hermetyzacja</strong>). <br>Program w OOP to nie sekwencja instrukcji, to <em>sieć obiektów komunikujących się ze sobą poprzez wysyłanie wiadomości (wywoływanie metod)</em>.
+                </p>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Paradygmat Funkcyjny (FP) – Dlaczego wraca do łask?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Paradygmat funkcyjny (Haskell, Scala, F#, i elementy w JS/Java/C#) traktuje obliczenia jako ewaluację matematycznych funkcji. Główne zasady:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Niezmienność (Immutability):</strong> Gdy raz stworzysz obiekt/zmienną, nigdy go nie zmieniasz. Zamiast modyfikować listę, funkcja zwraca <em>nową, zaktualizowaną listę</em>.</li>
+                    <li><strong>Czyste funkcje (Pure Functions):</strong> Funkcja dla tych samych argumentów zawsze zwraca ten sam wynik i nie wywołuje <strong>skutków ubocznych (Side effects)</strong> (nie zmienia zmiennych globalnych, nie zapisuje po cichu do bazy).</li>
+                </ul>
+                <div style="background: #f3e5f5; border-left: 5px solid #ab47bc; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚙️ Zastosowanie inżynierskie (Dlaczego FP jest modne?):</strong> Żyjemy w erze procesorów wielordzeniowych. OOP ma problem z wielowątkowością (dwa wątki próbują zmienić ten sam obiekt i powstaje *Race Condition*, trzeba używać Mutexów). W FP dane są niezmienne! Nie ma ryzyka, że wątek A zepsuje dane wątkowi B. Możesz bezpiecznie odpalać tysiące wątków.
+                </div>
+            </div>
+
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Obiektowość (Stan) vs Funkcyjność (Potok Danych)</text>
+
+                <line x1="410" y1="50" x2="410" y2="240" stroke="#cfd8dc" stroke-width="3" stroke-dasharray="8,4"/>
+
+                <text x="205" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">OOP (Mutacja w Miejscu)</text>
+
+                <rect x="100" y="100" width="200" height="120" rx="10" fill="#fff3e0" stroke="#f57c00" stroke-width="3"/>
+                <text x="200" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Obiekt "Konto"</text>
+
+                <rect x="130" y="140" width="140" height="30" rx="5" fill="#f57c00"/>
+                <text x="200" y="160" font-family="monospace" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Stan: 100 PLN</text>
+
+                <path d="M 40 180 Q 80 150 120 155" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrow-red)"/>
+                <text x="60" y="150" font-family="monospace" font-size="11" fill="#d32f2f" font-weight="bold">wplac(50)</text>
+
+                <text x="200" y="200" font-family="sans-serif" font-size="10" fill="#d32f2f" text-anchor="middle">Stan zmienia się "wewnątrz" obiektu</text>
+
+                <text x="615" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#6a1b9a" text-anchor="middle">FP (Niezmienność / Pipeline)</text>
+
+                <rect x="440" y="130" width="80" height="50" rx="5" fill="#f3e5f5" stroke="#ab47bc" stroke-width="2"/>
+                <text x="480" y="155" font-family="monospace" font-size="11" fill="#6a1b9a" text-anchor="middle">100 PLN</text>
+                <text x="480" y="170" font-family="sans-serif" font-size="14" fill="#ab47bc" text-anchor="middle">🔒</text>
+
+                <path d="M 525 155 L 565 155" fill="none" stroke="#6a1b9a" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+                <rect x="570" y="125" width="80" height="60" rx="30" fill="#ce93d8"/>
+                <text x="610" y="150" font-family="monospace" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle">f(wplac)</text>
+                <text x="610" y="170" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">+ 50</text>
+
+                <path d="M 655 155 L 695 155" fill="none" stroke="#6a1b9a" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+                <rect x="700" y="130" width="80" height="50" rx="5" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="740" y="155" font-family="monospace" font-size="11" fill="#2e7d32" font-weight="bold" text-anchor="middle">150 PLN</text>
+                <text x="740" y="170" font-family="sans-serif" font-size="14" fill="#4caf50" text-anchor="middle">✨ Nowe!</text>
+
+                <text x="615" y="210" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">Stare dane są nietknięte. Tworzymy nowy stan.</text>
+
+                <defs>
+                    <marker id="arrow-red" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrow-purple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6a1b9a"/></marker>
+                </defs>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Fałszywa Dychotomia):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    Wykładowca może zapytać: <em>"Czy w nowoczesnych projektach wybieramy tylko jeden paradygmat, np. w Javie piszemy tylko obiektowo?"</em>
+                    <br><br><strong>ODPOWIEDŹ: Kategorycznie NIE.</strong><br>
+                    Czyste OOP czy czyste FP to rzadkość. Współczesne języki (Java, C#, JavaScript, Python, C++) to <strong>języki wieloparadygmatowe (Multi-paradigm)</strong>. W profesjonalnym kodzie architekturę systemu (serwisy, kontrolery) buduje się z użyciem obiektowości (OOP), ale samą logikę wewnątrz metod pisze się w stylu funkcyjnym (używając <em>Streams</em>, <em>LINQ</em>, funkcji wyższego rzędu i wyrażeń lambda), by kod był czytelny i pozbawiony skutków ubocznych.
+                </p>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Porównanie Inżynierskie Paradygmatów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Paradygmat</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Główna Jednostka</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zarządzanie Stanem</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykładowe Języki</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #455a64;">Proceduralny</td>
+                        <td style="padding: 10px;">Procedury (Funkcje)</td>
+                        <td style="padding: 10px;">Stan globalny lub przekazywany w argumentach. Mutowalny.</td>
+                        <td style="padding: 10px;">C, Pascal, wczesny PHP</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Obiektowy (OOP)</td>
+                        <td style="padding: 10px;">Obiekty (Dane + Zachowanie)</td>
+                        <td style="padding: 10px;">Stan ukryty w obiekcie (Hermetyzacja). Mutowalny przez metody.</td>
+                        <td style="padding: 10px;">Java, C#, C++, Ruby</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Funkcyjny (FP)</td>
+                        <td style="padding: 10px;">Czyste funkcje (Pure functions)</td>
+                        <td style="padding: 10px;">Brak mutowalnego stanu (Immutability). Tworzenie nowych danych.</td>
+                        <td style="padding: 10px;">Haskell, Clojure, Scala, F#</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Logiczny / Deklaratywny</td>
+                        <td style="padding: 10px;">Fakty, Reguły, Zapytania</td>
+                        <td style="padding: 10px;">Stan nie istnieje w tradycyjnym sensie. Obliczanie to dowodzenie.</td>
+                        <td style="padding: 10px;">Prolog, SQL</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dobry inżynier nie jest fanatykiem jednego paradygmatu. Wie, że OOP świetnie nadaje się do modelowania złożonych systemów biznesowych, w których obiekty mają swoją tożsamość i cykl życia. Z kolei podejście funkcyjne (FP) ratuje życie przy przetwarzaniu ogromnych strumieni danych i w programowaniu współbieżnym. Zrozumienie, kiedy powiedzieć programowi <em>"JAK ma to zrobić"</em>, a kiedy zrzucić na niego odpowiedzialność i powiedzieć mu tylko <em>"CO chcesz otrzymać"</em>, to esencja programowania.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Clean Code" (Robert C. Martin) · "Structure and Interpretation of Computer Programs" (SICP) · "Functional Programming in Scala" (Paul Chiusano).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
