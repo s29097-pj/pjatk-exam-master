@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 044 – Abstrakcje w informatyce</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">044. Abstrakcje wykorzystywane w informatyce.</h2>
+
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚗</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kierownica, pedał gazu i silnik V8”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Kiedy wsiadasz do samochodu, naciskasz pedał gazu i auto jedzie. Nie musisz wiedzieć, jak działa wtrysk paliwa, wał korbowy ani pod jakim kątem otwierają się zawory w silniku V8.<br><br>
+                        W tym scenariuszu: <strong>Pedał gazu to Twój Interfejs</strong>. Silnik V8 to <strong>Implementacja</strong>. Ukrycie skomplikowanego działania silnika za prostym wciśnięciem pedału to <strong>ABSTRAKCJA</strong>.<br><br>
+                        Informatyka to w zasadzie budowanie coraz wyższych wież abstrakcji. Nikt nie pisze dziś stron internetowych, ręcznie przełączając prąd w tranzystorach. Programista Reacta używa abstrakcji przeglądarki, przeglądarka używa abstrakcji systemu operacyjnego, system operacyjny używa abstrakcji procesora, a procesor używa abstrakcji bramek logicznych. <strong>Abstrakcja to ukrywanie złożoności.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Abstrakcja danych (Data Abstraction)</span>
+            <span class="keyword-tag">Abstrakcja sterowania (Control Abstraction)</span>
+            <span class="keyword-tag">Interfejs API (Application Programming Interface)</span>
+            <span class="keyword-tag">Proces, Pamięć Wirtualna, Plik</span>
+            <span class="keyword-tag">Nieszczelne abstrakcje (Leaky Abstractions)</span>
+            <span class="keyword-tag">Model OSI / Architektura warstwowa</span>
+            <span class="keyword-tag">Hermetyzacja (Encapsulation)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Wielka Wieża Abstrakcji (Od krzemu do aplikacji)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Cały stos technologiczny (ang. <em>Tech Stack</em>) to po prostu warstwy (Layers), z których każda ukrywa koszmarne szczegóły warstwy poniżej, oferując prosty interfejs dla warstwy powyżej.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridAbstr" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridAbstr)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Piramida Abstrakcji w Architekturze Komputerów</text>
+
+                <g transform="translate(110, 40)">
+                    <rect x="0" y="0" width="600" height="35" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="300" y="22" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">Aplikacja / Język Wysokiego Poziomu (JS, Python, Java)</text>
+                    <text x="590" y="22" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="end">Abstrahuje od pamięci i OS</text>
+
+                    <rect x="0" y="40" width="600" height="35" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                    <text x="300" y="62" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">System Operacyjny (Windows, Linux)</text>
+                    <text x="590" y="62" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="end">Abstrahuje od sprzętu</text>
+
+                    <rect x="0" y="80" width="600" height="35" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                    <text x="300" y="102" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Zestaw Instrukcji / Assembly (x86, ARM)</text>
+                    <text x="590" y="102" font-family="sans-serif" font-size="10" fill="#ef6c00" text-anchor="end">Abstrahuje od mikroarchitektury</text>
+
+                    <rect x="0" y="120" width="600" height="35" rx="4" fill="#fce4ec" stroke="#d81b60" stroke-width="2"/>
+                    <text x="300" y="142" font-family="sans-serif" font-size="13" font-weight="bold" fill="#880e4f" text-anchor="middle">Mikroarchitektura (Rejestry, ALU, Pipelining)</text>
+                    <text x="590" y="142" font-family="sans-serif" font-size="10" fill="#d81b60" text-anchor="end">Abstrahuje od bramek</text>
+
+                    <rect x="0" y="160" width="600" height="35" rx="4" fill="#f5f5f5" stroke="#78909c" stroke-width="2"/>
+                    <text x="300" y="182" font-family="sans-serif" font-size="13" font-weight="bold" fill="#37474f" text-anchor="middle">Bramki Logiczne (AND, OR, NOT)</text>
+                    <text x="590" y="182" font-family="sans-serif" font-size="10" fill="#78909c" text-anchor="end">Abstrahuje od prądu</text>
+
+                    <rect x="0" y="200" width="600" height="35" rx="4" fill="#eceff1" stroke="#546e7a" stroke-width="2"/>
+                    <text x="300" y="222" font-family="sans-serif" font-size="13" font-weight="bold" fill="#263238" text-anchor="middle">Fizyka Krzemu (Tranzystory, Elektrony)</text>
+                    <text x="590" y="222" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="end">Rzeczywistość</text>
+
+                    <path d="M -30 220 L -30 20" fill="none" stroke="#ff9800" stroke-width="4" marker-end="url(#arrowUp)"/>
+                    <text x="-40" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle" transform="rotate(-90 -40 120)">Rosnąca Abstrakcja</text>
+                </g>
+
+                <defs>
+                    <marker id="arrowUp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,6 L6,3 L0,0 Z" fill="#ff9800"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Najważniejsze abstrakcje Systemu Operacyjnego (OS)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    System operacyjny to w istocie jeden wielki menedżer abstrakcji. Okłamuje on każdy uruchomiony program, dając mu złudzenie, że ma cały komputer tylko dla siebie.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #64b5f6;">
+                        <strong style="color: #0d47a1;">🧠 PROCES</strong><br>
+                        <span style="font-size:0.85rem;">To abstrakcja <strong>Procesora (CPU)</strong>. Każdy proces myśli, że ma własny procesor na wyłączność. W rzeczywistości OS błyskawicznie przełącza kontekst między setkami procesów (wielozadaniowość).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #64b5f6;">
+                        <strong style="color: #0d47a1;">💾 PAMIĘĆ WIRTUALNA</strong><br>
+                        <span style="font-size:0.85rem;">To abstrakcja <strong>pamięci RAM</strong>. Program widzi ciągłą, ogromną przestrzeń adresową (od 0 do N). W rzeczywistości jego dane są poszatkowane w fizycznym RAM-ie, a część może leżeć na powolnym dysku (Swap/Pagefile).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #64b5f6;">
+                        <strong style="color: #0d47a1;">📁 PLIK (FILE)</strong><br>
+                        <span style="font-size:0.85rem;">To abstrakcja <strong>dysku twardego / SSD</strong>. Zamiast operować na głowicach magnetycznych, sektorach, cylindrach czy blokach pamięci flash, programista po prostu mówi <code>file.write("Hello")</code>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Abstrakcje kodu: Danych i Sterowania</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy piszesz kod, na każdym kroku posługujesz się narzędziami, które skrywają przed Tobą binarne realia maszyny.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Abstrakcja Danych (Data Abstraction):</strong>
+                        Zamiast operować na bitach, używasz typów (<code>int</code>, <code>float</code>). Zamiast pamiętać setki zmiennych, pakujesz je w obiekty (OOP / Klasy). Najpotężniejszą formą są <strong>ADT (Abstract Data Types)</strong>, np. Kolejka (Queue). Programista wie, jak z niej korzystać (<code>enqueue</code>, <code>dequeue</code>), ale nie obchodzi go, czy pod spodem użyto tablicy cyklicznej, czy listy wiązanej.
+                    </li>
+                    <li><strong>Abstrakcja Sterowania (Control Abstraction):</strong>
+                        Zamiast surowych skoków w pamięci (<code>JMP</code> w Assemblerze), masz do dyspozycji pętle <code>for</code> i instrukcje <code>if/else</code>. Zamiast pisać ten sam kod 10 razy, zamykasz go w <strong>funkcji</strong> (podprogramie). Apogeum abstrakcji sterowania to <strong>API (Interfejs Programowania Aplikacji)</strong> – używasz funkcji biblioteki zewnętrznej bez konieczności czytania tysięcy linii jej kodu źródłowego.
+                    </li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="url(#gridAbstr)" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2e7d32">API: Ostateczna bariera abstrakcji kodu</text>
+
+                <rect x="50" y="60" width="160" height="80" rx="8" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="130" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">Twój Kod</text>
+                <rect x="70" y="105" width="120" height="20" rx="3" fill="#c8e6c9"/>
+                <text x="130" y="119" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">db.save(user)</text>
+
+                <rect x="350" y="40" width="40" height="120" rx="5" fill="#cfd8dc" stroke="#546e7a" stroke-width="2"/>
+                <text x="370" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 370 105)">INTERFEJS</text>
+
+                <path d="M 210 100 L 340 100" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowOrange)"/>
+                <text x="275" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Wywołanie "Czarnej Skrzynki"</text>
+
+                <rect x="480" y="40" width="300" height="120" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="630" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Implementacja (Ukryte za abstrakcją)</text>
+                
+                <rect x="500" y="80" width="260" height="18" fill="#ffe0b2"/>
+                <text x="630" y="93" font-family="monospace" font-size="10" fill="#bf360c" text-anchor="middle">Otwórz połączenie TCP/IP z portem 5432</text>
+                
+                <rect x="500" y="102" width="260" height="18" fill="#ffe0b2"/>
+                <text x="630" y="115" font-family="monospace" font-size="10" fill="#bf360c" text-anchor="middle">Zbuduj SQL "INSERT INTO users..."</text>
+                
+                <rect x="500" y="124" width="260" height="18" fill="#ffe0b2"/>
+                <text x="630" y="137" font-family="monospace" font-size="10" fill="#bf360c" text-anchor="middle">Zapisz na dysku (sektor 0x4F, flush I/O)</text>
+
+                <path d="M 390 100 L 480 100" fill="none" stroke="#546e7a" stroke-width="2"/>
+
+                <defs>
+                    <marker id="arrowOrange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Prawo nieszczelnych abstrakcji):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    To koncepcja sformułowana przez Joela Spolsky'ego: <strong>"Wszystkie nietrywialne abstrakcje w pewnym stopniu przeciekają."</strong> (<em>All non-trivial abstractions, to some degree, are leaky.</em>).<br><br>
+                    Oznacza to, że choć abstrakcje mają nas chronić przed sprzętem, czasami sprzęt "przebija się" na powierzchnię.
+                    <br><strong>Klasyczny przykład:</strong> Tablica dwuwymiarowa (<code>arr[x][y]</code>). Teoretycznie (abstrakcja) to siatka kwadratów. W praktyce (pamięć fizyczna) to jeden długi wąż komórek. Jeśli będziesz przechodzić pętlą po <em>kolumnach</em> zamiast po <em>wierszach</em>, Twój kod zwolni 100-krotnie! Dlaczego? Bo procesor pobiera pamięć Cache linijkami. Zignorowanie ukrytej sprzętowej architektury (nieszczelna abstrakcja) doprowadzi do "Cache Misses". Inżynier musi znać warstwy pod spodem!
+                </p>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Inżynierski Cheat-Sheet z Abstrakcji:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wysoka Abstrakcja (To, czego używasz)</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Niska warstwa (Co jest ukrywane)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Model OSI (np. HTTP / Warstwa Aplikacji)</td>
+                            <td style="padding: 10px;">Routing IP, retransmisje pakietów TCP, kable światłowodowe.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Plik i Folder</td>
+                            <td style="padding: 10px;">Systemy plików (NTFS/ext4), bloki fizyczne dysku SSD, wyrównywanie I/O.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Język wysokiego poziomu (Java/C#)</td>
+                            <td style="padding: 10px;">Zarządzanie pamięcią (Garbage Collector), instrukcje asemblera procesora.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #8e24aa;">Klasa / Obiekt (OOP)</td>
+                            <td style="padding: 10px;">Struktury danych w C, wskaźniki na funkcje, surowe adresy w RAM.</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #c62828;">Kontener / Docker</td>
+                            <td style="padding: 10px;">Izolacja procesów w OS (cgroups, namespaces), współdzielenie kernela.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Budowanie oprogramowania to sztuka tworzenia interfejsów, których inni mogą używać, nie znając ich implementacji. Jednak dobry inżynier komputerowy wyróżnia się tym, że jest w stanie w dowolnym momencie "zajrzeć pod maskę". Kiedy aplikacja działa poprawnie, korzystasz z abstrakcji (React, Spring, Cloud). Kiedy wszystko zaczyna płonąć, abstrakcje przeciekają, a Ty musisz zejść do poziomu wątków, zapytań SQL czy alokacji RAMu, by znaleźć błąd.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Struktura i organizacja systemów komputerowych” (Patterson, Hennessy) · Artykuł „The Law of Leaky Abstractions” (Joel Spolsky, 2002) · „Czysty kod” (R.C. Martin - o abstrakcji klas).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
