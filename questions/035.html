@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 035 – Cykl rozwoju aplikacji (ALM / CI/CD)</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">035. Narzędzia wspomagające budowanie i zarządzanie cyklem rozwoju aplikacji (ALM).</h2>
+
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #263238; display: block; margin-bottom: 6px;">💡 Aha! Moment – "Automatyczna Fabryka Oprogramowania":</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Kiedyś programista pisał kod, ręcznie pobierał biblioteki, klikał "Kompiluj" w swoim IDE, kopiował plik na pendrive'a i wgrywał na serwer produkcyjny. Skutkowało to słynnym: <em>"Dziwne, u mnie działa!"</em>.<br><br>
+                        Nowoczesny rozwój aplikacji (<strong>ALM - Application Lifecycle Management</strong>) przypomina nowoczesną fabrykę samochodów. Programista jest tylko projektantem (tworzy plany/kod). Gdy zatwierdzi plany (Commit), wkraczają maszyny: automatycznie pobierają części (zarządzanie zależnościami), spawają je (budowanie/kompilacja), przeprowadzają crash-testy (testy automatyczne), malują i wstawiają gotowe auto do salonu (wdrażanie/Deploy). Narzędzia to po prostu roboty na tej <strong>taśmie produkcyjnej (Pipeline)</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">ALM / SDLC</span>
+            <span class="keyword-tag">System Kontroli Wersji (VCS - Git)</span>
+            <span class="keyword-tag">Narzędzia budowania (Maven, Gradle, npm)</span>
+            <span class="keyword-tag">Zarządzanie zależnościami (Dependency Management)</span>
+            <span class="keyword-tag">CI/CD (Continuous Integration / Continuous Deployment)</span>
+            <span class="keyword-tag">Jenkins / GitLab CI / GitHub Actions</span>
+            <span class="keyword-tag">Repozytorium artefaktów (Nexus, Artifactory)</span>
+            <span class="keyword-tag">Statyczna analiza kodu (SonarQube)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Narzędzia do budowania i zarządzania zależnościami</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aplikacje nie są pisane od zera. Korzystają z setek gotowych bibliotek (np. logowanie, łączenie z bazą). Kiedyś pobierano pliki <code>.jar</code> ręcznie. Dziś odpowiadają za to <strong>Build Tools</strong> (np. <em>Maven</em>, <em>Gradle</em> dla Javy; <em>npm</em>, <em>Webpack</em> dla JS; <em>NuGet</em> dla .NET).
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Zarządzanie zależnościami:</strong> W pliku konfiguracyjnym (np. <code>pom.xml</code> lub <code>package.json</code>) deklarujesz, że potrzebujesz "Spring Boot w wersji 3.0". Narzędzie samo łączy się z centralnym repozytorium w internecie, pobiera tę bibliotekę <em>oraz wszystkie inne biblioteki, których ona potrzebuje</em> (tzw. zależności przechodnie).</li>
+                    <li><strong>Standaryzacja cyklu (Build lifecycle):</strong> Narzędzie automatyzuje kroki: <code>clean</code> (czyszczenie starych plików) ➔ <code>compile</code> (kompilacja kodu) ➔ <code>test</code> (uruchomienie testów) ➔ <code>package</code> (spakowanie do .jar / .war).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1565c0">Jak działa menedżer budowania (np. Maven / npm)</text>
+
+                <rect x="40" y="60" width="140" height="80" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+                <text x="110" y="90" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">pom.xml</text>
+                <text x="110" y="110" font-family="monospace" font-size="10" fill="#2c3e50" text-anchor="middle">Zależność:</text>
+                <text x="110" y="125" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">"Log4j v2.14"</text>
+
+                <path d="M 180 100 L 260 100" fill="none" stroke="#546e7a" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrow-dark)"/>
+                <text x="220" y="90" font-family="monospace" font-size="11" fill="#546e7a" text-anchor="middle">mvn build</text>
+
+                <rect x="270" y="50" width="100" height="100" rx="50" fill="#fff3e0" stroke="#f57c00" stroke-width="3"/>
+                <text x="320" y="105" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Maven</text>
+
+                <path d="M 370 100 L 530 100" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrow-green)"/>
+                <path d="M 530 80 L 370 80" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrow-green)"/>
+                <text x="450" y="70" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">1. Pobiera brakujące biblioteki</text>
+                <text x="450" y="120" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">2. Kompiluje & Pakuje kod</text>
+
+                <path d="M 540 80 Q 560 50 600 50 Q 640 50 660 80 Q 700 80 700 110 Q 700 140 660 140 Q 640 140 600 140 Q 560 140 540 110 Z" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="620" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Maven Central</text>
+                <text x="620" y="115" font-family="sans-serif" font-size="10" fill="#388e3c" text-anchor="middle">(Globalna Chmura)</text>
+
+                <rect x="295" y="160" width="50" height="15" fill="#c62828"/>
+                <text x="320" y="171" font-family="monospace" font-size="10" fill="#fff" text-anchor="middle">.JAR</text>
+                <path d="M 320 150 L 320 160" fill="none" stroke="#c62828" stroke-width="2"/>
+
+                <defs>
+                    <marker id="arrow-dark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">2. CI/CD: Serce nowoczesnego inżynieringu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To serwer automatyzacji (np. <strong>Jenkins, GitLab CI, GitHub Actions</strong>). Czeka w ukryciu jak pająk. Gdy tylko programista wyśle nowy kod do repozytorium (Git push), serwer CI budzi się i uruchamia zdefiniowany <strong>Pipeline (Taśmę produkcyjną)</strong>.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="160" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Pipeline CI/CD (Ciągła Integracja / Ciągłe Wdrażanie)</text>
+
+                <rect x="20" y="60" width="80" height="60" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="60" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d32f2f" text-anchor="middle">Git Push</text>
+                <text x="60" y="105" font-family="sans-serif" font-size="20" text-anchor="middle">💻</text>
+
+                <path d="M 100 90 L 130 90" fill="none" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+                <rect x="140" y="60" width="100" height="60" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="190" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">1. Build</text>
+
+                <path d="M 240 90 L 270 90" fill="none" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+                <rect x="280" y="60" width="100" height="60" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="330" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">2. Test</text>
+
+                <path d="M 380 90 L 410 90" fill="none" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+                <rect x="420" y="60" width="100" height="60" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="470" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">3. Quality</text>
+
+                <path d="M 520 90 L 550 90" fill="none" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+                <rect x="560" y="60" width="100" height="60" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="610" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">4. Package</text>
+
+                <path d="M 660 90 L 690 90" fill="none" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrow-purple)"/>
+
+                <rect x="700" y="60" width="100" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="750" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">5. Deploy</text>
+
+                <line x1="140" y1="140" x2="660" y2="140" stroke="#8e24aa" stroke-width="2"/>
+                <line x1="140" y1="135" x2="140" y2="145" stroke="#8e24aa" stroke-width="2"/>
+                <line x1="660" y1="135" x2="660" y2="145" stroke="#8e24aa" stroke-width="2"/>
+                <text x="400" y="153" font-family="sans-serif" font-size="11" font-weight="bold" fill="#8e24aa" text-anchor="middle">Ciągła Integracja (CI) - Zawsze zielony kod na masterze</text>
+
+                <defs>
+                    <marker id="arrow-purple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7b1fa2"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Higiena kodu i składowanie gotowych produktów</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Narzędzia wspomagające to nie tylko kompilatory. Zalicza się do nich potężne platformy analityczne i przechowalnie:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #2c3e50; line-height: 1.8;">
+                    <li><strong>Statyczna Analiza Kodu (np. SonarQube):</strong> To automatyczny recenzent kodu. Podczas pipeline'u czyta Twój kod i szuka antywzorców, luk bezpieczeństwa (np. SQL Injection) i długu technicznego. Może <em>zablokować</em> wdrożenie, jeśli kod jest "brzydki" (tzw. Quality Gates).</li>
+                    <li><strong>Zarządzanie Artefaktami (np. Nexus, Artifactory):</strong> Kiedy serwer zbuduje paczkę (plik <code>.jar</code>, obraz <code>Docker</code>), nie wrzuca jej luzem na serwer. Pakuje ją do bezpiecznego magazynu z numerem wersji (np. <code>v1.4.2</code>). Dzięki temu, jeśli nowe wdrożenie padnie, wdrożeniowiec klika jeden przycisk i przywraca poprzednią, zarchiwizowaną wersję (Rollback).</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem; color: #c62828;">⚠️ Pułapki Egzaminacyjne (Słownik pojęć):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Git to nie GitHub!</strong> Git to darmowe oprogramowanie (System Kontroli Wersji) żyjące w terminalu. GitHub/GitLab to komercyjne platformy w chmurze, które hostują pliki Gita i dorzucają narzędzia do CI/CD i zarządzania biletami.</li>
+                    <li><strong>Continuous Delivery vs Continuous Deployment:</strong> Brzmią tak samo (CD), ale to potężna różnica! <strong>Delivery (Dostarczanie)</strong>: kod przechodzi testy i jest GOTOWY do wdrożenia, ale wdrożenie wymaga <em>kliknięcia guzika przez człowieka</em>. <strong>Deployment (Wdrażanie)</strong>: brak człowieka w procesie. Kod przechodzi testy i automatycznie, bez niczyjej zgody leci na serwery produkcyjne do klientów.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Toolchain Cheat-Sheet: Kto jest kim w fabryce?</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Faza (Phase)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rola w cyklu (Co robi?)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Popularne narzędzia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Plan & Track</td>
+                        <td style="padding: 10px;">Śledzenie bugów, przydział zadań (Agile/Scrum).</td>
+                        <td style="padding: 10px;">Jira, Trello, Confluence</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #d32f2f;">Source Control</td>
+                        <td style="padding: 10px;">Wehikuł czasu dla kodu. Gwarantuje historię zmian.</td>
+                        <td style="padding: 10px;">Git, SVN, GitHub, Bitbucket</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Build Tools</td>
+                        <td style="padding: 10px;">Pobiera biblioteki, kompiluje i pakuje kod.</td>
+                        <td style="padding: 10px;">Maven, Gradle, npm, Webpack</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #8e24aa;">CI/CD Server</td>
+                        <td style="padding: 10px;">Menedżer taśmy produkcyjnej. Odpala skrypty.</td>
+                        <td style="padding: 10px;">Jenkins, GitLab CI, GitHub Actions</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #00695c;">Quality & Store</td>
+                        <td style="padding: 10px;">Sprawdza dług techniczny i archiwizuje gotowe pliki.</td>
+                        <td style="padding: 10px;">SonarQube, Nexus, Docker Hub</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Współczesna inżynieria oprogramowania przestała być sztuką dla samotnych geniuszy. To precyzyjnie zaprojektowany, zautomatyzowany przemysł. Narzędzia z cyklu ALM (Git, Maven, Jenkins) pełnią jedną kluczową funkcję: <strong>zdejmują z inżyniera obowiązki powtarzalne i nudne</strong>, chroniąc przed błędem ludzkim, tak aby mózg człowieka mógł zająć się wyłącznie architekturą i biznesem.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Continuous Delivery" (Jez Humble, David Farley) · Projektowanie środowisk CI/CD · Dokumentacja Maven / GitLab CI.
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
