@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 029 – Mapowanie obiektowo-relacyjne (ORM)</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">029. Oprogramowanie baz danych w oparciu o mapowanie obiektowo-relacyjne (ORM).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🌉</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – ORM to „Tłumacz między światem obiektów a światem tabel”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie dwie osoby, które mówią zupełnie różnymi językami. Jedna myśli <strong>obiektami</strong>: „Mam klasę Zamówienie, która zawiera listę Produktów i referencję do Klienta”. Druga myśli <strong>tabelami</strong>: „Mam tabelę orders z kluczem obcym do customers i tabelę łączącą order_items”. <strong>ORM (Object-Relational Mapping)</strong> to tłumacz, który siedzi między nimi i na bieżąco przekłada: gdy mówisz <code>zamowienie.klient.nazwa</code>, ORM generuje <code>SELECT customers.name FROM orders JOIN customers ON …</code>. Gdy wołasz <code>session.save(nowyProdukt)</code>, ORM zamienia to na <code>INSERT INTO products VALUES (…)</code>. Dzięki ORM programista nie pisze surowego SQL-a – operuje na obiektach, a biblioteka ORM dba o całą komunikację z bazą danych.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Impedance mismatch</strong> – fundamentalna różnica między modelem obiektowym (dziedziczenie, referencje, kolekcje) a relacyjnym (tabele, klucze obce, JOIN-y). ORM tę różnicę niweluje.</li>
+                        <li><strong>🟠 Encja (Entity)</strong> – klasa POJO/POPO, której instancje odpowiadają wierszom w tabeli. Pola mapowane na kolumny, referencje na klucze obce.</li>
+                        <li><strong>🟢 Sesja / Unit of Work</strong> – bufor zmian śledzący wszystkie zmodyfikowane, dodane i usunięte encje. Zatwierdzenie sesji (flush/commit) generuje i wysyła SQL.</li>
+                        <li><strong>🟣 Migracje</strong> – ewolucja schematu bazy razem z kodem. ORM potrafi wygenerować różnicę między stanem bazy a modelem klas i zaaplikować ją automatycznie.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">ORM (Object-Relational Mapping)</span>
+            <span class="keyword-tag">Impedance mismatch</span>
+            <span class="keyword-tag">Encja (Entity)</span>
+            <span class="keyword-tag">Mapowanie (Mapping) – adnotacje / XML</span>
+            <span class="keyword-tag">Sesja / Unit of Work / DataContext</span>
+            <span class="keyword-tag">Lazy loading / Eager loading</span>
+            <span class="keyword-tag">Problem N+1 (SELECT N+1)</span>
+            <span class="keyword-tag">Fetch join / Include</span>
+            <span class="keyword-tag">Migracje (Migrations)</span>
+            <span class="keyword-tag">Hibernate / JPA / Entity Framework</span>
+            <span class="keyword-tag">SQLAlchemy (Python)</span>
+            <span class="keyword-tag">Log transakcyjny / Dirty checking</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: OBJECT-RELATIONAL IMPEDANCE MISMATCH            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Impedance mismatch – „Dlaczego potrzebujemy tłumacza?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Świat obiektowy i świat relacyjny różnią się fundamentalnie. W obiektach mamy <strong>dziedziczenie</strong> (w tabelach – kilka strategii: jedna tabela na hierarchię, na klasę, na konkretną klasę), <strong>referencje do obiektów</strong> (w tabelach – klucze obce), <strong>kolekcje</strong> (w tabelach – osobna tabela łącząca lub klucz obcy po stronie „wiele”). Te różnice nazywamy <strong>object-relational impedance mismatch</strong>. ORM mostkuje tę przepaść, automatyzując tłumaczenie obiektów na wiersze i odwrotnie.
+                </p>
+                <div style="background: #e0f2f1; border-left: 5px solid #00695c; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Przykład różnicy:</strong> W kodzie: <code>zamowienie.produkty.add(produkt)</code>. W bazie: <code>INSERT INTO order_items (order_id, product_id) VALUES (…)</code>. ORM robi to za Ciebie.
+                </div>
+            </div>
+
+            <!-- SVG: MAPOWANIE OBIEKTU NA TABELĘ -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridOrm" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridOrm)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Mapowanie obiektowo-relacyjne – obiekt ↔ tabela</text>
+
+                <!-- Świat obiektów -->
+                <rect x="40" y="55" width="300" height="170" rx="8" fill="#e0f2f1" stroke="#00695c" stroke-width="2"/>
+                <text x="190" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#004d40">Świat obiektowy (Kod)</text>
+                <rect x="60" y="95" width="260" height="110" rx="4" fill="#263238" stroke="#455a64" stroke-width="1"/>
+                <text x="190" y="115" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">@Entity class Osoba {</text>
+                <text x="190" y="133" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">  @Id Long id;</text>
+                <text x="190" y="151" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">  String imie;</text>
+                <text x="190" y="169" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">  String nazwisko;</text>
+                <text x="190" y="187" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">  int wiek;</text>
+                <text x="190" y="205" text-anchor="middle" font-family="monospace" font-size="10" fill="#80cbc4">}</text>
+
+                <!-- Tłumacz ORM -->
+                <rect x="360" y="90" width="100" height="100" rx="50" fill="#ffcc80" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="130" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">ORM</text>
+                <text x="410" y="150" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#bf360c">tłumacz</text>
+
+                <!-- Strzałki -->
+                <path d="M 340 140 L 360 140" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrm)"/>
+                <path d="M 460 140 L 480 140" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrm2)"/>
+
+                <!-- Świat relacyjny -->
+                <rect x="480" y="55" width="300" height="170" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="630" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Świat relacyjny (Baza danych)</text>
+                <rect x="500" y="95" width="260" height="110" rx="4" fill="#1a237e" stroke="#283593" stroke-width="1"/>
+                <text x="630" y="115" text-anchor="middle" font-family="monospace" font-size="10" fill="#90caf9">┌─────────────────────┐</text>
+                <text x="630" y="133" text-anchor="middle" font-family="monospace" font-size="10" fill="#90caf9">│ Tabela: osoby      │</text>
+                <text x="630" y="151" text-anchor="middle" font-family="monospace" font-size="10" fill="#90caf9">│ id | imie | nazw | wiek │</text>
+                <text x="630" y="169" text-anchor="middle" font-family="monospace" font-size="10" fill="#90caf9">│ (PK)              │</text>
+                <text x="630" y="187" text-anchor="middle" font-family="monospace" font-size="10" fill="#90caf9">└─────────────────────┘</text>
+
+                <defs>
+                    <marker id="arrowOrm" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowOrm2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: JAK DZIAŁA ORM – CYKL ŻYCIA ENCJI             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura ORM – „Sesja, Unit of Work i Dirty Checking”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Większość dojrzałych ORM-ów (Hibernate, Entity Framework, SQLAlchemy) opiera się na wzorcu <strong>Unit of Work</strong> zarządzanym przez <strong>Sesję</strong> (Hibernate), <strong>DbContext</strong> (EF Core) lub <strong>Session</strong> (SQLAlchemy). Sesja śledzi wszystkie encje pobrane z bazy – sprawdza, które zostały zmodyfikowane (<strong>dirty checking</strong>). Przy zatwierdzeniu transakcji (<code>commit</code> / <code>saveChanges</code>) ORM generuje odpowiednie instrukcje INSERT, UPDATE, DELETE i wysyła je do bazy w odpowiedniej kolejności.
+                </p>
+            </div>
+
+            <!-- SVG: CYKL ŻYCIA ENCJI I SESJI -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridOrm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Cykl życia encji – sesja jako bufor zmian (Unit of Work)</text>
+
+                <!-- Stany encji -->
+                <rect x="40" y="55" width="160" height="50" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="120" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Transient (nowa)</text>
+                <text x="120" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1565c0">new Osoba()</text>
+
+                <path d="M 200 80 L 270 80" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowState1)"/>
+                <text x="235" y="73" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#1976d2">save()</text>
+
+                <rect x="280" y="55" width="160" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="360" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Managed (śledzona)</text>
+                <text x="360" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2e7d32">w sesji, dirty checking</text>
+
+                <path d="M 440 80 L 510 80" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowState2)"/>
+                <text x="475" y="73" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#c62828">delete()</text>
+
+                <rect x="520" y="55" width="160" height="50" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                <text x="600" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Removed (usunięta)</text>
+                <text x="600" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">DELETE przy flush</text>
+
+                <!-- Sesja (bufor) -->
+                <rect x="180" y="140" width="460" height="110" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="165" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Sesja / DbContext – bufor zmian</text>
+                <text x="410" y="188" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">[ encja1 (modified) ] [ encja2 (new) ] [ encja3 (deleted) ]</text>
+                <text x="410" y="212" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Przy commit() / saveChanges(): generuje i wysyła UPDATE, INSERT, DELETE</text>
+                <text x="410" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Dirty checking: porównuje aktualny stan encji z migawką pobraną przy załadowaniu.</text>
+
+                <defs>
+                    <marker id="arrowState1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                    <marker id="arrowState2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: LENIWE ŁADOWANIE I PROBLEM N+1                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">3. Lazy Loading i problem N+1 – „Pułapka ukrytych zapytań”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Lazy loading</strong> (leniwe ładowanie) oznacza, że powiązane encje (np. lista produktów w zamówieniu) nie są pobierane od razu z bazą główną – ORM pobiera je dopiero przy pierwszym dostępie do pola. To wygodne, ale prowadzi do <strong>problemu N+1</strong>: jeśli pobierzesz listę 10 zamówień, a potem dla każdego z nich odwołasz się do <code>zamowienie.produkty</code>, ORM wykona 1 zapytanie o zamówienia i 10 dodatkowych zapytań o produkty – zamiast jednego JOIN-a. Rozwiązaniem jest <strong>eager loading</strong> (<code>fetch join</code>, <code>Include</code>), które ładuje powiązane dane w jednym zapytaniu.
+                </p>
+            </div>
+
+            <!-- SVG: PROBLEM N+1 -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridOrm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Problem N+1 – leniwe ładowanie kontra eager loading</text>
+
+                <!-- Panel lewy: Lazy (problem N+1) -->
+                <rect x="30" y="55" width="360" height="140" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Lazy loading – N+1 zapytań</text>
+                <text x="210" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">SELECT * FROM orders; – 1 zapytanie (10 wierszy)</text>
+                <text x="210" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">foreach(order in orders) {</text>
+                <text x="210" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">    order.items; // SELECT … 10 razy!</text>
+                <text x="210" y="165" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">}</text>
+                <text x="210" y="185" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Razem: 1 + 10 = 11 zapytań. Tragedia przy 1000 zamówień!</text>
+
+                <!-- Panel prawy: Eager (rozwiązanie) -->
+                <rect x="430" y="55" width="360" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Eager loading – 1 zapytanie z JOIN</text>
+                <text x="610" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">SELECT o.*, i.*</text>
+                <text x="610" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">FROM orders o</text>
+                <text x="610" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">JOIN order_items i ON o.id = i.order_id</text>
+                <text x="610" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Wszystko w 1 zapytaniu. Znacznie szybsze.</text>
+                <text x="610" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">W ORM: .Include(o => o.Items) (EF) / join fetch (JPA)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: MIGRACJE – EWOLUCJA SCHEMATU                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Migracje – „Ewolucja bazy razem z kodem”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy zmieniają się klasy encji (nowe pole, nowa tabela, zmiana typu), baza danych musi zostać zaktualizowana. <strong>Migracje</strong> to mechanizm, który automatycznie generuje skrypt różnicowy (lub umożliwia ręczne jego napisanie) i aplikuje go do bazy. Narzędzia: <strong>Flyway</strong>, <strong>Liquibase</strong> (Java), <strong>EF Core Migrations</strong> (.NET), <strong>Alembic</strong> (Python/SQLAlchemy). Migracje są wersjonowane i umożliwiają cofanie zmian (rollback).
+                </p>
+            </div>
+
+            <!-- SVG: MIGRACJE – SCHEMAT -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridOrm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Migracje – ewolucja schematu bazy danych</text>
+
+                <!-- Wersja 1 -->
+                <rect x="50" y="55" width="200" height="80" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/>
+                <text x="150" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Wersja 1</text>
+                <text x="150" y="100" text-anchor="middle" font-family="monospace" font-size="10" fill="#6a1b9a">Osoba (id, imie)</text>
+
+                <path d="M 250 95 L 310 95" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowMig)"/>
+                <text x="280" y="88" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#8e24aa">migracja</text>
+
+                <!-- Wersja 2 -->
+                <rect x="320" y="55" width="200" height="80" rx="6" fill="#ce93d8" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="420" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Wersja 2</text>
+                <text x="420" y="100" text-anchor="middle" font-family="monospace" font-size="10" fill="#6a1b9a">Osoba (id, imie, nazwisko)</text>
+                <text x="420" y="118" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">ALTER TABLE ADD COLUMN</text>
+
+                <path d="M 520 95 L 580 95" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowMig)"/>
+
+                <!-- Wersja 3 -->
+                <rect x="590" y="55" width="200" height="80" rx="6" fill="#ba68c8" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="690" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff">Wersja 3</text>
+                <text x="690" y="100" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">Dodana tabela Adres</text>
+                <text x="690" y="118" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#e1bee7">CREATE TABLE …</text>
+
+                <!-- Narzędzia -->
+                <text x="410" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">Narzędzia: Flyway, Liquibase (Java) · EF Core Migrations (.NET) · Alembic (Python)</text>
+
+                <defs>
+                    <marker id="arrowMig" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PORÓWNANIE FRAMEWORKÓW ORM                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Popularne ORM-y – przegląd ekosystemów</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>☕ Hibernate / JPA (Java)</strong><br>
+                        <span style="font-size:0.85rem;">Standard JPA z adnotacjami. Hibernate jako implementacja. Bogaty w możliwości, ale złożony. Sesja, JPQL/HQL, Criteria API. Automatyczne dirty checking i lazy loading.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🔷 Entity Framework Core (.NET)</strong><br>
+                        <span style="font-size:0.85rem;">DbContext, DbSet, LINQ do zapytań. Code-first (najpierw klasy, potem baza) lub database-first. Migracje wbudowane. Include/ThenInclude do eager loading.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🐍 SQLAlchemy (Python)</strong><br>
+                        <span style="font-size:0.85rem;">Dwa style: Core (zbliżony do SQL) i ORM (deklaratywny). Sesja jako Unit of Work. Alembic do migracji. Bardzo dojrzały i elastyczny.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Problem N+1 – najczęstszy błąd wydajnościowy.</strong> Zawsze sprawdzaj, czy zapytania nie generują kaskady leniwych ładowań. Używaj <code>join fetch</code> / <code>Include</code>.</li>
+                    <li><strong>Sesja nie jest thread-safe.</strong> W aplikacjach wielowątkowych każdy wątek musi mieć własną sesję / DbContext.</li>
+                    <li><strong>Detached entities.</strong> Encja poza sesją nie jest śledzona. Próba zapisu wymaga ponownego przyłączenia (merge / attach).</li>
+                    <li><strong>ORM nie zastępuje znajomości SQL-a.</strong> Przy skomplikowanych zapytaniach analitycznych lepiej napisać surowy SQL lub użyć widoku. ORM jest do CRUD-a i relacji.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – ORM:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Analogia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #00695c;">ORM</td>
+                            <td style="padding: 10px;">Biblioteka mapująca obiekty na tabele relacyjne i generująca SQL automatycznie</td>
+                            <td style="padding: 10px;">Tłumacz między światem klas a światem tabel</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #c62828;">N+1 problem</td>
+                            <td style="padding: 10px;">Wiele zapytań zamiast jednego z JOIN z powodu lazy loading</td>
+                            <td style="padding: 10px;">10 zamówień → 1 + 10 zapytań</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Migracje</td>
+                            <td style="padding: 10px;">Wersjonowane skrypty aktualizujące schemat bazy do aktualnego modelu klas</td>
+                            <td style="padding: 10px;">Flyway, EF Core Migrations, Alembic</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Unit of Work</td>
+                            <td style="padding: 10px;">Sesja śledząca zmiany w encjach i generująca SQL przy commit</td>
+                            <td style="padding: 10px;">Hibernate Session, EF Core DbContext</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">ORM to potężny tłumacz, który pozwala Ci myśleć obiektami, nie tabelami. Ale jak każdy tłumacz, czasem popełnia błędy – musisz rozumieć, co robi pod maską, by nie dać się zaskoczyć problemem N+1 i innymi pułapkami. Dobry programista zna zarówno swój kod, jak i SQL, który ORM za niego generuje.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Java Persistence with Hibernate” (C. Bauer, G. King) · „Entity Framework Core in Action” (J. Smith) · Dokumentacja SQLAlchemy · Martin Fowler – „Patterns of Enterprise Application Architecture”.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
