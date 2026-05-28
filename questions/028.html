@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 028 – Kontenery zależności i wzorzec IoC</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">028. Kontenery zależności i wzorzec IoC (Inversion of Control).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧑‍🍳</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – IoC to „Szef kuchni, który sam zamawia składniki”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
+                        Wyobraź sobie restaurację. W tradycyjnym podejściu szef kuchni (główna klasa) sam idzie na targ po składniki, sam myje naczynia i sam obsługuje gości. Wie o wszystkim, od wszystkiego zależy i jest przepracowany. <strong>Inversion of Control (IoC)</strong> to rewolucja: szef kuchni mówi tylko „potrzebuję świeżej ryby” i „potrzebuję kelnera”, a <strong>kontener IoC</strong> (jak zaufany dostawca) dostarcza mu gotowe, sprawdzone składniki prosto do kuchni. Szef nie wie, skąd pochodzi ryba, kto ją złowił, ani jak kelner został przeszkolony – wie tylko, że dostaje to, czego potrzebuje, i może skupić się na gotowaniu. To właśnie jest <strong>odwrócenie sterowania</strong>: zamiast klasa kontrolować swoje zależności, zewnętrzny kontener przejmuje nad nimi kontrolę.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #283593; line-height: 1.8;">
+                        <li><strong>🔵 IoC (Inversion of Control)</strong> – zasada: „Nie dzwoń do nas, my zadzwonimy do Ciebie”. Komponent nie tworzy swoich zależności – otrzymuje je z zewnątrz.</li>
+                        <li><strong>🟠 DI (Dependency Injection)</strong> – najpopularniejsza implementacja IoC. Wstrzykiwanie zależności przez konstruktor, setter lub interfejs.</li>
+                        <li><strong>🟢 Kontener IoC (IoC Container)</strong> – fabryka, która zarządza tworzeniem obiektów, ich cyklem życia i rozwiązywaniem zależności.</li>
+                        <li><strong>🟣 Zasada Hollywood</strong> – „Don't call us, we'll call you”. Komponent nie wywołuje frameworka – to framework wywołuje komponent, gdy jest potrzebny.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">IoC – Inversion of Control</span>
+            <span class="keyword-tag">DI – Dependency Injection</span>
+            <span class="keyword-tag">Kontener IoC (IoC Container)</span>
+            <span class="keyword-tag">Wstrzykiwanie przez konstruktor / setter</span>
+            <span class="keyword-tag">Zasada Hollywood</span>
+            <span class="keyword-tag">Service Locator (antywzorzec)</span>
+            <span class="keyword-tag">SOLID – Dependency Inversion Principle</span>
+            <span class="keyword-tag">Cykl życia (Transient / Singleton / Scoped)</span>
+            <span class="keyword-tag">Autofac, Spring, Guice, Dagger</span>
+            <span class="keyword-tag">Luźne sprzężenie (Loose coupling)</span>
+            <span class="keyword-tag">Testowalność (mockowanie zależności)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PROBLEM SZTYWNYCH ZALEŻNOŚCI                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1a237e;">1. Problem sztywnych zależności – „Gdy szef kuchni idzie sam na targ”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W kodzie bez IoC klasy bezpośrednio tworzą swoje zależności za pomocą <code>new</code>. Prowadzi to do <strong>silnego sprzężenia (tight coupling)</strong>: nie możesz łatwo wymienić implementacji, testy jednostkowe są trudne (nie da się wstrzyknąć mocka), a zmiana jednej klasy wymusza zmiany w całym łańcuchu zależności. <strong>IoC odwraca ten schemat</strong>: klasa deklaruje, czego potrzebuje (przez interfejs), a zewnętrzny mechanizm dostarcza konkretne implementacje.
+                </p>
+                <div style="background: #e8eaf6; border-left: 5px solid #3949ab; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Zasada odwrócenia zależności (DIP – SOLID):</strong> Moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Oba powinny zależeć od abstrakcji. Abstrakcje nie powinny zależeć od szczegółów – szczegóły powinny zależeć od abstrakcji.
+                </div>
+            </div>
+
+            <!-- SVG: PORÓWNANIE KODU BEZ IoC vs Z IoC -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridIoc" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridIoc)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Porównanie: kod bez IoC vs kod z Dependency Injection</text>
+
+                <!-- Panel lewy: Bez IoC (sztywne sprzężenie) -->
+                <rect x="30" y="50" width="370" height="260" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Bez IoC – klasa tworzy zależności</text>
+                <line x1="45" y1="88" x2="385" y2="88" stroke="#ef9a9a" stroke-width="1"/>
+                <rect x="60" y="100" width="310" height="70" rx="4" fill="#263238" stroke="#455a64" stroke-width="1"/>
+                <text x="215" y="118" text-anchor="middle" font-family="monospace" font-size="10" fill="#ef9a9a">class Serwis {</text>
+                <text x="215" y="136" text-anchor="middle" font-family="monospace" font-size="10" fill="#ef9a9a">  BazaDanych db = new BazaDanych();</text>
+                <text x="215" y="154" text-anchor="middle" font-family="monospace" font-size="10" fill="#ef9a9a">  Logger log = new Logger("plik.txt");</text>
+                <text x="215" y="172" text-anchor="middle" font-family="monospace" font-size="10" fill="#ef9a9a">}</text>
+                <text x="215" y="205" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Sprzężenie na stałe z konkretnymi klasami.</text>
+                <text x="215" y="225" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Nie można testować z mockiem.</text>
+                <text x="215" y="245" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Trudna wymiana implementacji.</text>
+
+                <!-- Panel prawy: Z IoC (luźne sprzężenie) -->
+                <rect x="420" y="50" width="370" height="260" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Z IoC – zależności wstrzykiwane</text>
+                <line x1="435" y1="88" x2="775" y2="88" stroke="#a5d6a7" stroke-width="1"/>
+                <rect x="450" y="100" width="310" height="70" rx="4" fill="#263238" stroke="#455a64" stroke-width="1"/>
+                <text x="605" y="118" text-anchor="middle" font-family="monospace" font-size="10" fill="#a5d6a7">class Serwis {</text>
+                <text x="605" y="136" text-anchor="middle" font-family="monospace" font-size="10" fill="#a5d6a7">  Serwis(IBaza db, ILogger log) {…}</text>
+                <text x="605" y="154" text-anchor="middle" font-family="monospace" font-size="10" fill="#a5d6a7">  // zależności przez konstruktor</text>
+                <text x="605" y="172" text-anchor="middle" font-family="monospace" font-size="10" fill="#a5d6a7">}</text>
+                <text x="605" y="205" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">✅ Zależności od interfejsów, nie implementacji.</text>
+                <text x="605" y="225" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">✅ Łatwe mockowanie w testach.</text>
+                <text x="605" y="245" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">✅ Wymiana implementacji bez zmiany serwisu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: DEPENDENCY INJECTION – METODY WSTRZYKIWANIA    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3949ab;">2. Dependency Injection (DI) – „Trzy sposoby dostarczania składników”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Dependency Injection</strong> to najczęstsza implementacja IoC. Polega na dostarczaniu zależności do obiektu z zewnątrz, zamiast pozwalać mu je samodzielnie tworzyć. Istnieją trzy główne metody wstrzykiwania:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 220px; background: #e8eaf6; border-radius: 10px; padding: 14px; border: 1px solid #7986cb;">
+                        <strong style="color:#1a237e;">🏗️ Przez konstruktor (Constructor Injection)</strong><br>
+                        <span style="font-size:0.85rem;">Zależności przekazywane w konstruktorze. Obiekt nigdy nie jest w stanie niepoprawnym – wszystkie zależności są od razu dostępne. Zalecana metoda dla obowiązkowych zależności. Przykład: <code>new Serwis(db, logger)</code>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 220px; background: #e8eaf6; border-radius: 10px; padding: 14px; border: 1px solid #7986cb;">
+                        <strong style="color:#1a237e;">🔧 Przez setter (Setter Injection)</strong><br>
+                        <span style="font-size:0.85rem;">Zależności ustawiane po konstrukcji przez właściwości/metody set. Dobre dla zależności opcjonalnych lub zmienianych w czasie życia. Przykład: <code>serwis.setLogger(log)</code>.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 220px; background: #e8eaf6; border-radius: 10px; padding: 14px; border: 1px solid #7986cb;">
+                        <strong style="color:#1a237e;">🖥️ Przez interfejs (Interface Injection)</strong><br>
+                        <span style="font-size:0.85rem;">Komponent implementuje interfejs z metodą przyjmującą zależność. Kontener wywołuje tę metodę. Rzadziej spotykane. Przykład: <code>class Serwis : ILoggerAware { void SetLogger(ILogger l); }</code>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: SCHEMAT DZIAŁANIA KONTENERA IoC -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridIoc)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Jak działa Kontener IoC – rejestracja i rozwiązywanie zależności</text>
+
+                <!-- Rejestracja -->
+                <rect x="40" y="55" width="300" height="120" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="190" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">1. Rejestracja (konfiguracja)</text>
+                <text x="190" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">container.Register&lt;IBaza, SqlBaza&gt;();</text>
+                <text x="190" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">container.Register&lt;ILogger, FileLogger&gt;();</text>
+                <text x="190" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">container.Register&lt;ISerwis, Serwis&gt;();</text>
+                <text x="190" y="168" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Mówimy kontenerowi: „Gdy ktoś prosi o interfejs, daj tę klasę”.</text>
+
+                <!-- Strzałka -->
+                <path d="M 340 115 L 430 115" fill="none" stroke="#3949ab" stroke-width="2.5" marker-end="url(#arrowIoc1)"/>
+                <text x="385" y="108" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#3949ab">rozwiąż</text>
+
+                <!-- Rozwiązywanie -->
+                <rect x="440" y="55" width="340" height="120" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">2. Rozwiązywanie (Resolve)</text>
+                <text x="610" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">ISerwis s = container.Resolve&lt;ISerwis&gt;();</text>
+                <text x="610" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Kontener widzi, że ISerwis potrzebuje IBaza i ILogger.</text>
+                <text x="610" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Tworzy SqlBaza i FileLogger, wstrzykuje je do Serwis.</text>
+                <text x="610" y="168" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Zwraca gotowy, w pełni skonfigurowany obiekt Serwis.</text>
+
+                <!-- Cykl życia -->
+                <rect x="130" y="210" width="560" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="410" y="238" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Zarządzanie cyklem życia (Lifetime management)</text>
+                <text x="410" y="265" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">Transient – za każdym razem nowa instancja   |   Singleton – jedna na cały kontener</text>
+                <text x="410" y="288" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">Scoped – jedna na zakres (np. żądanie HTTP)   |   Kontener sam wywołuje Dispose na końcu</text>
+
+                <defs>
+                    <marker id="arrowIoc1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3949ab"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: IoC KONTENERY W PRAKTYCE – PRZYKŁADY           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">3. Kontenery IoC w różnych ekosystemach – „Dostawcy dla kuchni”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>☕ Java / Kotlin</strong><br>
+                        <span style="font-size:0.85rem;"><strong>Spring Framework</strong> – najpopularniejszy kontener IoC. Adnotacje <code>@Autowired</code>, <code>@Component</code>, <code>@Bean</code>. <strong>Guice</strong> (Google) – lekki, oparty na adnotacjach.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🔷 .NET / C#</strong><br>
+                        <span style="font-size:0.85rem;"><strong>Microsoft.Extensions.DependencyInjection</strong> – wbudowany w ASP.NET Core. <strong>Autofac</strong>, <strong>Ninject</strong> – zaawansowane kontenery z modułami i assembly scanning.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
+                        <strong>🐍 Python</strong><br>
+                        <span style="font-size:0.85rem;"><strong>python-dependency-injector</strong> – biblioteka wzorowana na kontenerach z .NET. W Pythonie często używa się też prostego wstrzykiwania przez konstruktor bez kontenera.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: SERVICE LOCATOR – ANTYWZORZEC                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Service Locator – „Pułapka ukrytych zależności”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Service Locator</strong> to wzorzec, w którym komponent sam aktywnie prosi globalny rejestr o zależność: <code>var db = ServiceLocator.Get&lt;IBaza&gt;()</code>. Na pierwszy rzut oka przypomina IoC, ale jest uznawany za <strong>antywzorzec</strong>. Dlaczego? Zależności nie są jawne w konstruktorze – trzeba zajrzeć do wnętrza metody, by je poznać. Testowanie jest utrudnione (trzeba podmienić globalny stan). Ukrywa prawdziwe sprzężenie. <strong>Dependency Injection jest rozwiązaniem preferowanym</strong>.
+                </p>
+                <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>⚠️ Różnica:</strong> <strong>DI</strong> – „dajcie mi to, czego potrzebuję” (pasywnie). <strong>Service Locator</strong> – „idę i biorę to, czego potrzebuję” (aktywnie). DI jest jawne i testowalne; Service Locator ukrywa zależności.
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: ZALETY IoC / DI                                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">5. Dlaczego warto? – Korzyści z IoC i DI</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>🧩 Luźne sprzężenie</strong><br>
+                        <span style="font-size:0.85rem;">Klasy zależą od interfejsów, nie od konkretnych implementacji. Możesz wymienić moduł bez zmiany reszty.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>🧪 Testowalność</strong><br>
+                        <span style="font-size:0.85rem;">W testach wstrzykujesz mocki zamiast prawdziwych obiektów. Izolujesz testowaną jednostkę.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>🏗️ Centralne zarządzanie</strong><br>
+                        <span style="font-size:0.85rem;">Cykl życia obiektów (singleton, transient) kontrolowany w jednym miejscu. Łatwa konfiguracja.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>📦 Modularność</strong><br>
+                        <span style="font-size:0.85rem;">Aplikacja staje się zestawem niezależnych komponentów podłączanych przez kontener.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>IoC ≠ DI.</strong> IoC to ogólna zasada (Hollywood Principle). DI to konkretna implementacja. Inne implementacje to np. wzorzec strategii, Template Method, czy nawet callbacki.</li>
+                    <li><strong>Service Locator nie jest DI!</strong> To częsta pułapka. Service Locator ukrywa zależności wewnątrz metody, DI eksponuje je w konstruktorze.</li>
+                    <li><strong>Nie wszystko wymaga kontenera IoC.</strong> W małych aplikacjach ręczne wstrzykiwanie (Pure DI) jest prostsze i w pełni wystarczające.</li>
+                    <li><strong>Kontener przejmuje kontrolę nad cyklem życia</strong> – upewnij się, że rozumiesz różnicę między Transient, Singleton i Scoped. Błędna konfiguracja prowadzi do wycieków (np. Scoped użyty poza zakresem).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – IoC i DI:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Analogia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #1a237e;">IoC</td>
+                            <td style="padding: 10px;">Zasada odwrócenia sterowania: „Nie dzwoń do nas, my zadzwonimy”</td>
+                            <td style="padding: 10px;">Szef kuchni nie idzie na targ – dostawca przywozi składniki.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #3949ab;">DI</td>
+                            <td style="padding: 10px;">Wstrzykiwanie zależności z zewnątrz (konstruktor / setter / interfejs)</td>
+                            <td style="padding: 10px;"><code>Serwis(IBaza db, ILogger log)</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #00897b;">Kontener IoC</td>
+                            <td style="padding: 10px;">Fabryka zarządzająca tworzeniem obiektów i ich cyklem życia</td>
+                            <td style="padding: 10px;">Spring, Autofac, Guice, Dagger</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #c62828;">Service Locator</td>
+                            <td style="padding: 10px;">Antywzorzec: komponent aktywnie pobiera zależność z globalnego rejestru</td>
+                            <td style="padding: 10px;"><code>var db = Locator.Get&lt;IBaza&gt;()</code> (ukryta zależność)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">IoC to filozofia: niech komponenty nie kontrolują swoich zależności – niech zewnętrzny kontener dostarczy im wszystko, czego potrzebują. Dzięki temu kod jest luźno sprzężony, testowalny i elastyczny. To nie magia – to mądre projektowanie.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Dependency Injection in .NET” (Mark Seemann) · „Spring in Action” (Craig Walls) · „Design Patterns” (Gang of Four, rozdział o IoC) · Martin Fowler – „Inversion of Control Containers and the Dependency Injection Pattern”.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
