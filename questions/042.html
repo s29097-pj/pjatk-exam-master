@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 042 – Dynamiczne struktury danych: Listy i Drzewa</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">042. Dynamiczne struktury danych, m.in.: listy i drzewa; metody reprezentacji i złożoność podstawowych operacji.</h2>
+
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Miejsca w kinie vs. Gra w podchody”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Klasyczna <strong>Tablica (Array)</strong> to rząd miejsc w kinie. Komputer rezerwuje np. 10 foteli obok siebie. Jeśli przyjdzie 11. osoba, a fotele obok są zajęte, trzeba przenieść <em>wszystkich</em> do innej sali (zmiana rozmiaru tablicy to kosztowna operacja O(N)).<br><br>
+                        <strong>Dynamiczne struktury danych</strong> rozwiązują ten problem, prosząc o pamięć (na stercie / <em>heap</em>) w locie, kawałek po kawałku. Jak to działa?<br>
+                        <strong>Lista wiązana (Linked List)</strong> to gra w podchody. Dostajesz karteczkę (Węzeł/Node) z danymi, na której jest też <strong>adres (wskaźnik) do kolejnej karteczki</strong> schowanej na drugim końcu miasta. Nie potrzebujesz ciągłego bloku pamięci! Aby dodać nową wskazówkę w środku gry, po prostu zmieniasz adres na jednej z karteczek. Ale uwaga: żeby przeczytać 5. karteczkę, musisz najpierw odwiedzić 4 poprzednie (brak dostępu O(1) po indeksie).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Węzeł (Node) i Wskaźnik (Pointer)</span>
+            <span class="keyword-tag">Lista jednokierunkowa (Singly Linked List)</span>
+            <span class="keyword-tag">Lista dwukierunkowa (Doubly Linked List)</span>
+            <span class="keyword-tag">Drzewo binarne (Binary Tree)</span>
+            <span class="keyword-tag">BST (Binary Search Tree)</span>
+            <span class="keyword-tag">Korzeń (Root), Liść (Leaf), Rodzic/Dziecko</span>
+            <span class="keyword-tag">Alokacja dynamiczna (Heap memory)</span>
+            <span class="keyword-tag">Degeneracja drzewa (Unbalanced Tree)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Listy Wiązane – Elastyczność kosztem czasu dostępu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zamiast ciągłego bloku pamięci, lista składa się z <strong>Węzłów (Nodes)</strong>. Każdy węzeł to mały obiekt (struktura), który przechowuje: <code>[Wartość | *Wskaźnik_Na_Następny]</code>.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wstawianie / Usuwanie w znanym miejscu: O(1)</strong>. Odpinasz wskaźnik, wpinasz nowy węzeł. Błyskawica.</li>
+                    <li><strong>Dostęp do i-tego elementu: O(N)</strong>. Komputer zna tylko adres "Głowy" (Head). Żeby dostać się do elementu nr 100, musi "przeskakać" przez 99 wskaźników.</li>
+                    <li><strong>Rodzaje:</strong> <em>Jednokierunkowa</em> (możesz iść tylko do przodu), <em>Dwukierunkowa</em> (masz też wskaźnik <code>*Prev</code> – możesz się cofać, idealne do przycisków Wstecz/Dalej w przeglądarce).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridMemory" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridMemory)" opacity="0.6"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Reprezentacja w Pamięci: Tablica vs Lista Wiązana</text>
+
+                <text x="200" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#00695c" text-anchor="middle">Tablica Statyczna (Ciągła)</text>
+                <rect x="60" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <rect x="120" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <rect x="180" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <rect x="240" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                
+                <text x="90" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">A</text>
+                <text x="150" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">B</text>
+                <text x="210" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">C</text>
+                <text x="270" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">D</text>
+
+                <text x="200" y="145" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Zaleta: Dostęp arr[3] w O(1)</text>
+                <text x="200" y="160" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Wada: Dodanie między A i B = O(N)</text>
+
+                <line x1="410" y1="40" x2="410" y2="200" stroke="#b0bec5" stroke-width="2" stroke-dasharray="6,4"/>
+
+                <text x="620" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c2185b" text-anchor="middle">Lista Wiązana (Rozrzucona w RAM)</text>
+
+                <text x="450" y="90" font-family="monospace" font-size="11" font-weight="bold" fill="#880e4f">HEAD</text>
+                
+                <g transform="translate(480, 80)">
+                    <rect x="0" y="0" width="30" height="30" fill="#fce4ec" stroke="#d81b60" stroke-width="2"/>
+                    <rect x="30" y="0" width="15" height="30" fill="#f8bbd0" stroke="#d81b60" stroke-width="2"/>
+                    <text x="15" y="20" font-family="monospace" font-size="14" font-weight="bold" fill="#880e4f" text-anchor="middle">A</text>
+                    <circle cx="37" cy="15" r="3" fill="#c2185b"/>
+                </g>
+
+                <g transform="translate(580, 130)">
+                    <rect x="0" y="0" width="30" height="30" fill="#fce4ec" stroke="#d81b60" stroke-width="2"/>
+                    <rect x="30" y="0" width="15" height="30" fill="#f8bbd0" stroke="#d81b60" stroke-width="2"/>
+                    <text x="15" y="20" font-family="monospace" font-size="14" font-weight="bold" fill="#880e4f" text-anchor="middle">B</text>
+                    <circle cx="37" cy="15" r="3" fill="#c2185b"/>
+                </g>
+
+                <g transform="translate(700, 70)">
+                    <rect x="0" y="0" width="30" height="30" fill="#fce4ec" stroke="#d81b60" stroke-width="2"/>
+                    <rect x="30" y="0" width="15" height="30" fill="#f8bbd0" stroke="#d81b60" stroke-width="2"/>
+                    <text x="15" y="20" font-family="monospace" font-size="14" font-weight="bold" fill="#880e4f" text-anchor="middle">C</text>
+                    <circle cx="37" cy="15" r="3" fill="#c2185b"/>
+                </g>
+
+                <text x="760" y="90" font-family="monospace" font-size="11" fill="#880e4f">NULL</text>
+
+                <path d="M 517 95 Q 560 95 580 145" fill="none" stroke="#d81b60" stroke-width="2" marker-end="url(#arrowPink)"/>
+                <path d="M 617 145 Q 670 145 700 85" fill="none" stroke="#d81b60" stroke-width="2" marker-end="url(#arrowPink)"/>
+                <path d="M 737 85 L 755 85" fill="none" stroke="#d81b60" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+                <text x="620" y="180" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Wada: Dostęp do C wymaga przejścia A -> B -> C = O(N)</text>
+                <text x="620" y="195" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Zaleta: Wstawianie węzła = przepięcie 2 wskaźników = O(1)</text>
+
+                <defs>
+                    <marker id="arrowPink" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d81b60"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Drzewa Poszukiwań Binarnych (BST) – Hierarchia decyzyjna</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Drzewo binarne (Binary Tree) to rozwinięcie idei listy. W liście każdy węzeł ma 1 wskaźnik. W drzewie binarnym ma 2 wskaźniki: <code>*Left</code> i <code>*Right</code>.<br>
+                    <strong>Złota zasada BST (Binary Search Tree):</strong> Wszystko w lewym poddrzewie jest <strong>mniejsze</strong> od rodzica, a wszystko w prawym jest <strong>większe</strong>. To pozwala przy każdym kroku w dół odrzucić połowę danych!
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wyszukiwanie: O(log N)</strong>. Działa jak wyszukiwanie binarne, ale na strukturze dynamicznej.</li>
+                    <li><strong>Wstawianie / Usuwanie: O(log N)</strong>. Schodzisz w dół drzewa, znajdujesz puste miejsce i podpinasz nowy węzeł (bez przesuwania innych elementów!).</li>
+                </ul>
+            </div>
+
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="url(#gridMemory)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Anatomia Drzewa BST (Binary Search Tree)</text>
+
+                <circle cx="410" cy="70" r="22" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+                <text x="410" y="76" font-family="monospace" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">50</text>
+                <text x="410" y="38" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">KORZEŃ (Root)</text>
+
+                <line x1="395" y1="85" x2="315" y2="125" stroke="#f57c00" stroke-width="2"/>
+                <line x1="425" y1="85" x2="505" y2="125" stroke="#f57c00" stroke-width="2"/>
+
+                <circle cx="300" cy="135" r="18" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="300" y="141" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">30</text>
+                <text x="350" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">&lt;</text>
+
+                <circle cx="520" cy="135" r="18" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="520" y="141" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">70</text>
+                <text x="470" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">&gt;</text>
+
+                <line x1="288" y1="148" x2="242" y2="182" stroke="#f57c00" stroke-width="2"/>
+                <line x1="312" y1="148" x2="358" y2="182" stroke="#f57c00" stroke-width="2"/>
+                <line x1="508" y1="148" x2="462" y2="182" stroke="#f57c00" stroke-width="2"/>
+                <line x1="532" y1="148" x2="578" y2="182" stroke="#f57c00" stroke-width="2"/>
+
+                <circle cx="230" cy="190" r="16" fill="#f1f8e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="230" y="195" font-family="monospace" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">20</text>
+
+                <circle cx="370" cy="190" r="16" fill="#f1f8e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="370" y="195" font-family="monospace" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">40</text>
+
+                <circle cx="450" cy="190" r="16" fill="#f1f8e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="450" y="195" font-family="monospace" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">60</text>
+
+                <circle cx="590" cy="190" r="16" fill="#f1f8e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="590" y="195" font-family="monospace" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">80</text>
+                <text x="630" y="195" font-family="sans-serif" font-size="11" font-weight="bold" fill="#388e3c">LIŚĆ (Leaf) - brak dzieci</text>
+
+                <rect x="670" y="60" width="130" height="60" rx="5" fill="#fff" stroke="#f57c00" stroke-width="1" stroke-dasharray="4,4"/>
+                <text x="735" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Szukamy: 60</text>
+                <text x="735" y="98" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">60 > 50 (w prawo)</text>
+                <text x="735" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">60 < 70 (w lewo)</text>
+                
+            </svg>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
+                
+                <div style="flex: 1; min-width: 300px; background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px; border-radius: 0 10px 10px 0;">
+                    <strong style="font-size: 1.05rem; color: #b71c1c;">⚠️ Pułapka Inżynierska (Cache Locality):</strong>
+                    <p style="margin: 8px 0; font-size: 0.9rem; line-height: 1.6;">
+                        Egzaminator spyta: <em>"Skoro wstawianie do listy O(1) jest szybsze niż do tablicy O(N), dlaczego procesory tak bardzo wolą tablice?"</em><br>
+                        Odpowiedź brzmi: <strong>Lokalność pamięci podręcznej (Cache Locality)</strong>. Tablica to ciągły blok pamięci. Kiedy procesor ładuje <code>arr[0]</code>, zgarnia do pamięci Cache L1 również <code>arr[1]</code>, <code>arr[2]</code>, itd. Przechodzenie po tablicy jest sprzętowo setki razy szybsze! Węzły listy są rozrzucone losowo w pamięci RAM, powodując powolne "Cache Misses" (pudła).
+                    </p>
+                </div>
+
+                <div style="flex: 1; min-width: 300px; background: #f4fbf5; border-left: 6px solid #2e7d32; padding: 16px; border-radius: 0 10px 10px 0;">
+                    <strong style="font-size: 1.05rem; color: #1b5e20;">🌳 Pułapka Algorytmiczna (Degeneracja drzewa):</strong>
+                    <p style="margin: 8px 0; font-size: 0.9rem; line-height: 1.6;">
+                        Co się stanie, jeśli do idealnego BST dodamy pokolei posortowane liczby: 1, 2, 3, 4, 5?
+                        Drzewo w ogóle nie rozrośnie się w lewo! Każdy nowy element będzie "Prawym" dzieckiem poprzedniego. 
+                        <strong>Drzewo zdegeneruje się do zwykłej, jednokierunkowej listy wiązanej.</strong> Złożoność wyszukiwania spadnie z pięknego <code>O(log N)</code> do tragicznego <code>O(N)</code>. Rozwiązaniem są "samobalansujące się" drzewa (Drzewo AVL, Red-Black Tree), które w locie rotują węzły.
+                    </p>
+                </div>
+
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjna Tabela Prawdy – Złożoność Struktur:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Struktura (Reprezentacja)</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Dostęp (po indeksie)</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wyszukiwanie (po wartości)</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wstawianie/Usuwanie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #00695c;">Tablica Statyczna (Array)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 10px; font-weight: bold; color: #c2185b;">Lista Wiązana (Linked List)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1) *</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Drzewo BST (zbalansowane)</td>
+                            <td style="padding: 10px; font-family: monospace;">N/A</td>
+                            <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
+                            <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 0.8em; color: #7f8c8d; margin-top: 10px;">* O(1) zakłada, że mamy już wskaźnik na odpowiednie miejsce w liście. W przeciwnym razie znalezienie miejsca zajmuje O(N).</p>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wybór między tablicą, listą a drzewem to esencja inżynierii. Tablice dają najszybszy odczyt połączony z idealną obsługą sprzętową procesora (Cache). Listy wiązane dają elastyczność rozmiaru i błyskawiczne podpinanie węzłów bez kopiowania pamięci. Drzewa BST łączą zalety obu: dynamiczny rozmiar z logarytmicznym czasem szukania. Pamiętaj jednak: w informatyce nie ma rozwiązań idealnych – zawsze płacisz czasem za pamięć lub pamięcią za czas.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Struktury danych i algorytmy” (A.V. Aho) · „What Every Programmer Should Know About Memory” (Ulrich Drepper).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
