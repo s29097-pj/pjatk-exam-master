@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 060 – Obiektowa analiza wymagań</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">060. Proces i produkty obiektowej analizy wymagań.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #4a148c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(74,20,140,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧱</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Z klocków LEGO nie budujesz od razu zamku”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a0033; line-height: 1.7;">
+                        Gdy dostajesz pudełko klocków LEGO z obrazkiem zamku na opakowaniu, nie chwytasz za pierwszą klockę i nie składasz jej „na czuja”. Najpierw analizujesz: jakie mam klocki? (obiekty), jak je połączyć? (relacje), co ma być ruchome? (zachowania). Dopiero potem budujesz zgodnie z instrukcją.
+                    </p>
+                    <p style="margin: 0; color: #1a0033; line-height: 1.7;">
+                        <strong>Obiektowa analiza wymagań</strong> to właśnie tworzenie takiej instrukcji dla systemu informatycznego. Zamiast pisać listę funkcji („system ma to, system ma tamto”), identyfikujesz <strong>obiekty świata rzeczywistego</strong> (Klient, Zamówienie, Produkt) i ich wzajemne powiązania. W ten sposób tworzysz precyzyjny model, który jest niezależny od języka programowania i zrozumiały zarówno dla programisty, jak i dla użytkownika. To kluczowy etap, który łączy świat biznesu ze światem kodu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Obiektowa analiza wymagań (OOA)</span>
+            <span class="keyword-tag">Model przypadków użycia (Use Case Model)</span>
+            <span class="keyword-tag">Diagram klas analitycznych (Domain Model)</span>
+            <span class="keyword-tag">Diagramy interakcji (sekwencji)</span>
+            <span class="keyword-tag">Diagramy stanów i aktywności</span>
+            <span class="keyword-tag">Dokument wizji (Vision Document)</span>
+            <span class="keyword-tag">Specyfikacja wymagań (SRS)</span>
+            <span class="keyword-tag">Iteracyjne doprecyzowanie</span>
+            <span class="keyword-tag">Identyfikacja obiektów, klas, relacji</span>
+            <span class="keyword-tag">UML jako notacja</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym jest obiektowa analiza wymagań -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">1. Co to jest obiektowa analiza wymagań?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Obiektowa analiza wymagań (OOA) to proces modelowania problemu w kategoriach obiektów – czyli rzeczy, pojęć lub bytów, które istnieją w świecie rzeczywistym i mają znaczenie dla systemu. Zamiast pytać „Jakie funkcje ma system?”, pytamy „Z jakich obiektów składa się domena i jakie są między nimi zależności?”.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    OOA łączy pozyskiwanie wymagań (patrz pytanie 059) z modelowaniem przy użyciu notacji <strong>UML (Unified Modeling Language)</strong>. Jej celem jest stworzenie <strong>modelu pojęciowego</strong>, który jest niezależny od implementacji, ale stanowi fundament dla projektowania obiektowego.
+                </p>
+            </div>
+
+            <!-- 2. Proces obiektowej analizy (schemat) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">2. Proces obiektowej analizy wymagań – od problemu do modelu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Proces OOA jest iteracyjny i przyrostowy. Nie robi się go raz, ale powtarza w kolejnych cyklach, stopniowo doprecyzowując modele. Główne działania to:
+                </p>
+            </div>
+
+            <!-- SVG: Proces OOA -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#ede7f6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#311b92">Proces obiektowej analizy wymagań – iteracyjny przepływ</text>
+
+                <!-- Krok 1: Identyfikacja przypadków użycia -->
+                <rect x="30" y="55" width="170" height="70" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="115" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">1. Przypadki użycia</text>
+                <text x="115" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagramy UC + opisy</text>
+                <text x="115" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(aktorzy, scenariusze)</text>
+
+                <path d="M 200 90 L 230 90" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+                <!-- Krok 2: Model pojęciowy (diagram klas analitycznych) -->
+                <rect x="240" y="55" width="170" height="70" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="325" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">2. Model pojęciowy</text>
+                <text x="325" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagram klas</text>
+                <text x="325" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(obiekty, relacje, atrybuty)</text>
+
+                <path d="M 410 90 L 440 90" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+                <!-- Krok 3: Model zachowań -->
+                <rect x="450" y="55" width="170" height="70" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="535" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">3. Model zachowań</text>
+                <text x="535" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagramy sekwencji,</text>
+                <text x="535" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">stanów, aktywności</text>
+
+                <path d="M 620 90 L 650 90" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+                <!-- Krok 4: Walidacja i dokumentacja -->
+                <rect x="660" y="55" width="140" height="70" rx="8" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="730" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">4. Walidacja</text>
+                <text x="730" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Przeglądy, prototypy</text>
+                <text x="730" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Dokument Wizji / SRS</text>
+
+                <!-- Pętla iteracji -->
+                <path d="M 730 125 L 730 170 L 115 170 L 115 127" fill="none" stroke="#9575cd" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrPurple)"/>
+                <rect x="310" y="158" width="200" height="25" rx="4" fill="#d1c4e9" stroke="#9575cd" stroke-width="1"/>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#311b92" text-anchor="middle">🔄 Iteracje – stopniowe doprecyzowanie</text>
+
+                <!-- Dokumenty wyjściowe (na dole) -->
+                <rect x="100" y="210" width="220" height="30" rx="4" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/>
+                <text x="210" y="230" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">📄 Dokument Wizji, SRS</text>
+                <rect x="500" y="210" width="220" height="30" rx="4" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/>
+                <text x="610" y="230" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">📄 Modele UML (UC, klas, sekwencji)</text>
+
+                <defs>
+                    <marker id="arrPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4a148c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 3. Produkty (artefakty) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Produkty obiektowej analizy wymagań – co otrzymujesz na wyjściu?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Efektem OOA jest zestaw dokumentów i modeli, które razem tworzą pełny obraz wymagań. Oto kluczowe artefakty:
+                </p>
+            </div>
+
+            <!-- SVG: Artefakty OOA -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="#ede7f6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#311b92">Produkty obiektowej analizy wymagań</text>
+
+                <!-- Dokument Wizji -->
+                <rect x="30" y="50" width="220" height="70" rx="6" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="140" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#311b92" text-anchor="middle">📜 Dokument Wizji</text>
+                <text x="140" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Problem, rozwiązanie, zakres,</text>
+                <text x="140" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">interesariusze, funkcje wysokiego poziomu</text>
+
+                <!-- Model Przypadków Użycia -->
+                <rect x="280" y="50" width="240" height="70" rx="6" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="400" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#311b92" text-anchor="middle">🎭 Model Przypadków Użycia</text>
+                <text x="400" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagram UC + opisy scenariuszy</text>
+                <text x="400" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(główny, alternatywne, wyjątki)</text>
+
+                <!-- Model Pojęciowy -->
+                <rect x="550" y="50" width="240" height="70" rx="6" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="670" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#311b92" text-anchor="middle">📊 Model Pojęciowy (Domain)</text>
+                <text x="670" y="95" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagram klas analitycznych</text>
+                <text x="670" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(obiekty, atrybuty, powiązania)</text>
+
+                <!-- Diagramy interakcji -->
+                <rect x="120" y="145" width="280" height="70" rx="6" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="260" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">↔️ Diagramy Interakcji</text>
+                <text x="260" y="185" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagramy sekwencji, komunikacji</text>
+                <text x="260" y="200" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(przepływ komunikatów w czasie)</text>
+
+                <!-- Diagramy stanów i aktywności -->
+                <rect x="430" y="145" width="270" height="70" rx="6" fill="#fff" stroke="#4a148c" stroke-width="2"/>
+                <text x="565" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#311b92" text-anchor="middle">🔄 Diagramy Zachowań</text>
+                <text x="565" y="185" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Diagramy stanów (cykl życia obiektu),</text>
+                <text x="565" y="200" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">diagramy aktywności (procesy biznesowe)</text>
+            </svg>
+
+            <!-- 4. Przykład praktyczny -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">4. Przykład: analiza systemu „Wypożyczalnia samochodów”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby zobaczyć, jak OOA działa w praktyce, prześledźmy ją na konkretnym, prostym przykładzie.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Krok 1: Przypadki użycia</strong> – najpierw identyfikujemy aktorów (Klient, Pracownik wypożyczalni) i ich cele. Powstają UC: „Wypożycz samochód”, „Zwróć samochód”, „Zarejestruj klienta”. Rysujemy diagram UC.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Krok 2: Model pojęciowy</strong> – identyfikujemy obiekty: Samochód (marka, model, nr rejestracyjny), Klient (imię, nazwisko, prawo jazdy), Wypożyczenie (data od, data do, status). Tworzymy diagram klas z powiązaniami: Klient 1–* Wypożyczenie, Samochód 1–0..1 Wypożyczenie.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Krok 3: Zachowania</strong> – dla UC „Wypożycz samochód” rysujemy diagram sekwencji: Klient → System → Samochód (sprawdzenie dostępności, blokada, potwierdzenie). Diagram stanów dla obiektu Wypożyczenie pokazuje stany: Nowe, Aktywne, Zakończone.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Modelowanie obiektowe – częste błędy):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Model pojęciowy = diagram klas projektowych”</strong> – NIE. Model analityczny pokazuje świat rzeczywisty, bez szczegółów implementacyjnych (np. bez typów kolekcji, metod get/set). Nie zawiera operacji, tylko atrybuty i relacje. Projektowanie przyjdzie później.</li>
+                    <li><strong>„Trzeba wymodelować wszystko naraz”</strong> – Wręcz przeciwnie. OOA jest iteracyjna: najpierw modelujesz najważniejsze 20% obiektów, które dają 80% wartości. Szczegóły dodajesz w kolejnych iteracjach. Próba stworzenia kompletnego modelu na początku prowadzi do paraliżu analitycznego.</li>
+                    <li><strong>„Diagramy UML to tylko ozdobniki”</strong> – UML to nie rysunki dla menadżerów. Precyzyjna notacja pozwala na jednoznaczną komunikację i wykrywanie niespójności. Np. jeśli w diagramie klas jest „Wypożyczenie – Samochód” z liczebnością 1, a w UC „Zwróć samochód” pojawia się opóźnienie, model wymaga korekty (np. dodania obiektu Kara).</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Obiektowa analiza wymagań to jak tłumaczenie opowieści klienta na precyzyjny język inżynierii. Gdy zrozumiesz, że cały świat można opisać jako obiekty i ich relacje, przestaniesz bać się skomplikowanych systemów. Każdy system – od gry mobilnej po bankowość internetową – daje się rozłożyć na kawałki: ludzie, rzeczy, zdarzenia. A UML to tylko narzędzie, które pomaga Ci to narysować tak, by nikt się nie pomylił.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Applying UML and Patterns” (Craig Larman) – kompendium OOA · „Object-Oriented Software Engineering” (Ivar Jacobson) · „UML Distilled” (Martin Fowler) – zwięzłe źródło o notacji.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
