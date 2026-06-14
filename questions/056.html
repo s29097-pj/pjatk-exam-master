@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 056 – Definicja i rola inżynierii oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">056. Definicja i rola inżynierii oprogramowania.</h2>
+
+        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Buda dla psa kontra Drapacz Chmur”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Czym różni się <strong>Programowanie</strong> od <strong>Inżynierii Oprogramowania</strong>?<br><br>
+                        Jeśli chcesz zbudować <strong>budę dla psa</strong> (napisać prosty skrypt dla siebie), po prostu bierzesz deski, młotek, gwoździe i zaczynasz zbijasz. Jeśli wyjdzie krzywo – trudno, poprawisz jutro. Koszt błędu jest zerowy. To jest Programowanie.<br><br>
+                        Ale jeśli chcesz zbudować <strong>100-piętrowy drapacz chmur</strong> (np. system bankowy, system nawigacji samolotu), nie możesz po prostu wziąć betonu i wylewać go na oko. Potrzebujesz badań gruntu, planów architektonicznych, harmonogramu dla 500 pracowników, inspektorów BHP, kontroli jakości i budżetu. Koszt pomyłki to katastrofa i miliony dolarów. To jest właśnie <strong>Inżynieria Oprogramowania</strong>. To dyscyplina, która pozwala tworzyć ogromne systemy w sposób przewidywalny, mierzalny i bezpieczny.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Definicja wg IEEE</span>
+            <span class="keyword-tag">Kryzys oprogramowania (lata 60.)</span>
+            <span class="keyword-tag">Trzy filary: Metody, Narzędzia, Procesy</span>
+            <span class="keyword-tag">Koszt naprawy błędu (Cost of Change)</span>
+            <span class="keyword-tag">Niezawodność i Pielęgnacja (Maintenance)</span>
+            <span class="keyword-tag">Programista vs Inżynier</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0277bd;">1. Formalna definicja (wg IEEE) i Trzy Filary</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zgodnie z definicją IEEE (Instytut Inżynierów Elektryków i Elektroników), Inżynieria oprogramowania to: <em>„Zastosowanie systematycznego, zdyscyplinowanego i mierzalnego podejścia do tworzenia, eksploatacji oraz pielęgnacji oprogramowania”</em>. Opiera się ona na trzech fundamentalnych filarach, które podtrzymują jakość produktu.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e1f5fe" opacity="0.3"/>
+                <text x="410" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#01579b">Trzy filary Inżynierii Oprogramowania</text>
+
+                <polygon points="100,80 410,40 720,80" fill="#0277bd"/>
+                <text x="410" y="68" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">WYSOKIEJ JAKOŚCI OPROGRAMOWANIE</text>
+
+                <rect x="180" y="80" width="80" height="120" fill="#29b6f6" stroke="#0277bd" stroke-width="2"/>
+                <text x="220" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">METODY</text>
+                <text x="220" y="130" font-family="sans-serif" font-size="10" fill="#01579b" text-anchor="middle">"Jak to zrobić?"</text>
+                <text x="220" y="150" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Wzorce Projektowe</text>
+                <text x="220" y="165" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Analiza Wymagań</text>
+                <text x="220" y="180" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Testowanie</text>
+
+                <rect x="370" y="80" width="80" height="120" fill="#29b6f6" stroke="#0277bd" stroke-width="2"/>
+                <text x="410" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">PROCESY</text>
+                <text x="410" y="130" font-family="sans-serif" font-size="10" fill="#01579b" text-anchor="middle">"W jakiej kolejności?"</text>
+                <text x="410" y="150" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Scrum / Agile</text>
+                <text x="410" y="165" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Cykl Życia (SDLC)</text>
+                <text x="410" y="180" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Zarządzanie Czasem</text>
+
+                <rect x="560" y="80" width="80" height="120" fill="#29b6f6" stroke="#0277bd" stroke-width="2"/>
+                <text x="600" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">NARZĘDZIA</text>
+                <text x="600" y="130" font-family="sans-serif" font-size="10" fill="#01579b" text-anchor="middle">"Czym to zrobić?"</text>
+                <text x="600" y="150" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Git / GitHub</text>
+                <text x="600" y="165" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">Jira / Trello</text>
+                <text x="600" y="180" font-family="sans-serif" font-size="9" fill="#000" text-anchor="middle">CI/CD (Jenkins)</text>
+
+                <rect x="100" y="200" width="620" height="30" fill="#b0bec5" stroke="#78909c" stroke-width="2"/>
+                <text x="410" y="220" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">ZAPEWNIENIE JAKOŚCI (Quality Assurance - QA)</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Rola Inżynierii: Odpowiedź na „Kryzys Oprogramowania”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pojęcie to powstało w 1968 r. na konferencji NATO. W tamtych czasach sprzęt (Hardware) taniał i stawał się potężniejszy, co pozwalało na pisanie coraz większych programów. Niestety, okazało się, że <strong>złożoność kodu rosła szybciej, niż ludzki mózg potrafił ją ogarnąć</strong>. Projekty masowo przekraczały budżety, spóźniały się o lata lub nie działały wcale. Zrozumiano, że programowania nie da się traktować jak wolnej sztuki – trzeba je ustrukturyzować.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Największą rolą Inżynierii Oprogramowania jest <strong>Zarządzanie kosztem zmiany (Cost of Change)</strong>. Im później w cyklu życia projektu znajdziesz błąd, tym droższa jest jego naprawa.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridGraph" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#eceff1" stroke-width="0.5"/>
+                        <path d="M 0 40 L 40 40 L 40 0" fill="none" stroke="#eceff1" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridGraph)"/>
+                
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c2185b">Wykres Boehm'a: Koszt naprawy błędu w czasie (Cost of Defect)</text>
+
+                <line x1="80" y1="230" x2="750" y2="230" stroke="#37474f" stroke-width="3"/>
+                <line x1="80" y1="230" x2="80" y2="50" stroke="#37474f" stroke-width="3"/>
+                
+                <text x="40" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" transform="rotate(-90 40 140)" text-anchor="middle">Koszt naprawy ($)</text>
+                <text x="415" y="260" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Fazy Cyklu Życia Projektu</text>
+
+                <text x="150" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Wymagania</text>
+                <text x="280" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Projektowanie (Arch)</text>
+                <text x="410" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Programowanie</text>
+                <text x="540" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Testy Systemowe</text>
+                <text x="680" y="245" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c2185b" text-anchor="middle">Produkcja (Utrzymanie)</text>
+
+                <path d="M 150 220 Q 400 220 540 150 T 680 60" fill="none" stroke="#d81b60" stroke-width="4"/>
+                
+                <circle cx="150" cy="220" r="5" fill="#d81b60"/>
+                <text x="150" y="205" font-family="monospace" font-size="11" fill="#c2185b" text-anchor="middle">1x</text>
+
+                <circle cx="280" cy="215" r="5" fill="#d81b60"/>
+                <text x="280" y="200" font-family="monospace" font-size="11" fill="#c2185b" text-anchor="middle">5x</text>
+
+                <circle cx="410" cy="195" r="5" fill="#d81b60"/>
+                <text x="410" y="180" font-family="monospace" font-size="11" fill="#c2185b" text-anchor="middle">10x</text>
+
+                <circle cx="540" cy="150" r="5" fill="#d81b60"/>
+                <text x="540" y="135" font-family="monospace" font-size="11" fill="#c2185b" text-anchor="middle">50x</text>
+
+                <circle cx="680" cy="60" r="7" fill="#b71c1c"/>
+                <text x="680" y="45" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">100x !!!</text>
+
+                <rect x="100" y="50" width="300" height="50" rx="6" fill="#fce4ec" stroke="#d81b60" stroke-width="1" stroke-dasharray="4,4"/>
+                <text x="250" y="70" font-family="sans-serif" font-size="11" fill="#880e4f" text-anchor="middle">Inżynieria skupia się na fazie Wymagań,</text>
+                <text x="250" y="85" font-family="sans-serif" font-size="11" fill="#880e4f" text-anchor="middle">aby uniknąć katastrofy na Produkcji.</text>
+
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Coder vs Computer Scientist vs Software Engineer</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To klasyczne pytanie, które bada Twoje zrozumienie własnego zawodu inżyniera. Informatyka teoretyczna (Computer Science) odkrywa algorytmy. Programista po prostu pisze kod. Inżynier oprogramowania odpowiada za <strong>cały cykl życia, budżet i utrzymanie</strong>.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Przesunięcie perspektywy: Informatyk vs Inżynier</text>
+
+                <rect x="100" y="50" width="280" height="100" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="100" y="50" width="280" height="25" fill="#f57c00" rx="4"/>
+                <rect x="100" y="65" width="280" height="10" fill="#f57c00"/>
+                <text x="240" y="68" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Informatyka Teoretyczna (CS)</text>
+                
+                <text x="240" y="95" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Skupiona na odkryciach i teorii.</text>
+                <text x="240" y="115" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Optymalizacja algorytmów (Big-O).</text>
+                <text x="240" y="135" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Działa w idealnych, matematycznych warunkach.</text>
+
+                <rect x="440" y="50" width="280" height="100" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="440" y="50" width="280" height="25" fill="#2e7d32" rx="4"/>
+                <rect x="440" y="65" width="280" height="10" fill="#2e7d32"/>
+                <text x="580" y="68" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Inżynieria Oprogramowania (SE)</text>
+
+                <text x="580" y="95" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Skupiona na rozwiązywaniu problemów klienta.</text>
+                <text x="580" y="115" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Ograniczona budżetem, zespołem i czasem.</text>
+                <text x="580" y="135" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Skupiona na czytelności kodu i architekturze.</text>
+                
+                <path d="M 390 100 L 430 100" fill="none" stroke="#78909c" stroke-width="3" marker-end="url(#arrowGrey)"/>
+                <text x="410" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#546e7a" text-anchor="middle">Zastosowanie</text>
+
+                <defs>
+                    <marker id="arrowGrey" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#78909c"/></marker>
+                </defs>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki wykładowców):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Oprogramowanie to tylko kod źródłowy"</strong> – Zasadniczy błąd! Z punktu widzenia inżynierii, produktem oprogramowania jest Kod + Dokumentacja Techniczna + Dane Konfiguracyjne + Testy. Bez dokumentacji i testów, zostawiasz po sobie tzw. "Legacy Code" (kod dziedziczony, którego nikt nie chce dotykać).</li>
+                    <li><strong>Paradoks Pielęgnacji (Maintenance)</strong> – Wielu myśli, że większość pracy to tworzenie systemu. Błąd. Aż <strong>60% - 80%</strong> całkowitego kosztu i czasu życia oprogramowania to <em>Pielęgnacja</em> (poprawianie błędów na produkcji, dostosowywanie do nowych wersji OS, dodawanie ficzerów). Inżynieria istnieje po to, by kod można było łatwo modyfikować przez kolejne lata.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Kodować może każdy. Napisanie skryptu w Pythonie, który pobiera pogodę, zajmuje 20 minut. Jednak zbudowanie systemu bankowego, nad którym pracuje jednocześnie 300 programistów w 5 różnych krajach, który musi być dostępny 24/7, który ma precyzyjnie określony budżet i musi spełniać prawne normy bezpieczeństwa, wymaga zupełnie innych narzędzi. Wymaga Inżynierii. Pamiętaj: piszesz kod raz, ale jest on czytany i zmieniany tysiące razy przez innych. Inżynieria Oprogramowania to szacunek do tych, którzy przyjdą pracować z Twoim kodem po Tobie.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Inżynieria Oprogramowania” (Ian Sommerville) – biblia przedmiotu · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman).
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
