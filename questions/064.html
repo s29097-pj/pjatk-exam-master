@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 064 – Komponenty i podsystemy</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">064. Podejście oparte o komponenty i podsystemy.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧩</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od monolitycznej cegły do pudełka klocków LEGO”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a237e; line-height: 1.7;">
+                        Wyobraź sobie dwie zabawki. Pierwsza to rzeźba wyrzeźbiona z jednego ogromnego bloku drewna – piękna, ale gdy pęknie jej noga, cała rzeźba ląduje w śmietniku. Druga to zestaw klocków LEGO – każdy klocek pasuje do innych, ma wystandaryzowane wypustki, a gdy jeden się zgubi, wymieniasz go na inny, nie rujnując całej budowli.
+                    </p>
+                    <p style="margin: 0; color: #1a237e; line-height: 1.7;">
+                        <strong>Podejście oparte na komponentach</strong> to właśnie budowanie systemów jak z klocków – z niezależnych, wymienialnych modułów, które komunikują się przez ściśle zdefiniowane interfejsy. <strong>Podsystemy</strong> to większe grupy takich klocków, które razem realizują jakąś większą funkcję (np. „obsługa płatności” składa się z komponentów: Bramka, Walidator, GeneratorFaktur). Zamiast jednej, gigantycznej aplikacji (monolitu), tworzysz sieć współpracujących, ale niezależnych części. Gdy jedna się psuje, reszta działa dalej.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Komponent (component)</span>
+            <span class="keyword-tag">Interfejs / Kontrakt (API)</span>
+            <span class="keyword-tag">Luźne powiązania (loose coupling)</span>
+            <span class="keyword-tag">Wysoka spójność (high cohesion)</span>
+            <span class="keyword-tag">Hermetyzacja (encapsulation)</span>
+            <span class="keyword-tag">Podsystem (subsystem)</span>
+            <span class="keyword-tag">Wymienialność (substituability)</span>
+            <span class="keyword-tag">Kompozycja / Delegacja</span>
+            <span class="keyword-tag">Cykl życia komponentu</span>
+            <span class="keyword-tag">CBSE (Component-Based SE)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Definicja komponentu i podsystemu -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Co to jest komponent, a co podsystem?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W inżynierii oprogramowania <strong>komponent</strong> to niezależna jednostka oprogramowania, która:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li>Ma jasno zdefiniowany <strong>interfejs</strong> (API) – czyli kontrakt, który mówi, jak z niej korzystać.</li>
+                    <li>Jest <strong>wymienialna</strong> – możesz podmienić jeden komponent na inny, o ile spełnia ten sam interfejs.</li>
+                    <li>Hermetyzuje swoją implementację – świat zewnętrzny nie wie, jak działa w środku.</li>
+                    <li>Może być rozwijana, testowana i wdrażana niezależnie od reszty systemu.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Podsystem</strong> to logiczna grupa powiązanych komponentów, które razem realizują większą funkcję. Na przykład podsystem „Zarządzanie użytkownikami” może zawierać komponenty: Rejestracja, Logowanie, Resetowanie hasła, Profil.
+                </p>
+            </div>
+
+            <!-- SVG: Monolit vs Komponenty -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Monolit kontra Architektura Komponentowa</text>
+
+                <!-- Monolit -->
+                <rect x="40" y="50" width="300" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="190" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">MONOLIT</text>
+                <rect x="60" y="85" width="260" height="25" fill="#ef9a9a"/>
+                <text x="190" y="102" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">Logowanie + Płatności + Produkty</text>
+                <rect x="60" y="115" width="260" height="25" fill="#ef9a9a"/>
+                <text x="190" y="132" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">+ Raporty + Powiadomienia</text>
+                <text x="190" y="170" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Wszystko w jednym procesie.</text>
+                <text x="190" y="190" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Awaria = awaria całości.</text>
+                <text x="190" y="210" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Zmiana jednego = redeploy wszystkiego.</text>
+
+                <!-- Strzałka -->
+                <path d="M 360 140 L 400 140" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrBlue)"/>
+
+                <!-- System komponentowy -->
+                <rect x="420" y="50" width="370" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">ARCHITEKTURA KOMPONENTOWA</text>
+
+                <rect x="440" y="85" width="100" height="35" rx="4" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="490" y="107" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">Komponent A</text>
+                <rect x="550" y="85" width="100" height="35" rx="4" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="600" y="107" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">Komponent B</text>
+                <rect x="660" y="85" width="110" height="35" rx="4" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="715" y="107" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">Komponent C</text>
+
+                <rect x="440" y="130" width="160" height="35" rx="4" fill="#fff9c4" stroke="#fbc02d"/>
+                <text x="520" y="152" font-family="sans-serif" font-size="9" font-weight="bold" fill="#f57f17" text-anchor="middle">Podsystem Płatności</text>
+                <rect x="620" y="130" width="150" height="35" rx="4" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="695" y="152" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">Podsystem Produktów</text>
+
+                <text x="605" y="190" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Każdy komponent jest niezależny.</text>
+                <text x="605" y="210" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Łączą je interfejsy (API).</text>
+
+                <defs>
+                    <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 2. Zasady: spójność i powiązania -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Dwie święte zasady: Wysoka Spójność i Luźne Powiązania</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Cała idea komponentów opiera się na dwóch filarach, które każdy inżynier powinien znać jak pacierz:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wysoka Spójność (High Cohesion):</strong> Wszystko wewnątrz komponentu jest ze sobą ściśle powiązane i dotyczy jednej odpowiedzialności. Jeśli komponent nazywa się „SilnikPłatności”, nie powinien zajmować się wysyłaniem newsletterów. Łatwiej go wtedy zrozumieć, przetestować i rozwijać.</li>
+                    <li><strong>Luźne Powiązania (Loose Coupling):</strong> Komponenty wiedzą o sobie jak najmniej. Komunikują się przez stabilne interfejsy, a nie przez bezpośrednie wywołania wewnętrznych metod. Dzięki temu zmiana w komponencie A nie wymusza zmian w B, C i D.</li>
+                </ul>
+            </div>
+
+            <!-- 3. Interfejsy i kontrakty -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Interfejs – kontrakt, którego nie możesz złamać</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kluczem do wszystkiego jest <strong>interfejs</strong> (API) – publiczny zestaw operacji, które komponent udostępnia światu. Interfejs jest jak gniazdko elektryczne: nie obchodzi Cię, jak prąd płynie w ścianach – wkładasz wtyczkę i działa. Możesz wymienić całą instalację w domu, a gniazdko pozostaje takie samo. W oprogramowaniu: możesz przepisać komponent od zera, ale jeśli zachowasz ten sam interfejs, reszta systemu nawet tego nie zauważy.
+                </p>
+            </div>
+
+            <!-- SVG: Hierarchia system -> podsystem -> komponent -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e8eaf6" opacity="0.2"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#283593">Hierarchia: System → Podsystem → Komponent → Interfejs</text>
+
+                <!-- System -->
+                <rect x="260" y="45" width="300" height="40" rx="8" fill="#3949ab"/>
+                <text x="410" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">SYSTEM (aplikacja e-commerce)</text>
+
+                <path d="M 300 85 L 220 115" fill="none" stroke="#5c6bc0" stroke-width="2"/>
+                <path d="M 520 85 L 600 115" fill="none" stroke="#5c6bc0" stroke-width="2"/>
+
+                <!-- Podsystemy -->
+                <rect x="120" y="120" width="200" height="35" rx="6" fill="#7986cb" stroke="#3949ab"/>
+                <text x="220" y="142" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Podsystem: Użytkownicy</text>
+
+                <rect x="500" y="120" width="200" height="35" rx="6" fill="#7986cb" stroke="#3949ab"/>
+                <text x="600" y="142" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Podsystem: Zamówienia</text>
+
+                <path d="M 170 155 L 140 185" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+                <path d="M 270 155 L 300 185" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+
+                <!-- Komponenty -->
+                <rect x="30" y="190" width="150" height="30" rx="4" fill="#c5cae9" stroke="#5c6bc0"/>
+                <text x="105" y="210" font-family="monospace" font-size="9" fill="#1a237e" text-anchor="middle">Komponent: Logowanie</text>
+
+                <rect x="230" y="190" width="150" height="30" rx="4" fill="#c5cae9" stroke="#5c6bc0"/>
+                <text x="305" y="210" font-family="monospace" font-size="9" fill="#1a237e" text-anchor="middle">Komponent: Rejestracja</text>
+
+                <!-- Interfejsy (pod komponentami) -->
+                <rect x="120" y="230" width="180" height="20" rx="3" fill="#e8eaf6" stroke="#9fa8da" stroke-width="1" stroke-dasharray="3,2"/>
+                <text x="210" y="244" font-family="sans-serif" font-size="8" fill="#3949ab" text-anchor="middle">Interfejs: IUserAuth (login, logout, register)</text>
+            </svg>
+
+            <!-- 4. Przykład praktyczny -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">4. Przykład praktyczny: System e‑commerce zbudowany z komponentów</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Rozważmy typowy sklep internetowy. Zamiast jednej gigantycznej aplikacji, dzielimy go na podsystemy i komponenty:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Podsystem „Katalog Produktów”</strong> – komponenty: Wyszukiwarka, Przeglądarka, SzczegółyProduktu.</li>
+                    <li><strong>Podsystem „Koszyk i Zamówienia”</strong> – komponenty: Koszyk, SkładanieZamówienia, HistoriaZamówień.</li>
+                    <li><strong>Podsystem „Płatności”</strong> – komponenty: BramkaPayU, BramkaStripe, GeneratorFaktur.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy pojawia się nowa, lepsza bramka płatności (np. Blik), dodajesz nowy komponent implementujący ten sam interfejs <code>IPaymentGateway</code>. Reszta systemu – koszyk, zamówienia, historia – nie wymaga żadnych zmian. Podmiana jednego klocka nie burzy całej budowli.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy komponentowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Podzielę system na 100 mikroskopijnych komponentów, to będzie idealnie”</strong> – Granica jest tam, gdzie koszt komunikacji między komponentami przewyższa korzyści z ich niezależności. Komponent, który ma 2 metody i 20 linii kodu, to przerost formy nad treścią.</li>
+                    <li><strong>„Interfejsy są dla słabych – ja będę wołał metody bezpośrednio”</strong> – Bez interfejsów nie ma wymienialności. Gdy klasa A zależy od konkretnej klasy B, a nie od interfejsu IB, zmiana B niszczy A. To się nazywa „kruche oprogramowanie”.</li>
+                    <li><strong>„Komponent = klasa w Javie/C#”</strong> – NIE. Komponent może składać się z wielu klas, plików konfiguracyjnych, a nawet osobnej bazy danych. To jednostka wdrożeniowa, a nie tylko językowy konstrukt.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Podejście komponentowe to nie tylko technologia – to filozofia tworzenia systemów, które przetrwają próbę czasu. Każdy komponent to mała forteca: samowystarczalna, broniąca swojej wewnętrznej logiki, komunikująca się ze światem tylko przez strzeżone bramy (interfejsy). Gdy zrozumiesz tę metaforę, przestaniesz tworzyć aplikacje, które rozsypują się przy pierwszej zmianie wymagań.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Component-Based Software Engineering” (Clemens Szyperski) · „Software Architecture in Practice” (Bass, Clements, Kazman) · „Clean Architecture” (Robert C. Martin).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
