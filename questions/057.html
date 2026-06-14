@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 057 – Projekt IT</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">057. Definicja, główne właściwości i charakterystyka projektu IT.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧭</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Fabryka aut kontra Wyprawa na Marsa”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Musimy ostro rozdzielić dwie rzeczy: Działania Operacyjne (Procesy) i Projekty.<br><br>
+                        <strong>Działanie operacyjne</strong> to fabryka samochodów. Codziennie taśma produkcyjna wypuszcza 100 identycznych aut. Jest to powtarzalne, ciągłe, rutynowe i pozbawione większego ryzyka.<br><br>
+                        <strong>Projekt IT</strong> to z kolei misja wysłania łazika na Marsa. Ma dokładną datę startu i końca. Masz określony budżet (ilość paliwa i zapasów). Cel jest absolutnie unikalny – nikt nigdy wcześniej nie budował DOKŁADNIE takiej samej aplikacji w takich samych warunkach. Skoro to wyprawa w nieznane, na każdym kroku czai się potężne ryzyko, a wymagania i plany będą musiały być na bieżąco korygowane. Zbudowanie aplikacji to misja na Marsa.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Definicja PMI / PMBOK</span>
+            <span class="keyword-tag">Tymczasowość (początek i koniec)</span>
+            <span class="keyword-tag">Unikalność produktu/usługi</span>
+            <span class="keyword-tag">Stopniowe doprecyzowanie (Elaboration)</span>
+            <span class="keyword-tag">Żelazny Trójkąt (Zasięg, Czas, Koszt)</span>
+            <span class="keyword-tag">Niematerialność oprogramowania</span>
+            <span class="keyword-tag">Stożek niepewności (Cone of Uncertainty)</span>
+            <span class="keyword-tag">Cykl życia projektu (fazy)</span>
+            <span class="keyword-tag">Interesariusze (stakeholders)</span>
+            <span class="keyword-tag">Business Case</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Definicja PMI -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Formalna definicja projektu (wg PMI)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Project Management Institute (PMI) w swojej biblii <em>PMBOK</em> definiuje projekt jednym, klasycznym zdaniem:
+                    <br><br><strong style="font-size: 1.1rem;">"Projekt to tymczasowe przedsięwzięcie podejmowane w celu stworzenia unikalnego produktu, usługi lub rezultatu."</strong><br><br>
+                    Z tej definicji wynikają trzy absolutnie kluczowe właściwości KAŻDÉGO projektu:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Tymczasowość:</strong> Projekt nie trwa wiecznie. Ma zdefiniowany punkt początkowy i punkt końcowy. Kończy się, gdy osiągnięto cele, lub gdy projekt przerwano.</li>
+                    <li><strong>Unikalność:</strong> Nawet jeśli firma buduje 10. sklep internetowy, za 10. razem zespół jest inny, technologie się zaktualizowały, a wymagania klienta są lekko odmienne. Produkt jest zawsze niepowtarzalny.</li>
+                    <li><strong>Stopniowe doprecyzowanie (Progressive Elaboration):</strong> Projekt rozwija się w krokach. Na początku masz tylko ogólną wizję. Z czasem, w miarę analizy, wizja ta zamienia się w konkretne linijki kodu.</li>
+                </ul>
+            </div>
+
+            <!-- 2. Cykl życia projektu IT (NOWA SEKCJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Cykl życia projektu IT – od pomysłu do wdrożenia</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każdy projekt IT przechodzi przez przewidywalne fazy. Niezależnie od metodyki (Waterfall czy Agile), te etapy zawsze występują – różni się tylko sposób ich realizacji (sekwencyjny lub iteracyjny).
+                </p>
+            </div>
+
+            <!-- SVG: Cykl życia projektu -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Fazy cyklu życia projektu IT</text>
+
+                <!-- Faza 1: Inicjacja -->
+                <rect x="20" y="50" width="140" height="70" rx="8" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="90" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">🚀 Inicjacja</text>
+                <text x="90" y="95" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Business Case</text>
+                <text x="90" y="108" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Karta projektu</text>
+                <path d="M 160 85 L 195 85" fill="none" stroke="#4caf50" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+                <!-- Faza 2: Planowanie -->
+                <rect x="200" y="50" width="140" height="70" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="2"/>
+                <text x="270" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">📋 Planowanie</text>
+                <text x="270" y="95" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Harmonogram</text>
+                <text x="270" y="108" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Budżet, ryzyka</text>
+                <path d="M 340 85 L 375 85" fill="none" stroke="#66bb6a" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+                <!-- Faza 3: Realizacja -->
+                <rect x="380" y="50" width="140" height="70" rx="8" fill="#fff" stroke="#81c784" stroke-width="2"/>
+                <text x="450" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">⚙️ Realizacja</text>
+                <text x="450" y="95" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Kodowanie</text>
+                <text x="450" y="108" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Testowanie</text>
+                <path d="M 520 85 L 555 85" fill="none" stroke="#81c784" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+                <!-- Faza 4: Zamknięcie -->
+                <rect x="560" y="50" width="140" height="70" rx="8" fill="#fff" stroke="#a5d6a7" stroke-width="2"/>
+                <text x="630" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Zamknięcie</text>
+                <text x="630" y="95" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Wdrożenie</text>
+                <text x="630" y="108" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Lessons Learned</text>
+
+                <!-- Monitorowanie (na dole) -->
+                <rect x="250" y="140" width="320" height="35" rx="6" fill="#fff" stroke="#ff9800" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="410" y="162" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">🔍 Monitorowanie i kontrola (przez cały czas trwania)</text>
+                <path d="M 410 140 L 410 122" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 270 140 L 270 122" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <path d="M 550 140 L 550 122" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                <defs>
+                    <marker id="arrGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4caf50"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 3. Żelazny Trójkąt (rozbudowany o Jakość) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Żelazny Trójkąt – dlaczego „szybko, tanio, dobrze” to mit</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W zarządzaniu projektami funkcjonuje pojęcie <strong>Żelaznego Trójkąta</strong> (Iron Triangle), który mówi, że <strong>Zakres, Czas i Koszt</strong> są ze sobą nierozerwalnie związane. Zmiana jednego zmusza do zmiany co najmniej jednego z pozostałych. W centrum trójkąta znajduje się <strong>Jakość</strong> – wypadkowa tych trzech sił.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridProj" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridProj)" opacity="0.6"/>
+                <text x="410" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1b5e20">Żelazny Trójkąt Zarządzania Projektem (Iron Triangle)</text>
+
+                <polygon points="410,70 230,220 590,220" fill="#e8f5e9" stroke="#2e7d32" stroke-width="4" stroke-linejoin="round"/>
+
+                <text x="410" y="160" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">JAKOŚĆ</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Wypadkowa 3 sił)</text>
+
+                <rect x="360" y="45" width="100" height="30" rx="4" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">ZAKRES</text>
+                <text x="410" y="35" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Co robimy?</text>
+
+                <rect x="150" y="220" width="100" height="30" rx="4" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="200" y="240" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">KOSZT</text>
+                <text x="200" y="265" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Budżet / Ludzie</text>
+
+                <rect x="570" y="220" width="100" height="30" rx="4" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+                <text x="620" y="240" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">CZAS</text>
+                <text x="620" y="265" font-family="sans-serif" font-size="10" fill="#c2185b" text-anchor="middle">Harmonogram</text>
+
+                <path d="M 680 140 Q 720 180 650 210" fill="none" stroke="#78909c" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowGr)"/>
+                <text x="730" y="160" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Skracasz czas?</text>
+                <text x="730" y="175" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Musisz uciąć zakres</text>
+                <text x="730" y="190" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">albo zwiększyć koszt!</text>
+
+                <defs>
+                    <marker id="arrowGr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#78909c"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W projektach IT trójkąt ten jest wyjątkowo wrażliwy, ponieważ oprogramowanie jest <strong>niematerialne</strong>. W budownictwie, jeśli chcesz szybciej postawić most, możesz zatrudnić więcej ekip (zwiększasz koszt). W IT dodanie programistów do spóźnionego projektu często go jeszcze bardziej opóźnia (Prawo Brooksa: „Dodawanie ludzi do spóźnionego projektu opóźnia go jeszcze bardziej”).
+                </p>
+            </div>
+
+            <!-- 4. Specyfika projektów IT (rozszerzona) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">4. Co czyni projekty IT tak bardzo specyficznymi (i trudnymi)?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Budowa mostu to projekt. Napisanie aplikacji to też projekt. Dlaczego zatem 70% projektów IT przekracza budżet lub kończy się fiaskiem, podczas gdy mosty zwykle powstają na czas?
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 250px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">👻 Niematerialność oprogramowania</strong><br>
+                        <span style="font-size:0.85rem;">Most widzisz, jak rośnie. Oprogramowanie to niewidzialne myśli zapisane w formie kodu w pamięci RAM. Znacznie trudniej ocenić, czy projekt jest ukończony w 50% czy w 90%. (Słynne programistyczne: <em>"Zostało mi tylko kilka poprawek"</em>).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#1565c0;">🌪️ Ekstremalna zmienność wymagań</strong><br>
+                        <span style="font-size:0.85rem;">Klient budujący dom rzadko w połowie prac prosi o przeniesienie fundamentów. W IT klient <em>nieustannie</em> zmienia zdanie, widząc pierwsze prototypy, ponieważ oprogramowanie jest na pozór "łatwe do zmiany".</span>
+                    </div>
+                    <div style="flex: 1; min-width: 250px; background: #fce4ec; border-radius: 10px; padding: 14px; border: 1px solid #f48fb1;">
+                        <strong style="color:#c2185b;">🚀 Prędkość dezaktualizacji</strong><br>
+                        <span style="font-size:0.85rem;">Projekt w branży naftowej może trwać 10 lat. W IT, po 3 latach tworzenia dużej platformy biznesowej, może się okazać, że wybrany framework jest już martwy (przestarzały), a na rynek wszedł nowy, rewolucyjny konkurent (np. ChatGPT).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Interesariusze (NOWA SEKCJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">5. Interesariusze – kto ma wpływ na Twój projekt?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Interesariusz (stakeholder)</strong> to każda osoba, grupa lub organizacja, która może wpłynąć na projekt lub odczuć jego skutki. W projektach IT lista interesariuszy jest często dłuższa, niż się wydaje – od sponsora po użytkownika końcowego i dział prawny.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Sponsor projektu</strong> – osoba z budżetem, która finansuje projekt. Bez jej wsparcia projekt umiera.</li>
+                    <li><strong>Klient / Właściciel Produktu (Product Owner)</strong> – definiuje wymagania i akceptuje rezultaty.</li>
+                    <li><strong>Zespół projektowy</strong> – programiści, testerzy, UX designerzy – ci, którzy realnie dostarczają produkt.</li>
+                    <li><strong>Użytkownicy końcowi</strong> – osoby, które będą używać systemu na co dzień. Ich zadowolenie jest ostatecznym miernikiem sukcesu.</li>
+                    <li><strong>Dział IT / Utrzymania</strong> – przejmie system po wdrożeniu. Jeśli nie zaakceptuje go na etapie projektu, będzie sabotował wdrożenie.</li>
+                </ul>
+            </div>
+
+            <!-- 6. Stożek niepewności (rozbudowany) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">6. Stożek niepewności – dlaczego wczesne estymacje są zawsze błędne</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Koncepcja <strong>Stożka Niepewności (Cone of Uncertainty)</strong> autorstwa Steve'a McConnella mówi, że na początku projektu nasze estymacje kosztów i czasu są obarczone ogromnym błędem – od <strong>-75% do +300%</strong> na etapie koncepcji. W miarę postępu projektu i zdobywania wiedzy, przedział błędu się zwęża.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 270" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="270" fill="url(#gridProj)" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Stożek Niepewności (Cone of Uncertainty) w Projektach IT</text>
+
+                <line x1="100" y1="220" x2="750" y2="220" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="425" y="255" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Oś czasu projektu</text>
+
+                <line x1="100" y1="220" x2="100" y2="50" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="60" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 60 135)">Błąd Estymacji</text>
+
+                <path d="M 120 60 Q 300 130 650 145" fill="none" stroke="#e65100" stroke-width="3"/>
+                <path d="M 120 210 Q 300 160 650 145" fill="none" stroke="#e65100" stroke-width="3"/>
+
+                <path d="M 120 60 Q 300 130 650 145 L 650 145 Q 300 160 120 210 Z" fill="#ffe0b2" opacity="0.4"/>
+                <line x1="100" y1="145" x2="750" y2="145" stroke="#1565c0" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="760" y="150" font-family="sans-serif" font-size="11" fill="#1565c0">Rzeczywisty Koszt / Czas</text>
+
+                <!-- Etykiety dla stożka -->
+                <text x="120" y="45" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">+300%</text>
+                <text x="120" y="205" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">-75%</text>
+
+                <line x1="120" y1="220" x2="120" y2="230" stroke="#37474f" stroke-width="2"/>
+                <text x="120" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Koncepcja</text>
+
+                <line x1="350" y1="220" x2="350" y2="230" stroke="#37474f" stroke-width="2"/>
+                <text x="350" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Wymagania</text>
+                <text x="350" y="170" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">±150%</text>
+
+                <line x1="520" y1="220" x2="520" y2="230" stroke="#37474f" stroke-width="2"/>
+                <text x="520" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Projektowanie</text>
+                <text x="520" y="155" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">±50%</text>
+
+                <line x1="650" y1="220" x2="650" y2="230" stroke="#37474f" stroke-width="2"/>
+                <text x="650" y="245" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Koniec kodowania</text>
+                <text x="650" y="148" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">±0%</text>
+
+                <!-- Jak Agile skraca stożek -->
+                <rect x="220" y="30" width="380" height="70" rx="6" fill="#fff" stroke="#ffb74d" stroke-width="2"/>
+                <text x="410" y="50" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Jak Agile radzi sobie ze stożkiem?</text>
+                <text x="410" y="65" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Zamiast estymować cały projekt na początku, Agile estymuje tylko</text>
+                <text x="410" y="78" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">najbliższy Sprint (1-4 tygodnie). Dzięki temu błąd estymacji jest minimalny.</text>
+                <text x="410" y="91" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Każdy Sprint to jak osobny, mały projekt z własnym stożkiem niepewności.</text>
+
+                <defs>
+                    <marker id="arrowDark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 7. Przykład praktyczny (NOWA SEKCJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">7. Przykład praktyczny: Wdrożenie systemu CRM w firmie X</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby zobaczyć, jak wszystkie te właściwości manifestują się w prawdziwym projekcie IT, przeanalizujmy typowe wdrożenie systemu CRM (Customer Relationship Management) w średniej firmie handlowej.
+                </p>
+                <div style="background: #f5f5f5; border-radius: 10px; padding: 16px; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #1565c0; width: 180px;">Tymczasowość</td>
+                            <td style="padding: 8px;">Projekt trwa od 1 stycznia do 30 czerwca (6 miesięcy). Po wdrożeniu zespół projektowy się rozwiązuje, a system przechodzi w tryb utrzymania.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #1565c0;">Unikalność</td>
+                            <td style="padding: 8px;">Firma X ma specyficzny proces sprzedaży (sprzedaż przez przedstawicieli regionalnych, integracja z magazynem). Mimo że na rynku są setki CRM-ów, żaden nie pasuje „od ręki”. Konieczna jest personalizacja i integracja z istniejącym ERP.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #1565c0;">Stopniowe doprecyzowanie</td>
+                            <td style="padding: 8px;">Na starcie wiadomo tylko, że „system ma usprawnić sprzedaż”. Po warsztatach z użytkownikami okazuje się, że kluczowe jest śledzenie lejka sprzedażowego i automatyczne przypomnienia o follow-upach. Te szczegóły ujawniają się dopiero w trakcie analizy.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #1565c0;">Żelazny Trójkąt</td>
+                            <td style="padding: 8px;">Sponsor prosi o dodanie modułu raportowego (zwiększenie zakresu) na dwa tygodnie przed deadlinem. Zespół odpowiada: „OK, ale potrzebujemy dodatkowego programisty (zwiększenie kosztu) lub przesunięcia deadline'u o miesiąc (zwiększenie czasu)”.</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: bold; color: #1565c0;">Interesariusze</td>
+                            <td style="padding: 8px;">Sponsor (CEO), Product Owner (szef sprzedaży), zespół IT (3 programistów, 1 tester), użytkownicy końcowi (20 handlowców), dział prawny (RODO). Każdy ma inne oczekiwania – zarządzanie nimi to połowa sukcesu.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki pojęciowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Utrzymanie systemu (Maintenance) to kolejny projekt"</strong> – KARDYNALNY BŁĄD. Budowa systemu e-commerce od 0 do uruchomienia to Projekt. Ale gdy sklep działa, a zespół codziennie naprawia w nim małe błędy (bugfixing) i aktualizuje serwery przez 3 lata – to jest <strong>Utrzymanie / Działanie Operacyjne</strong>, a nie projekt. Nie ma ono sztywnego końca.</li>
+                    <li><strong>"Sukces projektu IT to dostarczenie go na czas i w budżecie"</strong> – Kiedyś tak. Dziś uznaje się, że możesz dowieźć aplikację na czas, zmieścić się w budżecie, ale jeśli nikt z niej nie korzysta, projekt jest technicznie sukcesem, ale biznesowo <strong>porażką</strong>. W nowoczesnym IT (Agile) najważniejsze jest <em>Dostarczanie Wartości (Value)</em>, a nie ślepe trzymanie się planu.</li>
+                    <li><strong>"Dodanie programistów przyspieszy spóźniony projekt"</strong> – Prawo Brooksa mówi wprost: „Dodawanie ludzi do spóźnionego projektu opóźnia go jeszcze bardziej”. Nowe osoby potrzebują czasu na wdrożenie, zwiększają koszty komunikacji i często spowalniają dotychczasowy zespół.</li>
+                </ul>
+            </div>
+
+            <!-- Tabela: Projekt vs Operacje -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Ostateczne Starcie: Projekt vs Działania Operacyjne:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a; color: #2e7d32;">Projekt (Project)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a; color: #c62828;">Operacje (Operations)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Czas trwania</td>
+                        <td style="padding: 10px;">Tymczasowy (ma koniec).</td>
+                        <td style="padding: 10px;">Ciągły, stały (trwa dopóki istnieje firma).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Cel</td>
+                        <td style="padding: 10px;">Stworzenie czegoś nowego, unikalnego (np. nowa aplikacja).</td>
+                        <td style="padding: 10px;">Utrzymanie biznesu, powtarzalność (np. Helpdesk).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Zarządzanie ryzykiem</td>
+                        <td style="padding: 10px;">Wysokie ryzyko i niepewność (wiele niewiadomych).</td>
+                        <td style="padding: 10px;">Niskie ryzyko (procesy są sprawdzone i zoptymalizowane).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Zespół</td>
+                        <td style="padding: 10px;">Formowany specjalnie na czas projektu, potem rozwiązywany.</td>
+                        <td style="padding: 10px;">Stałe działy (np. Dział Utrzymania Ruchu, Dział Księgowości).</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamiętaj, że oprogramowanie jest unikalną inżynierią. Architekt projektujący most nie może pod koniec budowy zmienić zdania i kazać przenieść filary o 100 metrów w lewo. W IT klienci robią to non-stop, wymuszając zmianę architektury na dwa tygodnie przed premierą. Właśnie z tego powodu (Stożek Niepewności) świat IT musiał w dużej mierze odrzucić tradycyjne, twarde zarządzanie projektami i stworzyć podejście Zwinne (Agile), o którym będziemy mówić w kolejnych zagadnieniach.</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
