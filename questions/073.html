@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 073 – Pielęgnacja i ewolucja oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">073. Pielęgnacja i ewolucja oprogramowania.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🌱</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kupno domu to dopiero początek wyzwań”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że właśnie wprowadziłeś się do wymarzonego domu. Uroczyste przecięcie wstęgi już za Tobą. Czy to oznacza, że teraz możesz już tylko odpoczywać? Nic bardziej mylnego. Czeka Cię koszenie trawnika, odmalowywanie ścian, wymiana cieknącego kranu, a za kilka lat może i remont dachu. Jeśli zaniedbasz te obowiązki, dom z czasem popadnie w ruinę i stanie się niezdatny do życia.
+                    </p>
+                    <p style="margin: 0; color: #1a3a2a; line-height: 1.7;">
+                        Z oprogramowaniem jest dokładnie tak samo. Moment wdrożenia systemu to nie jest koniec projektu, a dopiero początek jego dorosłego życia. <strong>Pielęgnacja i ewolucja oprogramowania</strong> to wszystkie działania podejmowane po jego oddaniu do użytku. I wbrew pozorom, to właśnie ta faza pochłania najwięcej pieniędzy – nawet do 80% całkowitych kosztów systemu w całym jego cyklu życia. Utrzymanie przy życiu i rozwijanie „żywego” oprogramowania to najdłuższy i najbardziej wymagający etap w inżynierii oprogramowania.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Konserwacja: Korekcyjna / Adaptacyjna / Doskonaląca / Zapobiegawcza</span>
+            <span class="keyword-tag">Ewolucja oprogramowania (Prawa Lehmana)</span>
+            <span class="keyword-tag">Dług techniczny (Technical Debt)</span>
+            <span class="keyword-tag">Refaktoryzacja (Refactoring)</span>
+            <span class="keyword-tag">Systemy odziedziczone (Legacy Code)</span>
+            <span class="keyword-tag">Wycofanie systemu (EOL - End of Life)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Cykl życia i koszty -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Gdzie te pieniądze przepadają? Faza utrzymania i jej koszty</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Statystyki są nieubłagane: ogromna większość budżetu systemu informatycznego nie idzie na jego stworzenie, ale na późniejszą opiekę. Wynika to z prostej zależności: system żyje latami, a w tym czasie zmienia się wszystko wokół niego – prawo, potrzeby biznesowe, technologie. Zaniedbanie tej fazy prowadzi do technologicznej „zapaści”, gdzie kod staje się tak przestarzały i kruchy, że jakakolwiek zmiana graniczy z cudem.
+                </p>
+            </div>
+
+            <!-- 2. Cztery typy konserwacji -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Podstawowe rodzaje prac utrzymaniowych</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Inżynieria oprogramowania wyróżnia cztery główne kategorie działań, które składają się na utrzymanie systemu. Podział ten opiera się na celu, jaki chcemy osiągnąć.
+                </p>
+            </div>
+
+            <!-- SVG: 4 Typy Utrzymania -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">4 Typy Konserwacji Oprogramowania</text>
+
+                <!-- Blok 1: Korekcyjna -->
+                <rect x="30" y="50" width="360" height="85" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <rect x="30" y="50" width="360" height="28" rx="8" fill="#c62828"/>
+                <text x="210" y="69" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🐛 Korekcyjna (Reaktywna)</text>
+                <text x="210" y="95" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Naprawa błędów zgłoszonych przez użytkowników.</text>
+                <text x="210" y="115" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Przykład: Aplikacja crashuje przy generowaniu PDF z dużą liczbą stron.</text>
+
+                <!-- Blok 2: Adaptacyjna -->
+                <rect x="430" y="50" width="360" height="85" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="430" y="50" width="360" height="28" rx="8" fill="#f57c00"/>
+                <text x="610" y="69" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🔄 Adaptacyjna (Reaktywna)</text>
+                <text x="610" y="95" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Dostosowanie do zmian w otoczeniu systemu.</text>
+                <text x="610" y="115" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Przykład: Aktualizacja do nowej wersji bazy danych lub systemu operacyjnego.</text>
+
+                <!-- Blok 3: Doskonaląca -->
+                <rect x="30" y="155" width="360" height="85" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="155" width="360" height="28" rx="8" fill="#1565c0"/>
+                <text x="210" y="174" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">⭐ Doskonaląca (Proaktywna)</text>
+                <text x="210" y="200" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Wprowadzanie nowych funkcjonalności na życzenie klienta.</text>
+                <text x="210" y="220" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Przykład: Dodanie eksportu raportów do Excela.</text>
+
+                <!-- Blok 4: Zapobiegawcza -->
+                <rect x="430" y="155" width="360" height="85" rx="8" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <rect x="430" y="155" width="360" height="28" rx="8" fill="#6a1b9a"/>
+                <text x="610" y="174" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🛡️ Zapobiegawcza (Proaktywna)</text>
+                <text x="610" y="200" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Modyfikacje ułatwiające przyszły rozwój i zapobiegające awariom.</text>
+                <text x="610" y="220" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Przykład: Refaktoryzacja kodu, dodanie testów automatycznych.</text>
+            </svg>
+
+            <!-- 3. Dług techniczny i refaktoryzacja -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Dług techniczny – wróg numer jeden ewolucji</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Dług techniczny</strong> to metafora opisująca konsekwencje pójścia na skróty podczas tworzenia oprogramowania. Tak jak dług finansowy, kumuluje „odsetki” – w tym przypadku jest to dodatkowy czas i wysiłek potrzebny na wprowadzenie każdej kolejnej zmiany. Im więcej długu, tym trudniej cokolwiek dodać. Spłacaniem tego długu jest <strong>refaktoryzacja</strong> – proces ciągłego poprawiania wewnętrznej struktury kodu bez zmiany jego zewnętrznego zachowania. To jak sprzątanie kuchni po gotowaniu – nie robisz nowego dania, ale przygotowujesz przestrzeń na kolejne.
+                </p>
+            </div>
+
+            <!-- 4. Prawa Lehmana -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Prawa Lehmana – nieubłagane reguły ewolucji</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W latach 70. XX wieku profesor Meir Lehman sformułował kilka praw rządzących ewolucją systemów informatycznych. Najważniejsze z nich to:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Ciągła zmiana (Continuing Change):</strong> System używany w realnym świecie musi być nieustannie zmieniany, w przeciwnym razie stopniowo stanie się mniej użyteczny.</li>
+                    <li><strong>Rosnąca złożoność (Increasing Complexity):</strong> Wraz z ewolucją systemu jego struktura staje się coraz bardziej skomplikowana, chyba że podejmowane są aktywne działania, by ją upraszczać (refaktoryzacja).</li>
+                    <li><strong>Samoregulacja (Self-Regulation):</strong> Proces ewolucji systemu jest w dużej mierze samoregulujący, a parametry takie jak czas między wydaniami są statystycznie stałe.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity na temat utrzymania):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Utrzymanie to tylko naprawianie błędów"</strong> – Kardynalny błąd. Zdecydowana większość prac utrzymaniowych to działania doskonalące i adaptacyjne. Sama naprawa błędów to często mniej niż 20% całego wysiłku.</li>
+                    <li><strong>"Refaktoryzacja to strata czasu"</strong> – W krótkiej perspektywie może się tak wydawać, ale jest to inwestycja. Bez niej dług techniczny rośnie tak bardzo, że po kilku latach dodanie najprostszej funkcji może być niemożliwe bez przepisywania systemu od nowa.</li>
+                    <li><strong>"Systemy odziedziczone (Legacy) są bezużyteczne"</strong> – Wręcz przeciwnie, często stanowią one kręgosłup największych firm (np. systemy bankowe napisane w COBOLU). Są trudne w utrzymaniu, ale niosą ze sobą dekady wiedzy biznesowej.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamiętaj, że oprogramowanie to nie jest budynek, który raz postawiony stoi nienaruszony. To raczej żywy organizm lub miasto – nieustannie się zmienia, rozrasta i wymaga opieki. Prawdziwa inżynieria oprogramowania nie kończy się na wdrożeniu; tam dopiero się zaczyna. Zaakceptowanie tego faktu i umiejętne zarządzanie długiem technicznym odróżnia juniora od doświadczonego inżyniera.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    ISO/IEC 14764 – Software Maintenance · Prawa Lehmana (M. M. Lehman, "Programs, Life Cycles, and Laws of Software Evolution") · "Refactoring: Improving the Design of Existing Code" (Martin Fowler).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
