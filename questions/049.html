@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 049 – Redundancja, zależności funkcyjne i postacie normalne</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">049. Redundancja w bazach danych, znaczenie zależności funkcyjnych i postaci normalnych przy projektowaniu schematu bazy danych.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧹</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Bałagan w szafie, który zabija aplikację”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
+                        Wyobraź sobie szafę, w której trzymasz wszystkie ubrania: zimowe kurtki, letnie sukienki, buty. Na początku wszystko mieści się na jednej półce. Ale z czasem zaczynasz dokładać kolejne rzeczy – i nagle nie możesz znaleźć ulubionej bluzy, bo jest pod stertą innych ubrań. Co gorsza, gdy chcesz zmienić kolor jednej bluzy, musisz poprawić go w <em>kilku miejscach</em>, bo w chaosie zapisałeś ją wiele razy.
+                    </p>
+                    <p style="margin: 0; color: #4a148c; line-height: 1.7;">
+                        Z bazami danych jest identycznie. <strong>Redundancja</strong> to powtarzanie tych samych informacji w wielu miejscach. <strong>Zależności funkcyjne</strong> to instrukcja, jak poprawnie złożyć ubrania (dane). A <strong>postacie normalne</strong> to reguły, które pomagają utrzymać szafę w porządku – tak, byś zawsze znalazł, czego potrzebujesz, a każda zmiana była prosta i bezpieczna. Ten porządek to fundament każdej wydajnej bazy danych.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Redundancja</span>
+            <span class="keyword-tag">Zależność funkcyjna (FD)</span>
+            <span class="keyword-tag">1NF – Pierwsza postać normalna</span>
+            <span class="keyword-tag">2NF – Druga postać normalna</span>
+            <span class="keyword-tag">3NF – Trzecia postać normalna</span>
+            <span class="keyword-tag">BCNF – Boyce-Codd</span>
+            <span class="keyword-tag">Klucz główny / klucz kandydujący</span>
+            <span class="keyword-tag">Anomalie: wstawiania, usuwania, aktualizacji</span>
+            <span class="keyword-tag">Dekompozycja bezstratna</span>
+            <span class="keyword-tag">Denormalizacja (kontrolowana)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Redundancja -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Redundancja – wróg numer jeden</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Redundancja to sytuacja, gdy ta sama informacja jest zapisana w bazie wielokrotnie. Nie tylko marnuje miejsce na dysku, ale przede wszystkim prowadzi do <strong>anomalii</strong>:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Anomalia wstawiania</strong> – nie możesz dodać nowej danej, bo brakuje powiązanej informacji (np. nie dodasz kursu bez zapisania na niego studenta).</li>
+                    <li><strong>Anomalia usuwania</strong> – usuwając jedną informację, tracisz inną (np. usuwając ostatniego studenta z kursu, tracisz też informację o samym kursie).</li>
+                    <li><strong>Anomalia aktualizacji</strong> – zmiana jednej informacji wymaga poprawienia jej w wielu wierszach (np. zmiana nazwiska studenta w każdym wierszu z ocenami).</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wyobraź sobie tabelę, w której dla każdej oceny studenta powtarzasz jego imię, nazwisko, adres i numer telefonu. Jeśli student zmieni numer, musisz zaktualizować dziesiątki wierszy. Jeden przeoczony wiersz i baza staje się niespójna.
+                </p>
+            </div>
+
+            <!-- 2. Zależności funkcyjne -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Zależności funkcyjne – kompas porządku</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zależność funkcyjna (FD – Functional Dependency) to najprostsza reguła: <strong>znając X, jednoznacznie znam Y</strong>. Mówimy, że X determinuje Y (X → Y). Przykład: znając <code>nr_indeksu</code>, jednoznacznie znamy <code>nazwisko</code>. Nie działa w drugą stronę – wiele osób może mieć to samo nazwisko.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Właśnie te zależności są kompasem, który pokazuje, jak dzielić tabele. Jeśli jakaś kolumna zależy tylko od części klucza głównego – masz problem (to będzie 2NF). Jeśli zależy od innej kolumny niebędącej kluczem – też problem (3NF).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Zależność pełna</strong> – Y zależy od całego klucza, nie tylko jego części.</li>
+                    <li><strong>Zależność przechodnia</strong> – X → Y, a Y → Z, więc X → Z pośrednio. (To czerwona flaga dla 3NF).</li>
+                </ul>
+            </div>
+
+            <!-- 3. Postacie normalne -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">3. Postacie normalne – sprzątanie krok po kroku</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Normalizacja to proces porządkowania tabel, by wyeliminować redundancję. Każda kolejna postać (1NF → 2NF → 3NF → BCNF) zaostrza wymagania.
+                </p>
+
+                <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 1NF – Pierwsza postać normalna</strong>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Tabela jest w 1NF, gdy <strong>każda komórka zawiera pojedynczą wartość (atomową)</strong>, a każdy wiersz jest unikalny. Koniec z listami w jednej kolumnie, koniec z powtarzającymi się grupami kolumn (np. `ocena1, ocena2, ocena3`). To absolutne minimum.
+                </p>
+
+                <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 2NF – Druga postać normalna</strong>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Tabela jest w 2NF, gdy <strong>jest w 1NF i każda kolumna niekluczowa zależy od całego klucza głównego</strong> (a nie tylko od jego części). Problem 2NF występuje tylko w tabelach z kluczem złożonym (składającym się z wielu kolumn).
+                </p>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <em>Przykład:</em> tabela `Oceny( nr_indeksu, id_kursu, nazwisko, ocena )` – klucz to `(nr_indeksu, id_kursu)`. Ale `nazwisko` zależy tylko od `nr_indeksu`, nie od całego klucza. Rozwiązanie: wydziel `Studenci` i `Kursy`.
+                </p>
+
+                <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 3NF – Trzecia postać normalna</strong>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Tabela jest w 3NF, gdy <strong>jest w 2NF i żadna kolumna niekluczowa nie zależy przechodnio od klucza</strong>. Innymi słowy: kolumna niebędąca kluczem nie może determinować innej kolumny niekluczowej.
+                </p>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <em>Przykład:</em> tabela `Pracownicy( id, nazwisko, id_dzialu, nazwa_dzialu )`. Klucz: `id`. Ale `id_dzialu → nazwa_dzialu`, więc `nazwa_dzialu` zależy przechodnio od klucza. Rozwiązanie: wydziel tabelę `Dzialy`.
+                </p>
+
+                <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 BCNF – Boyce-Codd (wzmocniona 3NF)</strong>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każda determinanta (lewa strona zależności funkcyjnej) musi być <strong>nadkluczem</strong> (kluczem kandydującym lub nadzbiorem klucza). BCNF jest nieco surowsza niż 3NF i eliminuje anomalie, które 3NF mogłaby przeoczyć. W praktyce rzadko musisz iść dalej niż 3NF – BCNF przydaje się, gdy tabela ma kilka zachodzących na siebie kluczy kandydujących.
+                </p>
+            </div>
+
+            <!-- 4. Przykład normalizacji krok po kroku -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">4. Przykład: od chaosu do 3NF</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Weźmy tabelę `Zamowienia`:
+                </p>
+                <pre style="background:#f5f6fa; padding:14px; border-radius:8px; font-size:0.85rem;"><code>Zamowienia( id_zam, data, id_klienta, nazwa_klienta, miasto_klienta, kod_pocztowy, id_produktu, nazwa_produktu, ilosc, cena )</code></pre>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To jedno wielkie „wszystko w jednym”. Problemy: nazwa klienta powtarza się w każdym zamówieniu, nazwa produktu też. Aktualizacja nazwy klienta to koszmar. Rozbijamy według zależności:
+                </p>
+                <ol style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Klienci:</strong> <code>id_klienta → nazwa, miasto, kod</code></li>
+                    <li><strong>Produkty:</strong> <code>id_produktu → nazwa, cena</code></li>
+                    <li><strong>Zamowienia:</strong> <code>id_zam → data, id_klienta</code></li>
+                    <li><strong>Pozycje:</strong> <code>(id_zam, id_produktu) → ilosc</code></li>
+                </ol>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Teraz każda informacja jest na swoim miejscu, a klucze obce zapewniają spójność. To jest właśnie siła normalizacji.
+                </p>
+            </div>
+
+            <!-- 5. Denormalizacja – świadomy kompromis -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">5. Denormalizacja – kiedy warto wrócić do bałaganu?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pełna normalizacja oznacza wiele tabel i wiele złączeń (JOIN). Przy ogromnym ruchu każdy JOIN to koszt. Dlatego czasem celowo się <strong>denormalizuje</strong> – np. dodaje kolumnę `nazwa_klienta` bezpośrednio do tabeli zamówień, by zapytania były szybsze. Ale to świadoma decyzja, a nie efekt niedbalstwa. Na egzaminie: najpierw normalizuj, później mów, że znasz powody ewentualnej denormalizacji.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Normalizacyjne wpadki):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Tabela jest w 3NF, więc jest idealna”</strong> – Nie zawsze. 3NF nie gwarantuje BCNF. Jeśli masz wiele nakładających się kluczy kandydujących, sprawdź BCNF.</li>
+                    <li><strong>„Im więcej tabel, tym lepiej”</strong> – Przesadna normalizacja prowadzi do dziesiątków mikrotabel i zapytań z 10 JOIN-ami. Wydajność spada. Normalizuj do momentu, gdy dane są spójne, a zapytania wciąż wydajne.</li>
+                    <li><strong>„Atrybuty atomowe to tylko liczby i tekst”</strong> – 1NF wymaga atomowości, ale to nie znaczy, że adres musi być rozbity na 5 kolumn. Jeśli aplikacja zawsze operuje na całym adresie, możesz go trzymać jako jeden tekst.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Normalizacja to nie zestaw suchych regułek do wykucia. To sposób myślenia o danych jako o <em>opowieści</em>, w której każda informacja ma jedno, logiczne miejsce. Gdy poczujesz zależności funkcyjne – projektowanie schematu stanie się jak układanie puzzli. A redundancja? Zobaczysz ją od razu, jak plamę na białej koszuli.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Database System Concepts” (Silberschatz, Korth, Sudarshan) – rozdział 8: Normalization · „SQL Antipatterns” (Bill Karwin) · materiały PostgreSQL na temat normalizacji.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
