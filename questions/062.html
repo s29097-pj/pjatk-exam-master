@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 062 – Strategie i produkty projektowania architektury</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">062. Strategie i produkty projektowania architektury oprogramowania.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏛️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa metra kontra lista przystanków”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
+                        Wyobraź sobie, że masz wybudować system metra w milionowym mieście. Możesz podejść do tego na dwa sposoby: albo tworzysz szczegółową listę wszystkich stacji i tuneli (lista przystanków), albo najpierw rysujesz mapę całej sieci – gdzie są główne węzły, jak linie się krzyżują, gdzie potrzebujesz zajezdni. <strong>Architektura oprogramowania to właśnie ta mapa metra.</strong>
+                    </p>
+                    <p style="margin: 0; color: #1a3a3a; line-height: 1.7;">
+                        Architektura systemu to zbiór najważniejszych decyzji – jakie są główne komponenty, jak się komunikują, jakie technologie je spajają, gdzie są granice odpowiedzialności. Bez architektury Twoja aplikacja to chaotyczna plątanina kodu, w której zmiana jednego modułu wywraca cały system. Z architekturą – to uporządkowana sieć, którą można rozbudowywać i naprawiać bez paraliżowania całości.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Architektura oprogramowania</span>
+            <span class="keyword-tag">Wzorce architektoniczne</span>
+            <span class="keyword-tag">Monolit / Mikroserwisy</span>
+            <span class="keyword-tag">Warstwowa (Layered)</span>
+            <span class="keyword-tag">SOA / Event-Driven</span>
+            <span class="keyword-tag">ADR (Architecture Decision Records)</span>
+            <span class="keyword-tag">Diagramy UML (komponentów, wdrożenia)</span>
+            <span class="keyword-tag">Widok 4+1 (Philippe Kruchten)</span>
+            <span class="keyword-tag">Atrybuty jakościowe (NFR)</span>
+            <span class="keyword-tag">Prototyp architektoniczny (Spike)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym jest architektura -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Architektura oprogramowania – co to takiego?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Architektura oprogramowania</strong> to zbiór podstawowych decyzji projektowych, które dotyczą struktury systemu – jego komponentów, ich właściwości, relacji między nimi oraz zasad rządzących ich projektowaniem i ewolucją. Architektura odpowiada na pytania: „Z czego składa się system?”, „Jak te części się komunikują?” i „Dlaczego tak, a nie inaczej?”.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dobra architektura to nie ta, która jest „najnowocześniejsza” lub „najmodniejsza”. To ta, która <strong>spełnia wymagania niefunkcjonalne</strong> (wydajność, skalowalność, bezpieczeństwo) przy akceptowalnym koszcie i umożliwia ewolucję systemu w przyszłości.
+                </p>
+            </div>
+
+            <!-- 2. Strategie architektoniczne (mapa) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">2. Strategie architektoniczne – wybór stylu, który definiuje system</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Strategia architektoniczna (zwana też stylem lub wzorcem architektonicznym) to ogólna rama organizacji systemu. Wybór strategii to jedna z najważniejszych decyzji w projekcie – zmiana jej później jest niezwykle kosztowna.
+                </p>
+            </div>
+
+            <!-- SVG: Mapa strategii architektonicznych -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Główne strategie architektoniczne – porównanie</text>
+
+                <!-- Monolit -->
+                <rect x="30" y="50" width="230" height="110" rx="8" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                <rect x="30" y="50" width="230" height="30" rx="8" fill="#00695c"/>
+                <text x="145" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🧱 Monolit</text>
+                <text x="145" y="95" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Cała aplikacja jako jeden proces</text>
+                <text x="145" y="112" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Prostota, łatwe wdrożenie</text>
+                <text x="145" y="129" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Trudna skalowalność,</text>
+                <text x="145" y="144" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">wysokie sprzężenie</text>
+
+                <!-- Warstwowa (Layered) -->
+                <rect x="280" y="50" width="230" height="110" rx="8" fill="#fff" stroke="#26a69a" stroke-width="2"/>
+                <rect x="280" y="50" width="230" height="30" rx="8" fill="#26a69a"/>
+                <text x="395" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🍰 Warstwowa (Layered)</text>
+                <text x="395" y="95" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Prezentacja → Logika → Dane</text>
+                <text x="395" y="112" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Izolacja odpowiedzialności</text>
+                <text x="395" y="129" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Przechodzenie przez warstwy</text>
+                <text x="395" y="144" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">może spowalniać</text>
+
+                <!-- Mikroserwisy -->
+                <rect x="530" y="50" width="260" height="110" rx="8" fill="#fff" stroke="#4db6ac" stroke-width="2"/>
+                <rect x="530" y="50" width="260" height="30" rx="8" fill="#4db6ac"/>
+                <text x="660" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🧩 Mikroserwisy</text>
+                <text x="660" y="95" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Niezależne, małe serwisy</text>
+                <text x="660" y="112" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Skalowalność, niezależne</text>
+                <text x="660" y="129" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">wdrożenia (CI/CD)</text>
+                <text x="660" y="144" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Złożoność sieciowa,</text>
+                <text x="660" y="157" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">trudna spójność danych</text>
+
+                <!-- SOA -->
+                <rect x="30" y="180" width="230" height="95" rx="8" fill="#fff" stroke="#00897b" stroke-width="2"/>
+                <rect x="30" y="180" width="230" height="30" rx="8" fill="#00897b"/>
+                <text x="145" y="200" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🌐 SOA</text>
+                <text x="145" y="220" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Usługi przez ESB</text>
+                <text x="145" y="237" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Integracja systemów</text>
+                <text x="145" y="254" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Ciężki ESB,</text>
+                <text x="145" y="267" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">wysoki koszt wejścia</text>
+
+                <!-- Event-Driven -->
+                <rect x="280" y="180" width="230" height="95" rx="8" fill="#fff" stroke="#80cbc4" stroke-width="2"/>
+                <rect x="280" y="180" width="230" height="30" rx="8" fill="#80cbc4"/>
+                <text x="395" y="200" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📡 Event-Driven</text>
+                <text x="395" y="220" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Komunikacja przez zdarzenia</text>
+                <text x="395" y="237" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Luźne powiązania,</text>
+                <text x="395" y="254" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">elastyczność</text>
+                <text x="395" y="267" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Trudny debugging,</text>
+                <text x="395" y="280" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">spójność eventualna</text>
+
+                <!-- Hexagonalna -->
+                <rect x="530" y="180" width="260" height="95" rx="8" fill="#fff" stroke="#b2dfdb" stroke-width="2"/>
+                <rect x="530" y="180" width="260" height="30" rx="8" fill="#b2dfdb"/>
+                <text x="660" y="200" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">⬡ Hexagonalna (Porty i Adaptery)</text>
+                <text x="660" y="220" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Izolacja logiki biznesowej</text>
+                <text x="660" y="237" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">✅ Testowalność, wymienne</text>
+                <text x="660" y="254" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">adaptery zewnętrzne</text>
+                <text x="660" y="267" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Nadmiar na proste</text>
+                <text x="660" y="280" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">aplikacje CRUD</text>
+            </svg>
+
+            <!-- 3. Proces projektowania architektury -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">3. Proces projektowania architektury – od wymagań do decyzji</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Projektowanie architektury to proces iteracyjny, który odbywa się głównie w fazie projektowania (Design), ale wraca w każdej iteracji. Składa się z kilku kluczowych kroków:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Identyfikacja atrybutów jakościowych</strong> – które NFR-y są najważniejsze? Szybkość odpowiedzi? Dostępność 99,99%? Bezpieczeństwo danych medycznych? Te priorytety determinują wybór strategii.</li>
+                    <li><strong>Decyzje o strukturze</strong> – wybór stylu architektonicznego (monolit vs mikroserwisy), podział na moduły/pakiety, wybór baz danych.</li>
+                    <li><strong>Decyzje o komunikacji</strong> – synchroniczna (REST, gRPC) czy asynchroniczna (kolejki, zdarzenia)?</li>
+                    <li><strong>Decyzje o technologiach</strong> – języki, frameworki, middleware, platforma chmurowa vs on-premise.</li>
+                    <li><strong>Dokumentowanie decyzji</strong> – każda decyzja powinna być zapisana z uzasadnieniem (ADR).</li>
+                </ul>
+            </div>
+
+            <!-- 4. Produkty architektury -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">4. Produkty projektowania architektury – co zostaje po architekcie?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Architekt nie tylko „myśli”. Dostarcza konkretne artefakty, które służą zespołowi przez cały cykl życia systemu:
+                </p>
+            </div>
+
+            <!-- SVG: Artefakty architektury -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Produkty (artefakty) projektowania architektury</text>
+
+                <!-- Dokument Architektury -->
+                <rect x="30" y="45" width="170" height="80" rx="6" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                <text x="115" y="67" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">📄 Dokument Architektury</text>
+                <text x="115" y="85" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">Opis struktury,</text>
+                <text x="115" y="100" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">przegląd strategiczny,</text>
+                <text x="115" y="115" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">cele i uzasadnienie</text>
+
+                <!-- ADR -->
+                <rect x="220" y="45" width="170" height="80" rx="6" fill="#fff" stroke="#26a69a" stroke-width="2"/>
+                <text x="305" y="67" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">📜 ADR</text>
+                <text x="305" y="85" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">Architecture Decision</text>
+                <text x="305" y="100" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">Records – rejestr decyzji</text>
+                <text x="305" y="115" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">z kontekstem i skutkami</text>
+
+                <!-- Diagramy UML -->
+                <rect x="410" y="45" width="170" height="80" rx="6" fill="#fff" stroke="#4db6ac" stroke-width="2"/>
+                <text x="495" y="67" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">📊 Diagramy UML</text>
+                <text x="495" y="85" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">Komponentów, wdrożenia,</text>
+                <text x="495" y="100" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">pakietów, klas,</text>
+                <text x="495" y="115" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">sekwencji</text>
+
+                <!-- Prototypy / Spike -->
+                <rect x="600" y="45" width="190" height="80" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="2"/>
+                <text x="695" y="67" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">🔬 Prototyp / Spike</text>
+                <text x="695" y="85" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">Działający fragment</text>
+                <text x="695" y="100" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">sprawdzający hipotezę</text>
+                <text x="695" y="115" font-family="sans-serif" font-size="9" fill="#004d40" text-anchor="middle">technologiczną</text>
+
+                <!-- Pasek na dole -->
+                <rect x="100" y="155" width="620" height="35" rx="6" fill="#b2dfdb" stroke="#00695c" stroke-width="1.5"/>
+                <text x="410" y="178" font-family="sans-serif" font-size="12" font-weight="bold" fill="#004d40" text-anchor="middle">Model 4+1 (Philippe Kruchten) – standard opisu architektury</text>
+
+                <!-- 5 widoków -->
+                <rect x="40" y="205" width="130" height="35" rx="4" fill="#fff" stroke="#00695c" stroke-width="1"/>
+                <text x="105" y="227" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Logiczny (klasy)</text>
+
+                <rect x="185" y="205" width="130" height="35" rx="4" fill="#fff" stroke="#00695c" stroke-width="1"/>
+                <text x="250" y="227" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Procesów (aktywności)</text>
+
+                <rect x="330" y="205" width="130" height="35" rx="4" fill="#fff" stroke="#00695c" stroke-width="1"/>
+                <text x="395" y="227" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Fizyczny (sprzęt)</text>
+
+                <rect x="475" y="205" width="130" height="35" rx="4" fill="#fff" stroke="#00695c" stroke-width="1"/>
+                <text x="540" y="227" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">Rozwoju (moduły)</text>
+
+                <rect x="620" y="205" width="160" height="35" rx="4" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                <text x="700" y="227" font-family="sans-serif" font-size="10" font-weight="bold" fill="#004d40" text-anchor="middle">+1: Scenariuszy (UC)</text>
+            </svg>
+
+            <!-- 5. Ważne decyzje -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">5. Jak wybrać odpowiednią strategię? (Nie ma jednego słusznego wyboru)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wybór strategii architektonicznej zależy od atrybutów jakościowych, które są krytyczne dla Twojego systemu:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Startup budujący MVP</strong> → Monolit. Jest najszybszy w implementacji, a skalowalność nie jest problemem przy 100 użytkownikach.</li>
+                    <li><strong>Netflix lub Allegro</strong> → Mikroserwisy. Potrzebują niezależnego skalowania usług i szybkich wdrożeń bez przestojów.</li>
+                    <li><strong>System bankowy</strong> → Architektura warstwowa + ścisłe granice modułów. Bezpieczeństwo i spójność danych są ważniejsze niż elastyczność wdrożeń.</li>
+                    <li><strong>IoT / systemy czasu rzeczywistego</strong> → Event-Driven. Luźne powiązania i asynchroniczność są kluczowe dla przepustowości.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity architektoniczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Architektura sama się wyłoni”</strong> – Owszem, ale będzie to architektura przypadkowa (Big Ball of Mud). Świadomy wybór architektury na początku zapobiega chaosowi, który potem kosztuje fortunę na refaktoryzację.</li>
+                    <li><strong>„Mikroserwisy są zawsze lepsze od monolitu”</strong> – Mikroserwisy rozwiązują problemy, które większość aplikacji nie ma (skala Netflixa). Dla małego zespołu to dodatkowa złożoność sieciowa, problemy ze spójnością danych i trudniejszy debugging.</li>
+                    <li><strong>„Dokumentacja architektury to strata czasu, kod jest samodokumentujący”</strong> – Kod pokazuje JAK, ale nie pokazuje DLACZEGO. Nowy programista nigdy nie zrozumie, dlaczego wybrano kolejkę RabbitMQ zamiast Kafki, patrząc tylko na kod. ADR odpowiada na to pytanie.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Architektura oprogramowania to sztuka podejmowania decyzji przy niepełnej informacji i brania za nie odpowiedzialności. Pamiętaj: nie istnieje jedna idealna architektura. Każda to kompromis między sprzecznymi siłami – prostotą a skalowalnością, szybkością a bezpieczeństwem, elastycznością a spójnością. Dobry architekt nie podąża ślepo za modą, tylko wybiera najprostsze rozwiązanie, które spełnia realne wymagania. I dokumentuje każdą decyzję, by jego następcy nie musieli zgadywać.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Software Architecture in Practice” (Len Bass, Paul Clements, Rick Kazman) · „Clean Architecture” (Robert C. Martin) · „Designing Data-Intensive Applications” (Martin Kleppmann) · Model 4+1 (Philippe Kruchten).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
