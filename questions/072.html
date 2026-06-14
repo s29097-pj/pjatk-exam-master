@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 072 – Instalacja i przekazanie systemu</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">072. Instalacja i przekazanie systemu. Wdrażanie, zakres oraz strategie wprowadzania systemu IT do środowiska docelowego.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Przeprowadzka do nowego biura”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
+                        Wyobraź sobie, że Twoja firma przeprowadza się do nowoczesnego biurowca. Nie możesz po prostu w poniedziałek zamknąć starego biura i otworzyć nowego – to katastrofa. Musisz zaplanować: jak przenieść meble i dokumenty (migracja danych), kiedy przeprowadzić pracowników (szkolenia), co zrobić, jeśli w nowym budynku nie działa winda (rollback). I najważniejsze: czy przenosisz wszystkich naraz (Big Bang), piętro po piętrze (etapowo), czy może przez tydzień działają oba biura jednocześnie (równolegle)?
+                    </p>
+                    <p style="margin: 0; color: #1a3a3a; line-height: 1.7;">
+                        <strong>Wdrożenie systemu IT</strong> to dokładnie ta sama przeprowadzka – tyle że zamiast biurek przenosisz dane, procesy i użytkowników ze starego systemu (lub z kartek papieru) do nowej aplikacji. To najbardziej ryzykowny moment w całym cyklu życia projektu. Nawet perfekcyjnie napisany system może okazać się katastrofą, jeśli zostanie źle wdrożony. Dlatego inżynieria oprogramowania poświęca temu etapowi tyle uwagi.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Wdrożenie (Deployment)</span>
+            <span class="keyword-tag">Strategia Big Bang (wszystko naraz)</span>
+            <span class="keyword-tag">Strategia etapowa (phased)</span>
+            <span class="keyword-tag">Strategia równoległa (parallel run)</span>
+            <span class="keyword-tag">Migracja danych (ETL, walidacja)</span>
+            <span class="keyword-tag">Rollback – plan awaryjny</span>
+            <span class="keyword-tag">Szkolenia użytkowników</span>
+            <span class="keyword-tag">Dokumentacja powdrożeniowa</span>
+            <span class="keyword-tag">Cut-over (przełączenie)</span>
+            <span class="keyword-tag">Przekazanie do utrzymania</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym jest wdrożenie -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Wdrożenie – moment prawdy</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wdrożenie (deployment) to proces instalacji systemu w środowisku docelowym i oddania go do użytku końcowym użytkownikom. To nie tylko kopiowanie plików na serwer. Obejmuje szereg czynności: instalację oprogramowania, konfigurację środowiska, migrację danych ze starych systemów, szkolenia użytkowników, testy akceptacyjne w środowisku produkcyjnym i formalne przekazanie do utrzymania.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zakres wdrożenia zależy od złożoności systemu. Dla prostej aplikacji webowej może to być po prostu <code>git push</code> i uruchomienie pipeline CI/CD. Dla systemu bankowego wdrożenie trwa miesiącami, wymaga kilku zespołów i obejmuje testy w weekendy, by nie zakłócać pracy banku w tygodniu.
+                </p>
+            </div>
+
+            <!-- 2. Strategie wdrożenia (główny schemat) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">2. Trzy strategie wdrożenia – którą wybrać?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wybór strategii to decyzja, która balansuje ryzyko i koszt. Nie ma jednej słusznej – wszystko zależy od wielkości systemu, tolerancji na błędy i możliwości biznesowych.
+                </p>
+            </div>
+
+            <!-- SVG: Porównanie strategii wdrożenia -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Trzy strategie wdrożenia – porównanie ryzyka i czasu</text>
+
+                <!-- Big Bang -->
+                <rect x="30" y="50" width="230" height="130" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <rect x="30" y="50" width="230" height="30" rx="8" fill="#c62828"/>
+                <text x="145" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">💥 Big Bang</text>
+                <text x="145" y="100" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Stary system wyłączony.</text>
+                <text x="145" y="117" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Nowy włączony od razu.</text>
+                <text x="145" y="134" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Zero nakładania się.</text>
+                <text x="145" y="151" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Ryzyko: 🔴 WYSOKIE</text>
+                <text x="145" y="168" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Czas: krótki, koszt: niski</text>
+
+                <!-- Etapowa (Phased) -->
+                <rect x="290" y="50" width="230" height="130" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="290" y="50" width="230" height="30" rx="8" fill="#f57c00"/>
+                <text x="405" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🧩 Etapowa (Phased)</text>
+                <text x="405" y="100" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">System wdrażany modułami</text>
+                <text x="405" y="117" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">lub działami (HR → IT → Finanse).</text>
+                <text x="405" y="134" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Każdy etap to osobny mini-projekt.</text>
+                <text x="405" y="151" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Ryzyko: 🟡 ŚREDNIE</text>
+                <text x="405" y="168" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Czas: długi, koszt: średni</text>
+
+                <!-- Równoległa (Parallel) -->
+                <rect x="550" y="50" width="240" height="130" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="550" y="50" width="240" height="30" rx="8" fill="#2e7d32"/>
+                <text x="670" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">👥 Równoległa (Parallel)</text>
+                <text x="670" y="100" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Stary i nowy system</text>
+                <text x="670" y="117" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">działają jednocześnie.</text>
+                <text x="670" y="134" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Użytkownicy testują oba.</text>
+                <text x="670" y="151" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Ryzyko: 🟢 NISKIE</text>
+                <text x="670" y="168" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Czas: długi, koszt: wysoki</text>
+
+                <!-- Podsumowanie na dole -->
+                <rect x="120" y="205" width="580" height="50" rx="8" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                <text x="410" y="227" font-family="sans-serif" font-size="12" font-weight="bold" fill="#004d40" text-anchor="middle">💡 Kluczowa zasada: im większe ryzyko, tym bezpieczniejszą strategię wybierasz.</text>
+                <text x="410" y="245" font-family="sans-serif" font-size="10" fill="#00695c" text-anchor="middle">System krytyczny (szpital, bank)? → Równolegle. Aplikacja do zamawiania pizzy? → Big Bang.</text>
+
+                <!-- Czynności wdrożeniowe (lista) -->
+                <text x="410" y="285" font-family="sans-serif" font-size="13" font-weight="bold" fill="#004d40" text-anchor="middle">Zakres czynności wdrożeniowych:</text>
+                <rect x="60" y="295" width="160" height="28" rx="4" fill="#b2dfdb"/>
+                <text x="140" y="314" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">📋 Plan wdrożenia</text>
+                <rect x="235" y="295" width="160" height="28" rx="4" fill="#b2dfdb"/>
+                <text x="315" y="314" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">💾 Migracja danych</text>
+                <rect x="410" y="295" width="160" height="28" rx="4" fill="#b2dfdb"/>
+                <text x="490" y="314" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">🎓 Szkolenia</text>
+                <rect x="585" y="295" width="160" height="28" rx="4" fill="#b2dfdb"/>
+                <text x="665" y="314" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">📄 Dokumentacja</text>
+            </svg>
+
+            <!-- 3. Migracja danych -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">3. Migracja danych – najtrudniejszy element</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Migracja danych to przeniesienie informacji ze starego systemu (lub arkuszy Excela) do nowego. To często najbardziej niedoszacowane zadanie. Stary system może mieć 20 lat, nieudokumentowane reguły i niespójne dane (np. ten sam klient zapisany jako „Kowalski Jan” i „Jan Kowalski”). Proces migracji składa się z:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Ekstrakcji</strong> – wyciągnięcie danych z systemu źródłowego.</li>
+                    <li><strong>Czyszczenia i transformacji</strong> – ujednolicenie formatów, usunięcie duplikatów, uzupełnienie braków.</li>
+                    <li><strong>Ładowania</strong> – wstawienie danych do nowego systemu.</li>
+                    <li><strong>Walidacji</strong> – porównanie, czy w nowym systemie jest tyle samo rekordów, sumy się zgadzają itp.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Plan awaryjny i przekazanie -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">4. Rollback – zawsze miej plan B</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każda strategia wdrożenia musi zawierać <strong>plan rollbacku</strong> – czyli możliwość powrotu do poprzedniego stanu, jeśli coś pójdzie nie tak. W Big Bang oznacza to przywrócenie starego systemu z backupu. W strategii równoległej – po prostu wyłączenie nowego systemu i kontynuowanie pracy na starym. Rollback musi być przetestowany przed wdrożeniem.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Po udanym wdrożeniu następuje <strong>przekazanie systemu do utrzymania</strong>. Zespół wdrożeniowy przekazuje dokumentację techniczną, procedury operacyjne i wiedzę zespołowi utrzymaniowemu. To formalny moment, w którym odpowiedzialność za system przechodzi z „budowniczych” na „konserwatorów”.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy wdrożeniowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Szkolenia zrobimy po wdrożeniu”</strong> – Jeśli użytkownicy nie wiedzą, jak korzystać z systemu, wdrożenie jest porażką niezależnie od jakości kodu. Szkolenia muszą się odbyć przed lub w trakcie cut-over.</li>
+                    <li><strong>„Migrację danych zrobimy ręcznie”</strong> – Ręczna migracja 10 000 rekordów to pewność błędów. Zawsze automatyzuj skryptami ETL i testuj migrację wielokrotnie na kopii danych.</li>
+                    <li><strong>„Big Bang jest zawsze zły”</strong> – Dla małych aplikacji z niskim ryzykiem Big Bang jest najtańszy i najszybszy. Problem pojawia się przy systemach krytycznych.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wdrożenie to nie „ostatni krok” – to kulminacja miesięcy lub lat pracy. Najlepszy kod na świecie jest bezwartościowy, jeśli system nie działa na produkcji. Dlatego wdrożenie planuje się od początku projektu, nie na tydzień przed deadlinem. Im wcześniej pomyślisz o migracji, szkoleniach i rollbacku, tym spokojniej prześpisz noc po cut-overze.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    PMBOK Guide (PMI) – rozdział o zamykaniu projektu · „ITIL Service Transition” – najlepsze praktyki wdrożeniowe · „Continuous Delivery” (Jez Humble, David Farley).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
