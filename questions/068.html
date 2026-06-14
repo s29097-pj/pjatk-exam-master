@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 068 – Model przyrostowy a iteracyjny</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">068. Model przyrostowy a model iteracyjny: charakterystyka, role osobowe, zalety, wady, zastosowanie.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚗</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Budowa samochodu: dwa podejścia, jeden cel”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
+                        Wyobraź sobie, że masz zbudować samochód. Możesz to zrobić na dwa sposoby. <strong>Sposób pierwszy (przyrostowy):</strong> najpierw budujesz deskorolkę z silnikiem – jeździ, ale nie ma dachu. Potem dodajesz karoserię – już wygląda jak auto. Na końcu montujesz radio i klimatyzację. W każdej chwili masz działający pojazd, który stopniowo zyskuje nowe funkcje.
+                    </p>
+                    <p style="margin: 0; color: #4a148c; line-height: 1.7;">
+                        <strong>Sposób drugi (iteracyjny):</strong> najpierw budujesz makietę z kartonu, żeby zobaczyć kształt. Potem prototyp z silnikiem, ale bez wykończenia. W trzeciej iteracji masz już pełnoprawne auto, bo za każdym razem udoskonalasz <strong>całość</strong>, a nie dodajesz nowe części. Oba podejścia mają ten sam cel – działający samochód – ale różnią się filozofią dochodzenia do niego. W inżynierii oprogramowania <strong>model przyrostowy</strong> dodaje funkcje (nowe części), a <strong>model iteracyjny</strong> udoskonala całość (szlifuje kształt).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Model przyrostowy (Incremental)</span>
+            <span class="keyword-tag">Model iteracyjny (Iterative)</span>
+            <span class="keyword-tag">Przyrost = dodawanie funkcji</span>
+            <span class="keyword-tag">Iteracja = udoskonalanie całości</span>
+            <span class="keyword-tag">Wczesne dostarczanie wartości</span>
+            <span class="keyword-tag">Feedback od użytkownika</span>
+            <span class="keyword-tag">Prototypowanie ewolucyjne</span>
+            <span class="keyword-tag">MVP (Minimum Viable Product)</span>
+            <span class="keyword-tag">Role: PM, Product Owner, Developer</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Podstawowe rozróżnienie -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Czym się różnią? Przyrost dodaje, iteracja szlifuje</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To rozróżnienie jest najważniejsze i egzaminatorzy je uwielbiają. Oba modele są odpowiedzią na sztywność Waterfalla, ale robią to inaczej:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Model przyrostowy (Incremental):</strong> Dzielisz system na niezależne części (przyrosty). Każdy przyrost to nowa funkcja dodana do już działającego rdzenia. Po pierwszym przyroście masz system, który coś robi (np. logowanie). Po drugim – logowanie + lista produktów. Każdy przyrost przechodzi przez mini-Waterfall (analiza → projekt → kod → test).</li>
+                    <li><strong>Model iteracyjny (Iterative):</strong> Zaczynasz od prostej wersji całego systemu (np. prototypu), a potem w każdej iteracji udoskonalasz <strong>wszystkie</strong> jego aspekty. Nie dodajesz nowych modułów – ulepszasz istniejące. Pierwsza iteracja to szkielet, druga – mięśnie, trzecia – skóra i makijaż.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>W praktyce oba modele są często łączone:</strong> każdy przyrost przechodzi przez kilka iteracji, a każda iteracja może dodawać nowy przyrost. Nowoczesny Agile (Scrum) łączy obie idee.
+                </p>
+            </div>
+
+            <!-- SVG: Porównanie wizualne -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#fce4ec" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#880e4f">Wizualne porównanie: Model Przyrostowy vs Model Iteracyjny</text>
+
+                <!-- Model przyrostowy (lewa strona) -->
+                <text x="205" y="55" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c2185b" text-anchor="middle">MODEL PRZYROSTOWY (Incremental)</text>
+
+                <rect x="30" y="70" width="80" height="40" rx="4" fill="#f48fb1" stroke="#c2185b"/>
+                <text x="70" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Logowanie</text>
+                <path d="M 110 90 L 135 90" fill="none" stroke="#c2185b" stroke-width="2" marker-end="url(#arrPink)"/>
+
+                <rect x="140" y="70" width="100" height="40" rx="4" fill="#f06292" stroke="#c2185b"/>
+                <text x="190" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Logowanie + Koszyk</text>
+                <path d="M 240 90 L 265 90" fill="none" stroke="#c2185b" stroke-width="2" marker-end="url(#arrPink)"/>
+
+                <rect x="270" y="70" width="120" height="40" rx="4" fill="#ec407a" stroke="#c2185b"/>
+                <text x="330" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Log+Koszyk+Płatności</text>
+
+                <text x="205" y="140" font-family="sans-serif" font-size="10" fill="#880e4f" text-anchor="middle">Każdy przyrost dodaje nową FUNKCJĘ do działającego rdzenia.</text>
+                <text x="205" y="155" font-family="sans-serif" font-size="10" fill="#880e4f" text-anchor="middle">System działa od początku, ale ma ograniczony zakres.</text>
+
+                <!-- Model iteracyjny (prawa strona) -->
+                <text x="615" y="55" font-family="sans-serif" font-size="13" font-weight="bold" fill="#6a1b9a" text-anchor="middle">MODEL ITERACYJNY (Iterative)</text>
+
+                <rect x="450" y="70" width="80" height="40" rx="4" fill="#ce93d8" stroke="#8e24aa"/>
+                <text x="490" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Szkielet v1</text>
+                <path d="M 530 90 L 555 90" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+                <rect x="560" y="70" width="100" height="40" rx="4" fill="#ba68c8" stroke="#8e24aa"/>
+                <text x="610" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Prototyp v2 (lepszy)</text>
+                <path d="M 660 90 L 685 90" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+                <rect x="690" y="70" width="100" height="40" rx="4" fill="#ab47bc" stroke="#8e24aa"/>
+                <text x="740" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">System v3 (finalny)</text>
+
+                <text x="615" y="140" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">Każda iteracja udoskonala CAŁY system.</text>
+                <text x="615" y="155" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">Wszystkie funkcje są od początku, ale niedopracowane.</text>
+
+                <!-- Linia podziału -->
+                <line x1="410" y1="50" x2="410" y2="170" stroke="#bdbdbd" stroke-width="2" stroke-dasharray="6,4"/>
+
+                <!-- Sekcja: Połączenie obu modeli -->
+                <rect x="120" y="190" width="580" height="50" rx="8" fill="#fff" stroke="#e91e63" stroke-width="2"/>
+                <text x="410" y="212" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">💡 W praktyce (Agile) łączy się oba podejścia:</text>
+                <text x="410" y="228" font-family="sans-serif" font-size="11" fill="#4a148c" text-anchor="middle">Każdy Sprint dostarcza PRZYROST (nową funkcję), a w kolejnych Sprintach ITERUJEMY (udoskonalamy ją).</text>
+
+                <rect x="150" y="260" width="520" height="40" rx="6" fill="#263238" stroke="#455a64"/>
+                <text x="410" y="285" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Scrum = Iteracyjny (Sprinty) + Przyrostowy (Incrementy)</text>
+
+                <defs>
+                    <marker id="arrPink" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2185b"/></marker>
+                    <marker id="arrPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 2. Charakterystyka szczegółowa -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Charakterystyka i role osobowe</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 280px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">📦 Model Przyrostowy</strong><br>
+                        <span style="font-size:0.85rem;">
+                            <strong>Proces:</strong> Podział systemu na funkcjonalne kawałki. Każdy kawałek przechodzi przez mini-Waterfall.<br>
+                            <strong>Role:</strong> Project Manager (dzieli na przyrosty), Analityk (definiuje zawartość każdego), Architekt (projektuje rozbudowę), Programista, Tester.<br>
+                            <strong>Zalety:</strong> Wczesne dostarczanie częściowej wartości, łatwe zarządzanie, użytkownik szybko widzi produkt.<br>
+                            <strong>Wady:</strong> Architektura musi od początku przewidywać rozbudowę; pierwszy przyrost może być zbyt ubogi, by był użyteczny.<br>
+                            <strong>Zastosowanie:</strong> Projekty, gdzie kluczowe funkcje są znane, a budżet nie pozwala na długie czekanie (MVP).
+                        </span>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#1565c0;">🔄 Model Iteracyjny</strong><br>
+                        <span style="font-size:0.85rem;">
+                            <strong>Proces:</strong> Budowa całego systemu w kolejnych wersjach, od prototypu do finalnego produktu.<br>
+                            <strong>Role:</strong> Product Owner (decyduje, co poprawiamy), UX Designer (udoskonala interfejs), Developer, Tester.<br>
+                            <strong>Zalety:</strong> Ciągły feedback, małe ryzyko przestrzelenia z funkcjonalnościami, produkt jest stale testowany.<br>
+                            <strong>Wady:</strong> Klient może nie rozumieć, że prototyp to nie finalny produkt; trudniejsza kontrola harmonogramu.<br>
+                            <strong>Zastosowanie:</strong> Projekty z niejasnymi wymaganiami, gdzie klient musi zobaczyć i dotknąć, by powiedzieć, czego naprawdę chce.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Przykład praktyczny -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">3. Przykład: System do rezerwacji sal konferencyjnych</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Podejście przyrostowe:</strong> Przyrost 1 – tylko przeglądanie dostępnych sal. Przyrost 2 – dodanie rezerwacji z potwierdzeniem email. Przyrost 3 – dodanie panelu administratora. Każdy przyrost działa samodzielnie, a użytkownicy mogą korzystać z systemu od razu po pierwszym.<br>
+                    <strong>Podejście iteracyjne:</strong> Iteracja 1 – prototyp z listą sal (działa tylko wyświetlanie, reszta to „atrapy”). Iteracja 2 – dodajemy logikę rezerwacji, ale UI jest surowe. Iteracja 3 – szlifujemy UI, dodajemy walidację, poprawiamy wydajność. Po każdej iteracji cały system jest lepszy, a nie większy.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Różnice, które musisz znać):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Przyrostowy = iteracyjny, to synonimy”</strong> – NIE. Przyrostowy dodaje nowe rzeczy do działającego systemu. Iteracyjny szlifuje całość przez kolejne wersje. Na egzaminie oczekują, że wskażesz tę różnicę.</li>
+                    <li><strong>„Model iteracyjny nie wymaga planowania”</strong> – Wręcz przeciwnie. Każda iteracja jest planowana, ale plan obejmuje tylko tę jedną iterację, a nie cały projekt na dwa lata do przodu.</li>
+                    <li><strong>„W modelu przyrostowym nie można się cofnąć”</strong> – Można, ale wymaga to zmian w architekturze. Przyrosty powinny być projektowane tak, by nie blokowały przyszłych dodatków (zasada Open-Closed).</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Przyrostowy i iteracyjny to dwie strony tej samej monety – obie są reakcją na sztywność Waterfalla. Przyrostowy mówi: „Dostarczajmy po kawałku, od razu użyteczne”. Iteracyjny mówi: „Uczmy się na błędach, udoskonalajmy całość”. Gdy połączysz oba – jak w Scrumie – otrzymujesz proces, który dostarcza wartość szybko i stale ją ulepsza. Prawdziwy inżynier nie wybiera jednego, tylko świadomie miesza oba podejścia.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Software Engineering: A Practitioner's Approach” (Roger S. Pressman) – rozdziały o modelach ewolucyjnych · „Agile Software Development” (Alistair Cockburn) · Manifest Agile.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
