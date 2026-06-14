@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 065 – Interfejs programowania aplikacji</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">065. Interfejs programowania aplikacji (API).</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🍽️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kelner, który łączy Cię z kuchnią”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie restaurację. Siedzisz przy stoliku i masz przed sobą <strong>menu</strong> – listę dań, które możesz zamówić. Nie wchodzisz do kuchni, nie grzebiesz w garnkach, nie krzyczysz do kucharza. Mówisz kelnerowi: „Poproszę pizzę Margherita i wodę mineralną”. Kelner przekazuje zamówienie do kuchni, a po chwili wraca z Twoim daniem. Co dokładnie dzieje się w kuchni – jakich składników użyto, na jakiej patelni smażono – Cię nie interesuje. Ważne, że dostałeś to, co zamówiłeś.
+                    </p>
+                    <p style="margin: 0; color: #1a3a2a; line-height: 1.7;">
+                        <strong>API (Application Programming Interface)</strong> działa identycznie. To „kelner” w świecie oprogramowania – zestaw reguł, który mówi: „Możesz poprosić o te rzeczy (endpoints), w taki sposób (metody HTTP, parametry), a ja dostarczę Ci odpowiedź (JSON, XML)”. Nie musisz wiedzieć, jak system działa w środku – czy używa PostgreSQL czy MongoDB, czy kod jest w Javie czy Pythonie. Wysyłasz żądanie, dostajesz odpowiedź. API to menu, kelner i drzwi do kuchni w jednym.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">API (Application Programming Interface)</span>
+            <span class="keyword-tag">REST (Representational State Transfer)</span>
+            <span class="keyword-tag">GraphQL</span>
+            <span class="keyword-tag">SOAP</span>
+            <span class="keyword-tag">gRPC</span>
+            <span class="keyword-tag">Endpoint / Zasób (Resource)</span>
+            <span class="keyword-tag">HTTP: GET, POST, PUT, DELETE, PATCH</span>
+            <span class="keyword-tag">JSON / XML – formaty odpowiedzi</span>
+            <span class="keyword-tag">Autoryzacja: API Key, OAuth 2.0, JWT</span>
+            <span class="keyword-tag">Rate Limiting, Paginacja, Wersjonowanie</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym jest API -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. API – umowa między systemami</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>API</strong> to zbiór zdefiniowanych reguł i protokołów, które umożliwiają komunikację między różnymi aplikacjami. API mówi: „Jeśli wyślesz mi żądanie w takim formacie, odpowiem Ci w takim formacie, wykonując przy tym konkretną operację”. To <strong>kontrakt</strong> – obie strony (klient i serwer) go znają i przestrzegają.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    API nie jest nowym wynalazkiem – korzystasz z niego codziennie. Gdy aplikacja pogodowa na telefonie pokazuje temperaturę, łączy się przez API z serwerem meteorologicznym. Gdy logujesz się przez Google na jakiejś stronie, strona ta komunikuje się z API Google. Gdy płacisz kartą w sklepie, terminal rozmawia z API banku. API jest dosłownie wszędzie.
+                </p>
+            </div>
+
+            <!-- 2. Rodzaje API (mapa) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Rodzaje API – nie tylko REST</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Choć REST dominuje w internecie, istnieje kilka głównych stylów architektonicznych API, każdy do innych zadań:
+                </p>
+            </div>
+
+            <!-- SVG: Rodzaje API -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Główne style API – przegląd i porównanie</text>
+
+                <!-- REST -->
+                <rect x="30" y="45" width="360" height="110" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="30" y="45" width="360" height="28" rx="8" fill="#2e7d32"/>
+                <text x="210" y="64" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">🌐 REST (Representational State Transfer)</text>
+                <text x="210" y="90" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">✅ Stateless, zasobowy (URL = rzeczownik), operacje przez HTTP</text>
+                <text x="210" y="107" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">✅ Prosty, skalowalny, cache'owalny – dominuje w internecie</text>
+                <text x="210" y="124" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Over-fetching / Under-fetching danych (wiele zapytań dla złożonych widoków)</text>
+
+                <!-- GraphQL -->
+                <rect x="430" y="45" width="360" height="110" rx="8" fill="#fff" stroke="#e91e63" stroke-width="2"/>
+                <rect x="430" y="45" width="360" height="28" rx="8" fill="#e91e63"/>
+                <text x="610" y="64" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📊 GraphQL (Facebook, 2015)</text>
+                <text x="610" y="90" font-family="sans-serif" font-size="10" fill="#880e4f" text-anchor="middle">✅ Klient pyta dokładnie o to, czego potrzebuje – jeden endpoint</text>
+                <text x="610" y="107" font-family="sans-serif" font-size="10" fill="#880e4f" text-anchor="middle">✅ Eliminuje over-fetching i under-fetching</text>
+                <text x="610" y="124" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Trudniejszy caching, złożoność po stronie serwera (zapytania N+1)</text>
+
+                <!-- SOAP -->
+                <rect x="30" y="175" width="360" height="95" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="175" width="360" height="28" rx="8" fill="#1565c0"/>
+                <text x="210" y="194" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📨 SOAP (Simple Object Access Protocol)</text>
+                <text x="210" y="218" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">✅ Sztywny kontrakt WSDL, wbudowane bezpieczeństwo (WS-Security)</text>
+                <text x="210" y="235" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">✅ Transakcyjność – standard w bankowości i enterprise</text>
+                <text x="210" y="252" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Ciężki, złożony XML, trudny do debugowania</text>
+
+                <!-- gRPC -->
+                <rect x="430" y="175" width="360" height="95" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="430" y="175" width="360" height="28" rx="8" fill="#f57c00"/>
+                <text x="610" y="194" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">⚡ gRPC (Google, 2016)</text>
+                <text x="610" y="218" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">✅ Szybki, binarny (Protocol Buffers), idealny dla mikroserwisów</text>
+                <text x="610" y="235" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">✅ Pełny dupleks (streaming) – świetny do real-time</text>
+                <text x="610" y="252" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">❌ Trudniejszy do testowania z przeglądarki, wymaga HTTP/2</text>
+
+                <!-- Pasek na dole -->
+                <rect x="150" y="295" width="520" height="30" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
+                <text x="410" y="315" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f57f17" text-anchor="middle">💡 Nie ma jednego „najlepszego” API – wybór zależy od wymagań: szybkość, elastyczność, bezpieczeństwo.</text>
+            </svg>
+
+            <!-- 3. REST – jak wygląda w praktyce? -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. REST w praktyce – HTTP, zasoby, metody</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ponieważ REST dominuje w nowoczesnych aplikacjach webowych, przyjrzyjmy się mu bliżej. REST opiera się na trzech filarach:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Zasoby</strong> – wszystko jest zasobem (np. <code>/users</code>, <code>/orders/123</code>). URL-e są rzeczownikami, nigdy czasownikami. Źle: <code>/getUsers</code>. Dobrze: <code>GET /users</code>.</li>
+                    <li><strong>Metody HTTP</strong> – <code>GET</code> (pobierz), <code>POST</code> (utwórz), <code>PUT</code> (podmień całość), <code>PATCH</code> (zmień część), <code>DELETE</code> (usuń).</li>
+                    <li><strong>Reprezentacje</strong> – klient dostaje dane w formacie, który rozumie (JSON, XML), a nie bezpośredni dostęp do bazy.</li>
+                </ul>
+            </div>
+
+            <!-- SVG: Przykład REST API -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Przykład REST API – CRUD dla zasobu "Książki"</text>
+
+                <!-- GET /books -->
+                <rect x="40" y="50" width="240" height="35" rx="4" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="50" y="72" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20">GET /api/books</text>
+                <text x="300" y="72" font-family="sans-serif" font-size="11" fill="#2e7d32">Pobierz listę wszystkich książek</text>
+
+                <!-- GET /books/{id} -->
+                <rect x="40" y="95" width="240" height="35" rx="4" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="50" y="117" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20">GET /api/books/{id}</text>
+                <text x="300" y="117" font-family="sans-serif" font-size="11" fill="#2e7d32">Pobierz jedną książkę po ID</text>
+
+                <!-- POST /books -->
+                <rect x="40" y="140" width="240" height="35" rx="4" fill="#fff9c4" stroke="#fbc02d"/>
+                <text x="50" y="162" font-family="monospace" font-size="12" font-weight="bold" fill="#f57f17">POST /api/books</text>
+                <text x="300" y="162" font-family="sans-serif" font-size="11" fill="#f57f17">Utwórz nową książkę (dane w body JSON)</text>
+
+                <!-- DELETE /books/{id} -->
+                <rect x="40" y="185" width="240" height="35" rx="4" fill="#ffcdd2" stroke="#ef5350"/>
+                <text x="50" y="207" font-family="monospace" font-size="12" font-weight="bold" fill="#c62828">DELETE /api/books/{id}</text>
+                <text x="300" y="207" font-family="sans-serif" font-size="11" fill="#c62828">Usuń książkę</text>
+
+                <!-- Przykład odpowiedzi JSON -->
+                <rect x="500" y="50" width="290" height="140" rx="6" fill="#263238" stroke="#455a64"/>
+                <text x="520" y="72" font-family="sans-serif" font-size="11" fill="#ffeb3b" font-weight="bold">← Przykład odpowiedzi GET /api/books</text>
+                <text x="520" y="92" font-family="monospace" font-size="10" fill="#4caf50">{</text>
+                <text x="530" y="107" font-family="monospace" font-size="10" fill="#81d4fa">"id":</text>
+                <text x="570" y="107" font-family="monospace" font-size="10" fill="#ffcc80">1,</text>
+                <text x="530" y="122" font-family="monospace" font-size="10" fill="#81d4fa">"title":</text>
+                <text x="580" y="122" font-family="monospace" font-size="10" fill="#a5d6a7">"Clean Code",</text>
+                <text x="530" y="137" font-family="monospace" font-size="10" fill="#81d4fa">"author":</text>
+                <text x="595" y="137" font-family="monospace" font-size="10" fill="#a5d6a7">"Robert C. Martin",</text>
+                <text x="530" y="152" font-family="monospace" font-size="10" fill="#81d4fa">"year":</text>
+                <text x="580" y="152" font-family="monospace" font-size="10" fill="#ffcc80">2008</text>
+                <text x="520" y="167" font-family="monospace" font-size="10" fill="#4caf50">}</text>
+            </svg>
+
+            <!-- 4. Bezpieczeństwo -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Bezpieczeństwo API – zamek na drzwiach kuchni</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Publiczne API bez zabezpieczeń to jak kuchnia bez drzwi – każdy może wejść i narobić szkód. Standardowe mechanizmy ochrony:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>API Key</strong> – prosty klucz w nagłówku. Dobry dla serwisów B2B, ale nie dla użytkowników końcowych.</li>
+                    <li><strong>OAuth 2.0 + JWT</strong> – standard branżowy. Użytkownik loguje się, dostaje token, a każdy request zawiera go w nagłówku <code>Authorization: Bearer eyJhbG...</code>. Token wygasa, można go odświeżyć.</li>
+                    <li><strong>Rate Limiting</strong> – ogranicza liczbę zapytań na minutę. Chroni przed przeciążeniem (DDoS) i nadużyciami.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy API):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„GET do modyfikacji danych”</strong> – Kardynalny błąd. <code>GET /api/deleteUser/5</code> narusza zasady REST i bezpieczeństwa. GET musi być idempotentny i bezpieczny (bez efektów ubocznych). Do usuwania służy DELETE.</li>
+                    <li><strong>„API = REST”</strong> – REST to najpopularniejszy styl, ale nie jedyny. GraphQL, gRPC, SOAP, WebSockets też są API. Wybór zależy od potrzeb.</li>
+                    <li><strong>„Wersjonowanie API jest zbędne”</strong> – Gdy zmienisz strukturę odpowiedzi JSON (np. usuniesz pole), wszystkie aplikacje klienckie, które z niej korzystały, przestają działać. Wersjonuj przez URL (<code>/v1/...</code>) lub nagłówek Accept.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">API to nie tylko technologia – to język, którym systemy rozmawiają ze sobą. Dobre API jest jak dobrze napisane menu: zrozumiałe, przewidywalne i nie wymaga zaglądania do kuchni. Gdy projektujesz API, myśl o programiście, który będzie z niego korzystał za rok – bo tym programistą możesz być Ty sam.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „RESTful Web APIs” (Leonard Richardson, Mike Amundsen) · „GraphQL in Action” (Samer Buna) · Dokumentacja OAuth 2.0 (RFC 6749) · „API Design Patterns” (John J. Geewax).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
