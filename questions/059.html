@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 059 – Inżynieria wymagań</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">059. Przedmiot i działania inżynierii wymagań.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔎</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zbuduj mi domek na drzewie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
+                        Wyobraź sobie, że Twój klient mówi: <em>„Zbuduj mi domek na drzewie”</em>. Jesteś konstruktorem. Bierzesz się do roboty: mocne belki, drabina sznurowa, małe okienko. Dostarczasz gotowy domek, a klient wpada w furię: <em>„Gdzie jest wanna z hydromasażem?!”</em> Okazuje się, że klient miał na myśli luksusowy apartament na dębie, z widokiem na jezioro i elektrycznością. Ty zbudowałeś chatkę dla dzieci.
+                    </p>
+                    <p style="margin: 0; color: #4a148c; line-height: 1.7;">
+                        Cały problem polegał na tym, że <strong>wymagania nie zostały pozyskane, przeanalizowane ani zweryfikowane</strong>. Inżynieria wymagań to dziedzina, która zajmuje się właśnie tym – systematycznym zbieraniem, dokumentowaniem i sprawdzaniem, co klient NAPRAWDĘ chce. Bez tego każdy projekt IT to loteria, a Twoja aplikacja będzie jak domek na drzewie – zbudowana solidnie, ale kompletnie nieprzydatna użytkownikowi.
+                </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Wymagania funkcjonalne / niefunkcjonalne</span>
+            <span class="keyword-tag">Pozyskiwanie (Elicitation)</span>
+            <span class="keyword-tag">Analiza wymagań</span>
+            <span class="keyword-tag">Specyfikacja (SRS)</span>
+            <span class="keyword-tag">Walidacja i weryfikacja wymagań</span>
+            <span class="keyword-tag">Zarządzanie wymaganiami (śledzenie)</span>
+            <span class="keyword-tag">Identyfikacja interesariuszy</span>
+            <span class="keyword-tag">User Stories, Use Cases</span>
+            <span class="keyword-tag">Prototypowanie (Prototyping)</span>
+            <span class="keyword-tag">Traceability Matrix</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Definicja i przedmiot -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Czym jest inżynieria wymagań i czym się zajmuje?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Inżynieria wymagań (Requirements Engineering)</strong> to dział inżynierii oprogramowania, który zajmuje się systematycznym odkrywaniem, analizowaniem, dokumentowaniem, sprawdzaniem i zarządzaniem wymaganiami stawianymi systemowi. Jej przedmiotem są <strong>wymagania</strong> – czyli opisy tego, co system ma robić (funkcjonalne) i jakie ma mieć właściwości (niefunkcjonalne).
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podstawowy podział wymagań wygląda następująco:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wymagania funkcjonalne</strong> – opisują CO system ma robić. Np. „System umożliwia logowanie przez login i hasło”, „System wysyła e-mail z potwierdzeniem zamówienia”. Odpowiadają na pytanie: „Jakie funkcje?”</li>
+                    <li><strong>Wymagania niefunkcjonalne</strong> – opisują JAK system ma działać. Np. „Strona ładuje się w mniej niż 2 sekundy”, „System obsługuje 1000 równoczesnych użytkowników”, „Dane są szyfrowane AES-256”. Odpowiadają na pytania: „Jak szybko? Jak bezpiecznie? Jak niezawodnie?”</li>
+                    <li><strong>Wymagania domenowe</strong> – wynikające z konkretnej branży (np. przepisy prawa bankowego, standardy medyczne HL7).</li>
+                </ul>
+            </div>
+
+            <!-- 2. Klasyfikacja wymagań (schemat) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Hierarchia wymagań – od wizji do szczegółu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wymagania nie są płaską listą. Tworzą hierarchię – od ogólnych deklaracji biznesowych do szczegółowych specyfikacji technicznych.
+                </p>
+            </div>
+
+            <!-- SVG: Piramida wymagań -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="#fce4ec" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#880e4f">Piramida wymagań – od ogółu do szczegółu</text>
+
+                <!-- Poziom 1 -->
+                <polygon points="410,50 310,100 510,100" fill="#f8bbd0" stroke="#c2185b" stroke-width="2"/>
+                <text x="410" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Wizja / Cele biznesowe</text>
+                <text x="410" y="95" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">„Zwiększyć sprzedaż online o 20%”</text>
+
+                <!-- Poziom 2 -->
+                <polygon points="410,110 270,170 550,170" fill="#f48fb1" stroke="#c2185b" stroke-width="2"/>
+                <text x="410" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Wymagania użytkownika</text>
+                <text x="410" y="162" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">User Stories: „Jako klient chcę filtrować produkty po cenie”</text>
+
+                <!-- Poziom 3 -->
+                <polygon points="410,180 220,230 600,230" fill="#f06292" stroke="#c2185b" stroke-width="2"/>
+                <text x="410" y="210" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Wymagania systemowe</text>
+                <text x="410" y="225" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Specyfikacja: „API GET /products?min_price=X&max_price=Y zwraca JSON w < 200ms”</text>
+            </svg>
+
+            <!-- 3. Działania inżynierii wymagań (schemat procesu) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">3. Cztery filary inżynierii wymagań – proces krok po kroku</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Inżynieria wymagań to nie jednorazowy akt, lecz <strong>proces składający się z czterech głównych grup działań</strong>, które przeplatają się i iterują:
+                </p>
+            </div>
+
+            <!-- SVG: Proces inżynierii wymagań -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#fce4ec" opacity="0.2"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#880e4f">Proces inżynierii wymagań – cztery główne działania</text>
+
+                <!-- Krok 1: Pozyskiwanie -->
+                <rect x="40" y="60" width="160" height="70" rx="8" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+                <text x="120" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">1. Pozyskiwanie</text>
+                <text x="120" y="102" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Wywiady, warsztaty,</text>
+                <text x="120" y="117" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">obserwacje, ankiety</text>
+
+                <path d="M 200 95 L 235 95" fill="none" stroke="#c2185b" stroke-width="2" marker-end="url(#arrPink)"/>
+
+                <!-- Krok 2: Analiza -->
+                <rect x="245" y="60" width="160" height="70" rx="8" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+                <text x="325" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">2. Analiza</text>
+                <text x="325" y="102" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Klasyfikacja, priorytetyzacja,</text>
+                <text x="325" y="117" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">rozdzielanie, negocjacje</text>
+
+                <path d="M 405 95 L 440 95" fill="none" stroke="#c2185b" stroke-width="2" marker-end="url(#arrPink)"/>
+
+                <!-- Krok 3: Specyfikacja -->
+                <rect x="450" y="60" width="160" height="70" rx="8" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+                <text x="530" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">3. Specyfikacja</text>
+                <text x="530" y="102" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Dokument SRS, User Stories,</text>
+                <text x="530" y="117" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">diagramy UML, prototypy</text>
+
+                <path d="M 610 95 L 645 95" fill="none" stroke="#c2185b" stroke-width="2" marker-end="url(#arrPink)"/>
+
+                <!-- Krok 4: Walidacja -->
+                <rect x="655" y="60" width="140" height="70" rx="8" fill="#fff" stroke="#c2185b" stroke-width="2"/>
+                <text x="725" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">4. Walidacja</text>
+                <text x="725" y="102" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Przeglądy, testy</text>
+                <text x="725" y="117" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">akceptacyjne</text>
+
+                <!-- Pętla sprzężenia zwrotnego (dół) -->
+                <path d="M 725 130 L 725 180 L 120 180 L 120 132" fill="none" stroke="#f06292" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrPink)"/>
+                <rect x="310" y="168" width="200" height="25" rx="4" fill="#f8bbd0" stroke="#f06292" stroke-width="1"/>
+                <text x="410" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#880e4f" text-anchor="middle">🔄 Iteracja – ciągłe doskonalenie</text>
+
+                <!-- Zarządzanie wymaganiami (pasek na dole) -->
+                <rect x="150" y="215" width="520" height="40" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="235" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c" text-anchor="middle">📋 Zarządzanie wymaganiami (przez cały czas trwania projektu)</text>
+                <text x="410" y="250" font-family="sans-serif" font-size="9" fill="#6a1b9a" text-anchor="middle">Śledzenie zmian, macierz pokrycia (Traceability Matrix), kontrola wersji</text>
+
+                <defs>
+                    <marker id="arrPink" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2185b"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 4. Szczegółowe techniki pozyskiwania -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">4. Jak wydobyć wymagania? – Techniki pozyskiwania</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pozyskiwanie wymagań (Elicitation) to sztuka zadawania właściwych pytań. Oto sprawdzone techniki:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wywiady indywidualne</strong> – rozmowy 1:1 z interesariuszami. Pozwalają zgłębić szczegóły, ale są czasochłonne.</li>
+                    <li><strong>Warsztaty grupowe (JAD – Joint Application Development)</strong> – sesja z wieloma interesariuszami naraz. Szybka, ale wymaga sprawnego facylitatora.</li>
+                    <li><strong>Obserwacja (Shadowing)</strong> – patrzysz, jak użytkownik wykonuje swoją pracę. Odkrywasz rzeczy, których sam by nie opisał („bo to przecież oczywiste”).</li>
+                    <li><strong>Ankiety / Kwestionariusze</strong> – dobre dla dużej grupy, ale dają płytkie odpowiedzi.</li>
+                    <li><strong>Prototypowanie</strong> – pokazujesz makietę, a użytkownik reaguje. Najlepsza metoda na uniknięcie „domku na drzewie”.</li>
+                </ul>
+            </div>
+
+            <!-- 5. Dokumenty i artefakty -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">5. Co powstaje w wyniku inżynierii wymagań?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Rezultatem procesu są konkretne artefakty – dokumenty i modele, które stają się „kontraktem” między zespołem a klientem:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>SRS (Software Requirements Specification)</strong> – formalny dokument z listą wszystkich wymagań. Stosowany w Waterfallu i dużych projektach regulowanych (banki, medycyna).</li>
+                    <li><strong>User Stories</strong> – w Agile zamiast SRS mamy historyjki: „Jako [rola] chcę [funkcja], aby [korzyść]”. Lekkie, elastyczne, ale niekompletne bez kryteriów akceptacji.</li>
+                    <li><strong>Przypadki użycia (Use Cases)</strong> – opisują interakcję użytkownika z systemem (scenariusz główny + alternatywne).</li>
+                    <li><strong>Macierz pokrycia wymagań (Traceability Matrix)</strong> – tabela łącząca każde wymaganie z testem, kodem i celem biznesowym. Zapobiega „zapomnianym” funkcjom.</li>
+                </ul>
+            </div>
+
+            <!-- 6. Walidacja vs Weryfikacja -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">6. Walidacja a weryfikacja – kluczowe rozróżnienie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To jedno z ulubionych pytań egzaminatorów, ponieważ łatwo o pomyłkę:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Weryfikacja (Verification)</strong> – sprawdzamy, czy budujemy produkt <em>poprawnie</em>. Czy kod jest zgodny ze specyfikacją? Czy dokument SRS jest spójny?</li>
+                    <li><strong>Walidacja (Validation)</strong> – sprawdzamy, czy budujemy <em>właściwy</em> produkt. Czy to, co zbudowaliśmy, naprawdę rozwiązuje problem użytkownika?</li>
+                </ul>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <em>Przykład:</em> Zbudowałeś aplikację, która generuje raporty dokładnie według specyfikacji SRS (weryfikacja OK). Ale użytkownicy mówią, że raporty są nieczytelne i nie potrzebują połowy wykresów (walidacja FAIL). Zbudowałeś produkt dobrze technicznie, ale nie ten, który był potrzebny.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy inżynierii wymagań):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Użytkownik wie, czego chce”</strong> – FAŁSZ. Użytkownicy często nie potrafią zwerbalizować swoich potrzeb. Mówią o rozwiązaniach („chcę przycisk”), a nie o problemach („chcę szybko znaleźć zamówienie”). Rolą analityka jest odkrycie prawdziwej potrzeby za deklarowanym żądaniem.</li>
+                    <li><strong>„Wymagania raz spisane są stałe”</strong> – MIT. Wymagania ewoluują wraz ze zrozumieniem problemu. Sztywne trzymanie się pierwotnych zapisów prowadzi do katastrofy. Dlatego Agile zakłada, że wymagania będą się zmieniać, i buduje mechanizmy zarządzania tą zmianą.</li>
+                    <li><strong>„Wymagania niefunkcjonalne są mniej ważne”</strong> – BŁĄD. System, który działa funkcjonalnie, ale ładuje się 30 sekund (wydajność), nie ma backupu (niezawodność) i nie spełnia RODO (zgodność z prawem) – to system bezużyteczny. Wymagania niefunkcjonalne często decydują o sukcesie lub porażce.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Inżynieria wymagań to najważniejszy, a zarazem najbardziej niedoceniany etap tworzenia oprogramowania. Pamiętaj: nie ma nic droższego niż perfekcyjne zbudowanie złego produktu. Lepiej spędzić dodatkowy tydzień na rozmowach z użytkownikiem, niż pół roku na przepisywaniu gotowego systemu. Wymagania są jak fundament – jeśli są krzywe, cały dom będzie krzywy, niezależnie od tego, jak piękne będą ściany i dach.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Software Requirements” (Karl Wiegers, Joy Beatty) – biblia inżynierii wymagań · „Agile Software Requirements” (Dean Leffingwell) · PMBOK Guide (PMI) – rozdział o zbieraniu wymagań.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
