@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 074 – Jakość oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">074. Pojęcie jakości oprogramowania, metody oraz miary zapewniania jakości.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔍</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Czy wystarczy, że samochód ma koła? Przegląd techniczny oprogramowania”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
+                        Wyobraź sobie, że kupujesz nowy samochód. Z zewnątrz wygląda świetnie, silnik pracuje, a sprzedawca mówi, że to „idealny egzemplarz”. Ale czy to znaczy, że samochód jest <strong>dobrej jakości</strong>? Co, jeśli po 1000 km pęknie pasek rozrządu, spalanie wynosi 20 litrów, a klimatyzacja działa tylko przy prędkości powyżej 80 km/h? Jakość samochodu to nie tylko to, że ma koła i jedzie. To bezpieczeństwo (brak awarii), komfort (cicha praca), wydajność (spalanie) i trwałość.
+                    </p>
+                    <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
+                        Z oprogramowaniem jest identycznie. <strong>Jakość oprogramowania</strong> to znacznie więcej niż „działa”. To mierzalne cechy, które decydują o tym, czy użytkownik będzie zadowolony, a system nie rozsypie się przy pierwszym wzroście obciążenia. Jakość nie pojawia się magicznie na końcu projektu – trzeba ją <strong>zaplanować, wbudować w proces wytwórczy i nieustannie mierzyć</strong>. Bez tego tworzymy cyfrowe „trupy na kółkach”.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">ISO 25010 (dawniej 9126)</span>
+            <span class="keyword-tag">Walidacja vs Weryfikacja</span>
+            <span class="keyword-tag">Quality Assurance (QA) vs Quality Control (QC)</span>
+            <span class="keyword-tag">Testowanie (Testy jednostkowe, integracyjne, systemowe, akceptacyjne)</span>
+            <span class="keyword-tag">Metryki produktu (LOC, złożoność cyklomatyczna, pokrycie kodu)</span>
+            <span class="keyword-tag">Metryki procesu (velocity, lead time, liczba błędów)</span>
+            <span class="keyword-tag">Code Review</span>
+            <span class="keyword-tag">Analiza statyczna (linters)</span>
+            <span class="keyword-tag">Normy: IEEE 730, CMMI</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Jakość wg ISO 25010 -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">1. Jakość to nie czary – model ISO 25010</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby móc mówić o jakości, musimy ją najpierw zdefiniować w sposób mierzalny. Robi to norma <strong>ISO 25010</strong>, która dzieli jakość na osiem głównych charakterystyk, a każda z nich składa się z podkategorii. To taki „przegląd techniczny” dla Twojego kodu.
+                </p>
+            </div>
+
+            <!-- SVG: ISO 25010 w formie koła -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Model Jakości ISO 25010</text>
+
+                <circle cx="410" cy="190" r="110" fill="none" stroke="#c5cae9" stroke-width="2"/>
+
+                <!-- 8 kategorii jakości -->
+                <g transform="translate(410,190)">
+                    <text x="0" y="-125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wydajność</text>
+                    <text x="0" y="-110" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(szybkość, zużycie)</text>
+
+                    <text x="90" y="-90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Bezpieczeństwo</text>
+                    <text x="90" y="-75" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(poufność, integralność)</text>
+
+                    <text x="120" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Niezawodność</text>
+                    <text x="120" y="15" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">(dostępność, odtwarzalność)</text>
+
+                    <text x="90" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Użyteczność</text>
+                    <text x="90" y="115" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">(łatwość nauki, UI)</text>
+
+                    <text x="0" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Przenaszalność</text>
+                    <text x="0" y="150" font-family="sans-serif" font-size="9" fill="#6a1b9a" text-anchor="middle">(adaptowalność)</text>
+
+                    <text x="-90" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#00838f" text-anchor="middle">Kompatybilność</text>
+                    <text x="-90" y="115" font-family="sans-serif" font-size="9" fill="#00838f" text-anchor="middle">(współpraca)</text>
+
+                    <text x="-120" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">Utrzymywalność</text>
+                    <text x="-120" y="15" font-family="sans-serif" font-size="9" fill="#f57c00" text-anchor="middle">(modularność)</text>
+
+                    <text x="-90" y="-90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#546e7a" text-anchor="middle">Zgodność</text>
+                    <text x="-90" y="-75" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(RODO, prawo)</text>
+                </g>
+            </svg>
+
+            <!-- 2. QA vs QC -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">2. Zapewnianie jakości (QA) a Kontrola jakości (QC) – nie myl tych pojęć</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To rozróżnienie jest kluczowe na egzaminie. W dużym skrócie: QA to <strong>procesy zapobiegawcze</strong>, a QC to <strong>działania wykrywające</strong>.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Quality Assurance (QA):</strong> Szerokie spektrum działań zapewniających, że proces wytwarzania jest odpowiedni i zapobiega powstawaniu defektów. Przykłady: wdrożenie standardów kodowania, szkolenia zespołu, przeglądy kodu, analiza statyczna.</li>
+                    <li><strong>Quality Control (QC):</strong> Działania związane z weryfikacją produktu (testowaniem), mające na celu znalezienie konkretnych usterek. Przykłady: testy jednostkowe, testy integracyjne, ręczne testy eksploracyjne.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pamiętaj: QA jest <strong>proaktywne</strong> (zapobiega), QC jest <strong>reaktywne</strong> (wykrywa). Samo testowanie (QC) nie wystarczy, by mówić o wysokiej jakości.
+                </p>
+            </div>
+
+            <!-- 3. Walidacja a Weryfikacja -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">3. Walidacja vs Weryfikacja (ulubione pytanie egzaminatorów)</strong>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Weryfikacja (Verification):</strong> Sprawdzamy, czy budujemy produkt <strong>poprawnie</strong> (zgodnie ze specyfikacją). Odpowiada na pytanie: „Czy system działa zgodnie z dokumentacją?”.</li>
+                    <li><strong>Walidacja (Validation):</strong> Sprawdzamy, czy budujemy <strong>właściwy</strong> produkt (spełniający potrzeby użytkownika). Odpowiada na pytanie: „Czy system rozwiązuje prawdziwy problem klienta?”.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Metryki -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">4. Jak zmierzyć jakość? Kluczowe metryki i metody</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nie można zarządzać czymś, czego nie można zmierzyć. Kluczowe metody zapewniania jakości to:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Testy automatyczne</strong> – jednostkowe, integracyjne, end-to-end (piramida testów).</li>
+                    <li><strong>Code Review</strong> – wzajemne sprawdzanie kodu przez programistów.</li>
+                    <li><strong>Analiza statyczna</strong> – automatyczne narzędzia (linters) sprawdzające kod pod kątem potencjalnych błędów i naruszeń standardów.</li>
+                    <li><strong>Piramida testów</strong> – dużo testów jednostkowych, mniej integracyjnych, bardzo mało E2E.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o jakości):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Jakość to brak błędów"</strong> – Błąd. Brak błędów to tylko jeden z wielu wymiarów. System może działać bezbłędnie, ale być kompletnie nieużyteczny (walidacja ujemna).</li>
+                    <li><strong>"QA jest tylko od testowania"</strong> – QA to holistyczna filozofia procesu. Testerzy (QC) to tylko jeden z elementów układanki.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Jakość oprogramowania nie bierze się znikąd. Jest wypadkową kultury inżynierskiej, odpowiednich procesów i ciągłego pomiaru. Nie jest też stanem binarnym (jest / nie ma) – to spektrum, które nieustannie balansujesz między perfekcją a biznesową potrzebą dostarczenia wartości. Pamiętaj, że najdroższy defekt to ten, który dotrze do użytkownika końcowego.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    ISO 25010 · IEEE 730 (Standard for Software Quality Assurance) · CMMI (Capability Maturity Model Integration) · "Software Engineering: A Practitioner's Approach" (Roger S. Pressman).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
