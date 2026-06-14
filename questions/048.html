@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 048 – Konstrukcje języka SQL</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">048. Konstrukcje języka SQL (DDL, DML, DQL, DCL, JOIN, GROUP BY).</h2>
+
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📜</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Restauracja i Język Deklaratywny”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Programując w Javie czy Pythonie (języki imperatywne), mówisz komputerowi <strong>JAK</strong> ma coś zrobić (krok po kroku, pętla po pętli).<br><br>
+                        SQL to język <strong>DEKLARATYWNY</strong>. Działa jak zamawianie jedzenia w restauracji. Mówisz kelnerowi: <em>"Chcę średnio wysmażonego steka z frytkami"</em> (<code>SELECT stek, frytki FROM menu WHERE stopien = 'medium'</code>). Kompletnie nie interesuje Cię, jakiej patelni użyje kucharz, ani w jakiej kolejności usmaży frytki. To optymalizator bazy danych gra rolę szefa kuchni i decyduje o procesie wykonania (Execution Plan).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">DDL (Data Definition) - CREATE, ALTER</span>
+            <span class="keyword-tag">DML (Data Manipulation) - INSERT, UPDATE</span>
+            <span class="keyword-tag">DQL (Data Query) - SELECT</span>
+            <span class="keyword-tag">DCL (Data Control) - GRANT, REVOKE</span>
+            <span class="keyword-tag">JOIN (INNER, LEFT, RIGHT)</span>
+            <span class="keyword-tag">GROUP BY i agregacje (SUM, COUNT)</span>
+            <span class="keyword-tag">HAVING vs WHERE</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Cztery filary SQL (Budowanie, Meblowanie, Pytanie, Ochrona)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Język SQL dzieli się na cztery główne podgrupy komend. Egzaminatorzy często pytają o to, czy np. <code>UPDATE</code> to zmiana struktury, czy danych. Odpowiedź brzmi: danych (DML).
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#e3f2fd" opacity="0.3"/>
+
+                <rect x="30" y="30" width="170" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="30" width="170" height="30" rx="8" fill="#1565c0"/>
+                <rect x="30" y="45" width="170" height="15" fill="#1565c0"/>
+                <text x="115" y="50" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">DDL (Definicja)</text>
+                <text x="115" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">BUDOWANIE DOMU</text>
+                <text x="115" y="105" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">CREATE (Twórz)</text>
+                <text x="115" y="125" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">ALTER (Modyfikuj)</text>
+                <text x="115" y="145" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">DROP (Wyburzaj)</text>
+
+                <rect x="225" y="30" width="170" height="120" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="225" y="30" width="170" height="30" rx="8" fill="#2e7d32"/>
+                <rect x="225" y="45" width="170" height="15" fill="#2e7d32"/>
+                <text x="310" y="50" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">DML (Manipulacja)</text>
+                <text x="310" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">MEBLOWANIE DOMU</text>
+                <text x="310" y="105" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">INSERT (Wstaw)</text>
+                <text x="310" y="125" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">UPDATE (Zmień)</text>
+                <text x="310" y="145" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">DELETE (Wyrzuć)</text>
+
+                <rect x="420" y="30" width="170" height="120" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="420" y="30" width="170" height="30" rx="8" fill="#f57c00"/>
+                <rect x="420" y="45" width="170" height="15" fill="#f57c00"/>
+                <text x="505" y="50" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">DQL (Zapytania)</text>
+                <text x="505" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">OGLĄDANIE DOMU</text>
+                <text x="505" y="115" font-family="monospace" font-size="14" font-weight="bold" fill="#37474f" text-anchor="middle">SELECT</text>
+                <text x="505" y="135" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Tylko do odczytu!)</text>
+
+                <rect x="615" y="30" width="170" height="120" rx="8" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <rect x="615" y="30" width="170" height="30" rx="8" fill="#6a1b9a"/>
+                <rect x="615" y="45" width="170" height="15" fill="#6a1b9a"/>
+                <text x="700" y="50" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">DCL (Kontrola)</text>
+                <text x="700" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a" text-anchor="middle">OCHRONIARZ</text>
+                <text x="700" y="115" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">GRANT (Nadaj prawa)</text>
+                <text x="700" y="135" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">REVOKE (Odbierz)</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Magia Złączeń (JOIN) – Zszywanie rozbitych tabel</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ponieważ bazy relacyjne dzielą dane na małe tabele (Normalizacja), potrzebujemy mechanizmu, by złożyć je z powrotem. Służy do tego <code>JOIN</code>, operujący na Kluczach Głównych (PK) i Obcych (FK).
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Rodzaje złączeń (JOIN) - Teoria Zbiorów</text>
+
+                <g transform="translate(100, 60)">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#1565c0" stroke-width="3"/>
+                    <circle cx="110" cy="50" r="45" fill="none" stroke="#2e7d32" stroke-width="3"/>
+
+                    <path d="M 80 15 A 45 45 0 0 0 80 85 A 45 45 0 0 0 80 15 Z" fill="#ffb74d" opacity="0.8"/>
+
+                    <text x="80" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">INNER JOIN</text>
+                    <text x="80" y="145" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Tylko to, co pasuje tu i tu</text>
+                </g>
+
+                <g transform="translate(330, 60)">
+                    <circle cx="50" cy="50" r="45" fill="#bbdefb" opacity="0.8"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#1565c0" stroke-width="3"/>
+                    <circle cx="110" cy="50" r="45" fill="none" stroke="#2e7d32" stroke-width="3"/>
+
+                    <path d="M 80 15 A 45 45 0 0 0 80 85 A 45 45 0 0 0 80 15 Z" fill="#bbdefb" opacity="0.8"/>
+
+                    <text x="80" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">LEFT JOIN</text>
+                    <text x="80" y="145" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Wszystko z lewej tabeli +</text>
+                    <text x="80" y="157" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">dopasowania z prawej (resztę da NULL)</text>
+                </g>
+
+                <g transform="translate(560, 60)">
+                    <circle cx="50" cy="50" r="45" fill="#f3e5f5" opacity="0.8"/>
+                    <circle cx="110" cy="50" r="45" fill="#f3e5f5" opacity="0.8"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#1565c0" stroke-width="3"/>
+                    <circle cx="110" cy="50" r="45" fill="none" stroke="#2e7d32" stroke-width="3"/>
+
+                    <text x="80" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#8e24aa" text-anchor="middle">FULL OUTER JOIN</text>
+                    <text x="80" y="145" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Bierze absolutnie wszystko z obu tabel.</text>
+                    <text x="80" y="157" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Brakujące strony wypełnia NULL-ami)</text>
+                </g>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Agregacje i GROUP BY – Wrzucanie do kubełków</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy masz milion rekordów pracowników z różnymi pensjami, nie chcesz ich wszystkich oglądać. Chcesz zapytać: <em>"Jaka jest suma pensji w danym dziale?"</em>. Używamy do tego <code>GROUP BY</code> wraz z funkcją agregującą (<code>SUM</code>, <code>COUNT</code>, <code>AVG</code>). Baza bierze surowe wiersze, sortuje je i "wrzuca do odpowiednich kubełków" (np. Dział IT, Dział HR), zwracając tylko JEDEN wiersz na kubełek z wynikiem obliczeń.
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#e8f5e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2e7d32">Wizualizacja: GROUP BY dzial, SUM(pensja)</text>
+
+                <rect x="50" y="45" width="160" height="110" rx="4" fill="#fff" stroke="#cfd8dc" stroke-width="2"/>
+                <text x="130" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#455a64" text-anchor="middle">Surowe wiersze</text>
+                <rect x="60" y="75" width="140" height="20" fill="#e3f2fd"/>
+                <text x="130" y="89" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">IT  | 5000</text>
+                <rect x="60" y="98" width="140" height="20" fill="#fff3e0"/>
+                <text x="130" y="112" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">HR  | 4000</text>
+                <rect x="60" y="121" width="140" height="20" fill="#e3f2fd"/>
+                <text x="130" y="135" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">IT  | 6000</text>
+
+                <path d="M 220 100 L 290 100" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrn)"/>
+
+                <text x="375" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Grupowanie (Kubełki)</text>
+
+                <path d="M 320 80 L 320 140 A 30 10 0 0 0 380 140 L 380 80" fill="none" stroke="#1565c0" stroke-width="3"/>
+                <text x="350" y="115" font-family="monospace" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">IT</text>
+                <text x="350" y="130" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">5k + 6k</text>
+
+                <path d="M 400 80 L 400 140 A 30 10 0 0 0 460 140 L 460 80" fill="none" stroke="#e65100" stroke-width="3"/>
+                <text x="430" y="115" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">HR</text>
+                <text x="430" y="130" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">4k</text>
+
+                <path d="M 490 100 L 560 100" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrn)"/>
+
+                <rect x="590" y="60" width="160" height="80" rx="4" fill="#fff" stroke="#388e3c" stroke-width="2"/>
+                <text x="670" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wynikowa Tabela</text>
+                <rect x="600" y="90" width="140" height="20" fill="#e8f5e9"/>
+                <text x="670" y="104" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">IT  | 11000</text>
+                <rect x="600" y="113" width="140" height="20" fill="#e8f5e9"/>
+                <text x="670" y="127" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">HR  | 4000</text>
+
+                <defs>
+                    <marker id="arrowGrn" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Różnica między WHERE a HAVING):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    To jest absolutnie ulubione pytanie wykładowców na egzaminie! Pamiętaj o kolejności operacji wykonywanych przez optymalizator bazy:<br><br>
+                    <strong>1. WHERE:</strong> Filtruje "surowe" wiersze <em>ZANIM</em> w ogóle trafią do kubełków w `GROUP BY`. Nie można w nim używać funkcji agregujących (błąd: <code>WHERE SUM(pensja) > 10000</code>)!<br>
+                    <strong>2. HAVING:</strong> Filtruje <em>GOTOWE KUBEŁKI</em> już po pogrupowaniu i zsumowaniu. Tu możesz napisać <code>HAVING SUM(pensja) > 10000</code>. Używa się go <strong>wyłącznie</strong> w parze z funkcjami agregującymi lub klauzulą <code>GROUP BY</code>.
+                </p>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">SQL to nie jest język, który czyta się od góry do dołu. Kolejność w jakiej piszesz słowa (SELECT -> FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY) jest tylko po to, by zgadzała się gramatyka. Silnik bazy danych pod spodem wykonuje to w zupełnie innej kolejności (najpierw FROM, potem WHERE by wyciąć dane, potem GROUP, na końcu formuje SELECT i sortuje). Rozumiejąc ten przepływ, unikniesz najczęstszych błędów syntaktycznych.</span>
+                </p>
+            </div>
+
+        </div></div></div></body>
+</html>
