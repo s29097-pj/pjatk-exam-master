@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 061 – Podział wymagań</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">061. Podział wymagań stawianych oprogramowaniu. Klasyfikacja wymagań niefunkcjonalnych.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Dom Marzeń: czy ważniejsze są ściany, czy fundamenty?”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Wyobraź sobie, że projektujesz swój wymarzony dom. Opisujesz architektowi wszystko, co ma się w nim znaleźć: „Chcę 3 sypialnie, 2 łazienki, salon z kominkiem, otwartą kuchnię i garaż na 2 auta.” To są Twoje <strong>wymagania funkcjonalne</strong> – opisują, CO dom ma robić (dawać schronienie, pozwalać spać, gotować, parkować).
+                    </p>
+                    <p style="margin: 0; color: #3e2723; line-height: 1.7;">
+                        Ale czy to wystarczy? A co z tym, że fundamenty muszą wytrzymać ciężar, dach ma nie przeciekać przez 30 lat, ściany mają być ognioodporne, a okna tłumić hałas z ulicy? To są <strong>wymagania niefunkcjonalne</strong> – opisują, JAK dom ma działać (być bezpieczny, trwały, cichy, ciepły). Te drugie są niewidoczne na pierwszy rzut oka, ale to one decydują, czy dom przetrwa pokolenia, czy rozpadnie się po pierwszej zimie. W oprogramowaniu jest dokładnie tak samo – funkcjonalności to to, co klient KLIKA. Niefunkcjonalne to to, co sprawia, że system nie pada pod obciążeniem.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Wymagania Funkcjonalne (FURPS+)</span>
+            <span class="keyword-tag">Wymagania Niefunkcjonalne (NFR)</span>
+            <span class="keyword-tag">ISO 25010 (dawniej ISO 9126)</span>
+            <span class="keyword-tag">Wydajność (Performance Efficiency)</span>
+            <span class="keyword-tag">Bezpieczeństwo (Security)</span>
+            <span class="keyword-tag">Niezawodność (Reliability)</span>
+            <span class="keyword-tag">Użyteczność (Usability)</span>
+            <span class="keyword-tag">Przenaszalność / Kompatybilność</span>
+            <span class="keyword-tag">Skalowalność a Wydajność</span>
+            <span class="keyword-tag">Kwestie Prawne (Compliance)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Główny podział wymagań -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #ff8f00;">1. Główny podział wymagań: Funkcjonalne, Niefunkcjonalne i Ograniczenia</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W inżynierii oprogramowania wymagania dzielimy na trzy główne kategorie, które razem tworzą kompletny opis systemu:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wymagania Funkcjonalne (F)</strong> – Opisują zachowanie systemu. Co robi? Przykład: „System wysyła email po rejestracji”.</li>
+                    <li><strong>Wymagania Niefunkcjonalne (NF)</strong> – Opisują jakość, z jaką system działa. Przykład: „Email zostaje wysłany w ciągu 30 sekund”.</li>
+                    <li><strong>Ograniczenia (Constraints)</strong> – Zewnętrze limity, na które nie masz wpływu. Przykład: „System musi być napisany w Javie, bo taki jest standard w firmie”, „Całość nie może przekroczyć budżetu 500k PLN”.</li>
+                </ul>
+            </div>
+
+            <!-- SVG: Piramida podziału wymagań -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#fff8e1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Piramida Podziału Wymagań</text>
+
+                <!-- Funkcjonalne (największy blok) -->
+                <rect x="80" y="60" width="660" height="80" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="90" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0d47a1" text-anchor="middle">WYMAGANIA FUNKCJONALNE (CO?)</text>
+                <text x="410" y="115" font-family="sans-serif" font-size="12" fill="#1565c0" text-anchor="middle">„System oblicza podatek VAT”, „Użytkownik może dodać produkt do koszyka”, „Administrator eksportuje raport do PDF”</text>
+
+                <!-- Niefunkcjonalne -->
+                <rect x="150" y="160" width="520" height="70" rx="8" fill="#ffe0b2" stroke="#ff8f00" stroke-width="2"/>
+                <text x="410" y="185" font-family="sans-serif" font-size="16" font-weight="bold" fill="#e65100" text-anchor="middle">WYMAGANIA NIEFUNKCJONALNE (JAK?)</text>
+                <text x="410" y="210" font-family="sans-serif" font-size="11" fill="#bf360c" text-anchor="middle">Wydajność, Bezpieczeństwo, Niezawodność, Użyteczność, Przenaszalność, Zgodność z prawem</text>
+
+                <!-- Ograniczenia -->
+                <rect x="220" y="245" width="380" height="25" rx="4" fill="#eceff1" stroke="#90a4ae" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="410" y="262" font-family="sans-serif" font-size="12" font-weight="bold" fill="#455a64" text-anchor="middle">OGRANICZENIA (Budżet, Technologia, Termin, Zespół)</text>
+            </svg>
+
+            <!-- 2. Klasyfikacja wymagań niefunkcjonalnych -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #ff8f00;">2. ISO 25010 – standardowa klasyfikacja wymagań niefunkcjonalnych</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby nie mówić o wymaganiach niefunkcjonalnych „na czuja”, organizacja ISO stworzyła normę <strong>ISO 25010</strong> (dawniej 9126), która dzieli jakość systemu na osiem głównych charakterystyk:
+                </p>
+            </div>
+
+            <!-- SVG: Model ISO 25010 -->
+            <svg viewBox="0 0 820 460" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="460" fill="#fff8e1" opacity="0.2"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Model Jakości ISO 25010 – 8 kategorii wymagań niefunkcjonalnych</text>
+
+                <!-- 1. Wydajność -->
+                <rect x="30" y="45" width="180" height="90" rx="6" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <rect x="30" y="45" width="180" height="28" rx="6" fill="#e65100"/>
+                <text x="120" y="64" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">⚡ Wydajność</text>
+                <text x="120" y="85" font-family="sans-serif" font-size="9" fill="#bf360c" text-anchor="middle">Czas odpowiedzi,</text>
+                <text x="120" y="100" font-family="sans-serif" font-size="9" fill="#bf360c" text-anchor="middle">przepustowość,</text>
+                <text x="120" y="115" font-family="sans-serif" font-size="9" fill="#bf360c" text-anchor="middle">zużycie zasobów</text>
+
+                <!-- 2. Bezpieczeństwo -->
+                <rect x="220" y="45" width="180" height="90" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <rect x="220" y="45" width="180" height="28" rx="6" fill="#c62828"/>
+                <text x="310" y="64" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">🔒 Bezpieczeństwo</text>
+                <text x="310" y="85" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Poufność, integralność,</text>
+                <text x="310" y="100" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">autentyczność,</text>
+                <text x="310" y="115" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">niezaprzeczalność</text>
+
+                <!-- 3. Niezawodność -->
+                <rect x="410" y="45" width="180" height="90" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="410" y="45" width="180" height="28" rx="6" fill="#1565c0"/>
+                <text x="500" y="64" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">🛡️ Niezawodność</text>
+                <text x="500" y="85" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Dostępność, MTBF,</text>
+                <text x="500" y="100" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">odporność na awarie,</text>
+                <text x="500" y="115" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">odtwarzalność</text>
+
+                <!-- 4. Użyteczność -->
+                <rect x="600" y="45" width="190" height="90" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="600" y="45" width="190" height="28" rx="6" fill="#2e7d32"/>
+                <text x="695" y="64" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">🎨 Użyteczność</text>
+                <text x="695" y="85" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Zrozumiałość,</text>
+                <text x="695" y="100" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">łatwość nauki,</text>
+                <text x="695" y="115" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">estetyka UI</text>
+
+                <!-- 5. Przenaszalność -->
+                <rect x="30" y="155" width="180" height="90" rx="6" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <rect x="30" y="155" width="180" height="28" rx="6" fill="#6a1b9a"/>
+                <text x="120" y="174" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">📦 Przenaszalność</text>
+                <text x="120" y="195" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Łatwość instalacji,</text>
+                <text x="120" y="210" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">współistnienie,</text>
+                <text x="120" y="225" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">adaptowalność</text>
+
+                <!-- 6. Kompatybilność -->
+                <rect x="220" y="155" width="180" height="90" rx="6" fill="#fff" stroke="#00838f" stroke-width="2"/>
+                <rect x="220" y="155" width="180" height="28" rx="6" fill="#00838f"/>
+                <text x="310" y="174" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">🔌 Kompatybilność</text>
+                <text x="310" y="195" font-family="sans-serif" font-size="9" fill="#006064" text-anchor="middle">Współpraca z innymi</text>
+                <text x="310" y="210" font-family="sans-serif" font-size="9" fill="#006064" text-anchor="middle">systemami (API),</text>
+                <text x="310" y="225" font-family="sans-serif" font-size="9" fill="#006064" text-anchor="middle">formaty danych</text>
+
+                <!-- 7. Utrzymywalność -->
+                <rect x="410" y="155" width="180" height="90" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="410" y="155" width="180" height="28" rx="6" fill="#f57c00"/>
+                <text x="500" y="174" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">🔧 Utrzymywalność</text>
+                <text x="500" y="195" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Modularność,</text>
+                <text x="500" y="210" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">testowalność,</text>
+                <text x="500" y="225" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">analizowalność</text>
+
+                <!-- 8. Zgodność -->
+                <rect x="600" y="155" width="190" height="90" rx="6" fill="#fff" stroke="#546e7a" stroke-width="2"/>
+                <rect x="600" y="155" width="190" height="28" rx="6" fill="#546e7a"/>
+                <text x="695" y="174" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">📋 Zgodność</text>
+                <text x="695" y="195" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Zgodność z prawem</text>
+                <text x="695" y="210" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">(RODO, HIPAA),</text>
+                <text x="695" y="225" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">normy branżowe</text>
+
+                <!-- Legenda / Kluczowe pytanie -->
+                <rect x="130" y="275" width="560" height="50" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                <text x="410" y="298" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">💡 Kluczowa zasada: Wymagania niefunkcjonalne są SZEREGOWANE (nie priorytetyzowane jak funkcjonalne).</text>
+                <text x="410" y="316" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">Jeśli zaniedbasz którekolwiek z nich (np. bezpieczeństwo dla wydajności), system stanie się bezużyteczny.</text>
+            </svg>
+
+            <!-- 3. Przykłady praktyczne -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #ff8f00;">3. Przykład praktyczny – jak specyfikować wymagania niefunkcjonalne?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Niefunkcjonalne wymagania MUSZĄ być mierzalne i testowalne. Nie możesz napisać „system jest szybki”. Musisz podać konkret: „Czas odpowiedzi API dla 95% żądań nie przekracza 200ms przy obciążeniu 500 req/s”.
+                </p>
+                <div style="background: #f5f5f5; border-radius: 10px; padding: 16px; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #c62828; width: 150px;">Źle (niejednoznaczne)</td>
+                            <td style="padding: 8px; color: #c62828;">„Strona musi się szybko ładować.”</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #2e7d32;">Dobrze (testowalne)</td>
+                            <td style="padding: 8px; color: #1b5e20;">„Strona ładuje się w mniej niż 2 sekundy na połączeniu 4G na urządzeniach mobilnych z ostatnich 3 lat.”</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #c62828;">Źle</td>
+                            <td style="padding: 8px; color: #c62828;">„System musi być bezpieczny.”</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: bold; color: #2e7d32;">Dobrze</td>
+                            <td style="padding: 8px; color: #1b5e20;">„Wszystkie dane klientów są szyfrowane AES‑256 w spoczynku i w tranzycie (TLS 1.3). System przechodzi pentesty bez krytycznych podatności.”</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. FURPS+ -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #ff8f00;">4. Alternatywna klasyfikacja: FURPS+</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Oprócz ISO 25010, w praktyce często stosuje się prostszą klasyfikację FURPS+, która dzieli wymagania niefunkcjonalne na kategorie:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>F</strong>unctionality (Funkcjonalność) – zdolność systemu do wykonania zadania.</li>
+                    <li><strong>U</strong>sability (Użyteczność) – łatwość obsługi, estetyka, dostępność (Accessibility).</li>
+                    <li><strong>R</strong>eliability (Niezawodność) – dostępność (uptime), średni czas między awariami (MTBF), odporność na awarie.</li>
+                    <li><strong>P</strong>erformance (Wydajność) – czas odpowiedzi, przepustowość, zużycie pamięci/CPU.</li>
+                    <li><strong>S</strong>upportability (Wsparcie) – łatwość testowania, instalacji, konfiguracji, utrzymania.</li>
+                    <li><strong>+</strong> – Ograniczenia projektowe (Design Constraints), wymagania implementacyjne, fizyczne, interfejsu.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy NFR):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Na początku zbudujemy funkcje, a wydajnością zajmiemy się później”</strong> – PÓŹNIEJ to w IT zazwyczaj oznacza „na miesiąc przed deadlinem, z przekroczonym budżetem, bez możliwości zmiany architektury”. NFR-y muszą być brane pod uwagę od fazy projektowania, ponieważ wpływają na wybór architektury, frameworka i bazy danych.</li>
+                    <li><strong>„Użyteczność to tylko ładny CSS”</strong> – Użyteczność (Usability) obejmuje też dostępność (Accessibility) dla osób z niepełnosprawnościami, intuicyjność nawigacji, zrozumiałość komunikatów błędów. W wielu krajach dostępność jest wymogiem PRAWNYM, a nie tylko „fajnym dodatkiem”.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamiętaj: funkcjonalności sprzedają produkt. Niefunkcjonalne trzymają go przy życiu. Aplikacja, która idealnie liczy podatki, ale ładuje się 15 sekund, będzie porzucona przez użytkowników szybciej, niż zdążysz powiedzieć „optymalizacja”. Prawdziwy inżynier myśli o NFR-ach od pierwszej minuty projektu, a nie dopiero wtedy, gdy serwery płoną.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Software Requirements” (Karl Wiegers, Joy Beatty) – rozdziały o wymaganiach niefunkcjonalnych · ISO 25010 – norma jakości oprogramowania · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
