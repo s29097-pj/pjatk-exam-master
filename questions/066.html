@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 066 – Proces wytwarzania oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">066. Proces wytwarzania oprogramowania: cykl życia projektu IT, etapy i czynności w procesie budowy oprogramowania, ich rola.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie buduje się drapacza chmur bez planu i harmonogramu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Wyobraź sobie, że masz wybudować 50-piętrowy wieżowiec. Czy zaczynasz od razu wylewać beton na chybił-trafił? Absolutnie nie. Najpierw architekt rysuje plany (analiza i projekt), potem ekipa budowlana stawia szkielet (implementacja), inspektor sprawdza zgodność z normami (testowanie), a na końcu następuje odbiór i wprowadzają się lokatorzy (wdrożenie). Co więcej, przez kolejne lata konserwatorzy naprawiają usterki i remontują (utrzymanie).
+                    </p>
+                    <p style="margin: 0; color: #3e2723; line-height: 1.7;">
+                        <strong>Proces wytwarzania oprogramowania (SDLC – Software Development Life Cycle)</strong> to dokładnie taka sama sekwencja działań. To ustrukturyzowana metoda, która przeprowadza system informatyczny od pierwszego pomysłu („potrzebujemy aplikacji do zarządzania magazynem”) aż do wyłączenia go z użytku po latach. Bez SDLC projekty IT toną w chaosie: wymagania się zmieniają bez kontroli, kod jest niespójny, a użytkownik dostaje produkt, który nie działa.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">SDLC (Software Development Life Cycle)</span>
+            <span class="keyword-tag">Fazy: Analiza, Projektowanie, Implementacja, Testowanie, Wdrożenie, Utrzymanie</span>
+            <span class="keyword-tag">Model kaskadowy (Waterfall)</span>
+            <span class="keyword-tag">Model iteracyjny / przyrostowy</span>
+            <span class="keyword-tag">Role: Analityk, Architekt, Programista, Tester, PM</span>
+            <span class="keyword-tag">Artefakty: SRS, Dokument Architektury, Plan Testów</span>
+            <span class="keyword-tag">Bramki decyzyjne (Quality Gates)</span>
+            <span class="keyword-tag">Czynności: Code Review, CI/CD, Retrospektywa</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Cykl życia -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Czym jest cykl życia projektu IT (SDLC)?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>SDLC</strong> to ramy opisujące kolejne etapy powstawania systemu informatycznego – od pomysłu do wycofania. Jest jak przepis na ciasto: masz listę składników (ludzi, budżet, technologie) i kolejność kroków, które musisz wykonać, by upiec udany produkt. SDLC nie jest jednym sztywnym procesem – istnieje wiele modeli (Waterfall, V-Model, Iterative, Agile), ale <strong>wszystkie zawierają te same podstawowe fazy</strong>, tylko realizowane w różnej kolejności i z różną częstotliwością.
+                </p>
+            </div>
+
+            <!-- 2. Główne fazy (schemat SVG) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Sześć uniwersalnych faz SDLC</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Niezależnie od tego, czy używasz Waterfalla, czy Scruma, każdy projekt przechodzi przez te etapy. W Waterfallu robisz je raz, po kolei. W Agile powtarzasz je w każdym Sprincie dla małego wycinka funkcjonalności.
+                </p>
+            </div>
+
+            <!-- SVG: Cykl SDLC -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Uniwersalne fazy SDLC (istnieją w każdej metodyce)</text>
+
+                <!-- Faza 1: Analiza -->
+                <rect x="40" y="55" width="110" height="100" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="95" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bf360c" text-anchor="middle">🔍 Analiza</text>
+                <text x="95" y="100" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Zbieranie</text>
+                <text x="95" y="114" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">wymagań</text>
+
+                <!-- Faza 2: Projektowanie -->
+                <path d="M 150 105 L 180 105" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrOrange)"/>
+                <rect x="185" y="55" width="110" height="100" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="240" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">📐 Projekt</text>
+                <text x="240" y="100" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Architektura,</text>
+                <text x="240" y="114" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">UI/UX, baza</text>
+
+                <!-- Faza 3: Implementacja -->
+                <path d="M 295 105 L 325 105" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrOrange)"/>
+                <rect x="330" y="55" width="110" height="100" rx="8" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+                <text x="385" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">💻 Kodowanie</text>
+                <text x="385" y="100" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Pisanie kodu,</text>
+                <text x="385" y="114" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">code review</text>
+
+                <!-- Faza 4: Testowanie -->
+                <path d="M 440 105 L 470 105" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrOrange)"/>
+                <rect x="475" y="55" width="110" height="100" rx="8" fill="#fff" stroke="#ffb74d" stroke-width="2"/>
+                <text x="530" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">🧪 Testowanie</text>
+                <text x="530" y="100" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Jednostkowe,</text>
+                <text x="530" y="114" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">integracyjne, UAT</text>
+
+                <!-- Faza 5: Wdrożenie -->
+                <path d="M 585 105 L 615 105" fill="none" stroke="#ffb74d" stroke-width="2" marker-end="url(#arrOrange)"/>
+                <rect x="620" y="55" width="110" height="100" rx="8" fill="#fff" stroke="#ffcc80" stroke-width="2"/>
+                <text x="675" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">🚀 Wdrożenie</text>
+                <text x="675" y="100" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Szkolenia,</text>
+                <text x="675" y="114" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">migracja danych</text>
+
+                <!-- Pętla: Utrzymanie (na dole) -->
+                <path d="M 675 155 L 675 190 L 95 190 L 95 157" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrBlue)"/>
+                <rect x="250" y="178" width="320" height="25" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1"/>
+                <text x="410" y="195" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">🔧 Faza 6: Utrzymanie i Ewolucja (lata)</text>
+
+                <!-- Waterfall vs Agile -->
+                <rect x="120" y="240" width="260" height="55" rx="6" fill="#fff" stroke="#c62828" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="250" y="260" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Waterfall: fazy po kolei, raz</text>
+                <text x="250" y="278" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(dla stabilnych, przewidywalnych projektów)</text>
+
+                <rect x="440" y="240" width="260" height="55" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="570" y="260" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Agile: fazy powtarzane w Sprintach</text>
+                <text x="570" y="278" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(dla zmiennych, innowacyjnych projektów)</text>
+
+                <defs>
+                    <marker id="arrOrange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 3. Czynności i role -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Czynności w każdej fazie i role, które je wykonują</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każda faza ma swoje konkretne czynności i produkty (artefakty). Kto za co odpowiada? Oto rozbicie:
+                </p>
+            </div>
+
+            <!-- SVG: Tabela faz, czynności i artefaktów -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="#f5f5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Fazy SDLC – czynności, role, artefakty</text>
+
+                <!-- Nagłówki -->
+                <rect x="20" y="40" width="130" height="25" rx="3" fill="#bf360c"/>
+                <text x="85" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Faza</text>
+                <rect x="160" y="40" width="250" height="25" rx="3" fill="#bf360c"/>
+                <text x="285" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Główne czynności</text>
+                <rect x="420" y="40" width="170" height="25" rx="3" fill="#bf360c"/>
+                <text x="505" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Kluczowe role</text>
+                <rect x="600" y="40" width="200" height="25" rx="3" fill="#bf360c"/>
+                <text x="700" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Artefakty</text>
+
+                <!-- Analiza -->
+                <rect x="20" y="70" width="130" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="95" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Analiza</text>
+                <rect x="160" y="70" width="250" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="88" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Wywiady, warsztaty, modelowanie procesów,</text>
+                <text x="285" y="102" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">priorytetyzacja wymagań</text>
+                <rect x="420" y="70" width="170" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="95" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Analityk biznesowy, Product Owner</text>
+                <rect x="600" y="70" width="200" height="40" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="95" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">SRS, Product Backlog</text>
+
+                <!-- Projektowanie -->
+                <rect x="20" y="115" width="130" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Projektowanie</text>
+                <rect x="160" y="115" width="250" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="133" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Projekt architektury, model danych,</text>
+                <text x="285" y="147" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">projekt interfejsu (UI/UX)</text>
+                <rect x="420" y="115" width="170" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="140" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Architekt, UX Designer, DBA</text>
+                <rect x="600" y="115" width="200" height="40" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="140" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Dokument Architektury, Makiety UI</text>
+
+                <!-- Implementacja -->
+                <rect x="20" y="160" width="130" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Implementacja</text>
+                <rect x="160" y="160" width="250" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="178" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Pisanie kodu, konfiguracja środowisk,</text>
+                <text x="285" y="192" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">integracja z zewnętrznymi API</text>
+                <rect x="420" y="160" width="170" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="185" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Programista (Frontend, Backend)</text>
+                <rect x="600" y="160" width="200" height="40" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="185" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Kod źródłowy, Unit Testy</text>
+
+                <!-- Testowanie -->
+                <rect x="20" y="205" width="130" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="230" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Testowanie</text>
+                <rect x="160" y="205" width="250" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="223" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Testy jednostkowe, integracyjne, systemowe,</text>
+                <text x="285" y="237" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">testy akceptacyjne (UAT)</text>
+                <rect x="420" y="205" width="170" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="230" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Tester, Automatyk QA</text>
+                <rect x="600" y="205" width="200" height="40" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="230" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Plan testów, Raport z testów</text>
+
+                <!-- Wdrożenie -->
+                <rect x="20" y="250" width="130" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="275" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Wdrożenie</text>
+                <rect x="160" y="250" width="250" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="268" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Migracja danych, szkolenia użytkowników,</text>
+                <text x="285" y="282" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">przekazanie do utrzymania</text>
+                <rect x="420" y="250" width="170" height="40" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="275" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">DevOps, Project Manager</text>
+                <rect x="600" y="250" width="200" height="40" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="275" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Dokumentacja wdrożeniowa</text>
+
+                <!-- Utrzymanie -->
+                <rect x="20" y="295" width="130" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="85" y="317" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Utrzymanie</text>
+                <rect x="160" y="295" width="250" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="285" y="317" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Bug fixing, aktualizacje bezpieczeństwa, monitoring</text>
+                <rect x="420" y="295" width="170" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="505" y="317" font-family="sans-serif" font-size="9" fill="#3e2723" text-anchor="middle">Zespół utrzymania, DevOps</text>
+                <rect x="600" y="295" width="200" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="700" y="317" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Logi, Raporty incydentów</text>
+            </svg>
+
+            <!-- 4. Bramki decyzyjne -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Bramki decyzyjne (Quality Gates) – nie przechodzisz dalej bez odbioru</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Między fazami często stoją <strong>bramki jakości</strong> – formalne punkty kontrolne, w których sprawdza się, czy faza została zakończona poprawnie. Bez zaliczenia bramki nie wolno przejść dalej. Przykłady: zakończenie analizy wymaga formalnej akceptacji SRS przez klienta; zakończenie testów wymaga, by wszystkie krytyczne błędy były naprawione.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (SDLC w praktyce):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Faza testowania jest po implementacji”</strong> – W Waterfallu tak. W Agile testowanie jest równoległe z implementacją (TDD, CI/CD). Nowoczesne procesy nie czekają z testowaniem na koniec.</li>
+                    <li><strong>„Utrzymanie to nie jest faza SDLC”</strong> – Jest. To najdłuższa i najdroższa faza (nawet 70% całkowitych kosztów systemu). Egzaminatorzy lubią pytać o koszty utrzymania vs. koszty budowy.</li>
+                    <li><strong>„SDLC to tylko dla dużych korporacji”</strong> – Nawet startup jednoosobowy przechodzi przez wszystkie fazy – po prostu szybciej i mniej formalnie. Cykl życia jest nieunikniony, zmienia się tylko jego formalność i długość.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">SDLC nie jest biurokratyczną zmorą – to mapa, która nie pozwala Ci zabłądzić. Bez względu na to, czy używasz Waterfalla, Scruma czy Kanbana, zawsze musisz przejść od „co robimy?” do „działa i jest używane”. Zrozumienie faz i czynności to podstawa, by później świadomie wybierać, które z nich przyspieszasz, a których nie możesz pominąć bez ryzyka katastrofy.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    PMBOK Guide (PMI) – rozdziały o cyklu życia projektu · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman) · „The Mythical Man-Month” (Frederick Brooks) – o kosztach utrzymania.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
