@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 055 – Hurtownie danych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">055. Hurtownie danych.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sklepiku osiedlowego do hipermarketu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
+                        Wyobraź sobie mały sklepik osiedlowy. Ekspedientka kasuje klientów jedna transakcja po drugiej, wydaje resztę, paragon – wszystko dzieje się w ułamku sekundy. Bazy transakcyjne (OLTP) działają dokładnie tak: szybko, pojedynczo, bez oglądania się wstecz. Ale co, jeśli szef sieci chce wiedzieć, które produkty sprzedawały się najlepiej w ostatnie święta we wszystkich sklepach? Sięgnie po raport z <strong>hurtowni danych</strong>.
+                    </p>
+                    <p style="margin: 0; color: #1a3a3a; line-height: 1.7;">
+                        Hurtownia danych to nie jest zwykła baza – to <strong>wyspecjalizowany system do analiz</strong>. Nie służy do obsługi klienta, tylko do odpowiadania na wielkie pytania: „Jakie są trendy?”, „Który dział zarabia najwięcej?”, „Jaka była sprzedaż rok do roku?”. Podczas gdy baza produkcyjna (OLTP) jest jak kasjer w sklepie, hurtownia (OLAP) jest jak zespół analityków z arkuszami Excela, którzy przeglądają dane z całego miesiąca.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">OLTP vs OLAP</span>
+            <span class="keyword-tag">ETL (Extract, Transform, Load)</span>
+            <span class="keyword-tag">Kostka danych (OLAP Cube)</span>
+            <span class="keyword-tag">Wymiar / Fakt (Star Schema)</span>
+            <span class="keyword-tag">Snowflake Schema</span>
+            <span class="keyword-tag">Data Mart</span>
+            <span class="keyword-tag">Denormalizacja</span>
+            <span class="keyword-tag">Agregacje i Materialized Views</span>
+            <span class="keyword-tag">Kimball vs Inmon</span>
+            <span class="keyword-tag">Big Data / Data Lake</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. OLTP vs OLAP (wizualizacja) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Dwa światy danych: OLTP (szybko) vs OLAP (mądrze)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podstawowy podział w świecie baz danych to rozróżnienie na systemy transakcyjne (OLTP – Online Transaction Processing) i analityczne (OLAP – Online Analytical Processing). Każdy z nich jest zoptymalizowany pod zupełnie inne zadania.
+                </p>
+            </div>
+
+            <!-- SVG: OLTP vs OLAP -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#00695c">OLTP (baza produkcyjna) vs OLAP (hurtownia danych)</text>
+
+                <!-- OLTP -->
+                <rect x="30" y="45" width="350" height="155" rx="8" fill="#fff" stroke="#26a69a" stroke-width="2"/>
+                <rect x="30" y="45" width="350" height="35" rx="8" fill="#26a69a"/>
+                <text x="205" y="67" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">OLTP (Produkcja)</text>
+                <text x="205" y="100" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Tysiące małych transakcji na sekundę</text>
+                <text x="205" y="120" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Pojedyncze wiersze (INSERT, UPDATE)</text>
+                <text x="205" y="140" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Silnie znormalizowany (3NF)</text>
+                <text x="205" y="160" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Dane z ostatnich dni/tygodni</text>
+                <text x="205" y="180" font-family="sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">🎯 Cel: rejestracja zdarzeń</text>
+
+                <!-- OLAP -->
+                <rect x="440" y="45" width="350" height="155" rx="8" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                <rect x="440" y="45" width="350" height="35" rx="8" fill="#00695c"/>
+                <text x="615" y="67" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">OLAP (Hurtownia)</text>
+                <text x="615" y="100" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Kilka złożonych zapytań dziennie</text>
+                <text x="615" y="120" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Agregacje, SUM, COUNT, AVG</text>
+                <text x="615" y="140" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Zdenormalizowany (gwiazda/śnieg)</text>
+                <text x="615" y="160" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">• Dane historyczne (lata)</text>
+                <text x="615" y="180" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">🎯 Cel: analiza trendów</text>
+            </svg>
+
+            <!-- 2. Proces ETL -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">2. ETL – rurociąg danych z produkcji do analityki</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dane nie pojawiają się w hurtowni magicznie. Przechodzą przez proces <strong>ETL (Extract, Transform, Load)</strong> – trzy etapy:
+                </p>
+            </div>
+
+            <!-- SVG: ETL -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Proces ETL (Extract – Transform – Load)</text>
+
+                <!-- Źródła -->
+                <rect x="30" y="45" width="160" height="50" rx="4" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+                <text x="110" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Bazy produkcyjne</text>
+
+                <rect x="30" y="105" width="160" height="50" rx="4" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+                <text x="110" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Pliki CSV / API</text>
+
+                <!-- EXTRACT -->
+                <path d="M 190 70 L 250 70" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrOra)"/>
+                <path d="M 190 130 L 250 110" fill="none" stroke="#e65100" stroke-width="3"/>
+
+                <rect x="260" y="50" width="150" height="95" rx="6" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+                <text x="335" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bf360c" text-anchor="middle">EKSTRAKCJA</text>
+                <text x="335" y="100" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Pobranie danych</text>
+                <text x="335" y="115" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">ze źródeł</text>
+
+                <!-- TRANSFORM -->
+                <path d="M 410 90 L 470 90" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrOra)"/>
+
+                <rect x="480" y="50" width="150" height="95" rx="6" fill="#ffcc80" stroke="#e65100" stroke-width="2"/>
+                <text x="555" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bf360c" text-anchor="middle">TRANSFORMACJA</text>
+                <text x="555" y="100" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Czyszczenie,</text>
+                <text x="555" y="115" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">normalizacja, agregacja</text>
+
+                <!-- LOAD -->
+                <path d="M 630 90 L 690 90" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrOra)"/>
+
+                <rect x="700" y="50" width="100" height="95" rx="6" fill="#ffab91" stroke="#e65100" stroke-width="2"/>
+                <text x="750" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bf360c" text-anchor="middle">ŁADOWANIE</text>
+                <text x="750" y="100" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Zapis do</text>
+                <text x="750" y="115" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">hurtowni</text>
+
+                <defs>
+                    <marker id="arrOra" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 3. Schemat gwiazdy i śniegu -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">3. Schemat gwiazdy (Star Schema) – serce hurtowni</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W hurtowni dane są celowo <strong>zdenormalizowane</strong>, by analityczne zapytania działały szybko. Podstawowym modelem jest <strong>schemat gwiazdy</strong>: centralna tabela <strong>faktów</strong> (np. Sprzedaż) otoczona tabelami <strong>wymiarów</strong> (Czas, Produkt, Sklep, Klient).
+                </p>
+            </div>
+
+            <!-- SVG: Schemat gwiazdy -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Schemat gwiazdy (Star Schema) – fakty i wymiary</text>
+
+                <!-- Centralna tabela faktów -->
+                <rect x="310" y="110" width="200" height="80" rx="8" fill="#fff9c4" stroke="#ff8f00" stroke-width="3"/>
+                <text x="410" y="140" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">TABELA FAKTÓW</text>
+                <text x="410" y="160" font-family="sans-serif" font-size="11" fill="#bf360c" text-anchor="middle">Sprzedaż</text>
+                <text x="410" y="178" font-family="monospace" font-size="10" fill="#3e2723" text-anchor="middle">data_id (FK), produkt_id (FK),</text>
+                <text x="410" y="188" font-family="monospace" font-size="10" fill="#3e2723" text-anchor="middle">sklep_id (FK), kwota, ilosc</text>
+
+                <!-- Wymiary -->
+                <!-- Góra: Czas -->
+                <rect x="310" y="20" width="200" height="50" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="410" y="40" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">WYMIAR: Czas</text>
+                <text x="410" y="58" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">data_id, data, rok, miesiac, dzien</text>
+                <path d="M 410 70 L 410 108" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                <!-- Lewo: Produkt -->
+                <rect x="50" y="110" width="200" height="50" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="150" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">WYMIAR: Produkt</text>
+                <text x="150" y="148" font-family="monospace" font-size="10" fill="#6a1b9a" text-anchor="middle">produkt_id, nazwa, kategoria</text>
+                <path d="M 250 135 L 308 135" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+
+                <!-- Prawo: Sklep -->
+                <rect x="570" y="110" width="200" height="50" rx="6" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+                <text x="670" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bf360c" text-anchor="middle">WYMIAR: Sklep</text>
+                <text x="670" y="148" font-family="monospace" font-size="10" fill="#e65100" text-anchor="middle">sklep_id, miasto, region</text>
+                <path d="M 570 135 L 512 135" fill="none" stroke="#e65100" stroke-width="2"/>
+
+                <!-- Dół: Klient -->
+                <rect x="310" y="230" width="200" height="50" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="410" y="250" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">WYMIAR: Klient</text>
+                <text x="410" y="268" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">klient_id, imie, nazwisko, segment</text>
+                <path d="M 410 230 L 410 192" fill="none" stroke="#388e3c" stroke-width="2"/>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">4. Schemat płatka śniegu (Snowflake) – dodatkowa normalizacja</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W schemacie gwiazdy tabele wymiarów są zdenormalizowane (np. w wymiarze Produkt powtarza się kategoria). W schemacie <strong>płatka śniegu</strong> wymiary są dodatkowo normalizowane – np. kategoria ma osobną tabelę, co tworzy „rozgałęzienia”. To oszczędność miejsca, ale kosztem dodatkowych JOIN-ów.
+                </p>
+            </div>
+
+            <!-- 5. Data Mart i kostki OLAP -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">5. Data Mart – mała hurtownia dla działu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podczas gdy hurtownia danych obejmuje całą firmę, <strong>Data Mart</strong> to podzbiór hurtowni dla konkretnego działu (np. marketing, sprzedaż). To szybsze i tańsze wdrożenie dla pojedynczego zespołu.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dla zaawansowanych analiz używa się <strong>kostek OLAP</strong> – wielowymiarowych struktur, które pozwalają „przekrawać” dane według różnych wymiarów (np. sprzedaż według czasu, produktu i regionu).
+                </p>
+            </div>
+
+            <!-- 6. Kimball vs Inmon -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">6. Dwie filozofie: Kimball (oddolnie) vs Inmon (odgórnie)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dwa główne podejścia do projektowania hurtowni:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Kimball (oddolnie)</strong> – najpierw budujemy Data Marty (dla konkretnych działów), a potem łączymy je w całość. Szybsze wdrożenie, elastyczne.</li>
+                    <li><strong>Inmon (odgórnie)</strong> – najpierw budujemy centralną, znormalizowaną hurtownię (jak wielki magazyn), a z niej dopiero tworzymy Data Marty. Bardziej spójne, ale droższe i wolniejsze.</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Hurtowniowe mity):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Hurtownia to po prostu kopia bazy produkcyjnej”</strong> – Nie. Hurtownia ma zdenormalizowany schemat (gwiazda), dane historyczne i jest zoptymalizowana pod analityczne zapytania. Kopia bazy OLTP nie nadaje się do analiz.</li>
+                    <li><strong>„ETL wystarczy zrobić raz”</strong> – Nie. Hurtownia musi być regularnie zasilana nowymi danymi (co godzinę, co dzień). ETL to proces ciągły, który wymaga monitorowania i zarządzania błędami.</li>
+                    <li><strong>„Im więcej danych, tym lepiej”</strong> – Hurtownia pełna zbędnych danych to kosztowny bałagan. Ładuje się tylko te dane, które mają wartość analityczną – nie każdy log z aplikacji jest potrzebny.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Hurtownia danych to nie tylko technologia – to sposób myślenia o danych jako o <em>zasobie strategicznym</em>. Podczas gdy baza produkcyjna odpowiada na pytanie „Co się dzieje teraz?”, hurtownia odpowiada na pytanie „Co działo się przez ostatnie 5 lat i dlaczego?”. Gdy to zrozumiesz, zobaczysz, że ETL, schematy gwiazdy i kostki OLAP to tylko narzędzia do wydobywania prawdy z danych.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The Data Warehouse Toolkit” (Ralph Kimball) – biblia hurtowni danych · „Building the Data Warehouse” (W.H. Inmon) · Dokumentacja PostgreSQL: „Materialized Views”.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
