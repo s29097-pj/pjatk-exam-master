@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 067 – Tradycyjne modele wytwarzania oprogramowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">067. Tradycyjne modele wytwarzania oprogramowania: charakterystyka, podział, role osobowe, zalety, wady, zastosowanie.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Gotowanie z przepisu kontra improwizacja MasterChefa”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
+                        Wyobraź sobie dwie sytuacje w kuchni. W pierwszej – <strong>pieczesz tort weselny</strong>. Masz dokładny przepis: 300 g mąki, 5 jajek, 200 g cukru. Każdy krok jest zaplanowany. Nie możesz dodać czekolady na końcu, bo ciasto już się piecze. Jeśli pomylisz kolejność, tort trafi do kosza. W drugiej – <strong>gotujesz obiad z tego, co masz w lodówce</strong>. Nie ma przepisu. Próbujesz, doprawiasz, zmieniasz koncepcję w trakcie – wyszedł gulasz zamiast zupy, ale wszyscy są najedzeni i zadowoleni.
+                    </p>
+                    <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
+                        <strong>Tradycyjne modele wytwarzania oprogramowania</strong> (nazywane też plan-driven lub heavyweight) działają jak ten pierwszy przypadek. Zakładają, że na początku wiesz dokładnie, co chcesz zbudować, i możesz to szczegółowo zaplanować. Waterfall, V-Model czy Model Przyrostowy to przepisy krok po kroku, gdzie każda faza ma sztywno zdefiniowany początek, koniec i produkty wyjściowe. Świetnie sprawdzają się, gdy wymagania są stabilne (np. system sterowania elektrownią), ale zawodzą, gdy klient zmienia zdanie co tydzień.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Model kaskadowy (Waterfall)</span>
+            <span class="keyword-tag">V-Model (V-Modell)</span>
+            <span class="keyword-tag">Model przyrostowy (Incremental)</span>
+            <span class="keyword-tag">Model spiralny (Spiral – Boehm)</span>
+            <span class="keyword-tag">Fazy: Analiza → Projekt → Kodowanie → Testy → Wdrożenie</span>
+            <span class="keyword-tag">Sekwencyjność (jedna faza po drugiej)</span>
+            <span class="keyword-tag">Dokumentacja jako fundament</span>
+            <span class="keyword-tag">Traceability (śledzenie wymagań)</span>
+            <span class="keyword-tag">Bramki jakości (Quality Gates)</span>
+            <span class="keyword-tag">Role: PM, Analityk, Architekt, Tester</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Charakterystyka ogólna -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">1. Wspólne cechy tradycyjnych modeli</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wszystkie modele tradycyjne łączy kilka fundamentalnych założeń:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Sekwencyjność</strong> – fazy następują po sobie; kolejna zaczyna się dopiero po zakończeniu poprzedniej.</li>
+                    <li><strong>Planowanie z góry</strong> – na początku tworzy się szczegółowy plan, harmonogram i budżet, których potem się trzyma.</li>
+                    <li><strong>Cieżka dokumentacja</strong> – każda faza produkuje formalne dokumenty (SRS, Dokument Architektury, Plan Testów), które są „kontraktem” między zespołem a klientem.</li>
+                    <li><strong>Stabilność wymagań</strong> – zakłada się, że wymagania nie zmienią się znacząco w trakcie projektu.</li>
+                    <li><strong>Bramki jakości</strong> – formalny odbiór każdej fazy przed przejściem do następnej.</li>
+                </ul>
+            </div>
+
+            <!-- 2. Model Kaskadowy (Waterfall) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">2. Model Kaskadowy (Waterfall) – klasyk z lat 70.</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Najstarszy, najbardziej znany model. Winston Royce opisał go w 1970 roku. Fazy układają się jedna pod drugą jak kaskada wodna – stąd nazwa. W czystej postaci: nie ma powrotu do poprzedniej fazy (choć w praktyce zawsze są poprawki).
+                </p>
+            </div>
+
+            <!-- SVG: Waterfall -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Model Kaskadowy (Waterfall)</text>
+
+                <!-- Faza 1 -->
+                <rect x="180" y="45" width="460" height="35" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="67" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">1. Analiza wymagań → SRS (Software Requirements Specification)</text>
+                <path d="M 410 80 L 410 95" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Faza 2 -->
+                <rect x="180" y="100" width="460" height="35" rx="4" fill="#c5cae9" stroke="#3949ab" stroke-width="2"/>
+                <text x="410" y="122" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1a237e" text-anchor="middle">2. Projektowanie → Dokument Architektury, Diagramy UML</text>
+                <path d="M 410 135 L 410 150" fill="none" stroke="#3949ab" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Faza 3 -->
+                <rect x="180" y="155" width="460" height="35" rx="4" fill="#d1c4e9" stroke="#5c6bc0" stroke-width="2"/>
+                <text x="410" y="177" font-family="sans-serif" font-size="13" font-weight="bold" fill="#283593" text-anchor="middle">3. Implementacja (Kodowanie) → Kod źródłowy, Unit Testy</text>
+                <path d="M 410 190 L 410 205" fill="none" stroke="#5c6bc0" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Faza 4 -->
+                <rect x="180" y="210" width="460" height="35" rx="4" fill="#b39ddb" stroke="#7e57c2" stroke-width="2"/>
+                <text x="410" y="232" font-family="sans-serif" font-size="13" font-weight="bold" fill="#311b92" text-anchor="middle">4. Testowanie → Raport z testów, Błędy</text>
+                <path d="M 410 245 L 410 260" fill="none" stroke="#7e57c2" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Faza 5 -->
+                <rect x="180" y="265" width="460" height="35" rx="4" fill="#9575cd" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="287" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c" text-anchor="middle">5. Wdrożenie i Utrzymanie → System na produkcji</text>
+
+                <defs>
+                    <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zalety:</strong> Prosty, łatwy w zarządzaniu, przewidywalny budżet i harmonogram. Każdy wie, co ma robić. Idealny dla małych, dobrze zrozumianych projektów.<br>
+                    <strong>Wady:</strong> Sztywny – zmiana wymagań w fazie testowania to katastrofa (trzeba wracać do analizy). Klient nie widzi produktu aż do końca. Testowanie jest na samym końcu, więc błędy wykrywa się późno.<br>
+                    <strong>Role:</strong> Project Manager (zarządza harmonogramem), Analityk (SRS), Architekt (dokument projektowy), Programista, Tester.<br>
+                    <strong>Zastosowanie:</strong> Systemy krytyczne bezpieczeństwa (lotnictwo, medycyna), projekty z sztywnymi kontraktami rządowymi.
+                </p>
+            </div>
+
+            <!-- 3. V-Model -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">3. V-Model – Waterfall z weryfikacją na każdym poziomie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    V-Model (V-Modell) jest rozwinięciem Waterfalla. Jego kluczowa idea: <strong>dla każdej fazy po lewej stronie V (specyfikacja) istnieje odpowiadająca jej faza testowania po prawej stronie (walidacja)</strong>. Zamiast testować wszystko na końcu, planujesz testy równolegle z tworzeniem specyfikacji.
+                </p>
+            </div>
+
+            <!-- SVG: V-Model -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Model V (V-Modell) – niemiecki standard dla systemów krytycznych</text>
+
+                <!-- Lewa strona V (specyfikacja) -->
+                <rect x="40" y="50" width="200" height="35" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="140" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Analiza wymagań</text>
+
+                <path d="M 140 85 L 140 105" fill="none" stroke="#1565c0" stroke-width="2"/>
+
+                <rect x="40" y="110" width="200" height="35" rx="4" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
+                <text x="140" y="132" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Projekt Architektury</text>
+
+                <path d="M 140 145 L 140 165" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                <rect x="40" y="170" width="200" height="35" rx="4" fill="#64b5f6" stroke="#2196f3" stroke-width="2"/>
+                <text x="140" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Projekt Szczegółowy</text>
+
+                <path d="M 140 205 L 140 225" fill="none" stroke="#2196f3" stroke-width="2"/>
+
+                <!-- Dół V (implementacja) -->
+                <rect x="240" y="230" width="340" height="40" rx="6" fill="#4caf50" stroke="#1b5e20" stroke-width="3"/>
+                <text x="410" y="255" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">IMPLEMENTACJA (Kodowanie)</text>
+
+                <path d="M 380 235 L 580 235" fill="none" stroke="#1b5e20" stroke-width="3"/>
+
+                <!-- Prawa strona V (testowanie) -->
+                <path d="M 580 225 L 580 205" fill="none" stroke="#2196f3" stroke-width="2"/>
+
+                <rect x="580" y="170" width="200" height="35" rx="4" fill="#64b5f6" stroke="#2196f3" stroke-width="2"/>
+                <text x="680" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Testy Jednostkowe</text>
+
+                <path d="M 680 165 L 680 145" fill="none" stroke="#1976d2" stroke-width="2"/>
+
+                <rect x="580" y="110" width="200" height="35" rx="4" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
+                <text x="680" y="132" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Testy Integracyjne</text>
+
+                <path d="M 680 105 L 680 85" fill="none" stroke="#1565c0" stroke-width="2"/>
+
+                <rect x="580" y="50" width="200" height="35" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="680" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Testy Akceptacyjne (UAT)</text>
+
+                <!-- Strzałki weryfikacji -->
+                <path d="M 240 67 L 580 67" fill="none" stroke="#e65100" stroke-width="1.5" stroke-dasharray="6,4"/>
+                <text x="410" y="62" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">walidacja ↔ weryfikacja</text>
+                <path d="M 240 127 L 580 127" fill="none" stroke="#e65100" stroke-width="1.5" stroke-dasharray="6,4"/>
+                <path d="M 240 187 L 580 187" fill="none" stroke="#e65100" stroke-width="1.5" stroke-dasharray="6,4"/>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zalety:</strong> Wbudowana jakość – testy są planowane od początku, co redukuje ryzyko przeoczenia. Idealny dla systemów, gdzie awaria kosztuje życie (samoloty, aparatura medyczna).<br>
+                    <strong>Wady:</strong> Jeszcze bardziej sztywny niż Waterfall. Każda zmiana wymagań oznacza aktualizację obu stron V.<br>
+                    <strong>Zastosowanie:</strong> Obowiązkowy w niemieckich projektach rządowych i wojskowych. Systemy krytyczne bezpieczeństwa.
+                </p>
+            </div>
+
+            <!-- 4. Model Przyrostowy -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">4. Model Przyrostowy (Incremental) – krok w stronę Agile</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zamiast budować cały system naraz, model przyrostowy dzieli go na mniejsze części (przyrosty). Pierwszy przyrost to działający szkielet (np. tylko logowanie i lista produktów). Drugi dodaje nowe funkcje. Każdy przyrost przechodzi przez mini-Waterfall.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zalety:</strong> Użytkownik wcześnie widzi produkt. Możesz zbierać feedback po każdym przyroście i korygować kurs.<br>
+                    <strong>Wady:</strong> Wymaga starannego planowania podziału na przyrosty. Architektura musi być otwarta na rozbudowę (trudniej niż w Waterfallu).<br>
+                    <strong>Zastosowanie:</strong> Projekty, gdzie chcesz szybko dostarczyć wartość biznesową (MVP – Minimum Viable Product), ale wymagania są w większości znane.
+                </p>
+            </div>
+
+            <!-- 5. Model Spiralny -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">5. Model Spiralny (Spiral – Barry Boehm, 1988)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Łączy iteracyjność z analizą ryzyka. Każda pętla spirali to: <strong>określenie celów → analiza ryzyka → implementacja i testy → planowanie następnej pętli</strong>. To model dla dużych, ryzykownych projektów, gdzie błędy mogą kosztować miliony. Największy nacisk kładzie na identyfikację i eliminację ryzyka na wczesnym etapie.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Zalety:</strong> Ryzyko jest nieustannie monitorowane. Działa przy zmiennych wymaganiach.<br>
+                    <strong>Wady:</strong> Skomplikowany w zarządzaniu. Wymaga doświadczonego PM i analityka ryzyka.<br>
+                    <strong>Zastosowanie:</strong> Projekty wielomilionowe, lotnicze, wojskowe, bankowe. Tam, gdzie koszt awarii jest ogromny.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o modelach tradycyjnych):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Waterfall jest przestarzały i nikt go już nie używa”</strong> – Używa się go tam, gdzie wymagania są stabilne i zmiana jest niemożliwa (np. systemy sterowania elektrownią atomową). To nie kwestia mody, ale dopasowania do kontekstu.</li>
+                    <li><strong>„V-Model to to samo co Waterfall”</strong> – Różnica jest kluczowa: V-Model kładzie nacisk na testowanie na każdym poziomie, podczas gdy Waterfall testuje wszystko na końcu. V-Model jest systemem zweryfikowanym od początku do końca.</li>
+                    <li><strong>„Model Spiralny to już Agile”</strong> – Nie. Spiralny jest iteracyjny, ale wciąż mocno plan-driven i dokumentacyjny. Agile odrzuca ciężką dokumentację na rzecz działającego oprogramowania – spiralny wymaga jej dla każdej pętli.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Tradycyjne modele nie są złe – są wyspecjalizowane. Jak młotek i śrubokręt: każde narzędzie ma swoje zastosowanie. Gdy budujesz system, którego awaria może zabić (samolot, respirator), nie możesz improwizować – potrzebujesz Waterfalla lub V-Modela z pełną dokumentacją i śledzeniem każdej decyzji. Gdy tworzysz aplikację do zamawiania pizzy – Agile będzie szybszy i tańszy. Mądrość inżyniera polega na wyborze właściwego modelu do konkretnego problemu, a nie na ślepym podążaniu za modą.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Managing the Development of Large Software Systems” (Winston Royce, 1970) · „A Spiral Model of Software Development and Enhancement” (Barry Boehm, 1988) · V-Modell XT – niemiecki standard rządowy.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
