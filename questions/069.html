@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 069 – Modele zwinne (Agile)</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">069. Modele zwinne (agile): główne zasady manifestu Agile, podział i charakterystyka modeli, role osobowe. Zalety i wady, zastosowanie.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">⛵</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zwinny jacht kontra tankowiec”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie dwa statki. <strong>Tankowiec</strong> (Waterfall) wypływa z portu A do portu B. Przed rejsem kapitan dokładnie wyznacza kurs, oblicza paliwo i zapasy. Gdy na horyzoncie pojawi się sztorm, tankowiec nie może gwałtownie skręcić – jest za duży, a zmiana kursu to gigantyczne koszty. Płynie więc prosto, nawet jeśli port docelowy już nie jest potrzebny.
+                    </p>
+                    <p style="margin: 0; color: #1a3a2a; line-height: 1.7;">
+                        <strong>Zwinny jacht (Agile)</strong> też ma cel, ale jego siłą jest zdolność do błyskawicznej reakcji. Gdy wiatr się zmienia, jacht robi zwrot. Gdy załoga widzi lepszą wyspę po drodze, może zmienić cel. Płynie krótkimi odcinkami (iteracje), po każdym sprawdza mapę (retrospektywa) i dostosowuje żagle. Nie wie dokładnie, jak będzie wyglądała cała trasa, ale jest pewien, że dotrze tam, gdzie trzeba – nawet jeśli cel zmieni się w trakcie. <strong>Agile to nie chaos – to kontrolowana adaptacja.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Manifest Agile (2001) – 4 wartości, 12 zasad</span>
+            <span class="keyword-tag">Scrum (Sprint, Daily, Review, Retro)</span>
+            <span class="keyword-tag">Kanban (WIP, tablica, flow)</span>
+            <span class="keyword-tag">Extreme Programming (XP) – TDD, Pair Programming</span>
+            <span class="keyword-tag">Role: Product Owner, Scrum Master, Developer</span>
+            <span class="keyword-tag">Iteracja / Sprint (1-4 tyg.)</span>
+            <span class="keyword-tag">MVP (Minimum Viable Product)</span>
+            <span class="keyword-tag">Continuous Improvement (Kaizen)</span>
+            <span class="keyword-tag">Retrospektywa</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Manifest Agile -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Manifest Agile – cztery wartości i dwanaście zasad</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W 2001 roku 17 praktyków spotkało się w Snowbird (Utah) i spisało dokument, który zmienił świat IT. <strong>Manifest Agile</strong> nie narzuca konkretnych metod – definiuje filozofię. Cztery wartości, które go tworzą, mają kluczową konstrukcję: <strong>„X ponad Y” nie oznacza „Y jest nieważne”, tylko „X jest WAŻNIEJSZE”</strong>.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Ludzie i interakcje</strong> ponad procesy i narzędzia – Scrum bez rozmów to tylko puste ceremonie.</li>
+                    <li><strong>Działające oprogramowanie</strong> ponad obszerną dokumentację – dokumentacja jest potrzebna, ale nie zastąpi działającego kodu.</li>
+                    <li><strong>Współpraca z klientem</strong> ponad negocjacje kontraktowe – klient nie jest wrogiem, tylko partnerem.</li>
+                    <li><strong>Reagowanie na zmiany</strong> ponad podążanie za planem – plan jest punktem startowym, nie świętą księgą.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    12 zasad to rozwinięcie tych wartości. Najważniejsze: wczesne i ciągłe dostarczanie wartości, przyjmowanie zmieniających się wymagań, częste dostarczanie działającego oprogramowania, codzienna współpraca biznesu i technologii, budowanie projektów wokół zmotywowanych jednostek, komunikacja twarzą w twarz, działające oprogramowanie jako podstawowa miara postępu, ciągłe doskonalenie.
+                </p>
+            </div>
+
+            <!-- 2. Scrum (schemat) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Scrum – najpopularniejszy framework zwinny</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Scrum to nie metodyka, lecz <strong>framework</strong> – daje strukturę, ale nie narzuca wszystkich szczegółów. Opiera się na stałych iteracjach zwanych <strong>Sprintami</strong> (1-4 tygodnie), trzech rolach i pięciu wydarzeniach.
+                </p>
+            </div>
+
+            <!-- SVG: Scrum -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Scrum – Sprint i jego wydarzenia</text>
+
+                <!-- Sprint (duże koło) -->
+                <circle cx="410" cy="145" r="70" fill="none" stroke="#2e7d32" stroke-width="4" stroke-dasharray="10,5"/>
+                <text x="410" y="130" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">SPRINT</text>
+                <text x="410" y="148" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">1-4 tygodnie</text>
+                <text x="410" y="162" font-family="sans-serif" font-size="9" fill="#388e3c" text-anchor="middle">(stały czas trwania)</text>
+
+                <!-- Daily Scrum -->
+                <rect x="180" y="115" width="100" height="30" rx="15" fill="#fff" stroke="#66bb6a" stroke-width="2"/>
+                <text x="230" y="134" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Daily Scrum</text>
+
+                <!-- Sprint Planning -->
+                <rect x="30" y="80" width="110" height="28" rx="6" fill="#a5d6a7" stroke="#2e7d32"/>
+                <text x="85" y="98" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sprint Planning</text>
+                <path d="M 140 94 L 175 94" fill="none" stroke="#2e7d32" stroke-width="1.5"/>
+
+                <!-- Sprint Review -->
+                <rect x="580" y="70" width="110" height="28" rx="6" fill="#a5d6a7" stroke="#2e7d32"/>
+                <text x="635" y="88" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sprint Review</text>
+                <path d="M 580 84 L 480 84" fill="none" stroke="#2e7d32" stroke-width="1.5"/>
+
+                <!-- Sprint Retro -->
+                <rect x="620" y="150" width="130" height="28" rx="6" fill="#a5d6a7" stroke="#2e7d32"/>
+                <text x="685" y="168" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Retrospektywa</text>
+                <path d="M 620 164 L 510 164" fill="none" stroke="#2e7d32" stroke-width="1.5"/>
+
+                <!-- Role (na dole) -->
+                <rect x="100" y="230" width="160" height="35" rx="6" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="180" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Product Owner</text>
+                <text x="180" y="265" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">(wartość biznesowa)</text>
+
+                <rect x="330" y="230" width="160" height="35" rx="6" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="410" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Scrum Master</text>
+                <text x="410" y="265" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">(facylitator procesu)</text>
+
+                <rect x="560" y="230" width="160" height="35" rx="6" fill="#c8e6c9" stroke="#66bb6a"/>
+                <text x="640" y="252" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Developer</text>
+                <text x="640" y="265" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">(realizuje zadania)</text>
+            </svg>
+
+            <!-- 3. Kanban i XP -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Kanban i Extreme Programming (XP) – inne modele zwinne</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Kanban</strong> zamiast stałych Sprintów używa wizualnej tablicy z kolumnami (To Do → In Progress → Done). Główna zasada: <strong>ograniczenie pracy w toku (WIP – Work In Progress)</strong>. Nowe zadanie wciąga się dopiero, gdy zwolni się miejsce. Kanban jest idealny dla zespołów utrzymaniowych i tam, gdzie priorytety zmieniają się wielokrotnie dziennie.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Extreme Programming (XP)</strong> koncentruje się na technikach wytwarzania, nie na zarządzaniu projektem. Jego znaki rozpoznawcze: <strong>Pair Programming</strong> (dwóch programistów przy jednym monitorze), <strong>TDD</strong> (najpierw test, potem kod), <strong>Continuous Integration</strong> (ciągła integracja kodu) i <strong>małe wydania</strong> co kilka tygodni. XP doskonale uzupełnia Scruma – Scrum mówi CO i KIEDY, XP mówi JAK.
+                </p>
+            </div>
+
+            <!-- 4. Zalety, wady, zastosowanie -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Kiedy Agile działa, a kiedy nie?</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 280px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #a5d6a7;">
+                        <strong style="color:#1b5e20;">✅ Zalety Agile</strong><br>
+                        <span style="font-size:0.85rem;">
+                            • Szybka reakcja na zmiany<br>
+                            • Ciągły feedback od użytkownika<br>
+                            • Wysoka jakość (ciągłe testowanie)<br>
+                            • Większe zaangażowanie zespołu<br>
+                            • Wczesne dostarczanie wartości biznesowej
+                        </span>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">❌ Wady i ograniczenia</strong><br>
+                        <span style="font-size:0.85rem;">
+                            • Trudny w dużych, rozproszonych zespołach<br>
+                            • Wymaga dyscypliny i dojrzałości<br>
+                            • Klient musi być dostępny i zaangażowany<br>
+                            • Dokumentacja może być niedostateczna<br>
+                            • Nie sprawdza się w kontraktach "fixed price"
+                        </span>
+                    </div>
+                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#1565c0;">🎯 Zastosowanie</strong><br>
+                        <span style="font-size:0.85rem;">
+                            • Startupy i produkty z niejasną wizją<br>
+                            • Aplikacje webowe i mobilne<br>
+                            • Systemy, gdzie użytkownik nie wie, czego chce<br>
+                            • Projekty badawczo-rozwojowe<br>
+                            • Wszędzie, gdzie zmiana jest regułą, nie wyjątkiem
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: Waterfall vs Agile -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f5f5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Waterfall vs Agile – porównanie podejścia do zmiany</text>
+
+                <!-- Waterfall -->
+                <rect x="40" y="50" width="340" height="130" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Waterfall</text>
+                <text x="210" y="100" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Zmiana wymagania w fazie testów:</text>
+                <text x="210" y="120" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Wracasz do początku (analiza).</text>
+                <text x="210" y="140" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Koszt: 💰💰💰💰💰 (bardzo wysoki)</text>
+                <text x="210" y="160" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Czas: ⏰⏰⏰⏰⏰ (tygodnie/miesiące)</text>
+
+                <!-- Agile -->
+                <rect x="440" y="50" width="340" height="130" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Agile</text>
+                <text x="610" y="100" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Zmiana wymagania w trakcie Sprintu:</text>
+                <text x="610" y="120" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Trafia do Backlogu i następnego Sprintu.</text>
+                <text x="610" y="140" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Koszt: 💰 (znikomy)</text>
+                <text x="610" y="160" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Czas: ⏰ (godziny/dni, nie tygodnie)</text>
+            </svg>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o Agile):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Agile = brak dokumentacji”</strong> – Manifest mówi „działające oprogramowanie PONAD obszerną dokumentację”, a nie „zamiast”. Dobry Agile ma tyle dokumentacji, ile potrzeba – często w formie testów automatycznych, wiki, diagramów na tablicy.</li>
+                    <li><strong>„Scrum = Agile”</strong> – Scrum to tylko jeden z frameworków zwinnych. Agile to cała filozofia. Kanban, XP, Lean też są Agile.</li>
+                    <li><strong>„Daily Scrum jest po to, żeby kontrolować programistów”</strong> – Daily to narzędzie synchronizacji zespołu, a nie raport dla szefa. Dlatego Scrum Master nie pyta: „Czy zadanie będzie na czas?”, tylko usuwa przeszkody.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Agile to nie moda ani zbiór sztywnych zasad. To uznanie fundamentalnej prawdy o tworzeniu oprogramowania: <strong>nie wiesz wszystkiego na początku i nigdy nie będziesz wiedział</strong>. Zamiast walczyć z tą niepewnością, Agile ją akceptuje i buduje mechanizmy, by szybko się uczyć i adaptować. Dlatego zwinne zespoły nie boją się zmian – one na nie czekają.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Manifest Agile (2001) – agilemanifesto.org · „Scrum Guide” (Ken Schwaber, Jeff Sutherland) · „Extreme Programming Explained” (Kent Beck) · „Kanban: Successful Evolutionary Change” (David J. Anderson).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
