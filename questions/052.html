@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 052 – Optymalizacja zapytań i indeksy</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">052. Podstawowe zasady optymalizacji zapytań, w tym rodzaje i znaczenie indeksów w bazie danych.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📖</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sterty kartek do książki telefonicznej”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
+                        Wyobraź sobie, że masz milion luźnych kartek z nazwiskami i numerami telefonów, ale są one w kompletnie przypadkowej kolejności. Aby znaleźć numer Kowalskiego, musisz przeglądać każdą kartkę – to zajmie wieki. <strong>Full Table Scan (Sequential Scan)</strong> działa dokładnie tak samo: baza czyta całą tabelę wiersz po wierszu.
+                    </p>
+                    <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
+                        Teraz wyobraź sobie, że te same dane są posortowane alfabetycznie w grubej <strong>książce telefonicznej</strong>. Otwierasz mniej więcej w połowie, sprawdzasz, czy jesteś za daleko, i za każdym razem odrzucasz połowę pozostałych stron. To właśnie <strong>indeks B‑tree</strong>. Dzięki niemu baza znajduje rekord w logarytmicznym czasie, zamiast przeglądać całość.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Indeks (B‑tree, Hash, GIN, GiST)</span>
+            <span class="keyword-tag">Full Table Scan (Seq Scan)</span>
+            <span class="keyword-tag">Index Scan / Index Only Scan</span>
+            <span class="keyword-tag">EXPLAIN / EXPLAIN ANALYZE</span>
+            <span class="keyword-tag">Koszt zapytania (cost)</span>
+            <span class="keyword-tag">Indeks złożony (composite)</span>
+            <span class="keyword-tag">Selektywność</span>
+            <span class="keyword-tag">Over‑indexing</span>
+            <span class="keyword-tag">Statystyki (ANALYZE)</span>
+            <span class="keyword-tag">WHERE a funkcje na kolumnach</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Mechanizm indeksu B‑tree (wizualizacja) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">1. Jak działa indeks B‑tree? (Twoja książka telefoniczna)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Indeks to osobna struktura danych, która przechowuje <strong>posortowane wartości</strong> wybranej kolumny oraz <strong>wskaźniki</strong> do rzeczywistych wierszy w tabeli. B‑tree (balanced tree) to najpopularniejszy typ – drzewo zrównoważone, w którym każdy węzeł ma wiele dzieci, a wszystkie liście są na tej samej głębokości. Dzięki temu każda operacja wyszukiwania, wstawiania czy usuwania trwa O(log n).
+                </p>
+            </div>
+
+            <!-- SVG: Struktura B‑tree -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#283593">Indeks B‑tree na kolumnie "nazwisko"</text>
+
+                <!-- Korzeń -->
+                <rect x="340" y="40" width="140" height="40" rx="4" fill="#fff" stroke="#283593" stroke-width="2"/>
+                <text x="410" y="65" font-family="monospace" font-size="12" font-weight="bold" fill="#1a237e" text-anchor="middle">Nowak</text>
+
+                <!-- Lewe dziecko -->
+                <path d="M 360 80 L 240 120" fill="none" stroke="#5c6bc0" stroke-width="2"/>
+                <rect x="170" y="120" width="140" height="40" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="2"/>
+                <text x="240" y="145" font-family="monospace" font-size="11" fill="#303f9f" text-anchor="middle">Kowalski</text>
+
+                <!-- Prawe dziecko -->
+                <path d="M 460 80 L 580 120" fill="none" stroke="#5c6bc0" stroke-width="2"/>
+                <rect x="510" y="120" width="140" height="40" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="2"/>
+                <text x="580" y="145" font-family="monospace" font-size="11" fill="#303f9f" text-anchor="middle">Zieliński</text>
+
+                <!-- Liście + wskaźniki do wierszy -->
+                <!-- Lewy liść -->
+                <path d="M 200 160 L 140 200" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+                <rect x="100" y="200" width="80" height="30" rx="3" fill="#e8eaf6" stroke="#7986cb" stroke-width="1"/>
+                <text x="140" y="219" font-family="monospace" font-size="10" fill="#283593" text-anchor="middle">Adamski</text>
+                <line x1="140" y1="230" x2="140" y2="245" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <rect x="110" y="245" width="60" height="15" rx="2" fill="#c5cae9"/>
+                <text x="140" y="256" font-family="monospace" font-size="7" fill="#1a237e" text-anchor="middle">RowID →</text>
+
+                <path d="M 240 160 L 240 200" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+                <rect x="200" y="200" width="80" height="30" rx="3" fill="#e8eaf6" stroke="#7986cb" stroke-width="1"/>
+                <text x="240" y="219" font-family="monospace" font-size="10" fill="#283593" text-anchor="middle">Kowalski</text>
+                <line x1="240" y1="230" x2="240" y2="245" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <rect x="210" y="245" width="60" height="15" rx="2" fill="#c5cae9"/>
+                <text x="240" y="256" font-family="monospace" font-size="7" fill="#1a237e" text-anchor="middle">RowID →</text>
+
+                <!-- Prawy liść -->
+                <path d="M 560 160 L 520 200" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+                <rect x="480" y="200" width="80" height="30" rx="3" fill="#e8eaf6" stroke="#7986cb" stroke-width="1"/>
+                <text x="520" y="219" font-family="monospace" font-size="10" fill="#283593" text-anchor="middle">Wiśniewski</text>
+                <line x1="520" y1="230" x2="520" y2="245" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <rect x="490" y="245" width="60" height="15" rx="2" fill="#c5cae9"/>
+                <text x="520" y="256" font-family="monospace" font-size="7" fill="#1a237e" text-anchor="middle">RowID →</text>
+
+                <path d="M 640 160 L 620 200" fill="none" stroke="#9fa8da" stroke-width="1.5"/>
+                <rect x="580" y="200" width="80" height="30" rx="3" fill="#e8eaf6" stroke="#7986cb" stroke-width="1"/>
+                <text x="620" y="219" font-family="monospace" font-size="10" fill="#283593" text-anchor="middle">Zieliński</text>
+                <line x1="620" y1="230" x2="620" y2="245" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <rect x="590" y="245" width="60" height="15" rx="2" fill="#c5cae9"/>
+                <text x="620" y="256" font-family="monospace" font-size="7" fill="#1a237e" text-anchor="middle">RowID →</text>
+
+                <text x="410" y="280" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" display="none">(W rzeczywistości węzły B‑tree zawierają wiele kluczy; tu pokazano uproszczony schemat dla jednego klucza na węzeł)</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy wykonujesz <code>SELECT * FROM tabela WHERE nazwisko = 'Kowalski'</code>, baza sięga do indeksu, znajduje wpis "Kowalski" i od razu odczytuje wskaźnik do wiersza. Nie musi oglądać całej tabeli. Im więcej wierszy, tym większa przewaga indeksu nad pełnym skanowaniem.
+                </p>
+            </div>
+
+            <!-- 2. Full Table Scan vs Index Scan (wizualizacja) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">2. Full Table Scan vs Index Scan – wizualna różnica</strong>
+            </div>
+
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#ffebee" opacity="0.2"/>
+                <text x="410" y="20" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#b71c1c">Full Table Scan (Sequential Scan)</text>
+
+                <!-- Tabela -->
+                <rect x="60" y="35" width="250" height="130" fill="#fff" stroke="#ef9a9a" stroke-width="2"/>
+                <text x="185" y="55" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Tabela "Pracownicy"</text>
+                <line x1="60" y1="65" x2="310" y2="65" stroke="#ef9a9a"/>
+                <!-- Wiersze -->
+                <rect x="65" y="70" width="240" height="15" fill="#ffcdd2"/>
+                <text x="185" y="81" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">1: Nowak    | 5000</text>
+                <rect x="65" y="87" width="240" height="15" fill="#ffcdd2"/>
+                <text x="185" y="98" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">2: Kowalski | 4000</text>
+                <rect x="65" y="104" width="240" height="15" fill="#ffcdd2"/>
+                <text x="185" y="115" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">3: Adamski  | 6000</text>
+                <rect x="65" y="121" width="240" height="15" fill="#ffcdd2"/>
+                <text x="185" y="132" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">4: ... (miliony wierszy)</text>
+
+                <!-- Strzałki scan -->
+                <path d="M 320 90 L 380 90" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowRed)"/>
+                <text x="350" y="80" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">czytaj</text>
+
+                <rect x="390" y="70" width="60" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="1" rx="4"/>
+                <text x="420" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">WYNIK?</text>
+
+                <path d="M 450 90 L 500 90" fill="none" stroke="#c62828" stroke-width="2"/>
+                <text x="475" y="80" font-family="sans-serif" font-size="9" fill="#b71c1c">zajmie</text>
+                <text x="510" y="90" font-family="monospace" font-size="13" font-weight="bold" fill="#b71c1c">O(n)</text>
+
+                <!-- Separator -->
+                <line x1="60" y1="175" x2="760" y2="175" stroke="#cfd8dc" stroke-width="1"/>
+
+                <!-- Index Scan -->
+                <text x="410" y="195" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b5e20">Index Scan (z indeksem B‑tree)</text>
+            </svg>
+
+            <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="160" fill="#e8f5e9" opacity="0.3"/>
+
+                <!-- Indeks -->
+                <rect x="60" y="40" width="180" height="80" fill="#fff" stroke="#66bb6a" stroke-width="2" rx="4"/>
+                <text x="150" y="60" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Indeks B‑tree</text>
+                <line x1="60" y1="68" x2="240" y2="68" stroke="#a5d6a7"/>
+                <text x="150" y="85" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">szukaj 'Kowalski'</text>
+                <text x="150" y="102" font-family="monospace" font-size="10" fill="#388e3c" text-anchor="middle">→ RowID = 2</text>
+
+                <path d="M 240 80 L 300 80" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrn)"/>
+
+                <!-- Tabela z bezpośrednim odczytem -->
+                <rect x="310" y="30" width="200" height="100" fill="#fff" stroke="#81c784" stroke-width="2" rx="4"/>
+                <text x="410" y="50" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tabela (heap)</text>
+                <line x1="310" y1="58" x2="510" y2="58" stroke="#c8e6c9"/>
+                <rect x="315" y="65" width="190" height="18" fill="#c8e6c9"/>
+                <text x="410" y="78" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">RowID=2 → Kowalski, 4000</text>
+                <text x="410" y="100" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(tylko jeden odczyt!)</text>
+
+                <path d="M 520 80 L 580 80" fill="none" stroke="#2e7d32" stroke-width="2"/>
+                <text x="550" y="70" font-family="sans-serif" font-size="9" fill="#2e7d32">znaleziony</text>
+                <text x="600" y="85" font-family="monospace" font-size="13" font-weight="bold" fill="#1b5e20">O(log n)</text>
+
+                <defs>
+                    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrowGrn" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 3. Rodzaje indeksów (tabelka wizualna) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">3. Rodzaje indeksów – nie tylko B‑tree</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Oprócz wszechobecnego B‑tree, istnieją inne typy indeksów, każdy do specyficznych zadań:
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#f3e5f5" opacity="0.2"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#7b1fa2">Porównanie typów indeksów</text>
+
+                <!-- B‑tree -->
+                <rect x="20" y="40" width="240" height="130" rx="6" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
+                <rect x="20" y="40" width="240" height="28" rx="6" fill="#7b1fa2"/>
+                <text x="140" y="59" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">B‑tree (domyślny)</text>
+                <text x="140" y="90" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">• Porównania zakresowe (&gt;, &lt;, BETWEEN)</text>
+                <text x="140" y="108" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">• Sortowanie (ORDER BY)</text>
+                <text x="140" y="126" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">• Wyszukiwanie dokładne (=)</text>
+                <text x="140" y="144" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">• Uniwersalny koń roboczy</text>
+
+                <!-- Hash -->
+                <rect x="280" y="40" width="240" height="130" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="280" y="40" width="240" height="28" rx="6" fill="#f57c00"/>
+                <text x="400" y="59" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Hash</text>
+                <text x="400" y="90" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">• Tylko porównanie =</text>
+                <text x="400" y="108" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">• Bardzo szybki dla równości</text>
+                <text x="400" y="126" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">• Nie obsługuje zakresów</text>
+                <text x="400" y="144" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">• Rzadziej używany</text>
+
+                <!-- GIN -->
+                <rect x="540" y="40" width="260" height="130" rx="6" fill="#fff" stroke="#00838f" stroke-width="2"/>
+                <rect x="540" y="40" width="260" height="28" rx="6" fill="#00838f"/>
+                <text x="670" y="59" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">GIN / GiST (PostgreSQL)</text>
+                <text x="670" y="90" font-family="sans-serif" font-size="10" fill="#006064" text-anchor="middle">• Wyszukiwanie pełnotekstowe</text>
+                <text x="670" y="108" font-family="sans-serif" font-size="10" fill="#006064" text-anchor="middle">• Kolumny JSON / tablice</text>
+                <text x="670" y="126" font-family="sans-serif" font-size="10" fill="#006064" text-anchor="middle">• Dane geometryczne</text>
+                <text x="670" y="144" font-family="sans-serif" font-size="10" fill="#006064" text-anchor="middle">• Specjalistyczne</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">4. Indeks złożony (composite) – pułapka kolejności</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Indeks na wielu kolumnach <code>(A, B)</code> jest jak wielopoziomowa segregacja: najpierw sortujesz po A, a wewnątrz każdej grupy A – po B. Taki indeks obsłuży zapytania filtrujące tylko po A, lub po A i B. <strong>Nie obsłuży</strong> filtrowania tylko po B (chyba że jest to indeks bitmapowy, ale nie w klasycznym B‑tree). Kolejność kolumn w definicji indeksu ma kluczowe znaczenie – dostosuj ją do najczęstszych zapytań.
+                </p>
+            </div>
+
+            <!-- 5. EXPLAIN (plan zapytania) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">5. EXPLAIN – podglądanie myśli optymalizatora</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby zrozumieć, czy zapytanie używa indeksu, czy skanuje całą tabelę, użyj <code>EXPLAIN</code> (lub <code>EXPLAIN ANALYZE</code>, które naprawdę wykonuje zapytanie i pokazuje rzeczywiste czasy). Plan wykonania to drzewo operacji – każda linia to jeden krok.
+                </p>
+            </div>
+
+            <!-- SVG: Przykładowy plan zapytania -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Plan wykonania (EXPLAIN) – przykład</text>
+
+                <!-- Sort -->
+                <rect x="310" y="40" width="200" height="40" rx="4" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="410" y="65" font-family="monospace" font-size="12" font-weight="bold" fill="#bf360c" text-anchor="middle">Sort (ORDER BY nazwisko)</text>
+
+                <path d="M 410 80 L 410 110" fill="none" stroke="#e65100" stroke-width="2"/>
+
+                <!-- Hash Join -->
+                <rect x="250" y="110" width="320" height="40" rx="4" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Hash Join (ON prac.id = zad.prac_id)</text>
+
+                <path d="M 310 150 L 210 180" fill="none" stroke="#f57c00" stroke-width="1.5"/>
+                <path d="M 510 150 L 610 180" fill="none" stroke="#f57c00" stroke-width="1.5"/>
+
+                <!-- Lewe dziecko: Index Scan -->
+                <rect x="110" y="180" width="200" height="35" rx="3" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.5"/>
+                <text x="210" y="203" font-family="monospace" font-size="11" fill="#2e7d32" text-anchor="middle">Index Scan (pracownicy_pkey)</text>
+
+                <!-- Prawe dziecko: Seq Scan -->
+                <rect x="510" y="180" width="200" height="35" rx="3" fill="#ffebee" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="610" y="203" font-family="monospace" font-size="11" fill="#c62828" text-anchor="middle">Seq Scan on Zadania</text>
+
+                <text x="410" y="215" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(Tu widzimy, że tabela "Zadania" nie ma indeksu – dlatego Seq Scan)</text>
+            </svg>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Optymalizacyjne mity):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Im więcej indeksów, tym lepiej”</strong> – Każdy indeks spowalnia INSERT, UPDATE, DELETE, bo baza musi aktualizować i tabelę, i indeksy. Indeksuj tylko kolumny często używane w WHERE, JOIN i ORDER BY.</li>
+                    <li><strong>„Indeks na FK jest zbędny, bo FK sam go tworzy”</strong> – FK <strong>nie tworzy</strong> automatycznie indeksu! Bez niego operacje DELETE/UPDATE na tabeli nadrzędnej będą tragicznie wolne, bo baza wykona Seq Scan na tabeli podrzędnej.</li>
+                    <li><strong>„Używam funkcji w WHERE, to nic nie szkodzi”</strong> – <code>WHERE LOWER(nazwisko) = 'kowalski'</code> uniemożliwi użycie indeksu na <code>nazwisko</code>. Rozwiązanie: utwórz indeks na wyrażeniu (<code>CREATE INDEX ON tabela (LOWER(nazwisko))</code>).</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Optymalizacja to nie sztuczki – to szacunek dla pracy bazy danych. Gdy zrozumiesz, jak indeksy zmieniają plan zapytania, pisanie wydajnego SQL‑a stanie się instynktem. Pamiętaj: indeks to inwestycja – płacisz za niego przy każdym zapisie, ale odzyskujesz czas przy każdym odczycie. Balansuj mądrze, a baza Ci odpłaci.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „SQL Performance Explained” (Markus Winand) – indeksy i plany zapytań · Dokumentacja PostgreSQL: „Indexes” i „Using EXPLAIN” · „High Performance MySQL” (Baron Schwartz).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
