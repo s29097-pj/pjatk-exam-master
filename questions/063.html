@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 063 – Modele UML w analizie i projektowaniu</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">063. Modele UML w analizie i projektowaniu oprogramowania.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📐</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Jeden budynek, wiele planów”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś architektem i masz zaprojektować biurowiec. Potrzebujesz wielu rysunków: <strong>rzutu piętra</strong> (gdzie są pokoje?), <strong>instalacji elektrycznej</strong> (jak płynie prąd?), <strong>schematu kanalizacji</strong> (gdzie są rury?) i <strong>wizualizacji 3D</strong> (jak to będzie wyglądać?). Każdy z tych planów opisuje ten sam budynek, ale z innej perspektywy i dla innego odbiorcy – elektryk nie potrzebuje szczegółów konstrukcyjnych, a murarz nie czyta schematu wentylacji.
+                    </p>
+                    <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
+                        <strong>UML (Unified Modeling Language)</strong> działa dokładnie tak samo. To nie jeden uniwersalny diagram, lecz <strong>rodzina 14 typów diagramów</strong>, z których każdy pokazuje system z innej strony. Inżynieria oprogramowania używa ich do analizy (zrozumienia problemu) i projektowania (zaplanowania rozwiązania). Elektrykiem może być programista back-endu, hydraulikiem – architekt bazy danych, a wizualizatorem – projektant UI. Każdy korzysta z właściwego sobie diagramu, ale wszyscy pracują nad tym samym systemem.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Diagramy struktury (klasy, komponentów, wdrożenia, pakietów)</span>
+            <span class="keyword-tag">Diagramy zachowania (przypadków użycia, sekwencji, aktywności, stanów)</span>
+            <span class="keyword-tag">UML jako notacja, nie metodyka</span>
+            <span class="keyword-tag">Model pojęciowy (analityczny) vs projektowy</span>
+            <span class="keyword-tag">Diagram klas: atrybuty, metody, asocjacje, liczebność</span>
+            <span class="keyword-tag">Diagram sekwencji: oś czasu, komunikaty</span>
+            <span class="keyword-tag">Diagram aktywności: przepływ sterowania</span>
+            <span class="keyword-tag">Model 4+1 (Kruchten) a UML</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym jest UML i dlaczego nie jest metodyką? -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">1. UML – uniwersalny język, nie sztywny proces</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>UML</strong> to standaryzowana notacja graficzna do modelowania systemów informatycznych. Został stworzony przez Grady'ego Boocha, Ivara Jacobsona i Jamesa Rumbaugha (tzw. „Trzech Amigos”) i jest utrzymywany przez Object Management Group (OMG). Kluczowe: UML <strong>nie narzuca</strong>, w jakiej kolejności rysować diagramy ani jak prowadzić projekt. To nie metodyka (jak RUP czy Scrum), tylko <strong>zestaw narzędzi wizualnych</strong>, które możesz stosować wybiórczo – używasz tylko tych diagramów, które w danym momencie są potrzebne.
+                </p>
+            </div>
+
+            <!-- 2. Mapa wszystkich diagramów UML 2.5 -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">2. Dwie rodziny diagramów: struktura i zachowanie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    UML 2.5 definiuje 14 typów diagramów podzielonych na dwie główne grupy. Nie musisz znać wszystkich na pamięć, ale musisz wiedzieć, który diagram do czego służy.
+                </p>
+            </div>
+
+            <!-- SVG: Mapa diagramów UML -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="340" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Mapa diagramów UML 2.5 – struktura i zachowanie</text>
+
+                <!-- GAŁĄŹ STRUKTURY -->
+                <rect x="30" y="45" width="360" height="28" rx="4" fill="#3949ab"/>
+                <text x="210" y="64" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Diagramy struktury (co jest z czego zbudowane?)</text>
+
+                <rect x="30" y="82" width="170" height="60" rx="4" fill="#fff" stroke="#3949ab" stroke-width="1.5"/>
+                <text x="115" y="102" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Klas</text>
+                <text x="115" y="118" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(obiekty, atrybuty,</text>
+                <text x="115" y="132" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">relacje, dziedziczenie)</text>
+
+                <rect x="220" y="82" width="170" height="60" rx="4" fill="#fff" stroke="#3949ab" stroke-width="1.5"/>
+                <text x="305" y="102" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Komponentów</text>
+                <text x="305" y="118" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(fizyczne moduły,</text>
+                <text x="305" y="132" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">interfejsy, zależności)</text>
+
+                <rect x="30" y="152" width="170" height="60" rx="4" fill="#fff" stroke="#3949ab" stroke-width="1.5"/>
+                <text x="115" y="172" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Wdrożenia</text>
+                <text x="115" y="188" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(serwery, procesory,</text>
+                <text x="115" y="202" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">artefakty na sprzęcie)</text>
+
+                <rect x="220" y="152" width="170" height="60" rx="4" fill="#fff" stroke="#3949ab" stroke-width="1.5"/>
+                <text x="305" y="172" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Pakietów / Obiektów</text>
+                <text x="305" y="188" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(grupowanie, zależności</text>
+                <text x="305" y="202" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">między pakietami)</text>
+
+                <!-- GAŁĄŹ ZACHOWAŃ -->
+                <rect x="430" y="45" width="360" height="28" rx="4" fill="#5c6bc0"/>
+                <text x="610" y="64" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Diagramy zachowania (jak system działa?)</text>
+
+                <rect x="430" y="82" width="170" height="60" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="1.5"/>
+                <text x="515" y="102" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Przypadków użycia</text>
+                <text x="515" y="118" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(aktorzy, UC,</text>
+                <text x="515" y="132" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">«include», «extend»)</text>
+
+                <rect x="620" y="82" width="170" height="60" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="1.5"/>
+                <text x="705" y="102" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Sekwencji</text>
+                <text x="705" y="118" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(oś czasu, komunikaty,</text>
+                <text x="705" y="132" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">linie życia)</text>
+
+                <rect x="430" y="152" width="170" height="60" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="1.5"/>
+                <text x="515" y="172" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Aktywności</text>
+                <text x="515" y="188" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(przepływ sterowania,</text>
+                <text x="515" y="202" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">decyzje, równoległość)</text>
+
+                <rect x="620" y="152" width="170" height="60" rx="4" fill="#fff" stroke="#5c6bc0" stroke-width="1.5"/>
+                <text x="705" y="172" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Stanów</text>
+                <text x="705" y="188" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(cykl życia obiektu,</text>
+                <text x="705" y="202" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">przejścia, zdarzenia)</text>
+
+                <!-- Podsumowanie na dole -->
+                <rect x="120" y="240" width="580" height="40" rx="6" fill="#c5cae9" stroke="#283593" stroke-width="1.5"/>
+                <text x="410" y="262" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">🧠 W praktyce używa się 5–6 typów; reszta jest stosowana w specyficznych przypadkach.</text>
+                <text x="410" y="275" font-family="sans-serif" font-size="9" fill="#3949ab" text-anchor="middle">Egzamin najczęściej sprawdza: Przypadków Użycia, Klas, Sekwencji, Aktywności i Stanów.</text>
+            </svg>
+
+            <!-- 3. Diagramy w analizie a w projektowaniu -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">3. Analiza vs Projektowanie – ten sam diagram, inny poziom szczegółowości</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ważne rozróżnienie: ten sam typ diagramu (np. klas) wygląda inaczej na etapie analizy, a inaczej na etapie projektowania:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Analiza (model pojęciowy):</strong> Diagram klas pokazuje obiekty świata rzeczywistego (Klient, Zamówienie, Produkt) i ich relacje. Nie ma w nim metod, typów kolekcji ani szczegółów technicznych. Jest zrozumiały dla klienta.</li>
+                    <li><strong>Projektowanie (model projektowy):</strong> Ten sam diagram klas zawiera już metody, typy danych, kolekcje, interfejsy, klasy abstrakcyjne i wzorce projektowe. Programista bezpośrednio przekłada go na kod.</li>
+                </ul>
+                <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Analogicznie, diagram sekwencji w analizie pokazuje komunikację między aktorem a systemem (bez szczegółów technicznych), a w projektowaniu – precyzyjne wywołania metod między obiektami w konkretnym frameworku.
+                </p>
+            </div>
+
+            <!-- 4. Przykład praktyczny: system rezerwacji biletów -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">4. Przykład: system rezerwacji biletów – od UC do kodu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zobaczmy, jak różne diagramy UML opisują ten sam system na różnych etapach:
+                </p>
+                <div style="background: #f5f5f5; border-radius: 10px; padding: 16px; margin-top: 12px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #283593; width: 180px;">Przypadki użycia</td>
+                            <td style="padding: 8px;">Pokazują aktorów (Klient, Kasjer) i ich cele: „Kup bilet”, „Zwróć bilet”, „Sprawdź dostępność”. Diagram UC definiuje granice systemu.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #283593;">Diagram aktywności</td>
+                            <td style="padding: 8px;">Opisuje proces biznesowy „Kup bilet”: od wyboru seansu, przez płatność, po wydruk biletu. Ma rozwidlenia (płatność kartą vs gotówką) i równoległość (weryfikacja wieku + blokada miejsca).</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #283593;">Diagram sekwencji</td>
+                            <td style="padding: 8px;">Pokazuje szczegółowy przepływ komunikatów dla UC „Kup bilet”: Klient → Formularz → Kontroler → SerwisBiletów → BazaDanych. Z widoczną osią czasu i zwrotami.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 8px; font-weight: bold; color: #283593;">Diagram stanów</td>
+                            <td style="padding: 8px;">Dla obiektu „Bilet”: stany: [Dostępny] → [Zarezerwowany] → [Opłacony] → [Zużyty] / [Przeterminowany]. Każdy stan ma warunki przejścia.</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: bold; color: #283593;">Diagram klas</td>
+                            <td style="padding: 8px;">W analizie: Klient 1–* Rezerwacja, Seans 1–* Bilet. W projekcie: dodane metody, interfejsy, kolekcje, adnotacje ORM.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5. Model 4+1 a UML -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">5. Jak UML pasuje do Modelu 4+1 Kruchtena?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Model 4+1 to standard opisu architektury, który wykorzystuje UML do reprezentacji każdego z pięciu widoków:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Widok logiczny</strong> – diagram klas, diagram pakietów, diagram obiektów (funkcjonalność dla końcowego użytkownika).</li>
+                    <li><strong>Widok procesów</strong> – diagramy sekwencji, aktywności (przepływ sterowania, komunikacja, równoległość).</li>
+                    <li><strong>Widok fizyczny</strong> – diagram wdrożenia (serwery, procesory, artefakty – jak system jest rozmieszczony na sprzęcie).</li>
+                    <li><strong>Widok rozwoju</strong> – diagram komponentów, diagram pakietów (organizacja kodu źródłowego).</li>
+                    <li><strong>Widok scenariuszy (+1)</strong> – diagram przypadków użycia (spina wszystko razem, pokazuje, co system robi).</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o UML):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„UML to przeżytek, Agile go wyparł”</strong> – Nieprawda. Agile nie zabrania rysowania – zabrania zbędnej dokumentacji. Diagram klas narysowany markerem na tablicy i obfotografowany to też UML. Chodzi o komunikację, nie o narzędzie.</li>
+                    <li><strong>„Trzeba narysować wszystkie 14 diagramów, żeby dobrze opisać system”</strong> – Wręcz przeciwnie. Im więcej diagramów bez konkretnego celu, tym większy chaos. Wybieraj tylko te, które rozwiązują bieżący problem.</li>
+                    <li><strong>„Diagram klas analitycznych i projektowych to to samo”</strong> – Różnica jest kluczowa. Analityczny nie ma metod, typów technicznych ani dziedziczenia implementacyjnego – tylko czyste pojęcia domenowe i ich powiązania. Nie pomyl ich na egzaminie.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">UML to jak znajomość nut – nie czyni Cię kompozytorem, ale pozwala zapisać melodię tak, by inni mogli ją zagrać. Nie musisz znać wszystkich diagramów na pamięć. Wystarczy, że wiesz, który diagram rozwiąże Twój obecny problem komunikacyjny – i umiesz go narysować tak, by był zrozumiały dla odbiorcy. W inżynierii oprogramowania rysunek wart jest więcej niż tysiąc słów, o ile jest narysowany we wspólnym języku.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „UML Distilled” (Martin Fowler) – niezbędne wprowadzenie · „The Unified Modeling Language User Guide” (Booch, Rumbaugh, Jacobson) · „Applying UML and Patterns” (Craig Larman).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
