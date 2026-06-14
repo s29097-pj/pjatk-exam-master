@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 053 – Współbieżność, transakcje, blokady</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">053. Problemy współbieżnego dostępu do baz danych, rozwiązania tych problemów (transakcje, blokady).</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🎫</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kino z jednym fotelem i dwoma widzami”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Wyobraź sobie, że w kinie został tylko jeden bilet na ostatni seans. Jednocześnie dwie osoby – Ania i Bartek – klikają „Kup bilet”. Obie widzą wolne miejsce i finalizują płatność. Co się stanie? W świecie bez transakcji obie dostaną potwierdzenie, ale tylko jedna powinna dostać bilet. Druga osoba zostanie z pustym kontem i bez biletu.
+                    </p>
+                    <p style="margin: 0; color: #3e2723; line-height: 1.7;">
+                        To właśnie klasyczny problem <strong>współbieżności</strong> – wiele transakcji jednocześnie próbuje czytać i modyfikować te same dane. Baza danych musi pogodzić ogień z wodą: zapewnić <strong>izolację</strong> (by transakcje sobie nie przeszkadzały), nie zabijając przy tym <strong>wydajności</strong> (wielu użytkowników naraz). Rozwiązaniami są <strong>transakcje ACID, poziomy izolacji, blokady i mechanizm MVCC</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Transakcja (ACID)</span>
+            <span class="keyword-tag">Współbieżność (concurrency)</span>
+            <span class="keyword-tag">Poziomy izolacji</span>
+            <span class="keyword-tag">Utracona aktualizacja (Lost Update)</span>
+            <span class="keyword-tag">Brudny odczyt (Dirty Read)</span>
+            <span class="keyword-tag">Niepowtarzalny odczyt</span>
+            <span class="keyword-tag">Fantomy (Phantom Read)</span>
+            <span class="keyword-tag">Blokady: Shared (S) / Exclusive (X)</span>
+            <span class="keyword-tag">Zakleszczenie (Deadlock)</span>
+            <span class="keyword-tag">MVCC (Multiversion Concurrency Control)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Transakcje ACID -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Transakcja – atomowy pakt zaufania (ACID)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Transakcja to logiczna jednostka pracy – zestaw operacji, które muszą być wykonane w całości lub wcale. Klasyczny przykład: przelew z konta A na konto B. Pieniądze muszą zostać pobrane z A <strong>i</strong> dodane do B. Jeśli coś pójdzie nie tak, wszystko wraca do stanu początkowego. Gwarantuje to akronim <strong>ACID</strong>:
+                </p>
+            </div>
+
+            <!-- SVG: ACID -->
+            <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="160" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">ACID – Cztery filary transakcji</text>
+
+                <rect x="20" y="45" width="180" height="95" rx="6" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="110" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#bf360c" text-anchor="middle">Atomicity (Atomowość)</text>
+                <text x="110" y="90" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Wszystko albo nic.</text>
+                <text x="110" y="108" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Nie ma półśrodków.</text>
+
+                <rect x="220" y="45" width="180" height="95" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="310" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Consistency (Spójność)</text>
+                <text x="310" y="90" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Transakcja nie narusza</text>
+                <text x="310" y="108" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">reguł bazy.</text>
+
+                <rect x="420" y="45" width="180" height="95" rx="6" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+                <text x="510" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Isolation (Izolacja)</text>
+                <text x="510" y="90" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Transakcje nie widzą</text>
+                <text x="510" y="108" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">siebie nawzajem.</text>
+
+                <rect x="620" y="45" width="180" height="95" rx="6" fill="#fff" stroke="#ffc107" stroke-width="2"/>
+                <text x="710" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Durability (Trwałość)</text>
+                <text x="710" y="90" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">Raz zatwierdzone,</text>
+                <text x="710" y="108" font-family="sans-serif" font-size="10" fill="#3e2723" text-anchor="middle">przetrwa awarię.</text>
+            </svg>
+
+            <!-- 2. Problemy współbieżności (wizualizacja Lost Update) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Co może pójść źle? – Czterech jeźdźców anomalii</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy wiele transakcji działa jednocześnie bez odpowiedniej izolacji, pojawiają się cztery klasyczne problemy:
+                </p>
+            </div>
+
+            <!-- SVG: Lost Update -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#ffebee" opacity="0.2"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Anomalia: Utracona aktualizacja (Lost Update)</text>
+
+                <!-- Konto -->
+                <rect x="50" y="45" width="100" height="60" rx="4" fill="#fff" stroke="#ef9a9a" stroke-width="2"/>
+                <text x="100" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Konto</text>
+                <text x="100" y="90" font-family="monospace" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">1000 zł</text>
+
+                <!-- Transakcja T1 -->
+                <path d="M 150 75 L 210 55" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+                <text x="180" y="50" font-family="monospace" font-size="11" fill="#1565c0">T1 czyta 1000</text>
+                <rect x="220" y="40" width="120" height="70" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="280" y="60" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">T1: 1000 + 100</text>
+                <text x="280" y="78" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">= 1100</text>
+                <text x="280" y="96" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(chce zapisać 1100)</text>
+
+                <!-- Transakcja T2 (niżej) -->
+                <path d="M 150 85 L 210 125" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowRed)"/>
+                <text x="180" y="120" font-family="monospace" font-size="11" fill="#c62828">T2 czyta 1000</text>
+                <rect x="220" y="110" width="120" height="70" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="280" y="130" font-family="monospace" font-size="11" fill="#b71c1c" text-anchor="middle">T2: 1000 + 200</text>
+                <text x="280" y="148" font-family="monospace" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">= 1200</text>
+                <text x="280" y="166" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(chce zapisać 1200)</text>
+
+                <!-- Wynik -->
+                <path d="M 340 65 L 400 65" fill="none" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <path d="M 340 135 L 400 135" fill="none" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                <rect x="410" y="45" width="200" height="60" rx="4" fill="#fff" stroke="#b71c1c" stroke-width="2"/>
+                <text x="510" y="65" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">OSTATECZNY STAN</text>
+                <text x="510" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">1200 zł (T2)</text>
+                <text x="510" y="98" font-family="sans-serif" font-size="9" fill="#7f0000" text-anchor="middle">Aktualizacja T1 przepadła!</text>
+
+                <defs>
+                    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Utracona aktualizacja (Lost Update)</strong> – dwie transakcje czytają tę samą wartość, modyfikują ją i zapisują. Ostatnia nadpisuje pierwszą (patrz schemat).</li>
+                    <li><strong>Brudny odczyt (Dirty Read)</strong> – transakcja T2 czyta dane zmienione przez T1, zanim T1 się zatwierdzi (COMMIT). Jeśli T1 zrobi ROLLBACK, T2 pracuje na danych-widmach.</li>
+                    <li><strong>Niepowtarzalny odczyt (Non‑repeatable Read)</strong> – w trakcie trwania transakcji T1, transakcja T2 modyfikuje dane, które T1 już wcześniej odczytała. Ponowny odczyt daje inną wartość.</li>
+                    <li><strong>Fantomy (Phantom Read)</strong> – transakcja T1 wykonuje zapytanie warunkowe (np. `WHERE pensja > 5000`). T2 wstawia nowy wiersz spełniający ten warunek. Gdy T1 powtórzy zapytanie, zobaczy nowy wiersz – „fantom”.</li>
+                </ul>
+            </div>
+
+            <!-- 3. Poziomy izolacji (SVG) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Poziomy izolacji – od piaskownicy do bunkra</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Standard SQL definiuje cztery poziomy izolacji – każdy eliminuje kolejne anomalie, ale kosztem wydajności (bo więcej blokad).
+                </p>
+            </div>
+
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e8eaf6" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#283593">Poziomy izolacji – co który eliminuje</text>
+
+                <!-- Kolumny -->
+                <rect x="30" y="45" width="180" height="30" rx="4" fill="#283593"/>
+                <text x="120" y="65" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Poziom izolacji</text>
+
+                <rect x="220" y="45" width="140" height="30" rx="4" fill="#5c6bc0"/>
+                <text x="290" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Dirty Read</text>
+
+                <rect x="370" y="45" width="140" height="30" rx="4" fill="#7e57c2"/>
+                <text x="440" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Non‑repeatable</text>
+
+                <rect x="520" y="45" width="140" height="30" rx="4" fill="#9575cd"/>
+                <text x="590" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Phantom</text>
+
+                <rect x="670" y="45" width="120" height="30" rx="4" fill="#b39ddb"/>
+                <text x="730" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#311b92" text-anchor="middle">Wydajność</text>
+
+                <!-- Read Uncommitted -->
+                <rect x="30" y="85" width="180" height="35" rx="3" fill="#ffebee" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="120" y="107" font-family="monospace" font-size="11" fill="#b71c1c" text-anchor="middle">Read Uncommitted</text>
+
+                <rect x="220" y="85" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="290" y="107" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="370" y="85" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="440" y="107" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="520" y="85" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="590" y="107" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="670" y="85" width="120" height="35" rx="3" fill="#c8e6c9"/>
+                <text x="730" y="107" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">🚀 Najszybciej</text>
+
+                <!-- Read Committed -->
+                <rect x="30" y="130" width="180" height="35" rx="3" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+                <text x="120" y="152" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">Read Committed</text>
+
+                <rect x="220" y="130" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="290" y="152" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="370" y="130" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="440" y="152" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="520" y="130" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="590" y="152" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="670" y="130" width="120" height="35" rx="3" fill="#fff9c4"/>
+                <text x="730" y="152" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f57f17" text-anchor="middle">🐢 Wolniej</text>
+
+                <!-- Repeatable Read -->
+                <rect x="30" y="175" width="180" height="35" rx="3" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.5"/>
+                <text x="120" y="197" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">Repeatable Read</text>
+
+                <rect x="220" y="175" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="290" y="197" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="370" y="175" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="440" y="197" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="520" y="175" width="140" height="35" rx="3" fill="#ffcdd2" stroke="#ef5350" stroke-width="1"/>
+                <text x="590" y="197" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Możliwy</text>
+
+                <rect x="670" y="175" width="120" height="35" rx="3" fill="#ffe0b2"/>
+                <text x="730" y="197" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">🐢🐢 Wolno</text>
+
+                <!-- Serializable -->
+                <rect x="30" y="220" width="180" height="35" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="120" y="242" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">Serializable</text>
+
+                <rect x="220" y="220" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="290" y="242" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="370" y="220" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="440" y="242" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="520" y="220" width="140" height="35" rx="3" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+                <text x="590" y="242" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nie</text>
+
+                <rect x="670" y="220" width="120" height="35" rx="3" fill="#ffcdd2"/>
+                <text x="730" y="242" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">🐢🐢🐢 Najwolniej</text>
+            </svg>
+
+            <!-- 4. Blokady i Deadlock -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Blokady – klucz do izolacji (i źródło kłopotów)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby transakcje sobie nie przeszkadzały, baza nakłada <strong>blokady</strong> na wiersze/tabele:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Shared Lock (S) – blokada współdzielona</strong>: wiele transakcji może jednocześnie czytać ten sam wiersz (SELECT).</li>
+                    <li><strong>Exclusive Lock (X) – blokada wyłączna</strong>: tylko jedna transakcja może modyfikować wiersz (UPDATE/DELETE). Inne nie mogą ani czytać, ani pisać.</li>
+                </ul>
+            </div>
+
+            <!-- SVG: Deadlock -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#fce4ec" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#880e4f">Zakleszczenie (Deadlock) – klasyczny impas</text>
+
+                <!-- T1 -->
+                <rect x="60" y="50" width="150" height="80" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="135" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">Transakcja T1</text>
+                <text x="135" y="95" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Trzyma blokadę na A</text>
+                <text x="135" y="115" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Czeka na B</text>
+
+                <!-- T2 -->
+                <rect x="610" y="50" width="150" height="80" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="685" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">Transakcja T2</text>
+                <text x="685" y="95" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Trzyma blokadę na B</text>
+                <text x="685" y="115" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Czeka na A</text>
+
+                <!-- A i B w środku -->
+                <rect x="370" y="60" width="80" height="30" rx="4" fill="#ffcdd2" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="410" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wiersz A</text>
+                <rect x="370" y="110" width="80" height="30" rx="4" fill="#ffcdd2" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="410" y="130" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wiersz B</text>
+
+                <!-- Strzałki -->
+                <path d="M 210 80 L 360 75" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrDead)"/>
+                <text x="285" y="65" font-family="sans-serif" font-size="9" fill="#c62828">czeka na</text>
+
+                <path d="M 460 125 L 600 100" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrDead)"/>
+                <text x="530" y="110" font-family="sans-serif" font-size="9" fill="#c62828">czeka na</text>
+
+                <text x="410" y="170" font-family="sans-serif" font-size="11" fill="#880e4f" text-anchor="middle">🔄 Obie czekają na siebie w nieskończoność → Deadlock!</text>
+
+                <defs>
+                    <marker id="arrDead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Najgroźniejszym zjawiskiem jest <strong>zakleszczenie (deadlock)</strong> – dwie transakcje blokują się nawzajem, czekając w nieskończoność (patrz schemat). Baza automatycznie wykrywa deadlock i anuluje jedną z transakcji (ROLLBACK), aby odblokować sytuację.
+                </p>
+            </div>
+
+            <!-- 5. MVCC -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">5. MVCC – sprytne unikanie blokad</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nowoczesne bazy (PostgreSQL, Oracle) zamiast blokować wszystko, używają <strong>MVCC (Multiversion Concurrency Control)</strong>. Każdy wiersz ma wiele wersji – transakcje widzą „migawkę” danych z chwili rozpoczęcia. Dzięki temu czytanie nigdy nie blokuje pisania i odwrotnie. Dopiero przy zapisie baza sprawdza, czy inna transakcja zdążyła zmodyfikować ten sam wiersz – jeśli tak, rzuca wyjątek i transakcja musi być ponowiona.
+                </p>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Współbieżne wpadki):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Read Committed jest zawsze najlepszy”</strong> – To domyślny poziom w PostgreSQL. Chroni przed Dirty Read, ale nie przed Non‑repeatable Read ani Phantom. Jeśli aplikacja wymaga spójności w obrębie transakcji (np. raport finansowy), potrzebujesz Repeatable Read lub Serializable.</li>
+                    <li><strong>„MVCC całkowicie eliminuje blokady”</strong> – Nie. Blokady nadal istnieją przy zapisie i dla operacji DDL (ALTER TABLE). MVCC eliminuje blokady odczytu, ale zapis na ten sam wiersz nadal wymaga synchronizacji.</li>
+                    <li><strong>„Serializable jest za wolny, więc go nie używam”</strong> – Nie zawsze. W PostgreSQL poziom Serializable używa techniki SSI (Serializable Snapshot Isolation) i może być całkiem wydajny. Nie odrzucaj go z góry – profiluj.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Współbieżność to balans na linie – z jednej strony chcesz, by setki użytkowników działało jednocześnie, z drugiej nie możesz pozwolić, by dane się popsuły. Transakcje i poziomy izolacji to Twoje narzędzia do kalibracji: im wyższa izolacja, tym mniej anomalii, ale też mniejsza przepustowość. Zrozum anomalie, a będziesz wiedział, kiedy możesz poluzować blokady, a kiedy musisz je zaostrzyć.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Database System Concepts” (Silberschatz, Korth, Sudarshan) – rozdziały o transakcjach i izolacji · Dokumentacja PostgreSQL: „Transaction Isolation” i „MVCC” · „High Performance MySQL” (Baron Schwartz).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
