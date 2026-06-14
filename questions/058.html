@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 058 – Faza przedprojektowa</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">058. Cele i zakres prac w fazie przedprojektowej (planowania).</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie kopiesz fundamentów bez sprawdzenia gruntu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a237e; line-height: 1.7;">
+                        Wyobraź sobie, że masz zbudować dom. Czy od razu chwytasz za łopatę i zaczynasz kopać? Absolutnie nie. Najpierw sprawdzasz, czy działka nie jest podmokła, czy stać Cię na budowę, czy w ogóle masz pozwolenie, i czy architekt rozumie, jak duża ma być kuchnia. <strong>Faza przedprojektowa</strong> w IT to dokładnie ten sam proces – zanim napiszesz pierwszą linię kodu, musisz odpowiedzieć na fundamentalne pytania.
+                    </p>
+                    <p style="margin: 0; color: #1a237e; line-height: 1.7;">
+                        W metodykach tradycyjnych ta faza jest osobnym, rozbudowanym etapem. W Agile wiele z tych działań jest rozłożonych w czasie i trwa przez cały projekt, ale sama potrzeba odpowiedzi na pytania: „Po co to robimy?”, „Czy to w ogóle wykonalne?” i „Kto za to płaci?” nigdy nie znika. Faza przedprojektowa to <strong>najtańszy moment na poprawianie błędów</strong> – zmiana wymagania na tym etapie kosztuje grosze, a ta sama zmiana po wdrożeniu może kosztować fortunę.
+                </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Business Case</span>
+            <span class="keyword-tag">Feasibility Study (Studium Wykonalności)</span>
+            <span class="keyword-tag">Karta Projektu (Project Charter)</span>
+            <span class="keyword-tag">Wstępny zakres (Scope Statement)</span>
+            <span class="keyword-tag">Interesariusze (Stakeholders)</span>
+            <span class="keyword-tag">Analiza SWOT / TELOS</span>
+            <span class="keyword-tag">Wstępny budżet i harmonogram</span>
+            <span class="keyword-tag">Rejestr Ryzyk</span>
+            <span class="keyword-tag">Kamienie milowe (Milestones)</span>
+            <span class="keyword-tag">Kryteria sukcesu</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Cele fazy przedprojektowej -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Główne cele fazy przedprojektowej – na jakie pytania musisz odpowiedzieć?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Celem fazy przedprojektowej NIE jest dostarczenie działającego oprogramowania. Jej celem jest <strong>ustalenie, czy w ogóle warto i można zrealizować projekt</strong>, a jeśli tak – w jaki sposób i jakim kosztem. To etap decyzyjny, którego produktem jest zgoda sponsora (lub komitetu sterującego) na przejście do właściwego planowania i realizacji.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Cel 1: Potwierdzenie zasadności biznesowej</strong> – Czy projekt jest zgodny ze strategią firmy? Jaki problem rozwiązuje? Co się stanie, jeśli go nie zrobimy?</li>
+                    <li><strong>Cel 2: Ocena wykonalności</strong> – Czy w ogóle da się to zrobić technicznie, prawnie i organizacyjnie w dostępnych ramach?</li>
+                    <li><strong>Cel 3: Wstępne oszacowanie zasobów</strong> – Ile mniej więcej będzie kosztował? Jakich ludzi potrzebujemy? Ile potrwa?</li>
+                    <li><strong>Cel 4: Identyfikacja ryzyk i założeń</strong> – Co może pójść nie tak? Na jakich założeniach opieramy plan?</li>
+                    <li><strong>Cel 5: Formalne zatwierdzenie projektu</strong> – Sponsor podpisuje Kartę Projektu i przekazuje budżet.</li>
+                </ul>
+            </div>
+
+            <!-- SVG: Mapa fazy przedprojektowej -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Faza przedprojektowa – przepływ od pomysłu do decyzji GO/NO-GO</text>
+
+                <!-- Wejście: Pomysł -->
+                <rect x="30" y="60" width="140" height="60" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="100" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">💡 Pomysł / Potrzeba</text>
+                <text x="100" y="105" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(od klienta, rynku,</text>
+                <text x="100" y="117" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">regulacji)</text>
+
+                <path d="M 170 90 L 210 90" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Krok 1: Business Case -->
+                <rect x="220" y="50" width="140" height="80" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="290" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">📊 Business Case</text>
+                <text x="290" y="92" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">Analiza opłacalności,</text>
+                <text x="290" y="105" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">ROI, korzyści,</text>
+                <text x="290" y="118" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">alternatywy</text>
+
+                <path d="M 360 90 L 400 90" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Krok 2: Feasibility Study -->
+                <rect x="410" y="50" width="140" height="80" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="480" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">🔬 Studium Wykonalności</text>
+                <text x="480" y="92" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">Techniczne, prawne,</text>
+                <text x="480" y="105" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">organizacyjne,</text>
+                <text x="480" y="118" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">czasowe</text>
+
+                <path d="M 550 90 L 590 90" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                <!-- Krok 3: Karta Projektu -->
+                <rect x="600" y="50" width="140" height="80" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="670" y="72" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">📜 Karta Projektu</text>
+                <text x="670" y="92" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">Formalny dokument,</text>
+                <text x="670" y="105" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">autoryzacja,</text>
+                <text x="670" y="118" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">przydział budżetu</text>
+
+                <!-- Brama decyzyjna -->
+                <path d="M 740 90 L 770 90" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrGreen)"/>
+                <polygon points="780,60 810,90 780,120 750,90" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="780" y="94" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">GO</text>
+
+                <!-- Droga alternatywna: NO-GO -->
+                <path d="M 480 130 L 480 160 L 200 160 L 200 195" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrRed)"/>
+                <rect x="130" y="200" width="140" height="40" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="200" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">🛑 NO-GO / Popraw</text>
+
+                <defs>
+                    <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                    <marker id="arrGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- 2. Zakres prac (szczegółowe działania) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Zakres prac – co konkretnie robisz w fazie przedprojektowej?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Poniżej przedstawiono szczegółową listę działań, które składają się na fazę przedprojektową. W małym projekcie mogą trwać tydzień, w dużym – kilka miesięcy. W Agile część z nich jest rozproszona w Product Backlog Refinement.
+                </p>
+            </div>
+
+            <!-- SVG: Tabela działań -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#f5f5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zakres prac w fazie przedprojektowej</text>
+
+                <!-- Nagłówki -->
+                <rect x="20" y="40" width="300" height="25" rx="3" fill="#1565c0"/>
+                <text x="170" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Działanie</text>
+                <rect x="330" y="40" width="230" height="25" rx="3" fill="#1565c0"/>
+                <text x="445" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Opis</text>
+                <rect x="570" y="40" width="230" height="25" rx="3" fill="#1565c0"/>
+                <text x="685" y="57" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Produkt (dokument)</text>
+
+                <!-- Wiersz 1 -->
+                <rect x="20" y="70" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="92" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Analiza potrzeb i możliwości</text>
+                <rect x="330" y="70" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="92" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Zbieranie wymagań, rozmowy z klientem</text>
+                <rect x="570" y="70" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="92" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Wstępna lista wymagań</text>
+
+                <!-- Wiersz 2 -->
+                <rect x="20" y="110" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="132" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Opracowanie Business Case</text>
+                <rect x="330" y="110" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="132" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Analiza kosztów/korzyści, ROI, NPV</text>
+                <rect x="570" y="110" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="132" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Business Case</text>
+
+                <!-- Wiersz 3 -->
+                <rect x="20" y="150" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="172" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Studium wykonalności</text>
+                <rect x="330" y="150" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="172" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Ocena techniczna, prawna, zasobowa</text>
+                <rect x="570" y="150" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="172" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Raport wykonalności</text>
+
+                <!-- Wiersz 4 -->
+                <rect x="20" y="190" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="212" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Identyfikacja interesariuszy</text>
+                <rect x="330" y="190" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="212" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Mapowanie wpływów i oczekiwań</text>
+                <rect x="570" y="190" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="212" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Rejestr interesariuszy</text>
+
+                <!-- Wiersz 5 -->
+                <rect x="20" y="230" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="252" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Wstępne szacowanie</text>
+                <rect x="330" y="230" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="252" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Zgrubny koszt, czas, zespół</text>
+                <rect x="570" y="230" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="252" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Wstępny budżet, harmonogram</text>
+
+                <!-- Wiersz 6 -->
+                <rect x="20" y="270" width="300" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="170" y="292" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Przygotowanie Karty Projektu</text>
+                <rect x="330" y="270" width="230" height="35" rx="2" fill="#fff" stroke="#cfd8dc"/>
+                <text x="445" y="292" font-family="sans-serif" font-size="10" fill="#2c3e50" text-anchor="middle">Formalna autoryzacja i podpis</text>
+                <rect x="570" y="270" width="230" height="35" rx="2" fill="#e8f5e9"/>
+                <text x="685" y="292" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Karta Projektu (Charter)</text>
+            </svg>
+
+            <!-- 3. Kluczowe dokumenty -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Kluczowe produkty (dokumenty) fazy przedprojektowej</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Efektem fazy przedprojektowej są konkretne dokumenty, które służą jako punkt odniesienia przez resztę projektu. Oto najważniejsze z nich:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Business Case</strong> – dokument uzasadniający sens ekonomiczny projektu. Zawiera analizę kosztów, korzyści, alternatyw i ryzyk.</li>
+                    <li><strong>Studium Wykonalności (Feasibility Study)</strong> – ocenia, czy projekt jest technicznie, prawnie i organizacyjnie możliwy do realizacji.</li>
+                    <li><strong>Karta Projektu (Project Charter)</strong> – formalny dokument autoryzujący projekt, definiujący jego cele, zakres, budżet, sponsora i kierownika.</li>
+                    <li><strong>Wstępny Rejestr Ryzyk</strong> – lista potencjalnych zagrożeń i szans, wraz ze wstępną oceną ich wpływu.</li>
+                    <li><strong>Rejestr Interesariuszy</strong> – lista osób i grup zainteresowanych projektem, z ich oczekiwaniami i poziomem wpływu.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Metody oceny wykonalności -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">4. Narzędzia oceny – TELOS, SWOT, Analiza Pareto</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W fazie przedprojektowej często stosuje się ustrukturyzowane metody oceny, by nie podejmować decyzji "na czuja":
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 220px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #a5d6a7;">
+                        <strong style="color:#2e7d32;">🔹 TELOS</strong><br>
+                        <span style="font-size:0.85rem;">Ocenia wykonalność w 5 wymiarach: <strong>T</strong>echnologicznym, <strong>E</strong>konomicznym, <strong>L</strong>egalnym (prawnym), <strong>O</strong>peracyjnym, <strong>S</strong>trategicznym (harmonogramowym).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 220px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🔹 SWOT</strong><br>
+                        <span style="font-size:0.85rem;">Analiza mocnych i słabych stron (wewnętrzne) oraz szans i zagrożeń (zewnętrzne) związanych z projektem.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 220px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#1565c0;">🔹 Analiza Pareto (80/20)</strong><br>
+                        <span style="font-size:0.85rem;">Identyfikuje kluczowe 20% wymagań, które przyniosą 80% wartości biznesowej. Pomaga ustalić priorytety.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy przedprojektowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Pomijamy fazę przedprojektową, bo Agile”</strong> – Nawet w Agile istnieje Sprint 0, Inception lub Discovery Phase. Nie ma projektu bez odpowiedzi na pytanie „Po co?”. Różnica polega na tym, że w Agile odpowiadamy iteracyjnie i nie tworzymy 200-stronicowych dokumentów, a jedynie wystarczająco dobre.</li>
+                    <li><strong>„Studium wykonalności to tylko formalność”</strong> – Wiele projektów IT upada nie z powodu złego kodu, ale dlatego, że były niewykonalne od samego początku (np. wymagały technologii, która nie istnieje, lub naruszały RODO).</li>
+                    <li><strong>„Business Case robi sponsor, nie nasz problem”</strong> – Jako inżynier musisz rozumieć biznesowy kontekst swojej pracy. Bez niego nie potrafisz podejmować trafnych decyzji architektonicznych (np. czy optymalizować pod szybkość wdrożenia, czy pod niski koszt utrzymania).</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Faza przedprojektowa to moment, w którym popełnia się najtańsze błędy. Zmiana wymagania przed rozpoczęciem kodowania kosztuje symboliczną złotówkę. Ta sama zmiana po wdrożeniu kosztuje dziesiątki tysięcy. Im więcej czasu poświęcisz na zrozumienie, co naprawdę trzeba zbudować i czy to w ogóle ma sens, tym mniej pieniędzy zmarnujesz później. To nie jest strata czasu – to najlepsza inwestycja w całym projekcie.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    PMBOK Guide (PMI) – rozdziały o inicjowaniu projektu · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman) – rozdział o planowaniu · „Agile Estimating and Planning” (Mike Cohn) – Discovery Phase.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
