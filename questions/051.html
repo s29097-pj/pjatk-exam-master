@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 051 – Reguły integralności</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">051. Reguły integralności w bazie danych, przykłady występowania, sposoby realizacji.</h2>
+
+        <!-- Aha! Moment -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏰</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zamek, który sam sprawdza gości”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
+                        Wyobraź sobie zamek, do którego wchodzą rycerze, kupcy i posłańcy. Na bramie stoi strażnik, który sprawdza: „Czy masz zaproszenie? Czy twój strój pasuje do reguł dworu? Czy twój pan istnieje w księgach?”. Gdy ktoś nie spełnia warunków, strażnik po prostu go nie wpuszcza – albo w ogóle nie wypuszcza kogoś, kto jest kluczowy dla zamku.
+                    </p>
+                    <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
+                        <strong>Reguły integralności</strong> to właśnie tacy strażnicy w bazie danych. Pilnują, by dane były zawsze poprawne, spójne i kompletne – niezależnie od tego, czy aplikacja popełni błąd, czy ktoś ręcznie grzebie w SQL. Dzięki nim baza nigdy nie przyjmie zamówienia bez klienta, nie pozwoli na wpisanie wieku -5 ani nie usunie wykładowcy, który ma przypisane kursy (chyba że Ty tego świadomie zażądasz). Integralność to fundament, bez którego baza staje się śmietnikiem.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Słowa kluczowe -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Integralność encji (PK, NOT NULL)</span>
+            <span class="keyword-tag">Integralność referencyjna (FK)</span>
+            <span class="keyword-tag">Integralność domenowa (CHECK, typy)</span>
+            <span class="keyword-tag">Integralność użytkownika (biznesowa)</span>
+            <span class="keyword-tag">Klucz główny / unikalny</span>
+            <span class="keyword-tag">ON DELETE CASCADE / SET NULL / RESTRICT</span>
+            <span class="keyword-tag">Więzy CHECK</span>
+            <span class="keyword-tag">Triggery jako strażnicy</span>
+            <span class="keyword-tag">NULL / NOT NULL</span>
+            <span class="keyword-tag">DEFAULT</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- 1. Czym są reguły integralności -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">1. Integralność danych – dlaczego to Twoja tarcza?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Integralność danych to zbiór reguł, które zapewniają, że informacje w bazie są dokładne, spójne i wiarygodne. Bez nich baza może przyjąć absurdalne dane – np. zamówienie od nieistniejącego klienta albo wiek 250 lat. Reguły integralności dzielimy na cztery główne typy. Każdy z nich pilnuje innego aspektu.
+                </p>
+            </div>
+
+            <!-- 2. Integralność encji -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">2. Integralność encji – Każdy wiersz musi mieć „dowód osobisty”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Encja to po prostu wiersz w tabeli. Integralność encji wymaga, by każdy wiersz był jednoznacznie identyfikowalny. Służy do tego <strong>klucz główny (PRIMARY KEY)</strong> – kolumna (lub zestaw kolumn), która nie może się powtarzać i nie może być pusta (<code>NOT NULL</code>). 
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Przykład: w tabeli <code>Studenci</code> polem klucza jest <code>nr_indeksu</code>. Baza nie pozwoli dodać drugiego studenta z tym samym indeksem ani wpisać <code>NULL</code>. Integralność encji to pierwszy poziom obrony przed bałaganem.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>PRIMARY KEY</strong> – unikalny identyfikator, automatycznie wymusza NOT NULL i unikalność.</li>
+                    <li><strong>UNIQUE</strong> – też wymusza unikalność, ale może być wiele takich kluczy w tabeli i dopuszcza NULL (w większości silników).</li>
+                </ul>
+            </div>
+
+            <!-- 3. Integralność referencyjna -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">3. Integralność referencyjna – Spójność między tabelami</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To najważniejsza reguła w relacyjnych bazach. Mówi, że jeśli wiersz w tabeli A odwołuje się do wiersza w tabeli B, to ten wiersz w B musi istnieć. Realizujemy ją przez <strong>klucz obcy (FOREIGN KEY)</strong>, który wskazuje na klucz główny innej tabeli.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Przykład: <code>Zamowienia.id_klienta</code> jest kluczem obcym do <code>Klienci.id</code>. Baza nie pozwoli dodać zamówienia z <code>id_klienta = 999</code>, jeśli taki klient nie istnieje. To chroni przed „osieroconymi” rekordami.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Co się stanie, gdy spróbujesz usunąć klienta, który ma zamówienia? To zależy od zdefiniowanej <strong>akcji referencyjnej</strong>:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><code>ON DELETE RESTRICT</code> (domyślnie) – nie usuniesz klienta, dopóki ma zamówienia.</li>
+                    <li><code>ON DELETE CASCADE</code> – usuwasz klienta, a baza automatycznie usuwa też wszystkie jego zamówienia.</li>
+                    <li><code>ON DELETE SET NULL</code> – usuwasz klienta, a w jego zamówieniach pole <code>id_klienta</code> ustawia się na NULL.</li>
+                    <li><code>ON DELETE SET DEFAULT</code> – podobnie, ale ustawia wartość domyślną.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Integralność referencyjna to najsilniejszy spoiwo relacyjnej bazy danych. Używaj jej zawsze – nawet jeśli aplikacja też sprawdza.
+                </p>
+            </div>
+
+            <!-- 4. Integralność domenowa -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">4. Integralność domenowa – Każda kolumna ma swoje granice</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Domenowa integralność pilnuje, by wartości w kolumnie pochodziły z określonego zbioru (domeny). Implementuje się ją przez:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Typy danych</strong> – <code>INTEGER</code> nie przyjmie tekstu, <code>DATE</code> nie przyjmie liczby.</li>
+                    <li><strong>NOT NULL</strong> – kolumna nie może być pusta.</li>
+                    <li><strong>CHECK</strong> – najbardziej elastyczne narzędzie. Możesz zdefiniować warunek, np. <code>CHECK (wiek >= 0 AND wiek &lt;= 120)</code> albo <code>CHECK (plec IN ('M','K'))</code>.</li>
+                    <li><strong>DEFAULT</strong> – automatycznie wstawia wartość domyślną, jeśli użytkownik jej nie poda.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Przykład: <code>CREATE TABLE Pracownicy (id INT PRIMARY KEY, pensja DECIMAL(10,2) NOT NULL CHECK (pensja > 0));</code>. Baza nie przyjmie ujemnej pensji, nawet gdyby aplikacja próbowała.
+                </p>
+            </div>
+
+            <!-- 5. Integralność użytkownika (biznesowa) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #283593;">5. Integralność użytkownika – Twoje własne zasady biznesowe</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To reguły specyficzne dla danej organizacji, których nie da się wyrazić prostym CHECK ani kluczem. Przykłady: „Student może zapisać się na maksymalnie 5 kursów”, „Rabat nie może przekroczyć 30% ceny bazowej”. Realizuje się je przez:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Triggery</strong> – procedury wyzwalane, które sprawdzają warunek przed/po operacji i rzucają wyjątek, jeśli reguła jest złamana.</li>
+                    <li><strong>Procedury składowane</strong> – zamiast pozwalać aplikacji na bezpośredni INSERT, dajesz jej procedurę <code>DodajZamowienie()</code>, która wewnątrz sprawdza biznesowe warunki i dopiero wstawia dane.</li>
+                    <li><strong>Asercje (ASSERTION)</strong> – ogólne więzy SQL, które mogą dotyczyć wielu tabel (np. „suma zamówień klienta nie może przekroczyć jego limitu kredytowego”). Niestety, większość silników ich nie implementuje (są w standardzie, ale brak wsparcia w PostgreSQL, MySQL).</li>
+                </ul>
+            </div>
+
+            <!-- Pułapki egzaminacyjne -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Gdy integralność zawodzi):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Polegam tylko na aplikacji”</strong> – Jeśli integralność jest wymuszana wyłącznie w kodzie aplikacji, każdy, kto ma bezpośredni dostęp do bazy (DBA, inny zespół, awaryjny skrypt), może ją złamać. Reguły muszą być na poziomie bazy.</li>
+                    <li><strong>„Zapominam o indeksie na FK”</strong> – Integralność referencyjna działa bez indeksu, ale każda operacja DELETE/UPDATE na tabeli nadrzędnej wymaga sprawdzenia klucza obcego. Bez indeksu to pełne skanowanie tabeli – wydajność leci na łopatki.</li>
+                    <li><strong>„ON DELETE CASCADE wszędzie”</strong> – Brzmi wygodnie, ale wyobraź sobie usunięcie wykładowcy, co kaskadowo usuwa jego kursy, zapisy studentów i oceny. Katastrofa. Stosuj świadomie, z pełną analizą konsekwencji.</li>
+                </ul>
+            </div>
+
+            <!-- Grokking -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Integralność to nie lista regułek do odhaczenia. To zobowiązanie, że baza nigdy nie zdradzi Twoich danych. Gdy zaufasz jej mechanizmom – kluczom, CHECK-om, triggerom – możesz spać spokojnie, nawet gdy aplikacja oszaleje. Prawdziwa moc relacyjnych baz nie tkwi w SQL, tylko w integralności.</span>
+                </p>
+            </div>
+
+            <!-- Bibliografia -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Database System Concepts” (Silberschatz, Korth, Sudarshan) – rozdziały o integralności · Dokumentacja PostgreSQL: „Constraints” · „SQL Performance Explained” (Markus Winand) – indeksy na FK.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
