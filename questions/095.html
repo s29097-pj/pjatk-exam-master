@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 095 – Autoryzacja i uwierzytelnianie</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">095. Autoryzacja i uwierzytelnianie użytkowników.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🛂</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kontrola Paszportowa vs Bilet na Koncert”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Wyobraź sobie, że wchodzisz do strzeżonego biurowca.<br><br>
+                        Na recepcji ochroniarz prosi Cię o dowód osobisty. Patrzy na Twoje zdjęcie i mówi: <em>"Zgadza się, jesteś Jan Kowalski"</em>. To jest <strong>Uwierzytelnianie (Authentication - AuthN)</strong>. Potwierdzenie Twojej TOŻSAMOŚCI. Ochroniarz wie, kim jesteś, ale jeszcze nie wie, co wolno Ci tu robić.<br><br>
+                        Następnie podchodzisz do elektronicznych drzwi prowadzących do serwerowni i odbijasz swoją kartę. System weryfikuje Twoje uprawnienia i zapala czerwoną lampkę, odmawiając wejścia. To jest <strong>Autoryzacja (Authorization - AuthZ)</strong>. Weryfikacja Twoich PRAW DOSTĘPU do zasobu. System wie, kim jesteś (Jan Kowalski), ale wie też, że Jan Kowalski jest stażystą i nie ma prawa wstępu do serwerowni.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Authentication (AuthN - Tożsamość)</span>
+            <span class="keyword-tag">Authorization (AuthZ - Prawa dostępu)</span>
+            <span class="keyword-tag">MFA (Multi-Factor Authentication)</span>
+            <span class="keyword-tag">OAuth2 / OIDC (OpenID Connect)</span>
+            <span class="keyword-tag">JWT (JSON Web Token)</span>
+            <span class="keyword-tag">SSO (Single Sign-On)</span>
+            <span class="keyword-tag">Błędy HTTP 401 vs 403</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: AUTH-N VS AUTH-Z -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Różnica strukturalna: AuthN vs AuthZ</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W świecie IT te dwa procesy następują jeden po drugim. Najpierw musimy zweryfikować tożsamość użytkownika, a dopiero potem na jej podstawie sprawdzić, czy jego rola (np. w modelu RBAC) pozwala mu na odczyt, zapis lub usunięcie danego zasobu. Zrozumienie punktu rozdzielenia tych procesów jest kluczowe w architekturze REST API.
+                </p>
+            </div>
+
+            <!-- SVG 1: RÓŻNICA AUTH -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e8eaf6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Linia czasu żądania (AuthN ➔ AuthZ)</text>
+
+                <!-- Klient -->
+                <rect x="40" y="80" width="80" height="80" rx="8" fill="#fff" stroke="#5c6bc0" stroke-width="2"/>
+                <text x="80" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">👤</text>
+                <text x="80" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3949ab" text-anchor="middle">Klient</text>
+
+                <!-- Uwierzytelnianie -->
+                <rect x="200" y="60" width="180" height="120" rx="8" fill="#fff" stroke="#43a047" stroke-width="2"/>
+                <rect x="200" y="60" width="180" height="30" rx="8" fill="#43a047"/>
+                <rect x="200" y="75" width="180" height="15" fill="#43a047"/>
+                <text x="290" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">1. Uwierzytelnianie</text>
+                
+                <text x="290" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">KIM JESTEŚ?</text>
+                <text x="290" y="130" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Baza: (Login/Hasło)</text>
+                <rect x="230" y="145" width="120" height="20" rx="4" fill="#e8f5e9" stroke="#81c784"/>
+                <text x="290" y="159" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Błąd: HTTP 401</text>
+
+                <!-- Autoryzacja -->
+                <rect x="460" y="60" width="180" height="120" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="460" y="60" width="180" height="30" rx="8" fill="#f57c00"/>
+                <rect x="460" y="75" width="180" height="15" fill="#f57c00"/>
+                <text x="550" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">2. Autoryzacja</text>
+
+                <text x="550" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">CO WOLNO CI ZROBIĆ?</text>
+                <text x="550" y="130" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Role: (Admin/User)</text>
+                <rect x="490" y="145" width="120" height="20" rx="4" fill="#fff3e0" stroke="#ffb74d"/>
+                <text x="550" y="159" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Błąd: HTTP 403</text>
+
+                <!-- Zasób -->
+                <rect x="720" y="80" width="60" height="80" rx="8" fill="#eceff1" stroke="#b0bec5" stroke-width="2"/>
+                <text x="750" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">📂</text>
+                <text x="750" y="140" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Zasób</text>
+
+                <!-- Strzałki i Tagi -->
+                <path d="M 120 120 L 200 120" fill="none" stroke="#90a4ae" stroke-width="3" marker-end="url(#arrowGryA)"/>
+                <text x="160" y="115" font-family="monospace" font-size="9" fill="#546e7a" text-anchor="middle">Żądanie</text>
+
+                <path d="M 380 120 L 460 120" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnA)"/>
+                <text x="420" y="115" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Zalogowany</text>
+
+                <path d="M 640 120 L 720 120" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrgA)"/>
+                <text x="680" y="115" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Dozwolone</text>
+
+                <defs>
+                    <marker id="arrowGryA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                    <marker id="arrowGrnA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowOrgA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: CZYNNIKI UWIERZYTELNIANIA (MFA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #43a047;">2. Mechanizmy Uwierzytelniania: Trzy czynniki (MFA)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pojedyncze uwierzytelnianie (tylko hasło) jest dziś uznawane za błąd architektoniczny w środowiskach produkcyjnych. Inżynieria bezpieczeństwa wymaga stosowania <strong>MFA (Multi-Factor Authentication)</strong>, czyli użycia co najmniej dwóch różnych <em>typów</em> dowodów tożsamości. Wyróżniamy trzy kategorie czynników:
+                </p>
+            </div>
+
+            <!-- SVG 2: CZYNNIKI MFA -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Trzy Filary Uwierzytelniania Wieloskładnikowego (MFA)</text>
+
+                <!-- Knowledge -->
+                <rect x="60" y="60" width="200" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <circle cx="160" cy="100" r="25" fill="#e3f2fd"/>
+                <text x="160" y="110" font-family="sans-serif" font-size="24" text-anchor="middle">🧠</text>
+                <text x="160" y="145" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">Coś, co ZNASZ</text>
+                <text x="160" y="165" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">(Wiedza)</text>
+                <text x="160" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Hasło, PIN, Odpowiedź</text>
+
+                <!-- Possession -->
+                <rect x="310" y="60" width="200" height="120" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <circle cx="410" cy="100" r="25" fill="#fff3e0"/>
+                <text x="410" y="110" font-family="sans-serif" font-size="24" text-anchor="middle">📱</text>
+                <text x="410" y="145" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Coś, co MASZ</text>
+                <text x="410" y="165" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">(Posiadanie)</text>
+                <text x="410" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Telefon (SMS/App), Klucz YubiKey</text>
+
+                <!-- Inherence -->
+                <rect x="560" y="60" width="200" height="120" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <circle cx="660" cy="100" r="25" fill="#ffebee"/>
+                <text x="660" y="110" font-family="sans-serif" font-size="24" text-anchor="middle">👁️</text>
+                <text x="660" y="145" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">Czym JESTEŚ</text>
+                <text x="660" y="165" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">(Cechy Biometryczne)</text>
+                <text x="660" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Odcisk palca, FaceID, Tęczówka</text>
+
+                <!-- Plusy miedzy blokami -->
+                <text x="285" y="125" font-family="sans-serif" font-size="24" font-weight="bold" fill="#90a4ae" text-anchor="middle">+</text>
+                <text x="535" y="125" font-family="sans-serif" font-size="24" font-weight="bold" fill="#90a4ae" text-anchor="middle">+</text>
+
+            </svg>
+
+            <!-- PART 3: NOWOCZESNE TECHNOLOGIE (JWT I SSO) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Nowoczesna implementacja w architekturze REST: Tokeny (JWT) i SSO</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dawniej serwery WWW pamiętały, że użytkownik jest zalogowany, przechowując <em>Sesję</em> na dysku serwera. W architekturze rozproszonej i chmurowej jest to niemożliwe (tzw. problem braku bezstanowości). Dziś standardem jest <strong>Stateless Authentication</strong> z użyciem tokenów, najczęściej <strong>JWT (JSON Web Token)</strong>. Użytkownik loguje się raz (Single Sign-On), dostaje podpisany kryptograficznie token-przepustkę, i dołącza go do każdego kolejnego zapytania.
+                </p>
+            </div>
+
+            <!-- SVG 3: PRZEPŁYW JWT -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Przepływ Uwierzytelniania Bezstanowego (Token JWT / OAuth2 Flow)</text>
+
+                <!-- Aktorzy -->
+                <!-- Frontend -->
+                <rect x="50" y="60" width="100" height="180" rx="6" fill="#fff" stroke="#546e7a" stroke-width="2"/>
+                <text x="100" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Frontend</text>
+                <text x="100" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Aplikacja/SPA)</text>
+                <line x1="100" y1="110" x2="100" y2="220" stroke="#b0bec5" stroke-dasharray="4,4"/>
+
+                <!-- Auth Server -->
+                <rect x="360" y="60" width="100" height="60" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Auth Server</text>
+                <text x="410" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Np. Keycloak)</text>
+
+                <!-- API / Resource Server -->
+                <rect x="670" y="160" width="100" height="60" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="720" y="185" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">API / Resource</text>
+                <text x="720" y="200" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Backend)</text>
+
+                <!-- Kroki / Linie przesyłu -->
+                <!-- Krok 1 -->
+                <path d="M 150 75 L 350 75" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryT)"/>
+                <text x="250" y="65" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Login / Hasło</text>
+
+                <!-- Krok 2 -->
+                <path d="M 350 100 L 150 100" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueT)"/>
+                <text x="250" y="115" font-family="monospace" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">2. Wydanie Tokenu JWT</text>
+
+                <!-- Krok 3 -->
+                <path d="M 150 175 L 660 175" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgT)"/>
+                <text x="380" y="165" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">3. Żądanie danych + Nagłówek: "Authorization: Bearer <JWT>"</text>
+
+                <!-- Krok 4 -->
+                <path d="M 660 205 L 150 205" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnT)"/>
+                <text x="380" y="220" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">4. API weryfikuje podpis JWT i zwraca zasób (dane JSON)</text>
+
+                <!-- Adnotacja o bezstanowosci -->
+                <rect x="620" y="235" width="200" height="35" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
+                <text x="720" y="248" font-family="sans-serif" font-size="9" fill="#c62828" font-weight="bold" text-anchor="middle">Backend nie pyta bazy!</text>
+                <text x="720" y="260" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">Sam podpis JWT (Kryptografia)</text>
+                <text x="720" y="272" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">stanowi dowód tożsamości.</text>
+
+                <defs>
+                    <marker id="arrowGryT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowBlueT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowOrgT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Bezlitośnie oceniane błędy):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie kodów HTTP 401 z 403:</strong> Egzaminator zada proste pytanie: "Użytkownik wysłał złe hasło. Jaki to błąd?". Instynktownie chcemy powiedzieć: <em>"HTTP 401 Unauthorized"</em>. Słowo "Unauthorized" sugeruje błąd autoryzacji, co jest zaszłością historyczną, bo w rzeczywistości oznacza błąd <strong>Uwierzytelniania</strong> (Brak ważnego tokenu). Jeśli ktoś ZALOGOWAŁ SIĘ, ale próbuje usunąć konto administratora, wtedy otrzymuje błąd <strong>HTTP 403 Forbidden</strong>, czyli prawdziwy błąd Autoryzacji. Pamiętaj: 401 = Nie znam Cię. 403 = Znam Cię, ale nie masz tu wstępu.</li>
+                    <li><strong>"OAuth2 to protokół uwierzytelniania":</strong> Ogromny i powszechny błąd architektów. <strong>OAuth2 to ramy (framework) Autoryzacji!</strong> Jeśli logujesz się do aplikacji przyciskiem "Login with Google", to używasz nakładki o nazwie <strong>OIDC (OpenID Connect)</strong>, która odpowiada za uwierzytelnianie (Tożsamość - wydanie <em>ID Token</em>), opierającej się na podbudowie OAuth2 (który wydaje <em>Access Token</em> do korzystania z zasobów serwera).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Bezpieczeństwo aplikacji to dwuetapowa śluza. Uwierzytelnianie to weryfikacja dowodu osobistego – w dzisiejszym świecie staje się skomplikowane i wymaga posiadania fizycznego tokenu, by odeprzeć ataki słownikowe i phishing. Kiedy dowód jest poprawny, tożsamość zapisywana jest w przenośnej teczce – Tokenie JWT. Autoryzacja to proces, w którym aplikacja odczytuje tę teczkę i konfrontuje ją ze swoimi z góry zdefiniowanymi "bramkami wejściowymi" dla poszczególnych Ról (np. REST Endpoint z adnotacją @PreAuthorize("hasRole('ADMIN')")). Połączenie tych dwóch mechanizmów w sposób bezstanowy to filar nowoczesnego Software Engineeringu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    RFC 6749 (The OAuth 2.0 Authorization Framework) · RFC 7519 (JSON Web Token) · Wytyczne bezpieczeństwa OWASP Authentication Cheat Sheet.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
