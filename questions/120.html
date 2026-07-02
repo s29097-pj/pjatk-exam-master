@@ -3,136 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>120. Charakterystyka protokołów HTTP, FTP, SMTP</title>
+    <title>Pytanie 120 – Charakterystyka protokołów HTTP, FTP, SMTP</title>
     <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
 </head>
 <body>
 <div class="container">
 
-    <h1 id="q-title">120. Charakterystyka protokołów sieciowych: HTTP, FTP, SMTP</h1>
+    <div class="question-box">
+        <h2 id="q-title">120. Charakterystyka wybranych protokołów sieciowych takich jak HTTP, FTP, SMTP.</h2>
 
-    <div class="keywords-box">
-        <strong>Słowa kluczowe:</strong> <br>
-        • Warstwa aplikacji (L7 OSI), Architektura Klient-Serwer, TCP, 3-Way Handshake. <br>
-        • <strong>HTTP/HTTPS:</strong> Bezstanowość, Port 80/443, Żądanie GET, TLS Handshake. <br>
-        • <strong>FTP:</strong> Dwa kanały (Sterujący: 21, Danych: 20), Plaintext (jawne hasła). <br>
-        • <strong>SMTP:</strong> PUSH (tylko wysyłanie), Port 25/587, Serwer MTA.
-    </div>
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏛️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Trzej Specjaliści Warstwy Aplikacji”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Protokoły warstwy aplikacji (Warstwa 7 OSI) to zasady mówiące, w jakim języku rozmawiają konkretne programy. Wszystkie trzy polegają na transporcie TCP, ale rozwiązują zupełnie inne problemy inżynieryjne:<br><br>
+                        <strong>HTTP to Bibliotekarz z amnezją.</strong> Prosisz go o książkę, on Ci ją daje i natychmiast o Tobie zapomina (protokół bezstanowy). Działa w modelu Pytanie-Odpowiedź. Jest niesamowicie szybki przy pobieraniu małych zasobów (stron WWW, odpowiedzi JSON z API).<br><br>
+                        <strong>FTP to Hurtownik z dwoma telefonami.</strong> Kiedy chcesz przenieść ogromne palety towaru (pliki), hurtownik nie miesza rozmowy biznesowej z transportem. Przez jeden telefon (Port 21) wydajesz mu komendy sterujące, a drugim, całkowicie osobnym kanałem (Port 20), płyną gigabajty danych. To tak zwane sterowanie "Out-of-band".<br><br>
+                        <strong>SMTP to Kurier pocztowy (Listonosz).</strong> Jego jedynym zadaniem jest wzięcie paczki i <em>przepchnięcie</em> jej dalej, na inny węzeł (serwer docelowy). Działa w modelu "Push". Kurier nigdy nie rozpakowuje listu i nie czyta go Tobie w domu – od tego jest inny protokół (IMAP).
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    <div id="q-content" class="content-text">
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Warstwa Aplikacji (Model OSI/TCP-IP)</span>
+            <span class="keyword-tag">HTTP (Port 80/443) - Stateless, REST</span>
+            <span class="keyword-tag">FTP (Port 20 i 21) - Out-of-band control</span>
+            <span class="keyword-tag">Active vs Passive mode (FTP)</span>
+            <span class="keyword-tag">SMTP (Port 25/587) - MTA, Push protocol</span>
+            <span class="keyword-tag">IMAP/POP3 (Protokoły Pull - Odbiór)</span>
+            <span class="keyword-tag">TCP jako warstwa transportowa</span>
+        </div>
 
-        <p>Wszystkie wymienione protokoły (HTTP, FTP, SMTP) funkcjonują na samym szczycie modelu OSI – w <strong>warstwie aplikacji</strong>. Opierają się one na klasycznej architekturze klient-serwer. Co niezwykle istotne, żaden z nich nie martwi się o niezawodność dostarczenia danych, ponieważ wszystkie delegują to zadanie do warstwy transportowej, wykorzystując protokół <strong>TCP</strong>. Zanim więc wymienią chociażby jeden bajt danych aplikacji, zawsze musi dojść do klasycznego uzgodnienia połączenia, czyli <em>TCP 3-Way Handshake (SYN, SYN-ACK, ACK)</em>.</p>
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
 
-        <hr style="border: 0; border-top: 1px solid #e0e6ed; margin: 25px 0;">
+            <!-- PART 1: HTTP -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. HTTP (Hypertext Transfer Protocol) – Król Internetu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Działa domyślnie na porcie <strong>80 (lub 443 dla szyfrowanego HTTPS)</strong>. Jest to protokół oparty na architekturze Klient-Serwer w modelu żądanie-odpowiedź (Request/Response). Jego absolutnie najważniejszą cechą jest <strong>bezstanowość (Stateless)</strong>. Oznacza to, że każde żądanie jest niezależne, a serwer nie przechowuje informacji o poprzednich żądaniach klienta. (Stan utrzymujemy sztucznie poprzez nagłówki <code>Cookie</code> lub Tokeny JWT!).
+                </p>
+            </div>
 
-        <h3>1. Protokół HTTP (Hypertext Transfer Protocol) i jego ewolucja</h3>
-        <p>
-            To prawdziwy weteran Internetu, od którego zaczęła się historia stron WWW. Działa w prostym trybie żądanie-odpowiedź: stacja robocza wysyła na <strong>port 80</strong> serwera żądanie (np. <code>Request Method: GET</code>), a serwer odpowiada, przesyłając kod HTML strony.
-        </p>
-        <p>
-            Klasyczny HTTP posiada dwie kluczowe cechy architektoniczne:
-        </p>
-        <ul>
-            <li><strong>Jest bezstanowy (stateless):</strong> Serwer analizuje każde żądanie jako zupełnie nowe i niezależne. Nie przechowuje w pamięci kontekstu poprzednich zapytań (dlatego do utrzymania sesji czy logowania musimy stosować zewnętrzne mechanizmy, jak pliki Cookies).</li>
-            <li><strong>Działa w postaci jawnego tekstu (plaintext):</strong> Przechwytując komunikację HTTP (np. w programie Wireshark), widać dokładnie całą strukturę strony, nagłówki i przesyłane formularze.</li>
-        </ul>
-        <p>
-            Z powodu braku bezpieczeństwa, standardem stał się dziś <strong>HTTPS (Port 443)</strong>. W tym przypadku, zaraz po 3-Way Handshake, a jeszcze przed wysłaniem żądania GET, następuje tzw. <strong>TLS Handshake</strong> (rozpoczynający się od komunikatu <code>Client Hello</code>). Strony negocjują w nim parametry szyfrowania, wymieniają certyfikaty, generują klucz i od tego momentu cała komunikacja WWW jest w pełni poufna.
-        </p>
+            <!-- SVG 1: HTTP -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Architektura HTTP i Zjawisko Bezstanowości</text>
 
-        <svg viewBox="0 0 600 150" width="100%" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 20px;">
-            <text x="300" y="25" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">Schemat działania HTTP / HTTPS</text>
+                <!-- Klient -->
+                <rect x="60" y="60" width="80" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="100" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">💻</text>
+                <text x="100" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Klient</text>
 
-            <rect x="50" y="50" width="100" height="60" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-            <text x="100" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">KLIENT</text>
+                <!-- Serwer -->
+                <rect x="680" y="60" width="80" height="120" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="720" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">🗄️</text>
+                <text x="720" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer</text>
 
-            <rect x="450" y="50" width="100" height="60" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-            <text x="500" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">SERWER</text>
+                <!-- Request 1 -->
+                <path d="M 160 80 L 660 80" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlueH)"/>
+                <rect x="330" y="65" width="160" height="30" rx="4" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="410" y="84" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">GET /index.html</text>
 
-            <path d="M 160 65 L 440 65" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlue)"/>
-            <text x="300" y="60" font-family="sans-serif" font-size="12" fill="#555" text-anchor="middle">1. Negocjacja TLS (dla HTTPS) + Żądanie GET</text>
+                <!-- Response 1 -->
+                <path d="M 660 110 L 160 110" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnH)"/>
+                <rect x="330" y="95" width="160" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="410" y="114" font-family="monospace" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">200 OK (HTML data)</text>
 
-            <path d="M 440 95 L 160 95" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlueRev)"/>
-            <text x="300" y="115" font-family="sans-serif" font-size="12" fill="#555" text-anchor="middle">2. Response (Zaszyfrowany kod strony)</text>
+                <!-- Memory wipe -->
+                <circle cx="720" cy="180" r="16" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="720" y="185" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">X</text>
+                <text x="650" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Serwer natychmiast ZAPOMINA</text>
 
-            <defs>
-                <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1976d2"/></marker>
-                <marker id="arrowBlueRev" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M10,0 L0,5 L10,10 Z" fill="#1976d2"/></marker>
-            </defs>
-        </svg>
+                <!-- Request 2 (Needs context) -->
+                <path d="M 160 160 L 660 160" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowOrgH)"/>
+                <rect x="270" y="145" width="280" height="30" rx="4" fill="#ffe0b2" stroke="#f57c00"/>
+                <text x="410" y="164" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">GET /profile (Cookie: session_id=XYZ)</text>
 
-        <h3>2. Protokół FTP (File Transfer Protocol)</h3>
-        <p>
-            To niezwykle popularny protokół do dwukierunkowego przesyłania plików, wspierany przez niemal każdą platformę. Jego najbardziej charakterystyczną cechą architektoniczną jest to, że rozdziela polecenia od właściwych danych na <strong>dwa niezależne kanały:</strong>
-        </p>
-        <ul>
-            <li><strong>Kanał sterujący (Port 21):</strong> Utrzymuje sesję i służy do przesyłania komend (takich jak nawiązanie połączenia czy logowanie).</li>
-            <li><strong>Kanał danych (Port 20):</strong> Realizuje fizyczny transfer żądanych plików.</li>
-        </ul>
-        <p>
-            Podobnie jak bazowy HTTP, FTP powstał w czasach, gdy bezpieczeństwo nie było priorytetem. Cała transmisja nie jest w żaden sposób szyfrowana. Przeprowadzając zrzut ruchu sieciowego, można bez trudu odczytać wprost z pakietu przesyłane parametry, np. <code>Request: USER anonymous</code>, a w przypadku klasycznego logowania – zobaczyć podane hasło w postaci czystego tekstu. Z tego powodu w nowoczesnych sieciach zastępuje się go bezpieczniejszym <strong>SFTP</strong>, który wykorzystuje silne algorytmy kryptograficzne SSH.
-        </p>
+                <defs>
+                    <marker id="arrowBlueH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                    <marker id="arrowGrnH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                    <marker id="arrowOrgH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
 
-        <svg viewBox="0 0 600 150" width="100%" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 20px;">
-            <text x="300" y="25" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">Schemat działania FTP (Dwa kanały)</text>
+            <!-- PART 2: FTP -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">2. FTP (File Transfer Protocol) – Rozdzielenie sterowania i danych</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zaprojektowany do przesyłania ogromnych plików. W przeciwieństwie do HTTP, FTP to protokół <strong>stanowy</strong> (utrzymuje stałą sesję). Jego unikalną, inżynierską cechą jest wykorzystywanie <strong>dwóch różnych kanałów (portów) TCP jednocześnie</strong> (tzw. kontrola Out-of-band). Jeden port służy wyłącznie do wysyłania komend (np. "ściągnij plik"), a drugi do fizycznego przelewania gigabajtów danych, dzięki czemu przesył wielkiego pliku nie blokuje możliwości wysyłania komend sterujących.
+                </p>
+            </div>
 
-            <rect x="50" y="50" width="100" height="60" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
-            <text x="100" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#388e3c" text-anchor="middle">KLIENT</text>
+            <!-- SVG 2: FTP OUT OF BAND -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Architektura FTP: Podwójny kanał TCP (Out-of-band)</text>
 
-            <rect x="450" y="50" width="100" height="60" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
-            <text x="500" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#388e3c" text-anchor="middle">SERWER</text>
+                <!-- Klient FTP -->
+                <rect x="60" y="60" width="100" height="120" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="110" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">🖥️</text>
+                <text x="110" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Klient FTP</text>
 
-            <path d="M 160 65 L 440 65" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGreen)"/>
-            <text x="300" y="60" font-family="sans-serif" font-size="12" fill="#555" text-anchor="middle">Kanał sterujący (Polecenia/Logowanie, Port 21)</text>
+                <!-- Serwer FTP -->
+                <rect x="660" y="60" width="100" height="120" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="710" y="115" font-family="sans-serif" font-size="24" text-anchor="middle">💾</text>
+                <text x="710" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Serwer FTP</text>
 
-            <path d="M 160 95 L 440 95" stroke="#388e3c" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowGreen)"/>
-            <text x="300" y="115" font-family="sans-serif" font-size="12" fill="#555" text-anchor="middle">Kanał danych (Transfer pliku, Port 20)</text>
+                <!-- Control Channel -->
+                <path d="M 180 90 L 640 90" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueF)" marker-start="url(#arrowBlueFRev)"/>
+                <rect x="330" y="75" width="160" height="30" rx="4" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="410" y="94" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Kanał Sterujący (Port 21)</text>
+                <text x="410" y="125" font-family="monospace" font-size="10" fill="#455a64" text-anchor="middle">Komendy: USER, PASS, RETR, QUIT</text>
 
-            <defs>
-                <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#388e3c"/></marker>
-            </defs>
-        </svg>
+                <!-- Data Channel -->
+                <path d="M 180 160 L 640 160" fill="none" stroke="#2e7d32" stroke-width="5" stroke-dasharray="6,4" marker-end="url(#arrowGrnF)"/>
+                <rect x="330" y="145" width="160" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="410" y="164" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Kanał Danych (Port 20)</text>
+                <text x="410" y="195" font-family="monospace" font-size="10" fill="#455a64" text-anchor="middle">Potężny, asynchroniczny transfer bitów</text>
 
-        <h3>3. Protokół SMTP (Simple Mail Transfer Protocol)</h3>
-        <p>
-            Jest to protokół, który możemy nazwać "cyfrowym listonoszem". Działa w oparciu o mechanizm PUSH – służy <strong>wyłącznie do wypychania (wysyłania) poczty elektronicznej</strong>. Za jego pomocą klient poczty przekazuje wiadomość na serwer początkowy, a następnie serwery pocztowe (tzw. agenci MTA) przekazują tę wiadomość między sobą, aż dotrze na serwer docelowy.
-        </p>
-        <ul>
-            <li><strong>Porty:</strong> Historycznie SMTP pracował na porcie <strong>25</strong>, jednak obecnie powszechnie stosuje się port <strong>587</strong> (wymuszający bezpieczne połączenie TLS) lub port <strong>465</strong> (SMTPS).</li>
-            <li><strong>Rozdzielenie ról:</strong> SMTP odpowiada tylko za podróż wiadomości "w górę" i przez sieć. Kiedy użytkownik chce odebrać pocztę (pobrać ją ze swojej skrzynki na serwerze do programu pocztowego), system musi wykorzystać protokół "ciągnący" (PULL) – taki jak <strong>IMAP</strong> (pozwalający na synchronizację folderów) lub starszy <strong>POP3</strong>.</li>
-        </ul>
+                <!-- Port Labels -->
+                <circle cx="660" cy="90" r="12" fill="#1565c0"/>
+                <text x="660" y="94" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">21</text>
 
-        <svg viewBox="0 0 600 150" width="100%" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
-            <text x="300" y="25" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">Droga poczty elektronicznej w sieci</text>
+                <circle cx="660" cy="160" r="12" fill="#2e7d32"/>
+                <text x="660" y="164" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">20</text>
 
-            <rect x="20" y="50" width="100" height="60" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
-            <text x="70" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">NADAWCA</text>
-            <text x="70" y="95" font-family="sans-serif" font-size="10" fill="#c2185b" text-anchor="middle">(Klient poczty)</text>
+                <defs>
+                    <marker id="arrowBlueF" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowBlueFRev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowGrnF" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
 
-            <rect x="250" y="50" width="100" height="60" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
-            <text x="300" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">SERWER MTA</text>
+            <!-- PART 3: SMTP -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. SMTP (Simple Mail Transfer Protocol) – Sieciowy Listonosz</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Działa domyślnie na porcie <strong>25, a w nowoczesnych systemach 587 (Submission) lub 465 (SMTPS)</strong>. W przeciwieństwie do HTTP czy FTP (które służą do <em>pobierania</em> danych), SMTP to klasyczny protokół typu <strong>"Push" (Wypychanie)</strong>. Służy wyłącznie do wysyłania maili z klienta pocztowego na serwer, oraz do przekazywania maili (routingu) pomiędzy serwerami (tzw. MTA - Mail Transfer Agent) w Internecie.
+                </p>
+            </div>
 
-            <rect x="480" y="50" width="100" height="60" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
-            <text x="530" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">ODBIORCA</text>
-            <text x="530" y="95" font-family="sans-serif" font-size="10" fill="#c2185b" text-anchor="middle">(Klient poczty)</text>
+            <!-- SVG 3: SMTP i Architektura Poczty -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Architektura Poczty E-mail: Rola SMTP kontra IMAP</text>
 
-            <path d="M 130 80 L 240 80" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowPink)"/>
-            <text x="185" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">SMTP</text>
-            <text x="185" y="100" font-family="sans-serif" font-size="10" fill="#555" text-anchor="middle">(Wysyłanie)</text>
+                <!-- Nadawca -->
+                <rect x="20" y="80" width="80" height="80" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="60" y="115" font-family="sans-serif" font-size="18" text-anchor="middle">👩‍💻</text>
+                <text x="60" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Nadawca</text>
 
-            <path d="M 360 80 L 470 80" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowGray)"/>
-            <text x="415" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#7f8c8d" text-anchor="middle">IMAP / POP3</text>
-            <text x="415" y="100" font-family="sans-serif" font-size="10" fill="#555" text-anchor="middle">(Pobieranie)</text>
+                <!-- Serwer Nadawcy -->
+                <rect x="230" y="70" width="100" height="100" rx="8" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="280" y="110" font-family="sans-serif" font-size="18" text-anchor="middle">🏢</text>
+                <text x="280" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#4a148c" text-anchor="middle">Serwer MTA</text>
+                <text x="280" y="150" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">(np. Gmail)</text>
 
-            <defs>
-                <marker id="arrowPink" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c2185b"/></marker>
-                <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#7f8c8d"/></marker>
-            </defs>
-        </svg>
+                <!-- Serwer Odbiorcy -->
+                <rect x="490" y="70" width="100" height="100" rx="8" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="540" y="110" font-family="sans-serif" font-size="18" text-anchor="middle">🏢</text>
+                <text x="540" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#4a148c" text-anchor="middle">Serwer MTA</text>
+                <text x="540" y="150" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">(np. WP.pl)</text>
 
-    </div>
-</div>
+                <!-- Odbiorca -->
+                <rect x="720" y="80" width="80" height="80" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="760" y="115" font-family="sans-serif" font-size="18" text-anchor="middle">👨‍💻</text>
+                <text x="760" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Odbiorca</text>
 
-<script src="../assets/script.js"></script>
+
+                <!-- Strzałki -->
+                <!-- Klient -> Serwer A (SMTP) -->
+                <path d="M 110 120 L 210 120" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrgS)"/>
+                <rect x="130" y="95" width="60" height="20" rx="4" fill="#ffe0b2"/>
+                <text x="160" y="109" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">SMTP</text>
+                <text x="160" y="135" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Push</text>
+
+                <!-- Serwer A -> Serwer B (SMTP) -->
+                <path d="M 340 120 L 470 120" fill="none" stroke="#e65100" stroke-width="4" marker-end="url(#arrowOrgS)"/>
+                <rect x="375" y="90" width="60" height="25" rx="4" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="405" y="106" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">SMTP</text>
+                <text x="405" y="138" font-family="sans-serif" font-size="9" font-weight="bold" fill="#d32f2f" text-anchor="middle">Relaying (Przekaz)</text>
+
+                <!-- Serwer B -> Klient (IMAP - Odbiór!) -->
+                <path d="M 710 120 L 610 120" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueS)"/>
+                <rect x="630" y="95" width="60" height="20" rx="4" fill="#bbdefb"/>
+                <text x="660" y="109" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">IMAP</text>
+                <text x="660" y="135" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Pull (Pobierz)</text>
+
+                <!-- Adnotacja centralna -->
+                <rect x="250" y="180" width="320" height="25" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
+                <text x="410" y="196" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Uwaga: SMTP służy TYLKO do pchania (wysyłania) maili naprzód!</text>
+
+                <defs>
+                    <marker id="arrowOrgS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowBlueS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Żelazne błędy, których musisz unikać):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Odbieram maile przez SMTP":</strong> To największy merytoryczny błąd na egzaminie z sieci! Protokół SMTP (Simple Mail Transfer Protocol) fizycznie <em>nie posiada w sobie mechanizmu pobierania wiadomości ze skrzynki na dysk</em>. Jest to jednokierunkowy protokół wypychający. Aby odebrać i przeczytać maile z serwera, aplikacja pocztowa używa protokołów <strong>IMAP</strong> (czytanie z serwera bez pobierania na stałe) lub przestarzałego <strong>POP3</strong>.</li>
+                    <li><strong>"HTTP utrzymuje połączenie, by mnie pamiętać":</strong> Kolejny częsty mit. Logując się do banku, używasz protokołu HTTP (HTTPS). Ale HTTP nie utrzymuje połączenia – zrywa je (logicznie) po odebraniu strony. To, że jesteś nadal zalogowany, to zasługa tzw. Warstwy Aplikacyjnej programisty, który kazał przeglądarce doklejać do każdego żądania specjalny token/ciasteczko (nagłówek <code>Cookie</code>). HTTP samo w sobie ma głęboką amnezję.</li>
+                    <li><strong>"FTP używa jednego portu (21)":</strong> Jeśli powiesz to na egzaminie, egzaminator poprosi Cię o konfigurację Firewalla, a transfer danych w FTP padnie. Protokół żąda portu 21 dla przesyłania poleceń tekstowych, ale podczas pobierania pliku dynamicznie otwiera się tzw. Kanał Danych (na porcie 20 dla trybu Active, lub na losowym wysokim porcie dla trybu Passive).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla użytkownika wszystko to "Internet". Dla inżyniera protokół aplikacji określa architekturę oprogramowania. Zrozumienie bezstanowości HTTP pozwala zrozumieć, dlaczego wymyślono tokeny JWT (Single Sign-On). Zrozumienie dwukanałowej architektury FTP wyjaśnia skomplikowaną konfigurację zapór ogniowych (Firewall) i mechanizmów NAT w trybie pasywnym. Z kolei zrozumienie "pchającego" charakteru SMTP rozwiązuje odwieczne problemy związane z filtrowaniem spamu (rekordy SPF, DKIM) oraz uświadamia, że e-mail to nic innego jak seria cyfrowych węzłów kurierskich podających sobie paczkę w drodze do celu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    RFC 9110 (HTTP Semantics) · RFC 959 (File Transfer Protocol) · RFC 5321 (Simple Mail Transfer Protocol).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
 </body>
 </html>
