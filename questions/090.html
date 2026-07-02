@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 090 – Konfiguracja i testowanie sieci z routerem</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">090. Konfiguracja i testowanie sieci w oparciu o router.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🛂</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Tłumacz i Celnik na granicy państw”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wielu ludzi myli <em>Switch</em> (przełącznik) z <em>Routerem</em>. Switch to listonosz wewnątrz jednego biurowca (sieć LAN) – zna numery pokoi (adresy MAC) i roznosi paczki między biurkami. Nie potrafi jednak wyjść na zewnątrz.<br><br>
+                        <strong>Router to strażnik graniczny i tłumacz na styku dwóch różnych światów.</strong> Łączy on Twoją sieć prywatną (LAN) z globalnym dzikim zachodem (WAN/Internet). Nie operuje na adresach MAC (sprzętowych), lecz na logicznych adresach IP (Warstwa 3 OSI). Aby urządzenie z sieci LAN mogło wysłać maila, musi podać paczkę do routera (tzw. <strong>Bramy Domyślnej</strong>). Router na granicy zdziera prywatny adres nadawcy, przykleja swój publiczny adres (mechanizm <strong>NAT</strong>) i wysyła pakiet w świat na podstawie swojej <em>Tablicy routingu</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Router (Warstwa 3 OSI)</span>
+            <span class="keyword-tag">Brama Domyślna (Default Gateway)</span>
+            <span class="keyword-tag">NAT (Network Address Translation)</span>
+            <span class="keyword-tag">Serwer DHCP (Przydział IP)</span>
+            <span class="keyword-tag">Port Forwarding (Przekierowanie portów)</span>
+            <span class="keyword-tag">Polecenie: ping (ICMP)</span>
+            <span class="keyword-tag">Polecenie: tracert / traceroute</span>
+            <span class="keyword-tag">Polecenie: ipconfig / ifconfig</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: KONFIGURACJA (WIZUALIZACJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Architektura i Święta Trójca Konfiguracji Routera</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Typowy "domowy router" to tak naprawdę urządzenie typu "3-w-1": Router, Switch oraz Access Point (Wi-Fi). Inżynierska konfiguracja takiego węzła dzieli się na trzy absolutnie kluczowe etapy:
+                </p>
+            </div>
+
+            <!-- SVG 1: TOPOLOGIA I NAT -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e8f5e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Topologia i mechanizm translacji NAT</text>
+
+                <!-- WAN (Internet) -->
+                <rect x="40" y="60" width="180" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="130" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#d32f2f" text-anchor="middle">WAN (Internet)</text>
+                <text x="130" y="105" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Sieć publiczna, niezaufana</text>
+
+                <path d="M 90 120 Q 130 90 170 120 T 90 160 T 170 170" fill="none" stroke="#ef9a9a" stroke-width="4"/>
+                <text x="130" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Serwery docelowe (np. Google)</text>
+
+
+                <!-- ROUTER -->
+                <rect x="310" y="50" width="200" height="180" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">ROUTER</text>
+                
+                <!-- Interfejsy Routera -->
+                <rect x="295" y="120" width="30" height="30" rx="4" fill="#ffcc80" stroke="#f57c00" stroke-width="2"/>
+                <text x="310" y="139" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">W</text>
+                
+                <rect x="495" y="120" width="30" height="30" rx="4" fill="#a5d6a7" stroke="#388e3c" stroke-width="2"/>
+                <text x="510" y="139" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">L</text>
+
+                <!-- Translacja NAT w srodku -->
+                <rect x="335" y="100" width="150" height="70" rx="4" fill="#fff3e0" stroke="#ffb74d" stroke-dasharray="4,2"/>
+                <text x="410" y="118" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Mechanizm NAT</text>
+                <text x="410" y="135" font-family="monospace" font-size="9" fill="#37474f" text-anchor="middle">Pub IP: 83.12.X.X</text>
+                <text x="410" y="155" font-family="monospace" font-size="9" fill="#37474f" text-anchor="middle">&lt; TŁUMACZENIE &gt;</text>
+                
+                <text x="410" y="215" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Serwer DHCP (Pula adresów)</text>
+
+
+                <!-- LAN -->
+                <rect x="600" y="60" width="180" height="150" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="690" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1976d2" text-anchor="middle">LAN (Sieć lokalna)</text>
+                <text x="690" y="105" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Prywatna, zaufana podsieć</text>
+
+                <!-- PC 1 -->
+                <rect x="630" y="120" width="120" height="25" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="690" y="136" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">PC 1: 192.168.1.10</text>
+                
+                <!-- PC 2 -->
+                <rect x="630" y="160" width="120" height="25" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="690" y="176" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">PC 2: 192.168.1.11</text>
+
+
+                <!-- KABLE -->
+                <!-- WAN to Router -->
+                <path d="M 220 135 L 295 135" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedNet)"/>
+                
+                <!-- Router to LAN -->
+                <path d="M 525 135 L 630 135" fill="none" stroke="#1976d2" stroke-width="4" marker-end="url(#arrowBlueNet)"/>
+
+                <defs>
+                    <marker id="arrowRedNet" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowBlueNet" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                </defs>
+            </svg>
+
+            <!-- KROKI KONFIGURACJI -->
+            <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                <li><strong>1. Konfiguracja interfejsu WAN (Internet):</strong> Zapewnia wyjście na świat. Może działać w trybie automatycznym (pobierając Publiczny IP od dostawcy ISP np. przez DHCP), lub wymagać ręcznego wpisania poświadczeń logowania (protokół PPPoE stosowany często w łączach światłowodowych).</li>
+                <li><strong>2. Konfiguracja sieci LAN i usługi DHCP:</strong> Musisz ustalić adresację swojej własnej sieci. Najczęściej ustala się adres samego routera na <code>192.168.1.1</code>. Następnie włącza się <strong>Serwer DHCP</strong>. Dzięki niemu komputery podpinane do sieci automatycznie otrzymują swój prywatny adres IP, maskę podsieci, a co najważniejsze – dowiadują się, kto jest ich <strong>Bramą Domyślną</strong> (czyli na jaki adres wysyłać pakiety adresowane do internetu).</li>
+                <li><strong>3. NAT i Port Forwarding (Zarządzanie ruchem):</strong> Domyślnie NAT blokuje wszelki ruch przychodzący z internetu do sieci LAN (działa jak sprzętowy Firewall). Jeśli w LAN znajduje się serwer (np. serwer gry WWW lub serwer kamer monitoringu), musisz skonfigurować <em>Przekierowanie Portów (Port Forwarding)</em>. Mówi ono routerowi: <em>"Jeśli ktoś z zewnątrz puka na Twój publiczny IP na port 8080, wpuść go i zanieś paczkę do komputera 192.168.1.10 do środka"</em>.</li>
+            </ul>
+
+            <!-- PART 2: DIAGNOSTYKA I TESTOWANIE -->
+            <div class="answer-step" style="margin-bottom: 24px; margin-top: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Testowanie sieci (Narzędzia Inżyniera CLI)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy klient mówi "Nie mam internetu", inżynier nie restartuje komputera w ciemno. Używa wiersza poleceń (CLI), aby zlokalizować punkt awarii. Używamy tu trzech komend:
+                </p>
+            </div>
+
+            <!-- SVG 2: PING I TRACEROUTE -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Diagnostyka: Jak działają PING i TRACEROUTE?</text>
+
+                <!-- Urządzenia na drodze -->
+                <rect x="50" y="60" width="60" height="60" rx="4" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
+                <text x="80" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">PC</text>
+                <text x="80" y="112" font-family="monospace" font-size="9" fill="#546e7a" text-anchor="middle">.1.10</text>
+
+                <rect x="250" y="60" width="60" height="60" rx="4" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="280" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Router</text>
+                <text x="280" y="112" font-family="monospace" font-size="9" fill="#546e7a" text-anchor="middle">.1.1</text>
+
+                <rect x="450" y="60" width="60" height="60" rx="4" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
+                <text x="480" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">ISP</text>
+                <text x="480" y="112" font-family="monospace" font-size="9" fill="#546e7a" text-anchor="middle">Dostawca</text>
+
+                <rect x="650" y="60" width="80" height="60" rx="4" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="690" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Serwer</text>
+                <text x="690" y="112" font-family="monospace" font-size="9" fill="#546e7a" text-anchor="middle">8.8.8.8</text>
+
+                <!-- Linie fizyczne -->
+                <line x1="110" y1="90" x2="250" y2="90" stroke="#cfd8dc" stroke-width="4"/>
+                <line x1="310" y1="90" x2="450" y2="90" stroke="#cfd8dc" stroke-width="4"/>
+                <line x1="510" y1="90" x2="650" y2="90" stroke="#cfd8dc" stroke-width="4"/>
+
+                <!-- PING -->
+                <path d="M 80 140 Q 385 165 690 140" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowBlueDiag)"/>
+                <text x="385" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">PING (Echo Request - Protokół ICMP)</text>
+                <text x="385" y="178" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Sprawdza TYLKO: Czy odpowiadasz i jak długo to trwa (ms)?</text>
+
+                <!-- TRACEROUTE -->
+                <path d="M 80 200 Q 180 220 270 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
+                <path d="M 270 200 Q 375 220 470 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
+                <path d="M 470 200 Q 580 220 680 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
+                
+                <text x="385" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">TRACEROUTE (Wykrywanie ścieżki i skoków)</text>
+                <text x="385" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Odkrywa "po kolei" każdy router (Hop) na trasie. Ujawnia, GDZIE urwał się kabel.</text>
+
+                <defs>
+                    <marker id="arrowBlueDiag" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowOrgDiag" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- KOMENDY W PRAKTYCE -->
+            <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                <li><strong><code>ipconfig /all</code> (Windows) lub <code>ifconfig / ip a</code> (Linux):</strong> Krok zerowy. Sprawdza, czy nasz komputer w ogóle dostał poprawną adresację z serwera DHCP. Sprawdzamy tu, czy adres BRAMY (Gateway) jest wypełniony. Brak bramy = brak możliwości wyjścia z LAN do internetu.</li>
+                <li><strong><code>ping</code>:</strong> Korzysta z warstwy sieciowej (Protokół ICMP). Wysyła pakiety <em>Echo Request</em> i czeka na <em>Echo Reply</em>. 
+                    <br><em>Metodologia inżynierska (Ping na 3 fronty):</em> Najpierw <code>ping 127.0.0.1</code> (czy moja własna karta sieciowa działa?), potem <code>ping [IP_Routera]</code> (czy mam połączenie kablem/WIFI z moją bramą domyślną?), a na końcu <code>ping 8.8.8.8</code> (czy mój router faktycznie wypuszcza mnie do globalnego internetu?).</li>
+                <li><strong><code>tracert</code> (Windows) lub <code>traceroute</code> (Linux):</strong> Pokazuje całą ścieżkę pakietu. Działa poprzez manipulowanie parametrem <strong>TTL (Time To Live)</strong>. Wysyła pakiet z TTL=1, więc "umiera" on na pierwszym routerze, który odsyła błąd. Potem z TTL=2 (umiera na drugim). Dzięki temu rysuje nam pełną mapę urządzeń po drodze. Pozwala udowodnić klientowi: <em>"To nie nasza sieć firmowa padła, paczki urywają się dopiero na węźle we Frankfurcie u dostawcy ISP"</em>.</li>
+            </ul>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki diagnostyczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Ping timeout = Serwer nie działa":</strong> BZDURA! Uczelnie z przyjemnością weryfikują ten błąd. Brak odpowiedzi na komendę <code>ping</code> ("Request timed out") wcale nie oznacza, że serwer jest wyłączony. W dzisiejszych czasach większość sprzętowych Firewalli oraz systemów (w tym domyślny Windows Defender) celowo <strong>blokuje i odrzuca pakiety ICMP (Ping)</strong> w celach bezpieczeństwa, aby ukryć się przed skanerami hakerów. Serwer webowy (port 80/TCP) może działać perfekcyjnie, mimo że <code>ping</code> do niego zwraca 100% strat.</li>
+                    <li><strong>Mylenie roli NAT:</strong> Router sam w sobie nie potrzebuje NAT, by działać. Prawdziwe, korporacyjne routery na szkielecie internetu po prostu przekazują pakiety (Routing). Konieczność używania translacji NAT wynika wyłącznie z faktu, że skończyły się publiczne adresy IPv4 i wewnątrz domów musimy używać darmowych, prywatnych pul adresowych (192.168.x.x), które są nierutowalne w globalnym internecie.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla laika router to magiczne pudełko z mrugającymi światełkami, z którego wychodzi "Internet". Dla inżyniera to zaawansowany komputer wykonujący miliony operacji przeglądania tablic rutingu i przepisywania nagłówków (NAT) na sekundę. Testowanie sieci nie polega na bezładnym wpisywaniu komend, lecz na dedukcji. Podobnie jak lekarz izolujący chore organy, inżynier sieciowy za pomocą pingu celowo "odcina" kolejne warstwy infrastruktury, aż z wielkiego globalnego internetu zredukuje problem do jednego, niedociśniętego kabla w switchu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Materiały przygotowawcze CCNA (Routing and Switching) · "Sieci komputerowe" (Andrew S. Tanenbaum) – rozdziały o Warstwie Sieciowej i protokołach ICMP/DHCP.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
