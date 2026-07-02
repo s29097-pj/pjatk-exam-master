@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 083 – Komunikacja i empatyzowanie</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">083. Komunikacja i empatyzowanie w realizacji projektu informatycznego - znaczenie i sposoby wspierania.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🤝</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #006064; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Empatia jako narzędzie optymalizacyjne”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00363a; line-height: 1.7;">
+                        Dla wielu inżynierów "empatia" brzmi jak miękkie pojęcie z gabinetu psychologa, niepasujące do twardej logiki serwerów. To błąd.<br><br>
+                        <strong>Empatia w IT to nie współczucie ani trzymanie się za ręce. To "Inżynieria Zrozumienia Kontekstu".</strong> Wyobraź sobie słynne hasło: <em>"Dziwne, u mnie działa!"</em>. To jest szczyt braku empatii poznawczej. Inżynier, który to mówi, widzi tylko swój własny, idealny system. Empatyczny inżynier wie, że aplikacja ostatecznie wyląduje na starym telefonie użytkownika, który jedzie trzęsącym się autobusem ze słabym zasięgiem i ma wadę wzroku. Empatia pozwala zaprojektować system, który działa TAM, a nie tylko u Ciebie na biurku. To najtańszy sposób zapobiegania kosztownym błędom produkcyjnym.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Empatia poznawcza (Cognitive Empathy)</span>
+            <span class="keyword-tag">User-Centered Design (UCD) / Design Thinking</span>
+            <span class="keyword-tag">Mapa Empatii (Empathy Map)</span>
+            <span class="keyword-tag">NVC (Nonviolent Communication)</span>
+            <span class="keyword-tag">Psychological Safety (Bezpieczeństwo psychologiczne)</span>
+            <span class="keyword-tag">Retrospektywa</span>
+            <span class="keyword-tag">Code Review jako proces miękki</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: ZNACZENIE (TRZY WYMIARY) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00838f;">1. Znaczenie empatii w IT (Trzy Wymiary)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zrozumienie drugiego człowieka jest niezbędne, ponieważ projekt IT to system <strong>socjo-techniczny</strong>. Kod nie pisze się sam dla siebie – piszą go ludzie i używają go ludzie. Empatię w projekcie rozpatrujemy w trzech wymiarach:
+                </p>
+            </div>
+
+            <!-- SVG 1: TRZY WYMIARY EMPATII -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e0f7fa" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#006064">Trzy Wymiary Empatii Inżyniera Oprogramowania</text>
+
+                <!-- WYMIAR 1: Użytkownik -->
+                <rect x="50" y="60" width="220" height="150" rx="8" fill="#fff" stroke="#0288d1" stroke-width="2"/>
+                <rect x="50" y="60" width="220" height="35" rx="8" fill="#0288d1"/>
+                <rect x="50" y="75" width="220" height="20" fill="#0288d1"/>
+                <text x="160" y="83" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Empatia dla UŻYTKOWNIKA</text>
+                
+                <text x="160" y="120" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0288d1" text-anchor="middle">(UX / Design Thinking)</text>
+                <text x="160" y="145" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">"Jak to będzie używane?"</text>
+                <text x="160" y="160" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Zrozumienie frustracji, barier i</text>
+                <text x="160" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">prawdziwych potrzeb końcowego</text>
+                <text x="160" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">odbiorcy (np. dostępność WCAG).</text>
+
+                <!-- WYMIAR 2: Biznes -->
+                <rect x="300" y="60" width="220" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="300" y="60" width="220" height="35" rx="8" fill="#f57c00"/>
+                <rect x="300" y="75" width="220" height="20" fill="#f57c00"/>
+                <text x="410" y="83" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Empatia dla BIZNESU/KLIENTA</text>
+
+                <text x="410" y="120" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f57c00" text-anchor="middle">(Analiza Biznesowa / ROI)</text>
+                <text x="410" y="145" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">"Dlaczego oni za to płacą?"</text>
+                <text x="410" y="160" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Zrozumienie ryzyka inwestora.</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Dostarczanie wartości, a nie</text>
+                <text x="410" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">tylko przepisywanie ticketów z Jiry.</text>
+
+                <!-- WYMIAR 3: Zespół -->
+                <rect x="550" y="60" width="220" height="150" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
+                <rect x="550" y="60" width="220" height="35" rx="8" fill="#388e3c"/>
+                <rect x="550" y="75" width="220" height="20" fill="#388e3c"/>
+                <text x="660" y="83" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Empatia dla ZESPOŁU</text>
+
+                <text x="660" y="120" font-family="sans-serif" font-size="11" font-weight="bold" fill="#388e3c" text-anchor="middle">(Psychological Safety / Agile)</text>
+                <text x="660" y="145" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">"Jak mój kod wpłynie na innych?"</text>
+                <text x="660" y="160" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Pisanie czytelnego kodu (Clean Code),</text>
+                <text x="660" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">wyrozumiałość przy błędach, ostre ale</text>
+                <text x="660" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">kulturalne Code Review.</text>
+            </svg>
+
+            <!-- PART 2: SPOSOBY WSPIERANIA (PRAKTYKA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0288d1;">2. Sposoby wspierania: Narzędzia do inżynierii komunikacji</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Empatii i dobrej komunikacji w projekcie się nie "życzy", tylko systemowo <strong>wdraża i egzekwuje</strong> poprzez odpowiednie ramy (frameworki) pracy.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Zastosowanie NVC (Nonviolent Communication):</strong> Komunikacja bez Przemocy (model Rosenberga). Skupienie się na faktach i uczuciach, a nie na ocenach. Zamiast: <em>"Twój kod to śmietnik, znowu wywaliłeś produkcję"</em>, mówisz: <em>"Kiedy mergujesz bez testów, system pada, co frustruje klienta i wymusza nadgodziny. Potrzebujemy, aby testy przechodziły przed integracją."</em></li>
+                    <li><strong>Mapy Empatii i Persony (UX):</strong> Tworzenie fikcyjnych profili użytkowników z ich celami, lękami i frustracjami. Pozwala to programiście wyjść z własnej bańki i spojrzeć na interfejs cudzymi oczami.</li>
+                    <li><strong>Retrospektywy (Agile):</strong> Regularne spotkania (np. co 2 tygodnie), na których zespół nie rozmawia o kodzie, ale o tym, <em>jak im się razem pracuje</em>. Buduje to <strong>Bezpieczeństwo Psychologiczne (Psychological Safety)</strong> – fundament zespołów, które nie boją się przyznawać do błędów.</li>
+                    <li><strong>Pair Programming (Programowanie w parach):</strong> Niesamowite narzędzie budujące wzajemny szacunek i zrozumienie (transfer wiedzy) między Juniorami a Seniorami.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Pojęcia, na których można się wyłożyć):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie empatii z litością (współczuciem):</strong> Egzaminatorzy tego nie znoszą. Empatia poznawcza w inżynierii to zdolność przyjęcia perspektywy (wejście w czyjeś buty), by lepiej zrozumieć problem, a NIE uleganie czyimś żądaniom, ponieważ mu współczujemy. Asertywność biznesowa i empatia wzajemnie się nie wykluczają!</li>
+                    <li><strong>"Więcej spotkań = lepsza komunikacja":</strong> Mit. Spotkania to narzędzie synchroniczne, które często niszczy czas "Deep Work" programistów. Lepsza komunikacja w IT oznacza <em>precyzyjniejszą, asynchroniczną i celową</em> wymianę informacji (dobrze napisane tickety w Jirze, precyzyjne komentarze w kodzie, klarowne dokumentacje).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Kod kompiluje maszyna, ale to człowiek płaci za rachunek na serwerze i człowiek czyta alerty o 3 w nocy. Największe katastrofy w projektach IT rzadko biorą się stąd, że ktoś pomylił znak mnożenia z dodawaniem. Zwykle biorą się z komunikacyjnej głuchoty: programista założył, że klient będzie robił X, klient założył, że programista domyśli się Y, a zespół bał się przyznać do pomyłki. Umiejętności miękkie nazywane są "miękkimi" bardzo niesprawiedliwie – w rzeczywistości to one najtwardziej uderzają w budżet, gdy zawiodą.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Nonviolent Communication" (Marshall B. Rosenberg) · Zasady "Design Thinking" (d.school) · Google Aristotle Project (Odkrycie "Psychological Safety" jako głównego czynnika sukcesu zespołu inżynierskiego).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
