@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 086 – Organizacja pamięci i adresowanie</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">086. Organizacja pamięci i mechanizmy adresowania komputera.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #4527a0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,39,160,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📚</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Piramida Czytelnika i Nieskończona Biblioteka”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Organizacja pamięci w komputerze to problem fizyki i ekonomii. Szybka pamięć jest ekstremalnie droga i mała. Tania pamięć jest powolna i wielka. Dlatego stworzono <strong>Hierarchię Pamięci</strong>.<br><br>
+                        Wyobraź sobie, że piszesz książkę. To, co masz w głowie (<strong>Rejestry</strong>), jest natychmiastowe. Notatki na biurku (<strong>Cache</strong>) wymagają sekundy na rzut okiem. Książki na regale w Twoim pokoju to <strong>RAM</strong> – musisz wstać (użyć szyny danych). Z kolei archiwa w piwnicy to <strong>Dysk (SSD)</strong> – droga tam i z powrotem zajmuje wieki.<br><br>
+                        A czym jest <strong>Pamięć Wirtualna</strong>? To genialna iluzja. Twój komputer oszukuje każdy uruchomiony program, wmawiając mu, że jest jedynym rezydentem w całym systemie i ma dla siebie nieskończoną ilość RAM-u. Za tę "magię" odpowiada układ <strong>MMU (Memory Management Unit)</strong>, który niczym sprytny bibliotekarz w locie zamienia adresy "wymyślone" przez aplikację na rzeczywiste, fizyczne komórki na kościach RAM.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Hierarchia Pamięci (Registers -> Cache -> RAM -> SSD)</span>
+            <span class="keyword-tag">Pamięć wirtualna (Virtual Memory)</span>
+            <span class="keyword-tag">MMU (Memory Management Unit)</span>
+            <span class="keyword-tag">Stronicowanie (Paging) i Tablica Stron</span>
+            <span class="keyword-tag">Adres fizyczny vs logiczny</span>
+            <span class="keyword-tag">Przestrzeń adresowa (32-bit vs 64-bit)</span>
+            <span class="keyword-tag">Tryby adresowania (Natychmiastowe, Bezpośrednie, Pośrednie)</span>
+            <span class="keyword-tag">Thrashing (Szamotanie)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: HIERARCHIA PAMIĘCI -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4527a0;">1. Piramida Hierarchii Pamięci</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Architektura komputera zakłada warstwowy układ pamięci, mający na celu zniwelowanie "wąskiego gardła von Neumanna" (czyli różnicy prędkości między zawrotnie szybkim CPU a powolnym RAM-em). Zasada jest prosta: im wyżej w piramidzie, tym pamięć jest szybsza, droższa i ma mniejszą pojemność.
+                </p>
+            </div>
+
+            <!-- SVG 1: PIRAMIDA PAMIĘCI -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#ede7f6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#311b92">Fizyczna Hierarchia Pamięci w Komputerze</text>
+
+                <!-- Piramida -->
+                <!-- Level 1: Rejestry -->
+                <polygon points="410,50 360,100 460,100" fill="#d32f2f" stroke="#b71c1c" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">REJESTRY</text>
+                
+                <!-- Level 2: Cache -->
+                <polygon points="360,100 460,100 490,150 330,150" fill="#f57c00" stroke="#e65100" stroke-width="2"/>
+                <text x="410" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">CACHE (L1, L2, L3)</text>
+                
+                <!-- Level 3: RAM -->
+                <polygon points="330,150 490,150 540,210 280,210" fill="#1976d2" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="185" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">PAMIĘĆ OPERACYJNA (RAM)</text>
+                
+                <!-- Level 4: Dysk / SSD -->
+                <polygon points="280,210 540,210 610,280 210,280" fill="#388e3c" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="250" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">PAMIĘĆ MASOWA (SSD / HDD)</text>
+
+                <!-- Strzałki na lewo: Pojemność -->
+                <path d="M 180 60 L 120 270" fill="none" stroke="#455a64" stroke-width="3" marker-end="url(#arrowDarkM)"/>
+                <text x="140" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" transform="rotate(-75 140 170)" text-anchor="middle">Rosnąca POJEMNOŚĆ (B -> TB)</text>
+                
+                <!-- Strzałki na prawo: Szybkość / Koszt -->
+                <path d="M 640 270 L 700 60" fill="none" stroke="#c2185b" stroke-width="3" marker-end="url(#arrowPinkM)"/>
+                <text x="690" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ad1457" transform="rotate(-75 690 170)" text-anchor="middle">Rosnąca SZYBKOŚĆ i KOSZT</text>
+
+                <!-- Czas dostępu etykiety (Prawo od piramidy) -->
+                <text x="500" y="85" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c">~ 0.5 ns</text>
+                <text x="510" y="130" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100">~ 2 - 10 ns</text>
+                <text x="560" y="185" font-family="monospace" font-size="10" font-weight="bold" fill="#1565c0">~ 50 - 100 ns</text>
+                <text x="620" y="250" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32">~ 1,000,000 ns (SSD)</text>
+
+                <defs>
+                    <marker id="arrowDarkM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#455a64"/></marker>
+                    <marker id="arrowPinkM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2185b"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: PAMIĘĆ WIRTUALNA I MMU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1976d2;">2. Pamięć Wirtualna, MMU i Stronicowanie (Paging)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Programy nigdy nie widzą prawdziwego fizycznego sprzętu! Kiedy piszesz wskaźnik w C++ (np. <code>0x00FF...</code>), patrzysz na <strong>Adres Wirtualny (Logiczny)</strong>. System operacyjny używa mechanizmu zwanego <strong>Stronicowaniem</strong> (dzieleniem pamięci na porcje, zwykle 4 KB), aby chronić programy przed sobą nawzajem. Tłumaczeniem "w locie" adresów logicznych na fizyczne zajmuje się chip sprzętowy <strong>MMU (Memory Management Unit)</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 2: PAMIĘĆ WIRTUALNA I MMU -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Magia Translacji: Adres Logiczny ➔ Adres Fizyczny</text>
+
+                <!-- APLIKACJA / CPU -->
+                <rect x="40" y="60" width="140" height="150" rx="8" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="110" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">CPU (Proces A)</text>
+                <text x="110" y="115" font-family="monospace" font-size="11" fill="#4a148c" text-anchor="middle">Żąda dostępu do:</text>
+                <rect x="60" y="130" width="100" height="30" fill="#f3e5f5" rx="4" stroke="#8e24aa"/>
+                <text x="110" y="150" font-family="monospace" font-size="11" font-weight="bold" fill="#8e24aa" text-anchor="middle">Page 3</text>
+                <text x="110" y="190" font-family="sans-serif" font-size="10" fill="#7b1fa2" text-anchor="middle">(Adres Wirtualny)</text>
+
+                <!-- MMU i Tablica Stron -->
+                <path d="M 180 145 L 240 145" fill="none" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowGry)"/>
+                
+                <rect x="250" y="60" width="180" height="150" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="340" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">MMU + Tablica Stron</text>
+                <text x="340" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Tłumacz z systemu OS)</text>
+                
+                <rect x="270" y="120" width="140" height="70" fill="#fff3e0" stroke="#f57c00" stroke-width="1"/>
+                <text x="340" y="140" font-family="monospace" font-size="10" fill="#e65100" text-anchor="middle">Page 1 -> Frame 8</text>
+                <text x="340" y="155" font-family="monospace" font-size="10" fill="#e65100" text-anchor="middle">Page 2 -> DYSK (Swap)</text>
+                <rect x="270" y="160" width="140" height="18" fill="#ffe0b2"/>
+                <text x="340" y="173" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Page 3 -> Frame 5</text>
+
+                <!-- RAM FIZYCZNY -->
+                <path d="M 430 145 L 500 145" fill="none" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowGry)"/>
+                
+                <rect x="510" y="60" width="140" height="150" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="580" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Fizyczny RAM</text>
+                
+                <!-- Ramki w RAM -->
+                <rect x="530" y="100" width="100" height="25" fill="#e8f5e9" stroke="#81c784"/>
+                <text x="580" y="117" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">Frame 4 (Zajęta)</text>
+                
+                <rect x="530" y="130" width="100" height="25" fill="#c8e6c9" stroke="#4caf50" stroke-width="2"/>
+                <text x="580" y="147" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Frame 5 (Właściwa!)</text>
+
+                <rect x="530" y="160" width="100" height="25" fill="#e8f5e9" stroke="#81c784"/>
+                <text x="580" y="177" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">Frame 6 (Pusta)</text>
+
+                <!-- SWAP / DYSK -->
+                <path d="M 340 190 L 340 220 L 680 220 L 680 180" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowGry)"/>
+                
+                <rect x="670" y="60" width="120" height="100" rx="8" fill="#fff" stroke="#546e7a" stroke-width="2"/>
+                <text x="730" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Plik Wymiany</text>
+                <text x="730" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(SWAP / Dysk)</text>
+                <text x="730" y="130" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Tu zrzucane są</text>
+                <text x="730" y="145" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">nieużywane Strony.</text>
+
+                <defs>
+                    <marker id="arrowGry" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: TRYBY ADRESOWANIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">3. Tryby Adresowania (Jak procesor szuka danych)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy procesor (CU) pobierze instrukcję z pamięci, musi zrozumieć skąd wziąć do niej argumenty (składniki do przepisu). Mechanizmy wskazywania tych danych nazywamy <strong>trybami adresowania</strong>. Oto najważniejsze z nich:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Natychmiastowe (Immediate):</strong> Wartość jest zaszyta w samej instrukcji (np. <code>DODAJ 5</code> do Rejestru A). Najszybsze, bo nie wymaga podróży do RAM.</li>
+                    <li><strong>Bezpośrednie (Direct):</strong> Instrukcja podaje dokładny, konkretny adres pamięci (np. weź dane z <code>[0x00FF]</code>). Dobre do zmiennych globalnych.</li>
+                    <li><strong>Pośrednie (Indirect):</strong> Podstawa tworzenia wskaźników (pointers) w C/C++. Rejestr podaje adres, pod którym znajdziemy... <em>kolejny adres</em> właściwych danych. Elastyczne, ale wolniejsze (wymaga dwóch skoków do pamięci).</li>
+                    <li><strong>Indeksowe (Indexed / Względne):</strong> Genialne do obsługi Tablic (Arrays). Adres składa się z adresu bazowego (początek tablicy) + tzw. Offsetu/Indeksu (np. podaj mi 5-ty element). Obliczenie: <code>Adres Fizyczny = Baza + (Indeks * Rozmiar)</code>.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe zagadnienia awaryjne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Thrashing (Szamotanie pamięci):</strong> Co się dzieje, gdy w systemie z 8GB RAM uruchomisz programy potrzebujące 10GB? System zaczyna wyrzucać bloki pamięci (strony) na powolny dysk twardy (Plik wymiany/Swap). Jeśli zabraknie RAMu kompletnie, system spędza 99% czasu na kopiowaniu danych między Dyskiem a RAMem, zamiast na liczeniu. Wydajność spada drastycznie. To zjawisko to Thrashing.</li>
+                    <li><strong>Limit 32-bit:</strong> Egzaminator spyta, po co nam architektura 64-bitowa. Szerokość szyny adresowej w architekturze 32-bitowej ogranicza adresację do 2<sup>32</sup> komórek (adresów). Jeśli każda komórka to 1 Bajt, daje nam to dokładnie <strong>limit ~4 Gigabajtów pamięci operacyjnej</strong>! Systemy 64-bitowe rozwiązują ten problem (adresując teoretycznie do kilkunastu Egzabajtów).</li>
+                    <li><strong>Kolejność bajtów (Big-Endian vs Little-Endian):</strong> Jeśli masz dużą liczbę np. <code>0x12345678</code>, jak zapiszesz ją w komórkach RAM? Big-Endian zapisuje od najważniejszego bajtu (od lewej do prawej), a Little-Endian od najmniej ważnego. Procesory Intel (x86) używają Little-Endian, a protokoły Sieciowe (TCP/IP) używają Big-Endian. Znajomość tego faktu jest kluczowa dla inżynierów sieciowych!</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Struktura pamięci w komputerze to jedno wielkie, genialne kłamstwo, zaprojektowane tak, by aplikacjom wydawało się, że są same w systemie. Kiedy programista C rzuca wskaźnikiem poza dozwoloną "stronę", uderza prosto w barierę MMU, a system operacyjny bezlitośnie go "zabija" wyrzucając słynny błąd <em>Segmentation Fault</em> (Ochrona Pamięci). Adresowanie to mapa, Pamięć Wirtualna to iluzja, a Cache to podręczny notatnik, na którym opiera się wydajność współczesnego krzemu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Operating System Concepts" (Silberschatz, Galvin) · Pojęcia Page Table, MMU, Thrashing i Hierarchia Pamięci.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
