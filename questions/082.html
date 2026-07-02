@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 082 – Parafraza, uogólnienie i konkretyzacja</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">082. Parafraza, uogólnienie i konkretyzacja w kontakcie z klientem.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📸</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Obiektyw Aparatu (Zoom-In, Zoom-Out, Lustro)”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Klient i inżynier IT mówią w dwóch różnych językach. Klient używa języka biznesu i emocji, inżynier – języka logiki i detali. Aby uniknąć zbudowania złego systemu, inżynier musi używać komunikacji jak obiektywu aparatu fotograficznego.<br><br>
+                        <strong>Parafraza to Lustro:</strong> Odbijasz słowa klienta, by upewnić się, że dobrze usłyszałeś.<br>
+                        <strong>Konkretyzacja to obiektyw Makro (Zoom-In):</strong> Klient używa bardzo ogólnych słów ("System ma być szybki"), a Ty przybliżasz obraz, żądając precyzji ("Co oznacza szybki? Czas reakcji poniżej 200 ms?").<br>
+                        <strong>Uogólnienie to obiektyw Szerokokątny (Zoom-Out):</strong> Klient gubi się w szczegółach (kłóci się o kolor przycisku), a Ty oddalasz widok, by złapać szerszy kontekst biznesowy ("Rozumiem, że generalnie zależy nam na tym, by proces rejestracji był krótszy?").
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Inżynieria wymagań (Requirements Engineering)</span>
+            <span class="keyword-tag">Aktywne słuchanie</span>
+            <span class="keyword-tag">Parafraza (Odbicie)</span>
+            <span class="keyword-tag">Konkretyzacja (Uszczegółowienie, metryki)</span>
+            <span class="keyword-tag">Uogólnienie (Cele biznesowe)</span>
+            <span class="keyword-tag">Wymagania niefunkcjonalne</span>
+            <span class="keyword-tag">Klątwa wiedzy (Curse of Knowledge)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: 3 TECHNIKI -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Trzy filary skutecznej komunikacji analitycznej</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Te trzy techniki psychologiczne stosuje się na etapie tzw. <em>Elitacji (Wydobywania) wymagań</em>. Ich głównym celem jest zminimalizowanie zjawiska, w którym "klient myśli jedno, mówi drugie, analityk słyszy trzecie, a programista koduje czwarte".
+                </p>
+            </div>
+
+            <!-- SVG 1: TRZY TECHNIKI WIZUALIZACJA -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e8eaf6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a237e">Narzędzia Aktywnego Słuchania w IT</text>
+
+                <!-- PARAFRAZA (Lewa) -->
+                <rect x="30" y="50" width="230" height="220" rx="8" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
+                <rect x="30" y="50" width="230" height="40" rx="8" fill="#1e88e5"/>
+                <rect x="30" y="70" width="230" height="20" fill="#1e88e5"/> <!-- do spodu zaokrąglenia -->
+                <text x="145" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">PARAFRAZA</text>
+                
+                <circle cx="145" cy="120" r="18" fill="#e3f2fd"/>
+                <text x="145" y="126" font-family="sans-serif" font-size="16" text-anchor="middle">🪞</text>
+                
+                <text x="145" y="155" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1e88e5" text-anchor="middle">"Odbicie lustrzane"</text>
+                <text x="145" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Powtórzenie słów klienta</text>
+                <text x="145" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">własnymi słowami.</text>
+                
+                <rect x="45" y="205" width="200" height="50" rx="4" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1"/>
+                <text x="145" y="222" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1565c0" text-anchor="middle">Przykład zwrotu:</text>
+                <text x="145" y="235" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">„Jeśli dobrze zrozumiałem,</text>
+                <text x="145" y="247" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">chce Pan powiedzieć, że...”</text>
+
+                <!-- KONKRETYZACJA (Środek) -->
+                <rect x="290" y="50" width="230" height="220" rx="8" fill="#fff" stroke="#d81b60" stroke-width="2"/>
+                <rect x="290" y="50" width="230" height="40" rx="8" fill="#d81b60"/>
+                <rect x="290" y="70" width="230" height="20" fill="#d81b60"/>
+                <text x="405" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">KONKRETYZACJA</text>
+                
+                <circle cx="405" cy="120" r="18" fill="#fce4ec"/>
+                <text x="405" y="126" font-family="sans-serif" font-size="16" text-anchor="middle">🔎</text>
+
+                <text x="405" y="155" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d81b60" text-anchor="middle">Zoom-In (Szczegół)</text>
+                <text x="405" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Zastępowanie pojęć nieostrych</text>
+                <text x="405" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">twardymi metrykami.</text>
+                
+                <rect x="305" y="205" width="200" height="50" rx="4" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1"/>
+                <text x="405" y="222" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c2185b" text-anchor="middle">Przykład zwrotu:</text>
+                <text x="405" y="235" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">„Co dokładnie znaczy 'często'?”</text>
+                <text x="405" y="247" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">„Mówiąc 'dużo danych', ile GB to jest?”</text>
+
+                <!-- UOGÓLNIENIE (Prawa) -->
+                <rect x="550" y="50" width="230" height="220" rx="8" fill="#fff" stroke="#43a047" stroke-width="2"/>
+                <rect x="550" y="50" width="230" height="40" rx="8" fill="#43a047"/>
+                <rect x="550" y="70" width="230" height="20" fill="#43a047"/>
+                <text x="665" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">UOGÓLNIENIE</text>
+
+                <circle cx="665" cy="120" r="18" fill="#e8f5e9"/>
+                <text x="665" y="126" font-family="sans-serif" font-size="16" text-anchor="middle">🚁</text>
+
+                <text x="665" y="155" font-family="sans-serif" font-size="12" font-weight="bold" fill="#43a047" text-anchor="middle">Zoom-Out (Wizja)</text>
+                <text x="665" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Wychodzenie z detali na</text>
+                <text x="665" y="190" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">poziom celu biznesowego.</text>
+                
+                <rect x="565" y="205" width="200" height="50" rx="4" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1"/>
+                <text x="665" y="222" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Przykład zwrotu:</text>
+                <text x="665" y="235" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">„Podsumowując, naszym nadrzędnym</text>
+                <text x="665" y="247" font-family="sans-serif" font-size="9" font-style="italic" fill="#424242" text-anchor="middle">celem jest zwiększenie konwersji?”</text>
+            </svg>
+
+            <!-- PART 2: DLACZEGO TO JEST TRUDNE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1a237e;">2. Przykłady z Inżynierii Oprogramowania</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zastosowanie tych technik to jedyny sposób na to, by inżynier IT oraz biznesmen z branży medycznej lub finansowej stworzyli poprawnie działający produkt, pomimo "Klątwy wiedzy" (każda strona zakłada, że jej specyficzny żargon jest zrozumiały dla innych).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Brak Konkretyzacji (najdroższy błąd w IT):</strong> Klient mówi: <em>"Aplikacja musi być intuicyjna i szybka"</em>. Wymagania niefunkcjonalne nie mogą opierać się na przymiotnikach! Inżynier musi skonkretzować: <em>"Aplikacja załaduje się w &lt; 2 sekundy (szybka), a proces zakupu wyniesie max 3 kliknięcia (intuicyjna)"</em>. Tylko to da się zaprogramować i przetestować.</li>
+                    <li><strong>Brak Parafrazy:</strong> Klient mówi przez 10 minut o nowym module, inżynier potakuje głową ("Rozumiem, rozumiem"), po czym po tygodniu prezentuje coś zupełnie innego. Parafraza chroni obie strony: <em>"Czyli, mówiąc wprost, system ma po cichu co noc pobierać PDFy z tego folderu?"</em>. Gdy klient potwierdzi – mamy kontrakt.</li>
+                    <li><strong>Brak Uogólnienia (Ślepy zaułek):</strong> Klient na pierwszym spotkaniu analitycznym zaczyna opisywać, że przycisk w koszyku ma być zielony, po prawej stronie, 15 pikseli od brzegu. Inżynier musi uogólnić (wyciągnąć do góry): <em>"Wydaje mi się, że mówimy o ergonomii koszyka. Ustalmy najpierw główny proces, a kolorami zajmie się zespół UX później"</em>.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z umiejętności miękkich):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Parafraza to jak bycie papugą":</strong> Błąd! Papugowanie (powtarzanie kropka w kropkę) irytuje rozmówcę. Parafraza to użycie <em>własnych słów</em> (synonimów, uproszczeń), aby udowodnić intelektualne przetworzenie informacji, a nie tylko jej usłyszenie.</li>
+                    <li><strong>Techniczny żargon jako zasłona dymna:</strong> Studenci często uważają, że im bardziej technicznym językiem (API, bazy nierelacyjne, konteneryzacja) mówią do klienta, tym bardziej "profesjonalnie" to wygląda. Odwrotnie! Klient, który nie rozumie IT, wpadnie w panikę, potaknie (bo wstydzi się zapytać) i finalnie odbierze projekt z pretensjami. Prawdziwy inżynier potrafi <em>skonkretyzować</em> problem używając języka, który klient pojmuje.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Kod robi dokładnie to, co mu każesz. Problemem Inżynierii Oprogramowania jest to, że musisz mu kazać robić to, o czym <strong>marzy</strong> Twój biznesowy klient. Ponieważ klient bardzo rzadko umie precyzyjnie wyrazić to marzenie, praca inżyniera-analityka polega na ciągłym balansowaniu: odbijaniu myśli (Parafraza), wyciąganiu z mroku detali (Konkretyzacja) i chronieniu przed utonięciem w nieistotnych szczegółach (Uogólnienie). Wymagania nie spadają z nieba – trzeba je wydobyć.</span>
+                </p>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
