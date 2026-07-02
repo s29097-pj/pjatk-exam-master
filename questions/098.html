@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 098 – Adresy logiczne i fizyczne, mechanizmy tłumaczenia</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">098. Adresy logiczne i fizyczne w systemach komputerowych, mechanizmy tłumaczenia adresów.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏢</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Wirtualne Biuro i Tajny Magazyn”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
+                        Gdyby każdy program komputerowy miał bezpośredni dostęp do kości pamięci RAM (adresów fizycznych), jeden źle napisany kod mógłby nadpisać pliki systemu operacyjnego i zniszczyć komputer. Dlatego wprowadzono epokowe kłamstwo: <strong>Przestrzeń Logiczną (Wirtualną)</strong>.<br><br>
+                        <strong>Adres logiczny</strong> to adres prestiżowego "wirtualnego biura" w centrum Warszawy. Każdy program dostaje taki sam, piękny adres od zera do nieskończoności. Program myśli, że ma całe biuro tylko dla siebie.<br><br>
+                        W rzeczywistości, na recepcji siedzi portier o imieniu <strong>MMU (Memory Management Unit)</strong>. Kiedy program wysyła list na swój adres wirtualny, MMU patrzy w tajną księgę (Tablicę Stron), przekreśla adres i nakleja <strong>Adres fizyczny</strong> – czyli adres prawdziwego, zagraconego magazynu na przedmieściach (kości RAM), gdzie dane faktycznie leżą w wolnych, losowych szufladach.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Adres Logiczny / Wirtualny</span>
+            <span class="keyword-tag">Adres Fizyczny (Kość RAM)</span>
+            <span class="keyword-tag">MMU (Memory Management Unit)</span>
+            <span class="keyword-tag">Stronicowanie (Paging)</span>
+            <span class="keyword-tag">Strona (Page) vs Ramka (Frame)</span>
+            <span class="keyword-tag">Tablica stron (Page Table)</span>
+            <span class="keyword-tag">TLB (Translation Lookaside Buffer)</span>
+            <span class="keyword-tag">Page Fault (Błąd braku strony)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: LOGICZNE VS FIZYCZNE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Separacja światów: Adresy Logiczne i Fizyczne</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Adres logiczny jest generowany przez procesor (CPU) podczas wykonywania kodu programu. Z punktu widzenia aplikacji, pamięć jest ciągłą przestrzenią. Z kolei adres fizyczny to sprzętowy sygnał wysyłany na szynę pamięci (do RAM). To rozdzielenie zapewnia izolację procesów i pozwala systemowi na relokację pamięci w locie.
+                </p>
+            </div>
+
+            <!-- SVG 1: IZOLACJA PROCESÓW -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Iluzja ciągłości: Przestrzeń Logiczna kontra Fizyczny RAM</text>
+
+                <!-- Przestrzeń logiczna Procesu A -->
+                <rect x="40" y="60" width="160" height="180" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="120" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Proces A (Logiczna)</text>
+                
+                <rect x="60" y="100" width="120" height="30" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="120" y="119" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">Adres: 0x00</text>
+                
+                <rect x="60" y="130" width="120" height="30" fill="#90caf9" stroke="#1976d2"/>
+                <text x="120" y="149" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">Adres: 0x01</text>
+                
+                <rect x="60" y="160" width="120" height="30" fill="#64b5f6" stroke="#1976d2"/>
+                <text x="120" y="179" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">Adres: 0x02</text>
+                
+                <text x="120" y="220" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Idealnie ciągła!</text>
+
+                <!-- MMU -->
+                <rect x="335" y="110" width="150" height="80" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="135" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">MMU</text>
+                <text x="410" y="155" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Tłumacz sprzętowy)</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Mapowanie adresów</text>
+
+                <!-- Przestrzeń fizyczna RAM -->
+                <rect x="620" y="60" width="160" height="180" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="700" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Fizyczny RAM</text>
+
+                <rect x="640" y="100" width="120" height="25" fill="#f5f5f5" stroke="#9e9e9e"/>
+                <text x="700" y="116" font-family="sans-serif" font-size="9" fill="#757575" text-anchor="middle">OS / Inny proces</text>
+
+                <rect x="640" y="125" width="120" height="25" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="700" y="141" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">A: 0x00 (Fiz: 0x8F)</text>
+
+                <rect x="640" y="150" width="120" height="25" fill="#f5f5f5" stroke="#9e9e9e"/>
+                <text x="700" y="166" font-family="sans-serif" font-size="9" fill="#757575" text-anchor="middle">Inny proces</text>
+
+                <rect x="640" y="175" width="120" height="25" fill="#64b5f6" stroke="#1976d2"/>
+                <text x="700" y="191" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">A: 0x02 (Fiz: 0xA1)</text>
+
+                <rect x="640" y="200" width="120" height="25" fill="#90caf9" stroke="#1976d2"/>
+                <text x="700" y="216" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">A: 0x01 (Fiz: 0xB5)</text>
+
+                <!-- Arrows -->
+                <path d="M 200 150 L 330 150" fill="none" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowGryM1)"/>
+                <path d="M 490 150 L 610 150" fill="none" stroke="#546e7a" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowGryM1)"/>
+
+                <defs>
+                    <marker id="arrowGryM1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: STRONICOWANIE I MMU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Mechanizm Tłumaczenia: Stronicowanie (Paging)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Jak MMU tłumaczy te adresy z prędkością światła? Przez <strong>Stronicowanie</strong>. Przestrzeń logiczna jest cięta na równe kawałki zwane <strong>Stronami (Pages)</strong>, a fizyczny RAM na kawałki tej samej wielkości zwane <strong>Ramkami (Frames)</strong> – zazwyczaj po 4 KB.<br>
+                    Kiedy CPU zgłasza adres logiczny, dzieli go na dwie części: Numer Strony (P) oraz Przesunięcie (Offset, D). Przesunięcie jest "święte" – nie ulega zmianie! MMU zamienia tylko Numer Strony na Numer Ramki na podstawie <strong>Tablicy Stron</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 2: PAGING MECHANISM -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Matematyka Tłumaczenia Adresów (Paging)</text>
+
+                <!-- Logiczny Adres -->
+                <rect x="40" y="60" width="200" height="60" rx="4" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="140" y="78" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">CPU: Adres Logiczny</text>
+                
+                <rect x="50" y="85" width="80" height="25" fill="#e3f2fd" stroke="#1976d2"/>
+                <text x="90" y="102" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Page (p)</text>
+                
+                <rect x="130" y="85" width="100" height="25" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="180" y="102" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">Offset (d)</text>
+
+                <!-- Tablica stron -->
+                <rect x="330" y="120" width="160" height="120" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Tablica Stron</text>
+                
+                <line x1="330" y1="150" x2="490" y2="150" stroke="#f57c00"/>
+                <text x="370" y="165" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">P: 0 -> F: 5</text>
+                <rect x="340" y="175" width="140" height="20" fill="#ffe0b2"/>
+                <text x="410" y="189" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">P: 1 -> F: 8</text>
+                <text x="370" y="215" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">P: 2 -> F: 3</text>
+
+                <!-- Fizyczny Adres -->
+                <rect x="580" y="60" width="200" height="60" rx="4" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="680" y="78" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">RAM: Adres Fizyczny</text>
+                
+                <rect x="590" y="85" width="80" height="25" fill="#e8f5e9" stroke="#388e3c"/>
+                <text x="630" y="102" font-family="monospace" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Frame (f)</text>
+                
+                <rect x="670" y="85" width="100" height="25" fill="#bbdefb" stroke="#1976d2"/>
+                <text x="720" y="102" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">Offset (d)</text>
+
+                <!-- Ścieżki -->
+                <!-- P do Tablicy -->
+                <path d="M 90 110 L 90 185 L 330 185" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgM2)"/>
+                
+                <!-- Tablica do F -->
+                <path d="M 490 185 L 630 185 L 630 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnM2)"/>
+
+                <!-- Offset leci nienaruszony -->
+                <path d="M 180 85 Q 450 30 720 85" fill="none" stroke="#1976d2" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowBlueM2)"/>
+                <text x="450" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Przesunięcie wewnątrz ramki jest przepisywane bez zmian 1:1</text>
+
+                <defs>
+                    <marker id="arrowOrgM2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnM2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowBlueM2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: TLB I OPTYMALIZACJA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Problem prędkości: Ratunek dzięki pamięci TLB</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pojawia się ogromny problem architektoniczny: Tablica Stron jest tak duża, że musi być przechowywana w pamięci RAM. To oznacza, że <em>każdy</em> odczyt z pamięci przez procesor wymagałby <em>dwóch</em> fizycznych odczytów z RAM-u (najpierw odczyt tablicy stron, by poznać adres, a potem odczyt właściwej danej). Komputer działałby o 50% wolniej!<br>
+                    Rozwiązaniem jest <strong>TLB (Translation Lookaside Buffer)</strong>. Jest to mikroskopijna, ultraszybka pamięć asocjacyjna wbudowana fizycznie w MMU (na procesorze). Przechowuje ona ostatnio używane mapowania Strona -> Ramka. CPU najpierw pyta TLB. Dopiero gdy tam nie znajdzie mapowania (TLB Miss), idzie do RAM-u po tablicę stron.
+                </p>
+            </div>
+
+            <!-- SVG 3: TLB FLOW -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Architektura przyspieszenia: Przepływ TLB (Translation Lookaside Buffer)</text>
+
+                <!-- CPU -->
+                <rect x="40" y="90" width="80" height="40" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="80" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">CPU</text>
+
+                <!-- TLB -->
+                <polygon points="250,60 330,110 250,160 170,110" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="250" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">W TLB?</text>
+
+                <!-- Fiz RAM (Data) -->
+                <rect x="680" y="45" width="100" height="130" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="730" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">FIZYCZNY</text>
+                <text x="730" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">RAM</text>
+
+                <rect x="695" y="100" width="70" height="25" fill="#e8f5e9" stroke="#388e3c"/>
+                <text x="730" y="117" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Dane</text>
+
+                <!-- Tablica stron w RAM -->
+                <rect x="440" y="150" width="100" height="50" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="490" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Tablica Stron</text>
+                <text x="490" y="185" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(W Pamięci)</text>
+
+                <!-- Ścieżki -->
+                <!-- CPU to TLB -->
+                <path d="M 120 110 L 170 110" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryM3)"/>
+
+                <!-- TLB Hit -->
+                <path d="M 290 80 Q 450 30 680 110" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM3)"/>
+                <text x="450" y="60" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">TLB HIT (Trafienie) - Szybka Ścieżka (Zero opóźnień!)</text>
+
+                <!-- TLB Miss -->
+                <path d="M 290 140 L 440 175" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowRedM3)"/>
+                <text x="350" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">TLB MISS (Pudło)</text>
+
+                <path d="M 540 175 L 680 130" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowOrgM3)"/>
+                <text x="610" y="170" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Bierz adres</text>
+                <text x="610" y="185" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">i ładuj do TLB</text>
+
+                <defs>
+                    <marker id="arrowGryM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowGrnM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Żelazne definicje z systemów operacyjnych):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Co to jest "Page Fault" (Błąd braku strony)?</strong> To nie jest błąd (Error) ani awaria (Crash)! To standardowy mechanizm sprzętowy. Oznacza on jedynie, że procesor zapytał o stronę pamięci, której akurat <em>nie ma w fizycznym RAMie</em>, ponieważ system operacyjny zrzucił ją wcześniej na wolny Dysk Twardy (tzw. Plik Wymiany / SWAP), by zwolnić miejsce. OS na chwilę usypia program, wczytuje stronę z dysku do RAM i wznawia program. Dla programu to przeźroczyste, ale straszliwie powolne.</li>
+                    <li><strong>Stronicowanie vs Segmentacja:</strong> Wykładowcy lubią pytać o różnicę. <em>Stronicowanie</em> dzieli pamięć na matematycznie równe, "sztywne" bloki (np. 4KB), co powoduje Fragmentację Wewnętrzną (jeśli zajmiemy tylko 1KB ze strony, 3KB się marnuje). <em>Segmentacja</em> dzieli pamięć na logiczne, zmienne wielkości (np. osobny segment na Kod, osobny na Dane). Dziś procesory takie jak x86 stosują podejście hybrydowe (Stronicowana segmentacja).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamięć wirtualna i podział na adresy logiczne/fizyczne to jedno z największych osiągnięć w historii inżynierii komputerowej. Uwolniło ono programistów od konieczności wiedzy o fizycznym sprzęcie. Twój program w C++ pisany w 2024 roku "myśli", że jest jedynym rezydentem w nieskończonej maszynie, odpalając zmienne od adresu 0x00. Całą brudną robotą polegającą na znajdowaniu wolnych szczelin w układach krzemowych RAM-u, przesuwaniu danych, zapisywaniu Tablic Stron i buforowaniu w sprzętowym układzie TLB – zajmuje się mariaż elektroniki (MMU) z Jądrem systemu operacyjnego.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) - Rozdział: Zarządzanie pamięcią główną, MMU, Paging and TLB.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
