@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 080 – Ryzyka projektowe</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">080. Ryzyka projektowe - definicja, identyfikacja, ocena i strategie.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏴‍☠️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Rejs statkiem przez Ocean”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Zarządzanie projektem bez zarządzania ryzykiem to jak wypłynięcie statkiem na ocean, patrząc tylko na mapę i zakładając, że pogoda będzie idealna.<br><br>
+                        <strong>Ryzyko</strong> to burza, atak piratów albo wybuch epidemii szkorbutu na pokładzie. Zarządzanie ryzykiem nie polega na magicznym przewidywaniu przyszłości. Polega na tym, że <em>zanim</em> wypłyniesz, kupujesz szalupy ratunkowe (łagodzenie), ładujesz na pokład witaminę C (unikanie), ubezpieczasz statek u kompanii handlowej (transfer) i godzisz się z faktem, że zupa czasem wyleje się z talerza na fali (akceptacja). Dobry inżynier nie boi się awarii – on ma na nią przygotowany plan B.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Definicja Ryzyka (Prawdopodobieństwo x Wpływ)</span>
+            <span class="keyword-tag">Rejestr Ryzyk (Risk Register)</span>
+            <span class="keyword-tag">Macierz Ryzyka (Risk Matrix)</span>
+            <span class="keyword-tag">Strategie: Unikanie, Łagodzenie, Przeniesienie, Akceptacja</span>
+            <span class="keyword-tag">Scope Creep (Pełzający zakres)</span>
+            <span class="keyword-tag">Bus Factor</span>
+            <span class="keyword-tag">Ryzyko vs Problem (Issue)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: DEFINICJA I PROCES -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Czym jest ryzyko i Cykl Zarządzania nim?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zgodnie z PMBOK, ryzyko to <strong>niepewne zdarzenie lub warunek, który – w przypadku wystąpienia – ma pozytywny lub negatywny wpływ na cele projektu</strong> (czas, koszt, zakres, jakość). Pamiętaj, że w teorii istnieją ryzyka pozytywne (tzw. szanse, np. nowa wersja frameworka ułatwi nam pracę), ale w praktyce projektowej skupiamy się w 95% na zagrożeniach.
+                </p>
+            </div>
+
+            <!-- SVG 1: PROCES ZARZĄDZANIA RYZYKIEM -->
+            <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="160" fill="#fff3e0" opacity="0.4"/>
+                
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Cykl Zarządzania Ryzykiem w Projekcie</text>
+
+                <!-- Blok 1 -->
+                <rect x="30" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#ff9800" stroke-width="2"/>
+                <text x="110" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">1. IDENTYFIKACJA</text>
+                <text x="110" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Burza mózgów, SWOT.</text>
+                <text x="110" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Zapis do Rejestru.</text>
+                <path d="M 190 85 L 220 85" fill="none" stroke="#ff9800" stroke-width="3" marker-end="url(#arrowOrang)"/>
+
+                <!-- Blok 2 -->
+                <rect x="230" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="310" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">2. OCENA (ANALIZA)</text>
+                <text x="310" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Jak prawdopodobne?</text>
+                <text x="310" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Jak bardzo zaboli?</text>
+                <path d="M 390 85 L 420 85" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrang)"/>
+
+                <!-- Blok 3 -->
+                <rect x="430" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="510" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">3. PLAN REAKCJI</text>
+                <text x="510" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Co robimy, żeby to</text>
+                <text x="510" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">się nie stało (Plan B)?</text>
+                <path d="M 590 85 L 620 85" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrang)"/>
+
+                <!-- Blok 4 -->
+                <rect x="630" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#bf360c" stroke-width="2"/>
+                <text x="710" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bf360c" text-anchor="middle">4. MONITOROWANIE</text>
+                <text x="710" y="100" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Sprawdzanie rejestru</text>
+                <text x="710" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">na statusach projektu.</text>
+
+                <!-- Feedback Loop -->
+                <path d="M 710 120 L 710 145 L 110 145 L 110 120" fill="none" stroke="#90a4ae" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowGrey)"/>
+                <text x="410" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#78909c" text-anchor="middle">Proces iteracyjny - ryzyka zmieniają się w czasie!</text>
+
+                <defs>
+                    <marker id="arrowOrang" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrowGrey" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: MACIERZ RYZYKA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #d32f2f;">2. Macierz Ryzyka (Matematyka Strachu)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nie każde ryzyko jest warte naszego czasu. Uderzenie meteorytu w serwerownię zniszczy projekt, ale szansa jest bliska zeru. Aby obiektywnie wycenić zagrożenia, używamy wzoru: <strong>Waga Ryzyka = Prawdopodobieństwo × Wpływ (Skutek)</strong>. Wizualizuje się to za pomocą tzw. <em>Heatmapy</em>.
+                </p>
+            </div>
+
+            <!-- SVG 2: MACIERZ RYZYKA -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#fafafa"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#37474f">Klasyczna Macierz Ryzyka 3x3</text>
+
+                <!-- Osie -->
+                <line x1="100" y1="260" x2="420" y2="260" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="260" y="285" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">WPŁYW (SKUTEK)</text>
+
+                <line x1="100" y1="260" x2="100" y2="40" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="60" y="150" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 60 150)">PRAWDOPODOBIEŃSTWO</text>
+
+                <!-- Siatka 3x3 -->
+                <g transform="translate(105, 45)">
+                    <!-- Wiersz 3 (Wysokie prawdopodob) -->
+                    <rect x="0" y="0" width="100" height="70" fill="#fff59d" stroke="#fff" stroke-width="2"/> <!-- Y / Med -->
+                    <rect x="100" y="0" width="100" height="70" fill="#ffcc80" stroke="#fff" stroke-width="2"/> <!-- O / High -->
+                    <rect x="200" y="0" width="100" height="70" fill="#ef9a9a" stroke="#fff" stroke-width="2"/> <!-- R / Critical -->
+                    
+                    <!-- Wiersz 2 (Średnie prawdopodob) -->
+                    <rect x="0" y="70" width="100" height="70" fill="#a5d6a7" stroke="#fff" stroke-width="2"/> <!-- G / Low -->
+                    <rect x="100" y="70" width="100" height="70" fill="#fff59d" stroke="#fff" stroke-width="2"/> <!-- Y / Med -->
+                    <rect x="200" y="70" width="100" height="70" fill="#ffcc80" stroke="#fff" stroke-width="2"/> <!-- O / High -->
+
+                    <!-- Wiersz 1 (Niskie prawdopodob) -->
+                    <rect x="0" y="140" width="100" height="70" fill="#a5d6a7" stroke="#fff" stroke-width="2"/> <!-- G / Low -->
+                    <rect x="100" y="140" width="100" height="70" fill="#a5d6a7" stroke="#fff" stroke-width="2"/> <!-- G / Low -->
+                    <rect x="200" y="140" width="100" height="70" fill="#fff59d" stroke="#fff" stroke-width="2"/> <!-- Y / Med -->
+
+                    <!-- Ikony na siatce -->
+                    <circle cx="250" cy="35" r="12" fill="#c62828"/>
+                    <text x="250" y="39" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">R1</text>
+                    
+                    <circle cx="150" cy="105" r="12" fill="#e65100"/>
+                    <text x="150" y="109" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">R2</text>
+                    
+                    <circle cx="50" cy="175" r="12" fill="#2e7d32"/>
+                    <text x="50" y="179" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">R3</text>
+                </g>
+
+                <!-- Legenda z prawej -->
+                <rect x="460" y="60" width="340" height="170" rx="6" fill="#fff" stroke="#cfd8dc" stroke-width="1"/>
+                <text x="480" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Przykłady ze świata IT:</text>
+                
+                <circle cx="490" cy="115" r="10" fill="#c62828"/>
+                <text x="510" y="119" font-family="sans-serif" font-size="11" fill="#c62828" font-weight="bold">R1: Krytyczne (Czerwone)</text>
+                <text x="510" y="133" font-family="sans-serif" font-size="10" fill="#546e7a">Odejście głównego architekta w połowie projektu.</text>
+
+                <circle cx="490" cy="160" r="10" fill="#e65100"/>
+                <text x="510" y="164" font-family="sans-serif" font-size="11" fill="#e65100" font-weight="bold">R2: Średnie (Żółto-Pomarańczowe)</text>
+                <text x="510" y="178" font-family="sans-serif" font-size="10" fill="#546e7a">Awaria serwera testowego (strata 1-2 dni pracy).</text>
+
+                <circle cx="490" cy="205" r="10" fill="#2e7d32"/>
+                <text x="510" y="209" font-family="sans-serif" font-size="11" fill="#2e7d32" font-weight="bold">R3: Niskie (Zielone)</text>
+                <text x="510" y="223" font-family="sans-serif" font-size="10" fill="#546e7a">Literówki w dokumentacji klienta.</text>
+
+            </svg>
+
+            <!-- PART 3: STRATEGIE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Strategie reakcji (Co robimy z ryzykiem?)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy wpiszemy zagrożenie do rejestru i ocenimy je na macierzy, musimy przypisać mu właściciela (kogoś, kto za nie odpowiada) i wybrać jedną z 4 klasycznych strategii reakcji:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Unikanie (Avoid):</strong> Zmieniamy plan projektu, by całkowicie ominąć ryzyko. <em>Przykład: Zamiast pisać własny system płatności (ryzyko luk prawnych i hackingu), decydujemy się w ogóle nie przyjmować płatności w aplikacji, przenosząc je na zewnątrz.</em></li>
+                    <li><strong>Łagodzenie / Minimalizacja (Mitigate):</strong> Najczęstsza strategia. Podejmujemy kroki, by obniżyć prawdopodobieństwo lub wpływ. <em>Przykład: Regularny backup bazy danych minimalizuje skutki awarii dysku. Testy jednostkowe łagodzą ryzyko bugów na produkcji.</em></li>
+                    <li><strong>Przeniesienie / Transfer (Transfer):</strong> Przesuwamy skutki ryzyka na stronę trzecią (często za pieniądze). <em>Przykład: Kupujemy ubezpieczenie od ataków ransomware. Przerzucamy hosting na chmurę AWS, przerzucając na nich ryzyko fizycznej awarii sprzętu.</em></li>
+                    <li><strong>Akceptacja (Accept):</strong> Ryzyko jest tak małe (zielone pole na macierzy), albo koszty zabezpieczeń przewyższają straty, że nie robimy nic. Tworzymy jedynie rezerwę finansową (Management Reserve) na wypadek, gdyby to się jednak stało.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE: RYZYKO VS PROBLEM                -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki i mity):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Różnica między Ryzykiem a Problemem (Risk vs Issue):</strong> To uwielbiane przez egzaminatorów rozróżnienie! <br><strong>Ryzyko</strong> to coś, co MOŻE się zdarzyć w przyszłości (np. "Kluczowy programista może zachorować"). <br><strong>Problem (Issue)</strong> to ryzyko, które WŁAŚNIE SIĘ ZMATERIALIZOWAŁO (np. "Programista złamał rękę, nie mamy nikogo na zastępstwo"). Ryzykami się zarządza, problemy się rozwiązuje.</li>
+                    <li><strong>Bus Factor:</strong> Znane ryzyko projektowe w IT. "Ile osób z zespołu musi przejechać autobus, żeby projekt umarł?". Jeśli tylko Senior Java Developer rozumie architekturę (Bus Factor = 1), masz ogromne ryzyko. Łagodzi się je poprzez <em>Pair Programming</em> i tworzenie dokumentacji.</li>
+                    <li><strong>Scope Creep (Pełzający Zakres):</strong> Najczęstsze ryzyko IT. Klient ciągle dorzuca "tylko jedną małą funkcję", aż projekt puchnie o 50% i przekracza budżet. Łagodzi się to twardym procesem Change Request.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla młodego inżyniera "zarządzanie ryzykiem" brzmi jak nudna korporacyjna papierologia. W rzeczywistości jest to inżynieria niezawodności w najczystszej postaci. Architekt, który projektuje klastry serwerów (Load Balancing, Redundancja) robi dokładnie to samo co Project Manager: <strong>identyfikuje</strong> ryzyko padnięcia węzła i <strong>łagodzi</strong> je stawiając drugi węzeł zapasowy. Rejestr ryzyk to po prostu mapa, która chroni zespół przed pożarami.</span>
+                </p>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
