@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 101 – Strategie przydziału segmentów pamięci</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">101. Strategie przydziału segmentów pamięci w systemach operacyjnych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚗</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Parkingowy i Gra w Tetrisa”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Wyobraź sobie fizyczny RAM jako długą ulicę z zaparkowanymi samochodami (działającymi procesami) i wolnymi "dziurami" o różnych rozmiarach. Przyjeżdża nowy, duży SUV (nowy proces proszący o pamięć). Jak parkingowy (System Operacyjny) ma go zaparkować?<br><br>
+                        Może wcisnąć go w pierwszą lukę, która jest wystarczająco duża (<strong>First-Fit</strong>) – to szybkie. Może przejść z miarką całą ulicę i znaleźć lukę idealnie wymierzoną pod SUV-a, co do centymetra (<strong>Best-Fit</strong>) – to powolne i zostawi po sobie mikroskopijną dziurkę, w którą nie wjedzie już nawet rower. A może postawić SUV-a na największym placu dla TIR-ów (<strong>Worst-Fit</strong>), dzięki czemu obok zostanie jeszcze mnóstwo miejsca dla kogoś innego.<br><br>
+                        Wybór tej strategii decyduje o tym, jak szybko RAM przypomina "szwajcarski ser" pełen bezużytecznych dziur. Zjawisko to nazywamy <strong>Fragmentacją</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">First-Fit (Pierwsze dopasowanie)</span>
+            <span class="keyword-tag">Best-Fit (Najlepsze dopasowanie)</span>
+            <span class="keyword-tag">Worst-Fit (Najgorsze dopasowanie)</span>
+            <span class="keyword-tag">Next-Fit (Następne dopasowanie)</span>
+            <span class="keyword-tag">Fragmentacja Zewnętrzna (External Fragmentation)</span>
+            <span class="keyword-tag">Kompaktowanie (Compaction)</span>
+            <span class="keyword-tag">System Bliźniaków (Buddy System)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: KLASYCZNE ALGORYTMY -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Trzy Klasyczne Algorytmy Przydziału</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy proces wywołuje alokację pamięci o rozmiarze <strong>N</strong>, system przeszukuje listę wolnych bloków (dziur). Różnica między algorytmami polega wyłącznie na metodzie wyboru odpowiedniego bloku.
+                </p>
+            </div>
+
+            <!-- SVG 1: FIRST, BEST, WORST FIT -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e8eaf6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Alokacja pamięci dla nowego Procesu (Wymaga 40 MB)</text>
+
+                <!-- Blok do alokacji -->
+                <rect x="330" y="40" width="160" height="30" rx="4" fill="#ffcc80" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="59" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Nowy Proces (40 MB)</text>
+
+                <!-- PAMIĘĆ BAZOWA -->
+                <text x="40" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Stan pamięci RAM:</text>
+                
+                <rect x="180" y="90" width="60" height="30" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="210" y="109" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Zajęte</text>
+
+                <rect x="240" y="90" width="100" height="30" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="290" y="109" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Hole A: 60M</text>
+
+                <rect x="340" y="90" width="80" height="30" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="380" y="109" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Zajęte</text>
+
+                <rect x="420" y="90" width="180" height="30" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="510" y="109" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Hole B: 150M</text>
+
+                <rect x="600" y="90" width="50" height="30" fill="#cfd8dc" stroke="#90a4ae"/>
+                
+                <rect x="650" y="90" width="80" height="30" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="690" y="109" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Hole C: 45M</text>
+
+
+                <!-- FIRST FIT -->
+                <rect x="40" y="150" width="220" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="150" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">1. First-Fit</text>
+                <text x="150" y="185" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Wybiera: Hole A (60M)</text>
+                <text x="150" y="200" font-family="sans-serif" font-size="9" font-weight="bold" fill="#d32f2f" text-anchor="middle">Zostawia resztkę: 20M</text>
+                <text x="150" y="215" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">Zaleta: Bardzo szybki.</text>
+                <path d="M 150 145 L 280 125" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowBlueFit)"/>
+
+                <!-- BEST FIT -->
+                <rect x="300" y="150" width="220" height="80" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">2. Best-Fit</text>
+                <text x="410" y="185" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Wybiera: Hole C (45M)</text>
+                <text x="410" y="200" font-family="sans-serif" font-size="9" font-weight="bold" fill="#d32f2f" text-anchor="middle">Zostawia resztkę: 5M (Śmieć!)</text>
+                <text x="410" y="215" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Wada: Musi przeszukać całą listę.</text>
+                <path d="M 410 145 L 680 125" fill="none" stroke="#2e7d32" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowGrnFit)"/>
+
+                <!-- WORST FIT -->
+                <rect x="560" y="150" width="220" height="80" rx="6" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="670" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">3. Worst-Fit</text>
+                <text x="670" y="185" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Wybiera: Hole B (150M)</text>
+                <text x="670" y="200" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zostawia resztkę: 110M</text>
+                <text x="670" y="215" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Zaleta: Resztka jest wciąż użyteczna.</text>
+                <path d="M 670 145 L 510 125" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedFit)"/>
+
+                <defs>
+                    <marker id="arrowBlueFit" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowGrnFit" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedFit" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: FRAGMENTACJA ZEWNĘTRZNA I KOMPAKTOWANIE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Zmora Inżyniera: Fragmentacja Zewnętrzna i Kompaktowanie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Efektem ubocznym ciągłego przydzielania i zwalniania bloków jest <strong>Fragmentacja zewnętrzna</strong>. Sytuacja ta polega na tym, że w systemie fizycznie <em>jest</em> wystarczająca ilość wolnej pamięci RAM, aby pomieścić proces, ale pamięć ta jest porozrzucana w małych, nieciągłych dziurach (System zgłasza "Out of Memory").
+                </p>
+            </div>
+
+            <!-- SVG 2: FRAGMENTATION & COMPACTION -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Zjawisko Fragmentacji Zewnętrznej vs Lekarstwo (Kompaktowanie)</text>
+
+                <!-- Proces czeka -->
+                <rect x="360" y="45" width="100" height="30" rx="4" fill="#ffcc80" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="64" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Żądanie: 50 MB</text>
+
+
+                <!-- Lewa: Fragmentacja -->
+                <text x="210" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Przed: Fragmentacja Zewnętrzna</text>
+                
+                <rect x="40" y="105" width="340" height="40" fill="#eceff1" stroke="#90a4ae"/>
+                
+                <rect x="40" y="105" width="80" height="40" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="80" y="129" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">20 MB</text>
+                
+                <rect x="120" y="105" width="50" height="40" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="145" y="129" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Zajęte</text>
+                
+                <rect x="170" y="105" width="80" height="40" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="210" y="129" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">20 MB</text>
+                
+                <rect x="250" y="105" width="50" height="40" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="275" y="129" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Zajęte</text>
+                
+                <rect x="300" y="105" width="80" height="40" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="340" y="129" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">20 MB</text>
+
+                <text x="210" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d32f2f" text-anchor="middle">Suma wolnej pamięci: 60 MB.</text>
+                <text x="210" y="185" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Ale żądanie 50 MB zostaje ODRZUCONE (Brak ciągłości)!</text>
+
+
+                <!-- Prawa: Kompaktowanie -->
+                <text x="610" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Po: Defragmentacja (Kompaktowanie)</text>
+                
+                <rect x="440" y="105" width="340" height="40" fill="#eceff1" stroke="#90a4ae"/>
+                
+                <!-- Przesunięte zajęte -->
+                <rect x="440" y="105" width="100" height="40" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="490" y="129" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Wszystkie Zajęte</text>
+
+                <!-- Połączone wolne -->
+                <rect x="540" y="105" width="240" height="40" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="660" y="129" font-family="monospace" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Złączone Dziury = 60 MB ciągłej pamięci!</text>
+
+                <text x="610" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Żądanie 50 MB przechodzi bez problemu!</text>
+                <text x="610" y="185" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">(Uwaga: Bardzo zasobożerne dla procesora OS).</text>
+
+            </svg>
+
+            <!-- PART 3: SYSTEM BLIŹNIAKÓW (BUDDY SYSTEM) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Architektura wydajnościowa: System Bliźniaków (Buddy System)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby unikać wolnego przeszukiwania list i trudnego kompaktowania, inżynierowie Linuksa zaimplementowali <strong>System Bliźniaków (Buddy Allocation)</strong>. Pamięć alokowana jest wyłącznie w potęgach liczby 2 (np. 16, 32, 64, 128 KB). Kiedy proces żąda pamięci, duży blok jest dzielony na pół (na "Bliźniaki"), aż powstanie najmniejszy możliwy blok potęgi 2 zdolny pomieścić dane. Gdy procesy zwalniają pamięć, jeśli oba "bliźniaki" są puste, OS błyskawicznie scala je z powrotem w jeden, większy blok.
+                </p>
+            </div>
+
+            <!-- SVG 3: BUDDY SYSTEM -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">System Bliźniaków (Buddy Allocation) na przykładzie żądania 200 KB</text>
+
+                <!-- Level 1: 1024 -->
+                <rect x="110" y="50" width="600" height="30" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="69" font-family="monospace" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">1024 KB (Wolny główny blok)</text>
+
+                <path d="M 410 80 L 410 100" fill="none" stroke="#90a4ae" stroke-width="2"/>
+
+                <!-- Level 2: 512 | 512 -->
+                <rect x="110" y="100" width="300" height="30" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="260" y="119" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">512 KB</text>
+
+                <rect x="410" y="100" width="300" height="30" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="560" y="119" font-family="monospace" font-size="11" fill="#2e7d32" text-anchor="middle">512 KB (Zostaje pusty bliźniak)</text>
+
+                <path d="M 260 130 L 260 150" fill="none" stroke="#90a4ae" stroke-width="2"/>
+
+                <!-- Level 3: 256 | 256 -->
+                <rect x="110" y="150" width="150" height="30" fill="#ffcc80" stroke="#f57c00" stroke-width="2"/>
+                <text x="185" y="169" font-family="monospace" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Alokacja 256 KB</text>
+
+                <rect x="260" y="150" width="150" height="30" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="335" y="169" font-family="monospace" font-size="11" fill="#2e7d32" text-anchor="middle">256 KB (Pusty)</text>
+
+                <!-- Podpis dlaczego 256 -->
+                <path d="M 185 180 L 185 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgBS)"/>
+                <text x="185" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Wystarczy dla 200 KB!</text>
+                
+                <!-- Adnotacja fragmentacji wewnetrznej -->
+                <rect x="520" y="165" width="220" height="40" fill="#ffebee" stroke="#d32f2f" rx="4"/>
+                <text x="630" y="180" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">⚠️ Fragmentacja Wewnętrzna</text>
+                <text x="630" y="195" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Przydzielono 256K, użyto 200K. 56K stracone!</text>
+
+                <defs>
+                    <marker id="arrowOrgBS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z systemów operacyjnych):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Best-Fit to najlepszy algorytm":</strong> To największy mit! W teorii brzmi wspaniale (dopasowuje się idealnie). W praktyce (w środowisku o ciągłych małych i dużych alokacjach), Best-Fit pozostawia za sobą po całej pamięci mikroskopijne "odpadki" (np. dziury o rozmiarze 2 Bajtów), których żaden inny proces nie może użyć. Best-Fit bywa <strong>najgorszym</strong> algorytmem pod kątem generowania <em>Fragmentacji Zewnętrznej</em>.</li>
+                    <li><strong>Fragmentacja Zewnętrzna vs Wewnętrzna:</strong><br>
+                        <em>Zewnętrzna</em> występuje, gdy mamy "wolny RAM, ale poszatkowany" na zewnątrz przydzielonych bloków (Zwalczana przez Stronicowanie i Kompaktowanie).<br>
+                        <em>Wewnętrzna</em> (widoczna na grafice nr 3) następuje, gdy system daje procesowi ściśle określony blok (np. 4 KB z powodu stron), a proces wgrywa do niego tylko tekst o wadze 1 KB. Pozostałe 3 KB marnują się <em>wewnątrz</em> przydzielonego bloku.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Pamięć fizyczna nie jest z gumy. Zarządzanie nią to sztuka ciągłych kompromisów (Trade-offs). Chcesz działać ekstremalnie szybko? Użyj <em>First-Fit</em>, ale za chwilę cały system rozsypie się z powodu fragmentacji. Chcesz zachować porządek? Zbuduj Drzewo Bliźniaków (<em>Buddy System</em>), ale pogoń za potęgą dwójki poskutkuje potężną <em>fragmentacją wewnętrzną</em>. Nowoczesne systemy zrezygnowały z bezpośredniej ciągłej alokacji w fizycznym RAMie na rzecz Stronicowania (Paging, pytanie 098), co rozwiązuje problem fragmentacji zewnętrznej na poziomie sprzętowym, sprawiając, że fizyczna lokalizacja komórek w ogóle przestaje mieć dla procesu znaczenie.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) – Rozdział: Zarządzanie pamięcią główną, Przydział ciągły, System bliźniaków.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
