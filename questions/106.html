@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 106 – Podstawy teksturowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">106. Podstawy teksturowania.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🎨</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Teksturowanie to „Naklejanie tapety na szkielet z drutu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
+                        Wyobraź sobie, że zbudowałeś z cienkiego drutu perfekcyjny model samochodu. Jest idealny geometrycznie, ale... jest w całości szary i metaliczny. Nie wygląda jak prawdziwy pojazd, bo brakuje mu koloru, faktury lakieru, świateł i detali. <strong>Teksturowanie</strong> to proces, w którym bierzesz płaski obrazek (teksturę – np. zdjęcie karoserii) i z niezwykłą precyzją <strong>naciągasz go, przyklejasz i dopasowujesz</strong> do każdego trójkąta Twojego szkieletu. Procesor graficzny (GPU) robi to miliardy razy na sekundę – dla każdego piksela na ekranie sprawdza, z którego miejsca na płaskim obrazku pobrać kolor, aby model 3D wyglądał realistycznie. To jak tapetowanie pokoju, ale zamiast ścian masz trójwymiarową siatkę, a zamiast tapety – cyfrową fotografię.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a3000; line-height: 1.8;">
+                        <li><strong>🔵 Tekstura</strong> – płaski, dwuwymiarowy obrazek przechowywany w pamięci karty graficznej (VRAM). Może zawierać kolor, chropowatość, informacje o odbiciach światła.</li>
+                        <li><strong>🟠 Współrzędne UV</strong> – „pinezki” przypinające wierzchołki siatki 3D do konkretnych punktów na płaskiej teksturze. Dzięki nim GPU wie, jak naciągnąć obrazek na trójkąt.</li>
+                        <li><strong>🟢 Filtrowanie (Filtering)</strong> – techniki matematyczne decydujące o tym, czy tekstura z daleka jest ostra (aliasing), czy miękka i rozmyta (mipmapping).</li>
+                        <li><strong>🟣 Adresowanie (Wrapping)</strong> – co się stanie, gdy wyjdziemy poza obszar 0–1 na teksturze? Czy wzór się powtórzy (kafelki), czy zatrzyma na krawędzi?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Tekstura (Texture) / Mapa (Map)</span>
+            <span class="keyword-tag">Współrzędne UV (UV Mapping)</span>
+            <span class="keyword-tag">Texel (piksel tekstury)</span>
+            <span class="keyword-tag">Filtrowanie: Nearest / Bilinear / Trilinear</span>
+            <span class="keyword-tag">Mipmapping – piramida tekstur</span>
+            <span class="keyword-tag">Anizotropowe filtrowanie (Anisotropic Filtering)</span>
+            <span class="keyword-tag">Adresowanie: Repeat / Clamp / Mirror</span>
+            <span class="keyword-tag">Aliasing i postrzępione krawędzie</span>
+            <span class="keyword-tag">Kompresja tekstur (DXT/S3TC, ASTC)</span>
+            <span class="keyword-tag">Kanały: Diffuse, Normal Map, Specular</span>
+            <span class="keyword-tag">Pipeline graficzny (Shader → Texture Sampler)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: WSPÓŁRZĘDNE UV – FUNDAMENT MAPOWANIA            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Współrzędne UV – „Pinezki przypinające obrazek do modelu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Współrzędne UV</strong> to para liczb (u, v) z zakresu najczęściej [0, 1], przypisana do każdego wierzchołka siatki 3D. Działają one jak <strong>instrukcja dla GPU</strong>: „gdy rysujesz trójkąt między wierzchołkami A, B i C, kolory dla pikseli wewnątrz pobieraj z tekstury, interpolując współrzędne UV wzdłuż powierzchni trójkąta”. U to kierunek poziomy tekstury (od lewej do prawej), V to kierunek pionowy (od dołu do góry). Wartość (0,0) oznacza lewy dolny róg obrazka, a (1,1) – prawy górny róg.
+                </p>
+                <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Dlaczego UV, a nie XY?</strong> X, Y i Z są już zajęte przez współrzędne geometryczne w przestrzeni 3D. Historycznie litery U i V zostały wybrane jako kolejne w alfabecie do opisu dwuwymiarowej przestrzeni tekstury.
+                </div>
+            </div>
+
+            <!-- SVG: MAPOWANIE UV – TRÓJKĄT NA TEKSTURĘ -->
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridTex" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
+                    </pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridTex)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Mapowanie UV – przypinanie obrazka do siatki 3D</text>
+
+                <!-- Panel lewy: Tekstura w przestrzeni UV -->
+                <rect x="40" y="50" width="340" height="260" rx="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Przestrzeń tekstury (UV)</text>
+                <rect x="70" y="95" width="220" height="195" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="4"/>
+                <text x="180" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Obrazek (tekstura)</text>
+                <text x="180" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">np. 1024×1024 piksele</text>
+                <!-- Narożniki z UV -->
+                <circle cx="70" cy="290" r="5" fill="#c62828"/><text x="55" y="305" font-family="monospace" font-size="10" fill="#c62828">(0,0)</text>
+                <circle cx="290" cy="95" r="5" fill="#c62828"/><text x="300" y="100" font-family="monospace" font-size="10" fill="#c62828">(1,1)</text>
+                <circle cx="290" cy="290" r="5" fill="#1565c0"/><text x="300" y="295" font-family="monospace" font-size="10" fill="#1565c0">(1,0)</text>
+                <circle cx="70" cy="95" r="5" fill="#1565c0"/><text x="40" y="90" font-family="monospace" font-size="10" fill="#1565c0">(0,1)</text>
+                <!-- Trójkąt na teksturze -->
+                <polygon points="120,240 200,120 260,260" fill="none" stroke="#ff6f00" stroke-width="3" stroke-dasharray="6,3"/>
+                <text x="190" y="215" font-family="sans-serif" font-size="9" fill="#e65100">trójkąt na</text>
+                <text x="190" y="226" font-family="sans-serif" font-size="9" fill="#e65100">teksturze</text>
+
+                <!-- Panel prawy: Siatka 3D -->
+                <rect x="440" y="50" width="340" height="260" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Model 3D (siatka trójkątów)</text>
+                <!-- Symboliczna siatka 3D -->
+                <polygon points="520,110 590,200 470,230" fill="#bbdefb" stroke="#1976d2" stroke-width="2" opacity="0.6"/>
+                <polygon points="590,200 660,150 620,250" fill="#90caf9" stroke="#1976d2" stroke-width="2" opacity="0.6"/>
+                <polygon points="520,110 590,200 660,150" fill="#64b5f6" stroke="#1976d2" stroke-width="2" opacity="0.6"/>
+                <text x="570" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0d47a1">Każdy wierzchołek</text>
+                <text x="570" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0d47a1">ma przypisane (u,v)</text>
+
+                <!-- Strzałka mapowania -->
+                <path d="M 380 180 L 430 180" fill="none" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrowMap)"/>
+                <text x="405" y="170" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#ff6f00">UV</text>
+
+                <defs>
+                    <marker id="arrowMap" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6f00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: TEXEL vs PIKESEL – PROBLEM DOPASOWANIA ROZDZIELCZOŚCI -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Texel ≠ Piksel – problem dopasowania rozdzielczości</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Texel (TEXture ELement)</strong> to pojedynczy punkt próbkowania na teksturze – odpowiednik piksela, ale w przestrzeni UV, a nie ekranu. Kiedy renderujemy obiekt 3D, powstaje fundamentalny problem: <strong>jeden piksel na ekranie może odpowiadać wielu tekselom</strong> (gdy obiekt jest daleko i tekstura się minifikuje) lub <strong>jeden teksel może pokrywać wiele pikseli ekranu</strong> (gdy kamera podjeżdża blisko i tekstura się magnifikuje). GPU musi zdecydować, który kolor przypisać pikselowi – i tu wkracza <strong>filtrowanie</strong>.
+                </p>
+            </div>
+
+            <!-- SVG: MAGNIFIKACJA vs MINIFIKACJA -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridTex)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Problem: jeden piksel ekranu może odpowiadać wielu tekselom (i odwrotnie)</text>
+
+                <!-- Minifikacja (obiekt daleko) -->
+                <rect x="40" y="55" width="350" height="190" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="215" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Minifikacja – obiekt daleko</text>
+                <rect x="60" y="95" width="40" height="40" fill="#1565c0" opacity="0.8" rx="2"/>
+                <text x="80" y="120" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fff">piksel</text>
+                <!-- Duży obszar tekstury -->
+                <rect x="180" y="95" width="180" height="100" fill="#fff" stroke="#1976d2" stroke-width="1" rx="3"/>
+                <text x="270" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Wiele tekseli → jeden piksel</text>
+                <text x="215" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ryzyko: aliasing (migotanie, postrzępienie)</text>
+                <text x="215" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Rozwiązanie: Mipmapping</text>
+
+                <!-- Magnifikacja (obiekt blisko) -->
+                <rect x="430" y="55" width="350" height="190" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="605" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Magnifikacja – obiekt blisko</text>
+                <rect x="450" y="95" width="120" height="80" fill="#fff" stroke="#ef6c00" stroke-width="1" rx="3"/>
+                <text x="510" y="140" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#bf360c">Jeden teksel → wiele pikseli</text>
+                <text x="605" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ryzyko: efekt kratki (pikseloza)</text>
+                <text x="605" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Rozwiązanie: Filtrowanie dwuliniowe</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: FILTROWANIE TEKSTUR – METODY                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Filtrowanie tekstur – „Jak GPU wybiera kolor?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy GPU wie, w którym miejscu tekstury znajduje się piksel, musi pobrać kolor. Ponieważ współrzędne UV rzadko trafiają idealnie w środek teksela, potrzebna jest metoda wyboru koloru z otaczających tekseli. Istnieje kilka standardowych metod filtrowania:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #1b5e20;">
+                    <li><strong>Nearest Neighbor (najbliższy sąsiad):</strong> GPU bierze kolor tego teksela, który jest najbliżej obliczonych współrzędnych UV. Szybkie, ale daje efekt "schodkowania" i pikselozy.</li>
+                    <li><strong>Bilinear (dwuliniowe):</strong> GPU bierze 4 sąsiednie teksle i wylicza średnią ważoną. Daje gładszy obraz, eliminuje pikselozę. Dobre do magnifikacji.</li>
+                    <li><strong>Trilinear (trójliniowe):</strong> Rozszerzenie bilinearnego – dodatkowo interpoluje między dwoma poziomami mipmapy. Eliminuje ostre przejścia między poziomami mipmap.</li>
+                    <li><strong>Anisotropic (anizotropowe):</strong> Uwzględnia kąt patrzenia na powierzchnię. Tekstura na powierzchni oglądanej pod kątem (np. daleka droga) jest filtrowana z większą liczbą próbek w kierunku skrótu perspektywicznego. Znacznie poprawia ostrość.</li>
+                </ul>
+            </div>
+
+            <!-- SVG: FILTROWANIE – NEAREST vs BILINEAR -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridTex)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Filtrowanie tekstur – Nearest Neighbor vs Bilinear</text>
+
+                <!-- Nearest Neighbor -->
+                <rect x="40" y="55" width="350" height="190" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="215" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Nearest Neighbor (najbliższy sąsiad)</text>
+                <!-- Siatka tekseli -->
+                <g transform="translate(90, 100)">
+                    <rect x="0" y="0" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="30" y="0" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="60" y="0" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="90" y="0" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="0" y="30" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="30" y="30" width="30" height="30" fill="#e57373" stroke="#c62828" stroke-width="3"/>
+                    <rect x="60" y="30" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="90" y="30" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="0" y="60" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="30" y="60" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="60" y="60" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <rect x="90" y="60" width="30" height="30" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                    <!-- Punkt próbkowania -->
+                    <circle cx="45" cy="45" r="4" fill="#c62828"/>
+                    <text x="55" y="42" font-family="sans-serif" font-size="8" fill="#b71c1c">próbka</text>
+                </g>
+                <text x="215" y="228" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">Bierze kolor tylko z najbliższego teksela → pikseloza.</text>
+
+                <!-- Bilinear -->
+                <rect x="430" y="55" width="350" height="190" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="605" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Bilinear (dwuliniowe)</text>
+                <g transform="translate(480, 100)">
+                    <rect x="0" y="0" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="30" y="0" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="60" y="0" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="90" y="0" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="0" y="30" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="30" y="30" width="30" height="30" fill="#81c784" stroke="#2e7d32" stroke-width="3"/>
+                    <rect x="60" y="30" width="30" height="30" fill="#81c784" stroke="#2e7d32" stroke-width="3"/>
+                    <rect x="90" y="30" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="0" y="60" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <rect x="30" y="60" width="30" height="30" fill="#81c784" stroke="#2e7d32" stroke-width="3"/>
+                    <rect x="60" y="60" width="30" height="30" fill="#81c784" stroke="#2e7d32" stroke-width="3"/>
+                    <rect x="90" y="60" width="30" height="30" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="1"/>
+                    <circle cx="45" cy="45" r="4" fill="#2e7d32"/>
+                </g>
+                <text x="605" y="228" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1b5e20">Bierze średnią ważoną z 4 sąsiednich tekseli → gładko.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: MIPMAPPING – PIRAMIDA TEKSTUR                   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Mipmapping – „Piramida coraz mniejszych kopii”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Mipmapping</strong> (od łac. <em>multum in parvo</em> – „wiele w małym”) to technika, w której dla tekstury generuje się serię coraz mniejszych wersji (o połowę mniejszych w każdym wymiarze), aż do rozmiaru 1×1 piksel. GPU automatycznie wybiera odpowiedni poziom mipmapy w zależności od odległości obiektu od kamery. Dla odległego obiektu używa mniejszej, rozmytej wersji – to eliminuje aliasing i migotanie. Dodatkowy koszt pamięci to tylko 1/3 oryginalnego rozmiaru tekstury.
+                </p>
+            </div>
+
+            <!-- SVG: PIRAMIDA MIPMAP -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridTex)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Mipmapping – piramida coraz mniejszych wersji tekstury</text>
+
+                <!-- Poziomy mipmap -->
+                <rect x="320" y="55" width="180" height="130" fill="#e1bee7" stroke="#7b1fa2" stroke-width="2" rx="4"/>
+                <text x="410" y="130" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">Poziom 0: 256×256</text>
+
+                <rect x="340" y="68" width="140" height="105" fill="#ce93d8" stroke="#7b1fa2" stroke-width="2" rx="4"/>
+                <text x="410" y="128" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">Poziom 1: 128×128</text>
+
+                <rect x="355" y="80" width="110" height="80" fill="#ba68c8" stroke="#7b1fa2" stroke-width="2" rx="4"/>
+                <text x="410" y="126" text-anchor="middle" font-family="monospace" font-size="11" fill="#fff">Poziom 2: 64×64</text>
+
+                <rect x="370" y="92" width="80" height="55" fill="#ab47bc" stroke="#7b1fa2" stroke-width="2" rx="4"/>
+                <text x="410" y="124" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff">…</text>
+
+                <rect x="395" y="112" width="30" height="30" fill="#8e24aa" stroke="#7b1fa2" stroke-width="2" rx="4"/>
+                <text x="410" y="132" text-anchor="middle" font-family="monospace" font-size="8" fill="#fff">1×1</text>
+
+                <!-- Opis -->
+                <rect x="550" y="60" width="240" height="120" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+                <text x="670" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Zalety mipmappingu:</text>
+                <text x="670" y="108" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✅ Eliminuje migotanie (aliasing)</text>
+                <text x="670" y="126" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✅ Szybsze próbkowanie (cache GPU)</text>
+                <text x="670" y="144" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✅ Tylko ~33% dodatkowej pamięci</text>
+                <text x="670" y="162" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">✅ Podstawa filtrowania trójliniowego</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: ADRESOWANIE (WRAPPING) TEKSTUR                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Adresowanie (Wrapping) – „Co poza zakresem 0–1?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Standardowo współrzędne UV są w zakresie [0, 1]. Ale w grach często celowo wykracza się poza ten zakres, by uzyskać efekt <strong>kafelkowania (tiling)</strong> – np. wielokrotne powtórzenie wzoru cegły na dużej ścianie. Tryb adresowania określa, co GPU ma zrobić z wartościami UV poza [0,1]:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 200px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
+                        <strong style="color:#b71c1c;">🔄 Repeat (GL_REPEAT)</strong><br>
+                        <span style="font-size:0.85rem;">Tekstura jest powtarzana jak kafelki. UV=2.3 daje to samo co UV=0.3. Domyślny tryb. Idealny do podłóg, ścian, terenu.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
+                        <strong style="color:#0d47a1;">🧷 Clamp to Edge (GL_CLAMP_TO_EDGE)</strong><br>
+                        <span style="font-size:0.85rem;">Wartości poza [0,1] są przycinane do krawędzi. UV=1.3 → używa koloru z krawędzi. Zapobiega artefaktom na brzegach modeli.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
+                        <strong style="color:#e65100;">🪞 Mirror (GL_MIRRORED_REPEAT)</strong><br>
+                        <span style="font-size:0.85rem;">Co drugie powtórzenie jest lustrzanym odbiciem. Daje efekt ciągłości bez widocznych szwów. Dobre do organicznych wzorów.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG: TRYBY ADRESOWANIA -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridTex)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Tryby adresowania (Wrapping) – co dzieje się poza UV [0,1]</text>
+
+                <!-- Repeat -->
+                <rect x="30" y="50" width="230" height="160" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="145" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Repeat (Powtarzanie)</text>
+                <g transform="translate(50, 90)">
+                    <text x="0" y="-5" font-family="monospace" font-size="9" fill="#c62828">← A →</text><text x="70" y="-5" font-family="monospace" font-size="9" fill="#c62828">← A →</text><text x="140" y="-5" font-family="monospace" font-size="9" fill="#c62828">← A →</text>
+                    <rect x="0" y="0" width="70" height="60" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="35" y="35" font-size="12" text-anchor="middle">A</text>
+                    <rect x="70" y="0" width="70" height="60" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="105" y="35" font-size="12" text-anchor="middle">A</text>
+                    <rect x="140" y="0" width="70" height="60" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="175" y="35" font-size="12" text-anchor="middle">A</text>
+                </g>
+
+                <!-- Clamp -->
+                <rect x="295" y="50" width="230" height="160" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Clamp to Edge</text>
+                <g transform="translate(315, 90)">
+                    <text x="-30" y="-5" font-family="monospace" font-size="9" fill="#1976d2">krawędź →</text><text x="70" y="-5" font-family="monospace" font-size="9" fill="#1976d2">A</text><text x="140" y="-5" font-family="monospace" font-size="9" fill="#1976d2">← krawędź</text>
+                    <rect x="-30" y="0" width="30" height="60" fill="#90caf9" stroke="#1976d2" stroke-width="1"/><text x="-15" y="35" font-size="9" text-anchor="middle">B</text>
+                    <rect x="0" y="0" width="70" height="60" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/><text x="35" y="35" font-size="12" text-anchor="middle">A</text>
+                    <rect x="70" y="0" width="30" height="60" fill="#90caf9" stroke="#1976d2" stroke-width="1"/><text x="85" y="35" font-size="9" text-anchor="middle">B</text>
+                </g>
+
+                <!-- Mirror -->
+                <rect x="560" y="50" width="230" height="160" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="675" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Mirror (Lustro)</text>
+                <g transform="translate(580, 90)">
+                    <text x="0" y="-5" font-family="monospace" font-size="9" fill="#ef6c00">← A →</text><text x="70" y="-5" font-family="monospace" font-size="9" fill="#ef6c00">← Aᵐ →</text><text x="140" y="-5" font-family="monospace" font-size="9" fill="#ef6c00">← A →</text>
+                    <rect x="0" y="0" width="70" height="60" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/><text x="35" y="35" font-size="12" text-anchor="middle">A</text>
+                    <rect x="70" y="0" width="70" height="60" fill="#ffcc80" stroke="#ef6c00" stroke-width="1"/><text x="105" y="35" font-size="12" text-anchor="middle">Aᵐ</text>
+                    <rect x="140" y="0" width="70" height="60" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/><text x="175" y="35" font-size="12" text-anchor="middle">A</text>
+                </g>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: FORMATY I KOMPRESJA TEKSTUR                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">6. Formaty i kompresja tekstur – „Jak zmieścić 100 MB w 10 MB VRAM”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nieskompresowane tekstury zajmują ogromne ilości pamięci (np. jedna tekstura 4096×4096 RGBA8 to 64 MB). Dlatego GPU wspierają sprzętową <strong>kompresję blokową</strong>, gdzie obraz dzielony jest na bloki (np. 4×4 piksele), a każdy blok kodowany jest algorytmem o stałej przepływności. Karta graficzna dekompresuje bloki w locie podczas próbkowania. Popularne formaty: <strong>DXT/S3TC</strong> (DirectX, PC), <strong>ETC2/EAC</strong> (OpenGL ES, Android), <strong>ASTC</strong> (najnowszy, elastyczny).
+                </p>
+            </div>
+
+            <!-- SVG: KOMPRESJA BLOKOWA -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridTex)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Kompresja blokowa tekstur – oszczędność pamięci VRAM</text>
+
+                <!-- Nieskompresowana -->
+                <rect x="40" y="50" width="200" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="140" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Bez kompresji</text>
+                <g transform="translate(50, 90)">
+                    <rect x="0" y="0" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="15" y="0" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="30" y="0" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="45" y="0" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/>
+                    <rect x="0" y="15" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="15" y="15" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="30" y="15" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="45" y="15" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/>
+                    <rect x="0" y="30" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="15" y="30" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="30" y="30" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="45" y="30" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/>
+                    <rect x="0" y="45" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="15" y="45" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="30" y="45" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/><rect x="45" y="45" width="15" height="15" fill="#ef9a9a" stroke="#c62828"/>
+                </g>
+                <text x="140" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Każdy piksel osobno → 16 bajtów</text>
+
+                <!-- Strzałka -->
+                <text x="265" y="115" font-family="sans-serif" font-size="20" fill="#546e7a">→</text>
+
+                <!-- Skompresowana -->
+                <rect x="300" y="50" width="200" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="400" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Po kompresji (DXT1/BC1)</text>
+                <rect x="320" y="95" width="160" height="55" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="4"/>
+                <text x="400" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">Blok 4×4 piksele</text>
+                <text x="400" y="138" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">→ zakodowany jako</text>
+                <text x="400" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Blok 4×4 → 8 bajtów (kompresja 8:1 dla RGB)</text>
+
+                <!-- Opis -->
+                <rect x="540" y="60" width="250" height="100" rx="6" fill="#e0f2f1" stroke="#00897b" stroke-width="1"/>
+                <text x="665" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#004d40">Standardy:</text>
+                <text x="665" y="108" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">DXT1/BC1: 8:1 (RGB, bez alfa)</text>
+                <text x="665" y="126" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">BC7: wysoka jakość, elastyczny</text>
+                <text x="665" y="144" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">ASTC: każdy bitrate, najlepszy</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: RODZAJE MAP TEKSTUR (PBR)                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">7. Kanały i rodzaje map – „Nie tylko kolor”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Tekstura to nie tylko obrazek z kolorem. We współczesnym renderingu PBR (Physically Based Rendering) używa się wielu map, z których każda przechowuje inne dane:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 150px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🎨 Albedo / Diffuse</strong><br>
+                        <span style="font-size:0.85rem;">Podstawowy kolor powierzchni. RGB, bez informacji o świetle.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 150px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>🟦 Normal Map</strong><br>
+                        <span style="font-size:0.85rem;">Zakodowane wektory normalnych powierzchni (RGB→XYZ). Daje złudzenie wypukłości bez dodatkowej geometrii.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 150px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
+                        <strong>⚪ Roughness / Metalness</strong><br>
+                        <span style="font-size:0.85rem;">Chropowatość (szorstkość) i metaliczność. Decydują o rozpraszaniu i odbiciach światła.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Współrzędne UV to nie piksele!</strong> UV to współrzędne znormalizowane [0,1], niezależne od rozdzielczości tekstury. GPU sam mapuje je na konkretne teksle.</li>
+                    <li><strong>Brak mipmappingu = aliasing.</strong> Jeśli tekstura jest minifikowana bez mipmap, pojawia się efekt mory i migotanie. W grach zawsze generuj mipmapy.</li>
+                    <li><strong>Filtrowanie anizotropowe nie jest domyślne</strong> – trzeba je jawnie włączyć w ustawieniach samplera. Koszt wydajnościowy jest niewielki na nowoczesnych GPU, a różnica w jakości ogromna.</li>
+                    <li><strong>Kompresja DXT/BC jest stratna.</strong> Nie używaj jej do tekstur, które wymagają bezstratnej jakości (np. mapy normalnych). Są specjalne formaty (BC5/3Dc) zoptymalizowane dla wektorów normalnych.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – podstawy teksturowania:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Analogia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Mapowanie UV</td>
+                        <td style="padding: 10px;">Przypisanie punktom 3D współrzędnych na 2D teksturze</td>
+                        <td style="padding: 10px;">Pinezki przypinające tapetę do ściany</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Mipmapping</td>
+                        <td style="padding: 10px;">Piramida coraz mniejszych wersji tekstury do walki z aliasingiem</td>
+                        <td style="padding: 10px;">Miniaturki obrazka dla różnych odległości</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Filtrowanie</td>
+                        <td style="padding: 10px;">Jak GPU wybiera kolor z sąsiednich tekseli</td>
+                        <td style="padding: 10px;">Średnia ważona z sąsiadów (bilinear) vs branie pierwszego z brzegu (nearest)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Wrapping</td>
+                        <td style="padding: 10px;">Zachowanie dla UV poza [0,1]: Repeat, Clamp, Mirror</td>
+                        <td style="padding: 10px;">Kafelkowanie (Repeat) vs przyklejenie na stałe (Clamp)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Teksturowanie to sztuka naciągania płaskich obrazków na trójwymiarowe modele. UV to pinezki, texel to atom koloru, a filtrowanie to matematyczny przepis na to, jak GPU ma mieszać sąsiednie kolory, by obraz był ostry tam, gdzie trzeba, i gładki tam, gdzie trzeba. Bez tekstur świat 3D byłby gołą geometrią – jak świat z drutu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Real-Time Rendering” (T. Akenine-Möller, E. Haines, N. Hoffman) · OpenGL Specification (Khronos Group) · DirectX 12 Documentation (Microsoft) · „GPU Gems” (NVIDIA).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
