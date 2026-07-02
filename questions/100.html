@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 100 – Mutex vs Semafor</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">100. Charakterystyka mechanizmów mutex i semaforów.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0288d1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,136,209,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔑</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Prywatna Łazienka kontra Bramkarz w Klubie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00363a; line-height: 1.7;">
+                        Oba mechanizmy służą do synchronizacji wątków, ale mają zupełnie inne przeznaczenie.<br><br>
+                        <strong>Mutex (Wzajemne Wykluczanie) to klucz do prywatnej łazienki.</strong> Wchodzisz, zamykasz zamek od środka i robisz swoje (Sekcja Krytyczna). Jeśli ktoś pociągnie za klamkę z zewnątrz – nie wejdzie. Najważniejsza zasada Mutexa brzmi: <em>Własność (Ownership)</em>. Tylko ta osoba, która zamknęła łazienkę od środka, ma prawo ją otworzyć. Kolega z zewnątrz nie może znieść Twojej blokady.<br><br>
+                        <strong>Semafor to bramkarz przed klubem (z klikaczem).</strong> Klub mieści 50 osób. Bramkarz ma licznik. Wpuszcza ludzi, odliczając w dół. Gdy licznik zejdzie do zera, nowi goście muszą czekać na zewnątrz. Gdy ktoś wychodzi, bramkarz klika w górę (+1) i wpuszcza kolejnego. Semafor nie ma pojęcia o "Własności" – bramkarza nie obchodzi, kto konkretnie wychodzi, interesuje go tylko liczba miejsc. Semafor służy do zarządzania <em>pulą</em> zasobów i <em>sygnalizacji</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Mutex (Mutual Exclusion)</span>
+            <span class="keyword-tag">Własność (Ownership)</span>
+            <span class="keyword-tag">Semafor zliczający (Counting Semaphore)</span>
+            <span class="keyword-tag">Operacje P() / V() (Wait / Signal)</span>
+            <span class="keyword-tag">Sygnalizacja międzywątkowa (Signaling)</span>
+            <span class="keyword-tag">Inwersja Priorytetów (Priority Inversion)</span>
+            <span class="keyword-tag">Problem Producenta i Konsumenta</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: MUTEX -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0288d1;">1. Mutex: Ochrona dostępu (Locking Mechanism)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zadaniem Mutexa jest zagwarantowanie, że w danym momencie tylko jeden wątek wykonuje instrukcje wewnątrz <strong>Sekcji Krytycznej</strong> (np. modyfikuje współdzieloną zmienną w RAM). Mutex posiada stan: <em>Locked (Zablokowany)</em> lub <em>Unlocked (Odblokowany)</em>. Fundamentalną cechą Mutexa jest <strong>Własność (Thread Ownership)</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 1: MUTEX -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e1f5fe" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#01579b">Mutex: Własność i Ochrona Pamięci</text>
+
+                <!-- Zasób / Zmienna -->
+                <rect x="360" y="60" width="100" height="150" rx="8" fill="#fff" stroke="#0288d1" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Zmienna</text>
+                <text x="410" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#37474f" text-anchor="middle">X = 5</text>
+
+                <!-- Kłódka -->
+                <rect x="390" y="150" width="40" height="30" rx="4" fill="#ffca28" stroke="#f57f17" stroke-width="2"/>
+                <path d="M 398 150 L 398 140 A 12 12 0 0 1 422 140 L 422 150" fill="none" stroke="#f57f17" stroke-width="4"/>
+                <circle cx="410" cy="165" r="4" fill="#f57f17"/>
+
+                <rect x="350" y="195" width="120" height="20" rx="4" fill="#bbdefb"/>
+                <text x="410" y="209" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Właściciel: Wątek A</text>
+
+                <!-- Wątek A (Inside) -->
+                <rect x="80" y="100" width="150" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="155" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek A</text>
+                <text x="155" y="145" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">mutex.lock(); Modyfikuj()</text>
+
+                <path d="M 230 130 L 350 130" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnMX)"/>
+
+                <!-- Wątek B (Blocked) -->
+                <rect x="590" y="100" width="150" height="60" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="665" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek B</text>
+                <text x="665" y="145" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">mutex.lock(); // CZEKA!</text>
+
+                <path d="M 590 130 L 490 130" fill="none" stroke="#c62828" stroke-width="3"/>
+                <line x1="490" y1="110" x2="490" y2="150" stroke="#c62828" stroke-width="4"/>
+                <text x="540" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Zablokowany</text>
+
+                <defs>
+                    <marker id="arrowGrnMX" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: SEMAFOR -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">2. Semafor: Zarządzanie pulą i Sygnalizacja (Signaling Mechanism)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Semafor to w swej istocie <strong>zmienna całkowita (Licznik)</strong>, dla której matematyk Edsger Dijkstra zdefiniował dwie atomowe operacje: <code>P()</code> (Wait/Aquire - zmniejsz licznik, a jeśli 0 to czekaj) oraz <code>V()</code> (Signal/Release - zwiększ licznik). Używa się go do zarządzania ograniczoną pulą zasobów (np. basen połączeń z bazą danych) lub do <strong>sygnalizacji</strong> (Wątek A mówi Wątkowi B: <em>"Skończyłem liczyć, teraz Twoja kolej"</em>).
+                </p>
+            </div>
+
+            <!-- SVG 2: SEMAFOR -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Semafor Zliczający (Counting Semaphore): Zarządzanie Pulą</text>
+
+                <!-- Semafor box -->
+                <rect x="340" y="60" width="140" height="70" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Semafor DB</text>
+                
+                <rect x="380" y="95" width="60" height="25" fill="#ffe0b2"/>
+                <text x="410" y="112" font-family="monospace" font-size="14" font-weight="bold" fill="#d32f2f" text-anchor="middle">Stan: 0</text>
+
+                <!-- Baza Danych -->
+                <rect x="340" y="150" width="140" height="80" rx="8" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Połączenia (Max 3)</text>
+                
+                <rect x="350" y="180" width="35" height="40" fill="#f3e5f5" stroke="#9c27b0"/>
+                <text x="367" y="205" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">T1</text>
+                <rect x="392" y="180" width="35" height="40" fill="#f3e5f5" stroke="#9c27b0"/>
+                <text x="410" y="205" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">T2</text>
+                <rect x="435" y="180" width="35" height="40" fill="#f3e5f5" stroke="#9c27b0"/>
+                <text x="452" y="205" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">T3</text>
+
+                <!-- Czekający wątek -->
+                <rect x="80" y="70" width="120" height="50" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="140" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek T4</text>
+                <text x="140" y="110" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">sem.wait() [P]</text>
+
+                <path d="M 200 95 L 320 95" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="4,2"/>
+                <line x1="320" y1="80" x2="320" y2="110" stroke="#c62828" stroke-width="4"/>
+                <text x="260" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Czeka, aż</text>
+                <text x="260" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Stan > 0</text>
+
+                <!-- Ktoś wychodzi -->
+                <rect x="620" y="165" width="120" height="50" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="680" y="190" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek T1 (Wyszedł)</text>
+                <text x="680" y="205" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">sem.signal() [V]</text>
+
+                <path d="M 620 180 C 560 180, 560 110, 480 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSM)"/>
+                <text x="560" y="130" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Sygnalizuje (+1)</text>
+                <text x="560" y="145" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">To obudzi T4!</text>
+
+                <defs>
+                    <marker id="arrowGrnSM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: ZESTAWIENIE I WŁASNOŚĆ -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Zestawienie i Demaskowanie Mitu (Semafor Binarny to NIE Mutex)</strong>
+            </div>
+
+            <!-- SVG 3: CHEAT SHEET & OWNERSHIP -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Kluczowa Różnica: Własność i Sygnalizacja (Signaling)</text>
+
+                <!-- SCENARIUSZ MUTEX -->
+                <rect x="40" y="50" width="340" height="150" rx="6" fill="#fff" stroke="#0288d1" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Użycie Mutexa (Własność)</text>
+
+                <rect x="60" y="100" width="100" height="30" rx="4" fill="#bbdefb"/>
+                <text x="110" y="119" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">W1: lock(M)</text>
+
+                <rect x="60" y="145" width="100" height="30" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+                <text x="110" y="164" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">W2: unlock(M)</text>
+
+                <path d="M 170 160 L 230 160" fill="none" stroke="#c62828" stroke-width="3" marker-end="url(#arrowRedM3)"/>
+                <text x="300" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">EXCEPTION!</text>
+                <text x="300" y="170" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">W2 nie jest właścicielem.</text>
+                
+                <text x="210" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">W1 założył zamek.</text>
+
+
+                <!-- SCENARIUSZ SEMAFOR BINARNY -->
+                <rect x="440" y="50" width="340" height="150" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Użycie Semafora (Sygnalizacja)</text>
+
+                <rect x="460" y="100" width="100" height="30" rx="4" fill="#ffe0b2"/>
+                <text x="510" y="119" font-family="monospace" font-size="10" fill="#e65100" text-anchor="middle">W1: wait(S)</text>
+
+                <rect x="460" y="145" width="100" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="510" y="164" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">W2: signal(S)</text>
+
+                <path d="M 570 160 L 630 160" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM3)"/>
+                <text x="700" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">LEGALNE (Sygnał)</text>
+                <text x="700" y="170" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">W2 budzi śpiący W1.</text>
+
+                <text x="610" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">W1 czeka na dane od W2.</text>
+
+                <defs>
+                    <marker id="arrowRedM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrowGrnM3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe tematy zaawansowane):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Semafor Binarny to to samo co Mutex":</strong> O to pytają na każdej obronie! Jak widzisz na grafice wyżej, to fałsz. Mutex wymaga Własności. Semafor Binarny (liczący tylko 0 lub 1) nie ma własności – Wątek A może ustawić semafor na 0 (czekać), a Wątek B może przestawić go na 1 (sygnalizując, że np. skończył pobierać plik z sieci). To fundament problemu <em>Producenta-Konsumenta</em>.</li>
+                    <li><strong>Inwersja Priorytetów (Priority Inversion):</strong> Największa przewaga Mutexa. Załóżmy, że Wątek o <em>niskim</em> priorytecie zablokował Mutex. Wątek o <em>bardzo wysokim</em> priorytecie chce go zająć, więc zasypia (czeka). W tym momencie Wątek o <em>średnim</em> priorytecie wywłaszcza wątek niski! Skutek? Średni wątek blokuje wątek najwyższy! Aby temu zapobiec, Mutexy posiadają mechanizm <strong>Dziedziczenia Priorytetów (Priority Inheritance)</strong> – system tymczasowo podnosi priorytet wątku niskiego do poziomu wysokiego, by ten czym prędzej skończył pracę i oddał zamek. Semafory tego nie potrafią!</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla początkującego programisty wszystko wygląda jak "Lock()". Dla inżyniera architektury oprogramowania różnica jest diametralna. <strong>Mutex służy do ochrony kodu i danych. Semafor służy do synchronizacji zdarzeń.</strong> Jeśli chcesz zaktualizować globalny licznik graczy – używasz Mutexa, by się nie zderzyć. Jeśli piszesz aplikację, w której Wątek Renderujący musi poczekać, aż Wątek Pobierający ściągnie obrazek z internetu – używasz Semafora, by jeden wątek mógł zawołać do drugiego "Pobudka, Twoja kolej!". Użycie złego mechanizmu to gwarancja zakleszczeń (Deadlock) lub uszkodzenia danych.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) – Synchronization Tools, Mutex Locks, Semaphores, Priority Inversion problem.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
