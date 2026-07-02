@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 104 – Przełączanie kontekstu</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">104. Przełączanie kontekstu (Context Switching).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">⏱️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zmiana zmiany na stanowisku CNC”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00251a; line-height: 1.7;">
+                        Wyobraź sobie potężną, niezwykle drogą maszynę CNC (Procesor), przy której może pracować tylko jeden operator na raz. Zmiany trwają po 15 minut. <br><br>
+                        Kiedy dzwoni dzwonek (<strong>Przerwanie sprzętowe</strong>), Operator A musi przerwać pracę. Nie może jednak po prostu odejść! Musi najpierw dokładnie zapisać w swoim zeszycie, na jakim milimetrze skończył frezowanie, jakie wiertło miał w ręce i odłożyć swoje narzędzia do prywatnej szafki (<strong>Zapis stanu do PCB</strong>). Następnie przychodzi Operator B, otwiera swoją szafkę, czyta własne notatki, bierze swoje wiertła (<strong>Odczyt stanu z PCB</strong>) i wznawia pracę dokładnie tam, gdzie skończył wczoraj.<br><br>
+                        Ten proces przekazania maszyny to właśnie <strong>Przełączanie Kontekstu</strong>. Maszyna (CPU) w tym czasie <em>nie wykonuje żadnej pożytecznej pracy</em> – jej czas marnuje się na organizację!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">PCB (Process Control Block) / TCB</span>
+            <span class="keyword-tag">Narzut (Overhead)</span>
+            <span class="keyword-tag">Program Counter (Licznik rozkazów)</span>
+            <span class="keyword-tag">TLB Flush (Czyszczenie bufora TLB)</span>
+            <span class="keyword-tag">Wątek vs Proces (Różnica w koszcie)</span>
+            <span class="keyword-tag">Mode Switch (User vs Kernel Mode)</span>
+            <span class="keyword-tag">Przerwanie (Interrupt) / Syscall</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: ANATOMIA PRZEŁĄCZENIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00796b;">1. Anatomia Przełączania Kontekstu (Rejestry i PCB)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy System Operacyjny postanawia wywłaszczyć Proces A na rzecz Procesu B, musi zapisać "kontekst" Procesu A. Kontekst to nic innego jak zawartość absolutnie wszystkich <strong>Rejestrów Procesora</strong> w danym ułamku nanosekundy. Najważniejsze z nich to <em>Licznik Rozkazów (PC - Program Counter)</em> wskazujący następną linię kodu, oraz <em>Wskaźnik Stosu (SP - Stack Pointer)</em>. Dane te lądują w pamięci operacyjnej, w strukturze zwanej <strong>PCB (Process Control Block)</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 1: ANATOMY OF CONTEXT SWITCH -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Zrzut stanu rejestrów CPU do struktur PCB w Pamięci RAM</text>
+
+                <!-- CPU -->
+                <rect x="330" y="50" width="160" height="150" rx="8" fill="#fff" stroke="#00796b" stroke-width="3"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#00695c" text-anchor="middle">Rdzeń CPU</text>
+                
+                <!-- Rejestry CPU -->
+                <rect x="350" y="90" width="120" height="20" fill="#b2dfdb"/>
+                <text x="410" y="104" font-family="monospace" font-size="11" fill="#004d40" text-anchor="middle">PC = 0x00A4</text>
+
+                <rect x="350" y="115" width="120" height="20" fill="#b2dfdb"/>
+                <text x="410" y="129" font-family="monospace" font-size="11" fill="#004d40" text-anchor="middle">SP = 0xFFF0</text>
+
+                <rect x="350" y="140" width="120" height="20" fill="#b2dfdb"/>
+                <text x="410" y="154" font-family="monospace" font-size="11" fill="#004d40" text-anchor="middle">EAX = 42</text>
+
+                <!-- PCB A -->
+                <rect x="40" y="50" width="160" height="150" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <rect x="40" y="50" width="160" height="30" rx="6" fill="#c62828"/>
+                <text x="120" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">PCB (Proces A)</text>
+                <text x="120" y="100" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Status: Oczekujący</text>
+                <rect x="60" y="110" width="120" height="50" fill="#ffcdd2" stroke="#e53935" stroke-dasharray="2,2"/>
+                <text x="120" y="125" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Zapisane Rejestry:</text>
+                <text x="120" y="140" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">PC=0x00A4, SP=0xFFF0</text>
+
+                <!-- PCB B -->
+                <rect x="620" y="50" width="160" height="150" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="620" y="50" width="160" height="30" rx="6" fill="#1565c0"/>
+                <text x="700" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">PCB (Proces B)</text>
+                <text x="700" y="100" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Status: Wykonywany</text>
+                <rect x="640" y="110" width="120" height="50" fill="#bbdefb" stroke="#1e88e5" stroke-dasharray="2,2"/>
+                <text x="700" y="125" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">Pobrane Rejestry:</text>
+                <text x="700" y="140" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">PC=0x11B2, SP=0x0010</text>
+
+                <!-- Strzałki -->
+                <!-- Krok 1 Zapis -->
+                <path d="M 330 130 L 210 130" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedCS)"/>
+                <text x="270" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">1. ZAPISZ</text>
+
+                <!-- Krok 2 Odczyt -->
+                <path d="M 620 130 L 490 130" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueCS)"/>
+                <text x="555" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">2. ZAŁADUJ</text>
+
+                <rect x="260" y="210" width="300" height="25" fill="#f5f5f5" stroke="#90a4ae" rx="4"/>
+                <text x="410" y="227" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Cała operacja dzieje się w trybie Jądra (Kernel Mode)!</text>
+
+                <defs>
+                    <marker id="arrowRedCS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowBlueCS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: PROCES VS WĄTEK -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Różnica Kosztów: Przełączanie Procesu a Wątku</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To tu kryje się haczyk z wydajnością. Wątki to "lekkie procesy". Kiedy CPU przełącza się między Wątkiem A i Wątkiem B należącymi do <em>tego samego</em> procesu, podmienia jedynie zawartość rejestrów (PC, SP) za pomocą małej struktury <strong>TCB (Thread Control Block)</strong>. Przestrzeń adresowa RAM pozostaje nietknięta.<br><br>
+                    Przełączenie między <strong>oddzielnymi Procesami</strong> to trzęsienie ziemi. Jądro systemu musi nie tylko zmienić rejestry, ale fizycznie przełączyć mapowanie pamięci operacyjnej. Wymusza to tzw. <strong>TLB Flush (Wyzerowanie bufora tłumaczenia adresów)</strong>. W efekcie, po przełączeniu procesu, procesor jest "ślepy" i przez pierwsze mikrosekundy działa drastycznie wolniej (tzw. Cache Misses).
+                </p>
+            </div>
+
+            <!-- SVG 2: PROCESS VS THREAD -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Koszty Operacyjne: Zmiana Procesu (Ciężka) vs Zmiana Wątku (Lekka)</text>
+
+                <!-- PROCESS SWITCH -->
+                <rect x="40" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Przełączenie PROCESÓW (Heavy)</text>
+                
+                <rect x="60" y="90" width="120" height="90" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+                <text x="120" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Proces A</text>
+                <text x="120" y="130" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Tablica Stron A</text>
+
+                <rect x="240" y="90" width="120" height="90" rx="4" fill="#ffe0b2" stroke="#e65100"/>
+                <text x="300" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Proces B</text>
+                <text x="300" y="130" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">Tablica Stron B</text>
+
+                <!-- Przeszkoda TLB FLUSH -->
+                <rect x="180" y="145" width="60" height="25" fill="#212121" rx="4"/>
+                <text x="210" y="161" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">TLB FLUSH!</text>
+
+                <path d="M 120 160 Q 210 110 300 160" fill="none" stroke="#212121" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowBlkCS)"/>
+
+
+                <!-- THREAD SWITCH -->
+                <rect x="440" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Przełączenie WĄTKÓW (Light)</text>
+
+                <!-- Jeden wielki proces -->
+                <rect x="460" y="90" width="300" height="90" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
+                <text x="610" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Jeden wspólny PROCES (Jedna Tablica Stron)</text>
+
+                <rect x="480" y="130" width="100" height="35" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="530" y="152" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek 1</text>
+
+                <rect x="640" y="130" width="100" height="35" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="690" y="152" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek 2</text>
+
+                <!-- Gładkie przejście -->
+                <path d="M 530 130 Q 610 90 690 130" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueCS)"/>
+                <text x="610" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Tylko rejestry (SZYBKO)</text>
+
+                <defs>
+                    <marker id="arrowBlkCS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#212121"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: NARZUT I THRASHING -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Mroczna strona przełączania: Narzut (Overhead)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Przełączanie kontekstu to czysty koszt – tak zwany <strong>Narzut (Overhead)</strong>. Procesor zamiast liczyć instrukcje Twojego programu, spędza czas na wykonywaniu instrukcji jądra ratujących stan. Jeśli Planista (Scheduler) przydziela zbyt małe "Kwanty czasu" (np. 1 milisekundę na proces), nastąpi drastyczny spadek wydajności. System poświęci więcej mocy obliczeniowej na żonglowanie procesami niż na rzeczywistą pracę.
+                </p>
+            </div>
+
+            <!-- SVG 3: OVERHEAD PIE CHART / TIMELINE -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Wpływ rozmiaru Kwantu Czasu na wydajność procesora (Narzut)</text>
+
+                <!-- Krótki Kwant -->
+                <text x="210" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zbyt Krótki Kwant (np. 1 ms)</text>
+                <rect x="40" y="70" width="340" height="40" rx="4" fill="#eceff1" stroke="#90a4ae"/>
+                
+                <!-- Blocks -->
+                <rect x="40" y="70" width="40" height="40" fill="#ffcdd2" stroke="#d32f2f"/> <!-- Zmiana -->
+                <rect x="80" y="70" width="60" height="40" fill="#c8e6c9" stroke="#388e3c"/> <!-- Praca -->
+                <rect x="140" y="70" width="40" height="40" fill="#ffcdd2" stroke="#d32f2f"/> <!-- Zmiana -->
+                <rect x="180" y="70" width="60" height="40" fill="#bbdefb" stroke="#1565c0"/> <!-- Praca -->
+                <rect x="240" y="70" width="40" height="40" fill="#ffcdd2" stroke="#d32f2f"/> <!-- Zmiana -->
+                <rect x="280" y="70" width="60" height="40" fill="#ffe0b2" stroke="#f57c00"/> <!-- Praca -->
+                <rect x="340" y="70" width="40" height="40" fill="#ffcdd2" stroke="#d32f2f"/> <!-- Zmiana -->
+                
+                <text x="210" y="130" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Aż 40% CPU zmarnowane na Czerwony Narzut!</text>
+                <text x="210" y="145" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(Wysoka responsywność, katastrofalna wydajność)</text>
+
+                <!-- Długi Kwant -->
+                <text x="610" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Optymalny Kwant (np. 20 ms)</text>
+                <rect x="440" y="70" width="340" height="40" rx="4" fill="#eceff1" stroke="#90a4ae"/>
+
+                <rect x="440" y="70" width="40" height="40" fill="#ffcdd2" stroke="#d32f2f"/> <!-- Zmiana -->
+                <rect x="480" y="70" width="300" height="40" fill="#c8e6c9" stroke="#388e3c"/> <!-- Praca -->
+
+                <text x="610" y="130" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Tylko 5% CPU stracone na Narzut.</text>
+                <text x="610" y="145" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">(Lekki spadek responsywności, maksymalna praca)</text>
+
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z systemów operacyjnych):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Mode Switch z Context Switch:</strong> Błąd kardynalny! Kiedy Twój program (Działający w User Mode) woła funkcję systemową (np. `printf` do wypisania tekstu), procesor generuje przerwanie programowe (Syscall) i zmienia tryb na Jądra (Kernel Mode). <strong>To NIE jest zmiana kontekstu!</strong> To wciąż ten sam proces, tylko zmienił swoje uprawnienia bezpieczeństwa. Mode Switch jest o wiele szybszy i tańszy sprzętowo niż wywłaszczenie procesu na rzecz zupełnie innego programu.</li>
+                    <li><strong>Dlaczego przełączenie TLB jest takie "drogie"?</strong> Wykładowca zapyta "Dlaczego w zasadzie czyszczenie TLB to problem?". Odpowiedź: TLB (Translation Lookaside Buffer) to mikroskopijny cache na procesorze, który pozwala błyskawicznie zamieniać adresy wirtualne na fizyczne. Po zmianie procesu, stary cache prowadziłby do adresów starego procesu! Trzeba go wykasować. Po wyczyszczeniu, nowy proces musi przez pierwsze mikrosekundy ręcznie pytać powolny RAM o każdy adres (TLB Miss), przez co działa o wiele wolniej. Procesor musi się najpierw "rozgrzać" przy każdym nowym kontekście.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Przełączanie kontekstu to genialne kłamstwo, które OS sprzedaje użytkownikom. Dzięki temu milisekundowemu żonglowaniu, nasz pojedynczy procesor tworzy absolutnie płynną iluzję tysięcy działających jednocześnie aplikacji. Jednak inżynier musi zawsze pamiętać, że na poziomie krzemu nie ma darmowych obiadów. Im cięższą strukturę tworzymy (Proces vs Wątek) i im bardziej zależy nam na szybkiej reakcji na kliknięcia (responsywność), tym potężniejszy podatek w postaci Narzutu płacimy architekturze.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) – Mechanizmy wywłaszczania (Preemption), Rola bloków kontrolnych PCB/TCB oraz koszty zmiany trybu operacyjnego (Mode Switch).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
