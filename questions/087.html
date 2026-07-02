@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 087 – Architektury RISC i CISC</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">087. Cechy architekturalne procesorów typu RISC/CISC.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🪛</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szwajcarski scyzoryk kontra Skalpel”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        W latach 70. pamięć RAM była potwornie droga. Inżynierowie musieli pisać jak najkrótszy kod. Tak powstał <strong>CISC (Complex Instruction Set Computer)</strong> – przypomina on Szwajcarski Scyzoryk. Ma w sobie piłę, korkociąg i nożyczki. Wysyłasz mu jedną skomplikowaną komendę (np. <em>"Zbuduj stół"</em>), a on sam, używając skomplikowanych układów wewnątrz (mikrokodu), realizuje to w wielu cyklach zegara. Kompilator ma mało pracy, ale sprzęt jest ogromny, gorący i żre prąd.<br><br>
+                        Potem pamięć staniała i narodził się <strong>RISC (Reduced Instruction Set Computer)</strong>. To zestaw prostych, dedykowanych narzędzi (np. młotek, śrubokręt). Zamiast "Zbuduj stół", musisz mu wysłać 20 poleceń (<em>"Weź gwóźdź", "Uderz"</em>). Programy w RISC zajmują więcej miejsca (kompilator musi się napocić), ale każda instrukcja jest tak prosta, że procesor wykonuje ją w dokładnie JEDNYM cyklu zegara. Układ jest mały, lodowato zimny i idealny do potokowości (Pipelining).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">CISC (x86, Intel, AMD)</span>
+            <span class="keyword-tag">RISC (ARM, Apple Silicon, M1)</span>
+            <span class="keyword-tag">Architektura Load/Store (Load-Store)</span>
+            <span class="keyword-tag">Długość instrukcji (Zmienna vs Stała)</span>
+            <span class="keyword-tag">Rejestry (Mało vs Dużo)</span>
+            <span class="keyword-tag">Mikrokod (Microcode)</span>
+            <span class="keyword-tag">Złożoność: Sprzęt vs Kompilator</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: WYKONANIE KODU (WIZUALIZACJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">1. Jak CISC i RISC wykonują mnożenie? (Zrozumienie filozofii)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wyobraźmy sobie prostą operację C++: <code>A = A * B</code> (gdzie A i B to zmienne w pamięci RAM). Zobaczmy, jak radzi sobie z tym CISC (gdzie zależy nam na krótkim kodzie maszynowym) i RISC (gdzie zależy nam na prostocie sprzętu).
+                </p>
+            </div>
+
+            <!-- SVG 1: CISC VS RISC EXECUTION -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Mnożenie 2 liczb z pamięci RAM: A = A * B</text>
+
+                <!-- CISC SECTION (Left) -->
+                <rect x="30" y="50" width="360" height="210" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="30" y="50" width="360" height="30" rx="8" fill="#d32f2f"/>
+                <rect x="30" y="65" width="360" height="15" fill="#d32f2f"/>
+                <text x="210" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">CISC (Intel x86)</text>
+                
+                <text x="210" y="105" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">MUL A, B</text>
+                <text x="210" y="120" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(Tylko JEDNA potężna instrukcja!)</text>
+
+                <path d="M 60 145 L 360 145" fill="none" stroke="#cfd8dc" stroke-dasharray="4,2"/>
+                <text x="60" y="160" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f">Co robi potężny sprzęt pod maską:</text>
+                <text x="60" y="180" font-family="sans-serif" font-size="10" fill="#546e7a">1. Procesor sam odczytuje A z RAM-u.</text>
+                <text x="60" y="195" font-family="sans-serif" font-size="10" fill="#546e7a">2. Procesor sam odczytuje B z RAM-u.</text>
+                <text x="60" y="210" font-family="sans-serif" font-size="10" fill="#546e7a">3. ALU mnoży wartości.</text>
+                <text x="60" y="225" font-family="sans-serif" font-size="10" fill="#546e7a">4. Procesor sam zapisuje wynik prosto do RAM.</text>
+                <text x="210" y="245" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d32f2f" text-anchor="middle">Złożoność w Sprzęcie. Zajmuje wiele cykli!</text>
+
+
+                <!-- RISC SECTION (Right) -->
+                <rect x="430" y="50" width="360" height="210" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <rect x="430" y="50" width="360" height="30" rx="8" fill="#1976d2"/>
+                <rect x="430" y="65" width="360" height="15" fill="#1976d2"/>
+                <text x="610" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">RISC (ARM, Apple Silicon)</text>
+
+                <text x="610" y="100" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">LOAD R1, A</text>
+                <text x="610" y="115" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">LOAD R2, B</text>
+                <text x="610" y="130" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">MUL R1, R2</text>
+                <text x="610" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">STORE R1, A</text>
+                
+                <path d="M 460 160 L 760 160" fill="none" stroke="#cfd8dc" stroke-dasharray="4,2"/>
+                <text x="460" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f">Co robi prosty sprzęt pod maską:</text>
+                <text x="460" y="195" font-family="sans-serif" font-size="10" fill="#546e7a">Architektura "Load/Store" (Tylko Load i Store</text>
+                <text x="460" y="210" font-family="sans-serif" font-size="10" fill="#546e7a">dotykają RAMu). MUL operuje TYLKO na Rejestrach!</text>
+                <text x="610" y="235" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1976d2" text-anchor="middle">Złożoność w Kompilatorze. 1 instrukcja = 1 cykl!</text>
+
+            </svg>
+
+            <!-- PART 2: ARCHITEKTURA LOAD/STORE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Święty Graal RISC: Architektura Load/Store</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Jeśli jest jedna rzecz, którą musisz powiedzieć na egzaminie o procesorach RISC, to jest to <strong>Architektura Load/Store</strong>.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W procesorach CISC jednostka obliczeniowa (ALU) może po prostu "sięgnąć" bezpośrednio do wolnego RAM-u, wziąć liczbę, pomnożyć ją i odłożyć na miejsce. To blokuje procesor na wiele cykli zegara. W architekturze RISC <strong>żadna instrukcja matematyczna nie ma prawa dotknąć pamięci RAM</strong>. Operacje matematyczne można wykonywać <em>wyłącznie</em> na super-szybkich, wewnętrznych rejestrach procesora. Dane z RAM ładujemy (LOAD), mnożymy w rejestrach i zapisujemy z powrotem (STORE).
+                </p>
+                <div style="background: #e8f5e9; border-radius: 8px; padding: 14px; border: 1px solid #81c784; margin-top: 12px;">
+                    <strong style="color: #2e7d32;">🔥 Skutek Load/Store:</strong> Ponieważ instrukcje w RISC są tak trywialne, mają <strong>stałą długość</strong> (np. zawsze równe 32 bity). A skoro każda instrukcja ma równy rozmiar, procesor może przewidywać ich ładowanie z pamięci i stosować genialnie wydajny potok (Pipelining) - podczas gdy CISC z instrukcjami o zmiennej długości musi je mozolnie analizować.
+                </div>
+            </div>
+
+            <!-- PART 3: PORÓWNANIE I TERAŹNIEJSZOŚĆ -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Zestawienie cech i współczesna konwergencja</strong>
+            </div>
+
+            <!-- SVG 2: CHEAT SHEET -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Cheat-Sheet Architektury: CISC vs RISC</text>
+
+                <!-- Tabela -->
+                <rect x="40" y="45" width="740" height="150" fill="#fff" stroke="#cfd8dc" stroke-width="2"/>
+                
+                <!-- Nagłówki -->
+                <rect x="40" y="45" width="246" height="30" fill="#eceff1" stroke="#cfd8dc" stroke-width="1"/>
+                <text x="163" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Cecha</text>
+
+                <rect x="286" y="45" width="246" height="30" fill="#ffebee" stroke="#cfd8dc" stroke-width="1"/>
+                <text x="409" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">CISC</text>
+
+                <rect x="532" y="45" width="248" height="30" fill="#e3f2fd" stroke="#cfd8dc" stroke-width="1"/>
+                <text x="656" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">RISC</text>
+
+                <!-- Wiersz 1 -->
+                <line x1="40" y1="105" x2="780" y2="105" stroke="#eceff1" stroke-width="1"/>
+                <text x="163" y="92" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Długość instrukcji</text>
+                <text x="409" y="92" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Zmienna (od 1 do 15 bajtów)</text>
+                <text x="656" y="92" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Stała (np. zawsze 4 bajty)</text>
+
+                <!-- Wiersz 2 -->
+                <line x1="40" y1="135" x2="780" y2="135" stroke="#eceff1" stroke-width="1"/>
+                <text x="163" y="122" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Liczba rejestrów w CPU</text>
+                <text x="409" y="122" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Mało (np. 8 w x86)</text>
+                <text x="656" y="122" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">Bardzo dużo (32 do 100+)</text>
+
+                <!-- Wiersz 3 -->
+                <line x1="40" y1="165" x2="780" y2="165" stroke="#eceff1" stroke-width="1"/>
+                <text x="163" y="152" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Potokowość (Pipelining)</text>
+                <text x="409" y="152" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Trudna do zaimplementowania</text>
+                <text x="656" y="152" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Błyskawiczna, naturalna i łatwa</text>
+
+                <!-- Wiersz 4 -->
+                <text x="163" y="182" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Gdzie stosowane (Klasyka)?</text>
+                <text x="409" y="182" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">PC, Serwery (Intel Core, AMD Ryzen)</text>
+                <text x="656" y="182" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">Smartfony, IoT, Apple M-series (ARM)</text>
+
+                <!-- Pionowe linie tabeli -->
+                <line x1="286" y1="45" x2="286" y2="195" stroke="#cfd8dc" stroke-width="1"/>
+                <line x1="532" y1="45" x2="532" y2="195" stroke="#cfd8dc" stroke-width="1"/>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE: ZJEDNOCZENIE                     -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Bardzo ważne - Konwergencja architektur):</strong>
+                <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
+                    Wykładowca zapyta: <em>"A więc mój nowoczesny procesor Intel Core i9 to czysty CISC?"</em>. Jeśli odpowiesz "Tak", oblejesz.<br><br>
+                    Współczesne procesory to hybrydy. Czysty CISC przegrał fizykę (był za wolny i za gorący w dobie potokowości). Nowoczesne układy Intela (x86) na zewnątrz udają CISC (by działał na nich stary system Windows), ale wewnątrz chipu posiadają sprzętowy tłumacz, który "rozbija" skomplikowane instrukcje CISC na małe, szybkie "mikro-operacje" (Micro-ops), które zachowują się... <strong>dokładnie jak RISC!</strong> 
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Architektura RISC była kiedyś wyszydzana, że to procesory "dla zabawek". Jednak to RISC ostatecznie wygrał przyszłość informatyki mobilnej. Dlaczego? Ponieważ proste układy krzemowe potrzebują bardzo mało prądu i wydzielają mało ciepła. To dlatego Twój smartfon z procesorem ARM (RISC) działa cały dzień na baterii bez wentylatora, podczas gdy stary laptop z procesorem CISC grzał się po godzinie. Gdy Apple porzuciło architekturę x86 (Intel) i wydało procesory z serii M1 (które bazują na RISC/ARM), inżynierowie ostatecznie udowodnili, że ulepszony kompilator i prosty sprzęt pobiją każdą "starą szkołę" ciężkiej architektury na głowę.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Computer Organization and Architecture" (William Stallings) · Różnice w Setach Instrukcji (ISA) - ARM Cortex vs Intel x86.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
