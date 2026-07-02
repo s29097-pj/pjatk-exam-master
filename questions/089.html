@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 089 – Protokół TCP a UDP</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">089. Protokół TCP a UDP - podobieństwa, różnice, budowa, zastosowanie.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kurier z poleconym vs. Wyrzutnia koszulek na koncercie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00363a; line-height: 1.7;">
+                        Zarówno TCP, jak i UDP to protokoły <strong>Warstwy Transportowej</strong>. Oba korzystają z numerów portów, aby dostarczyć dane do właściwej aplikacji (np. port 80 do przeglądarki). Na tym jednak podobieństwa się kończą.<br><br>
+                        <strong>TCP to Listonosz z przesyłką poleconą.</strong> Zanim cokolwiek wyśle, najpierw dzwoni, by upewnić się, że jesteś w domu (nawiązanie połączenia). Oddaje Ci paczki dokładnie w takiej kolejności, w jakiej zostały nadane, i czeka na Twój podpis pod każdą (potwierdzenie odbioru - ACK). Jeśli paczka zginie po drodze, wysyła ją jeszcze raz. Jest niezawodny, ale <em>powolny</em>.<br><br>
+                        <strong>UDP to Wyrzutnia koszulek na koncercie rockowym (T-shirt cannon).</strong> Celuje w tłum i strzela z ogromną prędkością ("Fire and forget"). Nie pyta, czy jesteś gotowy. Nie sprawdza, kto złapał koszulkę. Nie obchodzi go, czy upadła na ziemię. Liczy się tylko <em>maksymalna wydajność i brak opóźnień</em>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Warstwa Transportowa (Model OSI/TCP-IP)</span>
+            <span class="keyword-tag">Protokół połączeniowy (Connection-oriented)</span>
+            <span class="keyword-tag">Bezpołączeniowy (Connectionless)</span>
+            <span class="keyword-tag">Three-way handshake (SYN, SYN-ACK, ACK)</span>
+            <span class="keyword-tag">Rozmiar nagłówka (20 bajtów vs 8 bajtów)</span>
+            <span class="keyword-tag">Gwarancja dostarczenia / Retransmisja</span>
+            <span class="keyword-tag">Zastosowanie (HTTP/FTP vs VoIP/DNS)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: BUDOWA I DZIAŁANIE (WIZUALIZACJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0277bd;">1. Mechanika działania: 3-Way Handshake vs Fire-and-Forget</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Różnicę między protokołami najlepiej widać, analizując, w jaki sposób rozpoczynają one transmisję i jak reagują na zgubienie pakietu (co w internecie jest zjawiskiem powszechnym).
+                </p>
+            </div>
+
+            <!-- SVG 1: TCP vs UDP -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f5f5f5"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#263238">Porównanie strumieni danych: TCP (Niezawodność) vs UDP (Szybkość)</text>
+
+                <!-- TCP (Lewa strona) -->
+                <rect x="20" y="45" width="380" height="215" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="210" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">TCP (Transmission Control Protocol)</text>
+                
+                <!-- PC L / PC R for TCP -->
+                <rect x="40" y="80" width="40" height="30" rx="2" fill="#e3f2fd" stroke="#0d47a1"/>
+                <text x="60" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">PC A</text>
+                <rect x="340" y="80" width="40" height="30" rx="2" fill="#e3f2fd" stroke="#0d47a1"/>
+                <text x="360" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">PC B</text>
+                
+                <!-- Oś czasu TCP -->
+                <line x1="60" y1="120" x2="60" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
+                <line x1="360" y1="120" x2="360" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
+
+                <!-- 3-way handshake -->
+                <path d="M 60 130 L 350 145" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+                <text x="140" y="135" font-family="monospace" font-size="9" fill="#1565c0">1. SYN ("Cześć, jesteś?")</text>
+
+                <path d="M 360 150 L 70 165" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGreen)"/>
+                <text x="280" y="155" font-family="monospace" font-size="9" fill="#388e3c" text-anchor="end">2. SYN-ACK ("Tak, gotowy")</text>
+
+                <path d="M 60 170 L 350 185" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+                <text x="140" y="175" font-family="monospace" font-size="9" fill="#1565c0">3. ACK ("Super, to wysyłam")</text>
+
+                <rect x="40" y="190" width="100" height="15" fill="#f5f5f5" stroke="#cfd8dc" stroke-dasharray="2,2"/>
+                <text x="90" y="201" font-family="sans-serif" font-size="8" font-weight="bold" fill="#546e7a" text-anchor="middle">ESTABLISHED</text>
+
+                <!-- Data & Retransmission -->
+                <path d="M 60 215 L 210 225" fill="none" stroke="#c62828" stroke-width="2"/> <!-- Zgubiony pakiet -->
+                <text x="215" y="230" font-family="sans-serif" font-size="12" fill="#c62828" font-weight="bold">X</text>
+                <text x="100" y="213" font-family="monospace" font-size="9" fill="#c62828">Dane (Zgubione!)</text>
+
+                <path d="M 60 240 L 350 250" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+                <text x="120" y="255" font-family="monospace" font-size="9" fill="#1976d2">Retransmisja Danych</text>
+
+
+                <!-- UDP (Prawa strona) -->
+                <rect x="420" y="45" width="380" height="215" rx="6" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="610" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">UDP (User Datagram Protocol)</text>
+
+                <!-- PC L / PC R for UDP -->
+                <rect x="440" y="80" width="40" height="30" rx="2" fill="#fff3e0" stroke="#ef6c00"/>
+                <text x="460" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ef6c00" text-anchor="middle">PC A</text>
+                <rect x="740" y="80" width="40" height="30" rx="2" fill="#fff3e0" stroke="#ef6c00"/>
+                <text x="760" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ef6c00" text-anchor="middle">PC B</text>
+                
+                <!-- Oś czasu UDP -->
+                <line x1="460" y1="120" x2="460" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
+                <line x1="760" y1="120" x2="760" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
+
+                <!-- No handshake, just blast data -->
+                <text x="610" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Brak nawiązywania połączenia!</text>
+
+                <path d="M 460 130 L 750 145" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrang)"/>
+                <text x="540" y="135" font-family="monospace" font-size="9" fill="#e65100">Datagram 1 (Szybko!)</text>
+
+                <path d="M 460 150 L 610 160" fill="none" stroke="#c62828" stroke-width="2"/> <!-- Zgubiony pakiet -->
+                <text x="615" y="165" font-family="sans-serif" font-size="12" fill="#c62828" font-weight="bold">X</text>
+                <text x="540" y="152" font-family="monospace" font-size="9" fill="#c62828">Datagram 2 (Zgubiony)</text>
+
+                <path d="M 460 170 L 750 185" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrang)"/>
+                <text x="540" y="175" font-family="monospace" font-size="9" fill="#e65100">Datagram 3 (Leci dalej)</text>
+
+                <path d="M 460 190 L 750 205" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrang)"/>
+                <text x="540" y="195" font-family="monospace" font-size="9" fill="#e65100">Datagram 4 (Leci dalej)</text>
+
+                <rect x="520" y="220" width="180" height="25" fill="#ffebee" stroke="#ef5350" stroke-dasharray="2,2"/>
+                <text x="610" y="235" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Brak retransmisji. Nikt nie płacze.</text>
+
+                <defs>
+                    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                    <marker id="arrowOrang" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: BUDOWA NAGŁÓWKA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0277bd;">2. Budowa i Narzut (Overhead)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każdy pakiet danych to koperta, w której wysyłamy informację. Zanim dane (Payload) trafią do sieci, protokół dokleja do nich swój "Nagłówek" (Header).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Nagłówek TCP:</strong> Jest gigantyczny. Zajmuje <strong>od 20 do 60 bajtów</strong>. Aby kontrolować jakość, TCP musi dokleić numer sekwencyjny (Sequence Number, by posortować paczki u odbiorcy), numer potwierdzenia (ACK Number), rozmiar okna (Window Size - by nie zalać odbiorcy zbyt dużą ilością danych naraz) oraz zestaw flag (SYN, ACK, FIN, RST).</li>
+                    <li><strong>Nagłówek UDP:</strong> Jest minimalistyczny. Zajmuje tylko <strong>8 bajtów</strong>. Zawiera absolutne minimum: Port źródłowy, Port docelowy, Długość pakietu i Sumę kontrolną. Żadnego sortowania i potwierdzania.</li>
+                </ul>
+            </div>
+
+            <!-- PART 3: ZASTOSOWANIE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Zastosowanie (Kiedy użyć którego?)</strong>
+            </div>
+
+            <!-- CHEAT SHEET TABLE -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-bottom: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Zestawienie Cech i Zastosowań:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #1565c0; color: #1565c0;">TCP</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #e65100; color: #e65100;">UDP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Typ Protokołu</td>
+                        <td style="padding: 10px;">Połączeniowy (Connection-oriented)</td>
+                        <td style="padding: 10px;">Bezpołączeniowy (Connectionless)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Niezawodność</td>
+                        <td style="padding: 10px; color: #2e7d32;">Pełna gwarancja dostarczenia i kolejności</td>
+                        <td style="padding: 10px; color: #c62828;">Brak gwarancji (pakiety mogą zginać/zmienić kolejność)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Szybkość</td>
+                        <td style="padding: 10px;">Wolny (Narzut na 3-way handshake i ACK)</td>
+                        <td style="padding: 10px; font-weight:bold;">Bardzo szybki i lekki</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold;">Typowe Zastosowania</td>
+                        <td style="padding: 10px;">
+                            • <strong>WWW:</strong> HTTP / HTTPS<br>
+                            • <strong>Maile:</strong> SMTP / IMAP<br>
+                            • <strong>Pliki:</strong> FTP, SSH
+                        </td>
+                        <td style="padding: 10px;">
+                            • <strong>Streaming Wideo:</strong> YouTube / Netflix<br>
+                            • <strong>Rozmowy:</strong> VoIP (Skype, Discord)<br>
+                            • <strong>Gry online:</strong> (gdzie liczy się ping)<br>
+                            • <strong>Usługi:</strong> DNS, DHCP
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z sieci):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"UDP jest bezużyteczne, bo gubi dane"</strong> – Kompletny absurd! Podczas oglądania meczu na żywo przez internet (Streaming), jeśli zgubisz jeden mały pakiet z obrazem (wypadnie jedna klatka/piksel), UDP po prostu idzie dalej, a Ty nawet tego nie zauważysz. Gdyby transmisja leciała przez TCP, obraz by się zawiesił (buforowanie), ponieważ TCP kazałoby wstrzymać cały strumień aż zagubiony pakiet zostanie retransmitowany z serwera. UDP wybacza drobne straty w imię braku opóźnień (niskiego Ping-u).</li>
+                    <li><strong>Blokowanie na czele kolejki (Head-of-Line Blocking):</strong> To największa wada TCP. Jeśli wysyłasz 10 pakietów w TCP i pakiet nr 2 zginie, pakiety 3-10 dotrą na miejsce, ale zostaną zablokowane w buforze odbiorcy i system ich nie odczyta, dopóki serwer nie dośle zagubionego pakietu nr 2. Skutkuje to ogromnymi spadkami wydajności na słabych łączach.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wybór między TCP a UDP to inżynierski kompromis (trade-off) między <strong>Niezawodnością a Czasem</strong>. Gdy przesyłasz przelew bankowy, załącznik w e-mailu albo pobierasz grę, zgubienie choćby JEDNEGO bajtu zepsuje cały plik (nie odpalisz gry bez pliku .exe). Tam używasz ciężkiego i bezpiecznego TCP. Gdy rozmawiasz z kimś przez kamerkę internetową, opóźnienie rzędu 5 sekund zabija całą dyskusję, podczas gdy chwilowe "zaszumienie" obrazu z powodu zgubionego pakietu jest zupełnie niegroźne. Tam króluje UDP.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "TCP/IP Illustrated" (W. Richard Stevens) · Dokumentacja RFC 793 (TCP) oraz RFC 768 (UDP).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
