@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 079 – Analiza rozszerzona i SODIS</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">079. Założenia i proces przeprowadzania analizy rozszerzonej z wykorzystaniem SODIS.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📊</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kupno auta z Excelem w ręku”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00251a; line-height: 1.7;">
+                        Wyobraź sobie, że potrzebujesz samochodu do firmy.<br><br>
+                        <strong>Analiza podstawowa (Feasibility Study)</strong> to stwierdzenie: <em>"Tak, potrzebujemy auta, stać nas na ratę leasingu do 2000 zł, to usprawni nasz biznes"</em>. Na tym etapie wiesz, że projekt ma sens.<br><br>
+                        Ale to nie mówi Ci, <em>jakie</em> auto kupić! Tu wkracza <strong>Analiza Rozszerzona</strong>. Zamiast wybierać na emocjach ("Bo podoba mi się czerwone"), używasz metodyki (takiej jak SODIS – Systemowej Oceny). Wypisujesz kryteria (np. spalanie, pojemność bagażnika, gwarancja), przypisujesz im wagi (dla kuriera ważniejszy jest bagażnik niż wygląd) i punktujesz każdy model auta. Dzięki temu zdejmujesz z decyzji emocje, a wynik jest twardym, inżynierskim dowodem na to, który wariant wdrożenia jest obiektywnie najlepszy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Analiza przedprojektowa</span>
+            <span class="keyword-tag">Analiza podstawowa vs Rozszerzona</span>
+            <span class="keyword-tag">Metoda wielokryterialna (MCDA)</span>
+            <span class="keyword-tag">SODIS (Systemowa Ocena)</span>
+            <span class="keyword-tag">Warianty rozwiązania (Make or Buy)</span>
+            <span class="keyword-tag">Kryteria (Funkcjonalne, Techniczne, Ekonomiczne)</span>
+            <span class="keyword-tag">Wagi i Suma ważona</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: CZYM JEST ANALIZA ROZSZERZONA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00796b;">1. Założenia Analizy Rozszerzonej</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Faza przedprojektowa w inżynierii oprogramowania dzieli się zazwyczaj na analizę podstawową (studium wykonalności) oraz analizę rozszerzoną. Do analizy rozszerzonej przystępujemy <strong>tylko wtedy</strong>, gdy analiza podstawowa wykaże, że projekt jest opłacalny i wykonalny.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Cel główny:</strong> Wybór optymalnego wariantu realizacji projektu IT (np. <em>Czy budujemy system od zera? Czy kupujemy gotowy system ERP i go dostosowujemy? Czy przechodzimy na chmurę SaaS?</em>).</li>
+                    <li><strong>Obiektywizacja:</strong> Odejście od decyzji opartych na intuicji ("Vendor Lock-in" na ulubioną technologię) na rzecz matematycznego, wielokryterialnego uzasadnienia decyzji.</li>
+                    <li><strong>Rezultat:</strong> Dokument rekomendacyjny dla sponsora projektu, stanowiący twardą podstawę do uruchomienia budżetu.</li>
+                </ul>
+            </div>
+
+            <!-- PART 2: PROCES SODIS -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Proces przeprowadzania analizy (Metoda Wielokryterialna / SODIS)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wykorzystanie metody opartej o SODIS (Systemową Ocenę) sprowadza się do rygorystycznego algorytmu kroków decyzyjnych. Przypomina to budowanie maszyny, która sama wypluje nam najlepszą odpowiedź.
+                </p>
+            </div>
+
+            <!-- SVG 1: PROCES ANALIZY ROZSZERZONEJ -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Kroki algorytmu wielokryterialnej analizy (SODIS)</text>
+
+                <!-- KROK 1 -->
+                <rect x="40" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="100" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">KROK 1</text>
+                <text x="100" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Definicja Wariantów</text>
+
+                <path d="M 160 80 L 190 80" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+                <!-- KROK 2 -->
+                <rect x="200" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="260" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">KROK 2</text>
+                <text x="260" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Wybór Kryteriów</text>
+
+                <path d="M 320 80 L 350 80" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+                <!-- KROK 3 -->
+                <rect x="360" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="420" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">KROK 3</text>
+                <text x="420" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Nadanie Wag</text>
+
+                <path d="M 480 80 L 510 80" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrg)"/>
+
+                <!-- KROK 4 -->
+                <rect x="520" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="580" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">KROK 4</text>
+                <text x="580" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Punktacja (Scoring)</text>
+
+                <path d="M 640 80 L 670 80" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrn)"/>
+
+                <!-- KROK 5 -->
+                <rect x="680" y="50" width="100" height="60" rx="8" fill="#e8f5e9" stroke="#1b5e20" stroke-width="3"/>
+                <text x="730" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">DECYZJA</text>
+                <text x="730" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Suma Ważona)</text>
+
+                <!-- Przykład tabeli punktowej -->
+                <rect x="160" y="140" width="500" height="110" rx="4" fill="#fff" stroke="#cfd8dc" stroke-width="2"/>
+                
+                <!-- Nagłówki tabeli -->
+                <rect x="160" y="140" width="500" height="25" fill="#eceff1" rx="4"/>
+                <text x="230" y="157" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Kryterium</text>
+                <text x="360" y="157" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Waga</text>
+                <text x="460" y="157" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Wariant A (Custom)</text>
+                <text x="580" y="157" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Wariant B (Gotowy SaaS)</text>
+
+                <!-- Wiersz 1 -->
+                <text x="230" y="180" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Zgodność z procesami firmy</text>
+                <text x="360" y="180" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">0.5</text>
+                <text x="460" y="180" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">10 pkt (10 * 0.5 = 5.0)</text>
+                <text x="580" y="180" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">4 pkt (4 * 0.5 = 2.0)</text>
+
+                <!-- Wiersz 2 -->
+                <text x="230" y="200" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Koszt wdrożenia i utrzymania</text>
+                <text x="360" y="200" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">0.3</text>
+                <text x="460" y="200" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">3 pkt (3 * 0.3 = 0.9)</text>
+                <text x="580" y="200" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">9 pkt (9 * 0.3 = 2.7)</text>
+
+                <!-- Wiersz 3 -->
+                <text x="230" y="220" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Szybkość uruchomienia (Time2Mkt)</text>
+                <text x="360" y="220" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">0.2</text>
+                <text x="460" y="220" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">2 pkt (2 * 0.2 = 0.4)</text>
+                <text x="580" y="220" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">10 pkt (10 * 0.2 = 2.0)</text>
+
+                <!-- Wynik -->
+                <line x1="160" y1="230" x2="660" y2="230" stroke="#cfd8dc" stroke-width="1"/>
+                <text x="230" y="243" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">WYNIK KOŃCOWY (Suma):</text>
+                <text x="360" y="243" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">1.0</text>
+                <text x="460" y="243" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d32f2f" text-anchor="middle">6.3 pkt</text>
+                <text x="580" y="243" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">6.7 pkt (ZWYCIĘZCA)</text>
+
+                <defs>
+                    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowOrg" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrn" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: GRUPY KRYTERIÓW -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Klasyfikacja Kryteriów (Obszary oceny)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby analiza była obiektywna, kryteria muszą pokrywać cały cykl życia oprogramowania, a nie tylko jego "moment uruchomienia". Typowo dzieli się je na cztery grupy:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Funkcjonalne:</strong> Stopień pokrycia procesów biznesowych klienta. (Czy system "out-of-the-box" ma funkcję fakturowania?).</li>
+                    <li><strong>Techniczne / Architektoniczne:</strong> Bezpieczeństwo, podatność na skalowanie, użyty stos technologiczny (czy firma ma programistów znających ten język?), integracja z istniejącym ekosystemem (API).</li>
+                    <li><strong>Ekonomiczne:</strong> TCO (Total Cost of Ownership - Całkowity Koszt Posiadania), czyli nie tylko koszt licencji, ale koszt serwerów, prądu, szkoleń pracowników i wsparcia przez np. 5 lat.</li>
+                    <li><strong>Kryteria Dostawcy (Vendor):</strong> Wiarygodność firmy dostarczającej oprogramowanie, stabilność na rynku, dostępność dokumentacji technicznej i SLA (Service Level Agreement).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Błędy myślowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Błąd TCO:</strong> Inżynier amator patrzy tylko na cenę wdrożenia. Profesjonalista podczas analizy rozszerzonej liczy TCO (Total Cost of Ownership). Pamiętaj, że oprogramowanie "darmowe" (Open Source) może mieć drastycznie wysokie TCO ze względu na koszty dedykowanego utrzymania, łatania luk i brak darmowego wsparcia technicznego producenta.</li>
+                    <li><strong>Efekt Potwierdzenia (Confirmation Bias):</strong> To najczęstszy błąd procesu. Zespół IT już na samym początku podjął decyzję (np. "robimy to w React"), a proces punktacji i wag dobiera tak, aby matematyka sztucznie "udowodniła" wyższość z góry upatrzonego faworyta. Kryteria i WAGI muszą być ustalone <em>ZANIM</em> ocenimy pierwsze rozwiązanie.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Analiza rozszerzona to tarcza, którą inżynierowie i analitycy bronią się przed błędnymi decyzjami biznesu. W świecie korporacji bardzo często ktoś na wysokim stanowisku ulega marketingowi i nakazuje zakup konkretnego systemu. Przeprowadzenie analizy wielokryterialnej (jak model SODIS) jest chłodnym, inżynierskim narzędziem, które poprzez liczby i mierzalne wagi potrafi udowodnić (lub obalić) sensowność inwestycji, jeszcze zanim napiszemy choćby jedną linijkę kodu.</span>
+                </p>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
