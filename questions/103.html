@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 103 – System plików</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">103. System plików i jego realizacja w systemie komputerowym.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗄️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Gigantyczny Magazyn i Katalog Biblioteczny”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00363a; line-height: 1.7;">
+                        Nagi dysk twardy (HDD/SSD) nie wie, co to jest "zdjęcie", "folder" czy "dokument Worda". Dla niego to po prostu gigantyczna, jednowymiarowa hala magazynowa z milionami identycznych, ponumerowanych pudełek zwanych <strong>Sektorami/Blokami</strong> (zawierającymi zera i jedynki).<br><br>
+                        <strong>System Plików</strong> to Inteligentny Magazynier i jego Księga Inwentarzowa. To on tworzy genialną iluzję. Kiedy klikasz "Katalog Wakacje", system plików zagląda do swojej księgi i tłumaczy: <em>"Aha, ten plik to w rzeczywistości pudełka nr 45, 112 i 988. Przynieście je i złóżcie w jeden ciąg"</em>. Bez systemu plików, Twoje dane to po prostu bezużyteczna, niezrozumiała zupa miliardów bitów rozsypanych na krzemowej podłodze.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">VFS (Virtual File System)</span>
+            <span class="keyword-tag">Klaster / Blok (Sektor Logiczny)</span>
+            <span class="keyword-tag">Alokacja Ciągła / Listowa / Indeksowa</span>
+            <span class="keyword-tag">FAT (File Allocation Table)</span>
+            <span class="keyword-tag">i-node (Węzeł informacyjny - ext4/Unix)</span>
+            <span class="keyword-tag">Metadane (Prawa dostępu, Czas)</span>
+            <span class="keyword-tag">Journaling (Księgowanie - NTFS)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: ABSTRAKCJA VFS -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0277bd;">1. Architektura abstrakcji: VFS (Wirtualny System Plików)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dlaczego możesz skopiować plik z pendrive'a (sformatowanego w starym FAT32) na swój supernowoczesny dysk SSD (ext4/NTFS) używając tej samej komendy "Kopiuj"? Odpowiada za to wzorzec architektoniczny <strong>VFS (Virtual File System)</strong>. Tworzy on uniwersalny interfejs API (np. funkcje <code>open()</code>, <code>read()</code>, <code>write()</code>), pod którym poszczególne sterowniki tłumaczą wywołania na logikę specyficzną dla danego systemu plików.
+                </p>
+            </div>
+
+            <!-- SVG 1: VFS ARCHITECTURE -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e1f5fe" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#01579b">Warstwy Abstrakcji Systemu Plików w systemie OS (np. Linux/Windows)</text>
+
+                <!-- Aplikacja Użytkownika -->
+                <rect x="260" y="45" width="300" height="40" rx="6" fill="#fff" stroke="#455a64" stroke-width="2"/>
+                <text x="410" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Aplikacja (np. Przeglądarka / Edytor)</text>
+                <text x="410" y="80" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">read("/home/doc.txt")</text>
+
+                <!-- VFS -->
+                <rect x="160" y="110" width="500" height="40" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="410" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">VFS (Virtual File System)</text>
+                <text x="410" y="145" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Wspólne API ukrywające różnice w sprzęcie</text>
+
+                <!-- Sterowniki FS -->
+                <rect x="160" y="175" width="140" height="35" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="230" y="197" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sterownik ext4</text>
+
+                <rect x="340" y="175" width="140" height="35" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="410" y="197" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sterownik NTFS</text>
+
+                <rect x="520" y="175" width="140" height="35" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="590" y="197" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sterownik FAT32</text>
+
+                <!-- Dyski -->
+                <rect x="160" y="235" width="140" height="30" fill="#cfd8dc" stroke="#78909c"/>
+                <text x="230" y="254" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Sektory SSD (NVMe)</text>
+
+                <rect x="340" y="235" width="140" height="30" fill="#cfd8dc" stroke="#78909c"/>
+                <text x="410" y="254" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Sektory HDD (SATA)</text>
+
+                <rect x="520" y="235" width="140" height="30" fill="#cfd8dc" stroke="#78909c"/>
+                <text x="590" y="254" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Sektory Pendrive (USB)</text>
+
+                <!-- Arrows -->
+                <path d="M 410 85 L 410 110" fill="none" stroke="#455a64" stroke-width="2" marker-end="url(#arrowGryFS)"/>
+                
+                <path d="M 230 150 L 230 175" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlueFS)"/>
+                <path d="M 410 150 L 410 175" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlueFS)"/>
+                <path d="M 590 150 L 590 175" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowBlueFS)"/>
+
+                <path d="M 230 210 L 230 235" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnFS)"/>
+                <path d="M 410 210 L 410 235" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnFS)"/>
+                <path d="M 590 210 L 590 235" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnFS)"/>
+
+                <defs>
+                    <marker id="arrowGryFS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#455a64"/></marker>
+                    <marker id="arrowBlueFS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                    <marker id="arrowGrnFS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: FAT vs I-NODE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">2. Metody Alokacji: Od łańcuchów FAT do struktur i-node</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Jak zapisać plik wielkości 12 KB, jeśli nasz sprzęt dysponuje tylko blokami po 4 KB? Potrzebujemy 3 bloków, które często nie leżą fizycznie obok siebie. Rozwój inżynierii przyniósł ewolucję mechanizmów ich wiązania:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Alokacja Listowa (Stary standard FAT):</strong> Każdy blok zawiera mały "wskaźnik" do następnego bloku, albo centralna tablica FAT trzyma tę listę. Problem? Aby odczytać środek filmu (np. 1500-ny blok), musisz przeskakać po kolei przez wszystkie 1499 poprzednich bloków (fatalne dla wyszukiwania swobodnego - <em>Random Access</em>).</li>
+                    <li><strong>Alokacja Indeksowa (Nowoczesny standard: i-node w ext4/UFS):</strong> Każdy plik ma przypisany unikalny obiekt <strong>i-node (węzeł)</strong>. I-node to specjalna struktura (tabela), w której zapisane są z góry adresy wszystkich bloków danego pliku (oraz metadane, jak właściciel i uprawnienia). Chcesz 1500-ny blok? Odczytujesz indeks 1500 z i-noda i błyskawicznie idziesz pod fizyczny adres!</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: FAT vs I-NODE -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Organizacja Pliku: FAT (Linked) kontra i-node (Indexed)</text>
+
+                <!-- FAT Approach -->
+                <rect x="40" y="50" width="340" height="200" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Podejście Listowe (Koncepcja FAT)</text>
+                
+                <rect x="100" y="90" width="220" height="30" fill="#ffebee" stroke="#e53935"/>
+                <text x="210" y="110" font-family="monospace" font-size="10" fill="#b71c1c" text-anchor="middle">Plik "film.mp4" startuje od bloku 2</text>
+
+                <!-- Blocks List -->
+                <rect x="60" y="140" width="60" height="50" rx="4" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="90" y="160" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Blok 2</text>
+                <text x="90" y="180" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">Nst: 5</text>
+                <path d="M 120 165 C 135 165, 135 165, 150 165" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedFAT)"/>
+
+                <rect x="150" y="140" width="60" height="50" rx="4" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="180" y="160" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Blok 5</text>
+                <text x="180" y="180" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">Nst: 8</text>
+                <path d="M 210 165 C 225 165, 225 165, 240 165" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedFAT)"/>
+
+                <rect x="240" y="140" width="60" height="50" rx="4" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="270" y="160" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Blok 8</text>
+                <text x="270" y="180" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">Nst: EOF</text>
+
+                <text x="210" y="230" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Wada: Szukanie w skoku wymaga przejścia całego łańcucha!</text>
+
+
+                <!-- i-node Approach -->
+                <rect x="440" y="50" width="340" height="200" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Podejście Indeksowe (i-node / Unix)</text>
+
+                <!-- inode struct -->
+                <rect x="480" y="90" width="100" height="130" fill="#e8f5e9" stroke="#4caf50" rx="4"/>
+                <text x="530" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">i-node #104</text>
+                <line x1="480" y1="115" x2="580" y2="115" stroke="#4caf50"/>
+                <text x="530" y="130" font-family="monospace" font-size="9" fill="#388e3c" text-anchor="middle">Metadane</text>
+                <line x1="480" y1="140" x2="580" y2="140" stroke="#4caf50"/>
+                
+                <!-- pointers -->
+                <text x="530" y="155" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">0: Blk 2</text>
+                <text x="530" y="175" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">1: Blk 5</text>
+                <text x="530" y="195" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">2: Blk 8</text>
+
+                <!-- Target blocks -->
+                <rect x="680" y="110" width="40" height="30" rx="2" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="700" y="130" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Blok 2</text>
+
+                <rect x="680" y="150" width="40" height="30" rx="2" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="700" y="170" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Blok 5</text>
+
+                <rect x="680" y="190" width="40" height="30" rx="2" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="700" y="210" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Blok 8</text>
+
+                <!-- Arrows from inode to blocks -->
+                <path d="M 580 150 L 680 125" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnIN)"/>
+                <path d="M 580 170 L 680 165" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnIN)"/>
+                <path d="M 580 190 L 680 205" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnIN)"/>
+
+                <text x="610" y="235" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zaleta: Natychmiastowy dostęp O(1) do każdego bloku!</text>
+
+                <defs>
+                    <marker id="arrowRedFAT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnIN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: JOURNALING -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">3. Niezawodność (Fault Tolerance): Księgowanie (Journaling)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zapisywanie pliku to złożona transakcja: trzeba zaktualizować i-node, zająć wolne bloki danych i dopisać wpis do folderu. Co, jeśli w połowie tego procesu odetną prąd? W starych systemach oznaczało to krytyczne uszkodzenie całej struktury dysku (wymagało uruchomienia godzinnego skanowania <code>chkdsk/fsck</code>). Nowoczesne systemy (NTFS, ext4) stosują <strong>Journaling</strong>. Zanim system dokona właściwego zapisu na dysku, w ułamku sekundy zapisuje swój <em>Zamiar</em> w specjalnym, obok leżącym logu (Dzienniku). W razie awarii zasilania, przy restarcie OS po prostu odczytuje Dziennik i "cofa" (Rollback) lub "dokańcza" przerwane transakcje w 2 sekundy.
+                </p>
+            </div>
+
+            <!-- SVG 3: JOURNALING -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Księgowanie (Journaling): Ochrona przed utratą zasilania</text>
+
+                <!-- Zamiar -->
+                <rect x="60" y="50" width="200" height="110" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="160" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">KROK 1: Zapis Intencji</text>
+                <rect x="80" y="90" width="160" height="40" fill="#ffe0b2" stroke="#fb8c00"/>
+                <text x="160" y="110" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Journal Log:</text>
+                <text x="160" y="125" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">"Będę pisał Bloki 4 i 5"</text>
+
+                <!-- Awaria prądu (Opcjonalnie) -->
+                <path d="M 280 130 L 295 90 L 285 90 L 305 50" fill="none" stroke="#d32f2f" stroke-width="3"/>
+                <text x="290" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Awaria!</text>
+
+                <!-- Właściwy zapis -->
+                <rect x="330" y="50" width="200" height="110" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="430" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">KROK 2: Właściwy Zapis</text>
+                <rect x="350" y="90" width="160" height="40" fill="#bbdefb" stroke="#1e88e5"/>
+                <text x="430" y="115" font-family="monospace" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">System Plików</text>
+
+                <!-- Potwierdzenie -->
+                <rect x="580" y="50" width="200" height="110" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="680" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">KROK 3: Commit (Koniec)</text>
+                <rect x="600" y="90" width="160" height="40" fill="#c8e6c9" stroke="#43a047"/>
+                <text x="680" y="110" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Journal Log:</text>
+                <text x="680" y="125" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">"Zrobione. Wyczyść log."</text>
+
+                <!-- Krawędzie -->
+                <path d="M 260 105 L 330 105" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowGryJ)"/>
+                <path d="M 530 105 L 580 105" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowGryJ)"/>
+
+                <rect x="150" y="170" width="520" height="25" fill="#f5f5f5" stroke="#90a4ae" rx="4"/>
+                <text x="410" y="186" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Gdy powraca prąd, OS czyta Journal. Nieskończone intencje są ignorowane (Rollback).</text>
+
+                <defs>
+                    <marker id="arrowGryJ" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity o systemach plików):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Folder (Katalog) to magiczny pojemnik przechowujący pliki"</strong> – Absolutny błąd inżynieryjny! Folder (Katalog) <em>nie jest pojemnikiem</em>. Pod maską to zwykły plik tekstowy, który posiada w sobie po prostu "tabelkę" par: <code>[Nazwa_Pliku, Numer_i_node]</code>. Gdy przenosisz plik 10 GB z folderu A do folderu B (na tym samym dysku), OS nie przesuwa 10 GB danych fizycznych! On tylko wycina jedną linijkę z pliku Folderu A i wkleja ją do pliku Folderu B. Trwa to 0.001 sekundy.</li>
+                    <li><strong>"Sformatowanie dysku trwale kasuje z niego pliki"</strong> – Szybkie formatowanie (Quick Format) nie wymazuje ani jednego bajtu z sekcji z blokami danych. Ono jedynie kasuje Tablicę Alokacji / Tablicę i-nodów (spis treści), ogłaszając cały dysk jako "pusty do nadpisania". Dlatego programy do odzyskiwania danych mogą odtworzyć pliki po formacie – "Księga inwentarzowa" spłonęła, ale "pudełka na hali magazynowej" nadal stoją pełne.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">System plików to mistrzowska lekcja strukturyzacji danych. Udowadnia, że wszystko w informatyce jest tylko abstrakcją nałożoną na surowe zera i jedynki. Plik jest iluzją. Folder jest iluzją. Zrozumienie, że system plików operuje w oparciu o wskaźniki (i-nodes), pozwala inżynierom pojąć zasady działania zaawansowanych mechanizmów bezpieczeństwa (np. Hard Links / Symlinks, czyli kilka nazw plików kierujących do jednego węzła) czy szybkiego działania baz danych. Pamiętaj: to, jak trwale układamy dane dziś, decyduje o tym, jak niezawodnie będziemy je mogli odczytać jutro po nagłym zaniku zasilania.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) – Interfejs systemu plików, Struktura katalogów, Alokacja i księgowanie danych.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
