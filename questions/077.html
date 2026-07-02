@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 077 – Etyka komputerowa</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">077. Pojęcie i obszary problemowe etyki komputerowej.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #5e35b1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(94,53,177,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">⚖️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Młotek, który potrafi myśleć”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Zwykły młotek jest moralnie neutralny. Możesz nim zbudować dom dla bezdomnego albo kogoś skrzywdzić. Odpowiedzialność ponosi wyłącznie człowiek trzymający trzonek.<br><br>
+                        Jednak <strong>oprogramowanie to nie jest zwykły młotek</strong>. Oprogramowanie podejmuje decyzje <em>skalowalnie</em> i często <em>autonomicznie</em>. Algorytm w banku w ułamku sekundy decyduje o odrzuceniu 10 tysięcy wniosków kredytowych. Algorytm w autonomicznym aucie decyduje, w co uderzyć podczas wypadku. Etyka komputerowa zaczyna się tam, gdzie kod staje się prawem (tzw. "Code is Law"). To dziedzina, która bada, jak my – inżynierowie – powinniśmy projektować te "myślące młotki", by nie zniszczyły społeczeństwa.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Próżnia legislacyjna (Policy Vacuum - James Moor)</span>
+            <span class="keyword-tag">Model PAPA (Mason)</span>
+            <span class="keyword-tag">Prywatność (Privacy)</span>
+            <span class="keyword-tag">Dokładność/Odpowiedzialność (Accuracy/Liability)</span>
+            <span class="keyword-tag">Własność Intelektualna (Property)</span>
+            <span class="keyword-tag">Dostępność (Accessibility)</span>
+            <span class="keyword-tag">Stronniczość Algorytmów (AI Bias)</span>
+            <span class="keyword-tag">Kodeks etyki ACM / IEEE</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: DEFINICJA I PRÓŻNIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #5e35b1;">1. Definicja i Próżnia Legislacyjna (Teoria Jamesa Moora)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Etyka komputerowa to dział etyki zawodowej zajmujący się analizą moralnych konsekwencji tworzenia i wykorzystywania technologii informatycznych. Klasyczną i wymaganą na egzaminach podstawą jest teoria <strong>Jamesa Moora (1985)</strong>, który zdefiniował zjawisko <em>"Luki pojęciowej / Próżni legislacyjnej" (Policy Vacuum)</em>.
+                </p>
+            </div>
+
+            <!-- SVG 1: POLICY VACUUM -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Wizualizacja teorii Jamesa Moora: "Próżnia Legislacyjna"</text>
+
+                <!-- Osie -->
+                <line x1="80" y1="210" x2="750" y2="210" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="730" y="235" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Czas</text>
+                
+                <line x1="80" y1="210" x2="80" y2="50" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
+                <text x="50" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 50 130)">Złożoność / Postęp</text>
+
+                <!-- Krzywa Technologii (Eksponencjalna) -->
+                <path d="M 80 200 Q 450 190 700 50" fill="none" stroke="#d50000" stroke-width="4"/>
+                <text x="720" y="45" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d50000" text-anchor="middle">Rozwój Technologii IT</text>
+                <text x="720" y="60" font-family="sans-serif" font-size="10" fill="#d50000" text-anchor="middle">(Wykładniczy, Błyskawiczny)</text>
+
+                <!-- Krzywa Prawa (Liniowa, Wolna) -->
+                <path d="M 80 200 L 700 160" fill="none" stroke="#1565c0" stroke-width="4"/>
+                <text x="720" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">Prawo i Normy (Ustawy)</text>
+                <text x="720" y="180" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">(Liniowe, Powolne, Reaktywne)</text>
+
+                <!-- Luka/Próżnia -->
+                <path d="M 350 182 L 350 162" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                <path d="M 500 173 L 500 115" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                <path d="M 600 166 L 600 80" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                
+                <!-- Obszar próżni -->
+                <path d="M 200 195 Q 450 185 700 50 L 700 160 Z" fill="#e1bee7" opacity="0.4"/>
+                
+                <!-- Tekst Próżni -->
+                <rect x="350" y="90" width="220" height="40" rx="6" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="460" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2" text-anchor="middle">"POLICY VACUUM" (Luka Prawna)</text>
+                <text x="460" y="120" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">Brak prawa? Inżynier decyduje co jest etyczne!</text>
+
+                <defs>
+                    <marker id="arrowDark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
+                </defs>
+            </svg>
+            <p style="margin: -10px 0 20px 0; font-size: 0.9rem; color: #546e7a;">
+                <em>Komentarz: Zanim prawo nadąży (np. stworzy RODO dla prywatności, albo AI Act dla sztucznej inteligencji), mija od 5 do 10 lat. W tej "Luce Prawnej", to sumienie programisty jest jedynym zabezpieczeniem społeczeństwa.</em>
+            </p>
+
+
+            <!-- PART 2: OBSZARY PROBLEMOWE (MODEL PAPA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Obszary problemowe: Klasyczny Model PAPA (R. Mason, 1986)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Richard Mason zebrał problemy etyki IT w akronim <strong>PAPA</strong>. To absolutna podstawa każdej odpowiedzi z tego zakresu.
+                </p>
+            </div>
+
+            <!-- SVG 2: MODEL PAPA -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0d47a1">Cztery Filary Etyki Komputerowej: Model PAPA</text>
+
+                <!-- P - Privacy -->
+                <rect x="40" y="50" width="350" height="100" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="60" y="80" font-family="sans-serif" font-size="24" font-weight="bold" fill="#1976d2">P</text>
+                <text x="90" y="77" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">rivacy (Prywatność)</text>
+                <text x="90" y="100" font-family="sans-serif" font-size="11" fill="#37474f">Kto i na jakich zasadach ma prawo gromadzić nasze</text>
+                <text x="90" y="115" font-family="sans-serif" font-size="11" fill="#37474f">dane? Problem masowej inwigilacji, "prawa do bycia</text>
+                <text x="90" y="130" font-family="sans-serif" font-size="11" fill="#37474f">zapomnianym" i monetyzacji danych w Social Media.</text>
+
+                <!-- A - Accuracy -->
+                <rect x="430" y="50" width="350" height="100" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="450" y="80" font-family="sans-serif" font-size="24" font-weight="bold" fill="#d32f2f">A</text>
+                <text x="480" y="77" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">ccuracy (Dokładność i Odpowiedzialność)</text>
+                <text x="480" y="100" font-family="sans-serif" font-size="11" fill="#37474f">Kto ponosi winę za błędy oprogramowania? Co jeśli</text>
+                <text x="480" y="115" font-family="sans-serif" font-size="11" fill="#37474f">algorytm bankowy źle wyliczy dług, a medyczny błąd w</text>
+                <text x="480" y="130" font-family="sans-serif" font-size="11" fill="#37474f">kodzie zaszkodzi pacjentowi (słynna maszyna Therac-25)?</text>
+
+                <!-- P - Property -->
+                <rect x="40" y="170" width="350" height="100" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="60" y="200" font-family="sans-serif" font-size="24" font-weight="bold" fill="#f57c00">P</text>
+                <text x="90" y="197" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">roperty (Własność Intelektualna)</text>
+                <text x="90" y="220" font-family="sans-serif" font-size="11" fill="#37474f">Do kogo należy kod? Piractwo, patenty na soft,</text>
+                <text x="90" y="235" font-family="sans-serif" font-size="11" fill="#37474f">problem Open-Source vs Kod Zamknięty. Czy sztuczna</text>
+                <text x="90" y="250" font-family="sans-serif" font-size="11" fill="#37474f">inteligencja (AI) generująca kod łamie prawa autorskie?</text>
+
+                <!-- A - Accessibility -->
+                <rect x="430" y="170" width="350" height="100" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
+                <text x="450" y="200" font-family="sans-serif" font-size="24" font-weight="bold" fill="#388e3c">A</text>
+                <text x="480" y="197" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">ccessibility (Dostępność i Wykluczenie)</text>
+                <text x="480" y="220" font-family="sans-serif" font-size="11" fill="#37474f">Problem wykluczenia cyfrowego (Digital Divide).</text>
+                <text x="480" y="235" font-family="sans-serif" font-size="11" fill="#37474f">Kto ma dostęp do edukacji i szybkiego internetu?</text>
+                <text x="480" y="250" font-family="sans-serif" font-size="11" fill="#37474f">Czy aplikacja działa dla osób niewidomych (WCAG)?</text>
+            </svg>
+
+            <!-- PART 3: NOWOCZESNE PROBLEMY (AI I SOCIAL MEDIA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #0277bd;">3. Współczesne dylematy: Sztuczna Inteligencja (AI) i Social Media</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Model PAPA powstał w latach 80. Dzisiaj, jako inżynier, musisz zwrócić uwagę na współczesne, znacznie potężniejsze dylematy:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Algorytmiczna stronniczość (AI Bias):</strong> Algorytmy AI uczą się na danych historycznych. Jeśli historycznie (przez uprzedzenia ludzi) system częściej odrzucał CV kobiet na stanowiska dyrektorskie, system AI <em>zautomatyzuje i ukryje tę dyskryminację</em> w warstwie niewidzialnej "czarnej skrzynki".</li>
+                    <li><strong>Bańki informacyjne (Filter Bubbles) i Polaryzacja:</strong> Algorytmy YouTube'a, Facebooka czy TikToka są projektowane w jednym celu: maksymalizacja czasu spędzonego przed ekranem (User Engagement). Efekt uboczny? Algorytmy promują radykalne i fałszywe treści, bo one wywołują najsilniejsze emocje, niszcząc tym samym debatę publiczną.</li>
+                    <li><strong>Deepfake i Dezinformacja:</strong> Oprogramowanie zatarło granicę między dowodem a fikcją. Możliwość generowania wideo i audio dowolnej osoby pociąga za sobą gigantyczne ryzyko dla demokracji (np. spreparowane wideo prezydenta wywołującego wojnę).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity do obalenia):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Jeśli coś jest zgodne z prawem, jest etyczne."</strong> – Ogromny błąd! Prawo to absolutne minimum moralne i – jak pokazał Moor – jest opóźnione. Przed wprowadzeniem dyrektywy RODO zbieranie i sprzedawanie danych medycznych przez aplikacje zliczające kalorie było często legalne (bo nikt o tym wcześniej nie pomyślał), ale z punktu widzenia inżynierii było skrajnie nieetyczne.</li>
+                    <li><strong>"Technologia jest neutralna, winni są tylko użytkownicy."</strong> – Błąd. Projekt technologii kształtuje zachowania (tzw. affordancje). Jeśli tworzysz algorytm randkowy, który pozwala użytkownikom sortować ludzi tylko po kolorze skóry, to Ty jako inżynier aktywnie projektujesz system promujący uprzedzenia.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Studiując architekturę, bazy danych i algorytmy, zyskujesz wiedzę, jak działa <strong>Maszyna</strong>. Etyka komputerowa to ta część inżynierii, która przypomina Ci, że na końcu każdego kabla sieciowego, każdego rekordu w bazie danych i każdego sklasyfikowanego obiektu przez AI znajduje się <strong>Człowiek</strong>. Zły inżynier mówi: "Spełniłem wymagania biznesowe i dostałem zapłatę". Prawdziwy Profesjonalista (zgodnie z Kodeksem IEEE/ACM) potrafi odmówić napisania kodu, który jest krzywdzący dla społeczeństwa, nawet jeśli pracodawca tego żąda.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "What is Computer Ethics?" (James Moor, 1985) · "Four Ethical Issues of the Information Age" (Richard Mason, 1986 - Model PAPA) · Kodeks Etyki ACM (Association for Computing Machinery).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
