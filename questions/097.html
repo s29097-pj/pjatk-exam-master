@@ -3,38 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pytanie 97 - Synchronizacja procesów</title>
+    <title>Pytanie 097 – Metody synchronizacji procesów</title>
     <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
 </head>
 <body>
 <div class="container">
-    <a href="../index.html" class="btn-back" onclick="history.back(); return false;">← Wróć do spisu treści</a>
 
     <div class="question-box">
-        <h2>97. Metody synchronizacji procesów w programach komputerowych.</h2>
+        <h2 id="q-title">097. Metody synchronizacji procesów w programach komputerowych.</h2>
 
-        <div class="answer-section">
-            <div class="answer-step">
-                <strong>1. Definicja (Czym to jest?):</strong><br>
-                Synchronizacja to mechanizm, który koordynuje wykonywanie współbieżnych procesów (lub wątków), aby zapewnić im bezpieczny dostęp do współdzielonych zasobów (np. pamięci, pliku, bazy danych) i zapobiec niespójności danych (np. nadpisywaniu się informacji).
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚽</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Toaleta z kluczem kontra Bramkarz w klubie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
+                        Programowanie współbieżne bez synchronizacji przypomina próbę pisania dwóch osób jednym długopisem w tym samym czasie. Powstają bazgroły. Aby temu zapobiec, inżynierowie wymyślili dwa główne narzędzia:<br><br>
+                        <strong>Mutex (Wzajemne Wykluczanie) to Toaleta z jednym kluczem.</strong> Wchodzisz, zamykasz drzwi. Nikt inny nie może wejść, choćby pękał. Kiedy kończysz, oddajesz klucz. Chroni to tzw. <em>Sekcję Krytyczną</em> przed dostępem więcej niż jednego wątku/procesu na raz.<br><br>
+                        <strong>Semafor to Bramkarz przed klubem.</strong> Klub ma licencję na 50 osób (licznik semafora = 50). Bramkarz wpuszcza ludzi, odliczając w dół, aż do zera. Gdy w środku jest 50 osób, 51-sza osoba musi czekać w kolejce, aż ktoś z wnętrza wyjdzie. Semafor pilnuje puli zasobów, a nie tylko jednego, wyłącznego dostępu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Sekcja Krytyczna (Critical Section)</span>
+            <span class="keyword-tag">Race Condition (Wyścig)</span>
+            <span class="keyword-tag">Mutex (Mutual Exclusion)</span>
+            <span class="keyword-tag">Semafor (Dijkstra, P() i V())</span>
+            <span class="keyword-tag">Monitory (Java `synchronized`)</span>
+            <span class="keyword-tag">Deadlock (Zakleszczenie)</span>
+            <span class="keyword-tag">Spinlock (Aktywne oczekiwanie)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PROBLEM WYŚCIGU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Źródło problemu: Race Condition i Sekcja Krytyczna</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zjawisko wyścigu (Race condition) występuje, gdy dwa procesy (lub wątki) próbują odczytać i zmodyfikować współdzielone dane dokładnie w tym samym czasie. Fragment kodu, który operuje na tych współdzielonych danych, nazywamy <strong>Sekcją Krytyczną</strong>. Musi ona być "atomowa" (niepodzielna).
+                </p>
             </div>
 
-            <div class="answer-step">
-                <strong>2. Mechanizm (Główne metody):</strong><br>
-                Podstawowym pojęciem jest <b>sekcja krytyczna</b> (fragment kodu, w którym proces korzysta ze wspólnego zasobu). Do jej ochrony stosuje się:
-                <ul>
-                    <li><b>Muteksy (Mutex - Mutual Exclusion):</b> "Klucz do toalety". Tylko jeden proces może go mieć. Inny proces czeka pod drzwiami.</li>
-                    <li><b>Semafory:</b> "Licznik miejsc na parkingu". Pozwala na dostęp określonej liczbie procesów. Semafor binarny to w praktyce muteks.</li>
-                    <li><b>Monitory:</b> Wyższopoziomowy konstrukt (często wbudowany w języki obiektowe np. Java), łączący w sobie muteks z tzw. zmiennymi warunkowymi.</li>
+            <!-- SVG 1: RACE CONDITION -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#fce4ec" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Katastrofa współbieżności: Zjawisko Wyścigu (Race Condition)</text>
+
+                <!-- Baza danych / Konto -->
+                <rect x="360" y="50" width="100" height="150" rx="8" fill="#fff" stroke="#880e4f" stroke-width="2"/>
+                <text x="410" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">Konto Bankowe</text>
+
+                <rect x="370" y="100" width="80" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="410" y="125" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">100 PLN</text>
+
+                <!-- Wątek 1 -->
+                <rect x="40" y="80" width="140" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="110" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek 1 (Wpłaca 50)</text>
+                <text x="110" y="125" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
+                <text x="110" y="140" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">2. Dodaj: 100+50</text>
+
+                <!-- Wątek 2 -->
+                <rect x="640" y="80" width="140" height="80" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="710" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Wątek 2 (Wpłaca 20)</text>
+                <text x="710" y="125" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
+                <text x="710" y="140" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">2. Dodaj: 100+20</text>
+
+                <!-- Zapis jednoczesny (Nadpisywanie) -->
+                <path d="M 180 145 L 350 145" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueR)"/>
+                <text x="260" y="140" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">Zapisz: 150</text>
+
+                <path d="M 640 160 L 470 160" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgR)"/>
+                <text x="560" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Zapisz: 120</text>
+
+                <rect x="250" y="190" width="320" height="40" fill="#fff5f5" stroke="#d32f2f" rx="4"/>
+                <text x="410" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Wynik końcowy to 120 PLN! Pieniądze zniknęły!</text>
+                <text x="410" y="222" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Wątek 2 nadpisał pracę Wątku 1, bo operacje nie były atomowe.</text>
+
+                <defs>
+                    <marker id="arrowBlueR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
+                    <marker id="arrowOrgR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: MUTEX -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Mutex (Mutual Exclusion) – Tarcza Sekcji Krytycznej</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Mutex to obiekt systemowy przypominający "klucz". Jeśli Wątek A chce zmodyfikować konto, najpierw musi założyć <em>Lock</em> (zamknąć zamek) na obiekcie Mutexa. Jeśli w tym czasie Wątek B spróbuje wejść do tej samej sekcji, OS automatycznie uśpi Wątek B i wsadzi go do poczekalni. B obudzi się dopiero, gdy A wywoła funkcję <em>Unlock</em>.
+                </p>
+            </div>
+
+            <!-- SVG 2: MUTEX -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Rozwiązanie 1: Mutex (Wzajemne Wykluczanie)</text>
+
+                <!-- Baza danych -->
+                <rect x="360" y="50" width="100" height="140" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sekcja Kryt.</text>
+                <rect x="375" y="90" width="70" height="30" rx="4" fill="#bbdefb"/>
+                <text x="410" y="110" font-family="monospace" font-size="12" fill="#0d47a1" text-anchor="middle">100 PLN</text>
+
+                <!-- Zamek (Kłódka) -->
+                <circle cx="410" cy="155" r="18" fill="#ffca28" stroke="#f57f17" stroke-width="2"/>
+                <text x="410" y="160" font-family="sans-serif" font-size="14" text-anchor="middle">🔒</text>
+
+                <!-- Wątek 1 (Działa) -->
+                <rect x="60" y="90" width="140" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="130" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek 1</text>
+                <text x="130" y="135" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">Zablokował Mutex</text>
+
+                <path d="M 200 120 L 350 120" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM)"/>
+                <text x="275" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Zapisuje</text>
+
+                <!-- Wątek 2 (Zablokowany) -->
+                <rect x="620" y="90" width="140" height="60" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="690" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 2</text>
+                <text x="690" y="135" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Czeka (Zablokowany)</text>
+
+                <!-- Bariera -->
+                <path d="M 620 120 L 510 120" fill="none" stroke="#c62828" stroke-width="3"/>
+                <line x1="510" y1="100" x2="510" y2="140" stroke="#c62828" stroke-width="4"/>
+                <text x="565" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Zamek zamknięty</text>
+
+                <defs>
+                    <marker id="arrowGrnM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: SEMAFORY I DEADLOCK -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Semafory, Monitory i Ryzyko Zakleszczeń (Deadlock)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy masz pulę identycznych zasobów (np. 3 drukarki w biurze lub licencję na 5 połączeń z bazą danych), używasz <strong>Semafora zliczającego</strong>. Holenderski inżynier Edsger Dijkstra zdefiniował dla niego dwie klasyczne operacje: <code>P()</code> (ang. Wait/Down - spróbuj zająć, zmniejsz licznik) oraz <code>V()</code> (ang. Signal/Up - zwolnij, zwiększ licznik).
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Innym, wyższopoziomowym pojęciem są <strong>Monitory</strong> (np. słowo kluczowe <code>synchronized</code> w Javie). Monitor to gotowy, wbudowany w język programowania "sejf", który automatycznie łączy Mutex ze strukturą danych.
+                </p>
+            </div>
+
+            <!-- SVG 3: SEMAFOR & DEADLOCK -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Rozwiązanie 2: Semafor & Największe ryzyko: Deadlock</text>
+
+                <!-- Semafor (Lewa) -->
+                <rect x="30" y="50" width="360" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="210" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Semafor (Licznik = 2 połączenia)</text>
+
+                <!-- Resource Pool -->
+                <rect x="230" y="90" width="120" height="90" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="290" y="110" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Zasoby (Baza)</text>
+                <rect x="250" y="120" width="80" height="20" fill="#ffcc80"/>
+                <text x="290" y="134" font-family="sans-serif" font-size="9" text-anchor="middle">Zajęte przez W1</text>
+                <rect x="250" y="150" width="80" height="20" fill="#ffcc80"/>
+                <text x="290" y="164" font-family="sans-serif" font-size="9" text-anchor="middle">Zajęte przez W2</text>
+
+                <rect x="50" y="90" width="80" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="90" y="110" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 3</text>
+
+                <path d="M 130 105 L 220 105" fill="none" stroke="#d32f2f" stroke-width="2"/>
+                <line x1="220" y1="90" x2="220" y2="120" stroke="#d32f2f" stroke-width="4"/>
+                <text x="175" y="100" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Licznik 0. Czeka!</text>
+
+
+                <!-- Deadlock (Prawa) -->
+                <rect x="430" y="50" width="360" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="610" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Zakleszczenie (Deadlock)</text>
+
+                <!-- T1 and T2 -->
+                <rect x="460" y="90" width="70" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <text x="495" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek A</text>
+
+                <rect x="690" y="150" width="70" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <text x="725" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek B</text>
+
+                <!-- Res X and Y -->
+                <circle cx="520" cy="165" r="20" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="520" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 1</text>
+
+                <circle cx="700" cy="105" r="20" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="700" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 2</text>
+
+                <!-- Hold lines (solid) -->
+                <path d="M 495 120 L 520 145" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnS)"/>
+                <text x="490" y="145" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="end">Trzyma Zamek</text>
+
+                <path d="M 725 150 L 700 125" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnS)"/>
+                <text x="730" y="145" font-family="sans-serif" font-size="9" fill="#2e7d32">Trzyma Zamek</text>
+
+                <!-- Wait lines (dashed) -->
+                <path d="M 530 105 L 680 105" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedS)"/>
+                <text x="605" y="95" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Czeka na Plik 2...</text>
+
+                <path d="M 690 165 L 540 165" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedS)"/>
+                <text x="615" y="180" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Czeka na Plik 1...</text>
+
+                <defs>
+                    <marker id="arrowGrnS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z systemów operacyjnych):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Mutexa z Semaforem binarnym:</strong> Na pierwszy rzut oka wyglądają tak samo (wartość 0 i 1). Różnica polega na mechanizmie <em>Własności (Ownership)</em>. W Mutexie TYLKO ten sam wątek, który założył blokadę, może ją zdjąć (oddać klucz). W semaforze binarnym, Wątek A może opuścić szlaban, ale Wątek B może go podnieść. Semafor służy do sygnalizacji między procesami, a Mutex wyłącznie do ochrony pamięci.</li>
+                    <li><strong>Spinlocks vs Zamki Usypiające:</strong> Co robi wątek, gdy napotka zamknięty Mutex? Domyślnie system operacyjny go usypia (Sleeping Lock), co jest "tanie" pod kątem baterii, ale bardzo drogie pod kątem przełączania kontekstu. W programowaniu systemowym używa się czasem <strong>Spinlocków</strong> – wątek zapętla się w pustej pętli pytając <em>"Już otwarte? A teraz? A teraz?"</em>. Pali to w 100% procesor, ale gwarantuje natychmiastowe (mikrosekundowe) wejście do sekcji, gdy tylko zwolni się zamek. Używane wyłącznie dla skrajnie krótkich operacji.</li>
                 </ul>
             </div>
 
-            <div class="answer-step">
-                <strong>3. Kontekst inżynierski (Dlaczego to ważne?):</strong><br>
-                Brak synchronizacji prowadzi do błędu <i>Race Condition</i> (wyścigu). W Cybersecurity (np. w architekturze Zero Trust) to krytyczna podatność (TOCTOU - Time-Of-Check to Time-Of-Use) – atakujący może próbować zmodyfikować plik w ułamku sekundy między jego sprawdzeniem przez system a faktycznym użyciem. Odpowiednia synchronizacja zamyka ten wektor ataku.
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dodawanie nowych rdzeni do procesorów i pisanie wielowątkowego kodu brzmi świetnie, dopóki wszystkie wątki nie spróbują zmienić tego samego piksela na ekranie. Synchronizacja to sztuka celowego spowalniania programu. Inżynier wstawia Mutexy tam, gdzie poprawność (np. stan konta bankowego) jest absolutnie ważniejsza niż szybkość (współbieżność). Trzeba jednak robić to chirurgicznie – zaplątanie zamków prowadzi do tzw. Deadlocka, matematycznej matni, z której system nie potrafi już wyjść bez brutalnego restartu.</span>
+                </p>
             </div>
-        </div>
-    </div>
-</div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) · Problem Producenta i Konsumenta · Cztery Warunki Coffmana (dot. powstawania Deadlocków).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
 </body>
 </html>
