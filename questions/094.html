@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 094 – Bezpieczeństwo informacji</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">094. Bezpieczeństwo informacji - kryptografia, kontrola dostępu i stany danych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">💎</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Przeklęte Złoto i Zaufany Skarbiec”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
+                        Ochrona infrastruktury (firewalle) to budowanie potężnych murów wokół skarbca. Ale co, jeśli złodziej znajdzie tunel, albo co gorsza – złodziejem okaże się zaufany strażnik będący już wewnątrz?<br><br>
+                        <strong>Bezpieczeństwo informacji</strong> zakłada, że mury mogą paść, a informację trzeba chronić samą w sobie. To tak, jakby na każdą sztabkę złota rzucić "zaklęcie" (Kryptografia). Nawet jeśli złodziej ukradnie złoto i wyniesie je ze skarbca, w jego rękach zamieni się ono w bezużyteczny kamień (zaszyfrowany ciąg bitów), dopóki nie użyje on magicznego klucza. Ponadto, w nowoczesnym systemie dokładnie stemplujemy kto, kiedy i do jakiej sztabki ma prawo dotknąć (Kontrola Dostępu).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Data at Rest / in Transit / in Use</span>
+            <span class="keyword-tag">Kryptografia symetryczna (AES)</span>
+            <span class="keyword-tag">Kryptografia asymetryczna (RSA)</span>
+            <span class="keyword-tag">Funkcja Skrótu (Hash / SHA-256)</span>
+            <span class="keyword-tag">IAM (Identity and Access Management)</span>
+            <span class="keyword-tag">RBAC (Role-Based Access Control)</span>
+            <span class="keyword-tag">DLP (Data Loss Prevention)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: STANY DANYCH -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">1. Trzy stany istnienia informacji (Data States)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Informacja to byt dynamiczny. Inżynier dba o jej bezpieczeństwo w każdym z trzech momentów jej "cyklu życia". Luki najczęściej powstają, gdy zabezpieczymy dane w jednym stanie, ignorując inny.
+                </p>
+            </div>
+
+            <!-- SVG 1: TRZY STANY DANYCH -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Modele ochrony dla 3 stanów skupienia informacji</text>
+
+                <!-- Data at Rest -->
+                <rect x="30" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="50" width="230" height="35" rx="8" fill="#1565c0"/>
+                <rect x="30" y="65" width="230" height="20" fill="#1565c0"/>
+                <text x="145" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data at Rest (W spoczynku)</text>
+                
+                <circle cx="145" cy="115" r="20" fill="#e3f2fd"/>
+                <text x="145" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">💾</text>
+                <text x="145" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zagrożenie: Kradzież dysku / bazy</text>
+                <text x="145" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Szyfrowanie nośników</text>
+                <text x="145" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(BitLocker, AES-256)</text>
+
+                <!-- Data in Transit -->
+                <rect x="295" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="295" y="50" width="230" height="35" rx="8" fill="#f57c00"/>
+                <rect x="295" y="65" width="230" height="20" fill="#f57c00"/>
+                <text x="410" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data in Transit (W ruchu)</text>
+
+                <circle cx="410" cy="115" r="20" fill="#fff3e0"/>
+                <text x="410" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">🌐</text>
+                <text x="410" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Zagrożenie: Podsłuch (Sniffing)</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kanały szyfrowane</text>
+                <text x="410" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Protokoły TLS / HTTPS, VPN)</text>
+
+                <!-- Data in Use -->
+                <rect x="560" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="560" y="50" width="230" height="35" rx="8" fill="#d32f2f"/>
+                <rect x="560" y="65" width="230" height="20" fill="#d32f2f"/>
+                <text x="675" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data in Use (W użyciu)</text>
+
+                <circle cx="675" cy="115" r="20" fill="#ffebee"/>
+                <text x="675" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">🧠</text>
+                <text x="675" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Zagrożenie: Odczyt z pamięci RAM</text>
+                <text x="675" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kwarantanna procesów,</text>
+                <text x="675" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Enklawy procesora (Intel SGX)</text>
+
+                <!-- Arrows -->
+                <path d="M 265 105 L 290 105" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
+                <path d="M 530 105 L 555 105" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
+
+                <defs>
+                    <marker id="arrowGry" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: KRYPTOGRAFIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Kryptografia (Tarcza informacji)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kryptografia gwarantuje Poufność (Confidentiality) i Integralność (Integrity). Inżynier używa różnych mechanizmów w zależności od zapotrzebowania na szybkość obliczeń i bezpieczeństwo wymiany kluczy.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Symetryczna (np. AES-256):</strong> Do szyfrowania i deszyfrowania służy ten sam, tajny klucz. Zaletą jest <em>niezwykła szybkość</em> (używana do masowego szyfrowania dysków). Wadą jest problem: jak bezpiecznie przekazać ten jeden klucz odbiorcy?</li>
+                    <li><strong>Asymetryczna (np. RSA):</strong> Używa pary kluczy. Klucz Publiczny (który możesz rozdać wszystkim) służy TYLKO do zamykania kłódki (szyfrowania). Klucz Prywatny (który masz tylko Ty) służy do otwierania. Jest bardzo wolna, dlatego służy wyłącznie do bezpiecznej wymiany klucza symetrycznego.</li>
+                    <li><strong>Funkcja Skrótu / Hash (np. SHA-256):</strong> Operacja <em>jednokierunkowa</em>. Zamienia dowolny plik/hasło w unikalny, krótki podpis. Nie da się z hasha odzyskać pliku! Używana do weryfikacji haseł (baza danych zapisuje tylko hash) i sprawdzania, czy plik nie został zmieniony przez hakera (Integralność).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: KRYPTOGRAFIA -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wizualizacja Algorytmów Kryptograficznych</text>
+
+                <!-- Symetryczna -->
+                <rect x="40" y="45" width="740" height="110" rx="6" fill="#fff" stroke="#90caf9" stroke-width="2"/>
+                <text x="60" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">1. Szyfrowanie Symetryczne (Ten sam klucz = Szybkość)</text>
+                
+                <rect x="100" y="85" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
+                <text x="120" y="115" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+
+                <path d="M 150 110 L 220 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnK)"/>
+                <text x="185" y="100" font-family="sans-serif" font-size="14" text-anchor="middle">🔑</text>
+                <text x="185" y="130" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
+
+                <!-- Ciphertext -->
+                <rect x="230" y="85" width="280" height="50" fill="#37474f" rx="4"/>
+                <text x="370" y="110" font-family="monospace" font-size="12" fill="#4caf50" text-anchor="middle">@!#%x$#9q(Zaszyfrowane)*&^</text>
+
+                <path d="M 520 110 L 590 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnK)"/>
+                <text x="555" y="100" font-family="sans-serif" font-size="14" text-anchor="middle">🔑</text>
+                <text x="555" y="130" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
+
+                <rect x="600" y="85" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
+                <text x="620" y="115" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+
+
+                <!-- Asymetryczna -->
+                <rect x="40" y="170" width="740" height="110" rx="6" fill="#fff" stroke="#ffcc80" stroke-width="2"/>
+                <text x="60" y="190" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">2. Szyfrowanie Asymetryczne (Dwa klucze = Bezpieczny transport)</text>
+                
+                <rect x="100" y="210" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
+                <text x="120" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+
+                <path d="M 150 235 L 220 235" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedK)"/>
+                <text x="185" y="225" font-family="sans-serif" font-size="14" text-anchor="middle">🔓</text>
+                <text x="185" y="255" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Klucz PUBLICZNY</text>
+                <text x="185" y="267" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Odbiorcy (Zamyka)</text>
+
+                <!-- Ciphertext -->
+                <rect x="230" y="210" width="280" height="50" fill="#37474f" rx="4"/>
+                <text x="370" y="235" font-family="monospace" font-size="12" fill="#ffb74d" text-anchor="middle">&^%@!(Zaszyfrowane)*#!x</text>
+
+                <path d="M 520 235 L 590 235" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgK)"/>
+                <text x="555" y="225" font-family="sans-serif" font-size="14" text-anchor="middle">🗝️</text>
+                <text x="555" y="255" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Klucz PRYWATNY</text>
+                <text x="555" y="267" font-family="sans-serif" font-size="8" fill="#e65100" text-anchor="middle">Odbiorcy (Otwiera)</text>
+
+                <rect x="600" y="210" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
+                <text x="620" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+
+                <defs>
+                    <marker id="arrowGrnK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrowOrgK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: IAM I KONTROLA DOSTĘPU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. IAM i Kontrola Dostępu (Access Control)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy dane leżą spokojnie na serwerze, musimy zarządzać tym, kto może je czytać i modyfikować. Systemy IAM (Identity and Access Management) wykorzystują do tego specjalne struktury matematyczne, z których absolutnym standardem inżynierskim jest <strong>RBAC</strong>.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>MAC (Mandatory Access Control):</strong> Stosowany w wojsku i wywiadzie. Zasady ustala centralny administrator (System). Dokument ma etykietę "Ściśle Tajne", a pracownik ma certyfikat "Tajne" - system odrzuci próbę dostępu, nawet jeśli autor dokumentu zechce mu go pokazać.</li>
+                    <li><strong>DAC (Discretionary Access Control):</strong> Stosowany w domowych Windowsach/Linuxach. Twórca pliku jest jego właścicielem i według własnego uznania "klika", komu udostępnić plik, a komu nie.</li>
+                    <li><strong>RBAC (Role-Based Access Control):</strong> Złoty standard korporacji. Użytkownik nie dostaje praw do pliku bezpośrednio! Użytkownik przypisywany jest do <strong>Roli</strong> (np. "Księgowy", "Stażysta"). Prawa nadawane są Roli, a nie osobie. Zwolnienie pracownika lub zmiana działu polega po prostu na odpięciu od niego jednej grupy.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 3: RBAC MODEL -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Struktura modelu RBAC (Role-Based Access Control)</text>
+
+                <!-- Użytkownicy -->
+                <rect x="60" y="60" width="100" height="30" rx="15" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="110" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Anna (Użytkownik)</text>
+
+                <rect x="60" y="140" width="100" height="30" rx="15" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="110" y="160" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Jan (Użytkownik)</text>
+
+                <!-- Role -->
+                <rect x="300" y="60" width="140" height="40" rx="4" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
+                <text x="370" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: "Senior Dev"</text>
+
+                <rect x="300" y="140" width="140" height="40" rx="4" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
+                <text x="370" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: "Audytor"</text>
+
+                <!-- Zasoby/Prawa -->
+                <rect x="580" y="60" width="160" height="40" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="660" y="78" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Baza Danych Klientów</text>
+                <text x="660" y="92" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">(Odczyt + Modyfikacja)</text>
+
+                <rect x="580" y="140" width="160" height="40" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="660" y="158" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Logi Zdarzeń Systemu</text>
+                <text x="660" y="172" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">(Tylko Odczyt)</text>
+
+                <!-- Relacje User -> Role -->
+                <path d="M 160 75 L 290 75" fill="none" stroke="#78909c" stroke-width="2" marker-end="url(#arrowGryM)"/>
+                <path d="M 160 155 L 290 155" fill="none" stroke="#78909c" stroke-width="2" marker-end="url(#arrowGryM)"/>
+                <!-- Anna has also Auditor -->
+                <path d="M 160 75 L 290 155" fill="none" stroke="#78909c" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowGryM)"/>
+                
+                <!-- Relacje Role -> Permission -->
+                <path d="M 440 75 L 570 75" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
+                <path d="M 440 155 L 570 155" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
+                <!-- Senior dev has also read access to logs -->
+                <path d="M 440 75 L 570 155" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowOrgM)"/>
+
+                <defs>
+                    <marker id="arrowGryM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#78909c"/></marker>
+                    <marker id="arrowOrgM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Żelazne błędy definicyjne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Szyfrowania z Hashowaniem:</strong> To grzech główny! Szyfrowanie to ukrycie tekstu tak, aby zaufany odbiorca mógł go przeczytać (jest ODWARACALNE używając klucza). Hashowanie to matematyczne "zmielenie" pliku w maszynce do mięsa. Wynik (hash) służy tylko do weryfikacji. <em>NIGDY nie mów, że odzyskałeś hasło z hasha (bo z mięsa mielonego nie da się zrobić z powrotem steka).</em> Bazy danych przechowują hasła w postaci Hashy.</li>
+                    <li><strong>"Szyfrowanie asymetryczne jest lepsze, więc używamy tylko jego"</strong> – Mit! RSA (asymetryczne) wymaga tak potwornej mocy obliczeniowej, że szyfrowanie nim całego dysku zajęłoby wieki, a procesor spaliłby się z przegrzania. Zamiast tego stosuje się <em>Kryptografię Hybrydową</em> (TLS/SSL używa RSA tylko na początku by bezpiecznie przesłać jeden mały klucz symetryczny AES, a reszta szybkiej transmisji leci symetrycznie).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Bezpieczeństwo informacji to tak naprawdę zabezpieczanie samej matrycy danych i decydowanie o prawach wewnątrz tej matrycy. Nawet najdroższy firewall brzegowy za milion dolarów jest bezużyteczny, jeśli Twój pracownik HR wynosi z firmy bazę danych PESELi na niezabezpieczonym pendrive. Inżynier projektuje architekturę w taki sposób, aby tożsamość i uprawnienia (RBAC) "podążały" za pracownikiem, a sama krew krążąca w żyłach korporacji (dane in-transit i at-rest) chroniona była nie łamliwym pancerzem, ale matematyką z pogranicza teorii liczb (kryptografia).</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Standard ISO/IEC 27001 (Zarządzanie bezpieczeństwem informacji) · "Kryptografia w praktyce" (Niels Ferguson, Bruce Schneier) · NIST SP 800-53 (RBAC).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
