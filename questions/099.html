@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 099 – Zakleszczenie (Deadlock) i Sieci Petriego</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">099. Blokada (zakleszczenie) w programie: geneza, wykrywanie i zapobieganie.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚦</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #8e0000; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Skrzyżowanie Równorzędne i Upór Kierowców”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #3b0000; line-height: 1.7;">
+                        Wyobraź sobie ciasne skrzyżowanie równorzędne. W tym samym ułamku sekundy z czterech różnych stron nadjeżdżają cztery samochody.<br><br>
+                        Zasada drogowa mówi: ustąp temu po prawej. Samochód A czeka na B. Samochód B czeka na C. C czeka na D. A samochód D czeka na A! Każdy z kierowców "zajął" swój kawałek drogi i nikt nie chce wrzucić wstecznego biegu (brak wywłaszczania). Wszyscy stoją i nikt nie może ruszyć z miejsca do końca świata.<br><br>
+                        W programowaniu to <strong>Zakleszczenie (Deadlock)</strong>. Sytuacja, w której zbiór procesów zostaje trwale zablokowany, ponieważ każdy czeka na zasób przetrzymywany przez inny proces. Aby inżynier mógł udowodnić na papierze, że jego algorytm drogowskazów zapobiegnie takiemu korkowi, używa genialnego narzędzia matematycznego: <strong>Sieci Petriego</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Deadlock (Zakleszczenie)</span>
+            <span class="keyword-tag">4 Warunki Coffmana</span>
+            <span class="keyword-tag">Graf Przydziału Zasobów (RAG)</span>
+            <span class="keyword-tag">Hierarchia Zasobów (Resource Ordering)</span>
+            <span class="keyword-tag">Sieci Petriego (Miejsca, Tranzycje, Znaczniki)</span>
+            <span class="keyword-tag">Graf Osiągalności (Reachability Graph)</span>
+            <span class="keyword-tag">Algorytm Bankiera (Dijkstra)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: GENEZA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Geneza: Cztery Warunki Coffmana</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby doszło do Deadlocka, muszą zostać spełnione <strong>jednocześnie (w tym samym czasie) cztery warunki</strong>. Zdefiniował je Edward Coffman w 1971 roku. Jeśli jako inżynier zdołasz złamać choćby jeden z nich – zakleszczenie staje się fizycznie niemożliwe.
+                </p>
+            </div>
+
+            <!-- SVG 1: COFFMAN CONDITIONS -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#ffebee" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">4 Warunki Coffmana (Muszą zajść jednocześnie!)</text>
+
+                <!-- Box 1: Mutual Exclusion -->
+                <rect x="40" y="50" width="160" height="170" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="120" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">1. Wzajemne</text>
+                <text x="120" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wykluczanie</text>
+                <circle cx="120" cy="130" r="20" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="120" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">🔒</text>
+                <text x="120" y="175" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Zasób może być użyty</text>
+                <text x="120" y="190" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">przez 1 wątek naraz.</text>
+
+                <text x="215" y="140" font-family="sans-serif" font-size="20" font-weight="bold" fill="#b71c1c" text-anchor="middle">+</text>
+
+                <!-- Box 2: Hold and Wait -->
+                <rect x="230" y="50" width="160" height="170" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="310" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">2. Przetrzymywanie</text>
+                <text x="310" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">i oczekiwanie</text>
+                <circle cx="280" cy="130" r="15" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="310" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">🧗</text>
+                <text x="310" y="175" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Wątek ma zasób X,</text>
+                <text x="310" y="190" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">nie puszcza, a chce Y.</text>
+
+                <text x="405" y="140" font-family="sans-serif" font-size="20" font-weight="bold" fill="#b71c1c" text-anchor="middle">+</text>
+
+                <!-- Box 3: No Preemption -->
+                <rect x="420" y="50" width="160" height="170" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="500" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">3. Brak</text>
+                <text x="500" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wywłaszczania</text>
+                <circle cx="500" cy="130" r="20" fill="#e0e0e0" stroke="#9e9e9e"/>
+                <text x="500" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">🛑</text>
+                <text x="500" y="175" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">OS nie może siłą zabrać</text>
+                <text x="500" y="190" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">zasobu (wątek sam musi).</text>
+
+                <text x="595" y="140" font-family="sans-serif" font-size="20" font-weight="bold" fill="#b71c1c" text-anchor="middle">+</text>
+
+                <!-- Box 4: Circular Wait -->
+                <rect x="610" y="50" width="160" height="170" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="690" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">4. Cykliczne</text>
+                <text x="690" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Oczekiwanie</text>
+                <path d="M 670 120 A 15 15 0 1 1 710 120 A 15 15 0 1 1 670 120" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="5,3"/>
+                <text x="690" y="135" font-family="sans-serif" font-size="16" text-anchor="middle">🔄</text>
+                <text x="690" y="175" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">A czeka na B, B czeka</text>
+                <text x="690" y="190" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">na C, C czeka na A.</text>
+
+            </svg>
+
+            <!-- PART 2: WYKRYWANIE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Wykrywanie w czasie rzeczywistym: Graf Przydziału Zasobów (RAG)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Systemy operacyjne mogą regularnie skanować stan przydziałów w pamięci za pomocą <em>Grafów Przydziału Zasobów (RAG)</em>. Skierowane krawędzie pokazują, kto posiada zasób, a kto o niego prosi. Jeśli algorytm (np. przeszukiwanie DFS) znajdzie w grafie <strong>zamkniętą pętlę (cykl)</strong>, oznacza to, że system wpadł w Deadlock. Rozwiązanie OS? Najczęściej brutalne "ubicie" (Kill) najmłodszego procesu.
+                </p>
+            </div>
+
+            <!-- SVG 2: WYKRYWANIE (GRAF) -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Reprezentacja RAG (Zauważ błędne koło krawędzi)</text>
+
+                <!-- Wątki (Kółka) -->
+                <circle cx="200" cy="110" r="25" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="200" y="115" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">T1</text>
+
+                <circle cx="620" cy="110" r="25" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="620" y="115" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">T2</text>
+
+                <!-- Zasoby (Kwadraty) -->
+                <rect x="380" y="50" width="60" height="40" rx="4" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">R1</text>
+
+                <rect x="380" y="130" width="60" height="40" rx="4" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="155" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">R2</text>
+
+                <!-- Ścieżki / Cykl (Zaznaczony na Czerwono by pokazać deadlock) -->
+                <path d="M 380 70 L 225 100" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnDL)"/>
+                <text x="280" y="75" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Posiada</text>
+
+                <path d="M 225 120 L 380 150" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedDL)"/>
+                <text x="280" y="150" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Czeka na</text>
+
+                <path d="M 440 150 L 595 120" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnDL)"/>
+                <text x="540" y="150" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Posiada</text>
+
+                <path d="M 595 100 L 440 70" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedDL)"/>
+                <text x="540" y="75" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Czeka na</text>
+
+                <defs>
+                    <marker id="arrowGrnDL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedDL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: ZAPOBIEGANIE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Zapobieganie w Kodzie: Hierarchia Zasobów (Resource Ordering)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Programiści w aplikacjach wielowątkowych używają "twardego" zapobiegania. Aby złamać warunek 4 (Cykliczne oczekiwanie), wprowadza się globalną regułę architektoniczną: <strong>Wszystkie wątki muszą prosić o zasoby w ściśle zdefiniowanej kolejności (np. alfabetycznie).</strong> Jeśli zawsze trzeba wziąć Mutex 1 przed Mutexem 2, nikt nie weźmie ich "na krzyż", więc cykl zniknie.
+                </p>
+            </div>
+
+            <!-- SVG 3: HIERARCHIA ZASOBÓW -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#e8f5e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Rozwiązanie: Hierarchia Blokad gwarantuje brak zakleszczenia</text>
+
+                <!-- Poprawny Wątek A -->
+                <rect x="150" y="45" width="200" height="110" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="250" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek A</text>
+                <rect x="180" y="85" width="140" height="25" fill="#e3f2fd"/>
+                <text x="250" y="101" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">1. Lock(Mutex_1)</text>
+                <rect x="180" y="115" width="140" height="25" fill="#bbdefb"/>
+                <text x="250" y="131" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">2. Lock(Mutex_2)</text>
+
+                <!-- Poprawny Wątek B -->
+                <rect x="470" y="45" width="200" height="110" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="570" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek B</text>
+                <rect x="500" y="85" width="140" height="25" fill="#e8f5e9"/>
+                <text x="570" y="101" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">1. Lock(Mutex_1)</text>
+                <rect x="500" y="115" width="140" height="25" fill="#ffebee" stroke="#c62828" stroke-dasharray="2,2"/>
+                <text x="570" y="131" font-family="monospace" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">CZEKA na Mutex_1</text>
+
+                <path d="M 320 97 L 500 97" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedHR)"/>
+                <text x="410" y="90" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Zablokowany przez A</text>
+
+                <defs>
+                    <marker id="arrowRedHR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 4: MODELOWANIE (SIECI PETRIEGO) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">4. Analiza Matematyczna: Sieci Petriego (Petri Nets)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zamiast domyślać się, czy w naszym kodzie może wystąpić Deadlock, inżynierowie używają formalnego modelu matematycznego zwanego <strong>Sieciami Petriego</strong>. Służą one do rygorystycznego modelowania systemów rozproszonych i współbieżnych.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Miejsca (Okręgi):</strong> Reprezentują stany (np. "Wątek jest gotowy") lub zasoby (np. "Wolny Mutex").</li>
+                    <li><strong>Tranzycje (Prostokąty):</strong> Reprezentują akcje/zdarzenia (np. "Pobranie Mutexa").</li>
+                    <li><strong>Znaczniki / Tokeny (Kropki):</strong> Wędrują pomiędzy miejscami przez tranzycje, symbolizując przepływ kontroli.</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W analizie Sieci Petriego buduje się <em>Graf Osiągalności (Reachability Graph)</em>. Jeśli w tym grafie istnieje stan, z którego nie wychodzi żadna krawędź (żadna tranzycja nie może "odpalić", bo brakuje znaczników w miejscach źródłowych) – matematycznie <strong>udowodniliśmy obecność Deadlocka</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 4: SIECI PETRIEGO -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Wizualizacja Deadlocka w Sieci Petriego</text>
+
+                <!-- Objaśnienie na gorze -->
+                <text x="410" y="50" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Stan: Wątek A założył blokadę na Mutex 1. Wątek B założył blokadę na Mutex 2.</text>
+
+                <!-- Miejsca (Okręgi) -->
+                <!-- P_A2 (Wątek A ma M1, czeka na M2) -->
+                <circle cx="200" cy="120" r="25" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <circle cx="200" cy="120" r="6" fill="#000"/> <!-- Token -->
+                <text x="200" y="165" font-family="monospace" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Stan: A ma M1</text>
+                <text x="200" y="180" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">(Czeka na M2)</text>
+
+                <!-- P_B2 (Wątek B ma M2, czeka na M1) -->
+                <circle cx="620" cy="120" r="25" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <circle cx="620" cy="120" r="6" fill="#000"/> <!-- Token -->
+                <text x="620" y="165" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Stan: B ma M2</text>
+                <text x="620" y="180" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">(Czeka na M1)</text>
+
+                <!-- Mutex 1 (Miejsce zasobu) - PUSTE -->
+                <circle cx="410" cy="90" r="20" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">M1</text>
+                <text x="410" y="105" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">PUSTY</text>
+
+                <!-- Mutex 2 (Miejsce zasobu) - PUSTE -->
+                <circle cx="410" cy="170" r="20" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="410" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">M2</text>
+                <text x="410" y="185" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">PUSTY</text>
+
+                <!-- Tranzycje (Prostokąty) -->
+                <!-- T_A_next (A chce M2) -->
+                <rect x="290" y="100" width="10" height="40" fill="#424242"/>
+                <text x="295" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#212121" text-anchor="middle">t_A_next</text>
+
+                <!-- T_B_next (B chce M1) -->
+                <rect x="520" y="100" width="10" height="40" fill="#424242"/>
+                <text x="525" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#212121" text-anchor="middle">t_B_next</text>
+
+                <!-- Krawędzie (Strzałki) do Tranzycji -->
+                <!-- A do t_A_next -->
+                <path d="M 225 120 L 285 120" fill="none" stroke="#424242" stroke-width="2" marker-end="url(#arrowBlk)"/>
+                <!-- M2 do t_A_next (Wymaga zasobu) -->
+                <path d="M 390 170 L 300 135" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedBlk)"/>
+
+                <!-- B do t_B_next -->
+                <path d="M 595 120 L 535 120" fill="none" stroke="#424242" stroke-width="2" marker-end="url(#arrowBlk)"/>
+                <!-- M1 do t_B_next (Wymaga zasobu) -->
+                <path d="M 430 90 L 525 105" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedBlk)"/>
+
+                <!-- Opis Deadlocka -->
+                <rect x="180" y="220" width="460" height="60" fill="#ffcdd2" stroke="#d32f2f" rx="6"/>
+                <text x="410" y="240" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">ŻADNA TRANZYCJA NIE MOŻE ODPALIĆ! (DEADLOCK)</text>
+                <text x="410" y="255" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Tranzycja t_A_next potrzebuje znacznika z miejsca M2, ale go tam nie ma.</text>
+                <text x="410" y="270" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Tranzycja t_B_next potrzebuje znacznika z miejsca M1, ale go tam nie ma.</text>
+
+                <defs>
+                    <marker id="arrowBlk" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#424242"/></marker>
+                    <marker id="arrowRedBlk" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe niuanse):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Zapobiegania (Prevention) z Unikaniem (Avoidance):</strong> W teorii OS to dwie różne rzeczy! <em>Zapobieganie</em> polega na "twardym" projektowaniu programu (np. wymuszenie hierarchii blokad), tak aby z góry złamać jeden z warunków Coffmana. <em>Unikanie</em> polega na tym, że OS przed każdym przydzieleniem zasobu uruchamia algorytm i sprawdza w locie, czy pożyczenie zasobu nie wprowadzi systemu w "Stan Niebezpieczny". Tu używa się <strong>Algorytmu Bankiera Dijkstry</strong> (choć w nowoczesnych OS jest on zbyt wolny by działać przy każdym żądaniu pamięci).</li>
+                    <li><strong>Livelock vs Deadlock:</strong> <em>Deadlock</em> to sytuacja, w której wątki "zasnęły" i zużycie CPU wynosi 0%. <em>Livelock</em> przypomina tańczenie w wąskim korytarzu – obaj idziecie w prawo, obaj w lewo, znowu w prawo. Wątki pracują, zmieniają swój stan (więc teoretycznie nie śpią), CPU jest na 100%, ale program nie przesuwa się ani o krok do przodu!</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Zakleszczenie to defekt architektoniczny, którego nie naprawisz blokiem <code>try-catch</code>, ponieważ zablokowane wątki po prostu "wiszą" w pamięci, a sam program nie zgłasza formalnego błędu. Użycie Sieci Petriego do udowodnienia poprawności współbieżności dowodzi dojrzałości inżynierskiej – przenosi nas od zgadywania do matematycznych dowodów. W praktyce programistycznej zapamiętaj jedną żelazną regułę prewencji: "Zawsze rezerwuj zasoby (zakładaj Locki) w dokładnie tej samej, ustalonej w zespole kolejności".</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Podstawy systemów operacyjnych" (Silberschatz) – Warunki Coffmana i Algorytm Bankiera · Teoria Sieci Petriego w analizie współbieżności (Carl Adam Petri).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
