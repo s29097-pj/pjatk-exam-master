@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 091 – Technologie sieciowe LAN</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">091. Technologie sieciowe przewodowe i bezprzewodowe LAN – standardy, parametry.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">📡</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Prywatny tunel vs Zatłoczona Sala Balowa”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Ludzie myślą, że Wi-Fi to po prostu "Ethernet, ale w powietrzu". To gigantyczny błąd architektoniczny.<br><br>
+                        <strong>Kabel miedziany (Ethernet)</strong> to prywatny, dwukierunkowy tunel autostradowy z Twojego komputera prosto do Switcha. Ty masz swój pas, Switch ma swój. Możecie wysyłać i odbierać dane jednocześnie na pełnej prędkości. Zjawisko to nazywamy <strong>Full-Duplex</strong>.<br><br>
+                        <strong>Sieć bezprzewodowa (Wi-Fi)</strong> to z kolei zatłoczona sala balowa, gdzie jest totalnie ciemno. Powietrze jest medium <em>współdzielonym</em>. Jeśli dwie osoby krzykną naraz, powstaje niezrozumiały hałas (kolizja). Urządzenia Wi-Fi potrafią w danej chwili <em>albo nadawać, albo odbierać</em> (zjawisko <strong>Half-Duplex</strong>) i muszą czekać na swoją kolej. Właśnie z powodu fizyki fal radiowych gigabitowe Wi-Fi na papierze rzadko oznacza gigabit w rzeczywistości.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">IEEE 802.3 (Ethernet)</span>
+            <span class="keyword-tag">IEEE 802.11 (Wi-Fi)</span>
+            <span class="keyword-tag">Skrętka (UTP, FTP, Cat5e, Cat6)</span>
+            <span class="keyword-tag">CSMA/CD (Przewodowe - Detekcja Kolizji)</span>
+            <span class="keyword-tag">CSMA/CA (Wi-Fi - Unikanie Kolizji)</span>
+            <span class="keyword-tag">Half-Duplex vs Full-Duplex</span>
+            <span class="keyword-tag">Pasma 2.4 GHz vs 5 GHz</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PRZEWODOWE LAN -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Sieci Przewodowe LAN (Standard IEEE 802.3 - Ethernet)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ethernet to król niezawodności i niskich opóźnień (Pingów). Zdominował rynek dzięki prostocie i ewolucji od tanich kabli miedzianych (Skrętka) do potężnych światłowodów.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Skrętka miedziana (Twisted Pair):</strong> Kable z miedzianymi żyłami zwijanymi w pary, by niwelować zakłócenia elektromagnetyczne (EMI). Absolutnie żelazną zasadą dla kabli miedzianych jest <strong>limit odległości wynoszący 100 metrów</strong>. Parametry definiują kategorie (np. <em>Cat5e</em> pociągnie 1 Gbps, <em>Cat6</em> uciągnie 10 Gbps na krótkich dystansach). Zakończone słynnym wtykiem RJ-45.</li>
+                    <li><strong>Światłowód (Fiber Optic):</strong> Czyste włókno szklane, w którym dane przesyłane są jako impulsy światła. Całkowicie odporny na pole magnetyczne, burze i uderzenia piorunów. Dystanse? Nawet do kilkudziesięciu kilometrów bez wzmacniania.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: CSMA/CD vs CSMA/CA -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zarządzanie Kolizjami w LAN: Ethernet vs Wi-Fi</text>
+
+                <!-- ETHERNET CSMA/CD -->
+                <rect x="40" y="50" width="350" height="200" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="215" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">Ethernet: CSMA/CD</text>
+                <text x="215" y="90" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Carrier Sense Multiple Access / Collision Detection)</text>
+                
+                <!-- Graphic CD -->
+                <line x1="80" y1="130" x2="350" y2="130" stroke="#90caf9" stroke-width="4"/>
+                <rect x="60" y="115" width="40" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <rect x="330" y="115" width="40" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                
+                <path d="M 110 130 L 190 130" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedD)"/>
+                <path d="M 320 130 L 240 130" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedD)"/>
+                
+                <!-- BUM! -->
+                <circle cx="215" cy="130" r="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="215" y="134" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">BUM!</text>
+
+                <text x="215" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">Algorytm "Mów, jak zderzysz to zamilcz":</text>
+                <text x="215" y="195" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">1. Słuchaj kabla. Jeśli cisza - nadawaj.</text>
+                <text x="215" y="210" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">2. Jeśli zderzysz się z innym prądem (Kolizja),</text>
+                <text x="215" y="225" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">przerwij, losowo poczekaj i spróbuj ponownie.</text>
+
+
+                <!-- WI-FI CSMA/CA -->
+                <rect x="430" y="50" width="350" height="200" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="605" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Wi-Fi: CSMA/CA</text>
+                <text x="605" y="90" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Carrier Sense Multiple Access / Collision Avoidance)</text>
+
+                <!-- Graphic CA -->
+                <!-- Fala radiowa tło -->
+                <circle cx="605" cy="130" r="50" fill="none" stroke="#ffe0b2" stroke-width="2"/>
+                <circle cx="605" cy="130" r="30" fill="none" stroke="#ffe0b2" stroke-width="2"/>
+
+                <rect x="480" y="115" width="30" height="40" rx="4" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="495" y="140" font-family="sans-serif" font-size="14" fill="#f57c00" text-anchor="middle">📱</text>
+
+                <rect x="700" y="115" width="30" height="40" rx="4" fill="#ffcc80" stroke="#f57c00"/>
+                <text x="715" y="140" font-family="sans-serif" font-size="14" fill="#f57c00" text-anchor="middle">💻</text>
+
+                <!-- Router w srodku -->
+                <rect x="585" y="115" width="40" height="30" rx="4" fill="#f57c00" stroke="#e65100"/>
+                <text x="605" y="134" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">RTR</text>
+
+                <!-- Dialog -->
+                <path d="M 515 110 Q 550 90 585 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnD)"/>
+                <text x="550" y="95" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">"Będę nadawał!" (RTS)</text>
+
+                <text x="605" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Algorytm "Uprzedzaj, żeby uniknąć":</text>
+                <text x="605" y="195" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">1. W radiu kolizji nie da się wykryć w trakcie.</text>
+                <text x="605" y="210" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">2. Przed wysłaniem wyślij prośbę "Chcę nadawać" (RTS).</text>
+                <text x="605" y="225" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">3. Jeśli Router pozwoli (CTS), nadawaj dane. Reszta czeka.</text>
+
+                <defs>
+                    <marker id="arrowRedD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: BEZPRZEWODOWE LAN -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Sieci Bezprzewodowe LAN (Standard IEEE 802.11 - Wi-Fi)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Sieci bezprzewodowe posługują się falami radiowymi. Fizyka narzuca tu potężne ograniczenie – częstotliwość określa zachowanie fali. Wi-Fi używa dwóch głównych pasm o zupełnie przeciwstawnych charakterystykach.
+                </p>
+            </div>
+
+            <!-- SVG 2: 2.4 vs 5 GHz -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Fizyka Fali Radiowej: Pasmo 2.4 GHz vs 5 GHz</text>
+
+                <!-- Sciana -->
+                <rect x="400" y="50" width="20" height="150" fill="#b0bec5" stroke="#78909c" stroke-width="2"/>
+                <text x="410" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" transform="rotate(-90 410 125)">ŚCIANA / MUR</text>
+
+                <!-- Pasmo 2.4 GHz -->
+                <rect x="40" y="60" width="120" height="40" rx="4" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="100" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Pasmo 2.4 GHz</text>
+
+                <!-- Fala długa -->
+                <path d="M 170 80 Q 220 50 270 80 T 370 80 T 470 80 T 570 80 T 670 80" fill="none" stroke="#4caf50" stroke-width="3"/>
+                
+                <!-- Odbiornik za ścianą -->
+                <rect x="690" y="65" width="80" height="30" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
+                <text x="730" y="84" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Odbiera OK</text>
+                <text x="730" y="102" font-family="sans-serif" font-size="10" fill="#388e3c" text-anchor="middle">(Niska prędk.)</text>
+
+
+                <!-- Pasmo 5 GHz -->
+                <rect x="40" y="140" width="120" height="40" rx="4" fill="#fff" stroke="#e53935" stroke-width="2"/>
+                <text x="100" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Pasmo 5 GHz</text>
+
+                <!-- Fala krotka, szybka -->
+                <path d="M 170 160 Q 185 130 200 160 T 230 160 T 260 160 T 290 160 T 320 160 T 350 160 T 380 160 T 410 160" fill="none" stroke="#e53935" stroke-width="3"/>
+                <!-- Tłumienie po scianie -->
+                <path d="M 410 160 Q 425 155 440 160 T 470 160" fill="none" stroke="#ef9a9a" stroke-width="2" stroke-dasharray="2,2"/>
+
+                <!-- Odbiornik za ścianą -->
+                <rect x="690" y="145" width="80" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
+                <text x="730" y="164" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Brak Sygnału</text>
+                <text x="730" y="182" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(Wysokie tłum.)</text>
+
+                <!-- Adnotacja -->
+                <rect x="230" y="180" width="140" height="25" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
+                <text x="300" y="196" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Szybka fala = dużo danych</text>
+
+            </svg>
+
+            <!-- CHEAT SHEET ETHERNET / WI-FI -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-bottom: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Ściągawka Standardów (Do bezbłędnego zacytowania na egzaminie):</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rodzina</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Standard / Generacja</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Parametry & Przepustowość</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td rowspan="3" style="padding: 10px; font-weight: bold; color: #1565c0; border-right: 1px solid #e0e0e0;">Kabel miedziany<br><span style="font-size: 0.8em; color: #546e7a;">(Limit: 100m)</span></td>
+                        <td style="padding: 10px;">Cat5e (Ethernet)</td>
+                        <td style="padding: 10px;">1 Gbps (Standard domowy do dziś)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px;">Cat6</td>
+                        <td style="padding: 10px;">10 Gbps (Ale tylko na dystansie do ~55m)</td>
+                    </tr>
+                    <tr style="border-bottom: 2px solid #90a4ae;">
+                        <td style="padding: 10px;">Cat6A</td>
+                        <td style="padding: 10px;">10 Gbps (Pełne 100 metrów)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td rowspan="3" style="padding: 10px; font-weight: bold; color: #e65100; border-right: 1px solid #e0e0e0;">Wi-Fi (802.11)<br><span style="font-size: 0.8em; color: #546e7a;">(Half-Duplex)</span></td>
+                        <td style="padding: 10px;">802.11n (Wi-Fi 4)</td>
+                        <td style="padding: 10px;">Zarówno 2.4 GHz jak i 5 GHz (MIMO). Max ~600 Mbps.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px;">802.11ac (Wi-Fi 5)</td>
+                        <td style="padding: 10px;">Tylko pasmo 5 GHz. Szerokie kanały. Max teoretycznie ~3 Gbps.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">802.11ax (Wi-Fi 6)</td>
+                        <td style="padding: 10px;">Powrót na oba pasma. OFDMA. Lepsze działanie w tłumie (Koncerty/Stadiony). Max teoretycznie ~9 Gbps.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki inżynierskie):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Marketingowe prędkości na pudełkach:</strong> Pudełko domowego routera krzyczy: "Wi-Fi 3000 Mbps!". Pamiętaj, że to: A) suma wszystkich dostępnych pasm (np. 2.4 GHz + 5 GHz + 6 GHz), a jeden telefon może podpiąć się naraz tylko do jednego. B) Prędkość liczona w *warstwie fizycznej*, wliczając cały narzut kontrolny i nagłówki. Prawdziwa prędkość aplikacji (TCP) z tak zwanego "3000 Mbps" rzadko przekracza 800 Mbps na jednym urządzeniu. Z kablem Gigabitowym (1000 Mbps) zawsze dostajesz stabilne ~950 Mbps.</li>
+                    <li><strong>CSMA/CD dziś:</strong> Egzaminator może Cię złapać na pytaniu: "Czy nowoczesne switche używają CSMA/CD?". Haczyk! CSMA/CD było niezbędne w czasach <em>Hubów</em> (Koncentratorów), gdzie kabel był jednym wspólnym medium dla wszystkich (jak radio). W nowoczesnych Switchach używamy pełnego Full-Duplexu (każdy ma własny pas ruchu do switcha). W środowisku Full-Duplex <strong>kolizje nie istnieją</strong>, a więc algorytm CSMA/CD jest domyślnie wyłączony.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Technologie sieciowe LAN i WLAN to w rzeczywistości walka z prawami fizyki. Kabel miedziany jest tani, ale po 100 metrach sygnał rozprasza się tak mocno, że odbiornik czyta szum. Światłowód jest perfekcyjny, ale kruchy i trudny do zespawania. Fale radiowe (Wi-Fi) są niesamowicie wygodne, ale to fizyczne piekło – mikrofale tłumią się na ścianach, sąsiedzi zagłuszają Twoje pasmo, a urządzenia zmuszone są do ciągłego "uprzedzania" (CSMA/CA) zanim wyślą ułamek danych. Inżynier zawsze dobiera sieć do problemu, pamiętając starą IT maksymę: "Jeśli coś się nie rusza - podłącz to kablem".</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Standardy IEEE 802.3 oraz IEEE 802.11 · Moduł CCNA (Wired and Wireless LANs) · "Sieci Komputerowe" (Andrew S. Tanenbaum).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
