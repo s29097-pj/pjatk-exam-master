@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 131 – Algorytmy wyznaczania najkrótszej ścieżki</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">131. Algorytmy wyznaczania najkrótszej ścieżki.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Skrupulatny Księgowy kontra Doświadczony Przewodnik”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Wyobraź sobie, że musisz znaleźć najkrótszą drogę przez nieznane miasto na mapie (Grafie).<br><br>
+                        <strong>Algorytm Dijkstry</strong> przypomina <em>Skrupulatnego Księgowego</em>. Staje on na starcie i sprawdza każdą pobliską uliczkę we wszystkich kierunkach, wylewając się na mapę jak fala wody po wrzuceniu kamienia. Gwarantuje perfekcyjny wynik, ale marnuje czas, sprawdzając ślepe uliczki prowadzące w odwrotną stronę niż cel.<br><br>
+                        <strong>Algorytm A* (A-Star)</strong> to <em>Doświadczony Przewodnik z Kompasem</em>. Nie sprawdza na ślepo każdej ulicy. Mając kompas (Heurystykę), instynktownie kieruje się w stronę celu, sprawdzając tylko te drogi, które fizycznie przybliżają go do mety. Jest drastycznie szybszy, choć pod spodem korzysta z tej samej matematyki co Księgowy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Graf skierowany / nieskierowany</span>
+            <span class="keyword-tag">Relaksacja krawędzi (Relaxation)</span>
+            <span class="keyword-tag">Algorytm Dijkstry (Kolejka Priorytetowa)</span>
+            <span class="keyword-tag">Algorytm Bellmana-Forda (Ujemne cykle)</span>
+            <span class="keyword-tag">Algorytm A* (A-Star / Heurystyka)</span>
+            <span class="keyword-tag">Złożoność: O(|V| log |V| + |E|)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: DIJKSTRA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Złoty Standard: Algorytm Dijkstry</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algorytm Dijkstry rozwiązuje problem najkrótszej ścieżki z pojedynczego źródła. To <strong>algorytm zachłanny (Greedy)</strong> wykorzystujący Kolejkę Priorytetową (Min-Heap). Na starcie przypisujemy źródłu odległość $0$, a wszystkim innym wierzchołkom $\infty$. Algorytm pobiera z kolejki wierzchołek o najmniejszej znanej odległości i bada jego sąsiadów, wykonując fundamentalną operację <strong>Relaksacji</strong>: 
+                    <br><code>Jeśli $d[v] > d[u] + waga(u, v)$, to $d[v] = d[u] + waga(u, v)$</code>.
+                </p>
+            </div>
+
+            <!-- SVG 1: DIJKSTRA -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e8eaf6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Działanie Algorytmu Dijkstry (Fala Relaksacji)</text>
+
+                <!-- Wierzchołki i Krawędzie -->
+                
+                <!-- Krawędzie -->
+                <!-- A->B -->
+                <path d="M 120 120 L 270 60" fill="none" stroke="#9fa8da" stroke-width="3"/>
+                <text x="180" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3949ab">4</text>
+
+                <!-- A->C -->
+                <path d="M 120 120 L 270 180" fill="none" stroke="#388e3c" stroke-width="4" marker-end="url(#arrowGrnD)"/>
+                <text x="180" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">1</text>
+
+                <!-- C->B -->
+                <path d="M 270 180 L 270 60" fill="none" stroke="#388e3c" stroke-width="4" marker-end="url(#arrowGrnD)"/>
+                <text x="285" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">2</text>
+
+                <!-- B->D -->
+                <path d="M 270 60 L 420 120" fill="none" stroke="#388e3c" stroke-width="4" marker-end="url(#arrowGrnD)"/>
+                <text x="360" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">5</text>
+
+                <!-- C->D -->
+                <path d="M 270 180 L 420 120" fill="none" stroke="#9fa8da" stroke-width="3"/>
+                <text x="360" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3949ab">8</text>
+
+                <!-- Wierzchołek A (Start) -->
+                <circle cx="120" cy="120" r="25" fill="#c5cae9" stroke="#3f51b5" stroke-width="3"/>
+                <text x="120" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1a237e" text-anchor="middle">A</text>
+                <rect x="100" y="150" width="40" height="20" rx="4" fill="#1a237e"/>
+                <text x="120" y="164" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">d=0</text>
+
+                <!-- Wierzchołek C -->
+                <circle cx="270" cy="180" r="25" fill="#fff" stroke="#4caf50" stroke-width="3"/>
+                <text x="270" y="185" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">C</text>
+                <rect x="250" y="210" width="40" height="20" rx="4" fill="#2e7d32"/>
+                <text x="270" y="224" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">d=1</text>
+
+                <!-- Wierzchołek B -->
+                <circle cx="270" cy="60" r="25" fill="#fff" stroke="#4caf50" stroke-width="3"/>
+                <text x="270" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">B</text>
+                <rect x="235" y="15" width="70" height="20" rx="4" fill="#e8f5e9" stroke="#4caf50"/>
+                <text x="270" y="29" font-family="monospace" font-size="11" fill="#c62828" text-decoration="line-through" text-anchor="middle">d=4</text>
+                <rect x="315" y="15" width="40" height="20" rx="4" fill="#2e7d32"/>
+                <text x="335" y="29" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">d=3</text>
+                <text x="270" y="10" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Relaksacja!</text>
+
+                <!-- Wierzchołek D (Cel) -->
+                <circle cx="420" cy="120" r="25" fill="#fff" stroke="#4caf50" stroke-width="3"/>
+                <text x="420" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">D</text>
+                <rect x="400" y="150" width="40" height="20" rx="4" fill="#2e7d32"/>
+                <text x="420" y="164" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">d=8</text>
+
+                <!-- Tabela PQ -->
+                <rect x="540" y="50" width="220" height="150" rx="6" fill="#fff" stroke="#3f51b5" stroke-width="2"/>
+                <text x="650" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1a237e" text-anchor="middle">Kolejka Priorytetowa (Min-Heap)</text>
+                
+                <line x1="540" y1="80" x2="760" y2="80" stroke="#c5cae9"/>
+                <text x="560" y="100" font-family="monospace" font-size="11" fill="#388e3c">1. Wyjmij C (d=1)</text>
+                <text x="560" y="120" font-family="monospace" font-size="11" fill="#388e3c">2. B: min(4, 1+2) -> 3</text>
+                <text x="560" y="140" font-family="monospace" font-size="11" fill="#388e3c">3. Aktualizuj B na d=3</text>
+                <text x="560" y="160" font-family="monospace" font-size="11" fill="#c62828">Odrzuć bezpośrednią A->B</text>
+
+                <defs>
+                    <marker id="arrowGrnD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: BELLMAN-FORD -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Ujemne wagi i Bellman-Ford (Dynamiczne Programowanie)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Algorytm Dijkstry zakłada, że idąc dalej, ścieżka może być tylko dłuższa. Jeśli graf zawiera ujemne wagi, Dijkstra zawiedzie! Z pomocą przychodzi <strong>Algorytm Bellmana-Forda</strong>. Ignoruje on kolejkę i brutalnie wykonuje relaksację <em>wszystkich</em> krawędzi w grafie powtórzoną $|V| - 1$ razy (gdzie $|V|$ to liczba wierzchołków). Jeśli po tym procesie da się jeszcze raz zrelaksować jakąkolwiek krawędź, oznacza to matematycznie, że w grafie istnieje <strong>Cykl o ujemnej wadze</strong> (pułapka czasowa - pętla nieskończenie obniżająca koszt).
+                </p>
+            </div>
+
+            <!-- SVG 2: BELLMAN-FORD -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#ffebee" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Bellman-Ford: Radzenie sobie z ujemnymi krawędziami</text>
+
+                <!-- Krawędzie -->
+                <!-- S->A -->
+                <path d="M 120 100 L 260 100" fill="none" stroke="#ef9a9a" stroke-width="3" marker-end="url(#arrowRedBF)"/>
+                <text x="190" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828">5</text>
+
+                <!-- A->B -->
+                <path d="M 260 100 L 400 100" fill="none" stroke="#e53935" stroke-width="4" marker-end="url(#arrowRedBF)"/>
+                <rect x="315" y="80" width="30" height="20" rx="4" fill="#c62828"/>
+                <text x="330" y="94" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">-8</text>
+
+                <!-- Wierzchołki -->
+                <circle cx="120" cy="100" r="25" fill="#fff" stroke="#c62828" stroke-width="3"/>
+                <text x="120" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">S</text>
+                <text x="120" y="140" font-family="monospace" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">d=0</text>
+
+                <circle cx="260" cy="100" r="25" fill="#fff" stroke="#c62828" stroke-width="3"/>
+                <text x="260" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">A</text>
+                <text x="260" y="140" font-family="monospace" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">d=5</text>
+
+                <circle cx="400" cy="100" r="25" fill="#fff" stroke="#c62828" stroke-width="3"/>
+                <text x="400" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">B</text>
+                <text x="400" y="140" font-family="monospace" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">d= -3 !</text>
+
+                <!-- Opisówka po prawej -->
+                <rect x="480" y="50" width="300" height="100" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="630" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Dlaczego Dijkstra tu polegnie?</text>
+                <text x="630" y="90" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Dijkstra blokuje węzeł natychmiast</text>
+                <text x="630" y="105" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">po zdjęciu go z kolejki. Nie spodziewa</text>
+                <text x="630" y="120" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">się, że ujemna waga z tyłu mogłaby</text>
+                <text x="630" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">zmniejszyć łączny koszt!</text>
+
+                <defs>
+                    <marker id="arrowRedBF" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e53935"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: A-STAR (A*) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #f57c00;">3. Inteligentne przeszukiwanie: Algorytm A* (A-Star)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dijkstra działa we wszystkich kierunkach na raz, co jest nieefektywne, jeśli dokładnie wiemy, gdzie jest cel na mapie (np. szukając drogi z Paryża do Berlina, sprawdzanie miast w Hiszpanii to błąd).<br>
+                    <strong>A* rozszerza Dijkstrę wprowadzając Heurystykę.</strong> Do zwykłej ceny dotarcia do węzła $g(n)$, dodaje szacunkową odległość w linii prostej do celu $h(n)$ (np. odległość Euklidesowa lub Manhattan). Całkowity koszt $f(n) = g(n) + h(n)$ sprawia, że priorytet dostają węzły leżące po "właściwej" stronie mapy.
+                </p>
+            </div>
+
+            <!-- SVG 3: A-STAR VS DIJKSTRA -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Kierunkowa natura A* (Prowadzenie Heurystyką)</text>
+
+                <!-- Siatka / Labirynt -->
+                <!-- Start S -->
+                <rect x="80" y="90" width="30" height="30" fill="#2196f3" rx="4"/>
+                <text x="95" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">S</text>
+
+                <!-- Przeszkoda -->
+                <rect x="200" y="50" width="30" height="110" fill="#455a64" rx="2"/>
+
+                <!-- Cel T -->
+                <rect x="360" y="90" width="30" height="30" fill="#4caf50" rx="4"/>
+                <text x="375" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">T</text>
+
+                <!-- Fale Dijkstry (Szare koła) -->
+                <path d="M 100 105 A 50 50 0 1 1 100 106" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="4,2"/>
+                <path d="M 100 105 A 80 80 0 1 1 100 106" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="4,2"/>
+                <text x="100" y="195" font-family="sans-serif" font-size="10" fill="#78909c" text-anchor="middle">Dijkstra: Bada na oślep 360°</text>
+
+                <!-- Ścieżka A* (Kierunkowa) -->
+                <path d="M 115 105 L 170 105 L 170 40 L 250 40 L 250 105 L 355 105" fill="none" stroke="#f57c00" stroke-width="4" marker-end="url(#arrowOrgA)"/>
+                <text x="250" y="180" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">f(n) = g(n) + h(n)</text>
+                <text x="250" y="195" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Ścieżka ściągana siłą grawitacji T</text>
+
+                <!-- Funkcja f(n) wyjasnienie -->
+                <rect x="480" y="50" width="300" height="110" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="630" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Anatomia Priorytetu f(n):</text>
+                
+                <rect x="500" y="85" width="260" height="25" fill="#e3f2fd"/>
+                <text x="630" y="102" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">g(n) = pewny koszt od Startu do n</text>
+
+                <rect x="500" y="115" width="260" height="25" fill="#fce4ec"/>
+                <text x="630" y="132" font-family="monospace" font-size="10" fill="#c2185b" text-anchor="middle">h(n) = domysł (w linii prostej) do Celu</text>
+
+                <defs>
+                    <marker id="arrowOrgA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity algorytmiczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Jeśli mamy ujemne wagi, wystarczy dodać dużą stałą do każdej krawędzi, by były dodatnie i użyć Dijkstry"</strong> – Klasyczny błąd i popularny podstęp na egzaminach! Dodanie stałej kary zmienia matematykę najkrótszej trasy. Trasa złożona z 5 krawędzi otrzyma tę stałą karę x5, podczas gdy trasa z 1 krawędzią otrzyma karę x1. W ten sposób sztucznie faworyzujesz trasy z mniejszą ilością węzłów, niszcząc logikę. Ujemne wagi rozwiązujemy TYLKO algorytmem Bellmana-Forda.</li>
+                    <li><strong>"A* jest algorytmem przybliżonym (niedokładnym)"</strong> – Fałsz! A* jest algorytmem <strong>optymalnym i kompletnym</strong>, o ile zastosowana funkcja heurystyczna $h(n)$ jest <em>dopuszczalna</em> (admissible). Dopuszczalna heurystyka to taka, która NIGDY nie przeszacowuje odległości do celu (czyli z góry zakłada scenariusz optymistyczny np. że można przelecieć w linii prostej z pominięciem ścian). Jeśli $h(n)$ będzie przeszacowana, A* może zgubić najkrótszą drogę.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wybór algorytmu wyznaczania ścieżki to lekcja kontekstu inżynieryjnego. Jeśli projektujesz protokół OSPF dla routerów w serwerowni, używasz Dijkstry, bo wagi połączeń są dodatnie, a potrzebujesz idealnej optymalizacji topologii. Jeśli pracujesz w świecie finansów i giełdowym arbitrażu walut, szukasz tzw. ujemnych cykli zysku – tam Bellman-Ford jest nieodzownym narzędziem analitycznym. A jeśli kodujesz Sztuczną Inteligencję przeciwników w grze wideo, uciekasz się do A*, oszukując matematykę geometrią rodem z euklidesowego kompasu, by zaoszczędzić cenne cykle procesora i utrzymać grę na poziomie 60 klatek na sekundę.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Wprowadzenie do algorytmów" (Cormen, Leiserson) – Rozdział: Najkrótsze ścieżki z jednym źródłem (Dijkstra, Bellman-Ford) · Artificial Intelligence: A Modern Approach (Norvig) – Algorytm A*.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
