@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 118 – Programistyczne przyspieszanie pracy systemów wbudowanych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">118. Programistyczne przyspieszanie pracy systemów wbudowanych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏎️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – System wbudowany to „Wyścigówka na wąskiej, wyboistej drodze”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie wyścig Formuły 1. Na torze może pędzić 350 km/h, ale tylko dlatego, że inżynierowie poświęcili setki godzin na wyciśnięcie każdej milisekundy z silnika i aerodynamiki. <strong>System wbudowany</strong> to podobna bestia – mikrokontroler z ograniczoną pamięcią RAM (rzadko więcej niż 512 kB), taktowaniem zegara (dziesiątki do setek MHz, nie GHz) i często pracujący na baterii. Nie możesz po prostu wrzucić ciężkiego frameworka i liczyć, że zadziała szybko. Musisz zostać inżynierem-wyścigowcem: odchudzić kod, nauczyć kompilator precyzyjnej jazdy, ominąć blokady (DMA zamiast CPU) i wyeliminować każdy zbędny cykl zegara. Dzięki tym sztuczkom mikrokontroler, który pozornie jest słabszy od kalkulatora, może w czasie rzeczywistym sterować silnikiem drona, przetwarzać dźwięk czy analizować obraz z kamery.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Kompilator to Twój pilot</strong> – flagi -O2, -Os, LTO i optymalizacja pod konkretny rdzeń (Cortex-M) robią różnicę rzędu 200-300%.</li>
+                        <li><strong>🟠 Stały przecinek zamiast float</strong> – jednostka zmiennoprzecinkowa (FPU) to luksus. W wielu tanich MCU jej brak. Emulacja float potrafi być 100× wolniejsza.</li>
+                        <li><strong>🟢 DMA – zrób to za kulisami</strong> – zamiast blokować CPU w pętli kopiującej dane z ADC do RAM-u, wyręcza go kontroler DMA.</li>
+                        <li><strong>🟣 Przerwania i tabele LUT</strong> – nie marnuj czasu na ciągłe sprawdzanie flag. Niech sprzęt Cię obudzi. A funkcje trygonometryczne? Oblicz raz, zapisz w tabeli.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Optymalizacja kompilatora (-O2, -Os, LTO)</span>
+            <span class="keyword-tag">Stałoprzecinkowe (Fixed-point) vs Float</span>
+            <span class="keyword-tag">DMA (Direct Memory Access)</span>
+            <span class="keyword-tag">Przerwania (Interrupts) vs Polling</span>
+            <span class="keyword-tag">Look-Up Table (LUT) – tablicowanie</span>
+            <span class="keyword-tag">Loop Unrolling (rozwijanie pętli)</span>
+            <span class="keyword-tag">Inline functions / Intrinsics</span>
+            <span class="keyword-tag">Dostęp do pamięci: Cache, RAM, Flash</span>
+            <span class="keyword-tag">Zerowy wait state (TCM, CCM)</span>
+            <span class="keyword-tag">Systemy RTOS i priorytetyzacja</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: KOMPILATOR – FLAGI OPTYMALIZACJI                -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">1. Kompilator – Twój najlepszy przyjaciel (lub wróg)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pierwszym i najważniejszym krokiem jest odpowiednia konfiguracja kompilatora. Włączenie optymalizacji (<code>-O2</code>, <code>-O3</code>, <code>-Ofast</code>) pozwala kompilatorowi na agresywne przekształcanie kodu, eliminację martwych zmiennych i rozwijanie pętli. W systemach z ograniczoną pamięcią Flash kluczowe jest <code>-Os</code> (optymalizacja pod kątem rozmiaru). Nowoczesne narzędzia oferują <strong>LTO (Link-Time Optimization)</strong>, które analizuje cały program na etapie linkowania, usuwając nawet te funkcje z bibliotek, które nie są używane.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridEmb" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridEmb)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Optymalizacja kompilatora: flagi i efekt działania</text>
+
+                <rect x="40" y="50" width="350" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Bez optymalizacji (-O0)</text>
+                <rect x="80" y="95" width="270" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="215" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">size: 48 KB | speed: 100% (bazowo)</text>
+                <text x="215" y="160" font-family="sans-serif" font-size="10" fill="#546e7a">Kod debugowalny, ale ogromny i powolny.</text>
+
+                <rect x="430" y="50" width="350" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Z optymalizacją (-O2 / -Os + LTO)</text>
+                <rect x="470" y="95" width="270" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="605" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">size: 18 KB | speed: ~250%</text>
+                <text x="605" y="160" font-family="sans-serif" font-size="10" fill="#546e7a">Mniejszy, szybszy, ale trudniejszy do debugowania.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: STAŁOPRZECINKOWE – OMNIJANIE FLOAT             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Arytmetyka stałoprzecinkowa – „Lepsza niż float, gdy brak FPU”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wiele mikrokontrolerów (np. Cortex-M0, M3, AVR) nie ma sprzętowej jednostki zmiennoprzecinkowej (FPU). Każda operacja na liczbach <code>float</code> jest emulowana programowo i może zająć setki cykli. Rozwiązaniem jest <strong>arytmetyka stałoprzecinkowa (fixed-point)</strong>, która reprezentuje ułamki na liczbach całkowitych, mnożąc je przez stały współczynnik (np. 1000 lub 2¹⁶). Dzięki temu operacje sprowadzają się do szybkich instrukcji całkowitoliczbowych.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridEmb)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Arytmetyka stałoprzecinkowa vs zmiennoprzecinkowa (Float)</text>
+
+                <rect x="30" y="50" width="370" height="180" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Float (bez FPU)</text>
+                <text x="215" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">float x = 3.14; x *= 2.5;</text>
+                <text x="215" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">~400 cykli (emulacja programowa)</text>
+                <text x="215" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Duży narzut, wolne.</text>
+
+                <rect x="420" y="50" width="370" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Stałoprzecinkowe (Q16.16)</text>
+                <text x="605" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">int32_t x = 3.14 * (1&lt;&lt;16);</text>
+                <text x="605" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">~10 cykli (zwykłe mnożenie int)</text>
+                <text x="605" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Szybkie, bez narzutu FPU.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: DMA – BEZPOŚREDNI DOSTĘP DO PAMIĘCI            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. DMA (Direct Memory Access) – „Zatrudnij kuriera, nie biegaj sam”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wyobraź sobie, że co milisekundę musisz przenieść 1000 bajtów z przetwornika ADC do pamięci RAM. Jeśli robi to procesor (w pętli <code>for</code>), jest całkowicie zablokowany na czas transferu. <strong>DMA (Direct Memory Access)</strong> to osobny kontroler sprzętowy, który przejmuje to zadanie. Procesor mówi DMA: „skopiuj dane stąd tam, obudź mnie, jak skończysz”, po czym wraca do ważniejszych zadań. DMA jest nieocenione przy obsłudze transmisji szeregowych (UART, SPI), przetworników ADC i pamięci masowych.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridEmb)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">DMA – Transfer danych bez udziału CPU</text>
+
+                <rect x="30" y="50" width="360" height="160" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Bez DMA (Polling / Interrupt)</text>
+                <rect x="70" y="95" width="50" height="30" fill="#ffcdd2" stroke="#c62828"/><text x="95" y="115" font-size="9" text-anchor="middle">CPU</text>
+                <text x="130" y="115" font-family="sans-serif" font-size="12" fill="#c62828">→ pętla →</text>
+                <rect x="180" y="95" width="50" height="30" fill="#ffcdd2" stroke="#c62828"/><text x="205" y="115" font-size="9" text-anchor="middle">RAM</text>
+                <text x="210" y="160" font-size="10" fill="#b71c1c">CPU jest zajęty kopiowaniem – marnuje czas.</text>
+
+                <rect x="430" y="50" width="360" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Z DMA</text>
+                <rect x="460" y="95" width="50" height="30" fill="#c8e6c9" stroke="#2e7d32"/><text x="485" y="115" font-size="9" text-anchor="middle">CPU</text>
+                <text x="520" y="115" font-family="sans-serif" font-size="10" fill="#1b5e20">→ start →</text>
+                <rect x="570" y="95" width="50" height="30" fill="#81c784" stroke="#2e7d32" stroke-width="2"/><text x="595" y="115" font-size="9" text-anchor="middle">DMA</text>
+                <text x="650" y="115" font-family="sans-serif" font-size="12" fill="#1b5e20">→</text>
+                <rect x="670" y="95" width="50" height="30" fill="#c8e6c9" stroke="#2e7d32"/><text x="695" y="115" font-size="9" text-anchor="middle">RAM</text>
+                <text x="610" y="160" font-size="10" fill="#1b5e20">CPU kontynuuje pracę, DMA kopiuje w tle.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PRZERWANIA vs POLLING                           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Przerwania (Interrupts) kontra Polling – „Dzwonek do drzwi zamiast ciągłego wyglądania”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Polling to strategia, w której programista w pętli ciągle sprawdza, czy dane nadeszły (<code>while(!FLAGA);</code>). To pożera cały czas procesora. <strong>Przerwanie (Interrupt)</strong> to mechanizm sprzętowy, który „budzi” CPU tylko wtedy, gdy jest coś do zrobienia. Procesor może spać w trybie niskiego poboru mocy (WFI – Wait For Interrupt), oszczędzając energię. Minusem jest narzut związany z wejściem i wyjściem z przerwania (odłożenie kontekstu), ale dla rzadkich zdarzeń jest to bezkonkurencyjne.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridEmb)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Przerwania (Interrupts) vs Polling</text>
+
+                <rect x="30" y="50" width="370" height="160" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Polling (ciągłe odpytywanie)</text>
+                <path d="M 60 120 L 120 120 L 120 100 L 180 100 L 180 120 L 240 120 L 240 100 L 300 100 L 300 120 L 360 120" fill="none" stroke="#c62828" stroke-width="3"/>
+                <text x="215" y="160" font-size="10" fill="#b71c1c">CPU sprawdza w kółko → zużywa 100% czasu.</text>
+
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Przerwanie (Interrupt)</text>
+                <line x1="460" y1="120" x2="720" y2="120" stroke="#2e7d32" stroke-width="2"/>
+                <line x1="500" y1="110" x2="500" y2="130" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="500" y="90" width="60" height="20" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="530" y="105" font-size="8" text-anchor="middle">ISR!</text>
+                <line x1="600" y1="110" x2="600" y2="130" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="600" y="90" width="60" height="20" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="630" y="105" font-size="8" text-anchor="middle">ISR!</text>
+                <text x="605" y="160" font-size="10" fill="#1b5e20">CPU śpi → zdarzenie → krótka ISR → znowu śpi.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: INLINE, MAKRA, LUT I LOOP UNROLLING             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Inline, Makra, LUT (Look-Up Tables) i Loop Unrolling – „Mikrooptymalizacje z wielkim efektem”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Inline functions</strong> i <strong>makra</strong> eliminują narzut wywołania funkcji (odkładanie parametrów, skok). <strong>Look-Up Table (LUT)</strong> to predefiniowana tablica wyników – zamiast obliczać sin(x) na żywo, odczytujesz wartość spod indeksu. <strong>Rozwijanie pętli (Loop Unrolling)</strong> zmniejsza liczbę iteracji i skoków, zwiększając przepustowość kosztem rozmiaru kodu. To techniki „ostatniego szlifu” w krytycznych pętlach.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridEmb)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">LUT, Inline i Loop Unrolling – mikrooptymalizacje</text>
+
+                <rect x="30" y="50" width="240" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="150" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Inline / Makro</text>
+                <text x="150" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">#define MUL(a,b) (a)*(b)</text>
+                <text x="150" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">inline int mul(int a,int b)</text>
+                <text x="150" y="140" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Kompilator wstawia kod w miejscu wywołania.</text>
+
+                <rect x="290" y="50" width="240" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="410" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">LUT (Look-Up Table)</text>
+                <text x="410" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">sin_table[deg] → wynik</text>
+                <text x="410" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">(zamiast sin(rad))</text>
+                <text x="410" y="140" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Oblicz raz, przechowaj w Flash/RAM.</text>
+
+                <rect x="550" y="50" width="240" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="670" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Loop Unrolling</text>
+                <text x="670" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">for(i=0;i&lt;4;i++) a[i]=0;</text>
+                <text x="670" y="118" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#e65100">→</text>
+                <text x="670" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">a[0]=a[1]=a[2]=a[3]=0;</text>
+
+                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Uwaga: Inline i makra zwiększają rozmiar kodu (Flash). Unrolling też. Balansuj między szybkością a rozmiarem!</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Przerwania nie są zawsze lepsze od pollingu!</strong> Dla sygnałów o bardzo wysokiej częstotliwości (np. enkoder 1 MHz) narzut wejścia/wyjścia z przerwania może być większy niż kilka cykli pollingu. W takich przypadkach lepiej użyć sprzętowego timera w trybie enkodera.</li>
+                    <li><strong>Float bez FPU to pułapka.</strong> Nawet pojedyncza operacja zmiennoprzecinkowa w pętli może zabić wydajność. Zawsze sprawdzaj, czy Twój mikrokontroler ma sprzętową jednostkę FPU.</li>
+                    <li><strong>Optymalizacja -O3 może zmienić zachowanie kodu!</strong> Agresywne optymalizacje mogą polegać na założeniach (np. brak aliasingu wskaźników). Jeśli kod nagle przestaje działać przy -O2, sprawdź słowo kluczowe <code>volatile</code>.</li>
+                    <li><strong>LUT w RAM-ie vs Flash-u.</strong> Flash jest wolniejszy od RAM-u. Często warto skopiować tablicę LUT z Flash do RAM podczas inicjalizacji, aby przyspieszyć dostęp.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Przyspieszanie systemów wbudowanych:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Technika</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Zastosowanie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Efekt / Kompromis</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#00897b;">Flagi kompilatora (-O2, LTO)</td><td style="padding:10px;">Zawsze!</td><td style="padding:10px;">+200% wydajności, -50% rozmiaru</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Stałoprzecinkowe</td><td style="padding:10px;">Brak FPU, przetwarzanie sygnałów</td><td style="padding:10px;">Zamiana float na int → 20-100× szybciej</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">DMA</td><td style="padding:10px;">Transfery ADC/UART/SPI do RAM</td><td style="padding:10px;">Zwalnia CPU z kopiowania</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Przerwania</td><td style="padding:10px;">Zdarzenia rzadkie i nieregularne</td><td style="padding:10px;">CPU może spać (WFI), oszczędność energii</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">LUT / Inline / Unrolling</td><td style="padding:10px;">Krytyczne pętle i funkcje</td><td style="padding:10px;">Szybciej, ale kosztem Flash/RAM</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Programowanie systemów wbudowanych to sztuka wyciskania maksimum z minimum. Nie możesz dołożyć RAM-u ani zwiększyć zegara – możesz tylko zmienić sposób myślenia o kodzie. Od flag kompilatora, przez stałoprzecinkowe, DMA i przerwania, po tabele LUT – każda z tych technik to dodatkowe konie mechaniczne pod maską Twojego mikrokontrolera. Stosuj je mądrze, a nawet tani Cortex-M0 będzie latał jak sokół.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „ARM Cortex-M Programming Guide to the CMSIS” (Yiu) · „Making Embedded Systems” (E. White) · GCC Optimization Documentation · Notatki własne z programowania bare-metal.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
