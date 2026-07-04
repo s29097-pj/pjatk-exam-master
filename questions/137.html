@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 137 – Analiza SWOT w planowaniu projektu informatycznego</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">137. Analiza SWOT w planowaniu projektu informatycznego.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%); border-left: 6px solid #34495e; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(52,73,94,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🚢</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a252f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Radar Wojskowy i Audyt Kadłuba w Jednym”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #2c3e50; line-height: 1.7;">
+                        Wielu programistów traktuje analizę SWOT jak nudną, korporacyjną laurkę. To kardynalny błąd. Wyobraź sobie, że budujesz okręt podwodny (Twój nowy system IT).<br><br>
+                        <strong>Czynniki Wewnętrzne (Silne i Słabe strony)</strong> to stan techniczny Twojego kadłuba, wydajność silnika i zgranie załogi[cite: 2]. Czy macie potężny dług techniczny (legacy code)? Czy znacie nowy framework?<br>
+                        <strong>Czynniki Zewnętrzne (Szanse i Zagrożenia)</strong> to z kolei radar, który skanuje otoczenie wokół okrętu[cite: 2]. Czy nadchodzi sztorm (zmiana prawa, np. RODO/NIS2)? Czy konkurencja wypuściła torpedę (nowy produkt open-source niszczący Wasz model biznesowy)?<br><br>
+                        SWOT w IT to rygorystyczne zderzenie kondycji Twojego kodu z brutalnymi prawami rynku. Budowanie oprogramowania bez tej analizy przypomina pisanie kodu bez testów jednostkowych – może zadziała, dopóki nie trafi na produkcję.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Czynniki Wewnętrzne (S / W)</span>
+            <span class="keyword-tag">Czynniki Zewnętrzne (O / T)</span>
+            <span class="keyword-tag">Analiza TOWS</span>
+            <span class="keyword-tag">Strategie: Maxi-Maxi, Mini-Maxi, Maxi-Mini, Mini-Mini</span>
+            <span class="keyword-tag">Dług Techniczny (Legacy Code)</span>
+            <span class="keyword-tag">Vendor Lock-in</span>
+            <span class="keyword-tag">Bus Factor</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PODSTAWY SWOT W IT -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #34495e;">1. Diagnoza Architektury i Rynku: Elementy macierzy SWOT</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Analiza SWOT to metoda oceny strategicznej, która polega na identyfikacji czterech kluczowych kategorii czynników wpływających na projekt[cite: 2]. Dzielimy je na dwie osie: środowisko wewnętrzne (to, co kontroluje Zespół/Firma) oraz środowisko zewnętrzne (to, co narzuca rynek)[cite: 2].
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>S (Strengths - Mocne strony):</strong> Wewnętrzne atuty organizacji[cite: 2]. W IT to np. unikalne algorytmy (AI), wysokie pokrycie kodu testami, wdrożone procesy CI/CD, zgrany i doświadczony zespół inżynierów.</li>
+                    <li><strong>W (Weaknesses - Słabe strony):</strong> Wewnętrzne obszary wymagające poprawy, ograniczające potencjał[cite: 2]. W IT to np. krytyczny dług techniczny (monolit w przestarzałym języku), tzw. <em>Bus Factor = 1</em> (tylko jedna osoba rozumie kluczowy moduł), czy brak automatyzacji testów.</li>
+                    <li><strong>O (Opportunities - Szanse):</strong> Zewnętrzne czynniki, które organizacja może wykorzystać na swoją korzyść[cite: 2]. W IT to np. rosnący popyt na chmurę[cite: 2], dostępność nowych, darmowych bibliotek Open Source, dofinansowania państwowe, czy nowe technologie zwiększające produktywność[cite: 2].</li>
+                    <li><strong>T (Threats - Zagrożenia):</strong> Zewnętrzne czynniki mogące negatywnie wpłynąć na projekt[cite: 2]. W IT to np. ataki Zero-Day, zaostrzenie rygorów bezpieczeństwa (wymogi prawne np. NIS2), podwyżki cen u dostawców chmurowych (AWS/Azure), lub agresywne "podbieranie" programistów przez konkurencję[cite: 2].</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: SWOT MATRIX -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#ecf0f1" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2c3e50">Macierz SWOT dla Projektu Informatycznego</text>
+
+                <!-- CZYNNIKI WEWNĘTRZNE (Góra) -->
+                <text x="100" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#546e7a" text-anchor="middle" transform="rotate(-90 100 80)">WEWNĘTRZNE</text>
+
+                <!-- Strengths -->
+                <rect x="130" y="50" width="310" height="95" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                <text x="285" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">S - Strengths (Mocne Strony)</text>
+                <text x="145" y="90" font-family="sans-serif" font-size="10" fill="#2e7d32">• Nowoczesne CI/CD i konteneryzacja (K8s)</text>
+                <text x="145" y="105" font-family="sans-serif" font-size="10" fill="#2e7d32">• Wysokie kompetencje zespołu (Senior Devs)</text>
+                <text x="145" y="120" font-family="sans-serif" font-size="10" fill="#2e7d32">• Własne zaplecze serwerowe</text>
+
+                <!-- Weaknesses -->
+                <rect x="460" y="50" width="310" height="95" rx="6" fill="#ffebee" stroke="#f44336" stroke-width="2"/>
+                <text x="615" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">W - Weaknesses (Słabe Strony)</text>
+                <text x="475" y="90" font-family="sans-serif" font-size="10" fill="#c62828">• Zależność od kodu "Legacy"</text>
+                <text x="475" y="105" font-family="sans-serif" font-size="10" fill="#c62828">• Wąskie gardła wiedzy (Bus Factor = 1)</text>
+                <text x="475" y="120" font-family="sans-serif" font-size="10" fill="#c62828">• Brak dokumentacji architektonicznej</text>
+
+
+                <!-- CZYNNIKI ZEWNĘTRZNE (Dół) -->
+                <text x="100" y="200" font-family="sans-serif" font-size="12" font-weight="bold" fill="#546e7a" text-anchor="middle" transform="rotate(-90 100 200)">ZEWNĘTRZNE</text>
+
+                <!-- Opportunities -->
+                <rect x="130" y="160" width="310" height="95" rx="6" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+                <text x="285" y="180" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">O - Opportunities (Szanse)</text>
+                <text x="145" y="200" font-family="sans-serif" font-size="10" fill="#1565c0">• Integracja z nowymi API (np. OpenAI)</text>
+                <text x="145" y="215" font-family="sans-serif" font-size="10" fill="#1565c0">• Dotacje państwowe na cyfryzację</text>
+                <text x="145" y="230" font-family="sans-serif" font-size="10" fill="#1565c0">• Pojawienie się nowych bibliotek Open Source</text>
+
+                <!-- Threats -->
+                <rect x="460" y="160" width="310" height="95" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                <text x="615" y="180" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">T - Threats (Zagrożenia)</text>
+                <text x="475" y="200" font-family="sans-serif" font-size="10" fill="#e65100">• Nagłe zmiany regulacyjne i kary (RODO)</text>
+                <text x="475" y="215" font-family="sans-serif" font-size="10" fill="#e65100">• Wyłączenie wsparcia (EOL) kluczowej bazy</text>
+                <text x="475" y="230" font-family="sans-serif" font-size="10" fill="#e65100">• Agresywna konkurencja podbierająca kadrę</text>
+
+            </svg>
+
+            <!-- PART 2: TOWS ANALYSIS -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">2. Wyższy poziom inżynierii: Analiza TOWS (Tworzenie Strategii)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Samo wypisanie mocnych i słabych stron to zaledwie wstęp. Prawdziwe planowanie polega na zderzeniu ze sobą tych czynników w celu określenia pozycji strategicznej i wyboru kierunków rozwoju. Z pomocą przychodzi <strong>Analiza TOWS</strong>, zaproponowana przez H. Weihricha[cite: 1].
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podczas gdy klasyczny SWOT zaczyna się od analizy wnętrza (S i W), a potem szuka dla nich zastosowania w otoczeniu, w TOWS odwracamy ten proces: <strong>najpierw badamy, co narzuca nam otoczenie (T i O), a potem zestawiamy to z potencjałem naszego zespołu (W i S)</strong>[cite: 1]. W ten sposób budujemy cztery konkretne strategie działania[cite: 1, 2]:
+                </p>
+            </div>
+
+            <!-- SVG 2: TOWS CROSS STRATEGIES -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Modele Strategiczne w Analizie TOWS (Krzyżowanie Czynników)</text>
+
+                <!-- Tytuły Kolumn -->
+                <text x="270" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#388e3c" text-anchor="middle">S (Mocne Strony)</text>
+                <text x="610" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d32f2f" text-anchor="middle">W (Słabe Strony)</text>
+
+                <!-- Tytuły Wierszy -->
+                <text x="50" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle" transform="rotate(-90 50 115)">O (Szanse)</text>
+                <text x="50" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle" transform="rotate(-90 50 215)">T (Zagrożenia)</text>
+
+                <!-- SO (Maxi-Maxi) -->
+                <rect x="100" y="70" width="340" height="90" rx="6" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="270" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Sytuacja SO: Strategia Maxi-Maxi</text>
+                <rect x="110" y="100" width="320" height="50" rx="4" fill="#e8f5e9"/>
+                <text x="270" y="115" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">Używamy sił do wyeksploatowania szans (ekspansja).</text>
+                <text x="270" y="130" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">Przykład: Użycie seniorów (S), by błyskawicznie wpiąć</text>
+                <text x="270" y="142" font-family="monospace" font-size="9" fill="#1b5e20" text-anchor="middle">się w nowe darmowe API rządowe (O).</text>
+
+                <!-- WO (Mini-Maxi) -->
+                <rect x="450" y="70" width="340" height="90" rx="6" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="620" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sytuacja WO: Strategia Mini-Maxi</text>
+                <rect x="460" y="100" width="320" height="50" rx="4" fill="#e3f2fd"/>
+                <text x="620" y="115" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">Szansami rynkowymi łatamy nasze słabości.</text>
+                <text x="620" y="130" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">Przykład: Brak programistów FrontEnd (W) łatamy</text>
+                <text x="620" y="142" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">zakupem taniej platformy Low-Code (O).</text>
+
+                <!-- ST (Maxi-Mini) -->
+                <rect x="100" y="170" width="340" height="90" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="270" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Sytuacja ST: Strategia Maxi-Mini</text>
+                <rect x="110" y="200" width="320" height="50" rx="4" fill="#fff3e0"/>
+                <text x="270" y="215" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">Przezwyciężanie zagrożeń swoimi mocnymi stronami.</text>
+                <text x="270" y="230" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">Przykład: Nasze testy bezpieczeństwa i audyty kodu (S)</text>
+                <text x="270" y="242" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">chronią nas przed atakami Zero-Day na rynku (T).</text>
+
+                <!-- WT (Mini-Mini) -->
+                <rect x="450" y="170" width="340" height="90" rx="6" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="620" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Sytuacja WT: Strategia Mini-Mini</text>
+                <rect x="460" y="200" width="320" height="50" rx="4" fill="#ffebee"/>
+                <text x="620" y="215" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Walka o przetrwanie lub obrona konieczna.</text>
+                <text x="620" y="230" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Przykład: Dziurawy monolit (W) zderza się z nowym</text>
+                <text x="620" y="242" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">prawem (T) = Natychmiastowy refaktoring kodu.</text>
+
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe kruczki metodologiczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie otoczenia wewnętrznego z zewnętrznym:</strong> To najczęstszy powód obniżenia oceny na egzaminie. Wykładowca zapyta: "Gdzie w strukturze SWOT wpiszesz ryzyko, że Twoi programiści zrezygnują z pracy?". Instynktownie chcesz wpisać to w <em>Zagrożenia (Threats)</em>. <strong>BŁĄD!</strong> Zespół deweloperski i problemy z jego rotacją to czynnik, za który odpowiada organizacja – jest to <strong>Słaba Strona (Weakness)</strong>[cite: 2]. Zagrożeniem zewnętrznym byłoby natomiast niezależne zjawisko: "Amerykańskie korporacje agresywnie licytujące stawki na polskim rynku IT".</li>
+                    <li><strong>Brak priorytetyzacji:</strong> Jedną z głównych wad analizy SWOT jest fakt, że tworzy ona "płaskie" listy, nie wskazując, co jest ważniejsze[cite: 2]. Pamiętaj, aby na egzaminie zaznaczyć, że surowa lista punktów musi zostać uzupełniona o przypisanie "wag" poszczególnym czynnikom przed przystąpieniem do analizy krzyżowej[cite: 1, 2].</li>
+                    <li><strong>Traktowanie SWOT jako dokumentu jednorazowego:</strong> Projekty IT cechują się ogromną dynamiką i często są prowadzone zwinnie (Agile). SWOT to nie fotografia, a proces iteracyjny, który wymaga aktualizacji[cite: 2]. Sytuacja z wczoraj może nie pasować do dzisiejszego środowiska.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #2c3e50, #4ca1af); color: #ecf0f1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Analiza SWOT / TOWS przestała być teorią ekonomii, a stała się twardym elementem inżynierii. Projektując architekturę systemu, inżynier nie może patrzeć wyłącznie w ekran kompilatora. Wdrożenie mikroserwisów nie ma sensu, jeśli nie mamy na pokładzie ludzi, którzy potrafią tym zarządzać (Weakness), a równocześnie dostawca chmury zapowiada podwyżki cen wirtualizacji (Threat). Prawidłowe zderzenie tych czynników wypluwa gotowe decyzje architektoniczne, chroniąc projekt przed porażką na długo przed napisaniem pierwszej linijki kodu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    [1] TOWS Matrix (H. Weihrich) - "A tool for situational analysis". Analiza szans i zagrożeń z otoczenia oraz zderzenie z czynnikami wewnętrznymi.<br>
+                    [2] Analiza SWOT — Identyfikacja i ocena zagrożeń i szans; Podział czynników i wyprowadzanie strategii krzyżowych.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
