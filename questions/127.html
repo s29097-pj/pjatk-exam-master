@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 127 – Pojęcie przestrzeni stanów i jego zastosowanie w rozwiązywaniu problemów</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">127. Pojęcie przestrzeni stanów i jego zastosowanie w rozwiązywaniu problemów.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Przestrzeń stanów to „Mapa wszystkich możliwych sytuacji w labiryncie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś detektywem analizującym skomplikowaną sprawę kryminalną. Na tablicy korkowej rozwieszasz zdjęcia, łączysz je nitkami – każde zdjęcie to <strong>stan</strong> (fakt, miejsce, konfiguracja), a każda nitka to <strong>przejście</strong> (akcja, decyzja, ruch). Cała ta sieć możliwych stanów i połączeń między nimi to właśnie <strong>przestrzeń stanów</strong> Twojej sprawy. Rozwiązanie problemu to znalezienie ścieżki od stanu początkowego („mamy zwłoki w bibliotece”) do stanu docelowego („morderca aresztowany”). W informatyce robimy to samo: każdy możliwy układ planszy w szachach, każda konfiguracja kostki Rubika, każdy stan zamka szyfrowego to punkt w gigantycznej przestrzeni stanów. Sztuczna inteligencja nie myśli – ona <strong>przeszukuje tę przestrzeń</strong> w poszukiwaniu drogi do celu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Przestrzeń stanów (State Space)</span>
+            <span class="keyword-tag">Stan (State) – migawka systemu</span>
+            <span class="keyword-tag">Przejście / Akcja (Transition)</span>
+            <span class="keyword-tag">Graf stanów (State Graph)</span>
+            <span class="keyword-tag">Przeszukiwanie (Search) – BFS, DFS, A*</span>
+            <span class="keyword-tag">Heurystyka (Heuristic) – funkcja oceny</span>
+            <span class="keyword-tag">Eksplozja kombinatoryczna</span>
+            <span class="keyword-tag">Problem spełniania ograniczeń (CSP)</span>
+            <span class="keyword-tag">Systemy regułowe i automatowe</span>
+            <span class="keyword-tag">Modelowanie: od problemu do grafu</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: DEFINICJA I REPREZENTACJA                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Definicja przestrzeni stanów – „Każdy krok to nowa migawka świata”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Przestrzeń stanów</strong> to zbiór wszystkich możliwych konfiguracji, w jakich może się znaleźć badany system. <strong>Stan</strong> to pełny opis systemu w danym momencie – zawiera wszystkie informacje potrzebne do podjęcia decyzji o dalszych akcjach. <strong>Przejście</strong> (akcja) zmienia jeden stan w drugi. Formalnie przestrzeń stanów to <strong>graf skierowany</strong>, gdzie węzły to stany, a krawędzie to dozwolone przejścia między nimi. Rozwiązanie problemu to znalezienie ścieżki od węzła startowego do węzła docelowego.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridSS" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridSS)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Modelowanie problemu jako grafu stanów</text>
+
+                <circle cx="120" cy="130" r="30" fill="#ffe0b2" stroke="#ef6c00" stroke-width="3"/>
+                <text x="120" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Start</text>
+                <text x="120" y="150" font-size="9" fill="#bf360c" text-anchor="middle">Stan A</text>
+
+                <circle cx="340" cy="80" r="30" fill="#ffcc80" stroke="#ef6c00" stroke-width="3"/>
+                <text x="340" y="85" font-family="sans-serif" font-size="11" fill="#e65100" text-anchor="middle">Stan B</text>
+                <circle cx="340" cy="180" r="30" fill="#ffcc80" stroke="#ef6c00" stroke-width="3"/>
+                <text x="340" y="185" font-family="sans-serif" font-size="11" fill="#e65100" text-anchor="middle">Stan C</text>
+
+                <circle cx="560" cy="130" r="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+                <text x="560" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Cel</text>
+                <text x="560" y="150" font-size="9" fill="#2e7d32" text-anchor="middle">Stan D</text>
+
+                <line x1="150" y1="130" x2="310" y2="85" stroke="#e65100" stroke-width="2" marker-end="url(#arrSS1)"/>
+                <text x="230" y="100" font-size="9" fill="#e65100">akcja X</text>
+                <line x1="150" y1="130" x2="310" y2="175" stroke="#e65100" stroke-width="2" marker-end="url(#arrSS1)"/>
+                <text x="230" y="165" font-size="9" fill="#e65100">akcja Y</text>
+                <line x1="370" y1="80" x2="530" y2="125" stroke="#e65100" stroke-width="2" marker-end="url(#arrSS1)"/>
+                <text x="450" y="95" font-size="9" fill="#e65100">akcja Z</text>
+                <line x1="370" y1="180" x2="530" y2="135" stroke="#e65100" stroke-width="2" marker-end="url(#arrSS1)"/>
+                <text x="450" y="170" font-size="9" fill="#e65100">akcja W</text>
+                <defs><marker id="arrSS1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker></defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: EKSPLOZJA KOMBINATORYCZNA                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Problem eksplozji kombinatorycznej – „Gdy mapa staje się większa niż wszechświat”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Największym wrogiem przeszukiwania przestrzeni stanów jest <strong>eksplozja kombinatoryczna</strong>. Liczba możliwych stanów rośnie wykładniczo wraz z rozmiarem problemu. Szachy mają ~10⁴³ możliwych stanów, kostka Rubika ~4.3·10¹⁹. Nie da się ich wszystkich przejrzeć. Dlatego potrzebujemy <strong>inteligentnych strategii</strong> – algorytmów, które potrafią ominąć ślepe zaułki i kierować się w stronę celu bez oglądania każdego zakamarka mapy.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridSS)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Eksplozja kombinatoryczna – drzewo możliwych ruchów</text>
+                <circle cx="410" cy="70" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="75" font-size="10" text-anchor="middle" fill="#b71c1c">Start</text>
+                <line x1="395" y1="85" x2="260" y2="130" stroke="#c62828" stroke-width="1.5"/><circle cx="260" cy="140" r="12" fill="#ffcdd2" stroke="#c62828"/><text x="260" y="144" font-size="8" text-anchor="middle">A1</text>
+                <line x1="425" y1="85" x2="560" y2="130" stroke="#c62828" stroke-width="1.5"/><circle cx="560" cy="140" r="12" fill="#ffcdd2" stroke="#c62828"/><text x="560" y="144" font-size="8" text-anchor="middle">A2</text>
+                <line x1="250" y1="150" x2="180" y2="190" stroke="#c62828" stroke-width="1"/><circle cx="180" cy="198" r="8" fill="#ef9a9a" stroke="#c62828"/><text x="180" y="202" font-size="7" text-anchor="middle">...</text>
+                <line x1="270" y1="150" x2="340" y2="190" stroke="#c62828" stroke-width="1"/><circle cx="340" cy="198" r="8" fill="#ef9a9a" stroke="#c62828"/><text x="340" y="202" font-size="7" text-anchor="middle">...</text>
+                <rect x="420" y="170" width="380" height="50" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="610" y="195" text-anchor="middle" font-size="11" fill="#b71c1c">Przy 10 możliwych akcjach na krok, po 10 krokach mamy 10¹⁰ stanów.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ALGORYTMY PRZESZUKIWANIA                       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Metody przeszukiwania przestrzeni stanów</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>BFS (przeszukiwanie wszerz)</strong> bada wszystkie stany na danym poziomie przed zejściem głębiej – gwarantuje znalezienie najkrótszej ścieżki, ale zużywa dużo pamięci. <strong>DFS (przeszukiwanie w głąb)</strong> idzie tak daleko, jak to możliwe, zanim się cofnie – oszczędza pamięć, ale nie gwarantuje optymalności. <strong>Algorytmy heurystyczne (A*)</strong> korzystają z funkcji oceniającej, która podpowiada, który stan jest „bliżej” celu – łączą zalety BFS i inteligentnego kierowania się ku rozwiązaniu.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="url(#gridSS)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Algorytmy przeszukiwania: BFS vs DFS vs A*</text>
+
+                <rect x="30" y="50" width="240" height="130" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="150" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">BFS (wszerz)</text>
+                <g transform="translate(50, 95)">
+                    <circle cx="20" cy="20" r="10" fill="#bbdefb" stroke="#1565c0"/><text x="20" y="24" font-size="7" text-anchor="middle">1</text>
+                    <circle cx="50" cy="20" r="10" fill="#bbdefb" stroke="#1565c0"/><text x="50" y="24" font-size="7" text-anchor="middle">2</text>
+                    <circle cx="80" cy="20" r="10" fill="#bbdefb" stroke="#1565c0"/><text x="80" y="24" font-size="7" text-anchor="middle">3</text>
+                </g>
+                <text x="150" y="150" font-size="9" fill="#546e7a">Gwarantuje najkrótszą ścieżkę.</text>
+
+                <rect x="290" y="50" width="240" height="130" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="410" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">DFS (w głąb)</text>
+                <g transform="translate(310, 95)">
+                    <circle cx="20" cy="40" r="10" fill="#c8e6c9" stroke="#2e7d32"/><text x="20" y="44" font-size="7" text-anchor="middle">1</text>
+                    <circle cx="20" cy="20" r="10" fill="#c8e6c9" stroke="#2e7d32"/><text x="20" y="24" font-size="7" text-anchor="middle">2</text>
+                    <circle cx="20" cy="0" r="10" fill="#c8e6c9" stroke="#2e7d32"/><text x="20" y="4" font-size="7" text-anchor="middle">3</text>
+                </g>
+                <text x="410" y="150" font-size="9" fill="#546e7a">Oszczędza pamięć, nie zawsze optymalny.</text>
+
+                <rect x="550" y="50" width="240" height="130" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="670" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">A* (heurystyczny)</text>
+                <text x="670" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">f(n) = g(n) + h(n)</text>
+                <text x="670" y="125" text-anchor="middle" font-size="9" fill="#bf360c">g(n) – koszt dotarcia</text>
+                <text x="670" y="140" text-anchor="middle" font-size="9" fill="#bf360c">h(n) – heurystyka („jak daleko?”)</text>
+                <text x="670" y="160" font-size="9" fill="#546e7a">Optymalny, jeśli h(n) jest dopuszczalna.</text>
+
+                <rect x="200" y="210" width="420" height="80" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="410" y="238" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Przykład A*: grafy, GPS, układanie puzzli, logistyka</text>
+                <text x="410" y="260" text-anchor="middle" font-size="10" fill="#6a1b9a">Heurystyka: odległość w linii prostej do celu (dla nawigacji) → kieruje algorytm ku rozwiązaniu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ZASTOSOWANIA INŻYNIERSKIE                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Zastosowania w rozwiązywaniu problemów inżynierskich</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex:1; min-width:200px; background:#e8f5e9; border-radius:10px; padding:14px; border:1px solid #81c784;">
+                        <strong>🤖 AI i gry</strong><br><span style="font-size:0.85rem;">Szachy, Go – silniki przeszukują gigantyczne drzewa stanów z przycinaniem alfa-beta.</span></div>
+                    <div style="flex:1; min-width:200px; background:#e8f5e9; border-radius:10px; padding:14px; border:1px solid #81c784;">
+                        <strong>🗺️ Nawigacja GPS</strong><br><span style="font-size:0.85rem;">Węzły = skrzyżowania, krawędzie = drogi. A* z heurystyką odległości euklidesowej.</span></div>
+                    <div style="flex:1; min-width:200px; background:#e8f5e9; border-radius:10px; padding:14px; border:1px solid #81c784;">
+                        <strong>📅 Planowanie</strong><br><span style="font-size:0.85rem;">Harmonogramy produkcji, przydział zadań w fabryce. Każdy przydział to stan.</span></div>
+                    <div style="flex:1; min-width:200px; background:#e8f5e9; border-radius:10px; padding:14px; border:1px solid #81c784;">
+                        <strong>🧬 Bioinformatyka</strong><br><span style="font-size:0.85rem;">Składanie DNA – każda sekwencja to stan, mutacje to przejścia.</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridSS)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Przykład: Nawigacja jako przestrzeń stanów</text>
+                <g transform="translate(40, 60)">
+                    <circle cx="40" cy="40" r="18" fill="#c8e6c9" stroke="#2e7d32"/><text x="40" y="44" font-size="9" text-anchor="middle">A</text>
+                    <circle cx="180" cy="40" r="18" fill="#c8e6c9" stroke="#2e7d32"/><text x="180" y="44" font-size="9" text-anchor="middle">B</text>
+                    <circle cx="110" cy="100" r="18" fill="#c8e6c9" stroke="#2e7d32"/><text x="110" y="104" font-size="9" text-anchor="middle">C</text>
+                    <line x1="58" y1="40" x2="162" y2="40" stroke="#1565c0" stroke-width="2"/><text x="110" y="35" font-size="8" fill="#1565c0">10 km</text>
+                    <line x1="58" y1="48" x2="102" y2="92" stroke="#1565c0" stroke-width="2"/><text x="70" y="75" font-size="8" fill="#1565c0">7 km</text>
+                    <line x1="130" y1="92" x2="162" y2="48" stroke="#1565c0" stroke-width="2"/><text x="160" y="75" font-size="8" fill="#1565c0">5 km</text>
+                </g>
+                <rect x="440" y="60" width="350" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="615" y="85" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">A* w akcji:</text>
+                <text x="615" y="108" text-anchor="middle" font-size="10" fill="#bf360c">f(B) = koszt_do_B + szacunek_z_B_do_celu</text>
+                <text x="615" y="128" text-anchor="middle" font-size="10" fill="#bf360c">Algorytm wybiera węzły z najmniejszym f(n).</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Przestrzeń stanów to nie tylko AI.</strong> Inżynierowie automatyki używają jej do modelowania układów dynamicznych (równania stanu), a informatycy – do analizy algorytmów i automatów skończonych.</li>
+                    <li><strong>A* nie zawsze jest najlepszy.</strong> Wymaga dobrej heurystyki. Jeśli heurystyka jest zła (np. zawsze zwraca 0), A* degeneruje się do algorytmu Dijkstry.</li>
+                    <li><strong>DFS nie gwarantuje najkrótszej ścieżki.</strong> Może znaleźć rozwiązanie, ale niekoniecznie optymalne. BFS gwarantuje optymalność w grafach bez wag.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Przestrzeń stanów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Pojęcie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Definicja</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Przykład</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Stan</td><td style="padding:10px;">Pełny opis systemu w danej chwili</td><td style="padding:10px;">Konfiguracja planszy szachowej</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Przejście</td><td style="padding:10px;">Akcja zmieniająca jeden stan w drugi</td><td style="padding:10px;">Ruch skoczkiem z pola G1 na F3</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">BFS</td><td style="padding:10px;">Przeszukiwanie wszerz, gwarantuje najkrótszą ścieżkę</td><td style="padding:10px;">Labirynt: najpierw sprawdzam wszystkie pola o 1 krok</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">DFS</td><td style="padding:10px;">Przeszukiwanie w głąb, oszczędza pamięć</td><td style="padding:10px;">Labirynt: idę przed siebie aż do ściany</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">A*</td><td style="padding:10px;">Heurystyczne, f(n)=g(n)+h(n)</td><td style="padding:10px;">Nawigacja: idę w stronę celu, nie w ślepe uliczki</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Przestrzeń stanów to uniwersalne narzędzie do modelowania problemów – od gier planszowych, przez nawigację GPS, po planowanie produkcji. Kluczem jest umiejętność zdefiniowania stanu i przejść, a następnie wybór algorytmu, który nie zgubi się w eksplozji kombinatorycznej. A* z dobrą heurystyką potrafi znaleźć igłę w stogu siana, omijając miliardy nieistotnych stanów.</span>
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- ŹRÓDŁA                                                   -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Artificial Intelligence: A Modern Approach” (S. Russell, P. Norvig) · „Algorithms” (R. Sedgewick, K. Wayne) · „Introduction to the Theory of Computation” (M. Sipser).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
