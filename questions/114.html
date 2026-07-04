@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 114 – Fazy procesu pomiarowego, metody pośrednie i bezpośrednie</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">114. Fazy procesu pomiarowego, metody pośrednie i bezpośrednie.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔍</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – Pomiar to „Detektywistyczna misja w świecie liczb”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a5c; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś inżynierem-detektywem. Twoim zadaniem jest ustalenie prawdy o badanym obiekcie. Nie robisz tego chaotycznie – prowadzisz metodyczne śledztwo według ściśle określonych <strong>faz procesu pomiarowego</strong>. Najpierw poznajesz „podejrzanego” (obiekt), potem dobierasz narzędzia (przyrządy), wykonujesz obserwacje, analizujesz dowody i wyciągasz wnioski.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a5c; line-height: 1.8;">
+                        <li><strong>🔵 Metoda bezpośrednia</strong> – mierzysz bezpośrednio to, co chcesz poznać. Np. mierzysz długość linijką, temperaturę termometrem, napięcie woltomierzem. Wynik dostajesz natychmiast z przyrządu.</li>
+                        <li><strong>🟠 Metoda pośrednia</strong> – mierzysz inne wielkości, a szukaną wartość obliczasz ze wzoru matematycznego. Np. prędkość = droga / czas, moc = napięcie × prąd, pole koła = π·r².</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Pomiar bezpośredni</span>
+            <span class="keyword-tag">Pomiar pośredni</span>
+            <span class="keyword-tag">Fazy procesu pomiarowego</span>
+            <span class="keyword-tag">Wzorcowanie / kalibracja</span>
+            <span class="keyword-tag">Niepewność pomiaru</span>
+            <span class="keyword-tag">Błąd systematyczny / przypadkowy</span>
+            <span class="keyword-tag">Prawo propagacji niepewności</span>
+            <span class="keyword-tag">Warunki pomiaru (temperatura, wilgotność)</span>
+            <span class="keyword-tag">Metoda różnicowa / zerowa</span>
+            <span class="keyword-tag">Przyrząd analogowy vs cyfrowy</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: FAZY PROCESU POMIAROWEGO – PRZEPŁYW DZIAŁAŃ   -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Fazy procesu pomiarowego – „Od planu do wniosków”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Każdy pomiar inżynierski to proces składający się z kilku ściśle określonych faz. Ich znajomość jest kluczowa dla uzyskania wiarygodnych i powtarzalnych wyników. Poniższy schemat przedstawia pełny cykl pomiarowy – od sformułowania problemu, przez dobór metody i narzędzi, wykonanie pomiarów, aż po analizę błędów i archiwizację wyników.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 380" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridMeas" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                    <marker id="arrowFlow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="380" fill="url(#gridMeas)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Fazy procesu pomiarowego – systematyczny cykl działania</text>
+
+                <!-- Faza 1 -->
+                <rect x="60" y="55" width="160" height="70" rx="8" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="140" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">1. Sformułowanie problemu</text>
+                <text x="140" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1565c0">Co mierzymy? Po co? Jaka dokładność?</text>
+
+                <path d="M 220 90 L 280 90" fill="none" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowFlow)"/>
+
+                <!-- Faza 2 -->
+                <rect x="290" y="55" width="160" height="70" rx="8" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
+                <text x="370" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">2. Wybór metody i przyrządów</text>
+                <text x="370" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1565c0">Bezpośrednia / pośrednia? Kalibracja?</text>
+
+                <path d="M 450 90 L 510 90" fill="none" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowFlow)"/>
+
+                <!-- Faza 3 -->
+                <rect x="520" y="55" width="160" height="70" rx="8" fill="#64b5f6" stroke="#1976d2" stroke-width="2"/>
+                <text x="600" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">3. Wykonanie pomiarów</text>
+                <text x="600" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#e3f2fd">Seria pomiarów, warunki środowiskowe</text>
+
+                <!-- Strzałka w dół -->
+                <path d="M 600 125 L 600 165" fill="none" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowFlow)"/>
+
+                <!-- Faza 4 -->
+                <rect x="520" y="170" width="160" height="70" rx="8" fill="#42a5f5" stroke="#1976d2" stroke-width="2"/>
+                <text x="600" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">4. Opracowanie wyników</text>
+                <text x="600" y="215" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#e3f2fd">Średnia, odchylenie, niepewność</text>
+
+                <!-- Strzałka w lewo (powrót) -->
+                <path d="M 520 205 L 280 205" fill="none" stroke="#e65100" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowBack)"/>
+
+                <!-- Faza 5 -->
+                <rect x="110" y="170" width="160" height="70" rx="8" fill="#1e88e5" stroke="#0d47a1" stroke-width="2"/>
+                <text x="190" y="195" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">5. Wnioski i archiwizacja</text>
+                <text x="190" y="215" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#bbdefb">Raport, porównanie z normą, decyzje</text>
+
+                <!-- Opis cyklu -->
+                <text x="410" y="280" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Proces pomiarowy jest cykliczny – wyniki jednego pomiaru mogą prowadzić do udoskonalenia metody i ponowienia badań.</text>
+
+                <defs>
+                    <marker id="arrowBack" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: METODY BEZPOŚREDNIE                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Metody bezpośrednie – „Mierzysz dokładnie to, co widzisz”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W metodzie bezpośredniej <strong>wartość mierzonej wielkości odczytujemy bezpośrednio z przyrządu pomiarowego</strong>, bez konieczności wykonywania dodatkowych obliczeń. Przyrząd został wcześniej wyskalowany w jednostkach mierzonej wielkości. Wynik podawany jest najczęściej w postaci liczby na wyświetlaczu (przyrząd cyfrowy) lub położenia wskazówki na podziałce (przyrząd analogowy). Metoda ta jest szybka i intuicyjna, ale jej dokładność ograniczona jest klasą użytego przyrządu.
+                </p>
+                <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Przykłady pomiarów bezpośrednich:</strong> Pomiar długości suwmiarką, pomiar masy na wadze, pomiar napięcia woltomierzem, pomiar temperatury termometrem, pomiar ciśnienia manometrem.
+                </div>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridMeas)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Metody bezpośrednie – odczyt z przyrządu bez obliczeń</text>
+
+                <!-- Suwmiarka -->
+                <g transform="translate(40, 50)">
+                    <rect x="0" y="10" width="200" height="40" fill="#e0e0e0" stroke="#424242" stroke-width="2" rx="4"/>
+                    <rect x="10" y="5" width="30" height="50" fill="#90a4ae" stroke="#546e7a" stroke-width="2" rx="2"/>
+                    <rect x="160" y="5" width="30" height="50" fill="#90a4ae" stroke="#546e7a" stroke-width="2" rx="2"/>
+                    <text x="100" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Suwmiarka → długość</text>
+                    <text x="100" y="70" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">Wynik: 15.24 mm</text>
+                </g>
+
+                <!-- Woltomierz -->
+                <g transform="translate(300, 50)">
+                    <circle cx="100" cy="50" r="50" fill="#f5f5f5" stroke="#424242" stroke-width="2"/>
+                    <line x1="100" y1="50" x2="70" y2="20" stroke="#c62828" stroke-width="3"/>
+                    <text x="100" y="120" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Woltomierz → napięcie</text>
+                    <text x="100" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">Wynik: 230 V</text>
+                </g>
+
+                <!-- Termometr -->
+                <g transform="translate(560, 50)">
+                    <rect x="0" y="10" width="20" height="100" fill="#fff" stroke="#c62828" stroke-width="2" rx="6"/>
+                    <rect x="5" y="40" width="10" height="60" fill="#ef5350" rx="3"/>
+                    <circle cx="10" cy="110" r="15" fill="#ef5350" stroke="#c62828" stroke-width="2"/>
+                    <text x="10" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Termometr → temp.</text>
+                    <text x="10" y="160" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">Wynik: 36.6°C</text>
+                </g>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: METODY POŚREDNIE                               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Metody pośrednie – „Liczysz z wzoru, nie mierzysz wprost”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W metodzie pośredniej <strong>wartość szukanej wielkości otrzymujemy na podstawie pomiarów innych wielkości</strong>, które są związane z nią znaną zależnością matematyczną (wzorem fizycznym). Jest to niezbędne, gdy nie istnieje przyrząd do bezpośredniego pomiaru danej wielkości, lub gdy pomiar bezpośredni byłby zbyt kosztowny, skomplikowany czy czasochłonny. Kluczowym wyzwaniem jest tu <strong>propagacja niepewności</strong> – błędy pomiarów składowych przenoszą się na wynik końcowy.
+                </p>
+                <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
+                    <strong>🔑 Przykłady pomiarów pośrednich:</strong> Prędkość v = s / t (mierzymy drogę i czas), Moc P = U · I (mierzymy napięcie i prąd), Pole koła A = π·r² (mierzymy promień), Gęstość ρ = m / V (mierzymy masę i objętość).
+                </div>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridMeas)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Metody pośrednie – pomiar przez zależność matematyczną</text>
+
+                <!-- Przykład: Moc P = U * I -->
+                <g transform="translate(60, 50)">
+                    <rect x="0" y="20" width="100" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="2" rx="4"/>
+                    <text x="50" y="45" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">U = 230 V</text>
+                    <rect x="140" y="20" width="100" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="2" rx="4"/>
+                    <text x="190" y="45" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">I = 2.5 A</text>
+                    <text x="260" y="45" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                    <rect x="290" y="20" width="160" height="40" fill="#ffcc80" stroke="#ef6c00" stroke-width="2" rx="4"/>
+                    <text x="370" y="45" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">P = U · I = 575 W</text>
+                </g>
+
+                <!-- Przykład: Prawo Ohma -->
+                <g transform="translate(60, 120)">
+                    <rect x="0" y="20" width="100" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="2" rx="4"/>
+                    <text x="50" y="45" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">U = 5.0 V</text>
+                    <rect x="140" y="20" width="100" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="2" rx="4"/>
+                    <text x="190" y="45" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">I = 0.5 A</text>
+                    <text x="260" y="45" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                    <rect x="290" y="20" width="160" height="40" fill="#ffcc80" stroke="#ef6c00" stroke-width="2" rx="4"/>
+                    <text x="370" y="45" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">R = U / I = 10 Ω</text>
+                </g>
+
+                <!-- Prawo propagacji niepewności -->
+                <rect x="460" y="55" width="320" height="130" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="620" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Prawo propagacji niepewności</text>
+                <text x="620" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">y = f(x₁, x₂, …, xₙ)</text>
+                <text x="620" y="128" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">u²(y) = Σ (∂f/∂xᵢ)² · u²(xᵢ)</text>
+                <text x="620" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Niepewność wyniku zależy od niepewności składowych i pochodnych cząstkowych.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PORÓWNANIE METOD – ZALETY I OGRANICZENIA       -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Porównanie metod – kiedy którą wybrać?</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wybór między metodą bezpośrednią a pośrednią zależy od dostępności przyrządów, wymaganej dokładności, kosztów i czasu. Czasem ta sama wielkość może być mierzona obiema metodami – wtedy wybieramy tę, która daje mniejszą niepewność w danych warunkach.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridMeas)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Porównanie metod bezpośrednich i pośrednich</text>
+
+                <!-- Metoda bezpośrednia -->
+                <rect x="30" y="50" width="360" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Metoda bezpośrednia</text>
+                <line x1="45" y1="90" x2="375" y2="90" stroke="#a5d6a7" stroke-width="1"/>
+                <text x="210" y="115" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">✅ Szybka i intuicyjna</text>
+                <text x="210" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">✅ Wynik natychmiast z przyrządu</text>
+                <text x="210" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Ograniczona dostępnością przyrządów</text>
+                <text x="210" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Dokładność ograniczona klasą przyrządu</text>
+                <text x="210" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Np. pomiar temperatury termometrem</text>
+
+                <!-- Metoda pośrednia -->
+                <rect x="430" y="50" width="360" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Metoda pośrednia</text>
+                <line x1="445" y1="90" x2="775" y2="90" stroke="#ffcc80" stroke-width="1"/>
+                <text x="610" y="115" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">✅ Umożliwia pomiar wielkości niedostępnych bezpośrednio</text>
+                <text x="610" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">✅ Często tańsza (wykorzystuje podstawowe przyrządy)</text>
+                <text x="610" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Wymaga obliczeń i znajomości wzorów</text>
+                <text x="610" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">❌ Kumulacja błędów (propagacja niepewności)</text>
+                <text x="610" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Np. pomiar mocy P = U·I</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Metoda pośrednia ≠ gorsza!</strong> Często pozwala osiągnąć większą dokładność niż bezpośrednia, jeśli użyjemy precyzyjnych przyrządów do pomiaru składowych i znamy dokładny wzór.</li>
+                    <li><strong>Niepewność w metodzie pośredniej nie jest sumą niepewności!</strong> Oblicza się ją przez pierwiastek z sumy kwadratów (prawo propagacji niepewności). To częsty błąd na egzaminach.</li>
+                    <li><strong>Kalibracja przyrządu jest częścią procesu pomiarowego.</strong> Pomiar bez uprzedniej kalibracji (sprawdzenia przyrządu na wzorcu) jest niewiarygodny.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Proces pomiarowy i metody:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Faza / Metoda</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">Faza 1</td><td style="padding: 10px;">Sformułowanie problemu pomiarowego</td><td style="padding: 10px;">„Potrzebuję zmierzyć średnicę wału z dokładnością ±0.01 mm”</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">Faza 2</td><td style="padding: 10px;">Wybór metody i przyrządów</td><td style="padding: 10px;">Suwmiarka czy mikrometr? Pomiar bezpośredni?</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">Faza 3</td><td style="padding: 10px;">Wykonanie serii pomiarów</td><td style="padding: 10px;">10 pomiarów w tych samych warunkach</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">Faza 4</td><td style="padding: 10px;">Opracowanie statystyczne wyników</td><td style="padding: 10px;">Średnia, odchylenie standardowe, niepewność</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">Faza 5</td><td style="padding: 10px;">Wnioski i archiwizacja</td><td style="padding: 10px;">Czy wał mieści się w tolerancji? Raport.</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Bezpośrednia</td><td style="padding: 10px;">Odczyt z przyrządu bez obliczeń</td><td style="padding: 10px;">Pomiar długości linijką</td></tr>
+                        <tr><td style="padding: 10px; font-weight: bold; color: #e65100;">Pośrednia</td><td style="padding: 10px;">Obliczenie ze wzoru na podstawie innych pomiarów</td><td style="padding: 10px;">Prędkość v = s / t</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Proces pomiarowy to nie tylko odczytanie liczby z wyświetlacza – to systematyczne śledztwo od planu po archiwizację. Metoda bezpośrednia daje wynik natychmiast, pośrednia wymaga obliczeń, ale otwiera drzwi do pomiaru wielkości, których nie da się dotknąć bezpośrednio. Prawdziwy inżynier wie, którą metodę wybrać i jak oszacować niepewność swojego wyniku.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Międzynarodowy słownik podstawowych i ogólnych terminów metrologii” (VIM) · „Guide to the Expression of Uncertainty in Measurement” (GUM, JCGM 100:2008) · Notatki własne z metrologii i teorii pomiarów.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
