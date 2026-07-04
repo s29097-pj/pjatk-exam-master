@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 123 – Responsive Web Design: geneza, techniki, dobre praktyki</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">123. Responsive Web Design – geneza, techniki, dobre praktyki.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🦎</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Responsive Web Design to „Strona-kameleon, która idealnie wtapia się w każde środowisko”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że projektujesz plakat reklamowy. Przed erą smartfonów wystarczyło zaprojektować go w jednym, stałym rozmiarze – na billboard. Dziś ten sam plakat musi wyglądać doskonale jako ogromny banner na Times Square, plakat na przystanku autobusowym, ulotka A4, a także miniaturka na ekranie smartwatcha. Nie możesz stworzyć osobnej wersji dla każdego urządzenia – to byłoby szaleństwo. <strong>Responsive Web Design (RWD)</strong>, sformułowany przez Ethana Marcotte'a w 2010 roku, to filozofia projektowania stron, które <strong>automatycznie dopasowują się do rozmiaru i orientacji ekranu</strong>, na którym są wyświetlane. Używa do tego elastycznych siatek (fluid grids), elastycznych obrazów i <strong>Media Queries</strong> – zapytań o szerokość okna przeglądarki.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">RWD (Responsive Web Design)</span>
+            <span class="keyword-tag">Ethan Marcotte (2010)</span>
+            <span class="keyword-tag">Mobile-First (projektowanie od małych ekranów)</span>
+            <span class="keyword-tag">Media Queries (@media)</span>
+            <span class="keyword-tag">Breakpointy (punkty graniczne)</span>
+            <span class="keyword-tag">Elastyczne siatki (Fluid Grids)</span>
+            <span class="keyword-tag">Elastyczne obrazy (max-width: 100%)</span>
+            <span class="keyword-tag">Viewport Meta Tag</span>
+            <span class="keyword-tag">Jednostki względne (rem, em, vw, vh, %)</span>
+            <span class="keyword-tag">Obrazy responsywne (srcset, &lt;picture&gt;)</span>
+            <span class="keyword-tag">Mobile-First vs Desktop-First</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: GENEZA RWD – DLACZEGO POTRZEBUJEMY KAMELEONA  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Geneza RWD – „Od jednego billboardu do miliarda różnych ekranów”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W 2010 roku Ethan Marcotte opublikował artykuł „Responsive Web Design” na łamach A List Apart. Przed erą smartfonów istniały osobne strony „mobilne” (m.example.com) i osobne „desktopowe”. Były one kosztowne w utrzymaniu i często oferowały uboższą treść. Marcotte zaproponował, by <strong>jedna strona HTML</strong> dostosowywała się płynnie do każdej szerokości ekranu za pomocą trzech filarów: elastycznych siatek (fluid grids), elastycznych obrazów i Media Queries CSS3. Idea przyjęła się błyskawicznie wraz z eksplozją smartfonów (iPhone, Android).
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridRWD" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridRWD)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Geneza RWD – Od osobnych wersji do jednej elastycznej strony</text>
+                <!-- Przed RWD -->
+                <rect x="30" y="55" width="220" height="120" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="6"/>
+                <text x="140" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">Przed RWD (do 2010)</text>
+                <rect x="45" y="95" width="90" height="30" fill="#ffcdd2" stroke="#c62828" rx="3"/><text x="90" y="115" font-size="9" text-anchor="middle">Desktop</text>
+                <rect x="145" y="95" width="90" height="30" fill="#ffcdd2" stroke="#c62828" rx="3"/><text x="190" y="115" font-size="9" text-anchor="middle">mobilna</text>
+                <text x="140" y="155" font-size="9" fill="#b71c1c">Osobne strony, kosztowne</text>
+                <!-- Strzałka -->
+                <text x="270" y="120" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                <!-- Po RWD -->
+                <rect x="320" y="55" width="220" height="120" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="6"/>
+                <text x="430" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">RWD (Ethan Marcotte, 2010)</text>
+                <rect x="335" y="95" width="190" height="50" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                <text x="430" y="115" font-size="9" text-anchor="middle">Jedna strona HTML + CSS</text>
+                <text x="430" y="130" font-size="9" text-anchor="middle">dopasowuje się do każdej szerokości</text>
+                <text x="430" y="165" font-size="9" fill="#1b5e20">Filary: Fluid Grids, Flexible Images, Media Queries</text>
+                <!-- Oś czasu -->
+                <line x1="60" y1="195" x2="760" y2="195" stroke="#546e7a" stroke-width="2"/>
+                <circle cx="140" cy="195" r="5" fill="#c62828"/><text x="140" y="215" font-size="9" text-anchor="middle">2007: iPhone</text>
+                <circle cx="430" cy="195" r="5" fill="#2e7d32"/><text x="430" y="215" font-size="9" text-anchor="middle">2010: RWD</text>
+                <circle cx="650" cy="195" r="5" fill="#1565c0"/><text x="650" y="215" font-size="9" text-anchor="middle">2015+: mobile-first</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: MEDIA QUERIES I BREAKPOINTY                    -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Media Queries i Breakpointy – „Punkty graniczne transformacji”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Media Queries</strong> to serce RWD. Pozwalają zadać przeglądarce pytanie: „Jaka jest szerokość ekranu?” i na tej podstawie zastosować inny zestaw stylów CSS. <strong>Breakpointy</strong> to konkretne wartości szerokości (np. 768px, 1024px), przy których layout strony ulega zmianie – np. menu zwija się w hamburgera, a kolumny układają się jedna pod drugą. Nowoczesne podejście <strong>Mobile-First</strong> polega na projektowaniu najpierw dla małych ekranów, a potem dodawaniu styli dla większych (<code>@media (min-width: 768px)</code>).
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridRWD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Media Queries i Breakpointy – Gdzie layout zmienia kształt?</text>
+                <g transform="translate(30, 50)">
+                    <rect x="0" y="0" width="90" height="70" fill="#e3f2fd" stroke="#1976d2" rx="6"/>
+                    <text x="45" y="40" font-size="9" text-anchor="middle">📱 320-767px</text>
+                    <rect x="120" y="0" width="130" height="70" fill="#e8f5e9" stroke="#2e7d32" rx="6"/>
+                    <text x="185" y="40" font-size="9" text-anchor="middle">💻 768-1023px</text>
+                    <rect x="280" y="0" width="180" height="70" fill="#fff3e0" stroke="#ef6c00" rx="6"/>
+                    <text x="370" y="40" font-size="9" text-anchor="middle">🖥️ 1024px+</text>
+                </g>
+                <line x1="40" y1="130" x2="740" y2="130" stroke="#546e7a" stroke-width="2"/>
+                <line x1="100" y1="120" x2="100" y2="140" stroke="#c62828" stroke-width="3"/>
+                <text x="100" y="150" font-size="9" fill="#c62828" text-anchor="middle">Breakpoint 768px</text>
+                <line x1="300" y1="120" x2="300" y2="140" stroke="#c62828" stroke-width="3"/>
+                <text x="300" y="150" font-size="9" fill="#c62828" text-anchor="middle">Breakpoint 1024px</text>
+                <rect x="180" y="170" width="460" height="60" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="410" y="195" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">@media (min-width: 768px) { ... }</text>
+                <text x="410" y="215" text-anchor="middle" font-size="10" fill="#546e7a">Mobile-First: style bazowe dla małych ekranów, rozszerzamy dla większych.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ELASTYCZNE SIATKI I JEDNOSTKI WZGLĘDNE         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Elastyczne siatki i jednostki względne – „Klocki z gumy, nie z betonu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zamiast sztywnych pikseli (<code>width: 960px</code>), we RWD używamy <strong>jednostek względnych</strong>: procentów (%), <code>rem</code> i <code>em</code> (skalowalne względem rozmiaru czcionki), <code>vw</code> i <code>vh</code> (procent szerokości/wysokości okna). <strong>CSS Flexbox</strong> i <strong>CSS Grid</strong> to potężne narzędzia do tworzenia elastycznych siatek bez potrzeby ręcznego liczenia procentów – kontenery same rozkładają elementy w dostępnej przestrzeni.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridRWD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Jednostki względne i elastyczne siatki (Flexbox, Grid)</text>
+                <rect x="30" y="50" width="350" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="205" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Jednostki względne</text>
+                <text x="205" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">width: 80%; /* % rodzica */</text>
+                <text x="205" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">font-size: 1.2rem; /* skalowalne */</text>
+                <text x="205" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">width: 50vw; /* % szer. okna */</text>
+
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Elastyczne siatki</text>
+                <g transform="translate(440, 95)">
+                    <rect x="0" y="0" width="60" height="30" fill="#bbdefb" stroke="#1565c0"/><rect x="70" y="0" width="100" height="30" fill="#90caf9" stroke="#1565c0"/><rect x="180" y="0" width="40" height="30" fill="#64b5f6" stroke="#1565c0"/>
+                    <text x="0" y="50" font-size="9" fill="#0d47a1">Flexbox (jednowymiarowy)</text>
+                </g>
+                <g transform="translate(440, 150)">
+                    <rect x="0" y="0" width="40" height="20" fill="#c8e6c9" stroke="#2e7d32"/><rect x="45" y="0" width="60" height="20" fill="#a5d6a7" stroke="#2e7d32"/><rect x="110" y="0" width="50" height="20" fill="#81c784" stroke="#2e7d32"/>
+                    <rect x="0" y="25" width="60" height="20" fill="#a5d6a7" stroke="#2e7d32"/><rect x="65" y="25" width="95" height="20" fill="#66bb6a" stroke="#2e7d32"/>
+                    <text x="0" y="55" font-size="9" fill="#1b5e20">CSS Grid (dwuwymiarowy)</text>
+                </g>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: OBRAZY RESPONSYWNE                             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Obrazy responsywne – „Nie wysyłaj zdjęcia 4K na smartwatch”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Obrazy stanowią średnio 60% wagi stron internetowych. Wysyłanie ogromnego zdjęcia na mały ekran to marnowanie transferu i spowolnienie ładowania. Techniki: <strong>max-width: 100%</strong> (nigdy nie wychodzi poza kontener), <strong>srcset</strong> (przeglądarka sama wybiera obraz w odpowiedniej rozdzielczości) oraz znacznik <strong>&lt;picture&gt;</strong> (różne obrazy dla różnych breakpointów, np. przycięte kadry).
+                </p>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridRWD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Obrazy responsywne – srcset i &lt;picture&gt;</text>
+                <rect x="30" y="55" width="360" height="130" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Bez responsywności</text>
+                <text x="210" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#c62828">&lt;img src="foto.jpg"&gt;</text>
+                <text x="210" y="130" text-anchor="middle" font-size="9" fill="#b71c1c">To samo 5MB zdjęcie na desktop i telefon.</text>
+
+                <rect x="430" y="55" width="360" height="130" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Z responsywnością</text>
+                <text x="610" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">&lt;img srcset="foto-500.jpg 500w,</text>
+                <text x="610" y="122" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">             foto-1200.jpg 1200w"&gt;</text>
+                <text x="610" y="145" font-size="9" fill="#1b5e20">Przeglądarka wybiera obraz dopasowany do ekranu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: DOBRE PRAKTYKI – MOBILE-FIRST, PERFORMANCE     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Dobre praktyki RWD – „Myśl mobilnie od pierwszej kreski”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex:1; min-width:200px; background:#e0f2f1; border-radius:10px; padding:14px; border:1px solid #4db6ac;">
+                        <strong>📱 Mobile-First</strong><br><span style="font-size:0.85rem;">Projektuj najpierw dla małych ekranów. Potem rozszerzaj. Wymusza priorytetyzację treści.</span></div>
+                    <div style="flex:1; min-width:200px; background:#e0f2f1; border-radius:10px; padding:14px; border:1px solid #4db6ac;">
+                        <strong>⚡ Wydajność</strong><br><span style="font-size:0.85rem;">Lazy loading obrazów (loading="lazy"). Minifikacja CSS/JS. Krytyczny CSS inline.</span></div>
+                    <div style="flex:1; min-width:200px; background:#e0f2f1; border-radius:10px; padding:14px; border:1px solid #4db6ac;">
+                        <strong>👆 Dotyk</strong><br><span style="font-size:0.85rem;">Przyciski min. 48×48 px. Odpowiednie odstępy. Gesty zamiast hover.</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridRWD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Dobre praktyki RWD</text>
+                <rect x="40" y="50" width="230" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="155" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Viewport Meta Tag</text>
+                <text x="155" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">&lt;meta name="viewport"</text>
+                <text x="155" y="115" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">content="width=device-width,</text>
+                <text x="155" y="130" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">initial-scale=1"&gt;</text>
+                <rect x="300" y="50" width="230" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="415" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Performance</text>
+                <text x="415" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">Lazy loading (&lt;img loading="lazy"&gt;)</text>
+                <text x="415" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">WebP / AVIF zamiast JPEG</text>
+                <rect x="560" y="50" width="230" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="675" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Touch / Accessibility</text>
+                <text x="675" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">min. 48×48px obszar dotykowy</text>
+                <text x="675" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">Odpowiedni kontrast (WCAG AA)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>RWD to nie tylko Media Queries!</strong> Bez elastycznej siatki i elastycznych obrazów Media Queries same w sobie nie wystarczą. To jest triada.</li>
+                    <li><strong>Mobile-First ≠ Mobile-Only.</strong> Projektowanie od małych ekranów nie znaczy ignorowania dużych. Chodzi o progresywne rozszerzanie, a nie okrajanie.</li>
+                    <li><strong>Viewport Meta Tag jest niezbędny!</strong> Bez niego przeglądarka mobilna będzie renderować stronę w szerokości ok. 980px i pomniejszać ją. Efekt: mikroskopijny tekst.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Responsive Web Design:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Filary RWD</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Technika</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Przykład / Narzędzie</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Elastyczne siatki</td><td style="padding:10px;">Jednostki względne (%, rem, vw), Flexbox, CSS Grid</td><td style="padding:10px;"><code>width: 80%; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</code></td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Elastyczne obrazy</td><td style="padding:10px;">max-width: 100%, srcset, &lt;picture&gt;</td><td style="padding:10px;"><code>&lt;img srcset="... 500w, ... 1200w"&gt;</code></td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Media Queries</td><td style="padding:10px;">@media (min-width: 768px) { ... }</td><td style="padding:10px;">Mobile-First: style bazowe → rozszerzenia dla tablet/desktop</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Viewport Meta</td><td style="padding:10px;"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></td><td style="padding:10px;">Niezbędny w head każdej strony RWD</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Responsive Web Design to nie tylko zestaw technik CSS – to filozofia projektowania dla nieprzewidywalnego świata urządzeń. Od elastycznych siatek, przez zapytania medialne, po leniwe ładowanie obrazów – RWD sprawia, że jedna strona działa wszędzie. Pamiętaj o triadzie: fluid grids, flexible images, media queries. I zawsze zaczynaj od małego ekranu.</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
