@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 121 – Budowa warstwy frontend aplikacji internetowej</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">121. Języki programowania i budowa warstwy frontend aplikacji internetowej.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Frontend to „Budynek, w którym użytkownik pije kawę na tarasie”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
+                        Wyobraź sobie, że wchodzisz do restauracji. <strong>HTML</strong> to szkielet budynku – ściany nośne, okna, drzwi i układ pomieszczeń. Bez niego wszystko by się zawaliło, ale gołe cegły nie są zbyt przyjemne. <strong>CSS</strong> to architektura wnętrz: kolory ścian, fonty, zasłony, rozmieszczenie mebli. Sprawia, że gość chce zostać dłużej. <strong>JavaScript</strong> to kelner, który słucha Twoich zamówień (kliknięć, przeciągnięć) i dynamicznie przynosi dania (dane z serwera) bez przeładowywania całego budynku. <strong>Frameworki</strong> (React, Angular, Vue) to gotowe, prefabrykowane moduły – zamiast samemu mieszać beton i układać cegły, Ty składasz ściany z gotowych paneli, skupiając się na wyjątkowym charakterze lokalu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">HTML5 – semantyka (header, nav, main, article)</span>
+            <span class="keyword-tag">CSS3 – Flexbox, Grid, Responsywność (RWD)</span>
+            <span class="keyword-tag">JavaScript (ES6+) – DOM, fetch/axios</span>
+            <span class="keyword-tag">Frameworki: React (JSX, hooks), Angular, Vue (SFC)</span>
+            <span class="keyword-tag">Stan aplikacji (State Management)</span>
+            <span class="keyword-tag">SPA (Single Page Application)</span>
+            <span class="keyword-tag">Web Components, Shadow DOM</span>
+            <span class="keyword-tag">TypeScript (typowanie w frontendzie)</span>
+            <span class="keyword-tag">Webpack, Vite (bundlery) i npm (menedżer pakietów)</span>
+            <span class="keyword-tag">Dostępność (Accessibility, a11y) – ARIA, kontrast</span>
+            <span class="keyword-tag">Web APIs (geolocation, canvas, lokalne magazyny)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: HTML – SZKIELET KAŻDEJ STRONY INTERNETOWEJ     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">1. HTML5 – Szkielet i semantyka dokumentu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>HTML (HyperText Markup Language)</strong> nie jest językiem programowania – to język znaczników opisujący strukturę dokumentu. HTML5 wprowadził semantyczne znaczniki (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>), które mówią przeglądarce i robotom indeksującym (SEO), jaką rolę pełni dany blok. Formularze w HTML5 oferują natywną walidację (required, pattern, typy pól jak email/date). Canvas i SVG umożliwiają rysowanie grafiki bezpośrednio w przeglądarce.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridFE" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridFE)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">HTML5 – Szkielet dokumentu i semantyka bloków</text>
+
+                <rect x="40" y="50" width="740" height="185" fill="#263238" rx="8"/>
+                <rect x="60" y="65" width="700" height="25" fill="#e0e0e0" stroke="#546e7a" stroke-width="1" rx="3"/>
+                <text x="410" y="83" text-anchor="middle" font-family="monospace" font-size="11" fill="#000">&lt;header&gt; Logo i nawigacja główna &lt;/header&gt;</text>
+                <rect x="60" y="95" width="160" height="80" fill="#e0e0e0" stroke="#546e7a" stroke-width="1" rx="3"/>
+                <text x="140" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;nav&gt;</text>
+                <text x="140" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">Menu</text>
+                <text x="140" y="160" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;/nav&gt;</text>
+                <rect x="230" y="95" width="370" height="80" fill="#e0e0e0" stroke="#546e7a" stroke-width="1" rx="3"/>
+                <text x="415" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;main&gt; &lt;article&gt;</text>
+                <text x="415" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">Główna treść strony</text>
+                <text x="415" y="160" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;/article&gt; &lt;/main&gt;</text>
+                <rect x="610" y="95" width="150" height="80" fill="#e0e0e0" stroke="#546e7a" stroke-width="1" rx="3"/>
+                <text x="685" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;aside&gt;</text>
+                <text x="685" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">Panel boczny</text>
+                <text x="685" y="160" text-anchor="middle" font-family="monospace" font-size="10" fill="#000">&lt;/aside&gt;</text>
+                <rect x="60" y="185" width="700" height="30" fill="#e0e0e0" stroke="#546e7a" stroke-width="1" rx="3"/>
+                <text x="410" y="205" text-anchor="middle" font-family="monospace" font-size="11" fill="#000">&lt;footer&gt; Stopka, linki, copyright &lt;/footer&gt;</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: CSS – ARCHITEKTURA WNĘTRZ I RESPONSYWNOŚĆ     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. CSS3 – Stylizacja, układ i responsywność</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>CSS (Cascading Style Sheets)</strong> oddziela warstwę prezentacji od struktury. Współczesne techniki układu (<strong>Flexbox</strong>, <strong>CSS Grid</strong>) pozwalają na tworzenie złożonych, elastycznych siatek bez używania tabel czy floatów. <strong>Responsive Web Design (RWD)</strong> z Media Queries dostosowuje wygląd do szerokości ekranu (mobile-first). Preprocesory jak Sass/SCSS dodają zmienne, zagnieżdżanie i mixiny, ułatwiając zarządzanie dużymi arkuszami stylów.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridFE)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">CSS3 – Flexbox, Grid i Responsywność (Media Queries)</text>
+
+                <rect x="30" y="50" width="240" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="150" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Flexbox (jednowymiarowy)</text>
+                <g transform="translate(50, 95)">
+                    <rect x="0" y="0" width="30" height="30" fill="#bbdefb" stroke="#1565c0"/><rect x="40" y="0" width="50" height="30" fill="#90caf9" stroke="#1565c0"/><rect x="100" y="0" width="20" height="30" fill="#64b5f6" stroke="#1565c0"/>
+                </g>
+                <text x="150" y="160" font-family="monospace" font-size="10" fill="#1565c0">justify-content / align-items</text>
+
+                <rect x="290" y="50" width="240" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">CSS Grid (dwuwymiarowy)</text>
+                <g transform="translate(310, 95)">
+                    <rect x="0" y="0" width="40" height="30" fill="#c8e6c9" stroke="#2e7d32"/><rect x="45" y="0" width="70" height="30" fill="#a5d6a7" stroke="#2e7d32"/><rect x="120" y="0" width="50" height="30" fill="#81c784" stroke="#2e7d32"/>
+                    <rect x="0" y="35" width="70" height="30" fill="#a5d6a7" stroke="#2e7d32"/><rect x="75" y="35" width="95" height="30" fill="#66bb6a" stroke="#2e7d32"/>
+                </g>
+                <text x="410" y="160" font-family="monospace" font-size="10" fill="#2e7d32">grid-template-columns / rows</text>
+
+                <rect x="550" y="50" width="240" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="670" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Media Queries (RWD)</text>
+                <text x="670" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">@media (max-width: 768px)</text>
+                <text x="670" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">🖥️ Desktop →</text>
+                <text x="670" y="145" font-family="sans-serif" font-size="10" fill="#e65100">📱 Mobile</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: JAVASCRIPT – LOGIKA I DYNAMIKA                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. JavaScript (ES6+) – Język interakcji i asynchroniczności</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>JavaScript</strong> to jedyny natywny język programowania przeglądarek. Operuje na <strong>DOM (Document Object Model)</strong> – dynamicznie modyfikuje strukturę HTML i CSS. Współczesny JS (ES6+) oferuje <code>let/const</code>, funkcje strzałkowe, destrukturyzację, moduły (import/export) i programowanie asynchroniczne (<code>async/await</code>, <code>fetch</code>). Silniki JS (V8 w Chrome, SpiderMonkey w Firefox) kompilują kod w locie (JIT), osiągając wydajność zbliżoną do języków kompilowanych.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridFE)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">JavaScript – DOM, asynchroniczność i komunikacja z API</text>
+                <g transform="translate(40, 50)">
+                    <rect x="0" y="0" width="160" height="140" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="80" y="25" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Przeglądarka</text>
+                    <rect x="15" y="40" width="130" height="25" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                    <text x="80" y="57" font-size="9" text-anchor="middle">DOM / CSSOM</text>
+                    <rect x="15" y="75" width="130" height="25" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                    <text x="80" y="92" font-size="9" text-anchor="middle">Silnik JS (V8)</text>
+                    <text x="80" y="130" font-family="monospace" font-size="10" fill="#1b5e20">fetch() / axios</text>
+                </g>
+                <text x="240" y="125" font-family="sans-serif" font-size="20" fill="#e65100">⇄</text>
+                <g transform="translate(280, 50)">
+                    <rect x="0" y="0" width="160" height="140" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    <text x="80" y="25" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Serwer / API</text>
+                    <rect x="15" y="40" width="130" height="50" fill="#bbdefb" stroke="#1976d2" rx="3"/>
+                    <text x="80" y="70" font-size="9" text-anchor="middle">REST / GraphQL</text>
+                    <text x="80" y="110" font-family="monospace" font-size="10" fill="#0d47a1">JSON</text>
+                </g>
+                <rect x="480" y="60" width="300" height="130" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="630" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Asynchroniczność</text>
+                <text x="630" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">async function getData() {</text>
+                <text x="630" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">  let res = await fetch(url);</text>
+                <text x="630" y="150" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">  return res.json(); }</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: FRAMEWORKI – REACT, ANGULAR, VUE               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Frameworki i biblioteki – „Gotowe prefabrykaty budowlane”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex:1; min-width:200px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>⚛️ React (Meta)</strong><br><span style="font-size:0.85rem;">Biblioteka UI. JSX, komponenty funkcyjne, hooks (useState, useEffect). Virtual DOM. Zarządzanie stanem: Redux / Zustand.</span></div>
+                    <div style="flex:1; min-width:200px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🅰️ Angular (Google)</strong><br><span style="font-size:0.85rem;">Pełny framework MVC. TypeScript, moduły, serwisy, dependency injection. Dwukierunkowe wiązanie danych ([(ngModel)]).</span></div>
+                    <div style="flex:1; min-width:200px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🟢 Vue.js (E. You)</strong><br><span style="font-size:0.85rem;">Progresywny framework. Single File Components (.vue). Reaktywność, Composition API. Łagodna krzywa uczenia się.</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridFE)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Popularne frameworki frontendowe – React, Angular, Vue</text>
+                <rect x="40" y="50" width="220" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="150" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">React</text>
+                <text x="150" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">Komponenty</text>
+                <text x="150" y="115" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">Virtual DOM</text>
+                <text x="150" y="130" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">Hooks (useState)</text>
+                <rect x="300" y="50" width="220" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Angular</text>
+                <text x="410" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">TypeScript</text>
+                <text x="410" y="115" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">Moduły, DI</text>
+                <text x="410" y="130" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">Two-way binding</text>
+                <rect x="560" y="50" width="220" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="670" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Vue.js</text>
+                <text x="670" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">SFC (.vue)</text>
+                <text x="670" y="115" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">Reaktywność</text>
+                <text x="670" y="130" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">Composition API</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>HTML to nie język programowania!</strong> To język znaczników. Nie ma w nim instrukcji warunkowych ani pętli – do tego służy JavaScript i frameworki.</li>
+                    <li><strong>CSS Grid ≠ Flexbox.</strong> Grid jest dwuwymiarowy (wiersze i kolumny jednocześnie), Flexbox jest jednowymiarowy (wiersz albo kolumna). Nie zastępują się nawzajem – uzupełniają się.</li>
+                    <li><strong>React to biblioteka, Angular to framework.</strong> React zajmuje się tylko widokiem (V w MVC), podczas gdy Angular dostarcza kompletny ekosystem (routing, HTTP, DI).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Frontend:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Warstwa</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Technologie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Rola w budynku frontendu</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Struktura</td><td style="padding:10px;">HTML5, semantyka</td><td style="padding:10px;">Szkielet – ściany, dach, okna</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Prezentacja</td><td style="padding:10px;">CSS3, Flexbox, Grid, RWD</td><td style="padding:10px;">Wnętrze – kolory, układ, meble</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Logika</td><td style="padding:10px;">JavaScript (ES6+), DOM, async/await</td><td style="padding:10px;">Kelner – interakcja, zamówienia, dane</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Frameworki</td><td style="padding:10px;">React, Angular, Vue</td><td style="padding:10px;">Prefabrykaty – gotowe moduły do szybkiej budowy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Frontend to nie tylko „ładne okienka” – to inżynieria, która łączy semantyczny szkielet (HTML), estetyczną skórę (CSS) i dynamiczny mózg (JavaScript) w jeden, płynny organizm. Frameworki dodają do tego dyscyplinę i modułowość, pozwalając budować nawet najbardziej skomplikowane aplikacje – od bankowości po media społecznościowe – które działają w każdej przeglądarce na świecie.</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
