@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 009 – Znaczenie szkoleń uświadamiających dla pracowników</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">009. Znaczenie szkoleń uświadamiających dla pracowników.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏰</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Tytanowa Twierdza i Papierowe Drzwi”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #003300; line-height: 1.7;">
+                        Wyobraź sobie, że wydajesz 10 milionów dolarów na zabezpieczenie tytanowej twierdzy. Kupujesz najlepsze radary (SIEM), stawiasz pancerne mury (Next-Gen Firewalls), a dostępu do skarbca bronią zamki biometryczne i zbrojna straż (Zero Trust Architecture).<br><br>
+                        A jednak pewnego dnia złodziej wchodzi do środka i wynosi całe złoto, nawet nie dotykając murów. Jak to zrobił? Przebrał się za kuriera z pizzą i poprosił portiera, by na chwilę przytrzymał mu drzwi. <br><br>
+                        W architekturze cyberbezpieczeństwa mówimy, że <strong>człowiek to Warstwa 8 (Layer 8) modelu OSI</strong>. Hakowanie serwerów jest ekstremalnie trudne i kosztowne. Hakowanie ludzkiej psychologii (Socjotechnika) jest tanie, przewidywalne i zatrważająco skuteczne. Szkolenia uświadamiające (Security Awareness) to nic innego jak instalowanie "wirtualnych łatek (patchy) na ludzki mózg", by portier rozpoznał fałszywego kuriera z pizzą.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Warstwa 8 (Layer 8 / Human Factor)</span>
+            <span class="keyword-tag">Socjotechnika (Social Engineering)</span>
+            <span class="keyword-tag">Phishing / Spear Phishing / BEC</span>
+            <span class="keyword-tag">MFA Fatigue (Zmęczenie MFA)</span>
+            <span class="keyword-tag">Human Firewall (Ludzka Zapora)</span>
+            <span class="keyword-tag">Kultura Sprawiedliwego Traktowania (Just Culture)</span>
+            <span class="keyword-tag">Wskaźnik Zgłoszeń (Reporting Rate)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: WARSTWA 8 I SOCJOTECHNIKA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Błąd w architekturze: Asymetria Kosztów i Warstwa 8</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Atakujący myślą ekonomicznie (ROI - Return on Investment). Dlaczego mieliby spędzić 6 miesięcy na szukaniu luki Zero-Day w zaporze Palo Alto, wartej miliony dolarów, skoro mogą napisać maila podszywającego się pod dział IT z prośbą o reset hasła? <strong>Socjotechnika (Social Engineering)</strong> eksploatuje wbudowane w ludzki mózg błędy poznawcze: strach, autorytet, pośpiech i chciwość.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Szkolenia uświadamiające nie są tylko "wymogiem RODO". To strategiczny komponent architektury bezpieczeństwa o nazwie <strong>Human Firewall</strong>. Bez niego, nawet najbardziej zaawansowane mechanizmy autentykacji (MFA, szyfrowanie, VPN) mogą zostać bezczelnie ominięte, ponieważ ofiara <em>sama</em> otwiera drzwi hakerowi, autoryzując złośliwe procesy.
+                </p>
+            </div>
+
+            <!-- SVG 1: HUMAN BYPASS -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f1f8e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Asymetria Ataku: Dlaczego technologia to za mało (Bypass Warstwy 8)</text>
+
+                <!-- Hacker -->
+                <rect x="40" y="80" width="80" height="80" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="80" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Haker</text>
+                <text x="80" y="130" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">(APT)</text>
+
+                <!-- Technical Attack Vector -->
+                <path d="M 120 100 L 330 100" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedH1)"/>
+                <text x="225" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Atak Techniczny (Exploity)</text>
+
+                <!-- Firewalls (Blocked) -->
+                <rect x="340" y="50" width="30" height="130" fill="#cfd8dc" stroke="#90a4ae" stroke-width="2"/>
+                <text x="355" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle" transform="rotate(-90 355 115)">Firewall / WAF / IPS</text>
+                
+                <line x1="320" y1="80" x2="335" y2="120" stroke="#d32f2f" stroke-width="4"/>
+                <line x1="320" y1="120" x2="335" y2="80" stroke="#d32f2f" stroke-width="4"/>
+                <text x="300" y="140" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">ZABLOKOWANO</text>
+
+                <!-- Social Engineering Vector (Bypass) -->
+                <path d="M 80 70 Q 80 30, 240 30 T 480 70" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowOrgH1)"/>
+                <text x="250" y="20" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Atak Socjotechniczny (Bypass)</text>
+                <rect x="420" y="10" width="80" height="20" fill="#fff3e0" rx="4" stroke="#f57c00"/>
+                <text x="460" y="24" font-family="monospace" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Phishing Mail</text>
+
+                <!-- User Layer 8 -->
+                <circle cx="500" cy="100" r="25" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="500" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Pracownik</text>
+                <text x="500" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Warstwa 8 (Ludzka)</text>
+
+                <!-- Access Granted -->
+                <path d="M 525 100 L 640 100" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnH1)"/>
+                <rect x="535" y="80" width="100" height="15" fill="#e8f5e9"/>
+                <text x="585" y="90" font-family="monospace" font-size="8" font-weight="bold" fill="#2e7d32" text-anchor="middle">Podaje Hasło (Login)</text>
+
+                <!-- Target Server -->
+                <rect x="650" y="70" width="100" height="80" rx="6" fill="#fff" stroke="#455a64" stroke-width="2"/>
+                <text x="700" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Serwer</text>
+                <text x="700" y="120" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">VPN / RDP</text>
+
+                <rect x="630" y="165" width="150" height="25" fill="#ffebee" rx="4"/>
+                <text x="705" y="182" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Pełen kompromis z pominięciem zapór</text>
+
+                <defs>
+                    <marker id="arrowRedH1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgH1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnH1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: NOWOCZESNE WEKTORY ATAKU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Anatomia współczesnych oszustw: BEC i MFA Fatigue</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Szkolenia uświadamiające muszą uczyć o realnych, współczesnych zagrożeniach. Przestarzałe porady typu "nie klikaj w maile z błędami ortograficznymi od nigeryjskiego księcia" są bezużyteczne w dobie AI, gdzie mały phishing jest perfekcyjnie przetłumaczony przez algorytmy klasy ChatGPT.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Business Email Compromise (BEC):</strong> Hakerzy przejmują konto partnera biznesowego (lub tworzą łudząco podobną domenę) i włączają się w środek istniejącego wątku mailowego z księgowością. Piszą: <em>"Faktura z wczoraj jest poprawna, ale ze względu na audyt prosimy o przelew na nasze nowe konto w banku X"</em>. Księgowość dokonuje autoryzowanego przelewu na miliony złotych. Żaden system antywirusowy tego nie zablokuje, bo w mailu nie ma wirusa ani linku – to czysta manipulacja.</li>
+                    <li><strong>MFA Fatigue (Prompt Bombing):</strong> Większość firm uważa, że uwierzytelnianie wieloskładnikowe (MFA) rozwiązuje problem skradzionych haseł. Hakerzy wpadli na pomysł: logują się ukradzionym hasłem i uruchamiają skrypt wysyłający prośbę o "Zatwierdzenie logowania" (Push Notification) na telefon pracownika 50 razy pod rząd, o 3:00 w nocy. Zaspany, sfrustrowany pracownik klika "Akceptuj", by uciszyć telefon. Haker zyskuje dostęp.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: MFA FATIGUE -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Uczymy omijania błędów poznawczych: Atak MFA Fatigue (Prompt Bombing)</text>
+
+                <!-- Haker w nocy -->
+                <rect x="40" y="70" width="140" height="80" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="110" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Haker (3:00 AM)</text>
+                <text x="110" y="105" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Posiada poprawne hasło,</text>
+                <text x="110" y="117" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">ale blokuje go Token.</text>
+                
+                <rect x="60" y="125" width="100" height="18" fill="#ffebee" rx="2"/>
+                <text x="110" y="137" font-family="monospace" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Skrypt: LOGIN x100</text>
+
+                <!-- Server Okta / Duo -->
+                <rect x="250" y="60" width="120" height="100" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="310" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Serwer MFA</text>
+                <text x="310" y="110" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">(Microsoft Auth / Duo)</text>
+                <circle cx="310" cy="135" r="15" fill="#fff" stroke="#1565c0"/>
+                <text x="310" y="140" font-family="sans-serif" font-size="12" text-anchor="middle">🛡️</text>
+
+                <path d="M 180 110 L 240 110" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedH2)"/>
+
+                <!-- Spam z powiadomieniami -->
+                <path d="M 380 90 L 510 60" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgH2)"/>
+                <path d="M 380 110 L 510 110" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgH2)"/>
+                <path d="M 380 130 L 510 160" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgH2)"/>
+                <text x="445" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Spam POWIADOMIEŃ</text>
+
+                <!-- User Phone -->
+                <rect x="530" y="40" width="80" height="140" rx="10" fill="#cfd8dc" stroke="#546e7a" stroke-width="2"/>
+                <rect x="535" y="45" width="70" height="130" rx="6" fill="#fff"/>
+                <rect x="540" y="55" width="60" height="20" rx="4" fill="#ffcdd2"/>
+                <text x="570" y="68" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Login?</text>
+                <rect x="540" y="80" width="60" height="20" rx="4" fill="#ffcdd2"/>
+                <text x="570" y="93" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Login?</text>
+                <rect x="540" y="105" width="60" height="20" rx="4" fill="#ffcdd2"/>
+                <text x="570" y="118" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Login?</text>
+
+                <!-- Akceptacja -->
+                <path d="M 620 110 L 680 110" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnH2)"/>
+                
+                <rect x="690" y="80" width="100" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="740" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zaspany</text>
+                <text x="740" y="120" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Pracownik</text>
+                <text x="740" y="132" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Klika: ZATWIERDŹ</text>
+
+                <!-- Summary text -->
+                <rect x="250" y="190" width="450" height="25" fill="#fff" rx="4" stroke="#e65100"/>
+                <text x="475" y="207" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d84315" text-anchor="middle">Edukacja: Pracownik musi wiedzieć, by zignorować spam i zadzwonić do SOC!</text>
+
+                <defs>
+                    <marker id="arrowRedH2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgH2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnH2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: INŻYNIERIA METRYK -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Metryki Sukcesu: Zmiana pracownika w sieć czujników IDS</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Początkujący inżynierowie mierzą sukces szkoleń na podstawie <em>Wskaźnika Kliknięć (Click Rate)</em> podczas symulacji Phishingowych (np. "W tym kwartale tylko 5% osób kliknęło w link testowy, odnieśliśmy sukces!"). To fatalna metryka. Click Rate nigdy nie spadnie do 0%, bo ludzie to nie maszyny, bywają zmęczeni i przepracowani.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kluczową metryką dojrzałej architektury SOC jest <strong>Wskaźnik Zgłoszeń (Reporting Rate)</strong> połączony z kulturą organizacyjną zwaną <strong>Just Culture</strong>. Celem szkolenia jest uwarunkowanie pracownika (zainstalowanie przycisku "Zgłoś Phish" w kliencie pocztowym), by natychmiast, gdy zauważy coś podejrzanego, lub co ważniejsze – <em>zaraz po tym, jak zorientuje się, że omyłkowo kliknął w złośliwy link</em> – zgłosił ten fakt do zespołu Security bez strachu przed naganą. Pracownik przestaje być podatnością, a staje się proaktywnym <strong>Ludzkim Systemem Wykrywania Intruzów (Human IDS)</strong>.
+                </p>
+            </div>
+
+            <!-- SVG 3: HUMAN IDS METRICS -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Cel nadrzędny: Pracownik jako Sieć Sensorów Wczesnego Ostrzegania</text>
+
+                <!-- Faza 1 -->
+                <rect x="60" y="60" width="140" height="70" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="130" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Złośliwy Mail</text>
+                <text x="130" y="95" font-family="sans-serif" font-size="9" fill="#455a64" text-anchor="middle">Omija bramy sieciowe</text>
+                <text x="130" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">"Pilna Faktura"</text>
+
+                <path d="M 205 95 L 265 95" fill="none" stroke="#9c27b0" stroke-width="3" marker-end="url(#arrowPurpM)"/>
+
+                <!-- Faza 2 -->
+                <rect x="280" y="60" width="140" height="70" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="350" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Uświadomiony</text>
+                <text x="350" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Pracownik</text>
+                <text x="350" y="115" font-family="sans-serif" font-size="9" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Zauważa anomalię (np. domenę)</text>
+
+                <path d="M 425 95 L 485 95" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM)"/>
+                <text x="455" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klik!</text>
+
+                <!-- Faza 3 -->
+                <rect x="500" y="60" width="260" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="510" y="70" width="30" height="50" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="525" y="98" font-family="sans-serif" font-size="14" text-anchor="middle">🚨</text>
+                <text x="645" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zgłoszenie do SOC (Alert)</text>
+                <text x="645" y="95" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">MTTD (Czas do detekcji): 3 Minuty</text>
+                <text x="645" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">SOC blokuje nadawcę dla całej firmy!</text>
+
+                <!-- Notatka Miernika -->
+                <rect x="250" y="145" width="320" height="25" fill="#f5f5f5" rx="4"/>
+                <text x="410" y="162" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Złota Metryka: Wzrost Wskaźnika Zgłoszeń (Reporting Rate)</text>
+
+                <defs>
+                    <marker id="arrowPurpM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9c27b0"/></marker>
+                    <marker id="arrowGrnM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity z zarządzania bezpieczeństwem):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Pracowników, którzy klikają w symulacje Phishingowe, należy surowo karać."</strong> – Odpowiedź, która natychmiast oblewa egzamin! Karanie (Blame Culture) tworzy w organizacji tzw. <em>Shadow IT</em>. Pracownik, który w pośpiechu kliknie w fałszywą fakturę i zorientuje się, że popełnił błąd, ze strachu przed zwolnieniem ukryje ten fakt przed działem IT. Usunie maila z kosza i będzie milczał. Dla hakera (np. ransomware'u) oznacza to zyskane cenne godziny (Dwell Time) na rozprzestrzenienie się po sieci! Otwarta kultura ("Dziękujemy, że nam o tym powiedziałeś, razem zablokujemy ten atak") pozwala zamknąć incydent w ciągu 5 minut, co oszczędza firmie miliony.</li>
+                    <li><strong>"Szkolenia uświadamiające to coroczna, długa prezentacja."</strong> – Błąd metodyczny. Według psychologii zapominania (Krzywa Ebbinghausa), pracownik zapomina 80% rocznego szkolenia w ciągu tygodnia. Nowoczesna edukacja odbywa się w trybie <em>Micro-learning</em> i w modelu JIT (Just-In-Time Training). Jeśli pracownik kliknie w link testowy podczas symulacji, system natychmiast wyskakuje z komunikatem: "Ups! To był nasz test. Zobacz, ten adres mailowy różnił się jedną literą". Nauka w chwili popełnienia błędu jest wielokrotnie skuteczniejsza niż suche slajdy.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla architekta technicznego czynnik ludzki to frustrująca luka w perfekcyjnych systemach weryfikacji tożsamości. Niestety, matematyka i kryptografia nie potrafią chronić przed zjawiskiem socjotechniki, bo autoryzacja oparta jest na ostatecznym poleceniu człowieka. Inżynier cyberbezpieczeństwa traktuje więc "Security Awareness" jako kolejny algorytm obronny – narzędzie, które patchuje (łata) luki poznawcze u użytkowników. Mierząc Wskaźnik Zgłoszeń (Reporting Rate), traktuje załogę jako potężny, wielomilionowy klaster czujników na brzegu sieci, detekujący ataki z finezją, jakiej nie posiada żaden model maszynowego uczenia.</span>
+                </p>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
