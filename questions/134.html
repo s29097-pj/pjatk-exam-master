@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 134 – Metryki oceny modeli predykcyjnych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">134. Podstawowe metryki wykorzystywane do oceny modeli predykcyjnych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🎯</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Wykrywacz Rzadkich Chorób i Paradoks 99%”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
+                        Zbudowałeś model AI do wykrywania rzadkiej śmiertelnej choroby, na którą zapada 1 na 100 osób. Model diagnozuje 100 pacjentów. Wynik? <strong>Model krzyczy: "Wszyscy są zdrowi!"</strong>.<br><br>
+                        Jeśli zmierzymy ten model podstawową miarą, czyli <strong>Dokładnością (Accuracy)</strong>, otrzymamy wspaniały wynik <strong>99%</strong> (odgadł poprawnie 99 zdrowych pacjentów i pomylił się tylko raz na chorym). Ale jako inżynier wiesz, że ten model jest całkowicie bezużyteczny i właśnie zabił człowieka.<br><br>
+                        Dlatego inżynierowie Data Science opracowali dedykowane metryki. Ocena modelu to zawsze pytanie o biznesowy koszt błędu: co jest gorsze? Fałszywy alarm (wysłanie maila od szefa do SPAMu), czy zignorowanie zagrożenia (przegapienie nowotworu na zdjęciu RTG)?
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Macierz Pomyłek (Confusion Matrix)</span>
+            <span class="keyword-tag">TP, TN, FP (Fałszywy Alarm), FN (Przeoczenie)</span>
+            <span class="keyword-tag">Accuracy (Dokładność)</span>
+            <span class="keyword-tag">Precision (Precyzja) & Recall (Czułość)</span>
+            <span class="keyword-tag">F1-Score (Średnia Harmoniczna)</span>
+            <span class="keyword-tag">MAE (Błąd Bezwzględny) vs RMSE (Błąd Kwadratowy)</span>
+            <span class="keyword-tag">Krzywa ROC i AUC</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: CLASSIFICATION (CONFUSION MATRIX) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3f51b5;">1. Klasyfikacja: Macierz Pomyłek (Confusion Matrix)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To absolutny rdzeń oceny każdego klasyfikatora. Pokazuje ona nie tylko, <em>ile</em> razy model się pomylił, ale <em>w jaki sposób</em> to zrobił. Klasa "Pozytywna" (1) to zjawisko, którego szukamy (np. choroba, pożar, włam). Klasa "Negatywna" (0) to normalny stan.
+                </p>
+            </div>
+
+            <!-- SVG 1: CONFUSION MATRIX -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e8eaf6" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Anatomia Macierzy Pomyłek (Przykład: Wykrywanie Pożaru)</text>
+
+                <!-- Macierz -->
+                <!-- Etykiety -->
+                <text x="410" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3949ab" text-anchor="middle">Przewidywanie Modelu (Co mówi AI?)</text>
+                <text x="130" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#3949ab" text-anchor="middle" transform="rotate(-90 130 170)">Rzeczywistość (Fakty)</text>
+
+                <text x="310" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">POZYTYWNE (1)</text>
+                <text x="510" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">NEGATYWNE (0)</text>
+
+                <text x="160" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="end">POZYTYWNE (1)</text>
+                <text x="160" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="end">NEGATYWNE (0)</text>
+
+                <!-- Box TP -->
+                <rect x="210" y="100" width="200" height="80" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="310" y="125" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">TP (True Positive)</text>
+                <text x="310" y="145" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Zgadł, że jest pożar.</text>
+                <text x="310" y="160" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">SUKCES ✅</text>
+
+                <!-- Box FN -->
+                <rect x="410" y="100" width="200" height="80" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="510" y="125" font-family="sans-serif" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">FN (False Negative)</text>
+                <text x="510" y="145" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Milczał, a dom spłonął.</text>
+                <text x="510" y="160" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">BŁĄD II RODZAJU 💀</text>
+
+                <!-- Box FP -->
+                <rect x="210" y="180" width="200" height="80" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="310" y="205" font-family="sans-serif" font-size="16" font-weight="bold" fill="#e65100" text-anchor="middle">FP (False Positive)</text>
+                <text x="310" y="225" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Fałszywy alarm dla straży.</text>
+                <text x="310" y="240" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">BŁĄD I RODZAJU 🔔</text>
+
+                <!-- Box TN -->
+                <rect x="410" y="180" width="200" height="80" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="510" y="205" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">TN (True Negative)</text>
+                <text x="510" y="225" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Milczał i nie było pożaru.</text>
+                <text x="510" y="240" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">SUKCES ✅</text>
+
+                <!-- Info Box -->
+                <rect x="630" y="100" width="160" height="160" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="710" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Accuracy (Dokładność)</text>
+                <text x="710" y="150" font-family="monospace" font-size="12" fill="#1565c0" text-anchor="middle">TP + TN</text>
+                <line x1="660" y1="160" x2="760" y2="160" stroke="#1565c0" stroke-width="1"/>
+                <text x="710" y="175" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">Wszystkie testy</text>
+                <text x="710" y="210" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Ostrzeżenie:</text>
+                <text x="710" y="225" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Użyteczne TYLKO dla</text>
+                <text x="710" y="240" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">danych zbalansowanych!</text>
+
+            </svg>
+
+            <!-- PART 2: PRECISION VS RECALL -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Odwieczny kompromis: Precyzja (Precision) vs Czułość (Recall)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nie da się stworzyć modelu idealnego. Kiedy model staje się bardzo ostrożny (aby nie wszczynać fałszywych alarmów), spada jego zdolność wykrywania. Aby to zmierzyć, dzielimy problemy na dwie miary. Ponieważ często musimy znaleźć złoty środek między nimi, obliczamy ich średnią harmoniczną, zwaną <strong>F1-Score</strong> ($F_1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$).
+                </p>
+            </div>
+
+            <!-- SVG 2: PRECISION VS RECALL -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f1f8e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Dwa fundamentalne pytania inżynierii predykcyjnej</text>
+
+                <!-- Precision Side -->
+                <rect x="40" y="50" width="350" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="215" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">PRECYZJA (Precision)</text>
+                <text x="215" y="95" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">"Jak bardzo mogę Ci ufać, gdy podnosisz alarm?"</text>
+                
+                <text x="215" y="130" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">TP</text>
+                <line x1="185" y1="140" x2="245" y2="140" stroke="#f57c00" stroke-width="2"/>
+                <text x="215" y="155" font-family="monospace" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">TP + FP</text>
+
+                <text x="215" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Ważne gdy FP (Fałszywy alarm) jest groźny.</text>
+                <text x="215" y="198" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Przykład: Wykrywacz SPAMu. Lepszy spam w Inboksie,</text>
+                <text x="215" y="210" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">niż faktura wyrzucona do śmieci.</text>
+
+                <!-- Waga po srodku -->
+                <path d="M 400 130 L 420 130 L 410 110 Z" fill="#90a4ae"/>
+                <line x1="390" y1="110" x2="430" y2="110" stroke="#546e7a" stroke-width="4"/>
+
+                <!-- Recall Side -->
+                <rect x="430" y="50" width="350" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="605" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">CZUŁOŚĆ (Recall / Sensitivity)</text>
+                <text x="605" y="95" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">"Jaki procent wszystkich wrogów wyłapałeś?"</text>
+                
+                <text x="605" y="130" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">TP</text>
+                <line x1="575" y1="140" x2="635" y2="140" stroke="#d32f2f" stroke-width="2"/>
+                <text x="605" y="155" font-family="monospace" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">TP + FN</text>
+
+                <text x="605" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Ważne gdy FN (Przeoczenie) jest śmiertelne.</text>
+                <text x="605" y="198" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Przykład: Wykrywanie nowotworów. Lepiej zbadać</text>
+                <text x="605" y="210" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">zdrowego 2 razy (FP), niż puścić chorego do domu (FN).</text>
+
+            </svg>
+
+            <!-- PART 3: REGRESSION METRICS -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Metryki Regresji: Liniowa vs Kwadratowa kara za błąd</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kiedy model przewiduje wartość ciągłą (np. wycena domu na 500 tys. zł), nie ma pojęcia "Racja/Pomyłka". Liczy się odległość predykcji ($\hat{y}$) od rzeczywistości ($y$), czyli <strong>Rezyduum (Błąd)</strong>.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>MAE (Mean Absolute Error):</strong> Średni błąd bezwzględny. $MAE = \frac{1}{N}\sum|y - \hat{y}|$. Traktuje błędy liniowo. Złoty standard, gdy ignorujemy ekstremalne anomalie (outliery).</li>
+                    <li><strong>MSE (Mean Squared Error) / RMSE (Root MSE):</strong> Błąd średniokwadratowy. $MSE = \frac{1}{N}\sum(y - \hat{y})^2$. Podnoszenie błędu do kwadratu sprawia, że <strong>brutalnie karzemy model za bardzo duże pojedyncze pomyłki</strong> (błąd o wielkości 10 daje karę 100). Standard inżynierski przy wrażliwych pomiarach.</li>
+                    <li><strong>$R^2$ (R-Squared):</strong> Współczynnik determinacji (od 0 do 1). Wskazuje procentowo, jak dobrze model wyjaśnia zmienność danych w stosunku do najgłupszego możliwego modelu (zgadywania zawsze średniej wartości).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 3: MAE VS MSE -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Oceny modeli regresji: Dlaczego potęgujemy błędy? (MSE vs MAE)</text>
+
+                <!-- Wykres podkładowy -->
+                <line x1="80" y1="210" x2="750" y2="210" stroke="#90a4ae" stroke-width="2"/>
+                <line x1="80" y1="210" x2="80" y2="50" stroke="#90a4ae" stroke-width="2"/>
+                <text x="410" y="230" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Cecha (X)</text>
+                <text x="60" y="130" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle" transform="rotate(-90 60 130)">Predykcja (Y)</text>
+
+                <!-- Linia modelu (Regresja) -->
+                <line x1="80" y1="190" x2="650" y2="60" stroke="#8e24aa" stroke-width="3"/>
+                <text x="660" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a">Linia predykcji (Model)</text>
+
+                <!-- Punkty i błędy bezwzględne (MAE) -->
+                <!-- P1 (Mały błąd) -->
+                <circle cx="200" cy="180" r="5" fill="#1e88e5"/>
+                <line x1="200" y1="180" x2="200" y2="163" stroke="#1e88e5" stroke-width="2" stroke-dasharray="4,2"/>
+                
+                <!-- P2 (Mały błąd) -->
+                <circle cx="300" cy="120" r="5" fill="#1e88e5"/>
+                <line x1="300" y1="120" x2="300" y2="140" stroke="#1e88e5" stroke-width="2" stroke-dasharray="4,2"/>
+
+                <!-- P3 (Outlier - gigantyczny błąd) -->
+                <circle cx="450" cy="50" r="6" fill="#e53935"/>
+                <line x1="450" y1="50" x2="450" y2="105" stroke="#e53935" stroke-width="3" stroke-dasharray="4,2"/>
+                <text x="450" y="40" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Outlier (Gigantyczna pomyłka)</text>
+
+                <!-- Wizualizacja Kwadratu (MSE) -->
+                <rect x="450" y="50" width="55" height="55" fill="#ffcdd2" opacity="0.6" stroke="#d32f2f" stroke-width="2"/>
+                <text x="525" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828">W MSE błąd rośnie</text>
+                <text x="525" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828">kwadratowo (Pola kwadratów)!</text>
+                <text x="525" y="105" font-family="sans-serif" font-size="10" fill="#b71c1c">Model zrobi wszystko, aby tego uniknąć.</text>
+
+                <!-- Legenda -->
+                <rect x="580" y="130" width="200" height="70" rx="4" fill="#fff" stroke="#9c27b0" stroke-width="2"/>
+                <text x="680" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a" text-anchor="middle">MAE ocenia błędy jako:</text>
+                <text x="680" y="160" font-family="monospace" font-size="10" fill="#4a148c" text-anchor="middle">2 + 2 + 10 = Błąd: 14</text>
+                <text x="680" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d32f2f" text-anchor="middle">MSE ocenia te same błędy:</text>
+                <text x="680" y="190" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">2² + 2² + 10² = Błąd: 108</text>
+
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki i paradoksy Data Science):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Zjawisko niezbalansowanych zbiorów:</strong> Ocenianie modelu wykrywającego pranie brudnych pieniędzy (gdzie 99.9% transakcji jest legalnych) za pomocą miary Accuracy to klasyczny błąd dyskwalifikujący. Model, który w kodzie ma dosłownie `return 0;`, uzyska w teście dokładność 99.9%. W takich przypadkach <em>musisz</em> używać F1-Score lub analizować Krzywą ROC i metrykę AUC (Area Under Curve).</li>
+                    <li><strong>Krzywa ROC i AUC:</strong> Pamiętaj, że krzywa ROC (Receiver Operating Characteristic) nie ocenia pojedynczych twardych decyzji (tak/nie). Ocenia ona zachowanie modelu przy różnych progach decyzyjnych (Thresholds), badając balans między TPR (True Positive Rate = Czułość) a FPR (False Positive Rate). Wynik AUC = 0.5 oznacza, że model strzela absolutnie na ślepo (rzut monetą). Wynik AUC = 1.0 to idealna wyrocznia.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Początkujący tworzą modele; inżynierowie je mierzą i kalibrują. Model predykcyjny to tylko bezmyślna matematyka minimalizująca wzory. To Ty musisz odpowiedzieć biznesowi na pytanie: "Czy wolisz irytować klientów zablokowaniem im legalnej karty kredytowej (FP), czy wolisz pokryć koszty kradzieży (FN)?". Dobór metryki to przetłumaczenie języka zysków i strat na język wag i gradientów maszyny. Jeśli wybierzesz złą metrykę (np. MSE zamiast MAE na rynku pełnym spekulacyjnych anomalii), AI dopasuje się do rzadkich wypadków, całkowicie psując predykcje dla 90% zwykłych, codziennych sytuacji.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Uczenie maszynowe z użyciem Scikit-Learn i TensorFlow" (Aurélien Géron) – Rozdziały: Miary wydajności (Classification Performance Measures, RMSE vs MAE).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
