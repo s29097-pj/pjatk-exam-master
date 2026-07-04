@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 138 – Identyfikacja wymagań: Badania jakościowe i ilościowe</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">138. Identyfikacja oczekiwań użytkowników i pozyskiwanie wymagań z zastosowaniem metod badań jakościowych i ilościowych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">✈️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Projektowanie Kokpitu Samolotu i Rozlana Kawa”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #00363a; line-height: 1.7;">
+                        Wyobraź sobie, że projektujesz nowy kokpit samolotu pasażerskiego. Pytasz telemetrię o dane.<br><br>
+                        <strong>Badania Ilościowe (Quantitative)</strong> to Twoje czujniki. Mówią Ci bezlitosne fakty: <em>"W 5% lotów piloci omyłkowo wciskają przycisk zrzutu paliwa"</em>. Wiesz, że masz gigantyczny problem (częstotliwość i skala), ale wykresy analityczne nie powiedzą Ci, <strong>dlaczego</strong> tak się dzieje. <br><br>
+                        <strong>Badania Jakościowe (Qualitative)</strong> to wejście do kokpitu z notatnikiem i siedzenie obok pilota podczas lotu (Shadowing). Nagle zauważasz: <em>"Aha! Przycisk zrzutu paliwa jest tuż pod uchwytem na kubek. Kiedy samolot wpada w turbulencje, piloci próbują łapać rozlaną kawę i przypadkowo uderzają w panel"</em>.<br><br>
+                        W Inżynierii Wymagań (Requirements Engineering) potrzebujesz obu. Jakościowe mówią Ci "DLACZEGO" i "JAK", a Ilościowe "ILE" i "CZY TO WAŻNE STATYSTYCZNIE".
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Inżynieria Wymagań (Requirements Engineering)</span>
+            <span class="keyword-tag">Badania Jakościowe (Qualitative - WHY/HOW)</span>
+            <span class="keyword-tag">Badania Ilościowe (Quantitative - HOW MANY)</span>
+            <span class="keyword-tag">Wywiady Pogłębione (IDI - In-Depth Interviews)</span>
+            <span class="keyword-tag">Shadowing (Obserwacja uczestnicząca)</span>
+            <span class="keyword-tag">Ankiety (Surveys) / Skala Likerta</span>
+            <span class="keyword-tag">Triangulacja Metodologiczna</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: BADANIA JAKOŚCIOWE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00838f;">1. Odkrywanie nieznanego: Badania Jakościowe (Qualitative)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Służą do <strong>eksploracji</strong>. Pozwalają analitykowi odkryć problemy, o których istnieniu nawet nie wiedział, że powinien zapytać. Odpowiadają na pytania "Jak użytkownik pracuje?" oraz "Dlaczego podejmuje takie decyzje?". Dostarczają danych nieustrukturyzowanych (tekst, emocje, nagrania). Metody obejmują:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wywiady Pogłębione (IDI - In-Depth Interviews):</strong> Sesje 1 na 1. Umożliwiają drążenie tematu techniką "5x Dlaczego" (Root Cause Analysis).</li>
+                    <li><strong>Obserwacja (Shadowing / Contextual Inquiry):</strong> Najbardziej wiarygodna technika. Ludzie kłamią w wywiadach ("Tak, używam systemu zgodnie z procedurą"). Patrząc im przez ramię widzisz, że mają hasła zapisane na żółtych karteczkach na monitorze. Zbierasz <em>wymagania ukryte</em> (Implicit requirements).</li>
+                    <li><strong>Grupy Zogniskowane (Focus Groups):</strong> Dyskusja w grupie 5-8 użytkowników moderowana przez analityka. Dobra do zderzania różnych opinii, ale podatna na myślenie grupowe (Groupthink).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: QUALITATIVE -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e0f7fa" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#006064">Badania Jakościowe (Wąska grupa, Głęboki kontekst)</text>
+
+                <!-- Lupa / Focus -->
+                <circle cx="200" cy="130" r="70" fill="#b2ebf2" stroke="#00838f" stroke-width="4"/>
+                <path d="M 250 180 L 300 230" fill="none" stroke="#00838f" stroke-width="8" stroke-linecap="round"/>
+
+                <!-- User inside lens -->
+                <circle cx="200" cy="110" r="20" fill="#006064"/>
+                <path d="M 160 170 C 160 130, 240 130, 240 170" fill="#006064"/>
+
+                <!-- Speech bubbles / Insights -->
+                <rect x="350" y="60" width="220" height="40" rx="8" fill="#fff" stroke="#00acc1" stroke-width="2"/>
+                <path d="M 350 80 L 330 85 L 350 90 Z" fill="#fff" stroke="#00acc1" stroke-width="2"/>
+                <text x="460" y="84" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">"Boję się kliknąć Zapisz, bo</text>
+                <text x="460" y="96" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">nie wiem co system wyśle."</text>
+
+                <rect x="380" y="120" width="240" height="40" rx="8" fill="#fff" stroke="#00acc1" stroke-width="2"/>
+                <path d="M 380 140 L 360 145 L 380 150 Z" fill="#fff" stroke="#00acc1" stroke-width="2"/>
+                <text x="500" y="144" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">"Przeklejam te dane do Excela,</text>
+                <text x="500" y="156" font-family="sans-serif" font-size="11" font-weight="bold" fill="#004d40" text-anchor="middle">bo tutaj sortowanie nie działa."</text>
+
+                <!-- Annotation -->
+                <rect x="650" y="80" width="140" height="60" rx="6" fill="#e0f2f1" stroke="#388e3c" stroke-width="2"/>
+                <text x="720" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wymaganie Użyteczności:</text>
+                <text x="720" y="125" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Zaprojektować Undo (Cofnij)</text>
+
+            </svg>
+
+            <!-- PART 2: BADANIA ILOŚCIOWE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Weryfikacja statystyczna: Badania Ilościowe (Quantitative)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy po wywiadach z 5 osobami wiesz już, czego szukać, musisz udowodnić <strong>biznesowi</strong>, że problem dotyczy nie tylko tych pięciu malkontentów, ale całego rynku (walidacja hipotez). Badania ilościowe dają twarde, ustrukturyzowane liczby. Służą do priorytetyzacji wymagań.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Ankiety i Kwestionariusze (Surveys):</strong> Wysyłane do tysięcy użytkowników. Zawierają pytania zamknięte lub Skalę Likerta (np. oceń od 1 do 5 jak łatwy w użyciu jest nowy panel).</li>
+                    <li><strong>Analityka i Telemetria:</strong> Śledzenie logów w aplikacji. Jakie funkcje są używane najczęściej? Na którym ekranie użytkownicy najdłużej "wiszą"?</li>
+                    <li><strong>Testy A/B:</strong> Udostępnienie grupie A "starej" wersji interfejsu, a grupie B "nowej" i matematyczne zmierzenie, w której grupie wzrosła np. konwersja (sprzedaż).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: QUANTITATIVE -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Badania Ilościowe (Masowa skala, Weryfikacja statystyczna)</text>
+
+                <!-- Zbiór użytkowników (Kropki) -->
+                <rect x="40" y="50" width="200" height="140" rx="8" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="140" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Próba N = 10,000</text>
+                
+                <circle cx="80" cy="100" r="4" fill="#e65100"/>
+                <circle cx="100" cy="90" r="4" fill="#e65100"/>
+                <circle cx="120" cy="110" r="4" fill="#e65100"/>
+                <circle cx="140" cy="95" r="4" fill="#e65100"/>
+                <circle cx="160" cy="120" r="4" fill="#e65100"/>
+                <circle cx="180" cy="100" r="4" fill="#e65100"/>
+                <circle cx="200" cy="130" r="4" fill="#e65100"/>
+                <circle cx="90" cy="130" r="4" fill="#e65100"/>
+                <circle cx="110" cy="140" r="4" fill="#e65100"/>
+                <circle cx="130" cy="130" r="4" fill="#e65100"/>
+                <circle cx="150" cy="150" r="4" fill="#e65100"/>
+                <circle cx="170" cy="140" r="4" fill="#e65100"/>
+
+                <path d="M 250 120 L 300 120" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgReq)"/>
+
+                <!-- Wykres Słupkowy (Ankieta) -->
+                <rect x="320" y="50" width="240" height="140" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="440" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Głosowanie na Nowe Funkcje</text>
+                
+                <line x1="340" y1="170" x2="540" y2="170" stroke="#90a4ae" stroke-width="2"/>
+                <line x1="340" y1="170" x2="340" y2="80" stroke="#90a4ae" stroke-width="2"/>
+
+                <rect x="360" y="90" width="30" height="80" fill="#ffb74d"/>
+                <text x="375" y="185" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Raporty</text>
+                <text x="375" y="85" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">72%</text>
+
+                <rect x="420" y="140" width="30" height="30" fill="#ffb74d"/>
+                <text x="435" y="185" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Czat</text>
+                <text x="435" y="135" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">15%</text>
+
+                <rect x="480" y="120" width="30" height="50" fill="#ffb74d"/>
+                <text x="495" y="185" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Wykresy</text>
+                <text x="495" y="115" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">38%</text>
+
+                <!-- Annotation -->
+                <rect x="580" y="80" width="200" height="60" rx="6" fill="#fbe9e7" stroke="#d32f2f" stroke-width="2"/>
+                <text x="680" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Priorytetyzacja Wymagań:</text>
+                <text x="680" y="125" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">Moduł Raportów zyskuje wysoki</text>
+                <text x="680" y="137" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">priorytet do następnego Sprintu.</text>
+
+                <defs>
+                    <marker id="arrowOrgReq" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: TRIANGULACJA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Złoty standard inżynierii: Triangulacja Metodologiczna</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nigdy nie należy opierać wymagań systemu na jednym źródle danych. Ankieta z zamkniętymi pytaniami często "narzuca" użytkownikom tok myślenia inżyniera. Obserwacja z kolei dotyczy zbyt małej grupy, aby decydować o inwestowaniu milionów w nową funkcję.<br><br>
+                    <strong>Triangulacja</strong> to cykl inżynierski: Rozpoczynamy od <em>Badań Jakościowych</em> aby odkryć problem -> Formułujemy Hipotezę -> Uruchamiamy <em>Badania Ilościowe</em> aby sprawdzić, czy 80% rynku ma ten sam problem -> Wpisujemy zweryfikowany fakt do Backlogu Projektu jako oficjalne <em>Wymaganie</em>.
+                </p>
+            </div>
+
+            <!-- SVG 3: TRIANGULATION -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Proces pozyskiwania wymagań: Triangulacja</text>
+
+                <!-- Box 1 Qual -->
+                <rect x="40" y="60" width="160" height="70" rx="8" fill="#e0f7fa" stroke="#00838f" stroke-width="2"/>
+                <text x="120" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#006064" text-anchor="middle">Wywiad (Qual)</text>
+                <text x="120" y="105" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">"Ludzie gubią się</text>
+                <text x="120" y="117" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">w menu płatności"</text>
+
+                <path d="M 205 95 L 265 95" fill="none" stroke="#607d8b" stroke-width="3" marker-end="url(#arrowGryTri)"/>
+
+                <!-- Box 2 Hipoteza -->
+                <rect x="280" y="70" width="120" height="50" rx="8" fill="#fff" stroke="#546e7a" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="340" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Hipoteza:</text>
+                <text x="340" y="110" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Zbyt wiele kroków.</text>
+
+                <path d="M 405 95 L 465 95" fill="none" stroke="#607d8b" stroke-width="3" marker-end="url(#arrowGryTri)"/>
+
+                <!-- Box 3 Quant -->
+                <rect x="480" y="60" width="160" height="70" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="560" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Telemetria (Quant)</text>
+                <text x="560" y="105" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">62% koszyków</text>
+                <text x="560" y="117" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">porzucanych w kroku 3</text>
+
+                <path d="M 645 95 L 705 95" fill="none" stroke="#4a148c" stroke-width="3" marker-end="url(#arrowPurpTri)"/>
+
+                <!-- Box 4 Requirement -->
+                <rect x="720" y="55" width="80" height="80" rx="4" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="760" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c" text-anchor="middle">Twarde</text>
+                <text x="760" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c" text-anchor="middle">Wymaganie</text>
+                <text x="760" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c" text-anchor="middle">w JIRA</text>
+
+                <!-- Feedback Loop -->
+                <path d="M 760 140 L 760 160 L 120 160 L 120 135" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrowGryTri)"/>
+                <text x="440" y="155" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Testy nowego interfejsu (Iteracja)</text>
+
+                <defs>
+                    <marker id="arrowGryTri" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#607d8b"/></marker>
+                    <marker id="arrowPurpTri" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4a148c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o pozyskiwaniu wymagań):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Użytkownicy wiedzą, czego chcą, wystarczy dać im ankietę"</strong> – Historyczny błąd inżynierii! Jak mawiał Henry Ford: <em>"Gdybym zapytał ludzi czego chcą, powiedzieliby, że szybszego konia"</em>. Ankiety (metody Ilościowe) nadają się tylko do oceny już znanych zjawisk. Wysłanie ankiety z pustym polem "czego brakuje w systemie?" zaowocuje koncertem życzeń nienadającym się do wdrożenia. Prawdziwe potrzeby trzeba <strong>wyabstrahować</strong> z badań Jakościowych poprzez dogłębną analizę pracy klienta.</li>
+                    <li><strong>"Dane analityczne (Ilościowe) są zawsze obiektywne i prawdomówne"</strong> – Nic bardziej mylnego. Istnieje zjawisko zwane w statystyce <em>GIGO (Garbage In, Garbage Out)</em>. Jeśli źle skonstruujesz pytania w kwestionariuszu (np. pytania sugerujące: "Prawda, że nowy interfejs jest świetny?"), otrzymasz 10,000 odpowiedzi "Tak", z których biznesowo nic nie wynika. Surowe liczby nie chronią przed złym warsztatem badawczym.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Największym błędem programistów jest budowanie systemu na podstawie specyfikacji od razu "wyciągniętej z głowy" menedżera. Pozyskiwanie wymagań to praca detektywa, a nie stenotypisty. Metody Jakościowe są Twoim szkłem powiększającym – pozwalają wejść w buty klienta, zobaczyć jego frustrację i pojąć logikę procesów. Metody Ilościowe to Twoja tarcza analityczna – chronią Cię przed zbudowaniem za milion dolarów funkcji, której będzie używała tylko jedna osoba, z którą akurat przeprowadziłeś wywiad. Zbudowanie użytecznego i pożądanego na rynku oprogramowania jest możliwe tylko wtedy, gdy bezwzględna statystyka (Quant) zostanie osadzona w głębokim ludzkim kontekście (Qual).</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Inżynieria wymagań" (K. Wiegers, J. Beatty) – Rozdziały o Elicitation i Business Analysis · Metodologia User-Centered Design (UCD) & UX Research (Nielsen Norman Group).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
