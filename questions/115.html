@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 115 – Układy scalone: klasyfikacje, właściwości, trendy</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">115. Podstawowe klasyfikacje i właściwości układów scalonych oraz współczesne trendy ich rozwoju.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏙️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – Układ scalony to „Cyfrowa metropolia zamknięta w krzemowej płytce”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b22; line-height: 1.7;">
+                        Wyobraź sobie miasto. Małe osiedle z kilkoma domami to odpowiednik <strong>SSI</strong> (kilka tranzystorów). Duże miasto z dzielnicami i ulicami to <strong>MSI/LSI</strong> (tysiące bramek). A nowoczesna megametropolia z drapaczami chmur, miliardami mieszkańców i skomplikowaną siecią połączeń to <strong>VLSI/ULSI</strong> – procesor w Twoim telefonie. Każdy tranzystor to jeden mieszkaniec, połączenia między nimi to ulice, a technologia produkcji (litografia) decyduje o tym, jak ciasno możemy upakować kolejne budynki. Od lat 60. XX wieku inżynierowie nieustannie „zagęszczają” to miasto, kierując się słynnym <strong>prawem Moore'a</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Układ scalony (IC – Integrated Circuit)</span>
+            <span class="keyword-tag">SSI / MSI / LSI / VLSI / ULSI</span>
+            <span class="keyword-tag">Układy analogowe, cyfrowe, mieszane (mixed-signal)</span>
+            <span class="keyword-tag">Technologia bipolarna (TTL, ECL) / CMOS</span>
+            <span class="keyword-tag">Prawo Moore'a</span>
+            <span class="keyword-tag">Litografia (EUV, 3 nm, 2 nm)</span>
+            <span class="keyword-tag">Układy 3D (stacking, TSV – Through-Silicon Vias)</span>
+            <span class="keyword-tag">FPGA, ASIC, SoC (System-on-Chip)</span>
+            <span class="keyword-tag">Pobór mocy, taktowanie (GHz), gęstość mocy</span>
+            <span class="keyword-tag">Trendy: RISC-V, AI accelerators, neuromorficzne</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: SKALA INTEGRACJI – OD SSI DO ULSI              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Skala integracji – od kilku tranzystorów do miliardów</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Układy scalone klasyfikuje się według liczby elementów (głównie tranzystorów) zawartych w jednej strukturze. Podział ten odzwierciedla postęp technologiczny na przestrzeni dekad:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;">
+                    <div style="flex:1; min-width:120px; background:#ffebee; border-radius:8px; padding:10px; text-align:center; border:1px solid #ef9a9a;"><strong>SSI</strong><br><span style="font-size:0.8rem;">Small Scale<br>1–10 tranz.</span></div>
+                    <div style="flex:1; min-width:120px; background:#fff3e0; border-radius:8px; padding:10px; text-align:center; border:1px solid #ffcc80;"><strong>MSI</strong><br><span style="font-size:0.8rem;">Medium Scale<br>10–100 tranz.</span></div>
+                    <div style="flex:1; min-width:120px; background:#e8f5e9; border-radius:8px; padding:10px; text-align:center; border:1px solid #a5d6a7;"><strong>LSI</strong><br><span style="font-size:0.8rem;">Large Scale<br>100–10k tranz.</span></div>
+                    <div style="flex:1; min-width:120px; background:#e3f2fd; border-radius:8px; padding:10px; text-align:center; border:1px solid #90caf9;"><strong>VLSI</strong><br><span style="font-size:0.8rem;">Very Large<br>10k–1M tranz.</span></div>
+                    <div style="flex:1; min-width:120px; background:#f3e5f5; border-radius:8px; padding:10px; text-align:center; border:1px solid #ce93d8;"><strong>ULSI</strong><br><span style="font-size:0.8rem;">Ultra Large<br>powyżej 1M tranz.</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridIC" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="180" fill="url(#gridIC)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Skala integracji – od pojedynczych bramek do miliardów tranzystorów</text>
+                <g transform="translate(40, 50)">
+                    <rect x="0" y="0" width="40" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/><text x="20" y="25" font-size="9">SSI</text>
+                    <rect x="60" y="0" width="70" height="40" fill="#ffcc80" stroke="#ef6c00" stroke-width="2"/><text x="95" y="25" font-size="9">MSI</text>
+                    <rect x="150" y="0" width="120" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/><text x="210" y="25" font-size="9">LSI</text>
+                    <rect x="290" y="0" width="200" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/><text x="390" y="25" font-size="9">VLSI</text>
+                    <rect x="510" y="0" width="250" height="40" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/><text x="635" y="25" font-size="9">ULSI / GSI (miliardy tranzystorów)</text>
+                </g>
+                <text x="410" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Im większa skala integracji, tym większa funkcjonalność, mniejszy pobór mocy na funkcję i niższy koszt na jednostkę.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: KLASYFIKACJA FUNKCJONALNA (ANALOGOWE, CYFROWE, MIESZANE) -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Podział funkcjonalny – analogowe, cyfrowe i mieszane</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Układy scalone dzielimy ze względu na rodzaj przetwarzanych sygnałów. <strong>Cyfrowe</strong> operują na dyskretnych stanach logicznych (0/1) – to procesory, pamięci, FPGA. <strong>Analogowe</strong> przetwarzają ciągłe sygnały napięciowe – wzmacniacze operacyjne, stabilizatory. <strong>Mieszane (mixed-signal)</strong> łączą obie dziedziny na jednej kości – przetworniki ADC/DAC, układy RF. Współczesne SoC (System-on-Chip) integrują wszystkie te funkcje w jednym układzie.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridIC)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Klasyfikacja funkcjonalna układów scalonych</text>
+
+                <rect x="40" y="50" width="220" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="150" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Cyfrowe</text>
+                <text x="150" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">CPU, RAM, FPGA</text>
+                <text x="150" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">Bramki logiczne</text>
+                <text x="150" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">Stany 0/1</text>
+
+                <rect x="300" y="50" width="220" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Analogowe</text>
+                <text x="410" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Wzmacniacze Op-Amp</text>
+                <text x="410" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Stabilizatory napięcia</text>
+                <text x="410" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Filtry RC aktywne</text>
+
+                <rect x="560" y="50" width="220" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="670" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Mieszane (Mixed-Signal)</text>
+                <text x="670" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">ADC / DAC</text>
+                <text x="670" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Układy RF (radio)</text>
+                <text x="670" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">SoC (System-on-Chip)</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: TECHNOLOGIE PRODUKCJI (TTL, CMOS, BiCMOS)      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Technologie wytwarzania – od bipolarnego TTL do zaawansowanego CMOS</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Historycznie pierwsze układy scalone opierały się na <strong>technologii bipolarnej (TTL – Transistor-Transistor Logic)</strong> – szybkiej, ale energochłonnej. Przełomem okazał się <strong>CMOS (Complementary MOS)</strong>, który łączy tranzystory NMOS i PMOS w taki sposób, że prąd płynie praktycznie tylko podczas przełączania. Dzięki temu pobór mocy w stanie statycznym jest bliski zeru, co umożliwiło miniaturyzację do nanometrów. Współczesne układy RF i wysokiej częstotliwości często korzystają z <strong>BiCMOS</strong>, łączącego zalety obu technologii.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridIC)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Technologie wytwarzania: TTL vs CMOS vs BiCMOS</text>
+
+                <rect x="40" y="50" width="220" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="150" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">TTL (BJT)</text>
+                <text x="150" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#c62828">Szybkie, ale duży pobór mocy</text>
+                <text x="150" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#c62828">Historyczne (seria 7400)</text>
+
+                <rect x="300" y="50" width="220" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="410" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">CMOS (N+P MOSFET)</text>
+                <text x="410" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Prawie zerowy pobór statyczny</text>
+                <text x="410" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Dominuje obecnie (99% rynku)</text>
+
+                <rect x="560" y="50" width="220" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="670" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">BiCMOS (Hybryda)</text>
+                <text x="670" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Szybkość BJT + niski pobór CMOS</text>
+                <text x="670" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Układy RF, wysokie częstotliwości</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PRAWO MOORE'A I GRANICE MINIATURYZACJI         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Prawo Moore'a i granice litografii – „Koniec epoki krzemu?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Prawo Moore'a</strong> (Gordon Moore, 1965) przewidywało podwajanie liczby tranzystorów w układzie scalonym co około 18–24 miesiące. Przez ponad 50 lat było ono samospełniającą się przepowiednią, napędzającą postęp w litografii. Obecnie, przy procesach technologicznych 3 nm i 2 nm, zbliżamy się do fizycznych granic miniaturyzacji – przeszkodą stają się zjawiska kwantowe (tunelowanie elektronów) i gigantyczne koszty fabryk (TSMC, Intel, Samsung).
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridIC)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Prawo Moore'a – podwajanie liczby tranzystorów w czasie</text>
+
+                <line x1="60" y1="200" x2="720" y2="200" stroke="#546e7a" stroke-width="2"/>
+                <line x1="60" y1="200" x2="60" y2="40" stroke="#546e7a" stroke-width="2"/>
+                <text x="750" y="205" font-size="10" fill="#546e7a">Czas</text>
+                <text x="50" y="35" font-size="10" fill="#546e7a">Liczba tranzystorów</text>
+
+                <path d="M 80 190 Q 150 170 200 140 T 350 80 T 500 50 T 650 35" fill="none" stroke="#e65100" stroke-width="3"/>
+                <text x="660" y="30" font-family="monospace" font-size="11" fill="#bf360c">~ 10¹⁰ (GPU 2024)</text>
+                <text x="160" y="135" font-family="monospace" font-size="9" fill="#e65100">8086 (~29k, 1978)</text>
+                <text x="300" y="95" font-family="monospace" font-size="9" fill="#e65100">Pentium (~3M, 1993)</text>
+                <text x="480" y="65" font-family="monospace" font-size="9" fill="#e65100">Core i7 (~1B, 2010)</text>
+
+                <rect x="450" y="100" width="250" height="60" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="575" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Obecnie (3 nm, 2 nm):</text>
+                <text x="575" y="138" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">Granice fizyczne (tunelowanie).</text>
+                <text x="575" y="152" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">Koniec tradycyjnego skalowania?</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: WSPÓŁCZESNE TRENDY (3D, SoC, AI)              -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Trendy rozwojowe – wzwyż, a nie wszerz</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy miniaturyzacja planarnego (2D) CMOS zwalnia, inżynierowie kierują się ku nowym paradygmatom:
+                    <br>• <strong>Układy 3D (stacking):</strong> Warstwowe łączenie wielu kości (np. pamięci HBM na procesorze) przez mikropołączenia TSV. Zwiększa przepustowość i oszczędza miejsce.
+                    <br>• <strong>SoC (System-on-Chip) i SiP (System-in-Package):</strong> Integracja CPU, GPU, NPU, modemu na jednej kości lub w jednej obudowie.
+                    <br>• <strong>Akceleratory AI (NPU):</strong> Specjalizowane układy do mnożenia macierzy (tensory) – serce uczenia maszynowego (Google TPU, Apple Neural Engine).
+                    <br>• <strong>Nowe architektury:</strong> RISC-V (otwarta architektura procesorów), układy neuromorficzne (naśladujące pracę mózgu), obliczenia kwantowe.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridIC)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Współczesne trendy: 3D Stacking, SoC, AI Accelerators</text>
+
+                <rect x="30" y="50" width="240" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="150" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Układy 3D (TSV)</text>
+                <rect x="60" y="90" width="40" height="25" fill="#ce93d8" stroke="#8e24aa"/><text x="80" y="108" font-size="7" text-anchor="middle">CPU</text>
+                <rect x="60" y="115" width="40" height="25" fill="#ba68c8" stroke="#8e24aa"/><text x="80" y="133" font-size="7" text-anchor="middle">RAM</text>
+                <text x="150" y="165" font-size="9" fill="#4a148c">Warstwy łączone pionowo.</text>
+
+                <rect x="290" y="50" width="240" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="410" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">SoC (System-on-Chip)</text>
+                <text x="410" y="105" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">CPU + GPU + RAM + modem</text>
+                <text x="410" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#1565c0">= 1 kość krzemowa</text>
+
+                <rect x="550" y="50" width="240" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="670" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Akceleratory AI (NPU)</text>
+                <text x="670" y="105" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">Mnożenie macierzy</text>
+                <text x="670" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">Google TPU, Apple ANE</text>
+
+                <rect x="180" y="180" width="460" height="70" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="410" y="205" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Nowe architektury: RISC-V (otwarty ISA), układy neuromorficzne (Intel Loihi), obliczenia kwantowe (IBM Q).</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Prawo Moore'a to obserwacja ekonomiczna, a nie prawo fizyki.</strong> Od około 2015 roku tempo podwajania liczby tranzystorów spowolniło – mówimy o „zmierzchu prawa Moore'a”.</li>
+                    <li><strong>VLSI nie oznacza automatycznie CMOS.</strong> Choć obecnie CMOS dominuje, w przeszłości układy VLSI mogły być również realizowane w technologii bipolarnej (np. szybkie układy ECL).</li>
+                    <li><strong>Układ cyfrowy ≠ procesor.</strong> Do układów cyfrowych zaliczamy także pamięci (DRAM, Flash), programowalne układy logiczne (FPGA), a nawet proste bramki logiczne.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Układy Scalone:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="background: #eceff1;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kryterium</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Klasyfikacja / Pojęcie</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa cecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold;">Skala integracji</td><td style="padding:10px;">SSI → MSI → LSI → VLSI → ULSI</td><td style="padding:10px;">Liczba tranzystorów w układzie</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold;">Funkcja</td><td style="padding:10px;">Analogowe, Cyfrowe, Mieszane (mixed-signal)</td><td style="padding:10px;">Rodzaj przetwarzanego sygnału</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold;">Technologia</td><td style="padding:10px;">TTL (BJT) / CMOS / BiCMOS</td><td style="padding:10px;">Szybkość vs pobór mocy</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold;">Trendy</td><td style="padding:10px;">3D Stacking, SoC, AI NPU, RISC-V</td><td style="padding:10px;">Nowe paradygmaty rozwoju</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Od prostych bramek SSI po monstrualne SoC z miliardami tranzystorów – układy scalone są kręgosłupem cyfrowej cywilizacji. Rozumiejąc skalę integracji, podział funkcjonalny i technologie produkcji, zyskujesz klucz do oceny możliwości i ograniczeń każdego układu elektronicznego. A trendy takie jak 3D stacking czy akceleratory AI pokazują, że przyszłość należy do architektów, którzy myślą nie tylko wszerz, ale i w górę.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Digital Integrated Circuits: A Design Perspective” (J. Rabaey) · Międzynarodowy Plan Rozwoju Technologii Półprzewodnikowych (ITRS/IRDS) · Materiały własne z zakresu VLSI i architektury komputerów.
+                </span>
+            </div>
+
+        </div></div></div></body>
+</html>
