@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 125 – Testy użyteczności z udziałem użytkowników</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">125. Sposoby realizacji testów użyteczności oprogramowania przeprowadzanych z udziałem użytkowników.</h2>
+
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧪</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Test użyteczności to „Tor przeszkód, który budujesz, by zobaczyć, gdzie ludzie się potykają”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że zbudowałeś prototyp nowego roweru. Jesteś z niego dumny. Ale zamiast wypuszczać go od razu na rynek, zapraszasz do swojego laboratorium pięciu przypadkowych rowerzystów. Dajesz im kaski, kamery na kierownicę i mówisz: „Przejedźcie się po tym torze i opowiadajcie na głos, co czujecie”. Obserwujesz, gdzie hamują, gdzie tracą równowagę, gdzie się uśmiechają. Nie tłumaczysz im, jak działa przerzutka – patrzysz, czy sami ją odkryją. Po testach analizujesz nagrania i dowiadujesz się, że dźwignia hamulca jest za daleko dla osób z małymi dłońmi. Poprawiasz to. <strong>Testy użyteczności z udziałem użytkowników</strong> to właśnie ten tor przeszkód dla oprogramowania.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Test użyteczności (Usability Testing)</span>
+            <span class="keyword-tag">Test moderowany vs niemoderowany</span>
+            <span class="keyword-tag">Protokół głośnego myślenia (Think Aloud)</span>
+            <span class="keyword-tag">Sesje nagraniowe (Morae, Lookback)</span>
+            <span class="keyword-tag">Ewaluacja heurystyczna (Nielsen)</span>
+            <span class="keyword-tag">Testy A/B</span>
+            <span class="keyword-tag">Eye-tracking (mapy cieplne)</span>
+            <span class="keyword-tag">Skala SUS (System Usability Scale)</span>
+            <span class="keyword-tag">Rekrutacja uczestników (5-10 osób)</span>
+            <span class="keyword-tag">Testy zdalne (UserZoom, Maze)</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Test moderowany a niemoderowany – „Z instruktorem czy samodzielnie?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Test moderowany</strong> odbywa się w obecności facylitatora, który prowadzi uczestnika przez scenariusze, zadaje pytania i reaguje na trudności. Najczęściej stosuje się <strong>protokół głośnego myślenia (Think Aloud)</strong>. <strong>Test niemoderowany</strong> uczestnik przechodzi samodzielnie, online, bez kontaktu z badaczem – platformy typu UserZoom czy Maze nagrywają jego kliknięcia, czasy i ścieżki.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridUT" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridUT)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Test moderowany vs niemoderowany</text>
+
+                <rect x="30" y="50" width="370" height="200" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Moderowany (z facylitatorem)</text>
+                <circle cx="140" cy="140" r="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="140" y="145" font-size="10" text-anchor="middle">👤</text>
+                <circle cx="250" cy="140" r="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="250" y="145" font-size="10" text-anchor="middle">🧑‍🏫</text>
+                <line x1="170" y1="140" x2="220" y2="140" stroke="#2e7d32" stroke-width="2"/>
+                <text x="215" y="190" font-size="10" fill="#1b5e20" text-anchor="middle">Think Aloud: „Teraz klikam tu i oczekuję…”</text>
+
+                <rect x="420" y="50" width="370" height="200" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Niemoderowany (zdalny, asynchroniczny)</text>
+                <circle cx="550" cy="140" r="30" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
+                <text x="550" y="145" font-size="10" text-anchor="middle">👤</text>
+                <rect x="600" y="110" width="120" height="60" fill="#90caf9" stroke="#1976d2" rx="4"/>
+                <text x="660" y="135" font-size="9" text-anchor="middle">UserZoom</text>
+                <text x="660" y="150" font-size="9" text-anchor="middle">Maze</text>
+                <text x="605" y="190" font-size="10" fill="#0d47a1" text-anchor="middle">Nagrywanie kliknięć, ciepłota, czasy.</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Protokół głośnego myślenia i nagrywanie – „Słuchaj, co mówi użytkownik, patrz, co robi”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Think Aloud</strong> to najcenniejsza technika w testach użyteczności. Uczestnik na głos komentuje swoje działania, oczekiwania i emocje. Sesja jest nagrywana (ekran + twarz + dźwięk). Narzędzia: Morae, Lookback, OBS Studio. Badacz analizuje nagrania pod kątem punktów frustracji, niezrozumienia i zachwytu.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridUT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Think Aloud i nagrywanie sesji</text>
+                <rect x="30" y="50" width="240" height="160" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="150" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Uczestnik</text>
+                <text x="150" y="105" text-anchor="middle" font-size="10" fill="#1565c0">🗣️ „Szukam przycisku Zapisz…”</text>
+                <text x="150" y="125" text-anchor="middle" font-size="10" fill="#1565c0">😤 „Nie mogę go znaleźć!”</text>
+                <text x="150" y="150" text-anchor="middle" font-size="10" fill="#1565c0">🎥 Kamera + ekran + dźwięk</text>
+                <text x="290" y="135" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                <rect x="320" y="50" width="240" height="160" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="440" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Badacz (analiza)</text>
+                <text x="440" y="105" text-anchor="middle" font-size="10" fill="#2e7d32">▶️ Odtwarza nagranie</text>
+                <text x="440" y="125" text-anchor="middle" font-size="10" fill="#2e7d32">📝 Notuje punkty tarcia</text>
+                <text x="440" y="150" text-anchor="middle" font-size="10" fill="#2e7d32">Narzędzia: Morae, Lookback</text>
+                <text x="580" y="135" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                <rect x="610" y="50" width="180" height="160" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="700" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Wynik</text>
+                <text x="700" y="105" text-anchor="middle" font-size="10" fill="#bf360c">Raport użyteczności</text>
+                <text x="700" y="125" text-anchor="middle" font-size="10" fill="#bf360c">Lista poprawek</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Eye-tracking i mapy cieplne – „Gdzie naprawdę patrzy użytkownik?”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Eye-tracking</strong> śledzi ruch gałek ocznych uczestnika, tworząc <strong>mapy cieplne (heatmapy)</strong> pokazujące, które elementy interfejsu przyciągają wzrok, a które są ignorowane. W testach zdalnych generowane są mapy kliknięć i scrollowania.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridUT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Eye-tracking i mapy cieplne (heatmapy)</text>
+                <rect x="40" y="50" width="350" height="140" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Strona przed testem</text>
+                <rect x="80" y="95" width="60" height="40" fill="#e0e0e0" stroke="#9e9e9e" rx="3"/>
+                <text x="110" y="120" font-size="9" text-anchor="middle">Logo</text>
+                <rect x="160" y="95" width="180" height="40" fill="#e0e0e0" stroke="#9e9e9e" rx="3"/>
+                <text x="250" y="120" font-size="9" text-anchor="middle">Przycisk CTA</text>
+                <text x="215" y="160" font-size="10" fill="#b71c1c">Czy przycisk jest zauważany?</text>
+                <text x="410" y="125" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                <rect x="430" y="50" width="350" height="140" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Mapa cieplna (heatmapa)</text>
+                <rect x="470" y="95" width="60" height="40" fill="#ffcdd2" stroke="#c62828" rx="3"/>
+                <text x="500" y="120" font-size="9" text-anchor="middle">Logo 🔴</text>
+                <rect x="550" y="95" width="180" height="40" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                <text x="640" y="120" font-size="9" text-anchor="middle">CTA 🟢 (klikany!)</text>
+                <text x="605" y="160" font-size="10" fill="#1b5e20">Czerwony = dużo uwagi, Zielony = kliknięcia.</text>
+            </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Testy A/B i skala SUS – „Mierzalne dowody, nie opinie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Testy A/B</strong> polegają na pokazaniu dwóm grupom użytkowników dwóch wersji interfejsu i zmierzeniu, która daje lepsze wyniki. <strong>Skala SUS (System Usability Scale)</strong> to 10-punktowa ankieta dająca wynik liczbowy 0-100. Wynik powyżej 68 uważany jest za akceptowalny.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridUT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Testy A/B i Skala SUS</text>
+                <rect x="30" y="50" width="370" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Test A/B</text>
+                <rect x="60" y="100" width="120" height="50" fill="#bbdefb" stroke="#1565c0" rx="3"/>
+                <text x="120" y="130" font-size="10" text-anchor="middle">Wersja A</text>
+                <rect x="220" y="100" width="120" height="50" fill="#90caf9" stroke="#1565c0" rx="3"/>
+                <text x="280" y="130" font-size="10" text-anchor="middle">Wersja B</text>
+                <text x="215" y="180" font-size="10" fill="#0d47a1">50% użytkowników widzi A, 50% widzi B.</text>
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Skala SUS (0-100)</text>
+                <text x="605" y="110" text-anchor="middle" font-size="11" fill="#1b5e20">10 pytań, skala Likerta 1-5</text>
+                <line x1="460" y1="130" x2="750" y2="130" stroke="#546e7a" stroke-width="4"/>
+                <rect x="480" y="135" width="60" height="20" fill="#c62828" rx="3"/><text x="510" y="150" font-size="8" text-anchor="middle" fill="#fff">&lt;51</text>
+                <rect x="560" y="135" width="60" height="20" fill="#ef6c00" rx="3"/><text x="590" y="150" font-size="8" text-anchor="middle" fill="#fff">51-67</text>
+                <rect x="640" y="135" width="60" height="20" fill="#2e7d32" rx="3"/><text x="670" y="150" font-size="8" text-anchor="middle" fill="#fff">&gt;68</text>
+                <text x="605" y="180" font-size="10" fill="#1b5e20">Powyżej 68 → akceptowalne, &gt;80 → bardzo dobre.</text>
+            </svg>
+
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>5-10 uczestników wystarczy.</strong> Badania Jakoba Nielsena pokazują, że już 5 użytkowników ujawnia ok. 85% problemów użyteczności. Więcej uczestników to więcej tych samych błędów.</li>
+                    <li><strong>Nie pytaj „czy podoba Ci się interfejs”.</strong> Obserwuj, co robią. „Podoba mi się” nie znaczy „umiem z tego skorzystać”.</li>
+                    <li><strong>Test moderowany ≠ lepszy od niemoderowanego.</strong> Moderowany daje głębszy wgląd jakościowy (Think Aloud), ale jest kosztowny i trudny do skalowania. Niemoderowany testuje setki osób tanio, ale bez kontekstu.</li>
+                </ul>
+            </div>
+
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Testy użyteczności:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Metoda</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Typ</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Zalety / Wady</th></tr></thead>
+                    <tbody>
+                    <tr><td style="padding:10px; font-weight:bold;">Think Aloud</td><td style="padding:10px;">Jakościowy, moderowany</td><td style="padding:10px;">Głęboki wgląd w myśli użytkownika. Wymaga facylitatora.</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold;">Testy niemoderowane</td><td style="padding:10px;">Ilościowy / jakościowy, zdalny</td><td style="padding:10px;">Skalowalne, tanie. Brak możliwości dopytywania.</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold;">Eye-tracking</td><td style="padding:10px;">Jakościowy, laboratoryjny</td><td style="padding:10px;">Pokazuje, gdzie naprawdę patrzy użytkownik. Drogi sprzęt.</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold;">Test A/B</td><td style="padding:10px;">Ilościowy, zdalny</td><td style="padding:10px;">Twarde dane o zachowaniach. Nie mówi „dlaczego”.</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold;">Skala SUS</td><td style="padding:10px;">Ilościowy, ankietowy</td><td style="padding:10px;">10 pytań, wynik 0-100. Benchmark użyteczności.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Testy użyteczności to most między tym, jak programiści myślą, że aplikacja działa, a tym, jak naprawdę używają jej ludzie. Od głośnego myślenia, przez mapy cieplne, po testy A/B – każda metoda odkrywa inny kawałek układanki. Pamiętaj: 5 uczestników, Think Aloud i obserwacja zamiast pytania „czy się podoba”.</span>
+                </p>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Why You Only Need to Test with 5 Users” (Jakob Nielsen, 2000) · „MeasuringU: System Usability Scale (SUS)” (J. Sauro) · Dokumentacja narzędzi: UserZoom, Maze, Lookback, Morae.
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
