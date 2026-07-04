@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 135 – Modelowanie procesów biznesowych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">135. Modelowanie procesów biznesowych – podejścia i metody.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧑‍🍳</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kuchnia w Restauracji i Zaginiony Przepis”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #003300; line-height: 1.7;">
+                        Wyobraź sobie restaurację bez żadnego planu. Kelner krzyczy zamówienia w przestrzeń, kucharz robi to, co usłyszy, a na końcu ktoś podaje jedzenie. Panuje chaos, nikt nie wie, kto odpowiada za mycie naczyń, a klienci czekają godzinami.<br><br>
+                        <strong>Modelowanie procesów biznesowych (BPM)</strong> to wzięcie kartki papieru i rozrysowanie tej restauracji krok po kroku: <em>Zdarzenie</em> (Klient składa zamówienie) ➔ <em>Zadanie dla Kelnera</em> (Wbicie do systemu) ➔ <em>Bramka decyzyjna</em> (Czy to danie wegańskie?) ➔ <em>Zadanie dla Kucharza</em>. <br><br>
+                        Inżynieria procesów pozwala nam nie tylko ustandaryzować pracę, ale przede wszystkim znaleźć tak zwane <strong>Wąskie Gardła (Bottlenecks)</strong>. Jeśli kucharz czeka 10 minut na obranie ziemniaków przez pomocnika, system informatyczny, który napiszemy, musi zautomatyzować lub przyspieszyć ten konkretny fragment. Model to język, w którym Biznes dogaduje się z Programistami.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">As-Is (Stan obecny) vs To-Be (Stan docelowy)</span>
+            <span class="keyword-tag">Top-down (Od ogółu) / Bottom-up (Od szczegółu)</span>
+            <span class="keyword-tag">BPMN 2.0 (Zdarzenia, Czynności, Bramki)</span>
+            <span class="keyword-tag">Baseny i Tory (Pools & Lanes)</span>
+            <span class="keyword-tag">EPC (Event-driven Process Chain)</span>
+            <span class="keyword-tag">UML (Diagram Aktywności)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PODEJŚCIA (AS-IS / TO-BE) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Podejścia do modelowania: Diagnoza kontra Projektowanie</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zanim zaczniemy cokolwiek optymalizować lub pisać oprogramowanie, analityk biznesowy musi zdecydować, w jakiej fazie życia znajduje się organizacja. Rozróżniamy dwa kluczowe podejścia operacyjne:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Modelowanie As-Is (Stan Obecny):</strong> Mapowanie brutalnej rzeczywistości. Odkrywamy nieformalne ścieżki, zduplikowane zadania i papierową biurokrację. Służy wyłącznie do diagnozy i znalezienia patologii.</li>
+                    <li><strong>Modelowanie To-Be (Stan Pożądany/Docelowy):</strong> Projektowanie "idealnego" procesu po wdrożeniu nowego systemu IT. Usuwamy zbędne kroki, automatyzujemy decyzje i wprowadzamy systemy informatyczne.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: AS-IS VS TO-BE -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f1f8e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Wartość Inżynierii Biznesowej: Transformacja As-Is ➔ To-Be</text>
+
+                <!-- Panel Lewy: As-Is -->
+                <rect x="40" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Stan "As-Is" (Dzisiaj)</text>
+                
+                <circle cx="80" cy="120" r="15" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="120" y="105" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
+                <rect x="200" y="80" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
+                <rect x="200" y="140" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
+                <rect x="280" y="105" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
+                <circle cx="350" cy="120" r="15" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+
+                <path d="M 95 120 L 120 120" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+                <path d="M 170 120 Q 185 95 200 95" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+                <path d="M 170 120 Q 185 155 200 155" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+                <path d="M 250 95 Q 265 95 280 120" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+                <path d="M 250 155 Q 265 155 280 120" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+                <path d="M 330 120 L 350 120" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
+
+                <path d="M 200 110 L 250 140" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedBPM)"/>
+                
+                <text x="210" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Zduplikowana praca i chaos informacyjny</text>
+
+                <!-- Strzałka Transformacji -->
+                <path d="M 390 125 L 430 125" fill="none" stroke="#f57c00" stroke-width="4" marker-end="url(#arrowOrgBPM)"/>
+
+                <!-- Panel Prawy: To-Be -->
+                <rect x="440" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Stan "To-Be" (Projekt Systemu IT)</text>
+                
+                <circle cx="480" cy="120" r="15" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                
+                <!-- Zautomatyzowane zadanie -->
+                <rect x="540" y="100" width="100" height="40" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
+                <text x="590" y="124" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">System ERP</text>
+
+                <circle cx="710" cy="120" r="15" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+
+                <path d="M 495 120 L 540 120" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPM)"/>
+                <path d="M 640 120 L 695 120" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPM)"/>
+
+                <text x="610" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Proces zoptymalizowany i zautomatyzowany</text>
+
+                <defs>
+                    <marker id="arrowRedBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: METODY I NOTACJA BPMN -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Złoty Standard: Notacja BPMN 2.0 (Business Process Model and Notation)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To bezdyskusyjny standard branżowy. Przypomina język programowania dla analityków. Proces buduje się na siatce odpowiedzialności (<strong>Baseny i Tory - Pools & Lanes</strong>), co jasno wskazuje, *kto* wykonuje zadanie. Składa się z 3 głównych elementów sterujących:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Zdarzenia (Okręgi):</strong> Wyzwalacze procesu. Zielone (Start), Zółte (Pośrednie), Czerwone (Koniec). Nic nie robią, po prostu "się dzieją".</li>
+                    <li><strong>Czynności/Zadania (Zaokrąglone prostokąty):</strong> Fizyczna praca wykonywana przez człowieka lub system (wymaga czasu).</li>
+                    <li><strong>Bramki Logiczne (Romby):</strong> Punkt decyzyjny. Bramka XOR ("X") to wybór tylko jednej ścieżki (albo/albo). Bramka AND ("+") to rozdzielenie procesu na ścieżki działające równolegle.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: BPMN MINI PROCESS -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Anatomia diagramu BPMN (Proces Obsługi Zamówienia)</text>
+
+                <!-- Basen (Pool) i Tory (Lanes) -->
+                <rect x="40" y="50" width="740" height="170" fill="#fff" stroke="#546e7a" stroke-width="2"/>
+                
+                <!-- Headers -->
+                <rect x="40" y="50" width="30" height="170" fill="#cfd8dc" stroke="#546e7a" stroke-width="1"/>
+                <text x="60" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 60 135)">Sklep Internetowy</text>
+
+                <rect x="70" y="50" width="30" height="85" fill="#eceff1" stroke="#546e7a" stroke-width="1"/>
+                <text x="90" y="92" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle" transform="rotate(-90 90 92)">Sprzedawca</text>
+
+                <rect x="70" y="135" width="30" height="85" fill="#eceff1" stroke="#546e7a" stroke-width="1"/>
+                <text x="90" y="177" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle" transform="rotate(-90 90 177)">Magazyn</text>
+
+                <!-- Linia podziału torów -->
+                <line x1="70" y1="135" x2="780" y2="135" stroke="#90a4ae" stroke-width="2" stroke-dasharray="4,2"/>
+
+                <!-- Elementy BPMN -->
+                <!-- Zdarzenie Startowe -->
+                <circle cx="150" cy="92" r="15" fill="#fff" stroke="#388e3c" stroke-width="3"/>
+                <text x="150" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Złożono</text>
+                <text x="150" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">zamówienie</text>
+
+                <path d="M 165 92 L 210 92" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryBPMN)"/>
+
+                <!-- Zadanie 1 -->
+                <rect x="210" y="72" width="100" height="40" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="260" y="96" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sprawdź status</text>
+
+                <path d="M 310 92 L 350 92" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryBPMN)"/>
+
+                <!-- Bramka XOR -->
+                <polygon points="370,72 390,92 370,112 350,92" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <line x1="360" y1="82" x2="380" y2="102" stroke="#f57c00" stroke-width="2"/>
+                <line x1="380" y1="82" x2="360" y2="102" stroke="#f57c00" stroke-width="2"/>
+                <text x="370" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Opłacone?</text>
+
+                <!-- Ścieżka Nie -->
+                <path d="M 370 112 L 370 177 L 420 177" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPMN)"/>
+                <text x="390" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Nie</text>
+
+                <!-- Zadanie Odrzucenie (Magazyn) -->
+                <rect x="420" y="157" width="100" height="40" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="470" y="181" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Anuluj rezerw.</text>
+
+                <path d="M 520 177 L 570 177" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPMN)"/>
+
+                <!-- Koniec - Niepowodzenie -->
+                <circle cx="585" cy="177" r="15" fill="#fff" stroke="#d32f2f" stroke-width="5"/>
+                <text x="585" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Anulowano</text>
+
+                <!-- Ścieżka Tak -->
+                <path d="M 390 92 L 480 92" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
+                <text x="430" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tak</text>
+
+                <!-- Zadanie Pakowanie (Magazyn - skok w dół) -->
+                <path d="M 530 92 L 530 157" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
+                <rect x="480" y="52" width="100" height="40" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="530" y="76" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zleć wysyłkę</text>
+
+                <rect x="630" y="157" width="100" height="40" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <path d="M 580 72 L 680 72 L 680 157" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
+                <text x="680" y="181" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Spakuj paczkę</text>
+
+                <path d="M 730 177 L 760 177" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
+
+                <!-- Koniec - Sukces -->
+                <circle cx="775" cy="177" r="15" fill="#fff" stroke="#d32f2f" stroke-width="5"/>
+                <text x="765" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zrealizowano</text>
+
+                <defs>
+                    <marker id="arrowGryBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowGrnBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                    <marker id="arrowRedBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: ALTERNATYWY -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Alternatywne Metody i Standardy Rynku (EPC i UML)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Chociaż BPMN zdominował świat, inżynierowie mogą spotkać się z dwoma innymi ważnymi standardami w zależności od używanego oprogramowania lub kontekstu projektowego:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>EPC (Event-driven Process Chain):</strong> Króluje w ekosystemie SAP i środowisku ARIS. Jego żelazną zasadą jest naprzemienność: po Zdarzeniu (sześciokąt) ZAWSZE musi wystąpić Funkcja/Zadanie (prostokąt). Jest wybitny do logicznego rygoru, ale na dużych procesach robi się straszliwie długi z góry na dół.</li>
+                    <li><strong>UML Activity Diagram (Diagram Aktywności):</strong> Jeśli proces jest modelowany wyłącznie na potrzeby programistów (inżynieria oprogramowania), używa się UML. Przypomina klasyczny schemat blokowy. Skupia się bardziej na "przepływie kontroli w kodzie" niż na realnych aktorach biznesowych.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Bezlitośnie oceniane błędy analityczne):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie BPMN z Diagramami Przypadków Użycia UML (Use Cases):</strong> To najczęstszy błąd architektów wchodzących w biznes. Diagram Przypadków Użycia pokazuje TYLKO "Kto może co zrobić" (np. Klient może -> Kupić Produkt). Nie pokazuje absolutnie <em>jak</em> to się dzieje, <em>kiedy</em> i <em>w jakiej kolejności</em>. BPMN natomiast to precyzyjny scenariusz sekwencyjny.</li>
+                    <li><strong>Traktowanie Bramek (Gateways) jako zadań:</strong> Bramka Logiczna (romb) w BPMN <em>nie wykonuje pracy i nie zajmuje czasu</em>! Bramka to tylko mechanizm matematycznego rutowania (kierowania) ścieżki. Zła praktyka: Nazwać bramkę "Sprawdź czy klient ma pieniądze". Dobra praktyka: Stworzyć Zadanie "Weryfikacja środków", a dopiero po nim postawić Bramkę z pytaniem "Czy środki są dostępne?".</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Modelowanie procesów to nie rysowanie ładnych obrazków do prezentacji zarządu. To rygorystyczna, inżynierska abstrakcja funkcjonowania żywej firmy. Dobry inżynier wie, że zanim napisze pierwszą linijkę kodu nowego systemu ERP, musi zrozumieć, jak pracownicy radzą sobie w stanie <em>As-Is</em>. Wdrożenie rewolucyjnego algorytmu nic nie da, jeśli programista nie wie, na czyim "torze w basenie" leży ostateczna decyzja akceptacji. BPMN to <em>Lingua Franca</em> (wspólny język), który łączy świat biznesowych celów z bezwzględną logiką algorytmów.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "BPMN 2.0. Wprowadzenie do modelowania procesów biznesowych" (M. Drejewicz) · Standardy Object Management Group (OMG) · Metodologia ARIS.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
