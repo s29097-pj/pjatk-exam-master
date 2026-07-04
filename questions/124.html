@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 124 – Współpraca zespołów IT z użytkownikami końcowymi w projektach zwinnych</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">124. Główne metody współpracy zespołów IT z użytkownikami końcowymi w projektach zwinnych.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #7b1fa2; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(123,31,162,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🔬</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Projekt zwinny to „Wspólne laboratorium badawcze, nie jednostronny monolog”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
+                        Wyobraź sobie, że zespół programistów i użytkownicy końcowi to <strong>naukowcy w jednym laboratorium</strong>. W tradycyjnym modelu (Waterfall) zespół IT znikał na rok za zamkniętymi drzwiami, by po tym czasie zaprezentować gotowy produkt. Naukowcy (użytkownicy) dostawali wyniki i często okazywało się, że badanie odpowiedziało na niewłaściwe pytanie, albo że warunki się zmieniły i wyniki są już nieaktualne. W metodykach zwinnych (Agile) laboratorium jest otwarte – naukowcy (interesariusze) są cały czas obecni. Uczestniczą w porannych spotkaniach planistycznych (Daily Scrum), oglądają kolejne próbki (Sprint Review co 1-4 tygodnie) i na bieżąco korygują kierunek badań. To oni – a nie dokumentacja – są źródłem prawdy o tym, co ma powstać.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #311b92; line-height: 1.8;">
+                        <li><strong>🔵 Product Owner</strong> – ambasador użytkowników w zespole deweloperskim. Jego głosem przemawiają potrzeby biznesu.</li>
+                        <li><strong>🟠 Sprint Review / Demo</strong> – regularne pokazy działającego oprogramowania. Koniec z niespodziankami na końcu projektu.</li>
+                        <li><strong>🟢 User Story Mapping</strong> – wspólne układanie historyjek na ścianie, by wszyscy widzieli całość i priorytety.</li>
+                        <li><strong>🟣 Pętle feedbacku i retrospektywy</strong> – nie tylko produkt, ale i proces jest ulepszany na podstawie opinii.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Product Owner (ambasador użytkowników)</span>
+            <span class="keyword-tag">Sprint Review / Demo</span>
+            <span class="keyword-tag">User Story Mapping (wspólne warsztaty)</span>
+            <span class="keyword-tag">MVP (Minimum Viable Product)</span>
+            <span class="keyword-tag">Prototypowanie / Design Sprint</span>
+            <span class="keyword-tag">UAT (User Acceptance Testing)</span>
+            <span class="keyword-tag">Pętla feedbacku (Scrum, XP)</span>
+            <span class="keyword-tag">Retrospektywa (Continuous Improvement)</span>
+            <span class="keyword-tag">Narzędzia: Jira, Confluence, Miro, UserVoice</span>
+            <span class="keyword-tag">Analityk biznesowy vs Product Owner</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PRODUCT OWNER – AMBASADOR UŻYTKOWNIKÓW        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #7b1fa2;">1. Product Owner – „Ambasador użytkowników w sercu zespołu”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W Scrumie <strong>Product Owner (PO)</strong> jest kluczową rolą łączącą świat użytkowników i biznesu ze światem technologii. PO nie jest programistą – jest ekspertem domenowym, który zna potrzeby klientów, priorytetyzuje zadania (Product Backlog) i odpowiada na pytania zespołu na bieżąco. Jest to zasadnicza różnica w stosunku do modelu Waterfall, gdzie analityk pisał specyfikację, a potem znikał. W Agile PO jest dostępny codziennie.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridCollab" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridCollab)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Product Owner – łącznik między światem użytkowników a zespołem IT</text>
+
+                <circle cx="140" cy="120" r="50" fill="#e1bee7" stroke="#7b1fa2" stroke-width="3"/>
+                <text x="140" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Użytkownicy</text>
+                <text x="140" y="135" font-family="sans-serif" font-size="9" fill="#6a1b9a" text-anchor="middle">Interesariusze</text>
+
+                <rect x="300" y="85" width="220" height="70" rx="10" fill="#ce93d8" stroke="#7b1fa2" stroke-width="3"/>
+                <text x="410" y="115" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Product Owner</text>
+                <text x="410" y="135" font-family="sans-serif" font-size="9" fill="#f3e5f5" text-anchor="middle">Priorytetyzacja · Wizja · Backlog</text>
+
+                <circle cx="680" cy="120" r="50" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
+                <text x="680" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zespół IT</text>
+                <text x="680" y="135" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Developerzy</text>
+
+                <line x1="190" y1="120" x2="300" y2="120" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrPO1)"/>
+                <line x1="520" y1="120" x2="630" y2="120" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrPO2)"/>
+                <text x="245" y="110" font-size="9" fill="#7b1fa2">Potrzeby</text>
+                <text x="575" y="110" font-size="9" fill="#7b1fa2">Zadania</text>
+                <defs>
+                    <marker id="arrPO1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7b1fa2"/></marker>
+                    <marker id="arrPO2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7b1fa2"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: SPRINT REVIEW I DEMO – DZIAŁAJĄCY PRODUKT     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">2. Sprint Review / Demo – „Działający prototyp zamiast obietnic”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W Scrumie koniec każdego Sprintu (1-4 tygodnie) wieńczy <strong>Sprint Review</strong> – spotkanie, na którym zespół demonstruje <strong>działające oprogramowanie</strong>, a nie slajdy czy raporty. Interesariusze widzą realny postęp i mogą natychmiast zgłosić uwagi: „Ten przycisk powinien być w innym miejscu”, „Brakuje potwierdzenia e-mailem”. To sprzężenie zwrotne jest bezzwłocznie uwzględniane w następnym Sprincie.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridCollab)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Sprint Review – Demo działającego produktu, nie slajdów</text>
+
+                <rect x="30" y="55" width="220" height="150" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="140" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Zespół IT</text>
+                <text x="140" y="105" text-anchor="middle" font-size="10" fill="#2e7d32">Prezentuje inkrement</text>
+                <rect x="50" y="120" width="180" height="30" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                <text x="140" y="140" font-size="9" text-anchor="middle" fill="#1b5e20">💻 Działające oprogramowanie</text>
+
+                <path d="M 250 130 L 310 130" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrDemo)"/>
+                <text x="280" y="122" font-size="9" fill="#e65100">Feedback</text>
+
+                <rect x="320" y="55" width="220" height="150" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="430" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Interesariusze</text>
+                <text x="430" y="105" text-anchor="middle" font-size="10" fill="#6a1b9a">Oglądają, testują, oceniają</text>
+                <rect x="340" y="120" width="180" height="30" fill="#e1bee7" stroke="#7b1fa2" rx="3"/>
+                <text x="430" y="140" font-size="9" text-anchor="middle" fill="#4a148c">🗣️ „Zmieńcie ten przycisk”</text>
+
+                <path d="M 540 130 L 600 130" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrDemo2)"/>
+                <text x="570" y="122" font-size="9" fill="#2e7d32">Nowy Backlog</text>
+
+                <rect x="610" y="55" width="180" height="150" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="700" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Product Owner</text>
+                <text x="700" y="105" text-anchor="middle" font-size="10" fill="#bf360c">Aktualizuje priorytety</text>
+                <rect x="630" y="120" width="140" height="30" fill="#ffe0b2" stroke="#ef6c00" rx="3"/>
+                <text x="700" y="140" font-size="9" text-anchor="middle" fill="#e65100">📋 Backlog odświeżony</text>
+                <defs>
+                    <marker id="arrDemo" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrDemo2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: USER STORY MAPPING I WARSZTATY                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. User Story Mapping i wspólne warsztaty – „Mapa skarbów dla wszystkich”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>User Story Mapping</strong> to technika polegająca na wspólnym (zespół IT + użytkownicy) układaniu kolorowych karteczek (historyjek) na ścianie lub wirtualnej tablicy (Miro, Jira). Układa się je w dwuwymiarowej siatce: oś pozioma to kroki użytkownika (ścieżka), oś pionowa to priorytet (MVP na górze, kolejne wersje niżej). Dzięki temu wszyscy widzą całość systemu i rozumieją, które funkcje są absolutnie niezbędne, a które mogą poczekać.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridCollab)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">User Story Mapping – Mapa skarbów układana wspólnie</text>
+                <g transform="translate(40, 50)">
+                    <rect x="0" y="0" width="120" height="40" fill="#bbdefb" stroke="#1565c0" rx="3"/><text x="60" y="25" font-size="9" text-anchor="middle">Zaloguj się</text>
+                    <rect x="130" y="0" width="120" height="40" fill="#bbdefb" stroke="#1565c0" rx="3"/><text x="190" y="25" font-size="9" text-anchor="middle">Przeglądaj</text>
+                    <rect x="260" y="0" width="120" height="40" fill="#bbdefb" stroke="#1565c0" rx="3"/><text x="320" y="25" font-size="9" text-anchor="middle">Dodaj do koszyka</text>
+                    <rect x="390" y="0" width="120" height="40" fill="#bbdefb" stroke="#1565c0" rx="3"/><text x="450" y="25" font-size="9" text-anchor="middle">Zapłać</text>
+                    <text x="0" y="-10" font-size="10" font-weight="bold" fill="#0d47a1">Oś pozioma: Kroki użytkownika (ścieżka)</text>
+                    <line x1="0" y1="45" x2="500" y2="45" stroke="#e65100" stroke-width="2" stroke-dasharray="6,3"/>
+                    <rect x="0" y="50" width="120" height="40" fill="#ffcc80" stroke="#ef6c00" rx="3"/><text x="60" y="75" font-size="9" text-anchor="middle">MVP (teraz)</text>
+                    <rect x="130" y="50" width="120" height="40" fill="#ffe0b2" stroke="#ef6c00" rx="3"/><text x="190" y="75" font-size="9" text-anchor="middle">Wersja 2</text>
+                    <rect x="260" y="50" width="120" height="40" fill="#fff3e0" stroke="#ef6c00" rx="3"/><text x="320" y="75" font-size="9" text-anchor="middle">Wersja 3</text>
+                    <text x="0" y="110" font-size="10" font-weight="bold" fill="#e65100">Oś pionowa: Priorytet (MVP → rozszerzenia)</text>
+                </g>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: UAT I PROTOTYPOWANIE                            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">4. UAT i prototypowanie – „Testowanie nie tylko kodu, ale i pomysłów”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>UAT (User Acceptance Testing)</strong> to formalne testy akceptacyjne, w których użytkownicy końcowi sami sprawdzają, czy system spełnia ich wymagania, zanim trafi na produkcję. <strong>Prototypowanie</strong> (papierowe, interaktywne makiety) idzie jeszcze krok wcześniej – zanim napisze się linię kodu, użytkownicy klikają w atrapę aplikacji, oceniając UX. <strong>MVP (Minimum Viable Product)</strong> to filozofia wdrożenia najmniejszego możliwego zestawu funkcji, by szybko zebrać opinie i uniknąć budowania niepotrzebnych rzeczy.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridCollab)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Prototypowanie i UAT – sprawdzanie pomysłów zanim powstaną</text>
+                <rect x="30" y="55" width="230" height="120" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="145" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Prototyp (makieta)</text>
+                <text x="145" y="105" text-anchor="middle" font-size="10" fill="#6a1b9a">Interaktywna atrapa UI</text>
+                <text x="145" y="125" text-anchor="middle" font-size="9" fill="#4a148c">Narzędzia: Figma, Balsamiq</text>
+
+                <text x="280" y="120" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="320" y="55" width="230" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="435" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">MVP</text>
+                <text x="435" y="105" text-anchor="middle" font-size="10" fill="#2e7d32">Minimalny zestaw funkcji</text>
+                <text x="435" y="125" text-anchor="middle" font-size="9" fill="#1b5e20">Wdrażamy szybko, zbieramy opinie</text>
+
+                <text x="570" y="120" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="610" y="55" width="180" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="700" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">UAT</text>
+                <text x="700" y="105" text-anchor="middle" font-size="10" fill="#bf360c">Testy akceptacyjne</text>
+                <text x="700" y="125" text-anchor="middle" font-size="9" fill="#e65100">Użytkownicy zatwierdzają</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PĘTLA FEEDBACKU – RETROSPEKTYWA, XP            -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Pętla feedbacku i retrospektywa – „Uczymy się na błędach co Sprint”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W XP (Extreme Programming) praktyka <strong>klienta na miejscu (On-Site Customer)</strong> zapewnia ciągłą odpowiedź na pytania. <strong>Retrospektywa</strong> na koniec każdego Sprintu to spotkanie, na którym zespół IT i Product Owner wspólnie analizują, co poszło dobrze, a co można poprawić w procesie. Narzędzia typu UserVoice czy Hotjar zbierają opinie użytkowników bezpośrednio z aplikacji. Wszystko to składa się na <strong>pętlę Build-Measure-Learn</strong> (zbuduj – zmierz – ucz się).
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridCollab)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Pętla feedbacku: Build – Measure – Learn (Retrospektywa)</text>
+                <g transform="translate(80, 60)">
+                    <circle cx="140" cy="70" r="40" fill="#ffcdd2" stroke="#c62828" stroke-width="3"/>
+                    <text x="140" y="65" font-size="10" font-weight="bold" text-anchor="middle" fill="#b71c1c">Build</text>
+                    <text x="140" y="80" font-size="9" text-anchor="middle" fill="#b71c1c">Zbuduj</text>
+
+                    <circle cx="300" cy="70" r="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+                    <text x="300" y="65" font-size="10" font-weight="bold" text-anchor="middle" fill="#1b5e20">Measure</text>
+                    <text x="300" y="80" font-size="9" text-anchor="middle" fill="#1b5e20">Zmierz</text>
+
+                    <circle cx="460" cy="70" r="40" fill="#e1bee7" stroke="#7b1fa2" stroke-width="3"/>
+                    <text x="460" y="65" font-size="10" font-weight="bold" text-anchor="middle" fill="#4a148c">Learn</text>
+                    <text x="460" y="80" font-size="9" text-anchor="middle" fill="#4a148c">Ucz się</text>
+
+                    <path d="M 180 70 Q 240 30 260 70" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrLoop1)"/>
+                    <path d="M 340 70 Q 400 30 420 70" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrLoop2)"/>
+                    <path d="M 500 70 Q 340 130 180 105" fill="none" stroke="#c62828" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrLoop3)"/>
+                </g>
+                <text x="410" y="200" text-anchor="middle" font-size="11" fill="#546e7a">Retrospektywa Sprintu – inspekcja i adaptacja procesu co 1-4 tygodnie.</text>
+                <defs>
+                    <marker id="arrLoop1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrLoop2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrLoop3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Product Owner ≠ Analityk Biznesowy.</strong> Analityk pisze dokumentację i znika. PO jest stale dostępny, priorytetyzuje backlog i odpowiada za ROI produktu.</li>
+                    <li><strong>Sprint Review to nie Demo dla zespołu.</strong> To spotkanie dla <strong>interesariuszy</strong>. Zespół nie pokazuje slajdów – pokazuje działające oprogramowanie.</li>
+                    <li><strong>Prototyp ≠ MVP.</strong> Prototyp to makieta do testowania pomysłu (często wyrzucana). MVP to działający, minimalny produkt wdrożony do realnych użytkowników.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Metody współpracy w Agile:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Metoda / Rola</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Kiedy?</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Rola użytkownika końcowego</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#7b1fa2;">Product Owner</td><td style="padding:10px;">Cały czas trwania projektu</td><td style="padding:10px;">Reprezentuje głos użytkowników w zespole</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Sprint Review</td><td style="padding:10px;">Koniec każdego Sprintu (1-4 tyg.)</td><td style="padding:10px;">Ogląda działający produkt, daje feedback</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">User Story Mapping</td><td style="padding:10px;">Początek projektu / Release Planning</td><td style="padding:10px;">Współtworzy mapę historyjek, ustala priorytety</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Prototyp / MVP</td><td style="padding:10px;">Przed pełną implementacją</td><td style="padding:10px;">Testuje atrapy / minimalną wersję, ocenia UX</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Retrospektywa</td><td style="padding:10px;">Koniec Sprintu</td><td style="padding:10px;">(PO) Dzieli się spostrzeżeniami o procesie</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">W Agile użytkownik końcowy nie jest gościem, który przychodzi na oddanie projektu – jest współtwórcą na każdym etapie. Product Owner reprezentuje jego głos codziennie, Sprint Review daje mu działający produkt do oceny co Sprint, a prototypy i MVP pozwalają testować hipotezy, zanim wydamy fortunę na budowę. Pętla Build-Measure-Learn i retrospektywy sprawiają, że nie tylko produkt, ale i cały proces staje się lepszy.</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
