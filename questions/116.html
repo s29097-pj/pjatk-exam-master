@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 116 – Filtracja sygnałów i jej zastosowania</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">116. Filtracja sygnałów i jej zastosowania.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧹</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Filtracja to „Matematyczne sito do oczyszczania sygnałów”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś poszukiwaczem złota. W rzece płynie wartki nurt pełen piasku, mułu i błyszczących drobinek cennego kruszcu. Nie możesz zabrać wszystkiego – potrzebujesz <strong>sita (filtra)</strong>, które przepuści tylko drobny piasek (niechciane częstotliwości), a zatrzyma złote samorodki (pożądany sygnał). <strong>Filtracja sygnałów</strong> działa dokładnie tak samo: matematycznie przepuszcza lub tłumi określone składowe częstotliwościowe sygnału, by wydobyć z niego to, co istotne.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
+                        <li><strong>🔵 Dolnoprzepustowy (Low-Pass)</strong> – sito o drobnych oczkach. Przepuszcza niskie częstotliwości (wolne zmiany), tłumi wysokie (szumy).</li>
+                        <li><strong>🟠 Górnoprzepustowy (High-Pass)</strong> – sito o dużych otworach. Przepuszcza wysokie częstotliwości (szybkie zmiany, krawędzie), tłumi niskie (wolne trendy).</li>
+                        <li><strong>🟢 Pasmowy (Band-Pass)</strong> – sito, które zatrzymuje wszystko oprócz jednego, wybranego zakresu (np. stacja radiowa na tle szumu eteru).</li>
+                        <li><strong>🟣 Analogowe vs Cyfrowe</strong> – filtry pasywne (RLC) i aktywne (Op-Amp) działają w świecie ciągłym. Filtry cyfrowe (FIR, IIR) to programy przetwarzające próbki liczb.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Filtr dolnoprzepustowy (Low-Pass Filter, LPF)</span>
+            <span class="keyword-tag">Filtr górnoprzepustowy (High-Pass Filter, HPF)</span>
+            <span class="keyword-tag">Filtr pasmowy (Band-Pass Filter, BPF)</span>
+            <span class="keyword-tag">Filtr pasmowozaporowy (Notch Filter)</span>
+            <span class="keyword-tag">Filtr pasywny (RLC) vs Aktywny (Op-Amp)</span>
+            <span class="keyword-tag">Filtr cyfrowy FIR vs IIR</span>
+            <span class="keyword-tag">Częstotliwość odcięcia f<sub>g</sub></span>
+            <span class="keyword-tag">Charakterystyka częstotliwościowa (Bodego)</span>
+            <span class="keyword-tag">Przepustowość (-3 dB)</span>
+            <span class="keyword-tag">Aliasing i filtr antyaliasingowy</span>
+            <span class="keyword-tag">Zastosowania: audio, RF, EKG, obrazowanie</span>
+        </div>
+
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: PODSTAWOWE TYPY FILTRÓW (LPF, HPF, BPF, BSF)  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Podstawowe typy filtrów – „Cztery sita do różnych zadań”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Filtry klasyfikujemy według tego, które częstotliwości przepuszczają, a które tłumią. Każdy z czterech podstawowych typów ma swoje unikalne zastosowanie w inżynierii.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 440" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridFiltr" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="440" fill="url(#gridFiltr)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Podstawowe typy filtrów i ich charakterystyki częstotliwościowe</text>
+
+                <!-- LPF -->
+                <rect x="30" y="45" width="370" height="90" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="215" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Dolnoprzepustowy (Low-Pass, LPF)</text>
+                <path d="M 40 120 L 160 120 L 240 60 L 360 60" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                <line x1="160" y1="120" x2="160" y2="60" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="160" y="55" font-family="sans-serif" font-size="9" fill="#e65100">f<sub>g</sub></text>
+                <text x="300" y="80" font-family="monospace" font-size="9" fill="#1b5e20">Przepuszcza niskie f</text>
+
+                <!-- HPF -->
+                <rect x="420" y="45" width="370" height="90" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="605" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Górnoprzepustowy (High-Pass, HPF)</text>
+                <path d="M 430 60 L 520 60 L 600 120 L 720 120" fill="none" stroke="#1976d2" stroke-width="3"/>
+                <line x1="600" y1="120" x2="600" y2="60" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="600" y="55" font-family="sans-serif" font-size="9" fill="#e65100">f<sub>g</sub></text>
+                <text x="700" y="80" font-family="monospace" font-size="9" fill="#0d47a1">Przepuszcza wysokie f</text>
+
+                <!-- BPF -->
+                <rect x="30" y="145" width="370" height="90" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="215" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Pasmowy (Band-Pass, BPF)</text>
+                <path d="M 40 160 L 140 160 Q 200 60 260 160 L 360 160" fill="none" stroke="#ef6c00" stroke-width="3"/>
+                <text x="200" y="185" font-family="monospace" font-size="9" fill="#bf360c">Przepuszcza tylko pasmo</text>
+
+                <!-- BSF -->
+                <rect x="420" y="145" width="370" height="90" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="605" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Zaporowy (Notch, BSF)</text>
+                <path d="M 430 160 L 530 160 Q 560 60 590 160 L 720 160" fill="none" stroke="#7b1fa2" stroke-width="3"/>
+                <text x="605" y="185" font-family="monospace" font-size="9" fill="#6a1b9a">Tłumi tylko jedno pasmo (np. 50 Hz)</text>
+
+                <!-- Charakterystyka rzeczywista -->
+                <rect x="100" y="260" width="620" height="90" rx="8" fill="#fff" stroke="#546e7a" stroke-width="1.5"/>
+                <text x="410" y="285" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Rzeczywisty filtr – parametry</text>
+                <path d="M 120 330 L 200 330 Q 230 330 280 310 L 450 310 L 500 290 Q 600 280 700 280" fill="none" stroke="#c62828" stroke-width="3"/>
+                <line x1="280" y1="330" x2="280" y2="310" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="280" y="345" font-family="monospace" font-size="9" fill="#e65100">f<sub>g</sub> (-3 dB)</text>
+                <text x="500" y="305" font-family="sans-serif" font-size="9" fill="#c62828">Pasmo przejściowe – nie jest idealne!</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: FILTRY ANALOGOWE – PASYWNE I AKTYWNE          -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Filtry analogowe – „Cewki, kondensatory i wzmacniacze”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Filtry pasywne</strong> buduje się z elementów R, L, C. Są proste, nie wymagają zasilania, ale nie mogą wzmacniać sygnału. <strong>Filtry aktywne</strong> dodają wzmacniacz operacyjny – eliminują cewki (ciężkie, drogie), mogą wzmacniać i łatwo je kaskadować. Najpopularniejsze topologie to Sallen-Key i Multiple Feedback.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridFiltr)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Filtry analogowe – pasywne (RLC) vs aktywne (Op-Amp)</text>
+
+                <!-- Pasywny LPF (RC) -->
+                <rect x="40" y="50" width="350" height="140" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Pasywny filtr dolnoprzepustowy (RC)</text>
+                <line x1="60" y1="110" x2="120" y2="110" stroke="#1565c0" stroke-width="3"/>
+                <rect x="120" y="100" width="40" height="20" fill="none" stroke="#1565c0" stroke-width="2"/>
+                <text x="140" y="95" font-family="monospace" font-size="10" fill="#0d47a1">R</text>
+                <line x1="160" y1="110" x2="220" y2="110" stroke="#1565c0" stroke-width="3"/>
+                <line x1="220" y1="90" x2="220" y2="130" stroke="#1565c0" stroke-width="2"/>
+                <text x="230" y="100" font-family="monospace" font-size="10" fill="#0d47a1">C</text>
+                <line x1="220" y1="110" x2="280" y2="110" stroke="#1565c0" stroke-width="3"/>
+                <text x="300" y="115" font-family="monospace" font-size="9" fill="#0d47a1">OUT</text>
+                <text x="140" y="165" font-family="sans-serif" font-size="10" fill="#546e7a">Prosty, bez zasilania, ale tłumi sygnał.</text>
+
+                <!-- Aktywny LPF (Sallen-Key) -->
+                <rect x="430" y="50" width="350" height="140" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Aktywny filtr (Sallen-Key) z Op-Amp</text>
+                <polygon points="530,130 570,100 570,160" fill="none" stroke="#2e7d32" stroke-width="2"/>
+                <text x="500" y="115" font-family="monospace" font-size="10" fill="#2e7d32">R1</text>
+                <text x="500" y="155" font-family="monospace" font-size="10" fill="#2e7d32">R2</text>
+                <text x="640" y="110" font-family="monospace" font-size="9" fill="#1b5e20">Wzmocnienie</text>
+                <text x="550" y="175" font-family="sans-serif" font-size="10" fill="#546e7a">Bez cewek, może wzmacniać, łatwo kaskadować.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: FILTRY CYFROWE – FIR I IIR                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Filtry cyfrowe (FIR i IIR) – „Program zamiast lutownicy”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Filtry cyfrowe przetwarzają spróbkowane wartości liczbowe. <strong>FIR (Finite Impulse Response)</strong> opiera się tylko na próbkach wejściowych – jest zawsze stabilny i ma liniową fazę, ale wymaga więcej obliczeń. <strong>IIR (Infinite Impulse Response)</strong> używa sprzężenia zwrotnego (poprzednich próbek wyjściowych) – jest szybszy, ale może być niestabilny. Implementowane w DSP, FPGA i mikrokontrolerach.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridFiltr)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Filtry cyfrowe – FIR (bez sprzężenia) vs IIR (ze sprzężeniem zwrotnym)</text>
+
+                <!-- FIR -->
+                <rect x="30" y="50" width="370" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">FIR (Finite Impulse Response)</text>
+                <rect x="80" y="95" width="50" height="30" fill="#bbdefb" stroke="#1565c0"/><text x="105" y="115" font-size="9" text-anchor="middle">x[n]</text>
+                <text x="140" y="115" font-family="sans-serif" font-size="14">→</text>
+                <rect x="160" y="95" width="100" height="30" fill="#90caf9" stroke="#1565c0"/><text x="210" y="115" font-size="9" text-anchor="middle">b₀, b₁, b₂…</text>
+                <text x="270" y="115" font-family="sans-serif" font-size="14">→</text>
+                <rect x="290" y="95" width="50" height="30" fill="#bbdefb" stroke="#1565c0"/><text x="315" y="115" font-size="9" text-anchor="middle">y[n]</text>
+                <text x="215" y="155" font-size="10" fill="#0d47a1">Tylko współczynniki b (bez sprzężenia). Zawsze stabilny. Faza liniowa.</text>
+
+                <!-- IIR -->
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">IIR (Infinite Impulse Response)</text>
+                <rect x="480" y="95" width="50" height="30" fill="#c8e6c9" stroke="#2e7d32"/><text x="505" y="115" font-size="9" text-anchor="middle">x[n]</text>
+                <text x="540" y="115" font-family="sans-serif" font-size="14">→</text>
+                <rect x="560" y="95" width="80" height="30" fill="#a5d6a7" stroke="#2e7d32"/><text x="600" y="115" font-size="9" text-anchor="middle">b + a (feedback)</text>
+                <text x="650" y="115" font-family="sans-serif" font-size="14">→</text>
+                <rect x="670" y="95" width="50" height="30" fill="#c8e6c9" stroke="#2e7d32"/><text x="695" y="115" font-size="9" text-anchor="middle">y[n]</text>
+                <path d="M 600 125 Q 600 160 520 160 Q 480 160 480 130" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrIIR)"/>
+                <text x="570" y="175" font-size="10" fill="#c62828" text-anchor="middle">Sprzężenie zwrotne (a₁, a₂…)</text>
+                <text x="605" y="195" font-size="10" fill="#1b5e20">Wydajniejszy, ale może być niestabilny.</text>
+                <defs><marker id="arrIIR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker></defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: ZASTOSOWANIA – AUDIO, RF, MEDYCYNA, OBRAZ      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Zastosowania – „Gdzie filtracja ratuje sygnał?”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex:1; min-width:180px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🎵 Audio</strong><br><span style="font-size:0.85rem;">Equalizer, crossover w głośnikach, redukcja szumu taśmy.</span></div>
+                    <div style="flex:1; min-width:180px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>📡 RF / Telekomunikacja</strong><br><span style="font-size:0.85rem;">Wydzielanie kanałów radiowych (strojone obwody LC), eliminacja interferencji.</span></div>
+                    <div style="flex:1; min-width:180px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🩺 Medycyna (EKG, EEG)</strong><br><span style="font-size:0.85rem;">Filtr pasmowozaporowy 50 Hz (Notch) do eliminacji przydźwięku sieci.</span></div>
+                    <div style="flex:1; min-width:180px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>📷 Obrazowanie</strong><br><span style="font-size:0.85rem;">Filtry Gaussa (rozmycie), Sobel (wykrywanie krawędzi) – to też filtracja cyfrowa!</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="url(#gridFiltr)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Przykłady zastosowań: Audio, EKG, Obraz</text>
+                <rect x="40" y="50" width="220" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="150" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Crossover audio</text>
+                <text x="150" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">HPF → Tweeter</text>
+                <text x="150" y="118" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">BPF → Midrange</text>
+                <text x="150" y="136" text-anchor="middle" font-family="monospace" font-size="9" fill="#2e7d32">LPF → Woofer</text>
+                <rect x="300" y="50" width="220" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Filtr Notch (EKG)</text>
+                <path d="M 320 100 L 480 100 L 420 150 L 500 100 L 500 100" fill="none" stroke="#1976d2" stroke-width="3"/>
+                <text x="410" y="170" font-family="sans-serif" font-size="10" fill="#0d47a1">Usuwa 50 Hz (sieć) z sygnału EKG.</text>
+                <rect x="560" y="50" width="220" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                <text x="670" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Rozmycie Gaussa (Obraz)</text>
+                <text x="670" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">Filtr dolnoprzepustowy 2D</text>
+                <text x="670" y="118" text-anchor="middle" font-family="monospace" font-size="9" fill="#bf360c">Redukcja szumu w obrazie</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Filtr idealny nie istnieje!</strong> Rzeczywisty filtr nigdy nie ma idealnie stromego zbocza (pionowej ściany) – zawsze istnieje pasmo przejściowe.</li>
+                    <li><strong>Częstotliwość odcięcia f<sub>g</sub> to spadek o 3 dB (~70,7% amplitudy)</strong>, a nie całkowite wycięcie. Za pasmem sygnał jest tłumiony, ale nie znika od razu.</li>
+                    <li><strong>Filtr pasywny RC to filtr jednobiegunowy</strong> – stromość zbocza wynosi tylko 20 dB/dekadę. Aby uzyskać bardziej stromą charakterystykę, kaskaduje się filtry (np. filtr Butterwortha 4. rzędu daje 80 dB/dekadę).</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Filtracja sygnałów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Typ / Kryterium</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Charakterystyka</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Zastosowanie / Przykład</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">LPF</td><td style="padding:10px;">Przepuszcza niskie f, tłumi wysokie</td><td style="padding:10px;">Filtr antyaliasingowy przed ADC</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1976d2;">HPF</td><td style="padding:10px;">Przepuszcza wysokie f, tłumi niskie</td><td style="padding:10px;">Eliminacja składowej stałej (DC offset)</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#ef6c00;">BPF</td><td style="padding:10px;">Przepuszcza tylko wybrane pasmo</td><td style="padding:10px;">Strojenie odbiornika radiowego</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#7b1fa2;">BSF (Notch)</td><td style="padding:10px;">Tłumi wąskie pasmo (np. 50 Hz)</td><td style="padding:10px;">Usuwanie przydźwięku sieci w EKG</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#00897b;">Analogowy</td><td style="padding:10px;">Elementy R, L, C (+ Op-Amp)</td><td style="padding:10px;">Fizyczny układ, działa w czasie rzeczywistym</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Cyfrowy (FIR/IIR)</td><td style="padding:10px;">Programowa obróbka próbek</td><td style="padding:10px;">Elastyczny, precyzyjny, łatwy do modyfikacji</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Filtracja to sztuka oddzielania ziarna od plew w świecie sygnałów. Niezależnie od tego, czy używasz prostego kondensatora, czy zaawansowanego algorytmu DSP – cel jest ten sam: przepuścić to, co cenne, i wyeliminować to, co przeszkadza. Od analogowych zwrotnic w kolumnach, przez cyfrowe korektory graficzne, po filtry w smartfonach eliminujące szum wiatru – bez filtracji współczesna technologia byłaby kakofonią zakłóceń.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „The Scientist and Engineer's Guide to Digital Signal Processing” (S. Smith) · „Understanding Digital Signal Processing” (R. Lyons) · „The Art of Electronics” (Horowitz, Hill, rozdział o filtrach).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
