@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 119 – Wymagania stawiane systemom czasu rzeczywistego</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">119. Wymagania stawiane systemom czasu rzeczywistego.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">⏰</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – System czasu rzeczywistego to „Karetka na sygnale w godzinach szczytu”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b22; line-height: 1.7;">
+                        Wyobraź sobie, że jesteś dyżurnym dyspozytorem karetek pogotowia. Zwykły system operacyjny (Windows, Linux desktop) to jak kurier, który obiecuje dostarczyć paczkę "tak szybko, jak to możliwe". Ale jeśli kurier utknie w korku i spóźni się 10 minut – paczka nadal zostanie dostarczona, tylko klient jest niezadowolony. W Twoim świecie <strong>czasu rzeczywistego</strong> spóźnienie nie wchodzi w grę. Jeśli karetka nie dotrze do pacjenta w ciągu 5 minut, <strong>ktoś umiera</strong>. Jeśli sterownik poduszki powietrznej nie zadziała w ciągu 10 ms od wykrycia kolizji, <strong>ktoś ginie</strong>. Tu nie ma miejsca na "średni czas odpowiedzi" – liczy się <strong>gwarantowany, najgorszy możliwy czas</strong>.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #311b22; line-height: 1.8;">
+                        <li><strong>🔵 Deadline (ostateczny termin)</strong> – bezwzględna granica czasu, w której zadanie MUSI zostać wykonane. Przekroczenie oznacza porażkę systemu.</li>
+                        <li><strong>🟠 Latency (opóźnienie)</strong> – czas od wystąpienia zdarzenia do rozpoczęcia jego obsługi. W systemach RT musi być minimalne i przewidywalne.</li>
+                        <li><strong>🟢 Jitter (rozrzut)</strong> – zmienność czasu odpowiedzi. Nawet jeśli średnia jest dobra, duży jitter (raz 1 ms, raz 10 ms) dyskwalifikuje system.</li>
+                        <li><strong>🟣 Hard vs Soft RT</strong> – twardy system RT gwarantuje dotrzymanie deadline'u zawsze (ABS, rozrusznik serca). Miękki system RT dopuszcza sporadyczne spóźnienia (streaming wideo).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">System czasu rzeczywistego (Real-Time System, RTS)</span>
+            <span class="keyword-tag">Hard Real-Time (twardy czas rzeczywisty)</span>
+            <span class="keyword-tag">Soft Real-Time (miękki czas rzeczywisty)</span>
+            <span class="keyword-tag">Deadline / Latency / Jitter</span>
+            <span class="keyword-tag">Determinizm (przewidywalność)</span>
+            <span class="keyword-tag">WCET (Worst-Case Execution Time)</span>
+            <span class="keyword-tag">Priorytetyzacja / wywłaszczanie (preemption)</span>
+            <span class="keyword-tag">Odwrócenie priorytetów (priority inversion)</span>
+            <span class="keyword-tag">Niezawodność i bezpieczeństwo (safety-critical)</span>
+            <span class="keyword-tag">RTOS (Real-Time Operating System)</span>
+            <span class="keyword-tag">Profilowanie i analiza najgorszego przypadku</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: WYMAGANIA CZASOWE – DEADLINE, LATENCY, JITTER  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">1. Wymagania czasowe – Święta trójca: Deadline, Latency i Jitter</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W systemie czasu rzeczywistego poprawność nie zależy tylko od wyniku logicznego, ale również od <strong>momentu</strong>, w którym ten wynik został dostarczony. Wynik poprawny obliczeniowo, ale dostarczony za późno, jest <strong>bezwartościowy (a często niebezpieczny)</strong>. Kluczowe parametry czasowe to:
+                    <br>• <strong>Deadline (ostateczny termin)</strong> – moment, do którego zadanie musi zakończyć przetwarzanie.
+                    <br>• <strong>Latency (opóźnienie)</strong> – czas od wystąpienia zdarzenia (np. przerwania) do momentu rozpoczęcia wykonywania kodu obsługi (ISR).
+                    <br>• <strong>Jitter (rozrzut)</strong> – zmienność czasu reakcji. Idealnie jitter = 0.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <pattern id="gridRT" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridRT)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Anatomia czasowa systemu RT: Deadline, Latency, Jitter</text>
+
+                <!-- Oś czasu -->
+                <g transform="translate(40, 60)">
+                    <line x1="0" y1="80" x2="720" y2="80" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowTime)"/>
+                    <text x="730" y="85" font-family="sans-serif" font-size="12" fill="#546e7a">t</text>
+
+                    <!-- Zdarzenie -->
+                    <line x1="60" y1="50" x2="60" y2="110" stroke="#ff8f00" stroke-width="3" stroke-dasharray="6,3"/>
+                    <text x="60" y="45" font-family="sans-serif" font-size="11" fill="#e65100" text-anchor="middle">Zdarzenie</text>
+
+                    <!-- Start obsługi -->
+                    <line x1="140" y1="60" x2="140" y2="100" stroke="#1976d2" stroke-width="3" stroke-dasharray="6,3"/>
+                    <text x="140" y="55" font-family="sans-serif" font-size="11" fill="#1565c0" text-anchor="middle">Start ISR</text>
+
+                    <!-- Deadline -->
+                    <line x1="500" y1="50" x2="500" y2="110" stroke="#c62828" stroke-width="4"/>
+                    <text x="500" y="45" font-family="sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">DEADLINE</text>
+
+                    <!-- Zaznaczenie latency -->
+                    <path d="M 60 140 L 110 140" fill="none" stroke="#ff8f00" stroke-width="6" opacity="0.4"/>
+                    <line x1="60" y1="140" x2="60" y2="150" stroke="#ff8f00" stroke-width="2"/>
+                    <line x1="110" y1="140" x2="110" y2="150" stroke="#ff8f00" stroke-width="2"/>
+                    <text x="85" y="165" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Latency (opóźnienie)</text>
+
+                    <!-- Czas wykonania -->
+                    <rect x="140" y="145" width="180" height="25" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" rx="4"/>
+                    <text x="230" y="163" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Czas wykonania (WCET)</text>
+
+                    <!-- Jitter (zmienność) -->
+                    <rect x="360" y="145" width="40" height="25" fill="#ffcdd2" stroke="#c62828" stroke-width="2" rx="2"/>
+                    <text x="380" y="163" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Jitter</text>
+                    <text x="380" y="185" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(zmienność)</text>
+                </g>
+                <defs>
+                    <marker id="arrowTime" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: HARD vs SOFT REAL-TIME                          -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Hard vs Soft Real-Time – „Życie kontra wygoda”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podstawowy podział systemów czasu rzeczywistego opiera się na konsekwencjach przekroczenia deadline'u. <strong>Hard Real-Time (twardy)</strong> oznacza, że jakiekolwiek spóźnienie jest katastrofą (zagrożenie życia, ogromne straty finansowe, uszkodzenie sprzętu). <strong>Soft Real-Time (miękki)</strong> dopuszcza sporadyczne przekroczenia – jakość usługi spada, ale system nadal działa (np. chwilowe zacinanie się wideo). <strong>Firm Real-Time</strong> to kategoria pośrednia: spóźnienie nie jest katastrofą, ale wynik staje się bezużyteczny i jest odrzucany.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Hard vs Soft Real-Time – konsekwencje spóźnienia</text>
+
+                <!-- Hard RT -->
+                <rect x="30" y="50" width="370" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Hard Real-Time (Twardy Czas)</text>
+                <text x="215" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">Deadline przekroczony → KATASTROFA</text>
+                <circle cx="150" cy="160" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="150" y="165" font-family="sans-serif" font-size="10" fill="#b71c1c">🚗💥</text>
+                <text x="150" y="200" font-family="sans-serif" font-size="9" fill="#c62828">Poduszka powietrzna, ABS</text>
+                <circle cx="280" cy="160" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                <text x="280" y="165" font-family="sans-serif" font-size="10" fill="#b71c1c">❤️</text>
+                <text x="280" y="200" font-family="sans-serif" font-size="9" fill="#c62828">Rozrusznik serca</text>
+
+                <!-- Soft RT -->
+                <rect x="420" y="50" width="370" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Soft Real-Time (Miękki Czas)</text>
+                <text x="605" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">Deadline czasem przekroczony → jakość spada</text>
+                <rect x="550" y="130" width="110" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="605" y="155" font-family="sans-serif" font-size="10" fill="#1b5e20">Streaming video</text>
+                <text x="605" y="200" font-family="sans-serif" font-size="9" fill="#2e7d32">Spóźnienie = chwilowe zacinanie się obrazu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: DETERMINIZM I PRZEWIDYWALNOŚĆ                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Determinizm i przewidywalność – „Nie obiecuj szybkości, gwarantuj czas”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Determinizm</strong> to cecha systemu, która oznacza, że dla danego zestawu wejść i stanu początkowego, system zawsze zachowa się w ten sam sposób i <strong>w tym samym czasie</strong>. W kontekście czasu rzeczywistego kluczowy jest <strong>determinizm czasowy</strong> – górna granica czasu wykonania (WCET) musi być znana i nieprzekraczalna. System deterministyczny niekoniecznie jest szybki – może być wolny, ale przewidywalny. To dlatego w RTOS-ach unika się dynamicznej alokacji pamięci (<code>malloc</code>) i garbage collectora – ich czas wykonania jest nieprzewidywalny.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Determinizm vs Szybkość – system RT nie musi być najszybszy</text>
+
+                <!-- Szybki, ale niedeterministyczny -->
+                <rect x="30" y="50" width="370" height="160" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">System szybki, ale niedeterministyczny</text>
+                <path d="M 60 120 L 100 110 L 140 130 L 180 100 L 220 140 L 260 100 L 300 130 L 340 110" fill="none" stroke="#c62828" stroke-width="3"/>
+                <text x="215" y="165" font-family="sans-serif" font-size="10" fill="#c62828">Średnio szybki, ale czasem "zacina się" na długo.</text>
+                <text x="215" y="180" font-family="sans-serif" font-size="10" fill="#c62828">Nie do przyjęcia w RT!</text>
+
+                <!-- Wolniejszy, ale deterministyczny -->
+                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">System wolniejszy, ale deterministyczny</text>
+                <path d="M 460 120 L 500 115 L 540 125 L 580 115 L 620 125 L 660 115 L 700 125 L 740 115" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                <text x="605" y="165" font-family="sans-serif" font-size="10" fill="#1b5e20">Wolniejszy, ale zawsze taki sam.</text>
+                <text x="605" y="180" font-family="sans-serif" font-size="10" fill="#1b5e20">W sam raz do RT!</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: PRIORYTETY I ODWRÓCENIE PRIORYTETÓW             -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Priorytetyzacja i wywłaszczanie – „Karetka ma zawsze zielone światło”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W RTOS każde zadanie ma przypisany priorytet. Zasada jest prosta: <strong>zadanie o wyższym priorytecie zawsze wywłaszcza (przerywa) zadanie o niższym priorytecie</strong>. To gwarantuje, że krytyczne funkcje (np. sterowanie silnikiem) dostaną procesor natychmiast, bez czekania na zakończenie mniej ważnych zadań (np. logowania). Problemem jest tu <strong>odwrócenie priorytetów (priority inversion)</strong> – sytuacja, gdy zadanie o wysokim priorytecie czeka na zasób zablokowany przez zadanie o niskim priorytecie. Rozwiązaniem jest <strong>dziedziczenie priorytetów (priority inheritance)</strong>.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Priorytetyzacja i Problem Odwrócenia Priorytetów (Priority Inversion)</text>
+
+                <!-- Diagram wywłaszczania -->
+                <rect x="30" y="50" width="370" height="200" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Prawidłowe wywłaszczanie</text>
+                <rect x="50" y="95" width="180" height="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                <text x="140" y="110" font-size="8" fill="#1b5e20" text-anchor="middle">Zadanie niskiego priorytetu (NP)</text>
+                <rect x="50" y="120" width="100" height="20" fill="#81c784" stroke="#2e7d32" stroke-width="1"/>
+                <text x="100" y="135" font-size="8" fill="#fff" text-anchor="middle">Przerwane!</text>
+                <rect x="150" y="120" width="200" height="20" fill="#e65100" stroke="#bf360c" stroke-width="1"/>
+                <text x="250" y="135" font-size="8" fill="#fff" text-anchor="middle">Zadanie wysokiego priorytetu (WP)</text>
+                <text x="215" y="175" font-family="sans-serif" font-size="10" fill="#1b5e20">WP przyszło → NP natychmiast wywłaszczone.</text>
+
+                <!-- Diagram odwrócenia priorytetów -->
+                <rect x="420" y="50" width="370" height="200" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Odwrócenie priorytetów (Problem!)</text>
+                <rect x="440" y="95" width="100" height="20" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+                <text x="490" y="110" font-size="8" fill="#b71c1c" text-anchor="middle">NP blokuje zasób</text>
+                <rect x="550" y="95" width="200" height="20" fill="#e65100" stroke="#bf360c" stroke-width="1"/>
+                <text x="650" y="110" font-size="8" fill="#fff" text-anchor="middle">WP czeka na zasób!</text>
+                <text x="605" y="175" font-family="sans-serif" font-size="10" fill="#b71c1c">WP czeka na NP → Priorytety odwrócone.</text>
+                <text x="605" y="195" font-family="sans-serif" font-size="10" fill="#c62828">Rozwiązanie: dziedziczenie priorytetów.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Szybkość ≠ determinizm!</strong> System RT nie musi być najszybszy – musi być przewidywalny. Zwykły Linux może być szybszy od RTOS-a, ale jego opóźnienia potrafią skakać od 1 µs do 100 ms.</li>
+                    <li><strong>Odwrócenie priorytetów to nie teoria.</strong> To realny problem, który omal nie zniszczył misji Mars Pathfinder w 1997 roku. Rozwiązaniem jest dziedziczenie priorytetów.</li>
+                    <li><strong>WCET ≠ średni czas wykonania.</strong> Do analizy schedulingu (np. Rate Monotonic) używa się najgorszego przypadku, nie średniego. W systemie Hard RT musisz udowodnić, że deadline będzie dotrzymany zawsze.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Systemy czasu rzeczywistego:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Wymaganie / Pojęcie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Definicja</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Przykład</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#c2185b;">Deadline</td><td style="padding:10px;">Ostateczny czas zakończenia zadania</td><td style="padding:10px;">Poduszka powietrzna: 10 ms od zderzenia</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Latency</td><td style="padding:10px;">Opóźnienie od zdarzenia do startu obsługi</td><td style="padding:10px;">Opóźnienie przerwania (ISR latency)</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Jitter</td><td style="padding:10px;">Zmienność czasu odpowiedzi</td><td style="padding:10px;">Idealnie = 0. W praktyce < 1 µs dla Hard RT.</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Hard RT</td><td style="padding:10px;">Spóźnienie = katastrofa</td><td style="padding:10px;">Sterownik silnika, rozrusznik serca</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Soft RT</td><td style="padding:10px;">Spóźnienie = obniżenie jakości</td><td style="padding:10px;">Streaming wideo, gry komputerowe</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Odwrócenie priorytetów</td><td style="padding:10px;">Zadanie o wysokim priorytecie czeka na zasób trzymany przez niski priorytet</td><td style="padding:10px;">Rozwiązanie: dziedziczenie priorytetów (priority inheritance)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">System czasu rzeczywistego nie ocenia się po średniej prędkości – ocenia się go po gwarancji, że deadline nigdy nie zostanie przekroczony. To inżynieria, w której czas jest tak samo krytyczny jak logika, a determinizm cenniejszy od surowej mocy obliczeniowej. Od poduszki powietrznej w Twoim samochodzie po łaziki na Marsie – wszędzie tam, gdzie milisekunda decyduje o życiu i śmierci, rządzi twardy czas rzeczywisty.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Real-Time Systems” (J. Liu) · „Hard Real-Time Computing Systems” (G. Buttazzo) · Dokumentacja FreeRTOS i Zephyr RTOS · Raport „What really happened on Mars?” (G. Reeves, 1998).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
