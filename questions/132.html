@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 132 – Sztuczne sieci neuronowe</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">132. Sztuczne sieci neuronowe.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Korporacyjna Maszyna Decyzyjna i System Kar”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
+                        Wyobraź sobie ogromną korporację oceniającą wnioski kredytowe. Na samym dole siedzą ankieterzy (<strong>Warstwa Wejściowa</strong>). Zbierają surowe dane (wiek, dochód) i wysyłają raporty do kierowników.<br><br>
+                        Każdy kierownik (<strong>Neuron w Warstwie Ukrytej</strong>) patrzy na te dane, ale nadaje im różną ważność (<strong>Wagi</strong>). Kierownik A uważa, że dochód jest najważniejszy (waga = 0.9), a kierownik B patrzy tylko na historię długów. Każdy z nich ma też swoje własne "uprzedzenia" i próg tolerancji (<strong>Bias</strong>). Ostateczną decyzję podejmuje Prezes (<strong>Warstwa Wyjściowa</strong>).<br><br>
+                        Co się dzieje, gdy Prezes da kredyt bankrutowi? Ponosi ogromną stratę (<strong>Funkcja Kosztu</strong>). Wtedy krzyczy na kierowników, kierownicy krzyczą na ankieterów, zmuszając wszystkich do zmiany swoich priorytetów (zmiany Wag i Biasów), żeby następnym razem nie popełnić tego samego błędu. Ten proces "krzyku w dół hierarchii" to w matematyce <strong>Wsteczna Propagacja Błędu (Backpropagation)</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Perceptron (Wagi, Bias)</span>
+            <span class="keyword-tag">Funkcja Aktywacji (ReLU, Sigmoid, Tanh)</span>
+            <span class="keyword-tag">Propagacja w przód (Forward Pass)</span>
+            <span class="keyword-tag">Funkcja Straty / Kosztu (Loss/Cost Function)</span>
+            <span class="keyword-tag">Wsteczna Propagacja Błędu (Backpropagation)</span>
+            <span class="keyword-tag">Spadek Gradientu (Gradient Descent)</span>
+            <span class="keyword-tag">Przeuczenie (Overfitting)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PERCEPTRON -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">1. Fundament architektoniczny: Sztuczny Neuron (Perceptron)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pojedynczy neuron to prosta maszyna matematyczna. Pobiera on sygnały wejściowe ($x$), mnoży każdy z nich przez odpowiednią wagę ($w$), sumuje je wszystkie i dodaje wartość obciążenia (Bias, $b$). Jednak najważniejszą częścią neuronu jest <strong>Nieliniowa Funkcja Aktywacji</strong>. Jeśli byśmy z niej zrezygnowali, cała sieć neuronowa z miliardem neuronów stałaby się matematycznie tożsama z jedną, prostą funkcją liniową i straciłaby zdolność rozwiązywania złożonych problemów!
+                </p>
+            </div>
+
+            <!-- SVG 1: PERCEPTRON -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Matematyczny model Sztucznego Neuronu</text>
+
+                <!-- Wejścia -->
+                <circle cx="80" cy="80" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₁</text>
+
+                <circle cx="80" cy="140" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="145" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₂</text>
+
+                <circle cx="80" cy="200" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="205" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₃</text>
+
+                <!-- Sumator -->
+                <circle cx="350" cy="140" r="40" fill="#e1bee7" stroke="#8e24aa" stroke-width="3"/>
+                <text x="350" y="148" font-family="sans-serif" font-size="28" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Σ</text>
+
+                <!-- Strzałki wejść z wagami -->
+                <path d="M 100 80 L 315 130" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="85" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="100" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₁</text>
+
+                <path d="M 100 140 L 310 140" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="130" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₂</text>
+
+                <path d="M 100 200 L 315 150" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="175" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="190" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₃</text>
+
+                <!-- Bias -->
+                <circle cx="280" cy="60" r="20" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="280" y="65" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">b</text>
+                <path d="M 300 70 L 330 105" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgNN)"/>
+                <text x="310" y="50" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Bias (Przesunięcie)</text>
+
+                <!-- Funkcja Aktywacji -->
+                <path d="M 390 140 L 450 140" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrowPurp)"/>
+                <rect x="460" y="100" width="100" height="80" rx="8" fill="#fff" stroke="#0288d1" stroke-width="3"/>
+                <text x="510" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Funkcja</text>
+                <text x="510" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Aktywacji</text>
+                
+                <!-- Ikona funkcji nieliniowej (ReLU) -->
+                <path d="M 480 165 L 510 165 L 530 145" fill="none" stroke="#0288d1" stroke-width="2"/>
+                
+                <!-- Wyjście -->
+                <path d="M 560 140 L 640 140" fill="none" stroke="#0288d1" stroke-width="3" marker-end="url(#arrowBlueNN)"/>
+                <text x="700" y="145" font-family="monospace" font-size="16" font-weight="bold" fill="#01579b" text-anchor="middle">y = f(Σ+b)</text>
+
+                <!-- Równanie na dole -->
+                <rect x="230" y="210" width="360" height="25" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
+                <text x="410" y="227" font-family="monospace" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Wyjście y = Aktywacja( (x₁*w₁) + (x₂*w₂) + (x₃*w₃) + b )</text>
+
+                <defs>
+                    <marker id="arrowPurp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4a148c"/></marker>
+                    <marker id="arrowOrgNN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowBlueNN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0288d1"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: ARCHITEKTURA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura Sieci i Propagacja w Przód (Forward Pass)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pojedynczy neuron niewiele potrafi. Sieć neuronowa to tysiące takich neuronów ułożonych w warstwy: <strong>Warstwę Wejściową</strong> (surowe dane, np. piksele obrazka), <strong>Warstwy Ukryte</strong> (szukające wzorców, kształtów i relacji) oraz <strong>Warstwę Wyjściową</strong> (dokonującą ostatecznej klasyfikacji, np. "To jest Kot na 90%"). Przepływ danych od wejścia do wyjścia (przemnażanie wielkich macierzy) to właśnie <em>Propagacja w przód</em>. Jeśli sieć ma więcej niż jedną warstwę ukrytą, mówimy o uczeniu głębokim (<strong>Deep Learning</strong>).
+                </p>
+            </div>
+
+            <!-- SVG 2: ARCHITECTURE -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wielowarstwowy Perceptron (Gęsto Połączona Sieć)</text>
+
+                <!-- Input Layer -->
+                <text x="150" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0288d1" text-anchor="middle">Warstwa Wejściowa</text>
+                <circle cx="150" cy="90" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+                <circle cx="150" cy="140" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+                <circle cx="150" cy="190" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+
+                <!-- Hidden Layer 1 -->
+                <text x="410" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Warstwy Ukryte (Deep Learning)</text>
+                <circle cx="350" cy="80" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="350" cy="120" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="350" cy="160" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="350" cy="200" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+
+                <!-- Hidden Layer 2 -->
+                <circle cx="470" cy="80" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="470" cy="120" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="470" cy="160" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="470" cy="200" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+
+                <!-- Output Layer -->
+                <text x="670" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Warstwa Wyjściowa</text>
+                <circle cx="670" cy="110" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="730" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">"Pies"</text>
+
+                <circle cx="670" cy="170" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="730" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">"Kot"</text>
+
+                <!-- Connections (Generative representation) -->
+                <!-- Input to H1 -->
+                <path d="M 165 90 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 90 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 90 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 90 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                
+                <path d="M 165 140 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 140 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 140 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 140 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <path d="M 165 190 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 190 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 190 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 165 190 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <!-- H1 to H2 -->
+                <path d="M 365 80 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 80 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 80 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 80 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <path d="M 365 120 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 120 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 120 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 120 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <path d="M 365 160 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 160 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 160 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 160 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <path d="M 365 200 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 200 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 200 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 365 200 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <!-- H2 to Out -->
+                <path d="M 485 80 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 485 80 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                
+                <path d="M 485 120 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 485 120 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                
+                <path d="M 485 160 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 485 160 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                
+                <path d="M 485 200 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+                <path d="M 485 200 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
+
+                <!-- Arrow indicating flow -->
+                <path d="M 220 25 L 600 25" fill="none" stroke="#0288d1" stroke-width="4" marker-end="url(#arrowBlueNN)"/>
+                <text x="410" y="18" font-family="sans-serif" font-size="11" font-weight="bold" fill="#01579b" text-anchor="middle">Propagacja w Przód (Zgadywanie)</text>
+
+            </svg>
+
+            <!-- PART 3: LEARNING (BACKPROP & GRADIENT DESCENT) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Uczenie Sieci: Wsteczna Propagacja i Spadek Gradientu</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Początkowo sieć ma losowe wagi. Gdy "zgadnie" źle, obliczamy <strong>Funkcję Kosztu (Loss Function)</strong>, czyli matematyczną karę za to, jak bardzo się pomyliła. Następnie używamy potężnego algorytmu: <strong>Wstecznej Propagacji Błędu (Backpropagation)</strong>. Oparty na regule łańcuchowej z analizy matematycznej (Chain Rule z pochodnych), oblicza on, jak bardzo każdy pojedynczy neuron z głębi sieci przyczynił się do tego końcowego błędu.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Mając te informacje, odpalamy <strong>Spadek Gradientu (Gradient Descent)</strong>. To tak, jakbyśmy niewidomego postawili na szczycie wielowymiarowej góry (Góry Błędów). Bada on stopą stromość zbocza (Gradient/Pochodną) i robi krok w dół. Po tysiącach takich kroków dociera na dno doliny – to moment, w którym sieć jest "nauczona" i błąd jest zminimalizowany.
+                </p>
+            </div>
+
+            <!-- SVG 3: GRADIENT DESCENT -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Wizualizacja uczenia: Spadek Gradientu (Gradient Descent)</text>
+
+                <!-- Parabola -->
+                <path d="M 150 50 Q 410 250 670 50" fill="none" stroke="#37474f" stroke-width="4"/>
+
+                <!-- Osie Y (Błąd) -->
+                <line x1="120" y1="200" x2="120" y2="40" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
+                <text x="110" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle" transform="rotate(-90 110 120)">Funkcja Kosztu (Błąd)</text>
+
+                <!-- Osie X (Wagi) -->
+                <line x1="120" y1="200" x2="700" y2="200" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
+                <text x="410" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wartość Wag Sieci</text>
+
+                <!-- Kroki uczenia (Piłka tocząca się w dół) -->
+                
+                <!-- Epoka 1 (Wysoki błąd) -->
+                <circle cx="180" cy="85" r="10" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+                <text x="180" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Start (Losowe wagi)</text>
+                <path d="M 195 95 L 245 115" fill="none" stroke="#f44336" stroke-width="2" marker-end="url(#arrowRedGD)"/>
+
+                <!-- Epoka 2 -->
+                <circle cx="260" cy="120" r="10" fill="#f57c00" stroke="#e65100" stroke-width="2"/>
+                <path d="M 275 125 L 325 140" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgGD)"/>
+
+                <!-- Epoka 3 -->
+                <circle cx="340" cy="143" r="10" fill="#fbc02d" stroke="#f57f17" stroke-width="2"/>
+                <path d="M 355 145 L 395 150" fill="none" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrowYelGD)"/>
+
+                <!-- Cel (Minimum) -->
+                <circle cx="410" cy="151" r="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="175" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Minimum Globalne</text>
+                <text x="410" y="188" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Sieć jest nauczona!)</text>
+
+                <rect x="520" y="80" width="260" height="40" fill="#ffebee" stroke="#d32f2f" rx="4"/>
+                <text x="650" y="98" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Learning Rate (Szybkość Uczenia)</text>
+                <text x="650" y="112" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">To wielkość kroku. Zbyt duża – przeskoczy minimum!</text>
+
+                <defs>
+                    <marker id="arrowGryGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                    <marker id="arrowRedGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f44336"/></marker>
+                    <marker id="arrowOrgGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowYelGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o AI):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Funkcja Schodkowa to dobra funkcja aktywacji"</strong> – Fundamentalny błąd matematyczny! Funkcja schodkowa (Step function - np. 0 jeśli ujemne, 1 jeśli dodatnie) była używana w latach 50. Problem? Jej pochodna (Gradient) wszędzie wynosi zero! Skoro wynosi zero, <em>Backpropagation</em> i <em>Gradient Descent</em> nie mają pojęcia, w którym kierunku poprawić wagi. Z tego powodu dziś używamy różniczkowalnych funkcji takich jak <strong>ReLU (Rectified Linear Unit)</strong> czy Sigmoid.</li>
+                    <li><strong>Zjawisko Przeuczenia (Overfitting):</strong> Jeśli sieć ma 10 milionów parametrów (wag), a dostarczysz jej tylko 100 zdjęć psów do nauki, sieć ich nie "zrozumie". Zamiast tego bezmyślnie <strong>zapamięta je na pamięć</strong>. Na danych treningowych uzyska błąd 0%, ale zaprezentowana z nowym zdjęciem psa z internetu – całkowicie zawiedzie. Rolą inżyniera AI jest dodawanie kar dla sieci (Regularyzacja L1/L2) lub "wyłączanie" losowych neuronów (Dropout), by wymusić na sieci szukanie ogólnych wzorców, a nie uczenie się danych na blachę.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla opinii publicznej sieci neuronowe to "czarne skrzynki", które symulują ludzki mózg. Dla inżyniera to po prostu astronomicznie wielkie, parametryczne aproksymatory funkcji nieliniowych. Nie ma w nich świadomości – są tylko wagi, macierze, gradienty i optymalizacja. Prawdziwa magia nie leży w tym, że sieć "myśli", lecz w fakcie, że korzystając z tak podstawowych praw analizy matematycznej jak reguła łańcuchowa, sieć potrafi milimetr po milimetrze dostrajać miliony swoich wag, dopóki sama z siebie nie dopasuje się do rozwiązania najtrudniejszych problemów analitycznych świata.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Deep Learning" (Ian Goodfellow, Yoshua Bengio, Aaron Courville) – Rozdziały: Algorytmy optymalizacyjne, Propagacja wsteczna, Przeuczenie.
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
