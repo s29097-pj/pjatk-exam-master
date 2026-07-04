@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 126 – Rozwiązania oparte o LLM w kontekście interakcji użytkowników z oprogramowaniem i aplikacjami</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">126. Rozwiązania oparte o LLM w kontekście interakcji użytkowników z oprogramowaniem i aplikacjami.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – LLM to „Wielojęzyczny tłumacz, który zamiast słów tłumaczy Twoje intencje na działanie aplikacji”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
+                        Wyobraź sobie, że wchodzisz do ogromnej biblioteki, ale zamiast kart katalogowych masz przy sobie osobistego asystenta, który przeczytał wszystkie książki świata. Nie mówisz mu „pokaż mi półkę 4, rząd 7, książkę o sygnaturze X123” – mówisz: „Znajdź mi coś o tym, jak starożytni Egipcjanie transportowali kamienie na piramidy, tylko bez wzorów matematycznych, za to z ładnymi rysunkami”. Asystent kiwa głową, idzie między regały i wraca z idealną książką. <strong>LLM (Large Language Model)</strong> w interfejsie użytkownika robi dokładnie to samo. Zamiast zmuszać Cię do uczenia się skomplikowanego GUI pełnego przycisków, formularzy i menu, pozwala Ci po prostu opisać, czego potrzebujesz. Zamiast klikać: Filtr → Data → Od → Do → Zatwierdź, piszesz: „Pokaż zamówienia z zeszłego miesiąca od klientów z Warszawy”. LLM tłumaczy to na zapytanie do bazy, wykonuje je i prezentuje wyniki. Interfejs konwersacyjny (LUI – Language User Interface) to kolejny wielki skok po CLI i GUI.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">LLM (Large Language Model)</span>
+            <span class="keyword-tag">LUI (Language User Interface)</span>
+            <span class="keyword-tag">Chatbot / Asystent konwersacyjny</span>
+            <span class="keyword-tag">RAG (Retrieval-Augmented Generation)</span>
+            <span class="keyword-tag">Prompt Engineering</span>
+            <span class="keyword-tag">Fine-tuning (dostrajanie modelu)</span>
+            <span class="keyword-tag">Generowanie i podsumowywanie treści</span>
+            <span class="keyword-tag">Agenci AI (autonomiczne wykonanie zadań)</span>
+            <span class="keyword-tag">Guardrails (bariery bezpieczeństwa)</span>
+            <span class="keyword-tag">Halucynacje (hallucinations)</span>
+            <span class="keyword-tag">Osadzenia (embeddings) i wyszukiwanie semantyczne</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- ======================================================== -->
+            <!-- PART 1: OD GUI DO LUI – EWOLUCJA INTERFEJSÓW           -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #3949ab;">1. Ewolucja interfejsów: CLI → GUI → LUI (Language User Interface)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Historia interakcji człowiek-komputer to stopniowe upraszczanie komunikacji. W latach 70. użytkownicy musieli znać sztywne komendy tekstowe (CLI – Command Line Interface). W latach 80. nadeszła era okienek, ikon i myszki (GUI – Graphical User Interface). Dziś, dzięki LLM-om, wkraczamy w erę <strong>LUI – Language User Interface</strong>. Użytkownik nie musi już wiedzieć, gdzie znajduje się przycisk – po prostu mówi, co chce osiągnąć, a model tłumaczy to na akcje w systemie. To fundamentalna zmiana paradygmatu: zamiast użytkownika uczącego się aplikacji, to aplikacja uczy się użytkownika.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs><pattern id="gridLLM" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridLLM)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Ewolucja interfejsów: CLI → GUI → LUI</text>
+
+                <rect x="30" y="50" width="200" height="150" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="130" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">CLI (lata 70.)</text>
+                <rect x="50" y="95" width="160" height="40" fill="#263238" rx="4"/>
+                <text x="130" y="120" font-family="monospace" font-size="10" fill="#8bc34a" text-anchor="middle">&gt; find / -name "*.txt"</text>
+                <text x="130" y="165" font-size="10" fill="#1565c0" text-anchor="middle">Sztywne komendy</text>
+
+                <text x="250" y="130" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="290" y="50" width="200" height="150" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="390" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">GUI (lata 80.)</text>
+                <rect x="320" y="95" width="60" height="30" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                <text x="350" y="115" font-size="8" text-anchor="middle">🖱️</text>
+                <rect x="390" y="95" width="60" height="30" fill="#c8e6c9" stroke="#2e7d32" rx="3"/>
+                <text x="420" y="115" font-size="8" text-anchor="middle">📂</text>
+                <text x="390" y="165" font-size="10" fill="#2e7d32" text-anchor="middle">Okienka, myszka</text>
+
+                <text x="510" y="130" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="550" y="50" width="230" height="150" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="665" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">LUI (era LLM)</text>
+                <circle cx="665" cy="130" r="30" fill="#e1bee7" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="665" y="135" font-size="10" text-anchor="middle">🗣️</text>
+                <text x="665" y="165" font-size="10" fill="#4a148c" text-anchor="middle">Język naturalny</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 2: MECHANIZMY LLM W INTERFEJSACH                  -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Kluczowe mechanizmy LLM w interakcji z użytkownikiem</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Prompt Engineering</strong> to sztuka formułowania zapytań do modelu. <strong>RAG (Retrieval-Augmented Generation)</strong> łączy LLM z wewnętrzną bazą wiedzy firmy – model nie halucynuje, bo opiera się na dostarczonych dokumentach. <strong>Fine-tuning</strong> dostosowuje model do specyficznego języka domeny (medycyna, prawo). <strong>Agent AI</strong> to model, który nie tylko odpowiada, ale samodzielnie wykonuje akcje – wysyła e-maile, rezerwuje terminy, przeszukuje Internet.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="url(#gridLLM)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Architektura RAG (Retrieval-Augmented Generation)</text>
+
+                <rect x="40" y="55" width="200" height="60" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="140" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">🗣️ Użytkownik</text>
+                <text x="140" y="108" text-anchor="middle" font-size="10" fill="#1565c0">„Ile urlopu mi przysługuje?”</text>
+
+                <text x="260" y="90" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="290" y="55" width="200" height="60" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="390" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">🧠 LLM + Retrieval</text>
+                <text x="390" y="108" text-anchor="middle" font-size="10" fill="#6a1b9a">Embedding query → szuka w dokumentach</text>
+
+                <text x="510" y="90" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+
+                <rect x="540" y="55" width="200" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="640" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">📄 Baza Wiedzy</text>
+                <text x="640" y="108" text-anchor="middle" font-size="10" fill="#2e7d32">PDFy, FAQ, regulaminy</text>
+
+                <rect x="250" y="150" width="320" height="140" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="410" y="178" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Prompt Engineering – jak pytać?</text>
+                <text x="410" y="208" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">❌ „Przepisz to.”</text>
+                <text x="410" y="230" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">✅ „Przepisz ten tekst jako formalne pismo do klienta,</text>
+                <text x="410" y="248" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   unikając słowa «problem». Podkreśl korzyści dla klienta.”</text>
+                <text x="410" y="272" text-anchor="middle" font-size="10" fill="#546e7a">Zasada: bądź konkretny, podaj kontekst, format i ton.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 3: ZASTOSOWANIA W APLIKACJACH                     -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Główne obszary zastosowań LLM w interfejsach</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex:1; min-width:220px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>💬 Chatboty i asystenci</strong><br><span style="font-size:0.85rem;">Obsługa klienta 24/7. Rozumieją kontekst, historię rozmowy. Zendesk AI, Intercom Fin.</span></div>
+                    <div style="flex:1; min-width:220px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>📝 Generowanie i podsumowania</strong><br><span style="font-size:0.85rem;">Automatyczne raporty, podsumowania spotkań, szkice e-maili. Copilot w Office 365, Notion AI.</span></div>
+                    <div style="flex:1; min-width:220px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🔍 Wyszukiwanie semantyczne</strong><br><span style="font-size:0.85rem;">Zapytanie „pokaż słoneczne mieszkania z widokiem na park” zamiast filtrów cenowych i lokalizacji.</span></div>
+                    <div style="flex:1; min-width:220px; background:#f3e5f5; border-radius:10px; padding:14px; border:1px solid #ce93d8;">
+                        <strong>🤖 Agenci AI</strong><br><span style="font-size:0.85rem;">Samodzielne wykonanie wieloetapowych zadań. „Zarezerwuj lot, hotel i dodaj do kalendarza”.</span></div>
+                </div>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridLLM)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Od chatbota do agenta AI – skala autonomii</text>
+                <g transform="translate(30, 50)">
+                    <rect x="0" y="0" width="160" height="80" fill="#e8f5e9" stroke="#2e7d32" rx="6"/>
+                    <text x="80" y="35" font-size="10" text-anchor="middle" font-weight="bold" fill="#1b5e20">Chatbot</text>
+                    <text x="80" y="55" font-size="9" text-anchor="middle" fill="#2e7d32">Odpowiada na pytania</text>
+                    <text x="180" y="45" font-size="14" fill="#e65100">→</text>
+                    <rect x="210" y="0" width="160" height="80" fill="#fff3e0" stroke="#ef6c00" rx="6"/>
+                    <text x="290" y="35" font-size="10" text-anchor="middle" font-weight="bold" fill="#e65100">Copilot</text>
+                    <text x="290" y="55" font-size="9" text-anchor="middle" fill="#bf360c">Podpowiada, sugeruje</text>
+                    <text x="390" y="45" font-size="14" fill="#e65100">→</text>
+                    <rect x="420" y="0" width="160" height="80" fill="#f3e5f5" stroke="#7b1fa2" rx="6"/>
+                    <text x="500" y="35" font-size="10" text-anchor="middle" font-weight="bold" fill="#4a148c">Agent AI</text>
+                    <text x="500" y="55" font-size="9" text-anchor="middle" fill="#6a1b9a">Działa autonomicznie</text>
+                </g>
+                <rect x="100" y="155" width="620" height="55" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
+                <text x="410" y="178" text-anchor="middle" font-size="11" fill="#546e7a">Przykład agenta AI: „Przeanalizuj załączone faktury, wyślij ponaglenia do klientów z przeterminowaniem &gt;30 dni,</text>
+                <text x="410" y="198" text-anchor="middle" font-size="11" fill="#546e7a">a podsumowanie prześlij do księgowości.” – wszystko w jednym poleceniu.</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 4: WYZWANIA – HALUCYNACJE, BEZPIECZEŃSTWO         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Wyzwania: halucynacje, bezpieczeństwo i etyka</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Halucynacje</strong> to tendencja modeli do generowania nieprawdziwych, ale brzmiących wiarygodnie odpowiedzi. <strong>Guardrails</strong> (bariery ochronne) to zestaw technik ograniczających to ryzyko: walidacja odpowiedzi, ograniczenie do konkretnych źródeł (RAG), filtrowanie toksycznych treści. <strong>Prywatność danych</strong> – modele nie mogą wyciekać danych firmowych. Rozwiązaniem są modele lokalne (on-premise, np. Mistral, Llama) zamiast wysyłania danych do chmury.
+                </p>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridLLM)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Wyzwania LLM: halucynacje, bezpieczeństwo, etyka</text>
+
+                <rect x="30" y="50" width="240" height="160" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="150" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Halucynacje</text>
+                <text x="150" y="105" text-anchor="middle" font-size="10" fill="#c62828">Model generuje nieprawdziwe informacje</text>
+                <text x="150" y="125" text-anchor="middle" font-size="10" fill="#c62828">z dużą pewnością siebie.</text>
+                <text x="150" y="150" text-anchor="middle" font-size="10" fill="#b71c1c">Rozwiązanie: RAG + walidacja</text>
+
+                <rect x="290" y="50" width="240" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Bezpieczeństwo (Guardrails)</text>
+                <text x="410" y="105" text-anchor="middle" font-size="10" fill="#2e7d32">Filtrowanie toksycznych treści</text>
+                <text x="410" y="125" text-anchor="middle" font-size="10" fill="#2e7d32">Ograniczenie do dozwolonych tematów</text>
+                <text x="410" y="150" text-anchor="middle" font-size="10" fill="#1b5e20">Prompt injection – ochrona</text>
+
+                <rect x="550" y="50" width="240" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="670" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Prywatność</text>
+                <text x="670" y="105" text-anchor="middle" font-size="10" fill="#1565c0">Dane firmowe nie mogą trafić</text>
+                <text x="670" y="125" text-anchor="middle" font-size="10" fill="#1565c0">do publicznego modelu.</text>
+                <text x="670" y="150" text-anchor="middle" font-size="10" fill="#0d47a1">Rozwiązanie: LLM on-premise</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>LLM ≠ wyszukiwarka!</strong> Model nie „wie”, co jest prawdą – generuje najbardziej prawdopodobną kontynuację tekstu. Bez RAG nie jest źródłem wiedzy.</li>
+                    <li><strong>Fine-tuning to nie RAG.</strong> Fine-tuning zmienia model, uczy go nowego języka domeny. RAG daje modelowi dostęp do zewnętrznych dokumentów bez zmiany modelu. To dwie różne techniki.</li>
+                    <li><strong>Agent AI nie jest chatbotem.</strong> Agent podejmuje decyzje i wykonuje akcje. Chatbot tylko odpowiada. Granica się zaciera, ale architektonicznie to różne systemy.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – LLM w interakcji z użytkownikiem:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Technika / Pojęcie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Opis</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Przykład / Analogia</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:10px; font-weight:bold; color:#3949ab;">LUI</td><td style="padding:10px;">Interfejs oparty na języku naturalnym</td><td style="padding:10px;">Użytkownik mówi: „Znajdź loty do Rzymu w sierpniu”</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">RAG</td><td style="padding:10px;">Łączenie LLM z wewnętrzną bazą wiedzy</td><td style="padding:10px;">Model odpowiada na podstawie regulaminu, a nie „z głowy”</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Prompt Engineering</td><td style="padding:10px;">Sztuka formułowania zapytań do modelu</td><td style="padding:10px;">Bądź konkretny, podaj format, ton, kontekst</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Agent AI</td><td style="padding:10px;">Model autonomicznie wykonuje zadania</td><td style="padding:10px;">„Zarezerwuj hotel + wyślij potwierdzenie”</td></tr>
+                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Guardrails</td><td style="padding:10px;">Bariery bezpieczeństwa i filtrowanie treści</td><td style="padding:10px;">Blokada prompt injection, filtry toksyczności</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">LLM-y zmieniają nasze relacje z oprogramowaniem. Zamiast uczyć się interfejsu, rozmawiamy z aplikacją w ludzkim języku. Od prostych chatbotów, przez asystentów podpowiadających kod, po autonomicznych agentów – granica między człowiekiem a maszyną zaciera się. Ale pamiętaj: za każdym razem, gdy wdrażasz LLM, zadbaj o RAG, guardrails i prywatność. Bo nawet najlepszy model może halucynować.</span>
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- ŹRÓDŁA                                                   -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „Attention Is All You Need” (Vaswani et al., 2017) · Dokumentacja OpenAI API, LangChain, LlamaIndex · „Building LLM Apps” (V. K. Garg).
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
