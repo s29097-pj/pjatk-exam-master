@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 015 – Zarządzanie podatnościami w systemach IT</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">015. Zarządzanie podatnościami w systemach IT (Vulnerability Management).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🏥</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szpital Polowy i Brutalny Triage”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #002147; line-height: 1.7;">
+                        Większość początkujących myśli, że zarządzanie podatnościami to odpalenie skanera (np. Nessus), wygenerowanie PDF-a i załatanie wszystkich czerwonych błędów. W dużej korporacji ten PDF będzie miał 15 000 stron i wskaże 2 miliony podatności.<br><br>
+                        Wyobraź sobie, że zarządzasz szpitalem polowym podczas bitwy. Przed wejściem leży 10 000 rannych żołnierzy (podatności). Masz tylko 5 chirurgów (zespół IT). Jeśli zaczniesz leczyć żołnierzy po kolei, tak jak leżą, wszyscy najciężej ranni umrą w poczekalni.<br><br>
+                        <strong>Zarządzanie Podatnościami (Vulnerability Management)</strong> to proces ciągłego <em>Triage'u</em>. Nie interesuje Cię łatanie wszystkiego. Interesuje Cię znalezienie tej jednej, konkretnej luki (żołnierza z krwotokiem tętniczym), do której hakerzy właśnie napisali darmowy exploit w Metasploicie, i która znajduje się na serwerze wystawionym do internetu. 80% podatności, które skaner oznacza jako "Krytyczne", w rzeczywistości nigdy nie zostanie wykorzystanych. Inżynieria polega tu na bezlitosnej, zautomatyzowanej priorytetyzacji opartej na ryzyku (Risk-Based VM).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Vulnerability Management Lifecycle (Cykl życia)</span>
+            <span class="keyword-tag">RBVM (Risk-Based Vulnerability Management)</span>
+            <span class="keyword-tag">CVSS vs. CISA KEV vs. EPSS</span>
+            <span class="keyword-tag">Skanowanie Uwierzytelnione (Credentialed Scan)</span>
+            <span class="keyword-tag">Patch Management / Virtual Patching</span>
+            <span class="keyword-tag">Zero-Day vs N-Day Vulnerability</span>
+            <span class="keyword-tag">Asset Inventory (CMDB)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: DISCOVERY & SCANNING -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Fundament architektoniczny: Inwentaryzacja i Skanowanie (Discovery)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Złota zasada SecOps brzmi: <strong>"Nie możesz obronić tego, o istnieniu czego nie wiesz"</strong>. Pierwszym krokiem nie jest skanowanie, lecz inwentaryzacja zasobów (Asset Management / CMDB). Kiedy wiemy co posiadamy, wdrażamy narzędzia klasy Enterprise (Tenable Nessus, Qualys, Rapid7 lub otwartoźródłowy OpenVAS z Kali Linuxa). Wyróżniamy dwa paradygmaty skanowania:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Unauthenticated Scan (Zewnętrzne / Bez uwierzytelnienia):</strong> Skaner patrzy na serwer oczami hakera. Skupia się na otwartych portach i nagłówkach (Banner Grabbing). Jest powierzchowny – generuje dużo błędów (False Positives), bo twórcy oprogramowania często ukrywają prawdziwą wersję aplikacji.</li>
+                    <li><strong>Credentialed Scan (Skanowanie Uwierzytelnione):</strong> Prawdziwe, inżynieryjne podejście. Skaner otrzymuje login i hasło (lub klucz SSH) do każdego serwera w firmie. Loguje się przez WMI (Windows) lub SSH (Linux), wchodzi głęboko do systemu, czyta rejestr, pliki binarne, sprawdza wersje pakietów (np. przez <code>dpkg</code> / <code>rpm</code>). Daje to 100% pewności co do stanu załatania maszyny. Dziś coraz częściej realizowane nie przez aktywne skany sieciowe, lecz przez <em>Lekkich Agentów</em> zainstalowanych na stałe na serwerach.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: SCANNING TYPES -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Architektura Skanowania: Unauthenticated vs Credentialed Scan</text>
+
+                <!-- Scanner -->
+                <rect x="40" y="70" width="120" height="80" rx="6" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/>
+                <text x="100" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">Skaner</text>
+                <text x="100" y="125" font-family="monospace" font-size="10" fill="#bbdefb" text-anchor="middle">(np. Nessus)</text>
+
+                <!-- Uncredentialed Path -->
+                <path d="M 160 85 L 340 85" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowOrgVM)"/>
+                <text x="250" y="75" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Skan Zewnętrzny (Brak Praw)</text>
+
+                <rect x="360" y="50" width="140" height="60" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="430" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Serwer Web</text>
+                <text x="430" y="85" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">Skaner widzi: Port 80</text>
+                <text x="430" y="100" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">Nagłówek: Apache 2.4.x?</text>
+
+                <!-- Firewalls/Walls representation -->
+                <line x1="350" y1="50" x2="350" y2="110" stroke="#ffb74d" stroke-width="4"/>
+                <text x="350" y="40" font-family="sans-serif" font-size="9" fill="#f57c00" text-anchor="middle">Zapora / Ograniczona widoczność</text>
+
+                <!-- Credentialed Path -->
+                <path d="M 160 135 L 560 135" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnVM)"/>
+                <text x="250" y="150" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Skan Uwierzytelniony (SSH / WMI)</text>
+
+                <rect x="580" y="100" width="180" height="90" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="670" y="125" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer Wewnętrzny</text>
+                
+                <rect x="590" y="135" width="160" height="45" fill="#c8e6c9" rx="4"/>
+                <text x="670" y="150" font-family="monospace" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Głęboka Inspekcja Wnętrza:</text>
+                <text x="670" y="162" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">kernel-5.15.0-60-generic</text>
+                <text x="670" y="174" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">Log4j.jar (wersja 2.14.0)</text>
+
+                <defs>
+                    <marker id="arrowOrgVM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnVM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: RISK-BASED VM (RBVM) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #d32f2f;">2. Inżynieria Triage'u: Risk-Based Vulnerability Management (RBVM)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Tradycyjne podejście zakładało łatanie luk według oceny <strong>CVSS (Common Vulnerability Scoring System)</strong>. CVSS ocenia lukę od 0 do 10 punktów na podstawie jej złożoności i skutków. Dziś to błędne podejście. CVSS ocenia techniczną <em>dotkliwość (Severity)</em> luki w próżni, a nie realne <em>ryzyko (Risk)</em> dla Twojej firmy. 
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nowoczesny SOC używa <strong>RBVM (Risk-Based Vulnerability Management)</strong>. Łączy on CVSS z <em>Threat Intelligence (Wywiadem o zagrożeniach)</em> oraz kontekstem biznesowym. Podatność na wewnętrznym, odciętym od sieci monitorze z CVSS 9.8 ma mniejszy priorytet niż luka w wystawionym na świat VPN-ie z CVSS 7.5, jeśli hakerzy właśnie teraz używają tej drugiej luki do ataków ransomware (co weryfikuje się za pomocą bazy <strong>CISA KEV - Known Exploited Vulnerabilities</strong> oraz modeli predykcyjnych <strong>EPSS</strong>).
+                </p>
+            </div>
+
+            <!-- SVG 2: PRIORITY FUNNEL -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#fff5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Lejek Priorytetyzacji (Zasada działania RBVM)</text>
+
+                <!-- Funnel Shapes -->
+                <polygon points="100,50 720,50 620,110 200,110" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">100 000 Wszystkich Podatności (Szum)</text>
+
+                <polygon points="200,110 620,110 520,170 300,170" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="145" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">20 000 CVSS > 7.0 (High & Critical)</text>
+
+                <polygon points="300,170 520,170 450,230 370,230" fill="#e53935" stroke="#b71c1c" stroke-width="2"/>
+                <text x="410" y="205" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">450 W bazie CISA KEV (Istnieje publiczny Exploit!)</text>
+
+                <rect x="370" y="230" width="80" height="30" fill="#b71c1c" stroke="#880e4f" stroke-width="2"/>
+                <text x="410" y="250" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">12 Aktywnych</text>
+
+                <!-- Annotation -->
+                <path d="M 450 245 L 530 245" fill="none" stroke="#b71c1c" stroke-width="2" stroke-dasharray="4,2"/>
+                <text x="630" y="240" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Ekspozycja zewnętrzna (Internet-Facing).</text>
+                <text x="630" y="255" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">To one decydują o byciu zhakowanym!</text>
+                <text x="630" y="268" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">Do załatania W TYM TYGODNIU.</text>
+
+            </svg>
+
+            <!-- PART 3: REMEDIATION LIFECYCLE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Ciągły Cykl: Remediacja, Mitygacja i Akceptacja Ryzyka</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zarządzanie podatnościami to cykl ciągły (Continuous Lifecycle). Znalezienie luki i wysłanie maila do programistów nie kończy zadania inżyniera bezpieczeństwa. Musimy wybrać jedną z 3 akcji naprawczych:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Remediation (Usunięcie źródła problemu):</strong> Najlepsze rozwiązanie. Instalacja Patcha wydanego przez producenta (tzw. Patch Management), aktualizacja bilbioteki w repozytorium lub zmiana konfiguracji błędu, co definitywnie usuwa podatność.</li>
+                    <li><strong>Mitigation / Virtual Patching (Tymczasowe łagodzenie):</strong> Wyobraź sobie, że wyszła luka w starej aplikacji ERP. Nie możesz jej zaktualizować, bo popsuje produkcję (producent nie wspiera nowego systemu). Używasz mitygacji – konfigurujesz regułę w zaporze sieciowej WAF lub IPS, aby blokowała złośliwe pakiety próbujące eksploatować tę lukę, mimo że sam kod aplikacji nadal pozostaje dziurawy.</li>
+                    <li><strong>Risk Acceptance (Akceptacja Ryzyka):</strong> Czasem koszt załatania błędu (np. przepisanie połowy starego systemu) miliardowo przekracza wartość chronionych na nim danych. Zarząd decyduje: "Wiemy o problemie, monitorujemy go, ale go nie łatamy". Jest to oficjalna, udokumentowana decyzja biznesowa.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity z zarządzania bezpieczeństwem):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Skanowanie podatności to to samo co Test Penetracyjny (Pentest)."</strong> – Fatalny błąd myślowy! Skaner (Vulnerability Scan) jest <strong>Zautomatyzowany i Teoretyczny</strong>. Sprawdza numery wersji i konfiguracje, wskazuje na <em>potencjalną możliwość</em> ataku. Z kolei Pentest jest w dużej mierze <strong>Ręczny, Praktyczny i Inwazyjny</strong>. Człowiek (haker) bierze raport ze skanera i używa exploitów, by wejść do systemu, udowadniając biznesowy wpływ (Proof of Concept) luki. Skanowanie robimy co tydzień, Pentest raz w roku.</li>
+                    <li><strong>"Powinniśmy instalować wszystkie aktualizacje natychmiast, zwłaszcza te krytyczne CVSS > 9.0"</strong> – Odpowiedź dyskwalifikująca w dojrzałych środowiskach. Instalacja łatek bez testowania na serwerach produkcyjnych to najczęstsza przyczyna padu systemów klasy Enterprise (tzw. Downtime potrafi być kosztowniejszy niż atak hakera). Zarządzanie łatkami (Patch Management) to rygorystyczny proces. Łatki najpierw instaluje się na środowisku Testowym (UAT), a po 48 godzinach stabilnej pracy, przesuwa się je w wyznaczonym Oknie Serwisowym (Maintenance Window) na Produkcję. Jeśli luka to krytyczny 0-Day (jak Log4j), w pierwszej kolejności stosujemy Mitygację na krawędzi sieci (WAF), kupując czas na bezpieczne łatanie kodu.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla młodszego administratora problemem jest istnienie podatności w systemie. Dla inżyniera cyberbezpieczeństwa (SOC/SecOps) błędy w kodzie to fizyka - powstaną zawsze. Zarządzanie podatnościami nie jest problemem stricte technologicznym, jest <strong>Zarządzaniem Ryzykiem Biznesowym</strong>. Przestajesz patrzeć na skaner jak na mechanika mówiącego "tu jest zepsute". Zaczynasz patrzeć na infrastrukturę jak analityk giełdowy, łącząc wskaźniki (CVSS), wywiad (Threat Intelligence), topologię sieci i wartość danych (Asset Value), by w ogromnym morzu wirtualnego szumu precyzyjnie wyizolować 5 serwerów, od których zależy dziś przetrwanie korporacji.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Wytyczne NIST SP 800-40 (Guide to Enterprise Patch Management Technologies) · System oceny luk CVSS v4.0 (FIRST) · Baza CISA Known Exploited Vulnerabilities (KEV).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
