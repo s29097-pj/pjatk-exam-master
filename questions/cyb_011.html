@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 011 – Rola zespołu SOC (Security Operations Center)</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">011. Rola zespołu SOC (Security Operations Center).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">👁️‍🗨️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Wieża Kontroli Lotów w czasie Wojny”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #002147; line-height: 1.7;">
+                        Wielu ludzi myli SOC z działem IT (Helpdeskiem) lub NOC (Network Operations Center). To fundamentalny błąd. <br><br>
+                        NOC to mechanicy. Zależy im na tym, aby samolot (serwer) po prostu leciał. Jeśli silnik zgaśnie, odpalają go ponownie. Liczy się dla nich <strong>Dostępność (Uptime)</strong>.<br><br>
+                        <strong>SOC (Security Operations Center)</strong> to z kolei Wieża Kontroli Lotów wyposażona w radary wojskowe. Analityka SOC w ogóle nie obchodzi, czy serwer uległ awarii z powodu braku prądu. Analityk patrzy na radary i zadaje jedno pytanie: <em>"Czy powodem zgaśnięcia silnika było wstrzyknięcie złośliwego kodu, a samolot właśnie został przejęty przez wroga?"</em>.<br><br>
+                        SOC nie instaluje kabli ani nie naprawia drukarek. To scentralizowana komórka wywiadowczo-obronna, która za pomocą triady <strong>Ludzie, Procesy i Technologie</strong> ma tylko dwa cele: drastycznie skrócić czas wykrycia włamania (MTTD) i czas usunięcia zagrożenia (MTTR).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Triada PPT (People, Process, Technology)</span>
+            <span class="keyword-tag">Eskalacja: Tier 1 (Triage), Tier 2 (IR), Tier 3 (DFIR/Hunting)</span>
+            <span class="keyword-tag">SIEM & SOAR</span>
+            <span class="keyword-tag">Alert Fatigue (Zmęczenie alertami)</span>
+            <span class="keyword-tag">MTTD (Mean Time to Detect) & MTTR (Mean Time to Respond)</span>
+            <span class="keyword-tag">Playbooks & Runbooks</span>
+            <span class="keyword-tag">Proaktywność (Threat Hunting)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: LUDZIE I HIERARCHIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Architektura Ludzka (People): Model Eskalacji Tier 1-3</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Skuteczny SOC nie polega na zatrudnieniu 20 jednakowych inżynierów. Opiera się na ścisłej, militarnej hierarchii eskalacji zdarzeń. Pozwala to na odsianie "szumu" (False Positives) od rzeczywistych ataków na poziomie bazowym, zachowując czas najdroższych ekspertów do walki z wyrafinowanymi zagrożeniami (APT).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Tier 1 (Triage Specialist / Alert Analyst):</strong> "Piechota". Pracują w systemie 24/7/365. Przeglądają setki surowych alarmów generowanych przez maszyny. Ich zadaniem jest weryfikacja (Triage): <em>Czy ten alert to błąd maszyny, czy prawdziwy atak?</em> Jeśli to atak, otwierają "Tiket" i przekazują wyżej. Zamykają 80% spraw operując ściśle według <em>Playbooków</em>.</li>
+                    <li><strong>Tier 2 (Incident Responder):</strong> "Siły specjalne". Przejmują zweryfikowane incydenty. Przeprowadzają głęboką korelację – analizują ruch sieciowy (PCAP), pamięć RAM i logi stykowe, aby zrozumieć rozmiar ataku. To oni wydają rozkaz "odcięcia zainfekowanej sieci" (Containment).</li>
+                    <li><strong>Tier 3 (Threat Hunter / DFIR):</strong> "Wywiad i Snajperzy". Często w ogóle nie patrzą na alerty. Zakładają z góry, że <em>firma została już zhakowana</em> (Assume Breach). Proaktywnie szukają ukrytych wrogów w sieci. Zajmują się też inżynierią wsteczną (Reverse Engineering) złośliwego oprogramowania i informatyką śledczą (DFIR - Digital Forensics and Incident Response).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: SOC TIERS -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Struktura Eskalacji Incydentów (Architektura Ludzka SOC)</text>
+
+                <!-- Alerts (Bottom) -->
+                <rect x="40" y="190" width="140" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-dasharray="4,2"/>
+                <text x="110" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">10 000 Alertów / Dzień</text>
+
+                <path d="M 180 210 L 230 210" fill="none" stroke="#cfd8dc" stroke-width="3" marker-end="url(#arrowGrySOC)"/>
+
+                <!-- Tier 1 -->
+                <rect x="240" y="180" width="180" height="60" rx="6" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+                <text x="330" y="200" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">TIER 1 (Triage)</text>
+                <text x="330" y="215" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Filtrowanie False Positives</text>
+                <text x="330" y="230" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Praca według Playbooków</text>
+
+                <path d="M 420 190 L 460 160" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgSOC)"/>
+                <text x="440" y="195" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Eskalacja (20 incydentów)</text>
+
+                <!-- Tier 2 -->
+                <rect x="470" y="110" width="180" height="60" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="560" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">TIER 2 (Incident Response)</text>
+                <text x="560" y="145" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Głęboka analiza wskaźników</text>
+                <text x="560" y="160" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Izolacja atakującego</text>
+
+                <path d="M 650 120 L 690 90" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedSOC)"/>
+                <text x="670" y="125" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">APT (1 incydent)</text>
+
+                <!-- Tier 3 -->
+                <rect x="610" y="40" width="180" height="60" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="700" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">TIER 3 (Threat Hunting)</text>
+                <text x="700" y="75" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Inżynieria wsteczna malware</text>
+                <text x="700" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Proaktywne łowy (Zero-Day)</text>
+
+                <!-- Feedback Loop -->
+                <path d="M 610 50 Q 330 50 330 170" fill="none" stroke="#388e3c" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowGrnSOC)"/>
+                <text x="470" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tworzenie nowych reguł detekcji (Tuning)</text>
+
+                <defs>
+                    <marker id="arrowGrySOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#cfd8dc"/></marker>
+                    <marker id="arrowOrgSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowRedSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: TECHNOLOGIE (SIEM & SOAR) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #4a148c;">2. Stos Technologiczny (Technology): Od SIEM do SOAR</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ludzki umysł nie jest w stanie przeanalizować miliona logów generowanych przez serwery każdej godziny. SOC opiera się na agresywnej technologicznej agregacji danych (Big Data). Głównym "mózgiem" operacyjnym jest system <strong>SIEM (Security Information and Event Management)</strong>, który zbiera logi z EDR (Endpointów), Firewalli i systemów w Chmurze, parsuje je i poszukuje matematycznych korelacji (np. "5 błędnych logowań, a potem udane logowanie z VPN w Chinach").
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Największym wrogiem nowoczesnych SOC jest <strong>Alert Fatigue (Zmęczenie alertami)</strong>. Z powodu zbyt dużej ilości fałszywych alarmów, analitycy ignorują wskaźniki włamań (Incydent z firmą Target – alert o włamaniu świecił się na czerwono, ale zginął w gąszczu innych powiadomień). <br>
+                    Aby temu zapobiec, inżynierowie wdrażają <strong>SOAR (Security Orchestration, Automation, and Response)</strong>. To system "robotyczny", który podłącza się do SIEMa. Jeśli SOAR widzi podejrzany adres IP, nie budzi analityka – <em>sam</em> wysyła zapytanie do bazy VirusTotal. Jeśli VirusTotal potwierdzi wirusa, SOAR <em>sam</em> blokuje to IP na firewallu i izoluje zainfekowany komputer z Active Directory. Analityk rano dostaje tylko gotowy raport z udanej obrony!
+                </p>
+            </div>
+
+            <!-- SVG 2: SOAR AUTOMATION -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Automatyzacja Reakcji: Jak SOAR ratuje SOC przed Alert Fatigue</text>
+
+                <!-- SIEM -->
+                <rect x="40" y="80" width="100" height="60" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="90" y="105" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">SIEM</text>
+                <text x="90" y="120" font-family="sans-serif" font-size="9" fill="#6a1b9a" text-anchor="middle">Wykrywa "Złe IP"</text>
+
+                <path d="M 140 110 L 220 110" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrowPurpSOC2)"/>
+
+                <!-- SOAR -->
+                <rect x="230" y="50" width="220" height="120" rx="8" fill="#fff" stroke="#c62828" stroke-width="3"/>
+                <text x="340" y="75" font-family="sans-serif" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">S O A R (Robot)</text>
+                
+                <!-- SOAR Steps -->
+                <rect x="250" y="90" width="180" height="25" rx="4" fill="#ffebee"/>
+                <text x="340" y="107" font-family="monospace" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">1. Odpytaj API VirusTotal (Threat Intel)</text>
+
+                <rect x="250" y="125" width="180" height="25" rx="4" fill="#ffebee"/>
+                <text x="340" y="142" font-family="monospace" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">2. Otwórz Ticket w JIRA ze statusem "Wysoki"</text>
+
+                <!-- Actions output -->
+                <path d="M 450 80 L 530 60" fill="none" stroke="#e65100" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowOrgSOC2)"/>
+                <rect x="540" y="40" width="120" height="40" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="600" y="55" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Integracja z Firewallem</text>
+                <text x="600" y="70" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">DROP IP 185.x.x.x</text>
+
+                <path d="M 450 140 L 530 160" fill="none" stroke="#e65100" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowOrgSOC2)"/>
+                <rect x="540" y="140" width="120" height="40" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="600" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Integracja z EDR</text>
+                <text x="600" y="170" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">Izolacja Host'a</text>
+
+                <!-- To Analyst -->
+                <path d="M 450 110 L 680 110" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnSOC2)"/>
+                <rect x="690" y="80" width="100" height="60" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="740" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Analityk</text>
+                <text x="740" y="125" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Weryfikuje efekty</text>
+
+                <defs>
+                    <marker id="arrowPurpSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                    <marker id="arrowOrgSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: PROCESY I METRYKI (INCIDENT RESPONSE) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Procesy i Metryki: Złoty Standard Reagowania (NIST/SANS)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zarządzanie SOC to nie jest improwizacja. Podczas ataku ransomware (gdy znikają terabajty danych klienta, a na ekranie widnieje żądanie okupu), w firmie wybucha panika. Rola SOC polega na żelaznym egzekwowaniu zaplanowanych wcześniej procesów (<strong>Playbooks / Runbooks</strong>) opartych np. na modelu SANS (PICERL).
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Cała skuteczność SOC mierzona jest dwoma brutalnymi metrykami czasu:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>MTTD (Mean Time to Detect) - Średni czas detekcji:</strong> Jak szybko zorientowaliśmy się, że haker jest w sieci? Średnia globalna wynosi ponad 200 dni! Dobry SOC obniża ten czas do minut.</li>
+                    <li><strong>MTTR (Mean Time to Respond) - Średni czas reakcji:</strong> Jak szybko po wykryciu zamknęliśmy lukę i wyrzuciliśmy hakera z sieci (Containment & Eradication).</li>
+                </ul>
+            </div>
+
+            <!-- SVG 3: INCIDENT RESPONSE CYCLE -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#f1f8e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Procedury: Cykl Reagowania na Incydenty (NIST / SANS PICERL)</text>
+
+                <rect x="40" y="70" width="100" height="60" rx="4" fill="#fff" stroke="#546e7a" stroke-width="2"/>
+                <text x="90" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">1. Preparation</text>
+                <text x="90" y="115" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(Pisanie Playbooków)</text>
+
+                <path d="M 140 100 L 160 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSOC3)"/>
+
+                <rect x="170" y="70" width="100" height="60" rx="4" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="220" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">2. Identification</text>
+                <text x="220" y="115" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">(Triage, Wykrycie)</text>
+
+                <path d="M 270 100 L 290 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSOC3)"/>
+
+                <rect x="300" y="70" width="100" height="60" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="350" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">3. Containment</text>
+                <text x="350" y="115" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(Odcinka sieci, zatrzymanie krwawienia)</text>
+
+                <path d="M 400 100 L 420 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSOC3)"/>
+
+                <rect x="430" y="70" width="100" height="60" rx="4" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                <text x="480" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#6a1b9a" text-anchor="middle">4. Eradication</text>
+                <text x="480" y="115" font-family="sans-serif" font-size="9" fill="#6a1b9a" text-anchor="middle">(Usunięcie wirusa z dysków)</text>
+
+                <path d="M 530 100 L 550 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSOC3)"/>
+
+                <rect x="560" y="70" width="100" height="60" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="610" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">5. Recovery</text>
+                <text x="610" y="115" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">(Odbudowa z Backupów)</text>
+
+                <path d="M 660 100 L 680 100" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSOC3)"/>
+
+                <rect x="690" y="70" width="100" height="60" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="740" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">6. Lessons Learned</text>
+                <text x="740" y="115" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Post-mortem, update Playbooka)</text>
+
+                <!-- Metric brackets -->
+                <path d="M 170 145 L 170 155 L 270 155 L 270 145" fill="none" stroke="#e65100" stroke-width="2"/>
+                <text x="220" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Miernik: MTTD</text>
+
+                <path d="M 300 145 L 300 155 L 530 155 L 530 145" fill="none" stroke="#d32f2f" stroke-width="2"/>
+                <text x="415" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Miernik: MTTR (Kluczowy dla biznesu)</text>
+
+                <defs>
+                    <marker id="arrowGrnSOC3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity Architektury SOC):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Containment (Powstrzymanie) z Eradication (Eliminacja):</strong> Wykładowca podaje scenariusz: "Wykryto ransomware na laptopie księgowego. Analityk SOC używa antywirusa, aby skasować złośliwy plik .exe z dysku (Eradication)". <strong>Kardynalny błąd z naruszeniem procedur SANS/NIST!</strong> Jeśli po wykryciu zaczniesz od razu kasować pliki, złośliwe oprogramowanie, które aktualnie działa w pamięci RAM, może wykryć atak obrońcy i awaryjnie zainfekować całą resztę sieci lub samousunąć klucze deszyfrujące. Prawidłowa procedura nakazuje najpierw <strong>Containment</strong> (Odcięcie fizyczne od sieci internet / kwarantanna portu na switchu). Dopiero gdy pacjent jest odizolowany i przestał zarażać innych (oraz zgrano RAM do analizy śledczej DFIR), można przystąpić do chirurgicznego usuwania (Eradication) i odbudowy z czystego nośnika (Recovery).</li>
+                    <li><strong>"Więcej alertów z SIEM oznacza lepszy SOC."</strong> – Kompletna bzdura pokazująca niezrozumienie <em>Alert Fatigue</em>. Złe wdrożenie SIEM (domyślne reguły) generuje milion fałszywych alarmów (np. błędne logowanie użytkownika, bo zapomniał hasła). System, który "świeci się cały czas na czerwono", jest systemem wyłączonym przez umysł ludzki. Dojrzałość SOC polega na <em>Tuning-u</em> (wyciszaniu fałszywych alarmów) i tworzeniu korelacji wysokiej pewności z użyciem narzędzi SOAR.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla biznesu i zwykłych programistów bezpieczeństwo często oznacza "zablokowanie ataku przez antywirus". Inżynierzy cyberbezpieczeństwa wiedzą jednak, że nie da się zatrzymać grup APT dysponujących budżetem wywiadu wojskowego (Zero-Days, Phishing). Dlatego rola nowoczesnego SOC nie polega na stawianiu murów (to robi dział IT), ale na stworzeniu "Systemu Odpornościowego" organizmu. SOC to ludzie uzbrojeni w zautomatyzowane procesy (SOAR), którzy akceptują fakt, że wirus przedostanie się do ciała, ale dzięki doskonałej widoczności (SIEM / EDR) odnajdą go (Threat Hunting) i odizolują (Containment), zanim zainfekuje organy krytyczne dla życia organizacji.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    "Blue Team Handbook: SOC, SIEM, and Threat Hunting" (Don Murdoch) · Przewodnik obsługi incydentów komputerowych wg NIST (NIST SP 800-61 Rev. 2) · Ramy działania SANS (PICERL).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
