@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 013 – Uwierzytelnianie wieloskładnikowe (MFA)</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">013. Uwierzytelnianie wieloskładnikowe (MFA) – Paradygmaty, protokoły i omijanie zabezpieczeń.</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🛡️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kod do Sejfu i Odcisk Palca”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #002147; line-height: 1.7;">
+                        Hasła to najsłabsze ogniwo bezpieczeństwa z jednego prostego powodu: <strong>można je skopiować na odległość</strong>. Jeśli ktoś pozna Twój kod do sejfu (Hasło), może wejść do banku i go otworzyć, podczas gdy Ty śpisz w domu.<br><br>
+                        <strong>MFA (Multi-Factor Authentication)</strong> wprowadza zasadę fizyczności i niezaprzeczalności. Teraz sejf wymaga nie tylko kodu, ale także włożenia fizycznego klucza (Token) lub przyłożenia Twojego kciuka (Biometria). Nawet jeśli podasz hakerowi swój kod przez telefon (Phishing), haker nie otworzy sejfu, bo nie posiada Twojego palca ani sprzętu.<br><br>
+                        MFA zmusza atakującego do zmiany strategii: nie wystarczy już ukraść bazy danych ze skrótami (hashami) haseł (Atak Offline). Atakujący musi wejść w bezpośrednią interakcję w czasie rzeczywistym z Tobą, Twoim telefonem lub Twoją sesją w przeglądarce.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Wiedza (Knowledge) / Posiadanie (Possession) / Cecha (Inherence)</span>
+            <span class="keyword-tag">TOTP (Time-based One-Time Password)</span>
+            <span class="keyword-tag">SS7 Interception & SIM Swapping</span>
+            <span class="keyword-tag">AiTM (Adversary-in-the-Middle) / Evilginx</span>
+            <span class="keyword-tag">FIDO2 / WebAuthn / U2F (YubiKey)</span>
+            <span class="keyword-tag">Phishing-Resistant MFA</span>
+            <span class="keyword-tag">Session Hijacking (Kradzież ciasteczek)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: 3 FACTORS -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Paradygmat Składników (Factors of Authentication)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Uwierzytelnianie to proces matematycznego udowodnienia systemowi swojej tożsamości. Standardowe (jednoskładnikowe) logowanie SFA (Single-Factor Authentication) opiera się wyłącznie na haśle. Zgodnie ze standardami NIST (SP 800-63B), aby logowanie było uznane za MFA, musi składać się z <strong>co najmniej dwóch różnych KATEGORII</strong> składników:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Coś, co wiesz (Wiedza / Knowledge):</strong> Hasło, PIN, Pytanie pomocnicze ("Imię pierwszego zwierzaka"). Składnik wysoce podatny na kradzież, inżynierię społeczną i ataki Brute-Force.</li>
+                    <li><strong>Coś, co masz (Posiadanie / Possession):</strong> Telefon komórkowy, aplikacja generująca kody (Google Authenticator), sprzętowy klucz kryptograficzny (YubiKey), karta Smart Card. Składnik wymaga od atakującego fizycznej kradzieży sprzętu.</li>
+                    <li><strong>Coś, czym jesteś (Cechy biometryczne / Inherence):</strong> Odcisk palca, skan tęczówki (FaceID), geometria twarzy, a nawet dynamika pisania na klawiaturze.</li>
+                    <li><em>Składniki opcjonalne (Kontekstowe):</em> Gdzie jesteś (Lokalizacja GPS / adres IP) oraz Kiedy się logujesz (Czas). Używane w systemach klasy <em>Adaptive/Risk-Based Authentication</em>.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: MFA FACTORS -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Ontologia Uwierzytelniania: Kategorie Składników (NIST)</text>
+
+                <!-- Knowledge -->
+                <rect x="40" y="60" width="220" height="120" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <circle cx="150" cy="100" r="25" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="150" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#e65100" text-anchor="middle">🧠</text>
+                <text x="150" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Coś, co wiesz</text>
+                <text x="150" y="165" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Hasło / PIN / Pytanie</text>
+
+                <!-- Plus -->
+                <text x="280" y="130" font-family="sans-serif" font-size="24" font-weight="bold" fill="#90a4ae" text-anchor="middle">+</text>
+
+                <!-- Possession -->
+                <rect x="300" y="60" width="220" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <circle cx="410" cy="100" r="25" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#0d47a1" text-anchor="middle">📱</text>
+                <text x="410" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Coś, co masz</text>
+                <text x="410" y="165" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">YubiKey / App TOTP / SMS</text>
+
+                <!-- OR -->
+                <text x="540" y="130" font-family="sans-serif" font-size="16" font-weight="bold" fill="#90a4ae" text-anchor="middle">LUB</text>
+
+                <!-- Inherence -->
+                <rect x="560" y="60" width="220" height="120" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <circle cx="670" cy="100" r="25" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="670" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">👁️</text>
+                <text x="670" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Coś, czym jesteś</text>
+                <text x="670" y="165" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Biometria (Twarz / Palec)</text>
+
+                <rect x="250" y="190" width="320" height="20" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="410" y="204" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Aby było to MFA, składniki muszą być Z RÓŻNYCH klas!</text>
+
+            </svg>
+
+            <!-- PART 2: VULNERABILITIES (AiTM & SIM SWAP) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #d32f2f;">2. Słabości tradycyjnego MFA (Jak hakerzy je łamią)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    MFA <strong>nie chroni w 100% przed Phishingiem</strong>. Istnieją starsze generacje MFA, które dzisiaj na egzaminach z security uznaje się za technicznie skompromitowane.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Kody SMS (Najsłabsze ogniwo):</strong> Kody wysyłane przez SMS są niezaszyfrowane. Można je przechwycić atakując przestarzały protokół sygnalizacyjny operatorów telekomunikacyjnych (ataki <em>SS7 Interception</em>) lub dokonując zjawiska <strong>SIM Swapping</strong>. Haker dzwoni do Twojego operatora, podaje się za Ciebie, zgłasza zgubienie telefonu i prosi o przepisanie Twojego numeru na swoją nową kartę SIM. Operator to robi, a wszystkie SMS-y z banku trafiają do hakera!</li>
+                    <li><strong>Aplikacje TOTP (Time-based One-Time Password np. Google Authenticator):</strong> Bezpieczniejsze niż SMS, ponieważ kody generowane są kryptograficznie (hash HMAC z ukrytego klucza i obecnego czasu unixowego) w trybie offline, bez użycia sieci operatora. Jednak <strong>nie są one odporne na ataki Phishingowe AiTM (Adversary-in-the-Middle)</strong>.
+                    Narzędzia z systemu Kali Linux takie jak <em>Evilginx2</em> działają jako Reverse-Proxy. Haker wysyła Ci linka do fałszywej strony Microsoftu (np. <code>m1crosoft-login.com</code>). Wpisujesz hasło – haker je przekazuje do prawdziwego Microsoftu. Prawdziwy Microsoft prosi o kod z aplikacji Authenticator. Strona hakera również prosi Cię o ten kod. Wpisujesz zaufany, 6-cyfrowy kod. Haker przesyła go do Microsoftu, a Microsoft w odpowiedzi nadaje mu prawowite "Ciasteczko Sesyjne" (Session Cookie). Haker kradnie ciastko. <strong>MFA zostało pokonane!</strong></li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: AiTM ATTACK -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#fff5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Bypass tradycyjnego MFA (Kody 6-cyfrowe): Atak AiTM (Evilginx)</text>
+
+                <!-- Victim -->
+                <rect x="40" y="90" width="100" height="70" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="90" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Ofiara</text>
+                <text x="90" y="135" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">Pobiera kod TOTP</text>
+                <text x="90" y="145" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">z telefonu.</text>
+
+                <!-- Evilginx Proxy -->
+                <rect x="300" y="60" width="220" height="130" rx="8" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Haker (Reverse Proxy)</text>
+                
+                <rect x="320" y="100" width="180" height="40" rx="4" fill="#fff" stroke="#c62828"/>
+                <text x="410" y="115" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">1. Zbiera: Hasło + Kod [421980]</text>
+                <text x="410" y="130" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">2. Kradnie: Session Cookie 🍪</text>
+
+                <!-- Real Server -->
+                <rect x="680" y="90" width="100" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="730" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Prawdziwy</text>
+                <text x="730" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer</text>
+
+                <!-- Flow -->
+                <path d="M 140 100 L 290 100" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgMFA)"/>
+                <text x="215" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Hasło + Kod</text>
+
+                <path d="M 520 100 L 670 100" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgMFA)"/>
+                <text x="595" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Przekazuje to samo!</text>
+
+                <path d="M 670 140 L 520 140" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnMFA)"/>
+                <text x="595" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Logowanie udane!</text>
+                <text x="595" y="167" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zwraca Ciastko Sesyjne</text>
+
+                <!-- Session theft highlight -->
+                <rect x="360" y="155" width="100" height="25" rx="4" fill="#c62828" stroke="#b71c1c"/>
+                <text x="410" y="172" font-family="sans-serif" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">SESJA PRZEJĘTA</text>
+
+                <defs>
+                    <marker id="arrowOrgMFA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnMFA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: PHISHING RESISTANT MFA (FIDO2) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Złoty Standard Inżynierii: FIDO2 / WebAuthn (Odporność na Phishing)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Aby naprawić lukę AiTM, giganci branży ustandaryzowali technologię sprzętowych kluczy zabezpieczających (np. YubiKey) pod postacią protokołu <strong>FIDO2 / WebAuthn</strong>. Ten standard to jedyne MFA, które z urzędu klasyfikuje się jako <em>Phishing-Resistant</em> (Odporne na Phishing). Dlaczego?
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    FIDO2 eliminuje przepisywanie cyferek z telefonu. Opiera się na kryptografii klucza publicznego (Asymetrycznej). Klucz generuje w swoim chipie unikalną parę kluczy. Najważniejszym mechanizmem obronnym jest tzw. <strong>Origin Binding (Wiązanie z domeną)</strong>. Przeglądarka internetowa podczas próby uwierzytelnienia pobiera adres URL strony. Kiedy haker wysyła Ci linka <code>m1crosoft.com</code>, wtykasz swój sprzętowy YubiKey. YubiKey pyta przeglądarkę, na jakiej fizycznie jesteśmy stronie. Słyszy <code>m1crosoft.com</code>. Sprawdza swoje klucze i mówi: <em>"Błąd! Moje klucze pasują tylko do domeny microsoft.com. Odmawiam podpisania żądania"</em>. 
+                    MFA chroni tutaj użytkownika przed jego własnym błędem i nieuwagą! Haker otrzymuje błąd kryptograficzny.
+                </p>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione podchwytliwe pytania z SecOps):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Mylenie Two-Step Verification (2SV) z Two-Factor Authentication (2FA/MFA):</strong> Wykładowca zapyta: "Logujesz się do banku podając hasło, a system w ramach drugiego kroku prosi o podanie Panieńskiego Nazwiska Matki. Czy to jest MFA?". <strong>Absolutnie NIE!</strong> Jest to logowanie dwuetapowe (2-Step), ale oba kroki reprezentują <strong>dokładnie tę samą Kategorię (Wiedza/Knowledge)</strong>. Haker używając keyloggera na Twoim komputerze ukradnie oba te "sekrety" w jednej sekundzie. MFA wymaga fizycznego zróżnicowania kategorii (np. Wiedza + Posiadanie hardware'u).</li>
+                    <li><strong>MFA a kradzież ciasteczek sesyjnych (Pass-the-Cookie):</strong> Pamiętaj, że zadaniem MFA jest <strong>wyłącznie moment Uwierzytelniania</strong> na bramie wejściowej. Po pomyślnym weryfikowaniu klucza FIDO2 lub kodu SMS, aplikacja wydaje Ci Ciasteczko Sesyjne (Session Cookie / JWT). Jeśli nieostrożnie pobierzesz złośliwe oprogramowanie na komputer (np. <em>InfoStealer / RedLine</em>), ukradnie ono to gotowe, ważne ciasteczko prosto z Twojej przeglądarki Chrome. Haker wgrywa ciastko na swoim komputerze i jest zalogowany do Twojego konta. MFA <strong>nie obroni Cię przed tą sytuacją</strong>, ponieważ uwierzytelnienie dla tej sesji już nastąpiło w przeszłości!</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla zwykłego pracownika MFA to irytujący, dodatkowy krok przy porannym logowaniu. Dla architekta cyberbezpieczeństwa jest to najbardziej drastyczna zmiana pola walki w ostatniej dekadzie. Zanim upowszechniło się MFA, ataki polegały na brutalnej matematyce (łamanie hashy) i inżynierii wstecznej usług (SQL Injection, zrzuty baz danych). Wdrożenie MFA zmusiło grupy APT oraz cyberprzestępców do przeniesienia swoich ataków do Warstwy 8 – psychologii. Atakujący zrezygnowali z uderzania w serwery, zaczęli budować perfekcyjne klony infrastruktury (AiTM, Evilginx) lub dzwonić do operatorów sieci komórkowych (SIM Swap). Zrozumienie MFA uczy inżyniera pokory: dopóki w standardzie nie usuniemy z procesu weryfikacji omylnego wzroku człowieka (FIDO2 / Origin Binding), system nigdy nie będzie odporny na manipulację.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Wytyczne cyfrowe uwierzytelniania NIST (NIST SP 800-63B) · Dokumentacja techniczna standardu FIDO2 / WebAuthn (FIDO Alliance) · Analiza wektorów ataku Adversary-in-the-Middle (MITRE ATT&CK: T1556).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
