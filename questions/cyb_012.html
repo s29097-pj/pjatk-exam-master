@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 012 – Testy penetracyjne</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">012. Testy penetracyjne (Metodyka, rodzaje i architektura ataku).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #fce4ec 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🥷</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Inspektor Budowlany kontra Licencjonowany Włamywacz”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #4a0000; line-height: 1.7;">
+                        Większość firm myli skanowanie podatności z testami penetracyjnymi. <br><br>
+                        <strong>Skanowanie Podatności (Vulnerability Scan)</strong> to <em>Inspektor Budowlany</em>. Chodzi z checklistą wokół banku i notuje: "Zamek w bocznych drzwiach to stary model firmy X. W katalogu napisano, że można go otworzyć wytrychem. Ryzyko wysokie!". Wystawia raport i idzie do domu.<br><br>
+                        <strong>Test Penetracyjny (Pentest)</strong> to wynajęty, <em>Licencjonowany Włamywacz</em>. On nie tylko widzi stary zamek. On wyciąga własny wytrych, otwiera te drzwi, wchodzi do środka, omija kamery, włamuje się do sejfu i na stosie gotówki zostawia swoją wizytówkę. Udowadnia (tzw. <strong>Proof of Concept - PoC</strong>), że luka teoretyczna prowadzi do brutalnej i praktycznej utraty danych.<br><br>
+                        Pentest to autoryzowana, kontrolowana i udokumentowana symulacja ataku hakerskiego, której jedynym celem jest bezpieczne przełamanie zabezpieczeń <em>zanim</em> zrobią to prawdziwi przestępcy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">PTES (Penetration Testing Execution Standard)</span>
+            <span class="keyword-tag">Rules of Engagement (RoE)</span>
+            <span class="keyword-tag">Black Box / Gray Box / White Box</span>
+            <span class="keyword-tag">PoC (Proof of Concept)</span>
+            <span class="keyword-tag">Red Teaming vs Pentesting</span>
+            <span class="keyword-tag">Exploitation / Post-Exploitation</span>
+            <span class="keyword-tag">Pivoting (Lateral Movement)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: PODEJŚCIA DO TESTÓW -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Perspektywa Atakującego: Black, Gray i White Box</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Zanim pentester dotknie klawiatury, ustala z biznesem zakres (Scope) oraz poziom swojej początkowej wiedzy o atakowanym systemie. Wybór podejścia to zawsze kompromis między realizmem a czasem i budżetem.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Black Box (Czarnoskrzynkowe):</strong> Pentester nie wie nic. Dostaje tylko nazwę firmy lub adres IP (czasem nawet tylko nazwę domeny). Musi sam odgadnąć architekturę. Najbardziej przypomina prawdziwy atak zewnętrzny (APT), ale jest najdroższy czasowo – haker może tygodniami szukać otwartego portu, omijając głębokie luki w logice aplikacji ukryte za panelem logowania.</li>
+                    <li><strong>White Box / Clear Box (Białoskrzynkowe):</strong> Pentester dostaje "klucze do królestwa": pełen kod źródłowy, dokumentację architektoniczną, a czasem i bezpośredni dostęp do deweloperów. Symuluje atak ze strony złośliwego pracownika (Insider Threat). Pozwala na 100% pokrycia i znalezienie głębokich błędów kryptograficznych, których "z zewnątrz" nikt by nie zauważył.</li>
+                    <li><strong>Gray Box (Szaroskrzynkowe):</strong> Najczęstszy standard rynkowy. Pentester dostaje poświadczenia (login i hasło) zwykłego użytkownika systemu. Omija fazę mozolnego szukania wejścia do aplikacji i od razu skupia się na eskalacji uprawnień (Privilege Escalation) – np. sprawdzeniu, czy zwykły użytkownik może skasować fakturę administratora.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: BOX TYPES -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#fff5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Poziomy wiedzy startowej Pentestera</text>
+
+                <!-- Black Box -->
+                <rect x="40" y="50" width="220" height="140" rx="8" fill="#212121" stroke="#000" stroke-width="2"/>
+                <text x="150" y="80" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">Black Box</text>
+                <text x="150" y="110" font-family="sans-serif" font-size="10" fill="#bdbdbd" text-anchor="middle">Zewnętrzny haker</text>
+                <text x="150" y="130" font-family="monospace" font-size="10" fill="#ef5350" text-anchor="middle">Wiedza: Tylko adres IP</text>
+                <text x="150" y="150" font-family="sans-serif" font-size="10" fill="#9e9e9e" text-anchor="middle">Wysoki realizm / Niskie pokrycie</text>
+                
+                <circle cx="150" cy="170" r="10" fill="#424242"/>
+                <text x="150" y="174" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">🔒</text>
+
+                <!-- Gray Box -->
+                <rect x="300" y="50" width="220" height="140" rx="8" fill="#cfd8dc" stroke="#78909c" stroke-width="2"/>
+                <text x="410" y="80" font-family="sans-serif" font-size="14" font-weight="bold" fill="#263238" text-anchor="middle">Gray Box</text>
+                <text x="410" y="110" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Zwykły pracownik / Klient</text>
+                <text x="410" y="130" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">Wiedza: Konto Usera (Login)</text>
+                <text x="410" y="150" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Złoty środek (Najczęstszy)</text>
+
+                <path d="M 400 175 L 420 175 L 420 165 L 410 165 L 410 170" fill="none" stroke="#546e7a" stroke-width="2"/>
+                <circle cx="410" cy="170" r="10" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="2,2"/>
+
+                <!-- White Box -->
+                <rect x="560" y="50" width="220" height="140" rx="8" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="670" y="80" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">White Box</text>
+                <text x="670" y="110" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Insider / Audytor kodu</text>
+                <text x="670" y="130" font-family="monospace" font-size="10" fill="#388e3c" text-anchor="middle">Wiedza: KOD ŹRÓDŁOWY</text>
+                <text x="670" y="150" font-family="sans-serif" font-size="10" fill="#4caf50" text-anchor="middle">Niski realizm / 100% Pokrycia</text>
+
+                <circle cx="670" cy="170" r="10" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+                <text x="670" y="174" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">🔓</text>
+
+            </svg>
+
+            <!-- PART 2: METODYKA PTES -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Rygor Inżynierski: Metodyka PTES (Penetration Testing Execution Standard)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Profesjonalny pentest nie polega na losowym wpisywaniu komend. To wysoce sformalizowany proces składający się z 7 kroków, gwarantujący, że test przyniesie wartość biznesową, a przy okazji nie zniszczy serwerów produkcyjnych.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>1. Pre-engagement & RoE:</strong> Najważniejszy etap prawno-biznesowy. Podpisanie <em>Rules of Engagement (Zasad Zaangażowania)</em>. Dokument ten określa granice: Czego NIE wolno atakować? Czy można testować DDoS? Kogo powiadomić? <strong>Brak podpisanego RoE oznacza, że pentester staje się w świetle prawa zwykłym przestępcą z art. 269 KK.</strong></li>
+                    <li><strong>2. Intelligence Gathering (OSINT):</strong> Zwiad. Zbieranie publicznie dostępnych informacji o firmie, technologiach, mailach pracowników (do Phishingu) bez bezpośredniego dotykania serwerów ofiary.</li>
+                    <li><strong>3. Threat Modeling & 4. Vulnerability Analysis:</strong> Skanowanie portów (Nmap) i szukanie dziur w zidentyfikowanych usługach. Odpowiedź na pytanie: <em>Jak ułożyłbym atak, gdybym był hakerem?</em></li>
+                    <li><strong>5. Exploitation:</strong> Uderzenie właściwe. Użycie exploitów (np. przez framework <em>Metasploit</em>) w celu uzyskania fizycznego dostępu (powłoki - shella) do serwera.</li>
+                    <li><strong>6. Post-Exploitation:</strong> Złota faza. Wszedłem na serwer – co dalej? Kradzież haseł z pamięci RAM (np. <em>Mimikatz</em>) i przeskakiwanie na kolejne, głębsze serwery wewnątrz sieci, których nie było widać z internetu (tzw. <strong>Pivoting / Lateral Movement</strong>).</li>
+                    <li><strong>7. Reporting:</strong> Cel ostateczny. Stworzenie raportu dla zarządu, opisującego nie tylko techniczny sposób złamania zabezpieczeń, ale przede wszystkim <strong>metody ich naprawy (Remediation)</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 2: PTES FLOW -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Cykl Życia Ataku Pentestera (PTES Methodology)</text>
+
+                <!-- Flowchart -->
+                
+                <!-- 1. Prawne -->
+                <rect x="20" y="80" width="100" height="50" rx="4" fill="#fff" stroke="#455a64" stroke-width="2"/>
+                <text x="70" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#263238" text-anchor="middle">1. RoE</text>
+                <text x="70" y="115" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Karta "Get out of jail"</text>
+
+                <path d="M 120 105 L 140 105" fill="none" stroke="#90a4ae" stroke-width="3" marker-end="url(#arrowGryPTES)"/>
+
+                <!-- 2. OSINT -->
+                <rect x="150" y="80" width="100" height="50" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="200" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">2. OSINT</text>
+                <text x="200" y="115" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">Biały Wywiad</text>
+
+                <path d="M 250 105 L 270 105" fill="none" stroke="#90a4ae" stroke-width="3" marker-end="url(#arrowGryPTES)"/>
+
+                <!-- 3/4. Skanowanie -->
+                <rect x="280" y="80" width="100" height="50" rx="4" fill="#bbdefb" stroke="#0d47a1" stroke-width="2"/>
+                <text x="330" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">3. Skany</text>
+                <text x="330" y="115" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Nmap / Nessus)</text>
+
+                <path d="M 380 105 L 400 105" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgPTES)"/>
+
+                <!-- 5. Exploitation -->
+                <rect x="410" y="70" width="120" height="70" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+                <text x="470" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">4. Exploitation</text>
+                <text x="470" y="110" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Wejście do systemu</text>
+                <text x="470" y="125" font-family="monospace" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle"># get shell</text>
+
+                <path d="M 530 105 L 550 105" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedPTES)"/>
+
+                <!-- 6. Post-Exploit -->
+                <rect x="560" y="70" width="120" height="70" rx="6" fill="#fce4ec" stroke="#ad1457" stroke-width="3"/>
+                <text x="620" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">5. Post-Exploit</text>
+                <text x="620" y="110" font-family="sans-serif" font-size="9" fill="#ad1457" text-anchor="middle">Pivoting w głąb LAN</text>
+                <text x="620" y="125" font-family="monospace" font-size="10" font-weight="bold" fill="#c2185b" text-anchor="middle">Data Exfiltration</text>
+
+                <path d="M 680 105 L 700 105" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnPTES)"/>
+
+                <!-- 7. Report -->
+                <rect x="710" y="80" width="90" height="50" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="755" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">6. Raport</text>
+                <text x="755" y="115" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Wartość Biznesowa</text>
+
+                <!-- Pivoting line -->
+                <path d="M 620 140 L 620 170 L 470 170 L 470 140" fill="none" stroke="#ad1457" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowPurpPTES)"/>
+                <text x="545" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#880e4f" text-anchor="middle">Atakowanie głębszych podsieci</text>
+
+                <defs>
+                    <marker id="arrowGryPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                    <marker id="arrowOrgPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowRedPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowPurpPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ad1457"/></marker>
+                    <marker id="arrowGrnPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: RED TEAMING VS PENTEST -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Różnica klas: Pentesting a operacje Red Teaming</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Podczas egzaminów to jedno z najważniejszych pytań odsiewających. Zarówno Pentest, jak i Red Teaming używają technik hakerskich, ale ich cel i celowniki są całkowicie różne.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Test Penetracyjny:</strong> Celem jest <strong>technologia</strong> (np. nowa aplikacja webowa). Zadaniem pentestera jest znalezienie <em>jak największej liczby dziur</em> w tej konkretnej aplikacji w ograniczonym czasie (np. 2 tygodnie). Zespół obronny firmy (Blue Team) najczęściej o nim wie i wpuszcza go na białej liście firewalli, aby mógł skupić się na testowaniu logiki aplikacji, a nie marnował czasu na walkę z systemami IDS.</li>
+                    <li><strong>Red Teaming (Adversary Emulation):</strong> Celem operacji nie jest technologia, lecz <strong>ludzie i procedury (Blue Team / SOC)</strong>! Organizuje się to, gdy firma ma dojrzały dział bezpieczeństwa i chce sprawdzić jego czujność. Red Team dostaje konkretny cel biznesowy (tzw. <em>Flagę</em>): "Masz wykraść bazę danych klientów". Nie interesuje ich znajdowanie wszystkich błędów. Użyją najcichszej, najprostszej drogi (np. wyślą maila z wirusem do sprzątaczki i wejdą jej kontem). Jeśli ukradną bazę, a Blue Team tego nie wykryje przez 3 miesiące trwania operacji – SOC ponosi porażkę. Red Teaming uczy, jak obrońcy reagują w warunkach stresu bojowego.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe zagadnienia prawne i pojęciowe):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>Prawo: Zgoda na atak (RoE):</strong> "Zauważyłeś lukę w zabezpieczeniach serwisu bankowego. W ramach dobrych intencji używasz exploita, by udowodnić dyrekcji, że jesteś w stanie skopiować ich bazę, i wysyłasz im o tym maila z ofertą naprawy." Co grozi Ci za to działanie? <strong>Więzienie.</strong> Bez uprzednio podpisanego kontraktu oraz dokumentu <em>Rules of Engagement</em> jesteś przestępcą komputerowym. Intencja (tzw. bycie "White Hat") nie zwalnia z odpowiedzialności prawnej w przypadku nieautoryzowanego przełamania zabezpieczeń (art. 269b Kodeksu Karnego).</li>
+                    <li><strong>Pentest a Audyt Zgodności (Compliance):</strong> Pytanie: "Zatrudniamy pentestera, aby upewnić się, że spełniamy normy bezpieczeństwa RODO/ISO 27001". To błąd myślowy! Pentester nie jest audytorem. Pentest dowodzi tylko tego, czy zabezpieczenia da się złamać technicznie w danym momencie. Możesz mieć wybitnie zabezpieczoną aplikację (brak dziur), ale jeśli hasła w bazie nie są zahasowane, lub brak procedur odzyskiwania danych – nie zdasz audytu ISO, choć pentester nie miałby punktu wejścia.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego biznesu "bycie bezpiecznym" oznacza przejście przez zautomatyzowane skany. Dla inżyniera architektury bezpieczeństwa teoria luki nie znaczy nic, dopóki nie zostanie sprawdzona w praktyce. Testy penetracyjne to inżynieria w warunkach bojowych – pozwalają spojrzeć na własny system oczami bezwzględnego atakującego, udowadniając (Proof of Concept), czy korelacja połączonych ze sobą małych słabości w architekturze prowadzi do całkowitego przejęcia kontroli. Z kolei Red Teaming wznosi tę koncepcję wyżej – przesuwa celownik z maszyn na procedury reagowania, sprawdzając, czy milionowe inwestycje w ochronę poradzą sobie z inteligentnym, uśpionym przeciwnikiem (APT).</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Penetration Testing Execution Standard (PTES) · "The Web Application Hacker's Handbook" (D. Stuttard, M. Pinto) · Red Team Field Manual (RTFM) (Ben Clark).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
