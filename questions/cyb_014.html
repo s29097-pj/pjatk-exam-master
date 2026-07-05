@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytanie 014 – Hardening systemów i urządzeń</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="question-box">
+        <h2 id="q-title">014. Hardening systemów i urządzeń (Utwardzanie infrastruktury).</h2>
+
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🛡️</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #263238; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Fabryczny Dom kontra Bunkier Wojskowy”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a252f; line-height: 1.7;">
+                        Kiedy instalujesz system operacyjny (np. Linux, Windows Server) z ustawieniami domyślnymi ("Next -> Next -> Finish"), dostajesz "Fabryczny Dom". Ma on 50 otwartych okien (usługi sieciowe), uniwersalne klucze pod wycieraczką (domyślne hasła: <code>admin/admin</code>) i miękkie ściany z kartongipsu (brak izolacji procesów). System ma być po prostu "łatwy w użyciu" dla początkującego.<br><br>
+                        <strong>Hardening (Utwardzanie)</strong> to proces inżynieryjny polegający na zamianie tego domu w wojenny bunkier. Zamurowujesz 49 z 50 okien (wyłączasz zbędne porty i usługi <em>- Redukcja Powierzchni Ataku</em>). Wstawiasz pancerne drzwi z weryfikacją biometryczną (wyłączasz logowanie hasłem w SSH, wymuszasz klucze kryptograficzne). Co więcej, zamykasz każdego pracownika w jego własnym, ślepym korytarzu, aby w razie jego szaleństwa, nie zniszczył całego budynku (Zasada Najmniejszego Uprzywilejowania / MAC).<br><br>
+                        W cyberbezpieczeństwie Hardening to architektura <em>Prewencyjna</em>. Nie służy on do "wykrywania" hakerów (od tego jest EDR/SIEM), lecz do sprawienia, by <strong>udane przełamanie jednej usługi nie doprowadziło do kompromitacji całej maszyny.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
+        <div class="keywords-box" style="margin-bottom: 28px;">
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keyword-tag">Attack Surface Reduction (Redukcja powierzchni ataku)</span>
+            <span class="keyword-tag">PoLP (Principle of Least Privilege)</span>
+            <span class="keyword-tag">MAC (Mandatory Access Control: SELinux / AppArmor)</span>
+            <span class="keyword-tag">CIS Benchmarks / DISA STIGs</span>
+            <span class="keyword-tag">Golden Images (Złote obrazy / IaC)</span>
+            <span class="keyword-tag">Host-based Firewall (iptables/Windows Firewall)</span>
+            <span class="keyword-tag">Usuwanie Default Credentials</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
+        <div id="q-content" class="answer-section">
+
+            <!-- PART 1: REDUKCJA POWIERZCHNI ATAKU -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #455a64;">1. Krok Pierwszy: Attack Surface Reduction (Redukcja Powierzchni Ataku)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Złota zasada inżynierii bezpieczeństwa brzmi: <strong>To, co nie istnieje, nie może zostać zhakowane.</strong> Każda usługa (demon), działająca w tle i nasłuchująca na porcie, to potencjalny wektor ataku (podatność Zero-Day).
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Minimalizacja usług (Debloat):</strong> W systemach serwerowych usuwamy wszystko, co zbędne. Nie potrzebujesz serwera FTP, usługi drukowania (CUPS) czy GUI (środowiska graficznego) na serwerze bazodanowym. Pakiety te są bezwzględnie deinstalowane.</li>
+                    <li><strong>Zmiana domyślnych konfiguracji:</strong> Natychmiastowe usunięcie lub zmiana domyślnych haseł sprzętowych (np. w routerach Cisco czy systemach IoT/OT). Wyłączenie możliwości logowania się użytkownika <code>root</code> po SSH (<code>PermitRootLogin no</code>) oraz całkowite wyłączenie autoryzacji hasłem na rzecz kluczy kryptograficznych (np. <code>Ed25519</code>).</li>
+                    <li><strong>Host-Based Firewalls:</strong> Nawet jeśli główny brzegowy Firewall chroni serwer z zewnątrz, na samym urządzeniu <strong>musi</strong> działać zapora lokalna (iptables/UFW w Linux, Windows Defender Firewall), która wpuszcza ruch tylko na z góry określone porty z zaufanych adresów IP. Wymusza to architekturę <em>Zero Trust</em> na poziomie hosta.</li>
+                </ul>
+            </div>
+
+            <!-- SVG 1: ATTACK SURFACE REDUCTION -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#eceff1" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#263238">Redukcja Powierzchni Ataku: Domyślny OS kontra Serwer Utwardzony</text>
+
+                <!-- Default OS (Left) -->
+                <rect x="40" y="50" width="300" height="150" rx="8" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="190" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">"Fabryczny" System (OOB)</text>
+
+                <rect x="60" y="90" width="100" height="25" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="110" y="106" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Port 21 (FTP)</text>
+                <path d="M 10 102 L 55 102" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedH)"/>
+
+                <rect x="60" y="125" width="100" height="25" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="110" y="141" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Port 23 (Telnet)</text>
+                <path d="M 10 137 L 55 137" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedH)"/>
+
+                <rect x="60" y="160" width="100" height="25" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="110" y="176" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Root (Hasło)</text>
+                <path d="M 10 172 L 55 172" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedH)"/>
+
+                <rect x="180" y="105" width="140" height="60" rx="4" fill="#fff" stroke="#d32f2f" stroke-dasharray="4,2"/>
+                <text x="250" y="130" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Szeroka powierzchnia:</text>
+                <text x="250" y="145" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">Zbyt wiele punktów</text>
+                <text x="250" y="155" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">wejścia dla intruza.</text>
+
+                <!-- Transition -->
+                <path d="M 360 125 L 430 125" fill="none" stroke="#546e7a" stroke-width="4" marker-end="url(#arrowGryH)"/>
+                <text x="395" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">HARDENING</text>
+
+                <!-- Hardened OS (Right) -->
+                <rect x="460" y="50" width="300" height="150" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Utwardzony System</text>
+
+                <rect x="480" y="90" width="100" height="25" rx="4" fill="#cfd8dc" stroke="#90a4ae" stroke-dasharray="2,2"/>
+                <text x="530" y="106" font-family="monospace" font-size="10" fill="#78909c" text-anchor="middle">Usunięto FTP</text>
+                <line x1="440" y1="102" x2="475" y2="102" stroke="#d32f2f" stroke-width="2"/>
+                <line x1="470" y1="95" x2="480" y2="110" stroke="#d32f2f" stroke-width="2"/>
+
+                <rect x="480" y="125" width="100" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="530" y="141" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Port 443 (TLS)</text>
+                <path d="M 440 137 L 475 137" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnH)"/>
+
+                <rect x="480" y="160" width="100" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="530" y="176" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Klucze SSH</text>
+
+                <rect x="600" y="105" width="140" height="60" rx="4" fill="#fff" stroke="#2e7d32" stroke-dasharray="4,2"/>
+                <text x="670" y="130" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zredukowana powierzchnia:</text>
+                <text x="670" y="145" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Monitorujemy tylko 1 port.</text>
+                <text x="670" y="155" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Firewall blokuje resztę.</text>
+
+                <defs>
+                    <marker id="arrowRedH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowGryH" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 2: DAC vs MAC (SELinux) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Krok Drugi: Izolacja wewnątrz (Zasada Najmniejszego Uprzywilejowania)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nawet przy perfekcyjnie zredukowanej powierzchni ataku, w końcu udostępniasz światu jakąś aplikację (np. Nginx na porcie 443). Jeśli haker znajdzie w niej lukę Zero-Day i ją zhakuje, zdobędzie nad nią kontrolę. Standardowe systemy bazują na DAC (Discretionary Access Control – uprawnienia plików np. <code>rwxr-xr-x</code>). W DAC, jeśli zhakowany Nginx działa z uprawnieniami roota lub uzyska je w locie, może zniszczyć cały system!
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dlatego w serwerach o wysokim bezpieczeństwie wdraża się <strong>MAC (Mandatory Access Control) – systemy takie jak SELinux lub AppArmor</strong>. MAC więzi sam <em>proces</em>. Narzuca twarde reguły w przestrzeni jądra (Kernel Space). System mówi: <em>"Aplikacja Nginx, bez względu na to czy zarządza nią root, ma prawo odczytać tylko pliki z katalogu /var/www i otworzyć tylko port 443. Jeśli spróbuje uruchomić powłokę /bin/bash, natychmiast ubij ten proces!"</em>. MAC drastycznie uniemożliwia hakerowi tzw. Ruch Poprzeczny (Lateral Movement).
+                </p>
+            </div>
+
+            <!-- SVG 2: MAC VS DAC -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zarządzanie dostępem: Standardowe Uprawnienia (DAC) kontra Izolacja Procesów (MAC / SELinux)</text>
+
+                <!-- DAC Scenario -->
+                <rect x="40" y="50" width="340" height="160" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="210" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">System bez MAC (Tylko uprawnienia DAC)</text>
+
+                <rect x="60" y="90" width="100" height="50" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+                <text x="110" y="110" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zhakowany</text>
+                <text x="110" y="125" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Web Serwer</text>
+
+                <path d="M 160 115 L 260 95" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedH2)"/>
+                <rect x="270" y="75" width="90" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="315" y="90" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">/var/www/</text>
+                <text x="200" y="95" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Legalny dostęp</text>
+
+                <path d="M 160 115 L 260 135" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowRedH2)"/>
+                <rect x="270" y="120" width="90" height="30" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="315" y="135" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">/etc/shadow</text>
+                <text x="210" y="145" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Jeśli apka ma uprawnienia,</text>
+                <text x="210" y="155" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">haker kradnie plik haseł!</text>
+
+                <!-- MAC Scenario -->
+                <rect x="440" y="50" width="340" height="160" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">System z SELinux / AppArmor (MAC)</text>
+
+                <!-- Security Context Sandbox -->
+                <rect x="450" y="80" width="120" height="80" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" stroke-dasharray="4,2"/>
+                <text x="510" y="150" font-family="monospace" font-size="8" fill="#2e7d32" text-anchor="middle">Kontekst: httpd_t</text>
+
+                <rect x="460" y="90" width="100" height="40" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+                <text x="510" y="105" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zhakowany</text>
+                <text x="510" y="120" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Web Serwer</text>
+
+                <path d="M 560 110 L 660 90" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnH2)"/>
+                <rect x="670" y="75" width="90" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="715" y="90" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">/var/www/</text>
+
+                <path d="M 560 110 L 630 135" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="4,2"/>
+                <line x1="640" y1="125" x2="660" y2="145" stroke="#d32f2f" stroke-width="4"/>
+                <line x1="660" y1="125" x2="640" y2="145" stroke="#d32f2f" stroke-width="4"/>
+                <rect x="670" y="120" width="90" height="30" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="715" y="135" font-family="monospace" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">/etc/shadow</text>
+                
+                <text x="610" y="165" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">SELinux BLOKUJE akcję Kernel-Level,</text>
+                <text x="610" y="175" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">nawet jeśli proces używa praw Roota!</text>
+
+                <defs>
+                    <marker id="arrowRedH2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnH2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 3: CIS BENCHMARKS & GOLDEN IMAGES -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Krok Trzeci: Automatyzacja, CIS Benchmarks i Złote Obrazy</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Hardening to nie sztuka magiczna, to inżynieria. Administratorzy nie wymyślają reguł bezpieczeństwa na własną rękę. Korzystają ze standaryzowanych norm branżowych, takich jak <strong>CIS Benchmarks</strong> (Center for Internet Security) lub wojskowych <strong>DISA STIGs</strong>. Są to potężne, 500-stronicowe dokumenty opisujące konfigurację każdego najdrobniejszego parametru systemu operacyjnego (np. długość hasła, czas blokady sesji, konfiguracje logów audytowych).
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W nowoczesnych chmurach (DevSecOps) nie utwardza się każdego serwera osobno (ręcznie). Skrypty automatyzacji (Ansible, Chef) aplikują reguły CIS do surowego systemu operacyjnego podczas procesu budowy (np. za pomocą HashiCorp Packer), tworząc tzw. <strong>Złoty Obraz (Golden Image)</strong>. Złoty Obraz to perfekcyjnie bezpieczny, zablokowany szablon maszyny wirtualnej, z którego automatycznie (Autoscaling) tworzone są setki serwerów. Jeśli serwer zostanie zhakowany, nikt go nie łata ręcznie – system niszczy go i powołuje nowy, nieskazitelny ze Złotego Obrazu (Koncepcja <em>Immutable Infrastructure</em>).
+                </p>
+            </div>
+
+            <!-- SVG 3: GOLDEN IMAGE PIPELINE -->
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">DevSecOps: Budowa "Złotego Obrazu" z użyciem CIS Benchmarks</text>
+
+                <!-- Step 1: Raw OS -->
+                <rect x="40" y="60" width="120" height="60" rx="4" fill="#fff" stroke="#90a4ae" stroke-width="2"/>
+                <text x="100" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#455a64" text-anchor="middle">Surowy OS</text>
+                <text x="100" y="105" font-family="monospace" font-size="10" fill="#78909c" text-anchor="middle">(Ubuntu ISO)</text>
+
+                <path d="M 160 90 L 230 90" fill="none" stroke="#ab47bc" stroke-width="3" marker-end="url(#arrowPurpG)"/>
+
+                <!-- Step 2: Automation (Ansible + CIS) -->
+                <rect x="240" y="50" width="180" height="80" rx="6" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2"/>
+                <text x="330" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Ansible / Packer Pipeline</text>
+                
+                <rect x="250" y="80" width="160" height="20" rx="2" fill="#ce93d8"/>
+                <text x="330" y="93" font-family="monospace" font-size="9" font-weight="bold" fill="#4a148c" text-anchor="middle">+ Wgraj Skrypt CIS L1</text>
+                
+                <rect x="250" y="102" width="160" height="20" rx="2" fill="#ce93d8"/>
+                <text x="330" y="115" font-family="monospace" font-size="9" font-weight="bold" fill="#4a148c" text-anchor="middle">+ Zainstaluj EDR Agent</text>
+
+                <path d="M 420 90 L 490 90" fill="none" stroke="#ab47bc" stroke-width="3" marker-end="url(#arrowPurpG)"/>
+
+                <!-- Step 3: Golden Image -->
+                <rect x="500" y="50" width="120" height="80" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="3"/>
+                <text x="560" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17" text-anchor="middle">Złoty Obraz</text>
+                <text x="560" y="105" font-family="sans-serif" font-size="10" fill="#f57f17" text-anchor="middle">(Golden AMI)</text>
+
+                <path d="M 620 90 L 690 90" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgG)"/>
+
+                <!-- Step 4: Auto-Scaling -->
+                <rect x="700" y="30" width="80" height="30" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="740" y="50" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Prod_1</text>
+
+                <rect x="700" y="75" width="80" height="30" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="740" y="95" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Prod_2</text>
+
+                <rect x="700" y="120" width="80" height="30" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                <text x="740" y="140" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Prod_N</text>
+
+                <text x="740" y="170" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Auto-Scaling Group</text>
+
+                <defs>
+                    <marker id="arrowPurpG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ab47bc"/></marker>
+                    <marker id="arrowOrgG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity o Hardeningu):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>"Hardening to to samo co instalowanie aktualizacji (Patching)."</strong> – Fundamentalny błąd pojęciowy! Patch management to proces operacyjny – łatanie dziur ujawnionych w oprogramowaniu (np. aktualizacja Windowsa). Hardening to <strong>zmiana konfiguracji architektury</strong> systemu po to, aby nawet jeśli proces <em>nie jest</em> załatany (podatność 0-day), wyrządził jak najmniejsze szkody. Hardening zakłada z góry, że oprogramowanie zostanie zhakowane, więc izoluje je w "piaskownicy" (Sandbox / SELinux).</li>
+                    <li><strong>"Zmieniłem port SSH z 22 na 2222, utwardziłem system!"</strong> – Odpowiedź, która oblewa egzamin ze wstępu do Security. Zmiana portów, chowanie plików w niewidocznych folderach, czy wyłączanie pingu to technika znana jako <strong>Security through Obscurity (Bezpieczeństwo przez zaciemnianie)</strong>. Skutecznie odfiltrowuje to losowe boty i script-kiddies, ale nie stanowi żadnej inżynieryjnej bariery obronnej (Nmap przeskanuje wszystkie 65535 portów i znajdzie Twoje SSH na porcie 2222 w 10 sekund). Prawdziwy hardening tego komponentu to całkowite zablokowanie uwierzytelniania hasłem i wymuszenie logowania z użyciem certyfikatów/kluczy asymetrycznych Ed25519 sprzęgniętych z weryfikacją 2FA.</li>
+                </ul>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego pracownika IT instalacja systemu operacyjnego kończy się, gdy działa usługa WWW i da się wejść na stronę. Dla inżyniera architektury cyberbezpieczeństwa instalacja gołego systemu to moment podłożenia ładunku wybuchowego pod firmę. Architektura obronna polega na obsesyjnym odcinaniu ścieżek dostępu. Hardening (utwardzanie) jest bolesnym, mozolnym procesem dekonstrukcji wygody. Świadomie usuwasz z systemu narzędzia i zamykasz porty, wiążąc procesom ręce za pomocą rygorystycznych macierzy kontroli dostępu (SELinux). Tylko w ten sposób możesz zagwarantować, że aplikacja uszkodzona w wyniku błędu programisty nie stanie się dla intruza pomostem do zniszczenia całej infrastruktury wewnątrz organizacji.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    Wytyczne utwardzania systemów (Center for Internet Security - CIS Benchmarks) · Standardy Defense Information Systems Agency (DISA STIGs) · "Linux Hardening in Hostile Networks" (K. Buesing).
+                </span>
+            </div>
+
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
+</body>
+</html>
