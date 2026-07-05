@@ -14,7 +14,7 @@
         <h2 id="q-title">002. Liczby zespolone</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (oryginalny)                -->
         <!-- ============================================================ -->
         <div style="background: linear-gradient(135deg, #e8eaf6 0%, #e0e0ff 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
@@ -24,18 +24,12 @@
                     <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
                         Wyobraź sobie, że liczby rzeczywiste to <strong>linia prosta</strong> – możesz poruszać się tylko w lewo lub w prawo. Liczby zespolone dodają <strong>drugi wymiar</strong> – teraz możesz także krążyć, obracać się i falować. To jak przesiadka z pociągu do helikoptera.
                     </p>
-                    <ul style="margin: 0; padding-left: 20px; color: #283593; line-height: 1.8;">
-                        <li><strong>🔵 Część rzeczywista i urojona</strong> – współrzędne punktu na płaszczyźnie (jak długość i szerokość geograficzna).</li>
-                        <li><strong>🟠 Moduł i argument</strong> – odległość od zera i kąt względem osi rzeczywistej (jak azymut i dystans na mapie).</li>
-                        <li><strong>🟢 Wzór Eulera</strong> – magiczny most łączący funkcje trygonometryczne z potęgami liczby e. Serce fizyki kwantowej i elektrotechniki.</li>
-                        <li><strong>🟣 Mnożenie = rotacja + skalowanie</strong> – pomnożyć dwie liczby zespolone to jak obrócić jedną o kąt drugiej i wydłużyć ją odpowiednio.</li>
-                    </ul>
                 </div>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (oryginalne)                  -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -52,7 +46,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -71,43 +65,32 @@
                     • <strong>a</strong> – część rzeczywista <code>Re(z)</code>, odkładana na osi poziomej.<br>
                     • <strong>b</strong> – część urojona <code>Im(z)</code>, odkładana na osi pionowej. <strong>Uwaga:</strong> <code>Im(z)</code> to tylko liczba <em>b</em>, nie całe <em>b·i</em>!
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, liczbę zespoloną zapisujemy jako a+bi. To są współrzędne punktu na płaszczyźnie Gaussa – oś pozioma to część rzeczywista, pionowa to urojona. Elektrycy zamiast i piszą j, żeby nie mylić z prądem.”
+                </div>
             </div>
 
-            <!-- SVG: PŁASZCZYZNA GAUSSA – ROZBUDOWANA -->
+            <!-- SVG: PŁASZCZYZNA GAUSSA (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
-                    <pattern id="gridGauss" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                    <marker id="arrowRe" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/>
-                    </marker>
-                    <marker id="arrowIm" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#c62828"/>
-                    </marker>
+                    <pattern id="gridGauss" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                    <marker id="arrowRe" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowIm" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#c62828"/></marker>
                 </defs>
                 <rect x="0" y="0" width="820" height="280" fill="url(#gridGauss)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Płaszczyzna Gaussa – liczby zespolone jako punkty 2D</text>
-
-                <!-- Osie -->
                 <line x1="180" y1="240" x2="620" y2="240" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowRe)"/>
                 <line x1="400" y1="260" x2="400" y2="60" stroke="#c62828" stroke-width="2.5" marker-end="url(#arrowIm)"/>
                 <text x="630" y="244" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0">Re(z)</text>
                 <text x="370" y="55" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828">Im(z)</text>
                 <text x="405" y="255" font-family="sans-serif" font-size="12" fill="#546e7a">0</text>
-
-                <!-- Wektor z = 4 + 3i -->
                 <line x1="400" y1="240" x2="540" y2="130" stroke="#ff6f00" stroke-width="4" marker-end="url(#arrowRe)"/>
                 <circle cx="540" cy="130" r="6" fill="#ff6f00" stroke="#fff" stroke-width="2"/>
-                <!-- Rzuty -->
                 <line x1="540" y1="240" x2="540" y2="130" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.6"/>
                 <line x1="400" y1="130" x2="540" y2="130" stroke="#c62828" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.6"/>
-                <!-- Etykiety -->
                 <text x="545" y="120" font-family="monospace" font-size="15" font-weight="bold" fill="#ff6f00">z = 4 + 3i</text>
                 <text x="460" y="255" font-family="monospace" font-size="13" font-weight="bold" fill="#1565c0">a = 4</text>
                 <text x="375" y="135" font-family="monospace" font-size="13" font-weight="bold" fill="#c62828">b = 3</text>
-
-                <!-- Panel z definicją -->
                 <rect x="30" y="30" width="190" height="80" rx="6" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1"/>
                 <text x="125" y="52" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1a237e">Postać algebraiczna</text>
                 <text x="125" y="80" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" fill="#283593">z = a + bi</text>
@@ -115,7 +98,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: MODUŁ I ARGUMENT                                 -->
+            <!-- PART 2: MODUŁ I ARGUMENT (oryginalny + podpowiedź)     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">2. Moduł i argument – „Współrzędne biegunowe”</strong>
@@ -126,35 +109,27 @@
                     <li><strong>Moduł |z|</strong> – z twierdzenia Pitagorasa: <code>|z| = √(a² + b²)</code>. To „długość” wektora.</li>
                     <li><strong>Argument φ</strong> – kąt mierzony od dodatniej półosi Re: <code>φ = arctg(b/a)</code> (z poprawką na ćwiartkę!).</li>
                 </ul>
-                <p style="line-height: 1.7; color: #2c3e50;">
-                    <strong>Uwaga inżynierska:</strong> Argument jest okresowy co <code>2π</code>. Zawsze podajemy go w przedziale <code>(-π, π]</code> lub <code>[0, 2π)</code>.
-                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zamiast podawać współrzędne X i Y, mogę podać odległość od zera – to moduł |z|, liczony z Pitagorasa – oraz kąt φ, czyli argument. To jak podawanie odległości i azymutu na mapie.”
+                </div>
             </div>
 
-            <!-- SVG: MODUŁ I ARGUMENT Z KĄTEM -->
+            <!-- SVG: MODUŁ I ARGUMENT (oryginalny) -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridGauss)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Moduł i argument – współrzędne biegunowe liczby zespolonej</text>
-
-                <!-- Osie -->
                 <line x1="120" y1="190" x2="550" y2="190" stroke="#bdbdbd" stroke-width="2"/>
                 <line x1="200" y1="210" x2="200" y2="60" stroke="#bdbdbd" stroke-width="2"/>
                 <text x="560" y="194" font-family="sans-serif" font-size="12" fill="#757575">Re</text>
                 <text x="170" y="55" font-family="sans-serif" font-size="12" fill="#757575">Im</text>
-
-                <!-- Wektor -->
                 <line x1="200" y1="190" x2="380" y2="90" stroke="#e65100" stroke-width="4" marker-end="url(#arrowOrange)"/>
-                <!-- Łuk kąta -->
                 <path d="M 260 190 A 60 60 0 0 0 256 140" fill="none" stroke="#2e7d32" stroke-width="3"/>
                 <text x="280" y="180" font-family="sans-serif" font-size="16" font-weight="bold" fill="#2e7d32">φ</text>
-                <!-- Rzuty -->
                 <line x1="380" y1="190" x2="380" y2="90" stroke="#78909c" stroke-width="1.5" stroke-dasharray="4,3"/>
                 <line x1="200" y1="90" x2="380" y2="90" stroke="#78909c" stroke-width="1.5" stroke-dasharray="4,3"/>
                 <text x="300" y="210" font-family="monospace" font-size="13" fill="#1565c0">a</text>
                 <text x="175" y="145" font-family="monospace" font-size="13" fill="#c62828">b</text>
                 <text x="350" y="130" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100">|z|</text>
-
-                <!-- Panel -->
                 <rect x="580" y="60" width="210" height="130" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="685" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Moduł</text>
                 <text x="685" y="108" text-anchor="middle" font-family="monospace" font-size="15" fill="#bf360c">|z| = √(a² + b²)</text>
@@ -162,16 +137,11 @@
                 <text x="685" y="140" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Argument</text>
                 <text x="685" y="163" text-anchor="middle" font-family="monospace" font-size="15" fill="#bf360c">φ = atan2(b, a)</text>
                 <text x="685" y="183" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#bf360c">(uwzględnia ćwiartkę!)</text>
-
-                <defs>
-                    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/>
-                    </marker>
-                </defs>
+                <defs><marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/></marker></defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: POSTAĆ TRYGONOMETRYCZNA I WYKŁADNICZA            -->
+            <!-- PART 3: POSTAĆ TRYGONOMETRYCZNA I WYKŁADNICZA (oryg.) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. Postać trygonometryczna i wykładnicza – „Magiczny wzór Eulera”</strong>
@@ -185,38 +155,29 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Dlaczego to działa?</strong> Wzór Eulera <code>e<sup>iφ</sup> = cos φ + i·sin φ</code> jest jednym z najpiękniejszych równań matematyki. Łączy ze sobą liczby zespolone, trygonometrię i funkcję wykładniczą. Dla φ = π otrzymujemy <strong>tożsamość Eulera</strong>: <code>e<sup>iπ</sup> + 1 = 0</code> – pięć fundamentalnych stałych w jednym równaniu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „To jest najważniejszy slajd. Liczbę zespoloną mogę zapisać na trzy sposoby. Algebraiczny do dodawania. Wykładniczy – i to jest kluczowe – do mnożenia, bo tu moduły się mnoży, a argumenty dodaje. Wzór Eulera to most między tymi postaciami.”
+                </div>
             </div>
 
-            <!-- SVG: OKRĄG JEDNOSTKOWY I EULER -->
+            <!-- SVG: OKRĄG JEDNOSTKOWY I EULER (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Wzór Eulera – liczby zespolone na okręgu jednostkowym</text>
-
-                <!-- Okrąg -->
                 <circle cx="250" cy="160" r="100" fill="none" stroke="#2e7d32" stroke-width="2.5" opacity="0.6"/>
-                <!-- Osie -->
                 <line x1="100" y1="160" x2="400" y2="160" stroke="#bdbdbd" stroke-width="1.5"/>
                 <line x1="250" y1="260" x2="250" y2="60" stroke="#bdbdbd" stroke-width="1.5"/>
                 <text x="410" y="165" font-family="sans-serif" font-size="12" fill="#757575">Re</text>
                 <text x="220" y="55" font-family="sans-serif" font-size="12" fill="#757575">Im</text>
-
-                <!-- Wektor na okręgu (kąt 60°) -->
                 <line x1="250" y1="160" x2="310" y2="73.4" stroke="#ff6f00" stroke-width="4"/>
                 <circle cx="310" cy="73.4" r="6" fill="#ff6f00" stroke="#fff" stroke-width="2"/>
-                <!-- Łuk kąta φ -->
                 <path d="M 290 160 A 40 40 0 0 0 273 113" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
                 <text x="305" y="145" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">φ</text>
-
-                <!-- Rzut na osie (cos i sin) -->
                 <line x1="310" y1="160" x2="310" y2="73.4" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="4,3"/>
                 <line x1="250" y1="73.4" x2="310" y2="73.4" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3"/>
                 <text x="315" y="125" font-family="monospace" font-size="12" fill="#1565c0">sin φ</text>
                 <text x="270" y="68" font-family="monospace" font-size="12" fill="#c62828">cos φ</text>
-
-                <!-- Etykieta punktu -->
                 <text x="320" y="65" font-family="monospace" font-size="13" font-weight="bold" fill="#ff6f00">e<sup>iφ</sup></text>
-
-                <!-- Panel z wzorami -->
                 <rect x="530" y="60" width="260" height="180" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
                 <text x="660" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Wzór Eulera</text>
                 <text x="660" y="112" text-anchor="middle" font-family="monospace" font-size="16" fill="#2e7d32">e<sup>iφ</sup> = cos φ + i·sin φ</text>
@@ -227,16 +188,19 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: DZIAŁANIA – DODAWANIE I MNOŻENIE                -->
+            <!-- PART 4: DZIAŁANIA – DODAWANIE I MNOŻENIE (oryg.)       -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Działania na liczbach zespolonych – „Dodawaj po współrzędnych, mnóż przez rotację”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Złota zasada inżyniera:</strong> Dodawanie i odejmowanie wykonuj w <strong>postaci algebraicznej</strong>, mnożenie i dzielenie – w <strong>postaci wykładniczej</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dodawanie jest proste: (a+bi)+(c+di) = (a+c)+(b+d)i. To reguła równoległoboku. Ale prawdziwa magia to mnożenie w postaci wykładniczej: moduły mnożymy, argumenty dodajemy. To znaczy, że mnożenie przez liczbę zespoloną to jednoczesne skalowanie i obracanie. Mnożenie przez i obraca o 90 stopni.”
+                </div>
             </div>
 
-            <!-- DODAWANIE – RÓWNOLEGŁOBOK -->
+            <!-- DODAWANIE – RÓWNOLEGŁOBOK (oryginalne SVG) -->
             <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 24px;">
                 <div style="flex: 1; min-width: 350px;">
                     <strong style="display: block; margin-bottom: 8px; color: #1565c0;">➕ Dodawanie (równoległobok)</strong>
@@ -245,29 +209,20 @@
                         <code>(a+bi) + (c+di) = (a+c) + (b+d)i</code><br>
                         Geometrycznie to <strong>dodawanie wektorów</strong> – reguła równoległoboku.
                     </p>
-                    <!-- SVG: Dodawanie wektorów -->
                     <svg viewBox="0 0 350 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:8px;">
                         <rect x="0" y="0" width="350" height="220" fill="#fefefe" rx="8"/>
                         <text x="175" y="20" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">Dodawanie: z₁ + z₂</text>
-                        <!-- Osie -->
                         <line x1="40" y1="180" x2="300" y2="180" stroke="#bdbdbd" stroke-width="1"/>
                         <line x1="60" y1="200" x2="60" y2="40" stroke="#bdbdbd" stroke-width="1"/>
-                        <!-- z₁ -->
                         <line x1="60" y1="180" x2="130" y2="100" stroke="#1565c0" stroke-width="2.5" marker-end="url(#arrowAdd1)"/>
                         <text x="100" y="135" font-family="monospace" font-size="12" fill="#1565c0">z₁</text>
-                        <!-- z₂ -->
                         <line x1="60" y1="180" x2="200" y2="140" stroke="#c62828" stroke-width="2.5" marker-end="url(#arrowAdd2)"/>
                         <text x="170" y="155" font-family="monospace" font-size="12" fill="#c62828">z₂</text>
-                        <!-- Wynik (przekątna) -->
                         <line x1="60" y1="180" x2="270" y2="60" stroke="#2e7d32" stroke-width="3" stroke-dasharray="6,3"/>
                         <text x="200" y="110" font-family="monospace" font-size="13" fill="#2e7d32" font-weight="bold">z₁+z₂</text>
-                        <!-- Równoległobok (linie pomocnicze) -->
                         <line x1="130" y1="100" x2="270" y2="60" stroke="#9e9e9e" stroke-width="1" stroke-dasharray="3,2"/>
                         <line x1="200" y1="140" x2="270" y2="60" stroke="#9e9e9e" stroke-width="1" stroke-dasharray="3,2"/>
-                        <defs>
-                            <marker id="arrowAdd1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                            <marker id="arrowAdd2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
-                        </defs>
+                        <defs><marker id="arrowAdd1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker><marker id="arrowAdd2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker></defs>
                     </svg>
                 </div>
                 <div style="flex: 1; min-width: 350px;">
@@ -277,15 +232,12 @@
                         <code>|z₁|e<sup>iφ₁</sup> · |z₂|e<sup>iφ₂</sup> = (|z₁|·|z₂|) e<sup>i(φ₁+φ₂)</sup></code><br>
                         <strong>Mnożymy moduły, dodajemy argumenty.</strong> To jest klucz do zrozumienia obrotów!
                     </p>
-                    <!-- SVG: Mnożenie jako rotacja -->
                     <svg viewBox="0 0 350 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:8px;">
                         <rect x="0" y="0" width="350" height="220" fill="#fefefe" rx="8"/>
                         <text x="175" y="20" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Mnożenie: z₁ · z₂ (rotacja o φ₂)</text>
                         <circle cx="180" cy="110" r="70" fill="none" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="4,3"/>
-                        <!-- Wektor z₁ -->
                         <line x1="180" y1="110" x2="250" y2="60" stroke="#1565c0" stroke-width="2.5"/>
                         <text x="220" y="50" font-family="monospace" font-size="11" fill="#1565c0">z₁</text>
-                        <!-- Wektor z₂ (kąt φ₂) na tym samym punkcie? Lepsza wizualizacja: obrót z₁ o kąt z₂ -->
                         <line x1="180" y1="110" x2="220" y2="40" stroke="#c62828" stroke-width="2.5"/>
                         <text x="230" y="35" font-family="monospace" font-size="11" fill="#c62828">z₁·z₂</text>
                         <path d="M 220 100 A 30 30 0 0 0 210 70" fill="none" stroke="#2e7d32" stroke-width="2"/>
@@ -295,59 +247,48 @@
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: SPRZĘŻENIE ZESPOLONE                            -->
+            <!-- PART 5: SPRZĘŻENIE ZESPOLONE (oryginalny + podpowiedź) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. Sprzężenie zespolone – „Lustrzane odbicie”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Sprzężenie <strong>z̄</strong> (lub z*) zmienia znak tylko części urojonej: <code>z̄ = a − bi</code>. Geometrycznie to <strong>odbicie względem osi rzeczywistej</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Sprzężenie to odbicie punktu względem osi Re – zmieniamy znak tylko przy części urojonej. Służy głównie do dzielenia: mnożąc licznik i mianownik przez sprzężenie mianownika, pozbywamy się i z dołu. Przydatna własność: z razy z̄ daje a²+b², czyli kwadrat modułu.”
+                </div>
             </div>
 
-            <!-- SVG: SPRZĘŻENIE – ODBICIE (ulepszone) -->
+            <!-- SVG: SPRZĘŻENIE (oryginalny) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">Sprzężenie zespolone – odbicie względem osi Re</text>
-
-                <!-- Osie -->
                 <line x1="150" y1="170" x2="550" y2="170" stroke="#bdbdbd" stroke-width="2"/>
                 <line x1="200" y1="190" x2="200" y2="50" stroke="#bdbdbd" stroke-width="2"/>
                 <text x="560" y="174" font-family="sans-serif" font-size="12" fill="#757575">Re</text>
                 <text x="170" y="45" font-family="sans-serif" font-size="12" fill="#757575">Im</text>
-
-                <!-- z -->
                 <line x1="200" y1="170" x2="330" y2="70" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlue3)"/>
                 <circle cx="330" cy="70" r="5" fill="#1565c0"/>
                 <text x="340" y="65" font-family="monospace" font-size="14" font-weight="bold" fill="#1565c0">z = a+bi</text>
-
-                <!-- Linia odbicia (oś Re) -->
                 <line x1="330" y1="70" x2="330" y2="270" stroke="#9e9e9e" stroke-width="1.5" stroke-dasharray="4,4"/>
-
-                <!-- z̄ -->
                 <line x1="200" y1="170" x2="330" y2="270" stroke="#c62828" stroke-width="3" marker-end="url(#arrowRed3)"/>
                 <circle cx="330" cy="270" r="5" fill="#c62828"/>
                 <text x="340" y="280" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828">z̄ = a−bi</text>
-
-                <!-- Panel własności -->
                 <rect x="560" y="60" width="230" height="110" rx="8" fill="#ffebee" stroke="#e53935" stroke-width="1.5"/>
                 <text x="675" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Własności sprzężenia</text>
                 <text x="675" y="108" text-anchor="middle" font-family="monospace" font-size="13" fill="#c62828">z · z̄ = |z|² = a² + b²</text>
                 <text x="675" y="130" text-anchor="middle" font-family="monospace" font-size="13" fill="#c62828">z + z̄ = 2·Re(z)</text>
                 <text x="675" y="152" text-anchor="middle" font-family="monospace" font-size="13" fill="#c62828">z − z̄ = 2i·Im(z)</text>
-
-                <defs>
-                    <marker id="arrowBlue3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                    <marker id="arrowRed3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
-                </defs>
+                <defs><marker id="arrowBlue3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker><marker id="arrowRed3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker></defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 6: POTĘGOWANIE I PIERWIASTKOWANIE (de Moivre)      -->
+            <!-- PART 6: POTĘGOWANIE I PIERWIASTKOWANIE (oryg.)         -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #4527a0;">6. Potęgowanie i pierwiastkowanie – „Wzór de Moivre’a”</strong>
+                <strong style="font-size: 1.2rem; color: #4527a0;">6. Potęgowanie i pierwiastkowanie – „Wzór de Moivre'a”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Z postaci wykładniczej natychmiast wynika <strong>wzór de Moivre’a</strong> na potęgowanie:
+                    Z postaci wykładniczej natychmiast wynika <strong>wzór de Moivre'a</strong> na potęgowanie:
                 </p>
                 <div style="text-align: center; margin: 10px 0;">
                     <code style="background:#ede7f6; padding:6px 16px; border-radius:6px; font-size:1rem;">zⁿ = (|z|·e<sup>iφ</sup>)ⁿ = |z|ⁿ · e<sup>i·nφ</sup></code>
@@ -356,35 +297,26 @@
                     <strong>Pierwiastkowanie</strong> daje <em>n</em> różnych wyników rozłożonych równomiernie na okręgu:
                     <code>√ⁿz = |z|¹/ⁿ · e<sup>i(φ + 2kπ)/n</sup></code>, dla k = 0,1,…,n−1.
                 </p>
-            </div>
-
-            <!-- ======================================================== -->
-            <!-- PART 7: ZASTOSOWANIA INŻYNIERSKIE                        -->
-            <!-- ======================================================== -->
-            <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #00695c;">7. Gdzie to się przydaje? – Liczby zespolone w akcji</strong>
-                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>⚡ Elektrotechnika</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Fazory – napięcia i prądy zmienne jako wektory wirujące. Impedancja Z = R + jX. Mnożenie przez j obraca o 90°.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🔧 Mechanika</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Drgania tłumione – równanie charakterystyczne z pierwiastkami zespolonymi. Część urojona daje częstotliwość drgań.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>📡 Przetwarzanie sygnałów</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Transformata Fouriera – rozkład sygnału na składowe sinusoidalne o zespolonych amplitudach. Cała cyfrowa telekomunikacja.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🎛️ Automatyka</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Pierwiastki równania charakterystycznego – położenie biegunów na płaszczyźnie zespolonej decyduje o stabilności układu.</span>
-                    </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dzięki postaci wykładniczej potęgowanie jest banalne: moduł do potęgi, argument razy n. Pierwiastkowanie daje n wyników rozłożonych równomiernie na okręgu – jak szprychy w kole.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 7: ZASTOSOWANIA INŻYNIERSKIE (oryginalne)         -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">7. Gdzie to się przydaje? – Liczby zespolone w akcji</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>⚡ Elektrotechnika</strong><br><span style="font-size: 0.9rem; color: #004d40;">Fazory – napięcia i prądy zmienne jako wektory wirujące. Impedancja Z = R + jX. Mnożenie przez j obraca o 90°.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🔧 Mechanika</strong><br><span style="font-size: 0.9rem; color: #004d40;">Drgania tłumione – równanie charakterystyczne z pierwiastkami zespolonymi. Część urojona daje częstotliwość drgań.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>📡 Przetwarzanie sygnałów</strong><br><span style="font-size: 0.9rem; color: #004d40;">Transformata Fouriera – rozkład sygnału na składowe sinusoidalne o zespolonych amplitudach.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🎛️ Automatyka</strong><br><span style="font-size: 0.9rem; color: #004d40;">Pierwiastki równania charakterystycznego – położenie biegunów na płaszczyźnie zespolonej decyduje o stabilności układu.</span></div>
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 8: PUŁAPKI EGZAMINACYJNE (oryginalne)              -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -398,55 +330,25 @@
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – liczby zespolone:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzór / Opis</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Interpretacja geometryczna</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzór / Opis</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Interpretacja geometryczna</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #1a237e;">Algebraiczna</td>
-                        <td style="padding: 10px;">z = a + bi</td>
-                        <td style="padding: 10px;">Punkt (a, b) na płaszczyźnie</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Moduł</td>
-                        <td style="padding: 10px;">|z| = √(a² + b²)</td>
-                        <td style="padding: 10px;">Odległość od początku układu</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Argument</td>
-                        <td style="padding: 10px;">φ = atan2(b, a)</td>
-                        <td style="padding: 10px;">Kąt od osi Re</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Wykładnicza</td>
-                        <td style="padding: 10px;">z = |z|·e<sup>iφ</sup></td>
-                        <td style="padding: 10px;">Wektor na okręgu o promieniu |z|</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Sprzężenie</td>
-                        <td style="padding: 10px;">z̄ = a − bi</td>
-                        <td style="padding: 10px;">Odbicie względem osi Re</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #4527a0;">Mnożenie</td>
-                        <td style="padding: 10px;">moduły mnożymy, argumenty dodajemy</td>
-                        <td style="padding: 10px;">Rotacja + skalowanie</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #1a237e;">Algebraiczna</td><td style="padding: 10px;">z = a + bi</td><td style="padding: 10px;">Punkt (a, b) na płaszczyźnie</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #e65100;">Moduł</td><td style="padding: 10px;">|z| = √(a² + b²)</td><td style="padding: 10px;">Odległość od początku układu</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Argument</td><td style="padding: 10px;">φ = atan2(b, a)</td><td style="padding: 10px;">Kąt od osi Re</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Wykładnicza</td><td style="padding: 10px;">z = |z|·e<sup>iφ</sup></td><td style="padding: 10px;">Wektor na okręgu o promieniu |z|</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #c62828;">Sprzężenie</td><td style="padding: 10px;">z̄ = a − bi</td><td style="padding: 10px;">Odbicie względem osi Re</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #4527a0;">Mnożenie</td><td style="padding: 10px;">moduły mnożymy, argumenty dodajemy</td><td style="padding: 10px;">Rotacja + skalowanie</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE (oryginalna)      -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -455,11 +357,13 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ======================================================== -->
+            <!-- ŹRÓDŁA (oryginalne)                                     -->
+            <!-- ======================================================== -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
-                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Analiza matematyczna w zadaniach” (Krysicki, Włodarski) · „Visual Complex Analysis” (Needham) · Wzór Eulera (Feynman) · Notatki własne z elektrotechniki i automatyki.
+                    „Analiza matematyczna w zadaniach” (Krysicki, Włodarski) · Wzór Eulera (Feynmana „najpiękniejszy wzór matematyki”) · Opracowanie inżynierskie własne z uwzględnieniem analizy fazorowej.
                 </span>
             </div>
 
