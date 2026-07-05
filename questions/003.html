@@ -14,7 +14,7 @@
         <h2 id="q-title">003. Układy równań liniowych – reprezentacja, klasyfikacja i metody rozwiązywania.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (oryginalna)                -->
         <!-- ============================================================ -->
         <div style="background: linear-gradient(135deg, #e8f0fe 0%, #d2e0fc 100%); border-left: 6px solid #1a73e8; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(26,115,232,0.12);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
@@ -26,15 +26,15 @@
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #1a3a5c; line-height: 1.8;">
                         <li><strong>🔵 Jedno rozwiązanie</strong> – idealna konfiguracja: wszystkie zamówienia zrealizowane, maszyny pracują w unikalnym harmonogramie.</li>
-                        <li><strong>🟠 Nieskończenie wiele rozwiązań</strong> – mamy nadmiarowe maszyny; możemy zrealizować zamówienia na wiele sposobów (np. część pracy przerzucić między maszynami).</li>
-                        <li><strong>🔴 Brak rozwiązania</strong> – zamówienia są niemożliwe do zrealizowania; maszyny nie mają wystarczającej wydajności, by jednocześnie spełnić wszystkie wymagania.</li>
+                        <li><strong>🟠 Nieskończenie wiele rozwiązań</strong> – mamy nadmiarowe maszyny; możemy zrealizować zamówienia na wiele sposobów.</li>
+                        <li><strong>🔴 Brak rozwiązania</strong> – zamówienia są niemożliwe do zrealizowania; maszyny nie mają wystarczającej wydajności.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS (oryginalne)                                       -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -46,83 +46,65 @@
             <span class="keyword-tag">Wzory Cramera</span>
             <span class="keyword-tag">Eliminacja Gaussa (postać schodkowa)</span>
             <span class="keyword-tag">Podstawianie wsteczne</span>
-            <span class="keyword-tag">Złożoność obliczeniowa O(n³)</span>
             <span class="keyword-tag">Zastosowania: MES, obwody, optymalizacja</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: REPREZENTACJA MACIERZOWA                         -->
+            <!-- PART 1: REPREZENTACJA MACIERZOWA (oryg. + podpowiedź)  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">1. Reprezentacja macierzowa – „Język inżyniera”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zamiast wielokrotnie przepisywać <code>x, y, z</code>, inżynierowie zapisują układ w zwięzłej postaci <strong>A·X = B</strong>:
+                    Zamiast wielokrotnie przepisywać <code>x, y, z</code>, inżynierowie zapisują układ w zwięzłej postaci <strong>A·X = B</strong>, gdzie:
                 </p>
                 <ul style="line-height: 1.8; padding-left: 24px; color: #1a3a5c;">
-                    <li><strong>A</strong> – macierz współczynników (każdy wiersz to jedno równanie, każda kolumna to jedna zmienna).</li>
+                    <li><strong>A</strong> – macierz współczynników (wiersze = równania, kolumny = zmienne).</li>
                     <li><strong>X</strong> – wektor niewiadomych (kolumna).</li>
                     <li><strong>B</strong> – wektor wyrazów wolnych (kolumna wyników).</li>
                 </ul>
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Do analizy układu służy <strong>macierz rozszerzona [A|B]</strong>, która scala współczynniki i wyniki – na niej operujemy w algorytmach numerycznych.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, każdy układ równań liniowych mogę zapisać w zwartej formie macierzowej A razy X równa się B. Macierz A to współczynniki, X to szukane niewiadome, B to wyniki. To jest podstawowy język, którym inżynierowie opisują problemy – od obwodów elektrycznych po analizę konstrukcji.”
+                </div>
             </div>
 
-            <!-- SVG: REPREZENTACJA MACIERZOWA – ROZBUDOWANY -->
+            <!-- SVG: REPREZENTACJA MACIERZOWA (oryginalny) -->
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
-                    <pattern id="gridSys" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                    <marker id="arrowTransform" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#1a73e8"/>
-                    </marker>
+                    <pattern id="gridSys" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
+                    <marker id="arrowTransform" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1a73e8"/></marker>
                 </defs>
                 <rect x="0" y="0" width="820" height="260" fill="url(#gridSys)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Transformacja układu równań do postaci macierzowej A·X = B</text>
-
-                <!-- Układ równań -->
                 <rect x="30" y="50" width="200" height="90" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
                 <text x="130" y="75" font-family="monospace" font-size="16" fill="#2c3e50" text-anchor="middle">2x + 3y = 8</text>
                 <text x="130" y="110" font-family="monospace" font-size="16" fill="#2c3e50" text-anchor="middle">5x − 1y = 2</text>
                 <text x="130" y="130" font-family="sans-serif" font-size="11" fill="#78909c" text-anchor="middle">(postać jawna)</text>
-
-                <!-- Strzałka -->
                 <path d="M 245 95 L 310 95" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrowTransform)" stroke-dasharray="5,3"/>
                 <text x="277" y="85" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1a73e8">macierz</text>
-
-                <!-- Macierz A -->
                 <rect x="325" y="55" width="85" height="80" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="367" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">A</text>
                 <text x="347" y="82" font-family="monospace" font-size="15" fill="#0d47a1">2</text>
                 <text x="387" y="82" font-family="monospace" font-size="15" fill="#0d47a1">3</text>
                 <text x="347" y="115" font-family="monospace" font-size="15" fill="#0d47a1">5</text>
                 <text x="387" y="115" font-family="monospace" font-size="15" fill="#0d47a1">−1</text>
-
-                <!-- Znak × -->
                 <text x="430" y="100" font-family="sans-serif" font-size="20" font-weight="bold" fill="#455a64">·</text>
-
-                <!-- Wektor X -->
                 <rect x="450" y="55" width="45" height="80" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="472" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">X</text>
                 <text x="472" y="82" font-family="monospace" font-size="15" fill="#1b5e20">x</text>
                 <text x="472" y="115" font-family="monospace" font-size="15" fill="#1b5e20">y</text>
-
-                <!-- Znak = -->
                 <text x="515" y="100" font-family="sans-serif" font-size="20" font-weight="bold" fill="#455a64">=</text>
-
-                <!-- Wektor B -->
                 <rect x="535" y="55" width="45" height="80" rx="5" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
                 <text x="557" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">B</text>
                 <text x="557" y="82" font-family="monospace" font-size="15" fill="#c62828">8</text>
                 <text x="557" y="115" font-family="monospace" font-size="15" fill="#c62828">2</text>
-
-                <!-- Macierz rozszerzona -->
                 <line x1="610" y1="40" x2="610" y2="160" stroke="#7b1fa2" stroke-width="2" stroke-dasharray="4,3"/>
                 <rect x="630" y="50" width="170" height="90" rx="5" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
                 <text x="715" y="43" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a">Macierz rozszerzona [A|B]</text>
@@ -133,15 +115,13 @@
                 <text x="650" y="115" font-family="monospace" font-size="15" fill="#4a148c">5</text>
                 <text x="690" y="115" font-family="monospace" font-size="15" fill="#4a148c">−1</text>
                 <text x="730" y="115" font-family="monospace" font-size="15" fill="#c62828" font-weight="bold">2</text>
-
-                <!-- Adnotacje -->
                 <text x="100" y="200" font-family="sans-serif" font-size="12" fill="#546e7a">A = współczynniki (maszyny i produkty)</text>
                 <text x="100" y="220" font-family="sans-serif" font-size="12" fill="#546e7a">X = niewiadome (czas pracy maszyn)</text>
                 <text x="100" y="240" font-family="sans-serif" font-size="12" fill="#546e7a">B = wyniki (zamówienia klientów)</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: TW. KRONECKERA-CAPELLEGO I KLASYFIKACJA          -->
+            <!-- PART 2: TW. KRONECKERA-CAPELLEGO (oryg. + podpowiedź)  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">2. Twierdzenie Kroneckera-Capellego – „Diagnoza fabryki”</strong>
@@ -152,74 +132,66 @@
                     <strong>Tw. Kroneckera-Capellego:</strong> Układ A·X = B ma rozwiązanie ⇔ <code>rz(A) = rz([A|B])</code>.
                 </div>
                 <ul style="line-height: 1.8; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Oznaczony (jedno rozwiązanie):</strong> <code>rz(A) = rz([A|B]) = n</code> (liczba niewiadomych).</li>
-                    <li><strong>Nieoznaczony (∞ rozwiązań):</strong> <code>rz(A) = rz([A|B]) &lt; n</code> – za dużo maszyn, są zależne.</li>
-                    <li><strong>Sprzeczny (0 rozwiązań):</strong> <code>rz(A) ≠ rz([A|B])</code> – zamówienia niemożliwe do realizacji.</li>
+                    <li><strong>Oznaczony (1 rozwiązanie):</strong> <code>rz(A) = rz([A|B]) = n</code> – tyle samo niezależnych równań co niewiadomych.</li>
+                    <li><strong>Nieoznaczony (∞ rozwiązań):</strong> <code>rz(A) = rz([A|B]) &lt; n</code> – mniej równań niż niewiadomych.</li>
+                    <li><strong>Sprzeczny (0 rozwiązań):</strong> <code>rz(A) ≠ rz([A|B])</code> – równania są ze sobą sprzeczne.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zanim zaczniemy rozwiązywać układ, musimy wiedzieć, czy w ogóle ma on rozwiązanie. Służy do tego twierdzenie Kroneckera-Capellego. Porównujemy rząd macierzy głównej z rzędem macierzy rozszerzonej. Jeśli są równe – układ ma rozwiązanie. Jeśli dodatkowo rząd jest równy liczbie niewiadomych – rozwiązanie jest dokładnie jedno. Jeśli rząd jest mniejszy – rozwiązań jest nieskończenie wiele. Jeśli rzędy są różne – układ jest sprzeczny.”
+                </div>
             </div>
 
-            <!-- SVG: KLASYFIKACJA GEOMETRYCZNA 2D I 3D -->
+            <!-- SVG: KLASYFIKACJA GEOMETRYCZNA (oryginalny) -->
             <svg viewBox="0 0 820 310" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="310" fill="url(#gridSys)" opacity="0.3"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Interpretacja geometryczna układów (2D i 3D)</text>
-
-                <!-- 2D: Oznaczony -->
                 <rect x="25" y="45" width="240" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="145" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Oznaczony (1 rozwiązanie)</text>
                 <line x1="55" y1="145" x2="235" y2="85" stroke="#1565c0" stroke-width="2.5"/>
                 <line x1="55" y1="85" x2="235" y2="145" stroke="#c62828" stroke-width="2.5"/>
                 <circle cx="145" cy="115" r="5" fill="#ff6f00"/>
                 <text x="145" y="160" font-family="sans-serif" font-size="10" fill="#1b5e20">Przecinają się w punkcie</text>
-
-                <!-- 2D: Nieoznaczony -->
                 <rect x="290" y="45" width="240" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="410" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Nieoznaczony (∞ rozwiązań)</text>
                 <line x1="320" y1="115" x2="500" y2="115" stroke="#1565c0" stroke-width="2.5"/>
                 <line x1="320" y1="115" x2="500" y2="115" stroke="#c62828" stroke-width="2.5" stroke-dasharray="4,3" opacity="0.8"/>
                 <text x="410" y="160" font-family="sans-serif" font-size="10" fill="#e65100">Proste pokrywają się</text>
-
-                <!-- 2D: Sprzeczny -->
                 <rect x="555" y="45" width="240" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="675" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Sprzeczny (0 rozwiązań)</text>
                 <line x1="575" y1="135" x2="765" y2="95" stroke="#1565c0" stroke-width="2.5"/>
                 <line x1="585" y1="145" x2="775" y2="105" stroke="#c62828" stroke-width="2.5"/>
                 <text x="675" y="160" font-family="sans-serif" font-size="10" fill="#b71c1c">Proste są równoległe</text>
-
-                <!-- 3D: Przestrzenne interpretacje (symboliczne) -->
                 <line x1="40" y1="190" x2="780" y2="190" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="3,3"/>
                 <text x="410" y="210" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#546e7a">W 3D: płaszczyzny zamiast prostych – punkt przecięcia / wspólna prosta / brak punktu wspólnego</text>
-
-                <!-- Symboliczna kostka 3D z płaszczyznami -->
                 <rect x="150" y="230" width="120" height="60" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1" opacity="0.6"/>
                 <rect x="180" y="215" width="120" height="60" rx="4" fill="#fce4ec" stroke="#c62828" stroke-width="1" opacity="0.6"/>
                 <rect x="210" y="245" width="120" height="60" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1" opacity="0.6"/>
                 <text x="350" y="275" font-family="sans-serif" font-size="11" fill="#546e7a">Trzy płaszczyzny → punkt</text>
-
                 <rect x="500" y="230" width="120" height="60" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1" opacity="0.6"/>
                 <rect x="530" y="215" width="120" height="60" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1" opacity="0.6"/>
                 <text x="560" y="275" font-family="sans-serif" font-size="11" fill="#546e7a">Dwie identyczne → prosta</text>
-
                 <rect x="680" y="230" width="120" height="60" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1" opacity="0.6"/>
                 <rect x="700" y="215" width="120" height="60" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1" opacity="0.6"/>
                 <text x="740" y="275" font-family="sans-serif" font-size="11" fill="#546e7a">Równoległe → sprzeczność</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: METODA CRAMERA                                  -->
+            <!-- PART 3: METODA CRAMERA (oryg. + podpowiedź)            -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Wzory Cramera – „Elegancja wyznaczników”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Działa tylko dla <strong>macierzy kwadratowych</strong> (liczba równań = liczba niewiadomych) i gdy <strong>det A ≠ 0</strong> (układ oznaczony). Dla każdej zmiennej budujemy wyznacznik, w którym kolumnę współczynników tej zmiennej <strong>zastępujemy wektorem B</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Metoda Cramera jest elegancka, ale ma ograniczenia – działa tylko dla układów kwadratowych, gdzie wyznacznik macierzy głównej jest różny od zera. Dla każdej zmiennej tworzymy wyznacznik, zamieniając odpowiednią kolumnę na wektor wyników. Potem dzielimy ten wyznacznik przez wyznacznik główny. Proszę spojrzeć na schemat – dla x wstawiamy wektor B w miejsce pierwszej kolumny, dla y – w miejsce drugiej.”
+                </div>
             </div>
 
-            <!-- SVG: CRAMER – KROKI -->
+            <!-- SVG: CRAMER (oryginalny) -->
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="260" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Metoda Cramera – podmiana kolumny na wektor B</text>
-
-                <!-- Wyznacznik W -->
                 <rect x="40" y="50" width="130" height="110" rx="5" fill="#fff" stroke="#1565c0" stroke-width="2"/>
                 <text x="105" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">W (wyznacznik A)</text>
                 <line x1="60" y1="70" x2="60" y2="145" stroke="#1565c0" stroke-width="2"/>
@@ -229,12 +201,8 @@
                 <text x="85" y="130" font-family="monospace" font-size="15" fill="#0d47a1">5</text>
                 <text x="125" y="130" font-family="monospace" font-size="15" fill="#0d47a1">−1</text>
                 <text x="105" y="175" font-family="sans-serif" font-size="11" fill="#1565c0">det = 2·(−1) − 3·5</text>
-
-                <!-- Strzałka -->
                 <path d="M 185 105 L 235 105" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrowTransform)"/>
                 <text x="210" y="95" font-family="sans-serif" font-size="10" fill="#1a73e8">zamień</text>
-
-                <!-- Wx -->
                 <rect x="250" y="50" width="130" height="110" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="315" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32">W<sub>x</sub></text>
                 <line x1="270" y1="70" x2="270" y2="145" stroke="#2e7d32" stroke-width="2"/>
@@ -245,8 +213,6 @@
                 <text x="290" y="133" font-family="monospace" font-size="15" fill="#c62828" font-weight="bold">2</text>
                 <text x="335" y="133" font-family="monospace" font-size="15" fill="#0d47a1">−1</text>
                 <text x="315" y="175" font-family="sans-serif" font-size="12" fill="#2e7d32">x = W<sub>x</sub> / W</text>
-
-                <!-- Wy -->
                 <rect x="460" y="50" width="130" height="110" rx="5" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
                 <text x="525" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ef6c00">W<sub>y</sub></text>
                 <line x1="480" y1="70" x2="480" y2="145" stroke="#ef6c00" stroke-width="2"/>
@@ -257,8 +223,6 @@
                 <text x="500" y="133" font-family="monospace" font-size="15" fill="#0d47a1">5</text>
                 <text x="530" y="133" font-family="monospace" font-size="15" fill="#c62828" font-weight="bold">2</text>
                 <text x="525" y="175" font-family="sans-serif" font-size="12" fill="#ef6c00">y = W<sub>y</sub> / W</text>
-
-                <!-- Komentarz -->
                 <text x="640" y="100" font-family="sans-serif" font-size="12" fill="#546e7a">Kolumna zmiennej</text>
                 <text x="640" y="120" font-family="sans-serif" font-size="12" fill="#546e7a">zastąpiona przez</text>
                 <text x="640" y="140" font-family="sans-serif" font-size="12" fill="#546e7a">wektor B (8, 2).</text>
@@ -267,29 +231,22 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: ELIMINACJA GAUSSA                               -->
+            <!-- PART 4: ELIMINACJA GAUSSA (oryg. + podpowiedź)         -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">4. Eliminacja Gaussa – „Uniwersalny algorytm”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Złoty standard w numeryce – działa dla <strong>dowolnej macierzy</strong> (nawet prostokątnej!). Polega na przekształcaniu macierzy rozszerzonej do <strong>postaci schodkowej</strong> za pomocą operacji elementarnych na wierszach:
+                    Złoty standard w numeryce – działa dla <strong>dowolnej macierzy</strong> (nawet prostokątnej!). Polega na przekształcaniu macierzy rozszerzonej do <strong>postaci schodkowej</strong> za pomocą operacji elementarnych na wierszach: zamiana wierszy, mnożenie wiersza przez stałą ≠ 0, dodanie do wiersza wielokrotności innego wiersza. Gdy już uzyskamy same zera pod przekątną, rozwiązujemy układ <strong>od dołu do góry</strong> (podstawianie wsteczne).
                 </p>
-                <ol style="line-height: 1.8; padding-left: 24px; color: #1b5e20;">
-                    <li>Zamiana wierszy miejscami.</li>
-                    <li>Mnożenie wiersza przez stałą ≠ 0.</li>
-                    <li>Dodanie do wiersza wielokrotności innego wiersza.</li>
-                </ol>
-                <p style="line-height: 1.7; color: #2c3e50;">
-                    Gdy już uzyskamy same zera pod przekątną, rozwiązujemy układ <strong>od dołu do góry</strong> (podstawianie wsteczne).
-                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Eliminacja Gaussa to uniwersalna metoda, która działa dla każdego układu. Sprowadzamy macierz do postaci schodkowej – tak, żeby pod główną przekątną były same zera. Robimy to za pomocą trzech dozwolonych operacji na wierszach. Potem wystarczy odczytać rozwiązanie od dołu – to się nazywa podstawianie wsteczne. To jest algorytm, którego używają komputery do rozwiązywania ogromnych układów, na przykład w metodzie elementów skończonych.”
+                </div>
             </div>
 
-            <!-- SVG: ELIMINACJA GAUSSA KROK PO KROKU -->
+            <!-- SVG: ELIMINACJA GAUSSA (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Eliminacja Gaussa – droga do postaci schodkowej</text>
-
-                <!-- Macierz początkowa [A|B] -->
                 <rect x="30" y="50" width="180" height="90" rx="5" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="120" y="45" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">Macierz [A|B] przed</text>
                 <text x="50" y="78" font-family="monospace" font-size="14" fill="#2c3e50">2</text>
@@ -299,12 +256,8 @@
                 <text x="50" y="118" font-family="monospace" font-size="14" fill="#2c3e50">5</text>
                 <text x="100" y="118" font-family="monospace" font-size="14" fill="#2c3e50">−1</text>
                 <text x="145" y="118" font-family="monospace" font-size="14" fill="#c62828" font-weight="bold">2</text>
-
-                <!-- Strzałka -->
                 <path d="M 225 95 L 275 95" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGreen2)"/>
                 <text x="250" y="85" font-family="sans-serif" font-size="10" fill="#2e7d32">krok 1</text>
-
-                <!-- Po pierwszym kroku -->
                 <rect x="290" y="50" width="210" height="90" rx="5" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="395" y="45" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Po eliminacji w 1. kolumnie</text>
                 <text x="310" y="78" font-family="monospace" font-size="14" fill="#2c3e50">2</text>
@@ -315,12 +268,8 @@
                 <text x="360" y="118" font-family="monospace" font-size="14" fill="#2c3e50">−8.5</text>
                 <text x="405" y="118" font-family="monospace" font-size="14" fill="#c62828" font-weight="bold">−18</text>
                 <text x="395" y="160" font-family="sans-serif" font-size="10" fill="#e65100">(W₂ ← W₂ − 2.5·W₁)</text>
-
-                <!-- Strzałka -->
                 <path d="M 515 95 L 565 95" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGreen2)"/>
                 <text x="540" y="85" font-family="sans-serif" font-size="10" fill="#2e7d32">krok 2</text>
-
-                <!-- Postać schodkowa -->
                 <rect x="580" y="50" width="210" height="90" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="685" y="45" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Postać schodkowa</text>
                 <text x="600" y="78" font-family="monospace" font-size="14" fill="#2c3e50">2</text>
@@ -331,46 +280,30 @@
                 <text x="650" y="118" font-family="monospace" font-size="14" fill="#2c3e50">1</text>
                 <text x="695" y="118" font-family="monospace" font-size="14" fill="#c62828" font-weight="bold">2.117</text>
                 <text x="685" y="160" font-family="sans-serif" font-size="10" fill="#1b5e20">(W₂ ← W₂ / −8.5)</text>
-
-                <!-- Podstawianie wsteczne -->
                 <rect x="180" y="205" width="460" height="50" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
                 <text x="410" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Podstawianie wsteczne:</text>
                 <text x="410" y="245" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">y ≈ 2.117  →  2x + 3·2.117 = 8  →  x ≈ 0.825</text>
-
-                <defs>
-                    <marker id="arrowGreen2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/>
-                    </marker>
-                </defs>
+                <defs><marker id="arrowGreen2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/></marker></defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 5: ZASTOSOWANIA INŻYNIERSKIE                        -->
+            <!-- PART 5: ZASTOSOWANIA (oryginalne)                       -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">5. Gdzie to się przydaje? – Układy równań w akcji</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🔌 Obwody elektryczne</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Metoda prądów oczkowych / węzłowych → wielki układ równań liniowych. Rozwiązanie daje rozpływ prądów.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🏗️ Metoda Elementów Skończonych</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">K·u = F – macierz sztywności × przemieszczenia = siły. Układy z milionami niewiadomych.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>📊 Regresja liniowa</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Układ normalny (XᵀX)·β = Xᵀy. Gaussa używa się do znajdowania parametrów modelu.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🤖 Robotyka</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Kinematyka odwrotna – układ nieliniowy często linearyzowany i rozwiązywany iteracyjnie.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🔌 Obwody elektryczne</strong><br><span style="font-size: 0.9rem; color: #004d40;">Metoda prądów oczkowych / węzłowych → wielki układ równań liniowych.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🏗️ Metoda Elementów Skończonych</strong><br><span style="font-size: 0.9rem; color: #004d40;">K·u = F – macierz sztywności × przemieszczenia = siły. Układy z milionami niewiadomych.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>📊 Regresja liniowa</strong><br><span style="font-size: 0.9rem; color: #004d40;">Układ normalny (XᵀX)·β = Xᵀy. Gaussa używa się do znajdowania parametrów modelu.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🤖 Robotyka</strong><br><span style="font-size: 0.9rem; color: #004d40;">Kinematyka odwrotna – układ nieliniowy często linearyzowany i rozwiązywany iteracyjnie.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Układy równań liniowych są wszędzie w inżynierii – od analizy obwodów elektrycznych, przez metodę elementów skończonych w mechanice, po regresję liniową w statystyce. Za każdym razem sprowadza się to do rozwiązania układu A razy X równa się B.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI I DYLEMATY                               -->
+            <!-- PART 6: PUŁAPKI (oryginalne + podpowiedź)               -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -378,49 +311,30 @@
                     <li><strong>Wyznacznik zerowy</strong> nie oznacza od razu braku rozwiązań – może być ich nieskończenie wiele. Sprawdź rząd!</li>
                     <li><strong>Cramer tylko dla macierzy kwadratowych i det ≠ 0</strong> – w praktyce numerycznej jest nieefektywny (koszt O(n!)).</li>
                     <li><strong>Eliminacja Gaussa bez wyboru elementu głównego</strong> może prowadzić do katastrofy numerycznej (dzielenie przez bliskie zera).</li>
-                    <li><strong>Macierz źle uwarunkowana</strong> – mała zmiana B powoduje ogromną zmianę X. Wskaźnik – duży wskaźnik uwarunkowania.</li>
-                    <li><strong>Interpretacja wierszowa vs kolumnowa</strong> – A·X to kombinacja liniowa kolumn A, równa B.</li>
                 </ul>
-            </div>
-
-            <!-- ======================================================== -->
-            <!-- PART 7: CHEAT SHEET                                     -->
-            <!-- ======================================================== -->
-            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
-                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – układy równań:</strong>
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kryterium</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Liczba rozwiązań</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Oznaczony</td>
-                        <td style="padding: 10px;">rz(A) = rz([A|B]) = n</td>
-                        <td style="padding: 10px;">Dokładnie jedno</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #ef6c00;">Nieoznaczony</td>
-                        <td style="padding: 10px;">rz(A) = rz([A|B]) &lt; n</td>
-                        <td style="padding: 10px;">Nieskończenie wiele</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Sprzeczny</td>
-                        <td style="padding: 10px;">rz(A) ≠ rz([A|B])</td>
-                        <td style="padding: 10px;">Brak (0)</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div style="margin-top: 15px; font-size: 0.9rem; color: #37474f;">
-                    <strong>Metody:</strong> Cramer (małe, kwadratowe, det≠0) · Eliminacja Gaussa (uniwersalna, numerycznie stabilna z pivotowaniem) · Odwracanie macierzy X = A⁻¹B (tylko gdy A⁻¹ istnieje i jest dobrze uwarunkowana).
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć (jeśli komisja zapyta o pułapki):</strong> „Najczęstsza pułapka to założenie, że zerowy wyznacznik oznacza brak rozwiązań – tymczasem może być ich nieskończenie wiele. Druga pułapka to stosowanie wzorów Cramera do dużych układów – złożoność obliczeniowa jest rzędu n silnia, co dla n=20 jest już niemożliwe do policzenia. Dlatego w praktyce używamy eliminacji Gaussa.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- CHEAT SHEET (oryginalny)                                -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – układy równań:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kryterium</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Liczba rozwiązań</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Oznaczony</td><td style="padding: 10px;">rz(A) = rz([A|B]) = n</td><td style="padding: 10px;">Dokładnie jedno</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #ef6c00;">Nieoznaczony</td><td style="padding: 10px;">rz(A) = rz([A|B]) &lt; n</td><td style="padding: 10px;">Nieskończenie wiele</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #c62828;">Sprzeczny</td><td style="padding: 10px;">rz(A) ≠ rz([A|B])</td><td style="padding: 10px;">Brak (0)</td></tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #37474f;"><strong>Metody:</strong> Cramer (małe, kwadratowe, det≠0) · Eliminacja Gaussa (uniwersalna, numerycznie stabilna z pivotowaniem).</div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -429,7 +343,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
