@@ -125,37 +125,59 @@ function playNextChunk() {
 function toggleSpeech() {
     const synth = window.speechSynthesis;
 
-    // 1. Jeśli CZYTA -> PAUZA
     if (isSpeakingState && !isPausedState) {
         isPausedState = true;
-        synth.cancel(); // Twarde przerwanie na mobile zapobiega bugom pamięciowym
+        synth.cancel();
         updateAudioUI('▶️ Wznów', 'inline-block');
         return;
     }
 
-    // 2. Jeśli jest ZAPAUZOWANY -> WZNÓW
     if (isSpeakingState && isPausedState) {
         isPausedState = false;
         updateAudioUI('⏸️ Pauza', 'inline-block');
-        playNextChunk(); // Puszcza ponownie to samo zdanie, na którym skończyliśmy
+        playNextChunk();
         return;
     }
 
-    // 3. Jeśli NIC NIE CZYTA -> ZBUDUJ KOLEJKĘ I START
+    // Łapiemy wszystkie 3 sekcje!
     const titleElement = document.getElementById('q-title');
+    const ahaElement = document.querySelector('.aha-box');
     const contentElement = document.getElementById('q-content');
+
     if (!titleElement || !contentElement) return;
 
-    synth.cancel(); // Czyścimy pamięć
+    synth.cancel();
 
-    // Pobieramy surowy tekst z HTML i sprzątamy zbedne spacje
-    const rawText = titleElement.innerText + ". " + contentElement.innerText;
+    // Tworzymy tymczasowy worek na tekst, żeby go "posprzątać" przed czytaniem
+    const tempDiv = document.createElement('div');
+    tempDiv.appendChild(titleElement.cloneNode(true));
+    if (ahaElement) tempDiv.appendChild(ahaElement.cloneNode(true));
+    tempDiv.appendChild(contentElement.cloneNode(true));
+
+    // 1. ZABIJAMY WSZYSTKIE GRAFIKI SVG (Lektor ma ich nie czytać!)
+    const svgs = tempDiv.querySelectorAll('svg');
+    svgs.forEach(svg => svg.remove());
+
+    // Pobieramy surowy tekst
+    let rawText = tempDiv.innerText;
+
+    // 2. CZYSZCZENIE EMOJI I ZNAKÓW MATEMATYCZNYCH (aby lektor się nie dławił)
+    // Usuwa większość emotikon
+    rawText = rawText.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
+
+    // Zamienia trudne znaki na wymawialne słowa
+    rawText = rawText.replace(/×/g, ' razy ');
+    rawText = rawText.replace(/−/g, ' odjąć ');
+    rawText = rawText.replace(/≠/g, ' nie równa się ');
+    rawText = rawText.replace(/=/g, ' równa się ');
+    rawText = rawText.replace(/Aᵀ/g, ' A transponowane ');
+    rawText = rawText.replace(/A⁻¹/g, ' A odwrotne ');
+
+    // Sprzątamy podwójne spacje
     const cleanText = rawText.replace(/\s+/g, ' ');
 
-    // Magia Regex: Dzielimy tekst na tablicę zdań (rozbijamy po kropkach, znakach zapytania i wykrzyknikach)
+    // Rozbijamy na zdania
     speechChunks = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
-
-    // Sprzątamy puste kawałki
     speechChunks = speechChunks.map(s => s.trim()).filter(s => s.length > 2);
 
     currentChunkIndex = 0;
@@ -163,7 +185,7 @@ function toggleSpeech() {
     isPausedState = false;
 
     updateAudioUI('⏸️ Pauza', 'inline-block');
-    playNextChunk(); // Odpalamy pierwszy kawałek
+    playNextChunk();
 }
 
 // --- 3. ZAPISYWANIE OCENY I POWRÓT ---
@@ -306,9 +328,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // A) Podstrony: Active Recall (Dwuetapowy) i Panel Ocen
     const questionContent = document.getElementById('q-content');
     const container = document.querySelector('.container');
-
-    // ZMIANA: Szukamy słów kluczowych globalnie na całej stronie
     const keywordsBox = document.querySelector('.keywords-box');
+    const ahaBox = document.querySelector('.aha-box'); // DODANE: Szukamy nowej klasy aha-box
 
     if (questionContent && container) {
 
@@ -328,47 +349,48 @@ window.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        // Wstawiamy Top Bar na samą górę kontenera
         container.insertBefore(topBar, container.firstChild);
 
-        // 1. Tworzenie kontenerów i przycisków
-        // Wrapper dla TEKSTU GŁÓWNEGO
-        const textWrapper = document.createElement('div');
-        textWrapper.className = 'content-blur-wrapper';
-        const textBtnContainer = document.createElement('div');
-        textBtnContainer.className = 'reveal-btn-container';
-        const textRevealBtn = document.createElement('button');
-        textRevealBtn.className = 'btn-reveal';
-        textRevealBtn.innerHTML = '👁️ Pokaż odpowiedź';
+        // 1. UNIWERSALNA FUNKCJA: Ukrywa sekcję i daje przycisk NA GÓRZE
+        function setupReveal(element, btnText) {
+            if (!element) return null;
 
-        // Wrapper dla SŁÓW KLUCZOWYCH
-        let kwWrapper, kwBtnContainer, kwRevealBtn;
-        if (keywordsBox) {
-            kwWrapper = document.createElement('div');
-            kwWrapper.className = 'content-blur-wrapper kw-wrapper';
-            kwBtnContainer = document.createElement('div');
-            kwBtnContainer.className = 'reveal-btn-container';
-            kwRevealBtn = document.createElement('button');
-            kwRevealBtn.className = 'btn-reveal btn-reveal-kw';
-            kwRevealBtn.innerHTML = '💡 Podpowiedź (Słowa kluczowe)';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'content-blur-wrapper';
+
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'reveal-btn-container';
+            btnContainer.style.marginBottom = '15px'; // Margines, by przycisk nie dotykał tekstu
+
+            const revealBtn = document.createElement('button');
+            revealBtn.className = 'btn-reveal';
+            revealBtn.innerHTML = btnText;
+
+            btnContainer.appendChild(revealBtn);
+
+            element.parentNode.insertBefore(wrapper, element);
+            element.classList.add('content-blurred');
+
+            // MAGICZNA ZMIANA: Dodajemy przycisk jako PIERWSZY, a treść jako DRUGĄ.
+            // Przycisk ląduje zawsze u góry sekcji!
+            wrapper.appendChild(btnContainer);
+            wrapper.appendChild(element);
+
+            revealBtn.onclick = () => {
+                element.classList.remove('content-blurred');
+                element.classList.add('content-revealed');
+                btnContainer.style.display = 'none';
+            };
+
+            return revealBtn;
         }
 
-        // 2. Pakowanie elementów w mgłę (w miejscach, gdzie aktualnie stoją w HTML)
-        if (keywordsBox) {
-            keywordsBox.parentNode.insertBefore(kwWrapper, keywordsBox);
-            keywordsBox.classList.add('content-blurred');
-            kwWrapper.appendChild(keywordsBox);
-            kwBtnContainer.appendChild(kwRevealBtn);
-            kwWrapper.appendChild(kwBtnContainer);
-        }
+        // 2. Aplikowanie mechanizmu do wszystkich 3 sekcji
+        const ahaBtn = setupReveal(ahaBox, '💡 Pokaż: Aha! Moment');
+        const kwBtn = setupReveal(keywordsBox, '🏷️ Pokaż: Słowa kluczowe (Active Recall)');
+        const contentBtn = setupReveal(questionContent, '👁️ Pokaż pełne opracowanie');
 
-        questionContent.parentNode.insertBefore(textWrapper, questionContent);
-        questionContent.classList.add('content-blurred');
-        textWrapper.appendChild(questionContent);
-        textBtnContainer.appendChild(textRevealBtn);
-        textWrapper.appendChild(textBtnContainer);
-
-        // 3. Generowanie ukrytego panelu ocen (Zawsze pod głównym tekstem)
+        // 3. Generowanie ukrytego panelu ocen
         const assessmentPanel = document.createElement('div');
         assessmentPanel.className = 'assessment-panel-minimal';
         assessmentPanel.style.display = 'none';
@@ -380,37 +402,31 @@ window.addEventListener('DOMContentLoaded', () => {
                 <button class="btn-stat minimal-green" onclick="saveAndReturn('green')">🟢 Umiem</button>
             </div>
         `;
-        textWrapper.parentNode.insertBefore(assessmentPanel, textWrapper.nextSibling);
 
-        // 4. Logika odkrywania (Kliknięcia)
-        if (keywordsBox) {
-            kwRevealBtn.onclick = () => {
-                keywordsBox.classList.remove('content-blurred');
-                keywordsBox.classList.add('content-revealed');
-                kwBtnContainer.style.display = 'none';
+        // Wstawiamy panel ocen na sam dół (poza zamazanym contentem)
+        const contentWrapper = questionContent ? questionContent.parentNode : null;
+        if (contentWrapper) {
+            contentWrapper.parentNode.insertBefore(assessmentPanel, contentWrapper.nextSibling);
+        }
+
+        // 4. Logika kaskadowego odkrywania (Kliknięcie głównej odpowiedzi odkrywa panel ocen i ew. resztę ukrytych sekcji)
+        if (contentBtn) {
+            const originalClick = contentBtn.onclick;
+            contentBtn.onclick = () => {
+                originalClick();
+                if (kwBtn && kwBtn.parentNode.style.display !== 'none') kwBtn.click();
+                if (ahaBtn && ahaBtn.parentNode.style.display !== 'none') ahaBtn.click();
+
+                assessmentPanel.style.display = 'flex';
+                assessmentPanel.style.animation = 'fadeInUp 0.4s ease';
             };
         }
 
-        textRevealBtn.onclick = () => {
-            questionContent.classList.remove('content-blurred');
-            questionContent.classList.add('content-revealed');
-            textBtnContainer.style.display = 'none';
-
-            // Jeśli pokazujesz całą odpowiedź, automatycznie pokaż też słowa kluczowe
-            if (keywordsBox && kwBtnContainer.style.display !== 'none') {
-                kwRevealBtn.click();
-            }
-
-            // Pokaż panel oceny
-            assessmentPanel.style.display = 'flex';
-            assessmentPanel.style.animation = 'fadeInUp 0.4s ease';
-        };
-
-        // Integracja z Lektorem Audio (Odkrywa wszystko, by czytać na głos)
+        // Integracja z Lektorem Audio
         const audioBtn = document.getElementById('audioBtn');
         if(audioBtn) {
             audioBtn.addEventListener('click', () => {
-                if(textBtnContainer.style.display !== 'none') textRevealBtn.click();
+                if(contentBtn && contentBtn.parentNode.style.display !== 'none') contentBtn.click();
             });
         }
 
