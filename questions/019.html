@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔑</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Przekazywanie parametrów to „Wydawanie kluczy do sejfu”:</strong>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Przekazywanie parametrów to „Wydawanie kluczy do sejfu":</strong>
                     <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
                         Wyobraź sobie, że funkcja to specjalista, który ma wykonać zadanie na pewnych danych. Ty jesteś właścicielem sejfu z tymi danymi. <strong>Przekazanie przez wartość</strong> to skopiowanie zawartości sejfu do zupełnie nowego sejfu i oddanie go specjaliście – może z nim robić, co chce, a Twój oryginał pozostaje nietknięty. <strong>Przekazanie przez referencję / wskaźnik</strong> to wręczenie specjaliście klucza do Twojego sejfu – pracuje bezpośrednio na Twoich danych; każda zmiana zostaje na stałe. W Pythonie każdy dostaje klucz do sejfu, ale niektóre sejfy (niemutowalne, np. liczby) są zamknięte na kłódkę – nie da się ich zmodyfikować, można tylko wstawić nowy sejf.
                     </p>
@@ -61,7 +61,7 @@
             <!-- PART 1: PRZEZ WARTOŚĆ                                    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #4a148c;">1. Przekazywanie przez wartość – „Kserokopia dokumentu”</strong>
+                <strong style="font-size: 1.2rem; color: #4a148c;">1. Przekazywanie przez wartość – „Kserokopia dokumentu"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W tej metodzie <strong>parametr formalny otrzymuje kopię wartości parametru aktualnego</strong>. Wszelkie modyfikacje dokonywane wewnątrz funkcji dotyczą wyłącznie tej kopii – oryginalna zmienna na zewnątrz pozostaje nienaruszona. Mechanizm ten jest domyślny w C, Javie (dla typów prymitywnych) oraz Pythonie (ale tam kopia jest referencją, co komplikuje sprawę).
                 </p>
@@ -74,6 +74,9 @@
                         <strong style="color:#4a148c;">Wady:</strong><br>
                         <span style="font-size:0.85rem;">❌ Koszt kopiowania – duże struktury = dużo czasu i pamięci.<br>❌ Nie można zmodyfikować oryginału, gdyby była taka potrzeba.</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zaczynamy od przekazywania przez wartość – to najprostszy mechanizm, domyślny w C i dla typów prymitywnych w Javie. Funkcja dostaje kopię danych, więc oryginał jest w pełni bezpieczny. To jak wydrukowanie komuś kopii dokumentu – może po niej rysować, ale oryginał zostaje nietknięty. Minusem jest wydajność – kopiowanie dużych struktur, takich jak wielkie tablice czy obiekty, jest kosztowne czasowo i pamięciowo. Dlatego w C i C++ dla dużych danych często rezygnujemy z tego mechanizmu."
                 </div>
             </div>
 
@@ -131,12 +134,15 @@
             <!-- PART 2: PRZEZ WSKAŹNIK (C) ORAZ PRZEZ REFERENCJĘ (C++) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Wskaźniki (C) i referencje (C++) – „Adres czy alias?”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Wskaźniki (C) i referencje (C++) – „Adres czy alias?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W <strong>C</strong> nie ma referencji – przekazywanie adresu symuluje się za pomocą <strong>wskaźników</strong>. Funkcja otrzymuje kopię adresu, ale może użyć operatora <code>*</code> do modyfikacji oryginału. W <strong>C++</strong> wprowadzono <strong>referencje (<code>&</code>)</strong>, które są aliasem do istniejącej zmiennej – nie ma potrzeby używania <code>*</code> przy dostępie, a składnia jest bardziej elegancka. Referencja nie może być pusta (null), co zwiększa bezpieczeństwo. C++ oferuje też <strong>referencje do stałej (<code>const T&</code>)</strong> – przekazujesz duży obiekt bez kopiowania, ale chronisz go przed modyfikacją.
                 </p>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Złota zasada C++:</strong> Dla wejścia (<em>in</em>) – <code>const T&amp;</code>; dla wyjścia/wyjścia-wejścia (<em>out/in-out</em>) – <code>T&amp;</code>; dla przenoszenia – <code>T&amp;&amp;</code>.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W języku C nie mamy referencji – musimy symulować przekazywanie przez referencję za pomocą wskaźników. Przekazujemy adres zmiennej, a wewnątrz funkcji używamy operatora wyłuskania gwiazdka, żeby dostać się do oryginału. C plus plus wprowadza referencje, które są aliasem do zmiennej – raz zainicjalizowana referencja zawsze odnosi się do tego samego obiektu, nie może być pusta, co eliminuje błędy z nullem. Kluczową rolę odgrywa const referencja – przekazujemy duży obiekt bez kopiowania, ale z gwarancją, że funkcja go nie zmodyfikuje. W C plus plus mamy też semantykę przenoszenia z podwójnym ampersandem, która pozwala przekazywać zasoby bez kosztownego kopiowania."
                 </div>
             </div>
 
@@ -146,8 +152,11 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. Python – przekazywanie przez referencję do obiektu</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Python używa mechanizmu zwanego <strong>„pass-by-object-reference”</strong>. Funkcja otrzymuje referencję do tego samego obiektu, który został przekazany jako argument. Jeśli obiekt jest <strong>mutowalny</strong> (lista, słownik, własna klasa), funkcja może go trwale zmodyfikować. Jeśli obiekt jest <strong>niemutowalny</strong> (int, str, tuple), przypisanie nowej wartości wewnątrz funkcji tworzy nowy obiekt i nie wpływa na zewnętrzną zmienną.
+                    Python używa mechanizmu zwanego <strong>„pass-by-object-reference"</strong>. Funkcja otrzymuje referencję do tego samego obiektu, który został przekazany jako argument. Jeśli obiekt jest <strong>mutowalny</strong> (lista, słownik, własna klasa), funkcja może go trwale zmodyfikować. Jeśli obiekt jest <strong>niemutowalny</strong> (int, str, tuple), przypisanie nowej wartości wewnątrz funkcji tworzy nowy obiekt i nie wpływa na zewnętrzną zmienną.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Python ma swoje własne podejście – przekazywanie przez referencję do obiektu. Funkcja dostaje referencję do tego samego obiektu, który przekazaliśmy. I tu jest kluczowa różnica: jeśli obiekt jest mutowalny, jak lista czy słownik, funkcja może go zmodyfikować i ta zmiana będzie widoczna na zewnątrz. Jeśli obiekt jest niemutowalny, jak liczba czy string, próba zmiany wewnątrz funkcji tworzy nowy obiekt – oryginał pozostaje nietknięty. Proszę spojrzeć na planszę: dla inta foo nie zmieni x, ale dla listy bar na trwałe doda element. To bardzo ważne przy egzaminie."
+                </div>
             </div>
 
             <!-- SVG: PYTHON – MUTOWALNE vs NIEMUTOWALNE -->
@@ -180,10 +189,13 @@
             <!-- PART 4: JAVA – PRZEZ WARTOŚĆ REFERENCJI                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">4. Java – „Przekazywanie przez wartość referencji”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">4. Java – „Przekazywanie przez wartość referencji"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W Javie <strong>wszystkie argumenty są przekazywane przez wartość</strong>. Dla typów prymitywnych jest to kopia wartości. Dla obiektów – kopia <strong>referencji</strong> do obiektu. Masz więc dostęp do oryginalnego obiektu i możesz modyfikować jego stan (jeśli obiekt posiada mutujące metody), ale nie możesz sprawić, by zmienna poza funkcją zaczęła wskazywać na inny obiekt.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Java ma jasną zasadę – wszystko jest przekazywane przez wartość. Dla typów prymitywnych to kopia wartości, to proste. Dla obiektów to wartość referencji – czyli kopia klucza do obiektu. Dzięki temu wewnątrz metody możesz modyfikować stan obiektu, na przykład dodawać elementy do listy, i te zmiany są widoczne na zewnątrz. Ale nie możesz sprawić, żeby zewnętrzna referencja zaczęła wskazywać na inny obiekt – przypisanie nowego obiektu do parametru wewnątrz metody nie wpłynie na oryginał. To częste pytanie na egzaminie – podkreślam: Java używa pass-by-value, nie pass-by-reference."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -205,6 +217,9 @@
                         <span style="font-size:0.85rem;"><code>std::move</code> pozwala przekazać własność zasobów bez kopiowania. Parametr <code>T&&</code>.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Warto rzucić okiem na inne języki. C-sharp ma słowa kluczowe ref, out i in, które jawnie kontrolują sposób przekazania. JavaScript zachowuje się bardzo podobnie do Pythona – prymitywy jak przez wartość, obiekty przez kopię referencji. C plus plus oferuje semantykę przenoszenia – std::move pozwala przekazać własność zasobów bez kopiowania, co jest kluczowe dla wydajności w nowoczesnym C plus plus. Wszystkie te mechanizmy sprowadzają się do tego samego pytania: czy funkcja pracuje na oryginale, kopii, czy może przejmuje zasoby na własność."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -218,6 +233,9 @@
                     <li><strong>W C++ referencja nie może być pusta (null).</strong> W przeciwieństwie do wskaźnika, referencja zawsze musi być zainicjalizowana istniejącym obiektem.</li>
                     <li><strong>Konwersje typów przy przekazywaniu przez wartość mogą tworzyć tymczasowe kopie.</strong></li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki kryją się w Pythonie i Javie. W Pythonie kluczowe jest rozróżnienie przypisania od mutacji – a równa się a plus coś tworzy nowy obiekt i nie wpływa na zewnętrzną zmienną, podczas gdy a.kropka.append modyfikuje istniejący obiekt. W Javie często mylnie mówi się, że obiekty są przekazywane przez referencję – to nieprawda, przekazywana jest kopia referencji, więc przypisanie nowego obiektu do parametru nie zmieni zewnętrznej referencji. W C plus plus referencja nie może być null, co jest zaletą względem wskaźników, ale też wymaga inicjalizacji istniejącym obiektem."
+                </div>
             </div>
 
             <!-- ======================================================== -->

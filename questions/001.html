@@ -14,9 +14,9 @@
         <h2 id="q-title">001. Podstawowe działania na macierzach.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (oryginalna)                -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #ede7f6 100%); border-left: 6px solid #7b1fa2; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(123,31,162,0.12);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #ede7f6 100%); border-left: 6px solid #7b1fa2; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(123,31,162,0.12);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧮</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS (oryginalne)                                       -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -51,12 +51,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT                                                -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: CZYM JEST MACIERZ?                               -->
+            <!-- PART 1: CZYM JEST MACIERZ? (oryg. + podpowiedź)        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">1. Macierz – definicja i wymiar</strong>
@@ -68,25 +68,29 @@
                 <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
                     <strong>🔑 Kluczowa intuicja:</strong> <span style="color:#4a148c; font-weight:bold;">Macierz × wektor = kombinacja liniowa kolumn macierzy.</span> To najważniejszy koncept w algebrze liniowej.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zacznę od definicji. Macierz to prostokątna tablica liczb. Najważniejszą cechą macierzy jest jej wymiar – zawsze podajemy go w kolejności: liczba wierszy razy liczba kolumn. Na przykład macierz 3×4 ma 3 wiersze i 4 kolumny. Każdy element ma swoje współrzędne – indeks i to numer wiersza, indeks j to numer kolumny. To fundament, bo od wymiarów zależą wszystkie dalsze operacje.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 2: DODAWANIE MACIERZY (OSOBNY PRZYKŁAD)            -->
+            <!-- PART 2a: DODAWANIE (oryg. + podpowiedź)                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2a. Dodawanie macierzy – przykład krok po kroku</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Warunek:</strong> Dwie macierze można dodać <strong>tylko wtedy, gdy mają identyczny wymiar</strong> (np. obie są 2 × 2, lub obie 3 × 4). Dodajemy do siebie elementy stojące na tych samych pozycjach – element z wiersza 1, kolumny 1 pierwszej macierzy dodajemy do elementu z wiersza 1, kolumny 1 drugiej macierzy, i tak dalej dla każdej pozycji.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dodawanie macierzy jest najprostszą operacją, ale ma żelazny warunek: obie macierze muszą mieć identyczny wymiar. Proszę spojrzeć na rysunek – dwie macierze 2×2. Dodaję elementy na tych samych pozycjach: pierwszy z pierwszym, drugi z drugim. Wynik też jest macierzą 2×2. To jak dodawanie równoległych fabryk – sumujemy produkcję każdej maszyny osobno.”
+                </div>
             </div>
 
-            <!-- SVG: DODAWANIE MACIERZY -->
+            <!-- SVG: DODAWANIE MACIERZY (oryginalny) -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs><pattern id="gridAdd" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridAdd)" opacity="0.4"/>
                 <text x="410" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Dodawanie macierzy: element po elemencie (ten sam wymiar)</text>
-
-                <!-- Macierz A -->
                 <rect x="60" y="55" width="130" height="110" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="125" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0">A (2×2)</text>
                 <rect x="70" y="65" width="110" height="25" rx="3" fill="#bbdefb"/>
@@ -95,11 +99,7 @@
                 <text x="125" y="113" text-anchor="middle" font-family="monospace" font-size="15" fill="#0d47a1">3   4</text>
                 <text x="125" y="155" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wiersz 1: [1, 2]</text>
                 <text x="125" y="170" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wiersz 2: [3, 4]</text>
-
-                <!-- Znak + -->
                 <text x="220" y="120" font-family="sans-serif" font-size="28" font-weight="bold" fill="#455a64">+</text>
-
-                <!-- Macierz B -->
                 <rect x="260" y="55" width="130" height="110" rx="6" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
                 <text x="325" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828">B (2×2)</text>
                 <rect x="270" y="65" width="110" height="25" rx="3" fill="#f8bbd0"/>
@@ -108,11 +108,7 @@
                 <text x="325" y="113" text-anchor="middle" font-family="monospace" font-size="15" fill="#880e4f">7   8</text>
                 <text x="325" y="155" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Wiersz 1: [5, 6]</text>
                 <text x="325" y="170" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Wiersz 2: [7, 8]</text>
-
-                <!-- Znak = -->
                 <text x="420" y="120" font-family="sans-serif" font-size="28" font-weight="bold" fill="#455a64">=</text>
-
-                <!-- Wynik A+B -->
                 <rect x="460" y="55" width="170" height="110" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
                 <text x="545" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">A + B =</text>
                 <rect x="470" y="65" width="150" height="25" rx="3" fill="#c8e6c9"/>
@@ -120,8 +116,6 @@
                 <rect x="470" y="95" width="150" height="25" rx="3" fill="#c8e6c9"/>
                 <text x="545" y="113" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#1b5e20">3+7=10  4+8=12</text>
                 <text x="545" y="155" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Każda para (i,j) sumowana osobno</text>
-
-                <!-- Adnotacja -->
                 <rect x="660" y="70" width="140" height="80" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
                 <text x="730" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(a<sub>11</sub>+b<sub>11</sub>)</text>
                 <text x="730" y="115" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(a<sub>12</sub>+b<sub>12</sub>)</text>
@@ -129,7 +123,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2b: ODEJMOWANIE MACIERZY (OSOBNY PRZYKŁAD)         -->
+            <!-- PART 2b: ODEJMOWANIE (oryg. + podpowiedź)              -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">2b. Odejmowanie macierzy – przykład krok po kroku</strong>
@@ -141,36 +135,29 @@
                     <code>−2 − (−3) = −2 + 3 = 1</code><br>
                     <code>−1 − 3 = −4</code>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Odejmowanie działa identycznie jak dodawanie – warunek ten sam, odejmujemy elementy na tych samych pozycjach. Ale tu kryje się pułapka: minus z minusem daje plus. Na przykład 5 odjąć minus 2 to 5 dodać 2, czyli 7. Proszę spojrzeć na prawy dolny róg przykładu – właśnie tam widać tę zasadę w akcji. To najczęstsze miejsce błędów na egzaminie.”
+                </div>
             </div>
 
-            <!-- SVG: ODEJMOWANIE MACIERZY -->
+            <!-- SVG: ODEJMOWANIE MACIERZY (oryginalny) -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridAdd)" opacity="0.4"/>
                 <text x="410" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Odejmowanie macierzy: element po elemencie (ten sam wymiar)</text>
-
-                <!-- Macierz A -->
                 <rect x="60" y="55" width="130" height="110" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="125" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0">A (2×2)</text>
                 <rect x="70" y="65" width="110" height="25" rx="3" fill="#bbdefb"/>
                 <text x="125" y="83" text-anchor="middle" font-family="monospace" font-size="15" fill="#0d47a1">4   5</text>
                 <rect x="70" y="95" width="110" height="25" rx="3" fill="#bbdefb"/>
                 <text x="125" y="113" text-anchor="middle" font-family="monospace" font-size="15" fill="#0d47a1">−1  3</text>
-
-                <!-- Znak − -->
                 <text x="220" y="120" font-family="sans-serif" font-size="28" font-weight="bold" fill="#455a64">−</text>
-
-                <!-- Macierz B -->
                 <rect x="260" y="55" width="130" height="110" rx="6" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
                 <text x="325" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828">B (2×2)</text>
                 <rect x="270" y="65" width="110" height="25" rx="3" fill="#f8bbd0"/>
                 <text x="325" y="83" text-anchor="middle" font-family="monospace" font-size="15" fill="#880e4f">1   −2</text>
                 <rect x="270" y="95" width="110" height="25" rx="3" fill="#f8bbd0"/>
                 <text x="325" y="113" text-anchor="middle" font-family="monospace" font-size="15" fill="#880e4f">3   0</text>
-
-                <!-- Znak = -->
                 <text x="420" y="120" font-family="sans-serif" font-size="28" font-weight="bold" fill="#455a64">=</text>
-
-                <!-- Wynik A−B -->
                 <rect x="460" y="55" width="190" height="110" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
                 <text x="555" y="48" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">A − B =</text>
                 <rect x="470" y="65" width="170" height="25" rx="3" fill="#c8e6c9"/>
@@ -178,8 +165,6 @@
                 <rect x="470" y="95" width="170" height="25" rx="3" fill="#c8e6c9"/>
                 <text x="555" y="113" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#1b5e20">−1−3=−4  3−0=3</text>
                 <text x="555" y="155" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Uwaga: 5−(−2) = 5+2 = 7 !</text>
-
-                <!-- Adnotacja -->
                 <rect x="670" y="70" width="130" height="80" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
                 <text x="735" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(a<sub>11</sub>−b<sub>11</sub>)</text>
                 <text x="735" y="115" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(a<sub>12</sub>−b<sub>12</sub>)</text>
@@ -187,16 +172,19 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: MNOŻENIE PRZEZ SKALAR                            -->
+            <!-- PART 3: MNOŻENIE PRZEZ SKALAR (oryg. + podpowiedź)     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Mnożenie macierzy przez skalar (liczbę) – „Pokrętło wzmocnienia”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Skalar (zwykła liczba) działa jak <strong>jedno pokrętło</strong> regulujące wszystkie wartości w macierzy jednocześnie. <strong>Każdy</strong> element macierzy mnożymy przez tę samą liczbę. <strong>Warunek:</strong> Brak – przez skalar można pomnożyć dowolną macierz.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mnożenie przez skalar jest bardzo proste i nie ma żadnych warunków wymiarowych. Biorę każdy element macierzy i mnożę go przez tę samą liczbę. Na rysunku widać, jak skalar 3 zwiększa wszystkie wartości trzykrotnie. Zero zostaje zerem, minus jeden staje się minus trzy. To jak regulacja głośności – wszystkie dźwięki stają się głośniejsze o ten sam współczynnik.”
+                </div>
             </div>
 
-            <!-- SVG: MNOŻENIE PRZEZ SKALAR -->
+            <!-- SVG: MNOŻENIE PRZEZ SKALAR (oryginalny) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="url(#gridAdd)" opacity="0.4"/>
                 <text x="410" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Mnożenie przez skalar: każdy element mnożony jest osobno</text>
@@ -219,7 +207,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: ILOCZYN MACIERZY – KROK PO KROKU Z ZAZNACZENIEM -->
+            <!-- PART 4: ILOCZYN MACIERZY (oryg. + podpowiedź)           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">4. Mnożenie macierzy przez macierz – krok po kroku</strong>
@@ -234,63 +222,50 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Mechanizm „Wiersz × Kolumna”:</strong> Element c<sub>ij</sub> wyniku (stojący w i-tym wierszu i j-tej kolumnie) to <strong>iloczyn skalarny</strong> i-tego wiersza macierzy A oraz j-tej kolumny macierzy B. Oznacza to, że bierzemy kolejne elementy z wiersza A i mnożymy je przez kolejne elementy z kolumny B, a wyniki sumujemy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „To jest najważniejszy slajd w tej prezentacji. Mnożenie macierzy ma żelazny warunek: liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej. Jeśli A jest 2×3, a B jest 3×4 – mogę mnożyć. Wynik C będzie 2×4. Proszę spojrzeć na planszę – rozpisuję krok po kroku. Biorę pierwszy wiersz A i pierwszą kolumnę B. Mnożę elementy parami i sumuję: 1 razy 5 plus 2 razy 7 daje 19. To jest element C₁₁. Potem ten sam wiersz A z drugą kolumną B – dostaję C₁₂. I tak dalej. Każdy element wyniku to osobny iloczyn skalarny odpowiedniego wiersza i kolumny.”
+                </div>
             </div>
 
-            <!-- SVG: ILOCZYN MACIERZY – SZCZEGÓŁOWE KROKI Z ZAZNACZENIEM WIERSZY I KOLUMN -->
+            <!-- SVG: ILOCZYN MACIERZY (oryginalny) -->
             <svg viewBox="0 0 820 520" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="520" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">Mnożenie krok po kroku: Wiersz × Kolumna – przykład 2×2</text>
-
-                <!-- Macierz A -->
                 <rect x="40" y="50" width="100" height="80" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="90" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">A (2×2)</text>
                 <text x="65" y="78" font-family="monospace" font-size="18" fill="#0d47a1" font-weight="bold">1</text>
                 <text x="115" y="78" font-family="monospace" font-size="18" fill="#0d47a1" font-weight="bold">2</text>
                 <text x="65" y="112" font-family="monospace" font-size="18" fill="#0d47a1" font-weight="bold">3</text>
                 <text x="115" y="112" font-family="monospace" font-size="18" fill="#0d47a1" font-weight="bold">4</text>
-
                 <text x="160" y="100" font-family="sans-serif" font-size="22" font-weight="bold" fill="#263238">×</text>
-
-                <!-- Macierz B -->
                 <rect x="190" y="50" width="100" height="80" rx="5" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
                 <text x="240" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c62828">B (2×2)</text>
                 <text x="215" y="78" font-family="monospace" font-size="18" fill="#880e4f" font-weight="bold">5</text>
                 <text x="265" y="78" font-family="monospace" font-size="18" fill="#880e4f" font-weight="bold">6</text>
                 <text x="215" y="112" font-family="monospace" font-size="18" fill="#880e4f" font-weight="bold">7</text>
                 <text x="265" y="112" font-family="monospace" font-size="18" fill="#880e4f" font-weight="bold">8</text>
-
                 <text x="310" y="100" font-family="sans-serif" font-size="22" font-weight="bold" fill="#263238">=</text>
-
-                <!-- Wynik C = A×B (na razie puste) -->
                 <rect x="340" y="50" width="100" height="80" rx="5" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
                 <text x="390" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">C = A×B</text>
                 <text x="365" y="78" font-family="monospace" font-size="18" fill="#1b5e20" font-weight="bold">c₁₁</text>
                 <text x="415" y="78" font-family="monospace" font-size="18" fill="#1b5e20" font-weight="bold">c₁₂</text>
                 <text x="365" y="112" font-family="monospace" font-size="18" fill="#1b5e20" font-weight="bold">c₂₁</text>
                 <text x="415" y="112" font-family="monospace" font-size="18" fill="#1b5e20" font-weight="bold">c₂₂</text>
-
                 <line x1="30" y1="155" x2="790" y2="155" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="5,4"/>
-
-                <!-- Krok 1: C₁₁ – Wiersz 1 A, Kolumna 1 B -->
                 <rect x="25" y="170" width="370" height="150" rx="8" fill="#f1f8e9" stroke="#aed581" stroke-width="1"/>
                 <text x="210" y="192" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#33691e">Krok 1: Wiersz 1 A × Kolumna 1 B → C₁₁</text>
-                <!-- Wizualizacja: wiersz 1 A -->
                 <rect x="45" y="210" width="22" height="22" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="56" y="226" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">1</text>
                 <rect x="72" y="210" width="22" height="22" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
                 <text x="83" y="226" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">2</text>
                 <text x="100" y="226" font-family="sans-serif" font-size="12" fill="#1565c0">← wiersz 1 A</text>
-                <!-- Wizualizacja: kolumna 1 B -->
                 <rect x="45" y="245" width="22" height="22" rx="3" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
                 <text x="56" y="261" text-anchor="middle" font-family="monospace" font-size="13" fill="#880e4f">5</text>
                 <rect x="45" y="272" width="22" height="22" rx="3" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
                 <text x="56" y="288" text-anchor="middle" font-family="monospace" font-size="13" fill="#880e4f">7</text>
                 <text x="75" y="270" font-family="sans-serif" font-size="12" fill="#c62828">← kolumna 1 B</text>
-                <!-- Obliczenie -->
                 <text x="155" y="255" font-family="monospace" font-size="13" fill="#1b5e20">= (1×5) + (2×7)</text>
                 <text x="155" y="280" font-family="monospace" font-size="13" fill="#1b5e20">= 5 + 14 = <tspan font-weight="bold" fill="#2e7d32">19</tspan> → C₁₁</text>
-
-                <!-- Krok 2: C₁₂ – Wiersz 1 A, Kolumna 2 B -->
                 <rect x="425" y="170" width="370" height="150" rx="8" fill="#e8eaf6" stroke="#9fa8da" stroke-width="1"/>
                 <text x="610" y="192" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#283593">Krok 2: Wiersz 1 A × Kolumna 2 B → C₁₂</text>
                 <rect x="445" y="210" width="22" height="22" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
@@ -305,10 +280,7 @@
                 <text x="475" y="270" font-family="sans-serif" font-size="12" fill="#c62828">← kolumna 2 B</text>
                 <text x="555" y="255" font-family="monospace" font-size="13" fill="#1b5e20">= (1×6) + (2×8)</text>
                 <text x="555" y="280" font-family="monospace" font-size="13" fill="#1b5e20">= 6 + 16 = <tspan font-weight="bold" fill="#2e7d32">22</tspan> → C₁₂</text>
-
                 <line x1="30" y1="335" x2="790" y2="335" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="5,4"/>
-
-                <!-- Krok 3: C₂₁ – Wiersz 2 A, Kolumna 1 B -->
                 <rect x="25" y="350" width="370" height="150" rx="8" fill="#fff3e0" stroke="#ffb74d" stroke-width="1"/>
                 <text x="210" y="372" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Krok 3: Wiersz 2 A × Kolumna 1 B → C₂₁</text>
                 <rect x="45" y="390" width="22" height="22" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
@@ -323,8 +295,6 @@
                 <text x="75" y="450" font-family="sans-serif" font-size="12" fill="#c62828">← kolumna 1 B</text>
                 <text x="155" y="435" font-family="monospace" font-size="13" fill="#1b5e20">= (3×5) + (4×7)</text>
                 <text x="155" y="460" font-family="monospace" font-size="13" fill="#1b5e20">= 15 + 28 = <tspan font-weight="bold" fill="#2e7d32">43</tspan> → C₂₁</text>
-
-                <!-- Krok 4: C₂₂ – Wiersz 2 A, Kolumna 2 B -->
                 <rect x="425" y="350" width="370" height="150" rx="8" fill="#fce4ec" stroke="#f48fb1" stroke-width="1"/>
                 <text x="610" y="372" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#880e4f">Krok 4: Wiersz 2 A × Kolumna 2 B → C₂₂</text>
                 <rect x="445" y="390" width="22" height="22" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
@@ -342,21 +312,22 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- NIEPRZEMIENNOŚĆ MNOŻENIA – KONTRPRZYKŁAD               -->
+            <!-- PART 5: NIEPRZEMIENNOŚĆ (oryg. + podpowiedź)            -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. Nieprzemienność mnożenia macierzy</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Mnożenie macierzy NIE jest przemienne!</strong> Oznacza to, że <strong>A · B ≠ B · A</strong> (z wyjątkiem bardzo rzadkich przypadków). Jeśli zamienimy kolejność, wynik będzie inny – albo mnożenie stanie się wręcz niewykonalne, bo zmienią się wymiary.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „To bardzo ważny punkt. Mnożenie macierzy nie jest przemienne – A razy B to nie to samo co B razy A. Proszę spojrzeć na kontrprzykład: po lewej A razy B daje 19, 22, 43, 50. Po prawej B razy A daje zupełnie inny wynik – 23, 34, 31, 46. To nie są te same liczby! Kolejność ma fundamentalne znaczenie. I to jest pierwsze pytanie, które często pada na egzaminie: czy mnożenie macierzy jest przemienne? Odpowiedź brzmi: nie.”
+                </div>
             </div>
 
-            <!-- SVG: NIEPRZEMIENNOŚĆ – KONTRPRZYKŁAD -->
+            <!-- SVG: NIEPRZEMIENNOŚĆ (oryginalny) -->
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="260" fill="url(#gridAdd)" opacity="0.3"/>
                 <text x="410" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Nieprzemienność: A·B ≠ B·A (kontrprzykład)</text>
-
-                <!-- A·B -->
                 <rect x="60" y="55" width="300" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">A · B – poprawne mnożenie</text>
                 <rect x="90" y="95" width="70" height="50" rx="3" fill="#c8e6c9" stroke="#2e7d32"/>
@@ -369,8 +340,6 @@
                 <text x="320" y="120" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">19 22</text>
                 <text x="320" y="138" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">43 50</text>
                 <text x="210" y="170" font-family="sans-serif" font-size="10" fill="#1b5e20">Możliwe: (2×2)·(2×2) → 2×2</text>
-
-                <!-- B·A -->
                 <rect x="430" y="55" width="340" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
                 <text x="600" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">B · A – też możliwe, ale wynik INNY!</text>
                 <rect x="460" y="95" width="70" height="50" rx="3" fill="#ffcdd2" stroke="#c62828"/>
@@ -386,7 +355,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 6: TRANSPOZYCJA                                     -->
+            <!-- PART 6: TRANSPOZYCJA (oryg. + podpowiedź)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">6. Transpozycja macierzy (Aᵀ)</strong>
@@ -396,14 +365,16 @@
                 <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
                     <strong>🔑 Ważna własność:</strong> (A · B)ᵀ = Bᵀ · Aᵀ – zwróć uwagę na odwrócenie kolejności mnożenia.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Transpozycja to operacja, która nie ma żadnych warunków – mogę transponować każdą macierz. Po prostu zamieniam wiersze z kolumnami. Pierwszy wiersz staje się pierwszą kolumną, drugi wiersz – drugą kolumną. Na rysunku widać, że macierz 3×2 po transpozycji staje się macierzą 2×3. Ważna własność: transpozycja iloczynu to iloczyn transpozycji, ale w odwrotnej kolejności – Bᵀ razy Aᵀ, a nie Aᵀ razy Bᵀ. To kolejne częste pytanie egzaminacyjne.”
+                </div>
             </div>
 
-            <!-- SVG: TRANSPOZYCJA -->
+            <!-- SVG: TRANSPOZYCJA (oryginalny) -->
             <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs><marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b1fa2"/></marker></defs>
                 <rect x="0" y="0" width="820" height="230" fill="url(#gridAdd)" opacity="0.4"/>
                 <text x="410" y="30" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Transpozycja: wiersze stają się kolumnami (A → Aᵀ)</text>
-
                 <rect x="100" y="50" width="130" height="150" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
                 <text x="165" y="45" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#6a1b9a">A (3×2)</text>
                 <rect x="110" y="60" width="110" height="35" rx="3" fill="#e1bee7"/>
@@ -412,10 +383,8 @@
                 <text x="165" y="123" text-anchor="middle" font-family="monospace" font-size="16" fill="#4a148c">3   4</text>
                 <rect x="110" y="140" width="110" height="35" rx="3" fill="#e1bee7"/>
                 <text x="165" y="163" text-anchor="middle" font-family="monospace" font-size="16" fill="#4a148c">5   6</text>
-
                 <path d="M 250 125 L 380 125" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrowPurple)" stroke-dasharray="6,3"/>
                 <text x="315" y="110" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#7b1fa2">Transpozycja T</text>
-
                 <rect x="420" y="65" width="180" height="120" rx="6" fill="#ede7f6" stroke="#5e35b1" stroke-width="2"/>
                 <text x="510" y="58" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4527a0">Aᵀ (2×3)</text>
                 <rect x="430" y="80" width="45" height="90" rx="3" fill="#d1c4e9"/>
@@ -427,7 +396,6 @@
                 <rect x="550" y="80" width="45" height="90" rx="3" fill="#d1c4e9"/>
                 <text x="572" y="115" text-anchor="middle" font-family="monospace" font-size="16" fill="#311b92">5</text>
                 <text x="572" y="150" text-anchor="middle" font-family="monospace" font-size="16" fill="#311b92">6</text>
-
                 <text x="650" y="90" font-family="sans-serif" font-size="12" fill="#546e7a">Własności:</text>
                 <text x="650" y="112" font-family="monospace" font-size="12" fill="#37474f">(Aᵀ)ᵀ = A</text>
                 <text x="650" y="134" font-family="monospace" font-size="12" fill="#37474f">(A·B)ᵀ = Bᵀ·Aᵀ</text>
@@ -436,7 +404,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 7: MACIERZ JEDNOSTKOWA                              -->
+            <!-- PART 7: MACIERZ JEDNOSTKOWA (oryg. + podpowiedź)        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">7. Macierz jednostkowa – „Neutralny element mnożenia”</strong>
@@ -447,10 +415,13 @@
                     <strong>Przykład macierzy jednostkowej 3×3:</strong><br>
                     <code>I₃ = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]</code>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec warto wspomnieć o macierzy jednostkowej. To taka macierz kwadratowa, która ma jedynki na przekątnej i zera wszędzie indziej. Działa jak liczba 1 w zwykłym mnożeniu – cokolwiek pomnożę przez macierz jednostkową, dostaję to samo. To jest ważne pojęcie, bo macierz jednostkowa jest fundamentem macierzy odwrotnej – ale to już temat na osobny wykład.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 8: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
@@ -458,52 +429,36 @@
                     <li><strong>Dodawanie/odejmowanie tylko przy identycznych wymiarach!</strong> Nie można dodać macierzy 2×3 do 3×2. Sprawdź wymiar przed rozpoczęciem.</li>
                     <li><strong>Mnożenie: warunek kolumny = wiersze!</strong> Jeśli A ma wymiar 2×3, to B musi mieć 3 wiersze (np. 3×4). Wynik C ma wtedy wymiar 2×4.</li>
                     <li><strong>Nieprzemienność!</strong> A·B ≠ B·A. Na egzaminie często sprawdzają to przez kontrprzykład. Jeśli zamienisz kolejność, wynik będzie inny lub mnożenie stanie się niewykonalne.</li>
-                    <li><strong>„Dzielenie” przez macierz nie istnieje!</strong> W algebrze macierzy nie ma operacji dzielenia. Zamiast tego rozwiązujemy układy równań lub mnożymy przez macierz odwrotną (jeśli istnieje).</li>
+                    <li><strong>„Dzielenie” przez macierz nie istnieje!</strong> W algebrze macierzy nie ma operacji dzielenia.</li>
                     <li><strong>(A·B)ᵀ = Bᵀ·Aᵀ, a nie Aᵀ·Bᵀ!</strong> Kolejność po transpozycji iloczynu jest odwrotna.</li>
                     <li><strong>Przy odejmowaniu uważaj na znaki!</strong> Szczególnie gdy odejmujesz liczby ujemne: −2 − (−3) = −2 + 3 = 1.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć (jeśli komisja zapyta o pułapki):</strong> „Najczęstsze pułapki? Po pierwsze – dodawanie i odejmowanie tylko przy identycznych wymiarach. Po drugie – przy mnożeniu musi być zgodność: kolumny pierwszej równają się wierszom drugiej. Po trzecie – nieprzemienność: A razy B to nie B razy A. Po czwarte – dzielenie macierzy nie istnieje, zamiast tego używamy macierzy odwrotnej. I po piąte – przy transpozycji iloczynu kolejność się odwraca: transpozycja A razy B to transpozycja B razy transpozycja A.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny + podpowiedź)                   -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – podstawowe działania na macierzach:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Operacja</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasada</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Operacja</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasada</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">A ± B</td>
-                        <td style="padding: 10px;">Identyczny wymiar obu macierzy</td>
-                        <td style="padding: 10px;">Dodajemy/odejmujemy elementy na tych samych pozycjach (i, j)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">k · A</td>
-                        <td style="padding: 10px;">Brak (k to skalar – liczba)</td>
-                        <td style="padding: 10px;">Każdy element macierzy mnożymy przez k</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">A · B</td>
-                        <td style="padding: 10px;">Liczba kolumn A = liczba wierszy B</td>
-                        <td style="padding: 10px;">Iloczyn skalarny wierszy A i kolumn B. <strong>Nieprzemienne!</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Aᵀ</td>
-                        <td style="padding: 10px;">Brak (dowolna macierz)</td>
-                        <td style="padding: 10px;">Zamiana wierszy na kolumny. (A·B)ᵀ = Bᵀ·Aᵀ</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #1565c0;">A ± B</td><td style="padding: 10px;">Identyczny wymiar obu macierzy</td><td style="padding: 10px;">Dodajemy/odejmujemy elementy na tych samych pozycjach (i, j)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #e65100;">k · A</td><td style="padding: 10px;">Brak (k to skalar – liczba)</td><td style="padding: 10px;">Każdy element macierzy mnożymy przez k</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">A · B</td><td style="padding: 10px;">Liczba kolumn A = liczba wierszy B</td><td style="padding: 10px;">Iloczyn skalarny wierszy A i kolumn B. <strong>Nieprzemienne!</strong></td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Aᵀ</td><td style="padding: 10px;">Brak (dowolna macierz)</td><td style="padding: 10px;">Zamiana wierszy na kolumny. (A·B)ᵀ = Bᵀ·Aᵀ</td></tr>
                     </tbody>
                 </table>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak podsumować:</strong> „Reasumując – macierze to potężne narzędzie. Dodawanie i odejmowanie wymaga zgodności wymiarów. Mnożenie wymaga, by liczba kolumn pierwszej była równa liczbie wierszy drugiej. Nie jest przemienne. Transpozycja odwraca iloczyn. Te cztery zasady to fundament algebry liniowej. Dziękuję za uwagę.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -513,7 +468,7 @@
             </div>
 
             <!-- ======================================================== -->
-            <!-- ŹRÓDŁA                                                   -->
+            <!-- ŹRÓDŁA (oryginalne)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>

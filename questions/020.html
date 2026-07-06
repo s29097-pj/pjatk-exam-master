@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Pamięć operacyjna to „Ogromny magazyn z biurkiem i regałami”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Pamięć operacyjna to „Ogromny magazyn z biurkiem i regałami":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
                         Wyobraź sobie ogromny magazyn (RAM). <strong>Stos (stack)</strong> to Twoje biurko – masz na nim rzeczy, nad którymi właśnie pracujesz. Jest czyste, szybkie i uporządkowane, ale ma bardzo ograniczoną powierzchnię. Kiedy kończysz zadanie, wszystko z biurka jest automatycznie odkładane na miejsce. <strong>Sterta (heap)</strong> to rozległe regały magazynowe. Możesz na nie odkładać duże przedmioty na dłuższy czas. Musisz jednak pamiętać, gdzie co położyłeś i samodzielnie sprzątnąć (albo zatrudnić ekipę sprzątającą – Garbage Collector). Jeśli o tym zapomnisz, magazyn się zapycha – to słynny <strong>wyciek pamięci</strong>.
                     </p>
@@ -61,10 +61,13 @@
             <!-- PART 1: PRZESTRZEŃ ADRESOWA PROCESU                     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00695c;">1. Przestrzeń adresowa – „Mapa magazynu”</strong>
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Przestrzeń adresowa – „Mapa magazynu"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Każdy proces w systemie operacyjnym otrzymuje swoją wirtualną przestrzeń adresową, która jest podzielona na logiczne <strong>segmenty</strong>. Układ tych segmentów jest przewidywalny: kod na dole, dane powyżej, sterta rośnie w górę, a stos rośnie w dół od najwyższego adresu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, każdy proces w systemie operacyjnym ma swoją wirtualną przestrzeń adresową – to jak prywatna mapa magazynu. Ta przestrzeń jest podzielona na logiczne segmenty. Na samym dole mamy segment kodu, czyli text – tam są instrukcje maszynowe, tylko do odczytu. Wyżej segment danych i BSS dla zmiennych globalnych i statycznych. Dalej rośnie sterta w górę, a od najwyższego adresu w dół rośnie stos. Między stertą a stosem jest wolna przestrzeń, która się kurczy w miarę używania pamięci. Proszę spojrzeć na planszę – ten układ jest kluczowy dla zrozumienia, gdzie fizycznie lądują nasze zmienne."
+                </div>
             </div>
 
             <!-- SVG: MAPA PAMIĘCI PROCESU -->
@@ -126,10 +129,13 @@
             <!-- PART 2: STOS – BIURKO Z RAMKAMI                         -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">2. Stos (Stack) – „Dyscyplina LIFO na biurku”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Stos (Stack) – „Dyscyplina LIFO na biurku"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Każde wywołanie funkcji tworzy <strong>ramkę stosu (stack frame)</strong>, w której przechowywane są: adres powrotu (skąd przyszliśmy), parametry wywołania oraz zmienne lokalne. Gdy funkcja kończy pracę, jej ramka jest po prostu usuwana ze szczytu stosu. To niezwykle szybkie, ale oznacza, że zmienne lokalne <strong>nie mogą przeżyć swojej funkcji</strong> – w tym celu potrzebujemy sterty.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Stos działa jak stos talerzy w restauracji – ostatni położony, pierwszy zdjęty. Każde wywołanie funkcji tworzy ramkę stosu, w której lądują adres powrotu, parametry i zmienne lokalne. Gdy funkcja kończy pracę, ramka jest po prostu usuwana. To niezwykle szybkie, bo to tylko przesunięcie wskaźnika stosu. Ale ma to fundamentalną konsekwencję: zmienne lokalne nie mogą przeżyć swojej funkcji. Jeśli funkcja zwróci wskaźnik do swojej zmiennej lokalnej, to wskaźnik będzie wskazywał na zwolnioną już pamięć – to klasyczny błąd, undefined behavior. Proszę spojrzeć na planszę: main wywołuje foo, foo wywołuje bar – każda ma swoją ramkę, bar na szczycie."
+                </div>
             </div>
 
             <!-- SVG: STOS W AKCJI -->
@@ -177,12 +183,15 @@
             <!-- PART 3: STERTA – REGAŁY Z WSKAŹNIKAMI                  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Sterta (Heap) – „Regały i ich problemy”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Sterta (Heap) – „Regały i ich problemy"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Sterta jest używana, gdy rozmiar danych nie jest znany w czasie kompilacji lub gdy dane muszą istnieć po zakończeniu funkcji. Alokacja następuje jawnie (C: <code>malloc</code>, C++: <code>new</code>) lub niejawnie (Python, Java). Zwolnienie pamięci jest największym wyzwaniem – prowadzi do <strong>wycieków pamięci</strong> (zgubiony wskaźnik) lub błędów typu <strong>dangling pointer</strong> (użycie po zwolnieniu).
                 </p>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🧠 Fragmentacja:</strong> Jeśli alokujesz i zwalniasz bloki o różnych rozmiarach, na stercie powstają "dziury". Mimo że sumarycznie jest wystarczająco dużo wolnego miejsca, może nie być jednego ciągłego bloku na duży obiekt.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Sterta to przeciwieństwo stosu – to rozległe regały magazynowe dla danych, które muszą żyć dłużej niż pojedyncza funkcja, lub których rozmiar nie jest znany w czasie kompilacji. W C używamy malloc do alokacji i free do zwalniania. Tu zaczynają się problemy: zapomnimy o free – mamy wyciek pamięci, zgubiliśmy wskaźnik – pamięć jest stracona. Zwolnimy, ale nadal używamy wskaźnika – to dangling pointer, proszenie się o awarię. I jeszcze fragmentacja – na stercie powstają dziury, jak szwajcarski ser, i mimo że sumarycznie jest miejsce, nie możemy zaalokować dużego ciągłego bloku. Proszę spojrzeć na planszę ilustrującą fragmentację."
                 </div>
             </div>
 
@@ -204,7 +213,7 @@
                 <text x="515" y="85" text-anchor="middle" font-family="monospace" font-size="12" fill="#fff">używany</text>
 
                 <!-- Opis -->
-                <text x="410" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Po kilku cyklach alokacji i zwalniania sterta staje się „postrzępiona”.</text>
+                <text x="410" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Po kilku cyklach alokacji i zwalniania sterta staje się „postrzępiona".</text>
                 <text x="410" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Chociaż wolnego miejsca jest 60+30=90 bajtów, nie można zaalokować bloku o rozmiarze 80 bajtów.</text>
                 <text x="410" y="175" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">To jest właśnie zjawisko fragmentacji zewnętrznej.</text>
             </svg>
@@ -232,6 +241,9 @@
                         <span style="font-size:0.85rem;">Zliczanie referencji + odśmiecacz cykliczny. Wszystko jest obiektem na stercie (nawet int).</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy język ma inną strategię zarządzania stertą. C daje pełną kontrolę – sami alokujemy przez malloc i zwalniamy przez free, ale też sami ponosimy odpowiedzialność za błędy. C plus plus wprowadza idiom RAII – zasoby są zwalniane automatycznie przez destruktory, a inteligentne wskaźniki jak unique_ptr i shared_ptr praktycznie eliminują wycieki. Java i Python mają garbage collector – w tle działa mechanizm, który znajduje i usuwa nieużywane obiekty. Python dodatkowo stosuje zliczanie referencji – obiekt jest zwalniany od razu, gdy ostatnia referencja do niego znika. Każde podejście ma swoje plusy i minusy – kontrola kontra wygoda."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -245,6 +257,9 @@
                     <li><strong>Stack overflow</strong> – zbyt głęboka rekurencja lub zbyt duże zmienne lokalne (tablice) na stosie. Stos jest ograniczony (~1-8 MB).</li>
                     <li><strong>Dangling pointer</strong> – używasz wskaźnika po tym, jak obiekt został już zwolniony (use-after-free).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najgroźniejsze pułapki związane z pamięcią to: po pierwsze, zwracanie wskaźnika do zmiennej lokalnej – zmienna na stosie znika po returnie, a wskaźnik wskazuje na śmieci. Po drugie, wyciek pamięci – w C zapomniane free, w C plus plus zapomniane delete, ale w Javie też możliwe, na przykład przez trzymanie referencji do nieużywanych obiektów w kolekcjach. Po trzecie, stack overflow – stos ma zwykle od jednego do ośmiu megabajtów, zbyt głęboka rekurencja lub ogromne tablice lokalne go przepełnią. Po czwarte, dangling pointer – wskaźnik do zwolnionej już pamięci, użycie go to undefined behavior i potencjalna luka bezpieczeństwa."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -298,7 +313,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Computer Systems: A Programmer's Perspective” (Bryant, O'Hallaron) · „The C Programming Language” (Kernighan, Ritchie) · Dokumentacje JVM, CPython.
+                    „Computer Systems: A Programmer's Perspective" (Bryant, O'Hallaron) · „The C Programming Language" (Kernighan, Ritchie) · Dokumentacje JVM, CPython.
                 </span>
             </div>
 

@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zmienna to „Skrytka depozytowa z etykietą”:</strong>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zmienna to „Skrytka depozytowa z etykietą":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
                         Wyobraź sobie ogromny magazyn danych – pamięć RAM Twojego komputera. <strong>Zmienna</strong> to Twoja osobista skrytka w tym magazynie. Ma unikalną <strong>etykietę (nazwę)</strong>, która pozwala Ci ją szybko znaleźć. Ma określony <strong>rozmiar (typ)</strong> – nie zmieścisz słonia do pudełka na liczby. <strong>Wartość</strong> to zawartość, którą włożyłeś. Możesz ją w każdej chwili wyjąć i zastąpić inną (chyba że skrytka jest zamknięta na klucz – wtedy to <strong>stała</strong>). Różne języki programowania to różne regulaminy magazynu – niektóre są bardzo surowe (C – sam zarządzasz kluczami i sprzątasz), inne oferują pełną obsługę (Python – magazynier pilnuje wszystkiego za Ciebie).
                     </p>
@@ -61,7 +61,7 @@
             <!-- PART 1: CZYM JEST ZMIENNA?                               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">1. Zmienna – „Skrytka z trzema atrybutami”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Zmienna – „Skrytka z trzema atrybutami"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W każdym języku programowania <strong>zmienna</strong> to abstrakcja reprezentująca komórkę pamięci. Składa się z trzech fundamentalnych elementów: <strong>nazwy</strong> (identyfikatora), <strong>typu</strong> (określającego dozwolone wartości i operacje) oraz <strong>wartości</strong> (aktualnej zawartości). W zależności od języka i kontekstu zmienna może być też związana z konkretnym <strong>adresem w pamięci</strong>.
                 </p>
@@ -78,6 +78,9 @@
                         <strong>Inicjalizacja</strong><br>
                         <span style="font-size:0.85rem; color:#e65100;">Pierwsze nadanie wartości. W C: <code>int x = 5;</code> Zmienne niezinicjalizowane w C to proszenie się o kłopoty.</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zmienna to podstawowe pojęcie w każdym języku programowania. Możemy o niej myśleć jak o skrytce depozytowej – ma etykietę, czyli nazwę, ma określony kształt, czyli typ, i ma zawartość, czyli wartość. W C deklaracja i definicja to dwie różne rzeczy – deklaracja mówi kompilatorowi o istnieniu zmiennej, a definicja rezerwuje pamięć. W Pythonie wszystko dzieje się jednocześnie – x równa się 5 to deklaracja, definicja i inicjalizacja w jednym. W Javie mamy podział na typy prymitywne i obiektowe – i to ma znaczenie przy przekazywaniu do funkcji."
                 </div>
             </div>
 
@@ -127,10 +130,13 @@
             <!-- PART 2: TYPY DANYCH I SYSTEMY TYPOWANIA                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Typy danych i systemy typowania – „Kształt pudełka i regulamin magazynu”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Typy danych i systemy typowania – „Kształt pudełka i regulamin magazynu"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Typ danych</strong> definiuje zbiór wartości, które zmienna może przechowywać, oraz operacje dozwolone na tych wartościach. System typowania języka określa, kiedy i jak rygorystycznie są sprawdzane typy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „System typowania to kluczowa cecha odróżniająca języki programowania. Mamy dwie osie: kiedy sprawdzany jest typ – w czasie kompilacji czy wykonania – oraz jak rygorystycznie – silnie czy słabo. Java i C plus plus to przykłady typowania statycznego i silnego – kompilator sprawdza wszystko przed uruchomieniem. Python jest dynamiczny, ale silny – typ jest sprawdzany w czasie wykonania i nie ma automatycznych konwersji, 5 plus string '5' rzuci TypeError. JavaScript z kolei jest dynamiczny i słabo typowany – '5' plus 2 da '52'. Proszę spojrzeć na planszę – przedstawia ona macierz tych kombinacji."
+                </div>
             </div>
 
             <!-- SVG: PORÓWNANIE TYPOWANIA – STATYCZNE vs DYNAMICZNE, SILNE vs SŁABE -->
@@ -165,7 +171,7 @@
             <!-- PART 3: ZASIĘG I CZAS ŻYCIA ZMIENNYCH                   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Zasięg (scope) i czas życia – „Które skrytki są dostępne i jak długo?”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Zasięg (scope) i czas życia – „Które skrytki są dostępne i jak długo?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Zasięg</strong> określa fragment kodu, w którym zmienna jest widoczna i może być użyta. <strong>Czas życia</strong> to okres od utworzenia zmiennej do jej zniszczenia (zwolnienia pamięci).
                 </p>
@@ -186,6 +192,9 @@
                         <strong style="color:#1b5e20;">Dynamiczne (sterta)</strong><br>
                         <span style="font-size:0.9rem;">Tworzone przez malloc/new. Żyją aż do jawnego zwolnienia (C) lub usunięcia przez GC (Java, Python).</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zasięg i czas życia zmiennych to temat, który bezpośrednio wpływa na poprawność programu. Zmienne lokalne żyją na stosie – są szybkie i bezpieczne, ale znikają po wyjściu z funkcji. Zmienne globalne są dostępne wszędzie, ale to miecz obosieczny – w dużym projekcie prowadzą do chaosu. W C mamy słowo kluczowe static, które sprawia, że zmienna lokalna zachowuje wartość między wywołaniami funkcji. Zmienne na stercie – tworzone przez malloc w C czy new w Javie – żyją tak długo, jak chcemy, ale w C musimy je sami zwolnić. Python i Java mają garbage collector, który robi to za nas."
                 </div>
             </div>
 
@@ -229,7 +238,7 @@
             <!-- PART 4: PRZEKAZYWANIE PRZEZ WARTOŚĆ / REFERENCJĘ       -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Przekazywanie przez wartość vs referencję – „Kopiowanie skrytki czy klucza?”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Przekazywanie przez wartość vs referencję – „Kopiowanie skrytki czy klucza?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy wywołujesz funkcję, argumenty można przekazać na dwa sposoby:
                 </p>
@@ -237,6 +246,9 @@
                     <li><strong>Przez wartość:</strong> funkcja dostaje <strong>kopię</strong> wartości. Oryginał jest bezpieczny. Domyślnie w C, Javie (dla typów prymitywnych) i Pythonie (ale uwaga na mutowalne!).</li>
                     <li><strong>Przez referencję:</strong> funkcja dostaje <strong>adres</strong> oryginalnej zmiennej. Modyfikacje wewnątrz funkcji zmieniają oryginał. W C – jawne wskaźniki (*). W C++ – referencje (&).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przekazywanie argumentów do funkcji to kolejny ważny temat. W C domyślnie przekazujemy przez wartość – funkcja dostaje kopię i nie może zmodyfikować oryginału. Jeśli chcemy, żeby funkcja zmieniła oryginalną zmienną, musimy przekazać wskaźnik. W Javie typy prymitywne są przekazywane przez wartość, a obiekty – przez wartość referencji, co czasem myli się z przekazywaniem przez referencję. W Pythonie wszystko jest przekazywane przez referencję, ale kluczowe znaczenie ma mutowalność obiektu – liczby i stringi są niemutowalne, więc zachowują się jak przekazywane przez wartość, ale listy i słowniki już nie."
+                </div>
             </div>
 
             <!-- SVG: PRZEKAZYWANIE PRZEZ WARTOŚĆ vs REFERENCJĘ -->
@@ -270,10 +282,13 @@
             <!-- PART 5: STAŁE I NIEZMIENNIKI (IMMUTABLE)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">5. Stałe – „Zamknięta skrytka”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Stałe – „Zamknięta skrytka"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Stała</strong> to zmienna, której wartość nie może być zmieniona po inicjalizacji. W C: <code>const int x = 10;</code>. W Javie: <code>final int x = 10;</code>. W Pythonie konwencja: WIELKIE_LITERY = 10. Stałe zwiększają czytelność (zamiast „magic numbers”) i zapobiegają przypadkowym modyfikacjom.
+                    <strong>Stała</strong> to zmienna, której wartość nie może być zmieniona po inicjalizacji. W C: <code>const int x = 10;</code>. W Javie: <code>final int x = 10;</code>. W Pythonie konwencja: WIELKIE_LITERY = 10. Stałe zwiększają czytelność (zamiast „magic numbers") i zapobiegają przypadkowym modyfikacjom.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Stałe to zmienne, których wartość nie może się zmienić po inicjalizacji. W C używamy słowa kluczowego const – const int X równa się 10. Próba przypisania nowej wartości zakończy się błędem kompilacji. W Javie mamy final. W Pythonie nie ma prawdziwych stałych na poziomie składni – stosujemy konwencję zapisywania nazw wielkimi literami, ale to tylko umowa, interpreter jej nie egzekwuje. Stałe są ważne, bo eliminują magiczne liczby w kodzie i zapobiegają przypadkowym modyfikacjom."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -287,6 +302,9 @@
                     <li><strong>Java: typy prymitywne (int, char…) przekazywane przez wartość, obiekty – przez wartość referencji</strong>. Nie ma jawnego przekazywania przez referencję jak w C++.</li>
                     <li><strong>Zmienne globalne:</strong> wygodne w małym skrypcie, ale w dużym projekcie to proszenie się o konflikty i trudne do debugowania błędy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki dotyczą różnic między językami. W Pythonie wszystko jest referencją – dla typów mutowalnych jak listy oznacza to, że modyfikacja przez jedną zmienną wpływa na wszystkie inne wskazujące na ten sam obiekt. W C niezainicjalizowana zmienna zawiera śmieci – nie ma domyślnego zera, co prowadzi do undefined behavior. W Javie przekazywanie obiektów przez wartość referencji często jest mylone z przekazywaniem przez referencję jak w C plus plus. No i zmienne globalne – kuszą wygodą, ale w większych projektach prowadzą do trudnych do znalezienia błędów."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -338,7 +356,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Zmienna to nie tylko „szufladka na dane” – to kontrakt z językiem programowania, który mówi, co można do niej włożyć, skąd można się do niej dostać i jak długo będzie żyć. Znajomość tych reguł to podstawa bezpiecznego i wydajnego kodu.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Zmienna to nie tylko „szufladka na dane" – to kontrakt z językiem programowania, który mówi, co można do niej włożyć, skąd można się do niej dostać i jak długo będzie żyć. Znajomość tych reguł to podstawa bezpiecznego i wydajnego kodu.</span>
                 </p>
             </div>
 
@@ -346,7 +364,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „The C Programming Language” (Kernighan, Ritchie) · „Effective Java” (Bloch) · „Fluent Python” (Ramalho) · Dokumentacje języków C11, Java 17, Python 3.12.
+                    „The C Programming Language" (Kernighan, Ritchie) · „Effective Java" (Bloch) · „Fluent Python" (Ramalho) · Dokumentacje języków C11, Java 17, Python 3.12.
                 </span>
             </div>
 

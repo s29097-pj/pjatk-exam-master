@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.12);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.12);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -65,6 +65,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W C/C++ oddzielenie <strong>deklaracji</strong> od <strong>definicji</strong> jest świadomym wyborem projektowym, który umożliwia kompilację wieloplikową i ukrywanie implementacji. Deklaracja to obietnica, że funkcja istnieje – definicja to jej spełnienie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, kluczowe jest rozróżnienie deklaracji i definicji. Deklaracja, zwana prototypem, to plakat informacyjny dla kompilatora – mówi, że istnieje funkcja o danej nazwie, przyjmująca określone typy parametrów i zwracająca konkretny typ. Definicja to rzeczywiste ciało funkcji, czyli hala produkcyjna z kodem. W C i C++ możecie mieć wiele deklaracji – jak wiele kopii tego samego plakatu – ale definicja musi być dokładnie jedna w całym programie. To jest zasada ODR, One Definition Rule. Proszę spojrzeć na planszę: deklaracja kończy się średnikiem i nie ma nawiasów klamrowych, definicja ma ciało w klamrach.”
+                </div>
             </div>
 
             <!-- SVG: DEKLARACJA vs DEFINICJA – GRAFIKA PORÓWNAWCZA -->
@@ -121,8 +124,8 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W profesjonalnych projektach C/C++ deklaracje funkcji (oraz definicje typów, makr, stałych) umieszcza się w <strong>plikach nagłówkowych (.h)</strong>. Definicje funkcji trafiają do <strong>plików źródłowych (.c, .cpp)</strong>. Inne pliki dołączają nagłówki przez <code>#include</code>, co daje im dostęp do obietnic. Linker na końcu łączy wszystkie hale w jeden spójny program.
                 </p>
-                <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
-                    <strong>🔑 Zasada ODR (One Definition Rule):</strong> Definicja funkcji (lub zmiennej globalnej) może wystąpić w całym programie <strong>tylko raz</strong>. Deklaracje mogą być powtarzane dowolnie wiele razy.
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W praktyce w C i C++ deklaracje lądują w plikach nagłówkowych z rozszerzeniem .h, a definicje w plikach źródłowych .c. Plik nagłówkowy to jak katalog usług – każdy, kto go dołączy przez include, wie, jakie funkcje są dostępne. Plik źródłowy to hala produkcyjna z rzeczywistym kodem. Na końcu linker scala wszystkie hale w jeden program wykonywalny. Kluczowa jest ochrona nagłówków przed wielokrotnym dołączaniem – używamy ifndef, define i endif. Bez tego kompilator zgłosi błąd wielokrotnej definicji.”
                 </div>
             </div>
 
@@ -187,6 +190,9 @@
                         <span style="font-size:0.85rem;">Ta sama nazwa, różne typy/liczba parametrów. Kompilator wybiera właściwą wersję.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Parametry formalne to zmienne zastępcze w definicji funkcji – mówią, jakie materiały fabryka przyjmie. Parametry aktualne, czyli argumenty, to konkretne wartości przy wywołaniu. W C++ i Pythonie możemy podać argumenty domyślne – jeśli klient ich nie dostarczy, fabryka użyje standardowych wartości. Uwaga: w C++ argumenty domyślne muszą być na końcu listy parametrów. Kolejna cecha C++ i Javy to przeciążanie funkcji – możemy mieć kilka funkcji o tej samej nazwie, różniących się typami lub liczbą parametrów. Kompilator wybiera odpowiednią na podstawie sygnatury.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -208,6 +214,9 @@
                         <span style="font-size:0.9rem;">Ścisłe rozdzielenie deklaracji (.h) i definicji (.c). Konieczność ochrony przed wielokrotnym dołączaniem (#ifndef).</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Warto porównać, jak różne języki podchodzą do deklaracji i definicji. C wymaga ścisłego rozdzielenia – deklaracje w .h, definicje w .c. Python w ogóle nie ma oddzielnych deklaracji – słowo kluczowe def od razu tworzy funkcję, która jest obiektem. Java stoi pośrodku: metody mają nagłówki, które można umieszczać w interfejsach jako czyste deklaracje, a definicje są w klasach. Te różnice wynikają z filozofii języka: C daje pełną kontrolę i umożliwia kompilację przyrostową, Python stawia na szybkość pisania, a Java na kontrakty i architekturę.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -218,6 +227,9 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Przy wywołaniu funkcji tworzona jest <strong>ramka stosu</strong> zawierająca parametry aktualne, adres powrotu i zmienne lokalne. Gdy funkcja kończy działanie, ramka jest niszczona, a sterowanie wraca do miejsca wywołania.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec warto wspomnieć o stosie wywołań, bo to mechanizm ściśle związany z funkcjami. Przy każdym wywołaniu funkcji na stosie tworzona jest ramka – zawiera argumenty, adres powrotu i zmienne lokalne. Gdy funkcja kończy działanie, ramka jest zdejmowana ze stosu. Dzięki temu funkcje mogą wywoływać się nawzajem, a po zakończeniu sterowanie wraca dokładnie tam, skąd przyszło. To elegancki mechanizm, ale jeśli funkcja wywołuje samą siebie bez końca – czyli nieskończona rekurencja – stos się przepełni i program się wysypie.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -231,6 +243,9 @@
                     <li><strong>Nagłówki bez strażników:</strong> <code>#ifndef MATH_H</code> / <code>#define MATH_H</code> … <code>#endif</code> zapobiega wielokrotnemu dołączaniu.</li>
                     <li><strong>Argumenty domyślne w C++ tylko od prawej!</strong> <code>int f(int a, int b=2, int c)</code> jest błędem. Domyślne muszą być na końcu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki dotyczą C. Po pierwsze, deklaracja z pustymi nawiasami, jak int foo(), nie oznacza funkcji bezparametrowej – to stara konwencja mówiąca o nieokreślonej liczbie parametrów. Poprawnie powinno być int foo(void). Po drugie, brak strażników w nagłówkach grozi wielokrotnym dołączeniem i błędami kompilacji. Po trzecie, w C++ argumenty domyślne muszą być deklarowane od prawej strony – int f(int a, int b=2, int c) jest błędem składniowym. I najważniejsze: zapamiętajcie zasadę ODR – wiele deklaracji, dokładnie jedna definicja w całym programie.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

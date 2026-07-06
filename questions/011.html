@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pytanie 011 – Zbiory i relacje</title>
+    <title>Pytanie 011 – Zbiory i relacje. Działania na nich i zastosowania w informatyce.</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/script.js"></script>
 </head>
@@ -11,12 +11,12 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">011. Zbiory i relacje. Działania na nich i zastosowania.</h2>
+        <h2 id="q-title">011. Zbiory i relacje. Działania na nich i zastosowania w informatyce.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🗃️</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (oryginalne)                  -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -54,41 +54,41 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: CZYM JEST ZBIÓR?                                 -->
+            <!-- PART 1: CZYM JEST ZBIÓR? (oryg. + podpowiedź)          -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">1. Zbiór – fundamentalne pojęcie informatyki</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Zbiór</strong> to kolekcja różnych elementów, bez określonej kolejności. W informatyce zbiory są podstawą typów danych (SET w Pythonie, HashSet w Javie), teorii baz danych (relacje to zbiory krotek), a także logiki i automatów. Zapis <code>A = {1, 2, 3}</code>.
+                    <strong>Zbiór</strong> to kolekcja różnych elementów, bez określonej kolejności. W informatyce zbiory są podstawą typów danych (SET w Pythonie, HashSet w Javie), teorii baz danych (relacje to zbiory krotek), a także logiki i automatów.
                 </p>
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Kluczowe pojęcia: <strong>podzbiór</strong> (A ⊆ B), <strong>zbiór potęgowy</strong> P(A) (zbiór wszystkich podzbiorów A, ma 2<sup>|A|</sup> elementów), <strong>zbiór pusty</strong> ∅.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zbiór to jedna z najprostszych struktur w matematyce dyskretnej – to po prostu kolekcja różnych elementów, gdzie kolejność nie ma znaczenia. W informatyce zbiory są wszędzie: w Pythonie mamy typ set, w Javie HashSet. Bazy danych to operacje na zbiorach – każda tabela to zbiór wierszy. Kluczowe jest to, że w zbiorze nie ma duplikatów – każdy element występuje tylko raz. Mówimy też o podzbiorach i zbiorze potęgowym – czyli zbiorze wszystkich możliwych podzbiorów, którego rozmiar to 2 do potęgi n.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 2: DZIAŁANIA NA ZBIORACH – DIAGRAMY VENNA          -->
+            <!-- PART 2: DZIAŁANIA NA ZBIORACH (oryg. + podpowiedź)     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Działania na zbiorach – „Podstawa SQL i algebry Boole’a”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Działania na zbiorach – „Podstawa SQL i algebry Boole'a”</strong>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę spojrzeć na diagramy Venna. Suma zbiorów A i B to wszystko, co jest w A lub w B – w SQL to UNION. Przecięcie to część wspólna – w SQL to INTERSECT. Różnica A bez B to to, co jest w A, ale nie w B – w SQL to EXCEPT. Iloczyn kartezjański A razy B to każdy element z A sparowany z każdym elementem z B – w SQL to CROSS JOIN. Te cztery operacje są fundamentem algebry relacyjnej i baz danych. I jeszcze jedno: w maskach bitowych suma to OR, przecięcie to AND, a różnica to AND z negacją.”
+                </div>
             </div>
 
-            <!-- SVG: DIAGRAMY VENNA – SUMA, PRZECIĘCIE, RÓŻNICA -->
+            <!-- SVG: DIAGRAMY VENNA (oryginalny) -->
             <svg viewBox="0 0 820 460" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridSet" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridSet" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="460" fill="url(#gridSet)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Działania na zbiorach – Diagramy Venna (klasyczne operacje algebry zbiorów)</text>
-
-                <!-- Suma (A ∪ B) -->
                 <rect x="30" y="45" width="240" height="195" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
                 <text x="150" y="68" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Suma (UNION)</text>
                 <circle cx="130" cy="140" r="50" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
@@ -96,8 +96,6 @@
                 <text x="105" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">A</text>
                 <text x="205" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">B</text>
                 <text x="150" y="215" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">A ∪ B</text>
-
-                <!-- Przecięcie (A ∩ B) -->
                 <rect x="290" y="45" width="240" height="195" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="410" y="68" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Przecięcie (INTERSECT)</text>
                 <circle cx="390" cy="140" r="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" opacity="0.6"/>
@@ -106,8 +104,6 @@
                 <text x="370" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">A</text>
                 <text x="460" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">B</text>
                 <text x="410" y="215" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">A ∩ B</text>
-
-                <!-- Różnica (A \ B) -->
                 <rect x="550" y="45" width="240" height="195" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="670" y="68" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Różnica (EXCEPT)</text>
                 <circle cx="630" cy="140" r="50" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
@@ -116,22 +112,13 @@
                 <text x="610" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">A</text>
                 <text x="700" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">B</text>
                 <text x="670" y="215" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">A \ B</text>
-
-                <!-- Iloczyn kartezjański (osobny panel) -->
                 <line x1="30" y1="255" x2="800" y2="255" stroke="#cfd8dc" stroke-width="1" stroke-dasharray="4,4"/>
-
                 <rect x="30" y="270" width="760" height="170" rx="8" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5"/>
                 <text x="410" y="295" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">Iloczyn kartezjański A × B (każdy z każdym) – CROSS JOIN w SQL</text>
-
-                <!-- Zbiór A -->
                 <circle cx="150" cy="350" r="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
                 <text x="150" y="355" text-anchor="middle" font-family="monospace" font-size="14" fill="#4a148c">A={1,2}</text>
-
-                <!-- Zbiór B -->
                 <circle cx="300" cy="350" r="35" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
                 <text x="300" y="355" text-anchor="middle" font-family="monospace" font-size="14" fill="#4a148c">B={a,b}</text>
-
-                <!-- Wynik A×B -->
                 <rect x="380" y="305" width="370" height="120" rx="6" fill="#f8bbd0" stroke="#ad1457" stroke-width="2"/>
                 <text x="565" y="330" text-anchor="middle" font-family="monospace" font-size="14" fill="#880e4f">A × B = { (1,a), (1,b), (2,a), (2,b) }</text>
                 <text x="565" y="355" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">Każdy element A łączy się z każdym elementem B.</text>
@@ -140,30 +127,24 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: RELACJE – WŁASNOŚCI I RODZAJE                    -->
+            <!-- PART 3: RELACJE (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Relacje – „Kto z kim jest połączony i na jakich zasadach”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Relacja R</strong> na zbiorze X to podzbiór iloczynu kartezjańskiego X × X (czyli zbiór par). Możemy ją reprezentować jako <strong>graf skierowany</strong> lub <strong>macierz sąsiedztwa</strong>. W informatyce relacje są wszędzie: od zależności między tabelami w bazach danych, po relacje wyszukiwania w grafie internetu (PageRank).
+                    <strong>Relacja R</strong> na zbiorze X to podzbiór iloczynu kartezjańskiego X × X (czyli zbiór par). Możemy ją reprezentować jako <strong>graf skierowany</strong> lub <strong>macierz sąsiedztwa</strong>. Kluczowe własności: zwrotność, symetria, przechodniość.
                 </p>
-                <p style="line-height: 1.7; color: #2c3e50;">Kluczowe własności relacji (dla zbioru X):</p>
-                <ul style="line-height: 1.9; padding-left: 24px; color: #bf360c;">
-                    <li><strong>Zwrotność:</strong> ∀x∈X, (x,x)∈R. Każdy jest połączony sam ze sobą.</li>
-                    <li><strong>Symetria:</strong> (x,y)∈R ⇒ (y,x)∈R. Połączenia działają w obie strony.</li>
-                    <li><strong>Przechodniość:</strong> (x,y)∈R i (y,z)∈R ⇒ (x,z)∈R. Połączenia tworzą „skróty”.</li>
-                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Relacja to po prostu zbiór par – określa, kto z kim jest połączony. Mamy trzy kluczowe własności: zwrotność – każdy jest połączony sam ze sobą, symetria – jeśli A z B to B z A, przechodniość – jeśli A z B i B z C, to A z C. Jeśli relacja ma wszystkie trzy cechy, to jest relacją równoważności – dzieli zbiór na rozłączne klasy, jak GROUP BY w SQL. Jeśli jest zwrotna, antysymetryczna i przechodnia, to relacja porządku – jak drzewo katalogów. Proszę spojrzeć na rysunek: po lewej klasy abstrakcji, po prawej hierarchia.”
+                </div>
             </div>
 
-            <!-- SVG: RODZAJE RELACJI (RÓWNOWAŻNOŚCI, PORZĄDKU) -->
+            <!-- SVG: RODZAJE RELACJI (oryginalny) -->
             <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="320" fill="url(#gridSet)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Relacja równoważności i relacja porządku – wizualizacja</text>
-
-                <!-- Panel lewy: Relacja równoważności (party-cje) -->
                 <rect x="25" y="45" width="370" height="250" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="210" y="70" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Relacja równoważności – dzieli zbiór na klasy (party-cje)</text>
-                <!-- Diagram z rozłącznymi grupami -->
                 <circle cx="130" cy="150" r="40" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
                 <text x="130" y="155" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">klasa 1</text>
                 <circle cx="250" cy="130" r="35" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
@@ -171,12 +152,8 @@
                 <circle cx="210" cy="220" r="30" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
                 <text x="210" y="225" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">klasa 3</text>
                 <text x="210" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Każdy element należy do dokładnie jednej klasy.</text>
-                <text x="210" y="286" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#78909c">Przykład: relacja „mieć ten sam kolor oczu”.</text>
-
-                <!-- Panel prawy: Relacja porządku (hierarchia) -->
                 <rect x="420" y="45" width="370" height="250" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
                 <text x="605" y="70" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0">Relacja porządku – hierarchia (drzewo)</text>
-                <!-- Diagram hierarchii -->
                 <circle cx="605" cy="110" r="20" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
                 <text x="605" y="115" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">root</text>
                 <line x1="605" y1="130" x2="550" y2="170" stroke="#1976d2" stroke-width="1.5"/>
@@ -192,11 +169,10 @@
                 <circle cx="680" cy="240" r="15" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
                 <text x="680" y="245" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">B2</text>
                 <text x="605" y="280" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Przykład: relacja „być podkatalogiem”.</text>
-                <text x="605" y="295" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#78909c">Zwrotna, antysymetryczna, przechodnia.</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: REPREZENTACJA RELACJI JAKO GRAF I MACIERZ       -->
+            <!-- PART 4: REPREZENTACJA (oryg. + podpowiedź)             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">4. Reprezentacje relacji w informatyce</strong>
@@ -205,12 +181,10 @@
                 </p>
             </div>
 
-            <!-- SVG: MACIERZ RELACJI -->
+            <!-- SVG: MACIERZ RELACJI (oryginalny) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Reprezentacja relacji jako macierz sąsiedztwa (łatwa dla komputera)</text>
-
-                <!-- Graf symboliczny -->
                 <circle cx="100" cy="100" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="100" y="105" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">1</text>
                 <circle cx="200" cy="80" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
@@ -220,16 +194,8 @@
                 <line x1="115" y1="100" x2="185" y2="83" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGreen3)"/>
                 <line x1="115" y1="105" x2="185" y2="137" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGreen3)"/>
                 <line x1="215" y1="80" x2="215" y2="125" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGreen3)"/>
-
                 <text x="280" y="100" font-family="sans-serif" font-size="20" fill="#546e7a">→</text>
-
-                <!-- Macierz 3x3 -->
                 <rect x="340" y="65" width="180" height="90" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <line x1="400" y1="65" x2="400" y2="155" stroke="#66bb6a" stroke-width="1"/>
-                <line x1="460" y1="65" x2="460" y2="155" stroke="#66bb6a" stroke-width="1"/>
-                <line x1="340" y1="95" x2="520" y2="95" stroke="#66bb6a" stroke-width="1"/>
-                <line x1="340" y1="125" x2="520" y2="125" stroke="#66bb6a" stroke-width="1"/>
-                <!-- Wartości -->
                 <text x="370" y="88" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">0</text>
                 <text x="430" y="88" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
                 <text x="490" y="88" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
@@ -239,112 +205,63 @@
                 <text x="370" y="148" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">0</text>
                 <text x="430" y="148" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">0</text>
                 <text x="490" y="148" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">0</text>
-
-                <!-- Etykiety osi -->
-                <text x="400" y="55" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">1</text>
-                <text x="460" y="55" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">2</text>
-                <text x="520" y="55" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">3</text>
-                <text x="330" y="85" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">1</text>
-                <text x="330" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">2</text>
-                <text x="330" y="148" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">3</text>
-
                 <text x="590" y="115" font-family="sans-serif" font-size="13" fill="#546e7a">M[i][j] = 1</text>
                 <text x="590" y="135" font-family="sans-serif" font-size="13" fill="#546e7a">jeśli (i,j) ∈ R.</text>
-
-                <defs>
-                    <marker id="arrowGreen3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                </defs>
+                <defs><marker id="arrowGreen3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker></defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 5: ZASTOSOWANIA                                    -->
+            <!-- PART 5: ZASTOSOWANIA (oryg. + podpowiedź)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Gdzie to się przydaje? – Zbiory i relacje w praktyce</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🗄️ Bazy danych</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">SQL: UNION, INTERSECT, EXCEPT. Relacje to tabele. Klucze obce definiują relacje między tabelami.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>⚙️ Logika i maski bitowe</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Set bitów = zbiór. a | b = suma, a & b = przecięcie, a & ~b = różnica. Prawa dostępu: rwx.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🌐 Wyszukiwarki</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Graf internetu to relacja (linki). PageRank oblicza się na macierzy sąsiedztwa.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🧮 Algebra relacyjna</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Selekcja (σ), projekcja (π), złączenie (⋈) – to operacje na zbiorach krotek.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🗄️ Bazy danych</strong><br><span style="font-size: 0.9rem; color: #004d40;">SQL: UNION, INTERSECT, EXCEPT. Relacje to tabele.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>⚙️ Maski bitowe</strong><br><span style="font-size: 0.9rem; color: #004d40;">a | b = suma, a & b = przecięcie, a & ~b = różnica. Prawa rwx.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🌐 Wyszukiwarki</strong><br><span style="font-size: 0.9rem; color: #004d40;">Graf internetu to relacja (linki). PageRank na macierzy sąsiedztwa.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🧮 Algebra relacyjna</strong><br><span style="font-size: 0.9rem; color: #004d40;">Selekcja (σ), projekcja (π), złączenie (⋈) – operacje na zbiorach.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zbiory i relacje to fundamenty informatyki. Bazy danych to operacje na zbiorach – każda tabela to zbiór, a klucze obce definiują relacje między nimi. Maski bitowe w systemach operacyjnych to nic innego jak operacje na zbiorach – prawa dostępu rwx to trzy bity. Wyszukiwarki internetowe modelują sieć jako graf – relację między stronami – i na tej macierzy sąsiedztwa obliczają PageRank. Algebra relacyjna to matematyczny fundament SQL-a.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 6: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Relacja zwrotna ≠ relacja symetryczna ≠ relacja przechodnia.</strong> Musisz sprawdzić każdą własność osobno na konkretnym zbiorze.</li>
+                    <li><strong>Relacja zwrotna ≠ relacja symetryczna ≠ relacja przechodnia.</strong> Musisz sprawdzić każdą własność osobno.</li>
                     <li><strong>Iloczyn kartezjański nie jest przemienny</strong> – A×B ≠ B×A (chyba że zbiory są równe).</li>
                     <li><strong>Relacja równoważności</strong> = zwrotna + symetryczna + przechodnia. Dzieli zbiór na rozłączne klasy.</li>
                     <li><strong>W SQL NULL to nie wartość</strong> – w zbiorach nie ma NULL-i. Każdy element jest konkretny.</li>
-                    <li><strong>Zbiór potęgowy</strong> ma 2ⁿ elementów – szybko rośnie! Nie iteruj po wszystkich podzbiorach dla dużych n.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsze pułapki: po pierwsze – nie mylcie zwrotności, symetrii i przechodniości, każdą trzeba sprawdzić osobno. Po drugie – iloczyn kartezjański nie jest przemienny. Po trzecie – relacja równoważności wymaga wszystkich trzech cech naraz. I po czwarte – w SQL-u NULL nie jest elementem zbioru, więc operacje na NULL-ach dają wyniki trójwartościowe, podczas gdy w matematyce zbiór jest zawsze dwuwartościowy – coś należy albo nie.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – zbiory i relacje:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Definicja / Symbol</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Odpowiednik w IT</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Definicja / Symbol</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Odpowiednik w IT</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #00897b;">Suma</td>
-                        <td style="padding: 10px;">A ∪ B</td>
-                        <td style="padding: 10px;">SQL UNION, OR bitowe</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #00897b;">Przecięcie</td>
-                        <td style="padding: 10px;">A ∩ B</td>
-                        <td style="padding: 10px;">SQL INTERSECT, AND bitowe</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #00897b;">Różnica</td>
-                        <td style="padding: 10px;">A \ B</td>
-                        <td style="padding: 10px;">SQL EXCEPT, a & ~b</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Iloczyn kartezjański</td>
-                        <td style="padding: 10px;">A × B</td>
-                        <td style="padding: 10px;">CROSS JOIN</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Relacja</td>
-                        <td style="padding: 10px;">R ⊆ X × X</td>
-                        <td style="padding: 10px;">Tabela z kluczami, graf</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Równoważność</td>
-                        <td style="padding: 10px;">zwrotna + symetryczna + przechodnia</td>
-                        <td style="padding: 10px;">GROUP BY (party-cjonowanie)</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #00897b;">Suma</td><td style="padding: 10px;">A ∪ B</td><td style="padding: 10px;">SQL UNION, OR bitowe</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #00897b;">Przecięcie</td><td style="padding: 10px;">A ∩ B</td><td style="padding: 10px;">SQL INTERSECT, AND bitowe</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #00897b;">Różnica</td><td style="padding: 10px;">A \ B</td><td style="padding: 10px;">SQL EXCEPT, a & ~b</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #e65100;">Iloczyn kartezjański</td><td style="padding: 10px;">A × B</td><td style="padding: 10px;">CROSS JOIN</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Relacja</td><td style="padding: 10px;">R ⊆ X × X</td><td style="padding: 10px;">Tabela z kluczami, graf</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Równoważność</td><td style="padding: 10px;">zwrotna + symetryczna + przechodnia</td><td style="padding: 10px;">GROUP BY (party-cjonowanie)</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -353,7 +270,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">

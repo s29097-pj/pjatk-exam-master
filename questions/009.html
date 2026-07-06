@@ -11,12 +11,12 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">009. Systemy liczbowe – binarny świat maszyn.</h2>
+        <h2 id="q-title">009. Systemy liczbowe.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🌍</span>
                 <div>
@@ -53,12 +53,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: KONCEPCJA SYSTEMU POZYCYJNEGO                    -->
+            <!-- PART 1: KONCEPCJA SYSTEMU POZYCYJNEGO (oryg.+podpow.)  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">1. System pozycyjny – „Ile palców ma Twoja maszyna?”</strong>
@@ -73,37 +73,28 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Podstawa systemu (radix)</strong> mówi, ile różnych cyfr mamy do dyspozycji. System binarny ma 2 cyfry, dziesiętny 10, szesnastkowy 16.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, systemy liczbowe to języki, którymi mówią komputery. My używamy dziesiętnego, procesor binarnego, a programiści często szesnastkowego. Każdy system pozycyjny opiera się na podstawie – liczbie dostępnych cyfr. Wzór na wartość liczby jest zawsze taki sam: każda cyfra jest mnożona przez podstawę podniesioną do potęgi swojej pozycji. Proszę spojrzeć na rysunek – ta sama wartość, liczba 42, w różnych systemach wygląda zupełnie inaczej.”
+                </div>
             </div>
 
-            <!-- SVG: PORÓWNANIE SYSTEMÓW DLA TEJ SAMEJ LICZBY -->
+            <!-- SVG: PORÓWNANIE SYSTEMÓW DLA TEJ SAMEJ LICZBY (oryginalny) -->
             <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridNum" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridNum" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="200" fill="url(#gridNum)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Ta sama wartość – różne języki (liczba 42)</text>
-
-                <!-- Dziesiętny -->
                 <rect x="40" y="50" width="150" height="110" rx="8" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="2"/>
                 <text x="115" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1a237e">Dziesiętny</text>
                 <text x="115" y="110" text-anchor="middle" font-family="monospace" font-size="22" fill="#283593">42₁₀</text>
                 <text x="115" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#3949ab">4×10¹ + 2×10⁰</text>
-
-                <!-- Binarny -->
                 <rect x="220" y="50" width="150" height="110" rx="8" fill="#fce4ec" stroke="#e53935" stroke-width="2"/>
                 <text x="295" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Binarny</text>
                 <text x="295" y="110" text-anchor="middle" font-family="monospace" font-size="22" fill="#c62828">101010₂</text>
                 <text x="295" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e53935">1×32 + 0×16 + ...</text>
-
-                <!-- Szesnastkowy -->
                 <rect x="400" y="50" width="150" height="110" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="2"/>
                 <text x="475" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Szesnastkowy</text>
                 <text x="475" y="110" text-anchor="middle" font-family="monospace" font-size="22" fill="#2e7d32">2A₁₆</text>
                 <text x="475" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#388e3c">2×16¹ + 10×16⁰</text>
-
-                <!-- Ósemkowy -->
                 <rect x="580" y="50" width="150" height="110" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
                 <text x="655" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Ósemkowy</text>
                 <text x="655" y="110" text-anchor="middle" font-family="monospace" font-size="22" fill="#bf360c">52₈</text>
@@ -111,7 +102,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: SYSTEM BINARNY – JĘZYK MASZYN                    -->
+            <!-- PART 2: SYSTEM BINARNY (oryg. + podpowiedź)            -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">2. System binarny – „Serce komputera”</strong>
@@ -121,14 +112,15 @@
                 <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
                     <strong>🔑 Nibble i bajt:</strong> <strong>1 nibble = 4 bity</strong> (dokładnie jedna cyfra hex!), <strong>1 bajt = 8 bitów</strong> (dwie cyfry hex). Adresowanie pamięci i przesył danych niemal zawsze opiera się na bajtach.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „System binarny to serce komputera. Tranzystory mają tylko dwa stany – przewodzi albo nie przewodzi, czyli 0 albo 1. Wszystko, co widzicie na ekranie – tekst, obrazy, dźwięk – to na najniższym poziomie ciągi zer i jedynek. Każda pozycja w liczbie binarnej to kolejna potęga dwójki: 1, 2, 4, 8, 16 i tak dalej. Proszę spojrzeć na tabelę – jeden bajt, czyli 8 bitów, może reprezentować liczby od 0 do 255. Cztery bajty – od 0 do ponad 4 miliardów. To dlatego 32-bitowe procesory mogły zaadresować tylko 4 GB pamięci.”
+                </div>
             </div>
 
-            <!-- SVG: POTĘGI DWÓJKI – TABELA -->
+            <!-- SVG: POTĘGI DWÓJKI (oryginalny) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="#fefefe" rx="12"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Potęgi dwójki – elementarz binarnego świata</text>
-
-                <!-- Nagłówki -->
                 <text x="100" y="55" font-family="monospace" font-size="12" fill="#546e7a">2⁰</text>
                 <text x="190" y="55" font-family="monospace" font-size="12" fill="#546e7a">2¹</text>
                 <text x="280" y="55" font-family="monospace" font-size="12" fill="#546e7a">2²</text>
@@ -137,8 +129,6 @@
                 <text x="550" y="55" font-family="monospace" font-size="12" fill="#546e7a">2⁵</text>
                 <text x="640" y="55" font-family="monospace" font-size="12" fill="#546e7a">2⁶</text>
                 <text x="730" y="55" font-family="monospace" font-size="12" fill="#546e7a">2⁷</text>
-
-                <!-- Wartości -->
                 <rect x="70" y="65" width="60" height="35" rx="4" fill="#ffcdd2"/>
                 <text x="100" y="88" text-anchor="middle" font-family="monospace" font-size="15" fill="#b71c1c">1</text>
                 <rect x="160" y="65" width="60" height="35" rx="4" fill="#ffcdd2"/>
@@ -155,71 +145,64 @@
                 <text x="640" y="88" text-anchor="middle" font-family="monospace" font-size="15" fill="#b71c1c">64</text>
                 <rect x="700" y="65" width="60" height="35" rx="4" fill="#ffcdd2"/>
                 <text x="730" y="88" text-anchor="middle" font-family="monospace" font-size="15" fill="#b71c1c">128</text>
-
-                <!-- Etykieta bajtu -->
                 <text x="410" y="140" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">Jeden bajt (8 bitów) może reprezentować liczby od 0 do 255 (2⁸−1 = 255).</text>
                 <text x="410" y="160" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#78909c">Dwa bajty: 0...65535. Cztery bajty: 0...4,3 miliarda (domena 32-bitowych rejestrów procesora).</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: SYSTEM SZESNASTKOWY – „ZWIĘZŁOŚĆ KODERA”        -->
+            <!-- PART 3: SYSTEM SZESNASTKOWY (oryg. + podpowiedź)       -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. System szesnastkowy (hex) – „Król adresów i kolorów”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Ponieważ 16 = 2⁴, każda cyfra hex reprezentuje <strong>dokładnie 4 bity</strong> (jednego nibble'a). To sprawia, że konwersja hex ↔ bin jest <strong>natychmiastowa</strong> – uczysz się jej na pamięć jak tabliczki mnożenia. Hex jest używany wszędzie: adresy pamięci (0x7FFD…), kolory RGB (#FF5733), kody błędów, a nawet do podawania magicznych numerów w debugerach.
+                    Ponieważ 16 = 2⁴, każda cyfra hex reprezentuje <strong>dokładnie 4 bity</strong> (jednego nibble'a). To sprawia, że konwersja hex ↔ bin jest <strong>natychmiastowa</strong>. Hex jest używany wszędzie: adresy pamięci (0x7FFD…), kolory RGB (#FF5733), kody błędów.
                 </p>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
                     <strong>🧠 Szybka konwersja:</strong> 0x2A → 0010 1010. 0xF3 → 1111 0011. Jeden bajt (8 bitów) = <strong>dwie cyfry hex</strong> (0x00 do 0xFF).
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „System szesnastkowy to zwięzły sposób zapisu binarnego. Ponieważ 16 to 2 do czwartej, każda cyfra hex odpowiada dokładnie 4 bitom. Dzięki temu jeden bajt to zawsze dwie cyfry hex – od 00 do FF. Programiści kochają hex, bo jest zwięzły i łatwo się konwertuje na binarny. Proszę spojrzeć na rysunek: 0xAD to 1010 1101. Używamy tego do adresów pamięci, kolorów w HTML, a nawet magicznych numerów w debugerach.”
+                </div>
             </div>
 
-            <!-- SVG: KONWERSJA HEX ↔ BIN DLA BAJTU -->
+            <!-- SVG: KONWERSJA HEX ↔ BIN (oryginalny) -->
             <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="200" fill="url(#gridNum)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Jeden bajt w hex = dwie cyfry = osiem bitów</text>
-
-                <!-- Przykład 0xAD -->
                 <rect x="100" y="50" width="100" height="60" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="150" y="85" text-anchor="middle" font-family="monospace" font-size="20" font-weight="bold" fill="#1b5e20">0xAD</text>
-
                 <text x="230" y="85" font-family="sans-serif" font-size="24" fill="#546e7a">=</text>
-
-                <!-- Rozbicie na dwa nibble -->
                 <rect x="270" y="50" width="80" height="60" rx="6" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1"/>
                 <text x="310" y="75" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">A (starszy)</text>
                 <text x="310" y="95" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1010</text>
-
                 <rect x="360" y="50" width="80" height="60" rx="6" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1"/>
                 <text x="400" y="75" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">D (młodszy)</text>
                 <text x="400" y="95" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1101</text>
-
                 <text x="470" y="85" font-family="sans-serif" font-size="24" fill="#546e7a">=</text>
-
-                <!-- Pełny bajt -->
                 <rect x="510" y="50" width="160" height="60" rx="6" fill="#f1f8e9" stroke="#558b2f" stroke-width="2"/>
                 <text x="590" y="85" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#33691e">1010 1101</text>
-
-                <!-- Przeliczenie na dec -->
                 <text x="400" y="140" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">= 10·16¹ + 13·16⁰ = 160 + 13 =</text>
                 <text x="400" y="165" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#1b5e20">173₁₀</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: SYSTEM ÓSEMKOWY                                 -->
+            <!-- PART 4: SYSTEM ÓSEMKOWY (oryg. + podpowiedź)           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">4. System ósemkowy (octal) – „Duch przeszłości”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    System o podstawie 8 (cyfry 0-7). Historycznie używany w komputerach, gdzie słowo maszyny było wielokrotnością 3 bitów (np. 18-bitowe lub 36-bitowe). Dziś głównie widzimy go w <strong>uprawnieniach plików w systemach Unix/Linux</strong> (polecenie <code>chmod</code>).
+                    System o podstawie 8 (cyfry 0-7). Historycznie używany w komputerach, gdzie słowo maszyny było wielokrotnością 3 bitów. Dziś głównie widzimy go w <strong>uprawnieniach plików w systemach Unix/Linux</strong> (polecenie <code>chmod</code>).
                 </p>
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>Przykład:</strong> <code>chmod 755</code> → właściciel rwx (7 = 111₂), grupa r-x (5 = 101₂), inni r-x (5 = 101₂).
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „System ósemkowy to relikt przeszłości – ma podstawę 8 i cyfry od 0 do 7. Historycznie był używany w komputerach, gdzie długość słowa maszynowego była wielokrotnością 3 bitów. Dziś spotykamy go głównie w poleceniu chmod w systemach Unix. Trzy cyfry – 755 – oznaczają prawa dostępu: właściciel może wszystko, grupa i inni tylko czytać i wykonywać. Każda cyfra ósemkowa to tak naprawdę trzy bity uprawnień: czytanie, zapis, wykonanie.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: KONWERSJE – METODY I SCHEMATY                    -->
+            <!-- PART 5: KONWERSJE (oryg. + podpowiedź)                  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Konwersje między systemami – „Tłumaczenia między językami”</strong>
@@ -237,10 +220,13 @@
                         <span style="font-size:0.9rem;">Grupuj bity po 3 (od prawej!). 3 bity → 1 cyfra oct. Np. 111 010 → 72₈.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Konwersje między systemami to codzienność programisty. Z dziesiętnego na binarny – dzielimy przez 2 i zapisujemy reszty od końca. Z binarnego na hex – grupujemy bity po cztery od prawej strony. Z binarnego na ósemkowy – grupujemy po trzy. Te techniki są bardzo proste, ale trzeba pamiętać o kolejności – zwłaszcza przy dzieleniu reszty czytamy od dołu.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PREFIKSY W JĘZYKACH PROGRAMOWANIA               -->
+            <!-- PART 6: PREFIKSY (oryg. + podpowiedź)                   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.1rem; color: #1565c0;">6. Jak zapisujemy stałe liczbowe w kodzie?</strong>
@@ -251,35 +237,28 @@
                     <div style="background:#ffe0b2; padding:8px 14px; border-radius:6px;"><strong>Ósemkowy:</strong> <code>052</code> (w C/C++ zero przed liczbą!)</div>
                 </div>
                 <p style="margin-top:10px; color:#c62828; font-size:0.9rem;">⚠️ Uwaga: <code>010</code> w C to ósemkowo 8, a nie 10! To częsty błąd.</p>
-            </div>
-
-            <!-- ======================================================== -->
-            <!-- PART 7: ZASTOSOWANIA INŻYNIERSKIE                        -->
-            <!-- ======================================================== -->
-            <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #00695c;">7. Gdzie to się przydaje? – Systemy w akcji</strong>
-                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🎨 Kolory w CSS/HTML</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;"><code>#FF5733</code> → 3 bajty: R=FF, G=57, B=33. Każda składowa 0-255.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>💾 Adresy pamięci</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">W debugerze widzisz <code>0x7ffe1234</code>. To 64-bitowy wskaźnik na stosie.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🔐 Kodowanie</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Base64, Base58 (Bitcoin) – to tylko zmiana podstawy systemu na większą.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🐧 Unix permissions</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;"><code>chmod 755</code> – trzy cyfry ósemkowe definiują prawa rwx dla właściciela, grupy i innych.</span>
-                    </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W kodzie programiści używają przedrostków. 0x dla hex, 0b dla binarnego, a samo zero na początku dla ósemkowego – uwaga na to ostatnie, bo 010 w C to nie dziesiątka, tylko ósemka! To bardzo częsty błąd i pułapka egzaminacyjna.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 7: ZASTOSOWANIA (oryg. + podpowiedź)               -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 20px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">7. Gdzie to się przydaje? – Systemy w akcji</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🎨 Kolory w CSS/HTML</strong><br><span style="font-size: 0.9rem; color: #004d40;"><code>#FF5733</code> → 3 bajty: R=FF, G=57, B=33.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>💾 Adresy pamięci</strong><br><span style="font-size: 0.9rem; color: #004d40;">W debugerze widzisz <code>0x7ffe1234</code>. To 64-bitowy wskaźnik na stosie.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🐧 Unix permissions</strong><br><span style="font-size: 0.9rem; color: #004d40;"><code>chmod 755</code> – trzy cyfry ósemkowe definiują prawa rwx.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Systemy liczbowe spotykamy na co dzień jako programiści. Kolory w CSS to hex – FF, 57, 33. Adresy w debugerze też są w hex. A uprawnienia plików w Unixie to system ósemkowy. Teoria, którą omawiamy, ma bezpośrednie przełożenie na praktykę inżynierską.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 8: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -288,60 +267,30 @@
                     <li><strong>Hex: A=10, B=11, …, F=15.</strong> Litery mogą być duże lub małe – 0x2a = 0x2A.</li>
                     <li><strong>Liczba z wiodącym zerem (np. 077) w C/C++ to ósemkowa!</strong> 077 ≠ 77 (to 63 w dec).</li>
                     <li><strong>Zakres bajtu: 0…255 (dziesiętnie), 0x00…0xFF (hex), 00000000…11111111 (bin).</strong> 256 to już 9 bitów (1 0000 0000).</li>
-                    <li><strong>Bit najbardziej znaczący (MSB)</strong> – w bajcie to bit o wadze 128. W liczbie binarnej to pierwsza cyfra od lewej.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsze błędy przy konwersji: czytanie reszt od góry zamiast od dołu. Po drugie – mylenie liter w hex: A to 10, F to 15. Po trzecie – pułapka ósemkowa: w C i C++ liczba z wiodącym zerem jest interpretowana jako ósemkowa. I po czwarte – zakres bajtu to 0-255; 256 wymaga już 9 bitów. To są rzeczy, które na egzaminie potrafią zaskoczyć.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – systemy liczbowe:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">System</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Podstawa</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cyfry</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zastosowanie</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">System</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Podstawa</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cyfry</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zastosowanie</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #283593;">Dziesiętny</td>
-                        <td style="padding: 10px;">10</td>
-                        <td style="padding: 10px;">0-9</td>
-                        <td style="padding: 10px;"><code>42</code></td>
-                        <td style="padding: 10px;">My, ludzie</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Binarny</td>
-                        <td style="padding: 10px;">2</td>
-                        <td style="padding: 10px;">0, 1</td>
-                        <td style="padding: 10px;"><code>0b101010</code></td>
-                        <td style="padding: 10px;">Procesor, pamięć</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Szesnastkowy</td>
-                        <td style="padding: 10px;">16</td>
-                        <td style="padding: 10px;">0-9, A-F</td>
-                        <td style="padding: 10px;"><code>0x2A</code></td>
-                        <td style="padding: 10px;">Adresy, kolory</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Ósemkowy</td>
-                        <td style="padding: 10px;">8</td>
-                        <td style="padding: 10px;">0-7</td>
-                        <td style="padding: 10px;"><code>052</code></td>
-                        <td style="padding: 10px;">chmod, archaizmy</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #283593;">Dziesiętny</td><td style="padding: 10px;">10</td><td style="padding: 10px;">0-9</td><td style="padding: 10px;"><code>42</code></td><td style="padding: 10px;">My, ludzie</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #c62828;">Binarny</td><td style="padding: 10px;">2</td><td style="padding: 10px;">0, 1</td><td style="padding: 10px;"><code>0b101010</code></td><td style="padding: 10px;">Procesor, pamięć</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Szesnastkowy</td><td style="padding: 10px;">16</td><td style="padding: 10px;">0-9, A-F</td><td style="padding: 10px;"><code>0x2A</code></td><td style="padding: 10px;">Adresy, kolory</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #e65100;">Ósemkowy</td><td style="padding: 10px;">8</td><td style="padding: 10px;">0-7</td><td style="padding: 10px;"><code>052</code></td><td style="padding: 10px;">chmod, archaizmy</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -350,7 +299,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">

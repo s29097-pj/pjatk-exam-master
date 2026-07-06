@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔐</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #263238; display: block; margin-bottom: 6px;">💡 Aha! Moment – Hermetyzacja to „Sejf z klawiaturą, a nie otwarta półka”:</strong>
+                    <strong style="font-size: 1.15rem; color: #263238; display: block; margin-bottom: 6px;">💡 Aha! Moment – Hermetyzacja to „Sejf z klawiaturą, a nie otwarta półka":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a2328; line-height: 1.7;">
                         Wyobraź sobie <strong>bankomat</strong>. Z zewnątrz widzisz tylko elegancki panel: ekran, klawiaturę i otwór na kartę. To wszystko, z czym możesz wejść w interakcję – to <strong>interfejs publiczny</strong>. Nie masz dostępu do sejfu z gotówką, mechanizmu liczenia banknotów ani połączenia z bankiem – to <strong>wewnętrzna implementacja</strong>, szczelnie ukryta za stalową obudową. <strong>Hermetyzacja (enkapsulacja)</strong> w programowaniu działa dokładnie tak samo: ukrywa wewnętrzny stan obiektu i szczegóły jego działania, wystawiając na zewnątrz tylko bezpieczny, kontrolowany interfejs. Dzięki temu możesz zmienić mechanizm sortowania banknotów (poprawić implementację) bez obawy, że ktoś na zewnątrz przestanie móc wypłacać pieniądze (zepsuje się kod klienta).
                     </p>
@@ -59,15 +59,18 @@
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: ISTOTA HERMETY ZACJI                             -->
+            <!-- PART 1: ISTOTA HERMETYZACJI                             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #455a64;">1. Istota hermetyzacji – „Sejf, nie półka”</strong>
+                <strong style="font-size: 1.2rem; color: #455a64;">1. Istota hermetyzacji – „Sejf, nie półka"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Hermetyzacja</strong> to jedna z czterech fundamentalnych zasad programowania obiektowego (obok abstrakcji, dziedziczenia i polimorfizmu). Polega na <strong>ukryciu wewnętrznych danych obiektu</strong> przed nieuprawnionym dostępem z zewnątrz i udostępnieniu wyłącznie kontrolowanego interfejsu do manipulacji tymi danymi. To nie tylko techniczny trick – to filozofia projektowania: obiekt jest odpowiedzialny za własny stan i nie pozwala nikomu postawić go w niespójnej sytuacji.
                 </p>
                 <div style="background: #eceff1; border-left: 5px solid #455a64; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Złota zasada:</strong> Pola obiektu deklaruj jako <strong>prywatne</strong>. Udostępniaj je tylko przez <strong>publiczne metody</strong>, które mogą egzekwować reguły biznesowe (np. wiek nie może być ujemny, saldo nie może spaść poniżej zera bez zgody na debet).
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, hermetyzacja to jedna z czterech fundamentalnych zasad programowania obiektowego. Wyobraźcie sobie bankomat – widzicie ekran i klawiaturę, ale nie macie dostępu do sejfu z gotówką. Tak samo klasa: jej pola powinny być prywatne, a świat zewnętrzny komunikuje się z nią wyłącznie przez bezpieczne, publiczne metody. To jest złota zasada hermetyzacji: ukrywamy stan wewnętrzny i wystawiamy tylko kontrolowany interfejs. Dzięki temu obiekt nigdy nie znajdzie się w niespójnym stanie – to on sam pilnuje swoich niezmienników."
                 </div>
             </div>
 
@@ -115,7 +118,7 @@
             <!-- PART 2: MODYFIKATORY DOSTĘPU                             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Modyfikatory dostępu – „Klucze do sejfu”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Modyfikatory dostępu – „Klucze do sejfu"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Większość języków obiektowych udostępnia mechanizmy do jawnego określania, kto ma dostęp do poszczególnych składowych klasy.
                 </p>
@@ -136,6 +139,9 @@
                 <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;">
                     <strong>Python</strong> nie ma ścisłych modyfikatorów – opiera się na <strong>konwencji</strong>: <code>_pole</code> (chronione, nie ruszaj) i <code>__pole</code> (prywatne, name mangling zmienia nazwę na <code>_NazwaKlasy__pole</code>).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Modyfikatory dostępu to mechanizmy, które pozwalają nam jawnie określić, kto ma dostęp do składowych klasy. Mamy trzy podstawowe poziomy. Private – dostęp tylko wewnątrz tej samej klasy, to nasz sejf. Protected – dostęp w klasie i jej podklasach, w Javie również w tym samym pakiecie. Public – dostępne dla wszystkich, to nasz oficjalny interfejs. Python podchodzi do tego inaczej – nie ma ścisłych modyfikatorów, tylko konwencje: podkreślenie dla chronionego, podwójne podkreślenie dla prywatnego. W Pythonie name mangling zmienia nazwę pola z podwójnym podkreśleniem, ale dostęp nadal jest możliwy – to tylko zabezpieczenie przed przypadkowym przesłonięciem."
+                </div>
             </div>
 
             <!-- SVG: MODYFIKATORY DOSTĘPU – DIAGRAM WARSTW -->
@@ -168,7 +174,7 @@
             <!-- PART 3: GETTERY I SETTERY                                -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Gettery i settery – „Kontrolowane okienko kasjera”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Gettery i settery – „Kontrolowane okienko kasjera"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Getter (akcesor)</strong> to publiczna metoda zwracająca wartość prywatnego pola. <strong>Setter (mutator)</strong> to metoda ustawiająca wartość pola, często z walidacją. Pozwalają one na dodanie logiki przy dostępie do danych – np. sprawdzenie, czy wypłacana kwota nie przekracza salda, albo czy ustawiany wiek jest dodatni.
                 </p>
@@ -184,10 +190,13 @@
                         <span style="font-size:0.85rem; color:#2e7d32;">Setter sprawdza poprawność przed zapisem.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gettery i settery to nasze kontrolowane okienko do prywatnych pól. Getter, czyli akcesor, zwraca wartość pola – możemy dodać logikę, na przykład formatowanie albo zwracanie kopii dla obiektów mutowalnych. Setter, czyli mutator, ustawia wartość – i tu jest kluczowa zaleta: możemy sprawdzić poprawność danych przed zapisem. Jeśli ktoś próbuje ustawić ujemny wiek, setter rzuca wyjątek. Bez hermetyzacji, przy polu publicznym, każdy może wpisać bzdurę i obiekt ląduje w niespójnym stanie. Proszę spojrzeć na przykłady – bez hermetyzacji minus pięć jako wiek przechodzi, z hermetyzacją setter to blokuje."
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 4: ZALETY HERM ETYZACJI                             -->
+            <!-- PART 4: ZALETY HERMETYZACJI                             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">4. Dlaczego hermetyzacja jest tak ważna?</strong>
@@ -205,10 +214,13 @@
                         <span style="font-size:0.9rem;">Kod staje się czarną skrzynką – łatwiejszą do zrozumienia, testowania i ponownego użycia.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Hermetyzacja daje nam trzy fundamentalne korzyści. Po pierwsze, ochrona niezmienników – obiekt sam pilnuje swojego stanu, więc nigdy nie znajdzie się w sytuacji, gdzie dzień ma wartość trzydzieści dwa. Po drugie, swoboda refaktoryzacji – mogę zmienić wewnętrzną reprezentację danych, na przykład z tablicy na listę, a kod klienta nawet tego nie zauważy, bo komunikuje się tylko przez interfejs. Po trzecie, modularność – klasa staje się czarną skrzynką, którą łatwiej zrozumieć, przetestować jednostkowo i użyć ponownie w innym projekcie. To są powody, dla których hermetyzacja to nie tylko technika, ale fundament dobrego projektowania."
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: HERM ETYZACJA W RÓŻNYCH JĘZYKACH               -->
+            <!-- PART 5: HERMETYZACJA W RÓŻNYCH JĘZYKACH               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. Hermetyzacja w praktyce – różne języki, różne narzędzia</strong>
@@ -228,6 +240,9 @@
                         <span style="font-size:0.85rem;">Konwencja: <code>_chronione</code>, <code>__prywatne</code><br>Dekorator @property – pythoniczne gettery/settery.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Warto porównać, jak hermetyzacja wygląda w różnych językach. C plus plus ma jawne etykiety private, protected i public, a domyślnie dla klas wszystko jest prywatne – to zmusza do myślenia o hermetyzacji od początku. Java ma te same modyfikatory plus dostęp pakietowy, gdy nie podamy żadnego – to niuans, o który często pytają na egzaminie. Python stawia na konwencję – nie ma technicznego wymuszenia, ale programiści respektują podkreślenia. Dekorator at-property pozwala na eleganckie gettery i settery w pythonicznym stylu. Każdy z tych języków realizuje tę samą ideę: oddzielenie interfejsu od implementacji."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -237,10 +252,13 @@
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>Hermetyzacja ≠ tylko gettery i settery.</strong> Prawdziwa hermetyzacja to ukrywanie zachowania, nie tylko pól. Czasem lepiej dać metodę <code>wyplac()</code> niż getter do salda i setter do salda.</li>
-                    <li><strong>Python: <code>__pole</code> to nie „nietykalne”.</strong> Name mangling zmienia nazwę, ale dostęp jest nadal możliwy (przez <code>_NazwaKlasy__pole</code>). To tylko konwencja zabezpieczająca przed przypadkowym przesłonięciem w podklasach.</li>
+                    <li><strong>Python: <code>__pole</code> to nie „nietykalne".</strong> Name mangling zmienia nazwę, ale dostęp jest nadal możliwy (przez <code>_NazwaKlasy__pole</code>). To tylko konwencja zabezpieczająca przed przypadkowym przesłonięciem w podklasach.</li>
                     <li><strong>Zwracanie referencji do prywatnego obiektu mutowalnego</strong> (np. listy) przez getter łamie hermetyzację. Zwracaj kopię lub niemutowalny widok.</li>
                     <li><strong>Nie przesadzaj z setterami</strong> – obiekt powinien być zawsze w poprawnym stanie. Jeśli ustawienie jednego pola wymaga zmiany drugiego, zamiast osobnych setterów daj metodę wykonującą operację atomowo.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z hermetyzacją to: po pierwsze, mylenie hermetyzacji z mechanicznym dodawaniem getterów i setterów. Prawdziwa hermetyzacja to ukrywanie zachowania – zamiast getter do salda i setter do salda, lepiej dać metodę wyplac, która sprawdza limit. Po drugie, w Pythonie podwójne podkreślenie nie czyni pola nietykalnym – name mangling tylko zmienia nazwę, dostęp jest nadal możliwy. Po trzecie, zwracanie przez getter referencji do prywatnej listy lub słownika to dziura w hermetyzacji – klient może modyfikować wnętrze obiektu bez kontroli. Należy zwracać kopię lub niemutowalny widok. I po czwarte, nie przesadzajmy z setterami – jeśli zmiana jednego pola wymaga zmiany drugiego, zamiast osobnych setterów dajmy metodę, która wykonuje operację atomowo i gwarantuje spójność."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -290,7 +308,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Effective Java” (Joshua Bloch) · „Design Patterns” (Gang of Four) · „Clean Code” (Robert C. Martin) · Dokumentacje C++17, Java 17, Python 3.12.
+                    „Effective Java" (Joshua Bloch) · „Design Patterns" (Gang of Four) · „Clean Code" (Robert C. Martin) · Dokumentacje C++17, Java 17, Python 3.12.
                 </span>
             </div>
 

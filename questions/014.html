@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pytanie 014 – Wartość oczekiwana i wariancja zmiennej losowej</title>
+    <title>Pytanie 014 – Wartość oczekiwana i wariancja zmiennej losowej. Podstawowe własności.</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/script.js"></script>
 </head>
@@ -14,9 +14,9 @@
         <h2 id="q-title">014. Wartość oczekiwana i wariancja zmiennej losowej. Podstawowe własności.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎯</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (oryginalne)                  -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -53,12 +53,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: DEFINICJA ZMIENNEJ LOSOWEJ I WARTOŚCI OCZEKIW.  -->
+            <!-- PART 1: WARTOŚĆ OCZEKIWANA (oryg. + podpowiedź)        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1b5e20;">1. Wartość oczekiwana – „Średnia, która waży”</strong>
@@ -73,19 +73,16 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Intuicja informatyczna:</strong> Jeśli Twój algorytm losowy ma 70% szans na wykonanie 100 operacji i 30% szans na 500 operacji, to średnia liczba operacji wynosi 0.7·100 + 0.3·500 = 220. To jest właśnie wartość oczekiwana – klucz do analizy średniego przypadku.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, wartość oczekiwana to średnia ważona wyników – wagi to prawdopodobieństwa. Dla kostki to 3,5 – choć kostka nigdy nie pokaże 3,5. W informatyce: jeśli algorytm losowy w 70% przypadków wykonuje 100 operacji, a w 30% – 500, to średnio wykona 220 operacji. To jest właśnie E[X]. Proszę spojrzeć na rysunek – ciężarki na osi reprezentują prawdopodobieństwa, a środek ciężkości to wartość oczekiwana.”
+                </div>
             </div>
 
-            <!-- SVG: ŚRODEK CIĘŻKOŚCI ROZKŁADU -->
+            <!-- SVG: ŚRODEK CIĘŻKOŚCI ROZKŁADU (oryginalny) -->
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridExp" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridExp" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="260" fill="url(#gridExp)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Wartość oczekiwana jako środek ciężkości rozkładu</text>
-
-                <!-- Oś pozioma -->
                 <line x1="60" y1="220" x2="760" y2="220" stroke="#546e7a" stroke-width="2"/>
                 <line x1="60" y1="220" x2="60" y2="210" stroke="#546e7a" stroke-width="2"/>
                 <line x1="200" y1="220" x2="200" y2="210" stroke="#546e7a" stroke-width="2"/>
@@ -99,32 +96,23 @@
                 <text x="480" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#78909c">3</text>
                 <text x="620" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#78909c">4</text>
                 <text x="760" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#78909c">5</text>
-
-                <!-- Ciężarki (prawdopodobieństwa) na punktach 1, 2, 3, 4, 5 -->
-                <!-- Punkt 1: małe prawdopodobieństwo -->
                 <circle cx="200" cy="200" r="12" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="200" y="195" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1b5e20">0.1</text>
-                <!-- Punkt 2: duże -->
                 <circle cx="340" cy="170" r="28" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="340" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff">0.4</text>
-                <!-- Punkt 3: średnie -->
                 <circle cx="480" cy="190" r="18" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="480" y="185" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff">0.2</text>
-                <!-- Punkt 4: duże -->
                 <circle cx="620" cy="175" r="25" fill="#4db6ac" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="620" y="170" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff">0.35</text>
-                <!-- Punkt 5: małe -->
                 <circle cx="760" cy="200" r="12" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="760" y="195" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#1b5e20">0.05</text>
-
-                <!-- Środek ciężkości (E[X]) -->
                 <line x1="480" y1="120" x2="480" y2="220" stroke="#e65100" stroke-width="2.5" stroke-dasharray="6,4"/>
                 <text x="480" y="110" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">E[X] ≈ 3.0</text>
                 <text x="480" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">(punkt podparcia)</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: WARIANCJA I ODSTANDARDOWE ROZKLADY              -->
+            <!-- PART 2: WARIANCJA (oryg. + podpowiedź)                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">2. Wariancja – „Jak bardzo się trzęsie?”</strong>
@@ -134,26 +122,21 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Odchylenie standardowe σ = √Var(X)</strong> wyraża zmienność w tych samych jednostkach co X – łatwiej powiedzieć „średni czas to 100 ms ± 20 ms” niż operować ms².
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wariancja mierzy rozrzut. Formalnie to średnia z kwadratów odchyleń od średniej. Praktyczniej używa się odchylenia standardowego – pierwiastka z wariancji. Proszę spojrzeć na rysunek: niebieska krzywa to mała wariancja – wyniki są skupione. Czerwona to duża wariancja – wyniki są rozrzucone. W informatyce: algorytm A ma średni czas 1 s, ale czasem 10 s – duża wariancja. Algorytm B ma też średni 1 s, ale zawsze między 0,9 a 1,1 s – mała wariancja. Który wolicie Państwo w systemie czasu rzeczywistego?”
+                </div>
             </div>
 
-            <!-- SVG: DWA ROZKŁADY O TEJ SAMEJ ŚREDNIEJ, RÓŻNEJ WARIANCJI -->
+            <!-- SVG: DWA ROZKŁADY (oryginalny) -->
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="260" fill="url(#gridExp)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Ta sama wartość oczekiwana, różna wariancja – znaczenie w inżynierii</text>
-
-                <!-- Wykres: dwa rozkłady normalne narysowane ręcznie -->
-                <!-- Rozkład o małej wariancji (wąski) -->
                 <path d="M 300 220 Q 350 220 370 160 T 410 50 T 450 160 T 470 220" fill="none" stroke="#1565c0" stroke-width="3"/>
                 <text x="410" y="40" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">σ małe (pewność)</text>
-                <!-- Rozkład o dużej wariancji (szeroki) -->
                 <path d="M 180 220 Q 280 220 320 160 T 410 50 T 500 160 T 540 220" fill="none" stroke="#c62828" stroke-width="3" stroke-dasharray="6,4"/>
                 <text x="540" y="40" font-family="sans-serif" font-size="12" fill="#c62828">σ duże (ryzyko)</text>
-
-                <!-- Średnia (wspólna) -->
                 <line x1="410" y1="220" x2="410" y2="30" stroke="#e65100" stroke-width="2" stroke-dasharray="4,4"/>
                 <text x="410" y="25" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">μ (E[X])</text>
-
-                <!-- Opis -->
                 <rect x="580" y="80" width="210" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="685" y="105" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">W informatyce:</text>
                 <text x="685" y="125" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">• Algorytm A: średni czas 1 s,</text>
@@ -163,120 +146,83 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: WŁASNOŚCI WARTOŚCI OCZEKIWANEJ I WARIANCJI      -->
+            <!-- PART 3: WŁASNOŚCI (oryg. + podpowiedź)                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">3. Podstawowe własności – „Narzędzia inżyniera”</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
-                        <strong style="color: #0d47a1;">Liniowość wartości oczekiwanej</strong><br>
-                        <code>E[aX + bY] = a·E[X] + b·E[Y]</code><br>
-                        <span style="font-size:0.85rem;">Zawsze prawdziwe! Nawet gdy X i Y są zależne. To potężna własność – używana do analizy sum kosztów.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
-                        <strong style="color: #0d47a1;">Wariancja sumy</strong><br>
-                        <code>Var(X + Y) = Var(X) + Var(Y) + 2·Cov(X,Y)</code><br>
-                        <span style="font-size:0.85rem;">Jeśli X i Y są <strong>niezależne</strong>, to Cov = 0 i wariancja sumy = suma wariancji. To podstawa analizy szumu i błędów pomiarowych.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
-                        <strong style="color: #0d47a1;">Wariancja a skala</strong><br>
-                        <code>Var(aX) = a²·Var(X)</code><br>
-                        <span style="font-size:0.85rem;">Skalowanie zmiennej przez stałą a skaluje wariancję przez a². Dlatego odchylenie standardowe rośnie liniowo ze skalą.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;"><strong style="color: #0d47a1;">Liniowość wartości oczekiwanej</strong><br><code>E[aX + bY] = a·E[X] + b·E[Y]</code><br><span style="font-size:0.85rem;">Zawsze prawdziwe! Nawet gdy X i Y są zależne.</span></div>
+                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;"><strong style="color: #0d47a1;">Wariancja sumy</strong><br><code>Var(X + Y) = Var(X) + Var(Y) + 2·Cov(X,Y)</code><br><span style="font-size:0.85rem;">Jeśli X i Y są <strong>niezależne</strong>, to Cov = 0 i wariancja sumy = suma wariancji.</span></div>
+                    <div style="flex: 1; min-width: 280px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;"><strong style="color: #0d47a1;">Wariancja a skala</strong><br><code>Var(aX) = a²·Var(X)</code><br><span style="font-size:0.85rem;">Skalowanie zmiennej przez stałą a skaluje wariancję przez a².</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Te własności to nasze podstawowe narzędzia. Liniowość wartości oczekiwanej jest zawsze prawdziwa – nawet dla zależnych zmiennych. To potężne. Dla wariancji sumy potrzebujemy już niezależności – wtedy wariancja sumy to suma wariancji. I ostatnia: Var od aX to a² razy Var(X). Proszę zauważyć: przesunięcie o stałą nie zmienia wariancji – bo wariancja mierzy rozrzut, a przesunięcie to tylko zmiana położenia, nie rozrzutu.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 4: PRZYKŁADY – KOŚĆ, QUICK SORT, LOAD BALANCING    -->
+            <!-- PART 4: PRZYKŁADY (oryg. + podpowiedź)                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Przykłady obliczeniowe – „Od kości do serwerów”</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
-                        <strong>🎲 Rzut kostką (d6)</strong><br>
-                        <code>E[X] = (1+2+3+4+5+6)/6 = 3.5</code><br>
-                        <code>Var(X) = E[X²] − (E[X])²</code><br>
-                        <code>= 91/6 − 12.25 ≈ 2.92</code>
-                    </div>
-                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
-                        <strong>⚡ QuickSort (średnio)</strong><br>
-                        <span style="font-size:0.9rem; color:#4a148c;">Oczekiwana liczba porównań: ~2n ln n. Dowód używa liniowości wartości oczekiwanej na parach elementów.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
-                        <strong>🏭 Load balancing</strong><br>
-                        <span style="font-size:0.9rem; color:#4a148c;">n zadań, m serwerów, przydział losowy. Oczekiwana liczba zadań na serwer = n/m. Wariancja też n/m (rozkład Poissona).</span>
-                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;"><strong>🎲 Rzut kostką (d6)</strong><br><code>E[X] = (1+2+3+4+5+6)/6 = 3.5</code><br><code>Var(X) = E[X²] − (E[X])² ≈ 2.92</code></div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;"><strong>⚡ QuickSort (średnio)</strong><br><span style="font-size:0.9rem; color:#4a148c;">Oczekiwana liczba porównań: ~2n ln n. Dowód używa liniowości E[·].</span></div>
+                    <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;"><strong>🏭 Load balancing</strong><br><span style="font-size:0.9rem; color:#4a148c;">n zadań, m serwerów, przydział losowy. E = n/m.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kilka konkretnych przykładów. Kostka: wartość oczekiwana to 3,5. QuickSort: oczekiwana liczba porównań to około 2n ln n – dowód używa właśnie liniowości wartości oczekiwanej. Load balancing: jeśli losowo przydzielam n zadań na m serwerów, średnio na każdy serwer przypada n/m zadań. Te przykłady pokazują, że teoria przekłada się na praktykę inżynierską.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: PRAWO WIELKICH LICZB – DLACZEGO TO DZIAŁA      -->
+            <!-- PART 5: PRAWO WIELKICH LICZB (oryg. + podpowiedź)      -->
             <!-- ======================================================== -->
             <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 14px 18px; margin-bottom: 24px; border-radius: 0 8px 8px 0;">
                 <strong style="color: #1b5e20;">📈 Prawo Wielkich Liczb (PWL):</strong>
                 <p style="margin: 6px 0 0 0; line-height: 1.7; color: #1b5e20;">
                     Jeśli X₁, X₂, … są niezależne i mają tę samą wartość oczekiwaną μ, to średnia arytmetyczna z próby <strong>zbiega do μ</strong> przy rozmiarze próby rosnącym do nieskończoności. To dlatego symulacje Monte Carlo działają – i dlatego możemy ufać testom wydajnościowym po wielu powtórzeniach. Wariancja średniej maleje jak σ²/n!
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Prawo Wielkich Liczb to fundament, który sprawia, że statystyka działa. Jeśli rzucam kostką tysiąc razy i liczę średnią, to będzie ona bliska 3,5. Im więcej rzutów, tym bliżej. Dlatego symulacje Monte Carlo działają – i dlatego testy wydajnościowe mają sens tylko przy wielu powtórzeniach. Pojedynczy pomiar może być niemiarodajny ze względu na wariancję.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 6: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Liniowość E[·] zawsze zachodzi, ale dla Var(X+Y) potrzebujesz niezależności!</strong> Jeśli X i Y są zależne, musisz znać kowariancję.</li>
+                    <li><strong>Liniowość E[·] zawsze zachodzi, ale dla Var(X+Y) potrzebujesz niezależności!</strong></li>
                     <li><strong>Wartość oczekiwana może nie być możliwym wynikiem!</strong> E[kostki] = 3.5, ale kostka nigdy nie pokaże 3.5.</li>
                     <li><strong>Var(aX + b) = a²·Var(X).</strong> Stała dodana b znika – wariancja mierzy rozrzut, a przesunięcie go nie zmienia.</li>
-                    <li><strong>Nie myl wariancji z odchyleniem standardowym.</strong> Jeśli σ=10ms, to wariancja=100ms². Jednostka się liczy!</li>
+                    <li><strong>Nie myl wariancji z odchyleniem standardowym.</strong> Jeśli σ=10ms, to wariancja=100ms².</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najważniejsza pułapka: liniowość wartości oczekiwanej jest zawsze, ale dla wariancji sumy potrzebna jest niezależność – inaczej trzeba znać kowariancję. Druga pułapka: wartość oczekiwana nie musi być możliwym wynikiem – 3,5 na kostce nigdy nie wypadnie. Trzecia: Var od aX to a² Var(X), a dodanie stałej nie zmienia wariancji. I ostatnia: nie mylcie wariancji z odchyleniem standardowym – jednostki się różnią.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – wartość oczekiwana i wariancja:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Własność</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wartość oczekiwana</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wariancja</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Własność</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wartość oczekiwana</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wariancja</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Definicja</td>
-                        <td style="padding: 10px;"><code>Σ x·p(x) lub ∫ x·f(x)dx</code></td>
-                        <td style="padding: 10px;"><code>E[(X−μ)²] = E[X²]−μ²</code></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Stała c</td>
-                        <td style="padding: 10px;"><code>E[c] = c</code></td>
-                        <td style="padding: 10px;"><code>Var(c) = 0</code></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Skalowanie aX</td>
-                        <td style="padding: 10px;"><code>E[aX] = a·E[X]</code></td>
-                        <td style="padding: 10px;"><code>Var(aX) = a²·Var(X)</code></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Suma X+Y (ogólnie)</td>
-                        <td style="padding: 10px;"><code>E[X]+E[Y]</code></td>
-                        <td style="padding: 10px;"><code>Var(X)+Var(Y)+2·Cov</code></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold;">Suma X+Y (niezależne)</td>
-                        <td style="padding: 10px;"><code>E[X]+E[Y]</code></td>
-                        <td style="padding: 10px;"><code>Var(X)+Var(Y)</code></td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Definicja</td><td style="padding: 10px;"><code>Σ x·p(x) lub ∫ x·f(x)dx</code></td><td style="padding: 10px;"><code>E[(X−μ)²] = E[X²]−μ²</code></td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Stała c</td><td style="padding: 10px;"><code>E[c] = c</code></td><td style="padding: 10px;"><code>Var(c) = 0</code></td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Skalowanie aX</td><td style="padding: 10px;"><code>E[aX] = a·E[X]</code></td><td style="padding: 10px;"><code>Var(aX) = a²·Var(X)</code></td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Suma X+Y (ogólnie)</td><td style="padding: 10px;"><code>E[X]+E[Y]</code></td><td style="padding: 10px;"><code>Var(X)+Var(Y)+2·Cov</code></td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Suma X+Y (niezależne)</td><td style="padding: 10px;"><code>E[X]+E[Y]</code></td><td style="padding: 10px;"><code>Var(X)+Var(Y)</code></td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -285,7 +231,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">

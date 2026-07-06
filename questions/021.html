@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🍕</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Obiekt dynamiczny to „Pizza zamawiana na żądanie”:</strong>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Obiekt dynamiczny to „Pizza zamawiana na żądanie":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
                         Wyobraź sobie, że program to głodny klient. Jeśli z góry wiesz, że zjesz dokładnie 3 kawałki pizzy, możesz przygotować je przed imprezą na talerzu (zmienna lokalna na stosie). Ale co, jeśli goście zamawiają na bieżąco, a Ty nie wiesz, ile ostatecznie zamówią? <strong>Obiekt dynamiczny</strong> to pizza, którą zamawiasz przez telefon (malloc / new) dokładnie w momencie, gdy jest potrzebna. Dostajesz ją w kartonowym pudełku (blok pamięci na stercie), konsumujesz (używasz w programie), a po imprezie musisz pamiętać o wyrzuceniu pustego pudełka do śmieci (free / delete / GC). Jeśli zapomnisz – mieszkanie zamienia się w wysypisko (wyciek pamięci). Jeśli spróbujesz zjeść z pudełka, które już wyrzuciłeś – grozi Ci niestrawność (dangling pointer).
                     </p>
@@ -61,10 +61,13 @@
             <!-- PART 1: CZYM JEST OBIEKT DYNAMICZNY?                    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">1. Obiekt dynamiczny – „Pudełko na regale, nie talerz na biurku”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Obiekt dynamiczny – „Pudełko na regale, nie talerz na biurku"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W przeciwieństwie do zmiennych lokalnych, które są <strong>statycznie alokowane na stosie</strong> i znikają wraz z końcem funkcji, <strong>obiekty dynamiczne</strong> są tworzone jawnie w czasie wykonania programu na <strong>stercie (heap)</strong>. Ich rozmiar nie musi być znany w momencie kompilacji, a czas życia przekracza ramy pojedynczej funkcji. Dostęp do nich odbywa się pośrednio – poprzez <strong>wskaźnik</strong> (C/C++) lub <strong>referencję</strong> (Java, Python). To właśnie ta pośredniość daje im elastyczność, ale też stanowi źródło najtrudniejszych do wykrycia błędów.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zacznijmy od sedna – czym właściwie jest obiekt dynamiczny. To zmienna, którą tworzymy jawnie w czasie wykonania programu, a nie automatycznie na stosie. Ląduje na stercie, czyli na tych rozległych regałach magazynowych. Najważniejsze: jej rozmiar może być nieznany w czasie kompilacji – na przykład tablica o długości podanej przez użytkownika. Dostęp do niej mamy nie bezpośrednio, ale przez wskaźnik lub referencję. I to jest klucz do zrozumienia zarówno elastyczności, jak i wszystkich problemów – wycieków pamięci i wiszących wskaźników. Proszę spojrzeć na planszę: po lewej mamy zwykłą zmienną na stosie, po prawej obiekt na stercie i wskaźnik, który na niego pokazuje."
+                </div>
             </div>
 
             <!-- SVG: OBIEKT DYNAMICZNY NA STERCIE vs ZMIENNA NA STOSIE -->
@@ -111,7 +114,7 @@
             <!-- PART 2: CECHY CHARAKTERYSTYCZNE OBIEKTÓW DYNAMICZNYCH  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Podstawowe cechy – „DNA obiektu dynamicznego”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Podstawowe cechy – „DNA obiektu dynamicznego"</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
                     <div style="flex: 1; min-width: 250px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #90caf9;">
                         <strong style="color:#0d47a1;">📦 Alokacja na stercie</strong><br>
@@ -129,6 +132,9 @@
                         <strong style="color:#0d47a1;">📏 Dynamiczny rozmiar</strong><br>
                         <span style="font-size:0.9rem;">Rozmiar może być znany dopiero w czasie wykonania (np. tablica o długości podanej przez użytkownika).</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy obiekt dynamiczny ma cztery fundamentalne cechy. Po pierwsze, alokacja na stercie – czyli tworzymy go w czasie wykonania, nie na stosie. Po drugie, dostęp przez referencję – nie trzymamy go bezpośrednio, tylko mamy wskaźnik lub referencję. Po trzecie, określony czas życia – od jawnego utworzenia do jawnego zwolnienia, albo do momentu, gdy garbage collector uzna, że jest niepotrzebny. I po czwarte, dynamiczny rozmiar – nie musimy znać go w czasie kompilacji. To właśnie te cechy odróżniają obiekt dynamiczny od zwykłej zmiennej lokalnej."
                 </div>
             </div>
 
@@ -196,7 +202,10 @@
                     </div>
                 </div>
                 <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 14px;">
-                    <strong>🧠 Kluczowa różnica:</strong> W C/C++ to programista mówi „zwolnij”. W GC to system sam decyduje, kiedy zwolnić – zazwyczaj gdy obiekt przestaje być osiągalny z korzeni (stosu, rejestrów, zmiennych globalnych).
+                    <strong>🧠 Kluczowa różnica:</strong> W C/C++ to programista mówi „zwolnij". W GC to system sam decyduje, kiedy zwolnić – zazwyczaj gdy obiekt przestaje być osiągalny z korzeni (stosu, rejestrów, zmiennych globalnych).
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Różne języki mają zupełnie odmienne podejście do sprzątania po obiektach dynamicznych. W C wszystko zależy od programisty – alokujemy przez malloc, zwalniamy przez free. To daje maksymalną kontrolę i wydajność, ale też oznacza, że każdy wyciek czy dangling pointer to nasza wina. C plus plus wprowadza idiom RAII – zasoby są zwalniane automatycznie przez destruktory, a inteligentne wskaźniki unique_ptr i shared_ptr sprawiają, że ręczne delete praktycznie nie jest potrzebne. Java i Python stawiają na garbage collector – system sam znajduje nieużywane obiekty i je zwalnia. To wygodne, ale ma swoją cenę: nieprzewidywalne pauzy i większe zużycie pamięci. Proszę spojrzeć na kluczową różnicę: w C i C++ to my mówimy systemowi 'zwolnij', a w GC to system sam decyduje kiedy."
                 </div>
             </div>
 
@@ -212,8 +221,11 @@
                     </div>
                     <div style="flex: 1; min-width: 280px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
                         <strong style="color:#b71c1c;">🔫 Dangling pointer (wiszący wskaźnik)</strong><br>
-                        <span style="font-size:0.9rem;">Zwalniasz obiekt, ale wskaźnik nadal trzyma jego stary adres. Użycie go to „strzał w ciemno” – zachowanie niezdefiniowane.</span>
+                        <span style="font-size:0.9rem;">Zwalniasz obiekt, ale wskaźnik nadal trzyma jego stary adres. Użycie go to „strzał w ciemno" – zachowanie niezdefiniowane.</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dwa największe zagrożenia związane z obiektami dynamicznymi to wyciek pamięci i dangling pointer, czyli wiszący wskaźnik. Wyciek pamięci to sytuacja, gdy alokujemy obiekt i gubimy do niego wskaźnik – na przykład przypisując nowy adres do tej samej zmiennej wskaźnikowej. Stary blok pozostaje zajęty, ale nieosiągalny – program traci pamięć, której nigdy nie odzyska. Dangling pointer to odwrotna sytuacja: zwalniamy blok, ale wskaźnik nadal trzyma stary adres. Każda próba użycia tego wskaźnika to undefined behavior – możemy odczytać śmieci, nadpisać cudze dane, albo dostać segmentation fault. W nowoczesnym C plus plus smart pointery praktycznie eliminują oba te problemy."
                 </div>
             </div>
 
@@ -248,6 +260,9 @@
                     <li><strong>W C++ wskaźnik po delete nie staje się automatycznie nullptr</strong> – nadal przechowuje stary adres. Ręcznie ustaw na <code>nullptr</code> lub użyj smart pointera.</li>
                     <li><strong>Deep copy vs shallow copy</strong> – kopiowanie wskaźnika kopiuje adres, nie obiekt. Oba wskaźniki wskazują na ten sam obiekt. Jeśli chcesz niezależną kopię, musisz alokować nowy obiekt i przekopiować zawartość.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z obiektami dynamicznymi to: po pierwsze, mylenie wskaźnika z obiektem – wskaźnik często siedzi na stosie i znika po funkcji, ale jeśli nie zwolnimy obiektu na stercie, zostaje wyciek. Po drugie, w językach z GC też mogą być wycieki – jeśli trzymamy referencję w długo żyjącej kolekcji, obiekt nigdy nie zostanie zwolniony. Po trzecie, w C plus plus po delete wskaźnik nie staje się nullem – nadal wskazuje na zwolnione miejsce, więc trzeba go ręcznie ustawić na nullptr albo używać smart pointerów. I wreszcie kwestia płytkiej i głębokiej kopii – kopiując wskaźnik, kopiujemy tylko adres, oba wskaźniki pokazują na ten sam obiekt, co może prowadzić do niespodziewanych efektów ubocznych."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -301,7 +316,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „The C Programming Language” (Kernighan, Ritchie) · „Effective Modern C++” (Meyers) · Dokumentacje JVM, CPython.
+                    „The C Programming Language" (Kernighan, Ritchie) · „Effective Modern C++" (Meyers) · Dokumentacje JVM, CPython.
                 </span>
             </div>
 

@@ -16,16 +16,16 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">💧</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wyciek pamięci to „Niedokręcony kran w Twoim programie”:</strong>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wyciek pamięci to „Niedokręcony kran w Twoim programie":</strong>
                     <p style="margin: 0 0 8px 0; color: #5d1a1a; line-height: 1.7;">
                         Wyobraź sobie, że każda alokacja pamięci (<code>malloc</code>, <code>new</code>) to odkręcenie kurka z wodą w Twoim mieszkaniu. Jeśli za każdym razem po umyciu rąk zapominasz zakręcić kurek (nie wywołujesz <code>free</code> / <code>delete</code>), woda zaczyna powoli zalewać łazienkę. Na początku to tylko kilka kropel – nic groźnego. Ale jeśli Twój program działa godzinami, dniami, a nawet miesiącami (jak serwer), kapanina zamienia się w powódź. Kończy się dostępna pamięć RAM, system zaczyna szwankować, a ostatecznie Twój program zostaje ubity przez system operacyjny (OOM Killer). Wyciek pamięci to podstępny wróg – nie rzuca wyjątkami, nie crashuje od razu. Po prostu powoli dusi Twój system.
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #5d1a1a; line-height: 1.8;">
-                        <li><strong>🔵 Zgubiony wskaźnik</strong> – alokujesz blok, ale tracisz do niego adres (nadpisujesz wskaźnik nową alokacją). Stary blok zostaje „osierocony” i nieosiągalny.</li>
+                        <li><strong>🔵 Zgubiony wskaźnik</strong> – alokujesz blok, ale tracisz do niego adres (nadpisujesz wskaźnik nową alokacją). Stary blok zostaje „osierocony" i nieosiągalny.</li>
                         <li><strong>🟠 Brak dealokacji przy wyjątkach</strong> – wyjątek wylatuje, zanim zdążysz zwolnić pamięć. Stos się zwija, ale sterta pozostaje zaśmiecona.</li>
                         <li><strong>🟢 Referencje cykliczne</strong> – dwa obiekty wskazują na siebie nawzajem. Nawet GC nie zawsze sobie z tym radzi (np. w Pythonie przed Python 3.4).</li>
                         <li><strong>🟣 Zapominanie o <code>delete</code> w destruktorze</strong> – w C++ alokujesz w konstruktorze, ale nie zwalniasz w destruktorze. Obiekt umiera, blok zostaje.</li>
@@ -61,12 +61,15 @@
             <!-- PART 1: CZYM JEST WYCIEK I DLACZEGO JEST GROŹNY        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">1. Wyciek pamięci – „Cicha śmierć przez zalanie”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Wyciek pamięci – „Cicha śmierć przez zalanie"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Wyciek pamięci (memory leak)</strong> to sytuacja, gdy program alokuje blok pamięci na stercie, po czym traci do niego dostęp (nie ma już wskaźnika/referencji do tego bloku), a jednocześnie nie zwraca go do systemu. Blok pozostaje zajęty, ale nieużywany. Przy długotrwałym działaniu programu (serwery, aplikacje embedded) wyciek prowadzi do wyczerpania dostępnej pamięci RAM, spowolnienia systemu (swap) i w końcu do awarii. To najtrudniejszy do wykrycia błąd w C/C++, bo nie objawia się natychmiast.
                 </p>
                 <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Kluczowa różnica:</strong> <strong>Wyciek pamięci</strong> = pamięć niezwolniona i nieosiągalna. <strong>Dangling pointer</strong> = pamięć zwolniona, ale wskaźnik nadal wskazuje na stary adres (użycie prowadzi do UB).
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, wyciek pamięci to sytuacja, gdy program alokuje blok pamięci i traci do niego dostęp – nie ma już wskaźnika ani referencji – a jednocześnie nie oddaje go do systemu. Blok jest zajęty, ale nieosiągalny. To jak niedokręcony kran – na początku kilka kropel, ale przy długotrwałym działaniu serwera czy aplikacji embedded pamięć się wyczerpuje. Ważne: wyciek to nie to samo co dangling pointer. Przy wycieku pamięć jest niezwolniona i niedostępna. Przy dangling pointer pamięć jest zwolniona, ale wskaźnik dalej wskazuje na stary adres – użycie go to undefined behavior. Wyciek jest podstępny, bo nie rzuca wyjątków – program po prostu stopniowo zużywa coraz więcej RAM-u."
                 </div>
             </div>
 
@@ -152,6 +155,9 @@
                         </ul>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Scenariusze wycieków różnią się w zależności od języka. W C i C plus plus to przede wszystkim zgubiony wskaźnik, zapomniane free lub delete, wyjątek przerywający sekwencję zwalniania, czy też zapomnienie o destruktorze wirtualnym przy polimorficznym usuwaniu. W Javie, mimo garbage collectora, wycieki są możliwe – na przykład gdy trzymamy referencje w długożyciowych strukturach, jak statyczne kolekcje czy nieodpięte listenery. W Pythonie głównym zagrożeniem są referencje cykliczne, zwłaszcza gdy obiekty mają metodę del – wtedy GC nie daje rady. We wszystkich językach kluczowe jest zrozumienie, że GC nie jest magicznym rozwiązaniem wszystkich problemów z pamięcią."
+                </div>
             </div>
 
             <!-- SVG: WYJĄTKI A WYCIEKI -->
@@ -179,12 +185,15 @@
             <!-- PART 3: ZAPOBIEGANIE W C – DYSCYPLINA I NARZĘDZIA      -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">3. Zapobieganie w C – „Dyscyplina i Valgrind”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Zapobieganie w C – „Dyscyplina i Valgrind"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W czystym C nie ma RAII ani smart pointerów. Jedyną ochroną jest <strong>żelazna dyscyplina programisty</strong>: każdy <code>malloc</code> musi mieć swój <code>free</code> w każdej możliwej ścieżce wykonania. W praktyce używa się narzędzi takich jak <strong>Valgrind (memcheck)</strong> lub <strong>AddressSanitizer (ASan)</strong>, które wykrywają wycieki i błędne dostępy do pamięci w czasie wykonania.
                 </p>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔧 Narzędzia:</strong> <code>valgrind --leak-check=full ./program</code> wypisze wszystkie bloki, które nie zostały zwolnione. <code>gcc -fsanitize=address</code> doda ochronę przed błędami pamięci.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W czystym C jedyną ochroną przed wyciekami jest żelazna dyscyplina programisty. Każdy malloc musi mieć odpowiadający mu free, i to w każdej możliwej ścieżce wykonania – także tej, gdzie wystąpi błąd. W praktyce wspomagamy się narzędziami: Valgrind z flagą leak-check full wypisze wszystkie niezwolnione bloki i wskaże dokładnie, gdzie zostały zaalokowane. AddressSanitizer, wbudowany w kompilatory GCC i Clang, działa szybciej i wykrywa także błędy dostępu do pamięci. Te narzędzia są nieocenione przy debugowaniu – bez nich wycieki w C są jak szukanie igły w stogu siana."
                 </div>
             </div>
 
@@ -192,10 +201,13 @@
             <!-- PART 4: ZAPOBIEGANIE W C++ – RAII I SMART POINTERY     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Zapobieganie w C++ – „RAII i Smart Pointers”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Zapobieganie w C++ – „RAII i Smart Pointers"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     C++ oferuje idiom <strong>RAII (Resource Acquisition Is Initialization)</strong>: zasób (pamięć, plik, wątek) jest przydzielany w konstruktorze i zwalniany w destruktorze. Dzięki temu, nawet gdy wystąpi wyjątek, stos jest zwijany, a destruktory lokalnych obiektów automatycznie zwalniają zasoby. Współczesny C++ dostarcza <strong>smart pointery</strong>: <code>std::unique_ptr</code> (wyłączne posiadanie), <code>std::shared_ptr</code> (współdzielone, zliczanie referencji), <code>std::weak_ptr</code> (słaba referencja, nie blokuje usunięcia).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „C plus plus oferuje potężne mechanizmy, które praktycznie eliminują wycieki pamięci. Fundamentalnym idiomem jest RAII – zasób jest przydzielany w konstruktorze i automatycznie zwalniany w destruktorze. Dzięki temu nawet gdy wystąpi wyjątek, destruktory obiektów lokalnych zostaną wywołane podczas zwijania stosu. W praktyce używamy inteligentnych wskaźników: unique_ptr dla wyłącznego posiadania – lekki, bez narzutu, niekopiowalny. Shared_ptr dla współdzielonego posiadania – wewnętrznie zlicza referencje i zwalnia obiekt, gdy licznik spadnie do zera. I weak_ptr – słaba referencja, która nie blokuje usunięcia obiektu, kluczowa przy rozwiązywaniu cykli shared_ptr. Dzięki tym narzędziom ręczne delete jest w nowoczesnym C plus plus praktycznie niepotrzebne."
+                </div>
             </div>
 
             <!-- SVG: SMART POINTER – unique_ptr vs zwykły wskaźnik -->
@@ -228,10 +240,13 @@
             <!-- PART 5: ZAPOBIEGANIE W JAVA / PYTHON – GC              -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Garbage Collector – „Automatyczny sprzątacz, ale nie czarodziej”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Garbage Collector – „Automatyczny sprzątacz, ale nie czarodziej"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Języki z GC (Java, Python, C#, JavaScript) automatycznie zwalniają obiekty, które nie są już osiągalne z korzeni (stosu, rejestrów, zmiennych globalnych). To eliminuje wiele wycieków, ale <strong>nie wszystkie</strong>. Programista może wciąż stworzyć wyciek, trzymając niepotrzebne referencje (np. w statycznych kolekcjach, listenerach). W Pythonie dodatkowo referencje cykliczne z metodą <code>__del__</code> mogą zablokować GC.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Garbage collector to potężne narzędzie, ale nie magiczna różdżka. W Javie i Pythonie GC automatycznie zwalnia obiekty, które nie są już osiągalne – czyli nie ma do nich ścieżki z korzeni, takich jak stos czy zmienne globalne. To eliminuje większość wycieków znanych z C, ale nie wszystkie. W Javie możemy stworzyć wyciek, trzymając niepotrzebne referencje w statycznych kolekcjach – HashMap, która rośnie i nigdy nie jest czyszczona. Albo nieodpięte listenery, które uniemożliwiają GC usunięcie obiektu. W Pythonie problemem są cykliczne referencje z metodą del – GC nie może określić bezpiecznej kolejności usuwania i takie obiekty trafiają do gc.garbage, pozostając w pamięci na zawsze."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -253,6 +268,9 @@
                         <span style="font-size:0.85rem;">Analiza zrzutów sterty (heap dump), ścieżek do GC roots. Szukanie niepotrzebnych referencji.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Do wykrywania wycieków mamy szeroki arsenał narzędzi. Dla C i C plus plus standardem jest Valgrind – uruchamiamy program z flagą leak-check full i dostajemy raport wszystkich niezwolnionych bloków z dokładnym miejscem alokacji. AddressSanitizer z GCC i Clanga jest szybszą alternatywą – kompilator dodaje sprawdzanie błędów pamięci bezpośrednio do kodu wynikowego. Dla Javy mamy VisualVM i Eclipse Memory Analyzer – analizują zrzuty sterty, pokazują ścieżki do GC roots i pomagają znaleźć, dlaczego obiekt nie został zwolniony. Profilowanie pamięci powinno być standardową praktyką przed każdym wdrożeniem produkcyjnym – lepiej znaleźć wyciek podczas testów niż o trzeciej nad ranem, gdy serwer pada."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -266,6 +284,9 @@
                     <li><strong>RAII chroni przed wyjątkami, ale nie przed zapętleniem referencji.</strong> <code>shared_ptr</code> w cyklu → wyciek. Rozwiązanie: <code>weak_ptr</code>.</li>
                     <li><strong>Python: <code>__del__</code> w cyklu → obiekty trafiają do <code>gc.garbage</code> i nie są usuwane.</strong> Lepiej używać <code>contextlib</code> i <code>with</code>.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z wyciekami pamięci to: po pierwsze, nie należy mylić wycieku z wysokim zużyciem pamięci – program może mieć wyciek, a mimo to zużycie pamięci będzie stabilne, jeśli wyciek jest proporcjonalny do czasu działania. Po drugie, GC w Javie nie chroni przed wszystkim – statyczne referencje do obiektów nigdy nie zostaną usunięte, dopóki klasa jest załadowana. Po trzecie, RAII w C plus plus chroni przed wyjątkami, ale shared_ptr w cyklu stworzy wyciek – rozwiązaniem jest weak_ptr. I po czwarte, Python z metodą del w cyklu referencyjnym to gwarantowany wyciek – obiekty trafiają do gc.garbage i nigdy nie są zwalniane. Dlatego zamiast del lepiej używać context managerów i słowa kluczowego with."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -320,7 +341,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · Valgrind documentation · Python gc module documentation.
+                    „Effective C++" (Scott Meyers) · „Effective Java" (Joshua Bloch) · Valgrind documentation · Python gc module documentation.
                 </span>
             </div>
 

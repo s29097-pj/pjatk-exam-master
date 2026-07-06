@@ -16,19 +16,19 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧬</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Dziedziczenie to „Drzewo genealogiczne, które może zamienić się w gąszcz”:</strong>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – Dziedziczenie to „Drzewo genealogiczne, które może zamienić się w gąszcz":</strong>
                     <p style="margin: 0 0 8px 0; color: #5d1a1a; line-height: 1.7;">
                         Wyobraź sobie rodzinę, w której każde dziecko dziedziczy cechy po rodzicach. <strong>Dziedziczenie w programowaniu</strong> działa podobnie – klasa potomna automatycznie przejmuje pola i metody od klasy bazowej. To potężna oszczędność czasu: nie musisz na nowo wymyślać kół, tylko rozszerzasz istniejący mechanizm. Ale tak jak w rodzinie, zbyt skomplikowane koligacje prowadzą do konfliktów. Co, jeśli dziecko dziedziczy po dwóch rodzicach tę samą cechę? Która wersja jest właściwa? To słynny <strong>problem diamentu</strong>. A co, jeśli zmiana u dziadka nieoczekiwanie psuje zachowanie wszystkich potomków? To <strong>krucha klasa bazowa</strong>. Zamiast dziedziczyć wszystko z wielkiego przodka, często lepiej składać obiekty z mniejszych, niezależnych komponentów – jak budowanie z <strong>klocków Lego</strong> zamiast rzeźbienia z jednego pnia.
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #5d1a1a; line-height: 1.8;">
-                        <li><strong>🔵 Dziedziczenie (inheritance)</strong> – mechanizm przejmowania pól i metod z klasy bazowej. Relacja „jest” (is-a).</li>
+                        <li><strong>🔵 Dziedziczenie (inheritance)</strong> – mechanizm przejmowania pól i metod z klasy bazowej. Relacja „jest" (is-a).</li>
                         <li><strong>🟠 Problem diamentu (diamond problem)</strong> – wielodziedziczenie prowadzące do niejednoznaczności, gdy dwa nadrzędne typy mają wspólnego przodka.</li>
                         <li><strong>🟢 Krucha klasa bazowa (fragile base class)</strong> – zmiana w klasie bazowej nieoczekiwanie psuje działanie klas pochodnych.</li>
-                        <li><strong>🟣 Kompozycja zamiast dziedziczenia</strong> – relacja „ma” (has-a). Budujesz złożone obiekty z prostszych części, zamiast tworzyć długie łańcuchy dziedziczenia.</li>
+                        <li><strong>🟣 Kompozycja zamiast dziedziczenia</strong> – relacja „ma" (has-a). Budujesz złożone obiekty z prostszych części, zamiast tworzyć długie łańcuchy dziedziczenia.</li>
                     </ul>
                 </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Dziedziczenie (inheritance)</span>
-            <span class="keyword-tag">Relacja „jest” (is-a)</span>
+            <span class="keyword-tag">Relacja „jest" (is-a)</span>
             <span class="keyword-tag">Klasa bazowa / pochodna (parent/child)</span>
             <span class="keyword-tag">Przesłanianie (overriding) / przeciążanie (overloading)</span>
             <span class="keyword-tag">Problem diamentu (diamond problem)</span>
@@ -61,12 +61,15 @@
             <!-- PART 1: CZYM JEST DZIEDZICZENIE?                        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">1. Dziedziczenie – „Genetyczny spadek po przodkach”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">1. Dziedziczenie – „Genetyczny spadek po przodkach"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Dziedziczenie</strong> to fundamentalny mechanizm programowania obiektowego, który pozwala nowej klasie (pochodnej, podklasie) automatycznie przejąć wszystkie pola i metody istniejącej klasy (bazowej, nadklasy). Klasa pochodna może dodawać nowe składowe oraz <strong>przesłaniać (override)</strong> metody odziedziczone, aby zmienić ich zachowanie. Kluczowa jest tu relacja <strong>„jest” (is-a)</strong>: Pies <em>jest</em> Zwierzęciem, więc klasa Pies może dziedziczyć po klasie Zwierzę.
+                    <strong>Dziedziczenie</strong> to fundamentalny mechanizm programowania obiektowego, który pozwala nowej klasie (pochodnej, podklasie) automatycznie przejąć wszystkie pola i metody istniejącej klasy (bazowej, nadklasy). Klasa pochodna może dodawać nowe składowe oraz <strong>przesłaniać (override)</strong> metody odziedziczone, aby zmienić ich zachowanie. Kluczowa jest tu relacja <strong>„jest" (is-a)</strong>: Pies <em>jest</em> Zwierzęciem, więc klasa Pies może dziedziczyć po klasie Zwierzę.
                 </p>
                 <div style="background: #ffebee; border-left: 5px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Zasada podstawienia Liskov (LSP):</strong> Gdziekolwiek oczekujesz obiektu klasy bazowej, możesz bezpiecznie podstawić obiekt klasy pochodnej, nie psując poprawności programu. To jest test, czy Twoje dziedziczenie ma sens.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dziedziczenie to jeden z filarów programowania obiektowego, ale niesie ze sobą poważne ryzyka. To mechanizm, w którym klasa pochodna przejmuje wszystkie pola i metody od klasy bazowej. Kluczowa jest tu relacja 'jest' – pies jest zwierzęciem, więc klasa Pies dziedziczy po klasie Zwierzę. Mamy też zasadę podstawienia Liskov: gdziekolwiek oczekujecie obiektu klasy bazowej, możecie bezpiecznie wstawić obiekt klasy pochodnej. To test poprawności dziedziczenia. Ale dziedziczenie ma też ciemną stronę – problem kruchej klasy bazowej, problem diamentu i sztywne hierarchie. O tym za chwilę. Proszę spojrzeć na planszę z hierarchią."
                 </div>
             </div>
 
@@ -78,7 +81,7 @@
                     </pattern>
                 </defs>
                 <rect x="0" y="0" width="820" height="220" fill="url(#gridInh)" opacity="0.4"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Dziedziczenie – hierarchia „Zwierzę → Pies → Owczarek”</text>
+                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Dziedziczenie – hierarchia „Zwierzę → Pies → Owczarek"</text>
 
                 <!-- Zwierzę -->
                 <rect x="310" y="50" width="200" height="50" rx="8" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
@@ -100,14 +103,14 @@
                 <text x="570" y="182" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#c62828">+ miaucz()</text>
 
                 <!-- Podpis -->
-                <text x="410" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Pies i Kot „są” Zwierzętami. Dziedziczą oddychaj(), dodają własne metody.</text>
+                <text x="410" y="215" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Pies i Kot „są" Zwierzętami. Dziedziczą oddychaj(), dodają własne metody.</text>
             </svg>
 
             <!-- ======================================================== -->
             <!-- PART 2: GŁÓWNE PROBLEMY DZIEDZICZENIA                   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">2. Główne problemy dziedziczenia – „Ciemna strona mocy”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Główne problemy dziedziczenia – „Ciemna strona mocy"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Mimo swoich zalet, dziedziczenie niesie ze sobą poważne zagrożenia, które ujawniają się w dużych i ewoluujących systemach.
                 </p>
@@ -117,16 +120,22 @@
                     <li><strong>Sztywne hierarchie:</strong> zbyt głębokie i sztywne drzewa dziedziczenia są trudne do modyfikacji, gdy wymagania biznesowe się zmienią. Próba wciśnięcia nowej klasy gdzieś pośrodku może wymagać przebudowy całej hierarchii.</li>
                     <li><strong>Naruszenie hermetyzacji:</strong> klasa pochodna może mieć dostęp do chronionych (protected) składowych bazy, co tworzy silne sprzężenie między nimi.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dziedziczenie ma cztery główne problemy. Po pierwsze, krucha klasa bazowa – nawet niewielka zmiana w klasie bazowej może niespodziewanie złamać działanie wszystkich klas pochodnych. Po drugie, problem diamentu przy wielodziedziczeniu – jeśli dwie klasy nadrzędne mają wspólnego przodka, to klasa pochodna widzi niejednoznaczność. Po trzecie, sztywne hierarchie – raz stworzone głębokie drzewo dziedziczenia jest bardzo trudno zmodyfikować, gdy zmienią się wymagania. Po czwarte, naruszenie hermetyzacji – przez protected klasa pochodna ma dostęp do wewnętrznych szczegółów bazy, co tworzy silne sprzężenie. Te problemy sprawiają, że współczesne podejście preferuje kompozycję zamiast dziedziczenia."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 3: PROBLEM DIAMENTU – WIELODZIEDZICZENIE           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Problem diamentu (Diamond Problem) – „Którędy do przodka?”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Problem diamentu (Diamond Problem) – „Którędy do przodka?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     To najsłynniejszy problem związany z wielodziedziczeniem. Występuje, gdy dwie klasy (B i C) dziedziczą po tej samej klasie bazowej A, a następnie klasa D dziedziczy zarówno po B, jak i po C. Jeśli A posiada metodę <code>foo()</code>, to którą wersję widzi D? Przez B, czy przez C? Co, jeśli B i C przesłoniły <code>foo()</code> na różne sposoby? Różne języki rozwiązują ten problem różnie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Problem diamentu to najsłynniejsza trudność związana z wielodziedziczeniem. Wyobraźmy sobie strukturę, gdzie klasa A ma metodę foo. Klasy B i C dziedziczą po A i obie nadpisują foo na swój sposób. Teraz klasa D dziedziczy zarówno po B, jak i po C. Którą wersję foo widzi D? Tę z B, czy tę z C? A może tę z A? To fundamentalna niejednoznaczność. Proszę spojrzeć na planszę – pokazuje ona tę strukturę i trzy różne podejścia do rozwiązania: wirtualna baza w C plus plus, interfejsy w Javie, które zabraniają wielodziedziczenia klas, oraz algorytm MRO w Pythonie, który wyznacza jednoznaczną kolejność przeszukiwania."
+                </div>
             </div>
 
             <!-- SVG: DIAGRAM DIAMENTU -->
@@ -189,18 +198,24 @@
                         <span style="font-size:0.85rem;">Obsługuje wielodziedziczenie. Problem diamentu rozwiązuje przez <strong>MRO (Method Resolution Order)</strong> – algorytm C3, który wyznacza jednoznaczną kolejność przeszukiwania klas.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy język wybrał inną strategię radzenia sobie z problemem diamentu. C plus plus pozwala na wielodziedziczenie i oferuje wirtualne klasy bazowe – słowo kluczowe virtual sprawia, że klasa D ma tylko jedną kopię A i nie ma niejednoznaczności. Java poszła inną drogą – całkowicie zabroniła wielodziedziczenia klas. Można dziedziczyć tylko po jednej klasie, ale za to implementować wiele interfejsów, które nie zawierają implementacji, więc nie ma konfliktu. Python zezwala na wielodziedziczenie i rozwiązuje problem diamentu przez algorytm MRO, czyli C3 linearization – wyznacza on jednoznaczną kolejność, w jakiej przeszukiwane są klasy nadrzędne, i każda metoda jest wołana dokładnie raz."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 5: KOMPOZYCJA ZAMIAST DZIEDZICZENIA               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00897b;">5. Kompozycja zamiast dziedziczenia – „Klocki Lego zamiast rzeźbienia”</strong>
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Kompozycja zamiast dziedziczenia – „Klocki Lego zamiast rzeźbienia"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zamiast budować głębokie hierarchie dziedziczenia, często lepiej jest tworzyć obiekty składające się z innych, mniejszych obiektów (relacja <strong>„ma” – has-a</strong>). Kompozycja jest elastyczniejsza: możesz wymieniać komponenty w czasie wykonania, nie tworzysz sztywnych zależności od implementacji bazowej, a testowanie jest łatwiejsze.
+                    Zamiast budować głębokie hierarchie dziedziczenia, często lepiej jest tworzyć obiekty składające się z innych, mniejszych obiektów (relacja <strong>„ma" – has-a</strong>). Kompozycja jest elastyczniejsza: możesz wymieniać komponenty w czasie wykonania, nie tworzysz sztywnych zależności od implementacji bazowej, a testowanie jest łatwiejsze.
                 </p>
                 <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
-                    <strong>🧠 Złota rada Gang of Four:</strong> „Faworyzuj kompozycję nad dziedziczeniem”. Dziedzicz tylko wtedy, gdy naprawdę zachodzi relacja „jest” i jesteś pewien, że hierarchia będzie stabilna.
+                    <strong>🧠 Złota rada Gang of Four:</strong> „Faworyzuj kompozycję nad dziedziczeniem". Dziedzicz tylko wtedy, gdy naprawdę zachodzi relacja „jest" i jesteś pewien, że hierarchia będzie stabilna.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wobec wszystkich problemów z dziedziczeniem, nowoczesne podejście zaleca kompozycję zamiast dziedziczenia. Zamiast tworzyć długie łańcuchy dziedziczenia, gdzie Samochód dziedziczy po Pojazd, a Tesla po Samochodzie, lepiej zbudować Teslę z komponentów – Tesla ma Silnik, ma Koła, ma Baterię. To relacja 'ma', a nie 'jest'. Kompozycja jest elastyczniejsza – możesz wymieniać komponenty w czasie wykonania, nie tworzysz sztywnych zależności od klasy bazowej, a testowanie jednostkowe jest dużo łatwiejsze. Gang of Four, autorzy przełomowej książki o wzorcach projektowych, sformułowali złotą zasadę: faworyzuj kompozycję nad dziedziczeniem. Proszę spojrzeć na planszę porównującą oba podejścia."
                 </div>
             </div>
 
@@ -245,6 +260,9 @@
                     <li><strong>Dziedziczenie prywatne / protected</strong> – w C++ możesz zmienić widoczność odziedziczonych składowych. To rzadkość, ale warto wiedzieć.</li>
                     <li><strong>Python MRO:</strong> <code>super()</code> w Pythonie podąża za kolejnością MRO, niekoniecznie wołając bezpośrednią klasę bazową. W diamentowej strukturze wywoła metodę z właściwej klasy zgodnie z C3.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki egzaminacyjne dotyczą subtelnych różnic między językami. Po pierwsze, konstruktory nie są dziedziczone – klasa pochodna musi jawnie wywołać konstruktor bazy na liście inicjalizacyjnej. Po drugie, przesłanianie to nie to samo co przeciążanie – przesłaniamy, gdy podajemy identyczną sygnaturę w podklasie, przeciążamy, gdy zmieniamy liczbę lub typ parametrów w tej samej klasie. Po trzecie, w C plus plus metoda musi być oznaczona jako virtual, żeby polimorfizm zadziałał – w Javie wszystko jest domyślnie wirtualne. Po czwarte, Python i jego MRO – super() w diamentowej strukturze nie woła bezpośredniego przodka, tylko podąża za kolejnością wyznaczoną przez algorytm C3. Warto o tym pamiętać, bo to częste pytanie."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -294,7 +312,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Design Patterns: Elements of Reusable Object-Oriented Software” (Gang of Four) · „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · Dokumentacje C++17, Java 17, Python 3.12.
+                    „Design Patterns: Elements of Reusable Object-Oriented Software" (Gang of Four) · „Effective C++" (Scott Meyers) · „Effective Java" (Joshua Bloch) · Dokumentacje C++17, Java 17, Python 3.12.
                 </span>
             </div>
 

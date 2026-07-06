@@ -11,12 +11,12 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">008. Równania różniczkowe zwyczajne (ODE).</h2>
+        <h2 id="q-title">008. Równania różniczkowe zwyczajne.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.12);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.12);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⚙️</span>
                 <div>
@@ -24,7 +24,7 @@
                     <p style="margin: 0 0 8px 0; color: #5d1a1a; line-height: 1.7;">
                         Wyobraź sobie, że prowadzisz samochód, ale nie znasz trasy. Zamiast tego masz <strong>dwie kluczowe informacje</strong>: gdzie jesteś teraz (<em>warunek początkowy</em>) oraz instrukcję, która w każdej chwili mówi Ci, <strong>jak bardzo masz skręcić kierownicę i nacisnąć pedał gazu</strong> w zależności od Twojej aktualnej pozycji i prędkości. Tą instrukcją jest właśnie <strong>równanie różniczkowe</strong>.
                     </p>
-                    <ul style="margin: 0; padding-left: 20px; color: #5d1a1a; line-height: 1.8;">
+                    <ul style="margin: 0; padding-left: 20px; color:#5d1a1a; line-height:1.8;">
                         <li><strong>🔵 Równanie różniczkowe (ODE)</strong> – wiąże funkcję z jej pochodnymi. To dynamiczny przepis ewolucji układu w czasie.</li>
                         <li><strong>🟠 Rząd równania</strong> – najwyższy stopień pochodnej, który występuje w przepisie. Mówi, jak „głęboka” jest pamięć układu.</li>
                         <li><strong>🟢 Warunek początkowy (Cauchy'ego)</strong> – punkt startowy. Bez niego przepis opisuje nieskończenie wiele możliwych tras (rodzinę rozwiązań).</li>
@@ -52,12 +52,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: DEFINICJA, RZĄD I INTUICJA                      -->
+            <!-- PART 1: DEFINICJA, RZĄD I INTUICJA (oryg. + podpowiedź) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #b71c1c;">1. Definicja i rząd równania – „Związek z przyszłością”</strong>
@@ -76,36 +76,33 @@
                         <span style="font-size:0.85rem;">Potrzebne 2 warunki: y(0) i y'(0)</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, równanie różniczkowe to przepis, który mówi, jak coś się zmienia. Łączy ono funkcję z jej pochodnymi. Rząd równania to najwyższa pochodna, która w nim występuje. Im wyższy rząd, tym więcej informacji potrzebujemy na starcie – dla pierwszego rzędu wystarczy jeden warunek początkowy, dla drugiego potrzebujemy dwóch. To jak z prowadzeniem samochodu: równanie mówi, jak kręcić kierownicą, ale musimy też wiedzieć, skąd ruszamy i z jaką prędkością.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 2: INTERPRETACJA GEOMETRYCZNA – POLE KIERUNKÓW      -->
+            <!-- PART 2: INTERPRETACJA GEOMETRYCZNA (oryg. + podpowiedź) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">2. Interpretacja geometryczna – „Pole kierunków”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Równanie <code>y' = f(x, y)</code> w każdym punkcie płaszczyzny (x, y) definiuje <strong>nachylenie</strong> rozwiązania przechodzącego przez ten punkt. Rysując małe odcinki o tym nachyleniu w wielu punktach, otrzymujemy <strong>pole kierunków</strong>. Rozwiązanie równania to krzywa, która „wpisuje się” w to pole, podążając za lokalnymi nachyleniami.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Równanie y prim równe f od x, y ma piękną interpretację geometryczną. W każdym punkcie płaszczyzny mogę obliczyć nachylenie – i narysować małą kreseczkę. To jest pole kierunków – jak igły kompasu rozłożone na mapie. Rozwiązanie równania to krzywa, która płynnie podąża za tym polem. Proszę spojrzeć na rysunek – fioletowe kreseczki pokazują nachylenie, a pomarańczowa krzywa to rozwiązanie, które przez nie przechodzi.”
+                </div>
             </div>
 
-            <!-- SVG: POLE KIERUNKÓW -->
+            <!-- SVG: POLE KIERUNKÓW (oryginalny) -->
             <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridDir" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridDir" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="320" fill="url(#gridDir)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Pole kierunków dla y' = x − y (przykład)</text>
-
-                <!-- Osie -->
                 <line x1="60" y1="280" x2="720" y2="280" stroke="#546e7a" stroke-width="2"/>
                 <line x1="80" y1="300" x2="80" y2="40" stroke="#546e7a" stroke-width="2"/>
                 <text x="80" y="35" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">y</text>
                 <text x="730" y="285" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">x</text>
-
-                <!-- Pole kierunków – odcinki w siatce -->
-                <!-- Rząd y=40 do 240 co 30, x=100 do 680 co 50 -->
                 <line x1="100" y1="40" x2="120" y2="60" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="100" y1="70" x2="115" y2="55" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="100" y1="100" x2="113" y2="87" stroke="#7b1fa2" stroke-width="1.5"/>
@@ -114,7 +111,6 @@
                 <line x1="100" y1="190" x2="115" y2="205" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="100" y1="220" x2="120" y2="200" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="100" y1="250" x2="125" y2="235" stroke="#7b1fa2" stroke-width="1.5"/>
-                <!-- Kolumna 2 -->
                 <line x1="160" y1="40" x2="180" y2="20" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="160" y1="70" x2="175" y2="55" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="160" y1="100" x2="170" y2="90" stroke="#7b1fa2" stroke-width="1.5"/>
@@ -123,16 +119,13 @@
                 <line x1="160" y1="190" x2="180" y2="170" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="160" y1="220" x2="185" y2="205" stroke="#7b1fa2" stroke-width="1.5"/>
                 <line x1="160" y1="250" x2="190" y2="240" stroke="#7b1fa2" stroke-width="1.5"/>
-                <!-- więcej symbolicznie -->
                 <text x="300" y="310" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">Każdy odcinek pokazuje nachylenie y' = f(x,y) w danym punkcie.</text>
-
-                <!-- Krzywa całkowa (rozwiązanie) -->
                 <path d="M 100 200 Q 200 180 350 100 Q 500 60 650 80" fill="none" stroke="#ff6f00" stroke-width="3"/>
                 <text x="650" y="75" font-family="sans-serif" font-size="12" fill="#ff6f00" font-weight="bold">Krzywa całkowa (rozwiązanie)</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: METODY ROZWIĄZYWANIA RZĄDU 1                    -->
+            <!-- PART 3: METODY ROZWIĄZYWANIA RZĘDU 1 (oryg.+podpow.)   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">3. Metody analityczne dla równań rzędu 1.</strong>
@@ -146,30 +139,39 @@
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px;">
                     <strong>🔑 Złota zasada:</strong> Rozdzielanie zmiennych działa tylko, gdy zmienne x i y są „odseparowalne”. Równanie liniowe jest szerszą klasą – czynnik całkujący działa zawsze, o ile umiemy policzyć ∫ p(x) dx.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dla równań pierwszego rzędu mamy dwie główne metody. Pierwsza to rozdzielanie zmiennych – jeśli uda się zapisać y prim jako iloczyn funkcji od x i funkcji od y, przerzucamy wszystko z y na lewo, z x na prawo i całkujemy. Druga to czynnik całkujący – dla równania liniowego y prim plus p y równa się q. Mnożymy przez sprytnie dobrany czynnik, który zwija lewą stronę w pochodną iloczynu. Obie metody są bardzo ważne i często pojawiają się na egzaminie.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 4: PRZYKŁAD – RÓWNANIE LINIOWE                      -->
+            <!-- PART 4: PRZYKŁAD – RÓWNANIE LINIOWE (oryg.+podpow.)    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.1rem; color: #2e7d32;">Przykład rozwiązania równania liniowego</strong>
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Rozważmy <code>y' + 2y = eˣ</code>. Tutaj p(x)=2, q(x)=eˣ. Czynnik całkujący: μ(x)=e<sup>∫2dx</sup>=e<sup>2x</sup>. Mnożymy: e<sup>2x</sup>y' + 2e<sup>2x</sup>y = e<sup>3x</sup>. Lewa strona to (e<sup>2x</sup>·y)'. Całkujemy obustronnie: e<sup>2x</sup>·y = (1/3)e<sup>3x</sup> + C. Ostatecznie: y(x) = (1/3)eˣ + C·e<sup>−2x</sup>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Spójrzmy na konkretny przykład: y prim plus 2y równa się e do x. To równanie liniowe. Obliczam czynnik całkujący – e do całki z 2 dx, czyli e do 2x. Mnożę całe równanie przez ten czynnik. Magia polega na tym, że lewa strona zwija się w pochodną iloczynu e do 2x razy y. Teraz całkuję obie strony i dostaję rozwiązanie ogólne z jedną stałą C. Stałą wyznaczę, gdy poznam warunek początkowy – to będzie zagadnienie Cauchy'ego.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: ZAGADNIENIE POCZĄTKOWE (CAUCHY'EGO)             -->
+            <!-- PART 5: ZAGADNIENIE CAUCHY'EGO (oryg. + podpowiedź)    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">4. Zagadnienie Cauchy'ego – „Wybieramy jedną trasę”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Sama rodzina rozwiązań (zawierająca stałą C) to za mało. Aby opisać konkretny układ fizyczny, musimy podać <strong>warunek początkowy</strong>: y(x₀) = y₀. To właśnie <strong>zagadnienie Cauchy'ego (IVP – Initial Value Problem)</strong>. Warunek początkowy pozwala wyznaczyć stałą C i wybrać jedną, konkretną krzywą całkową z całej rodziny.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Rozwiązanie ogólne zawiera stałą C – to cała rodzina krzywych. Żeby wybrać jedną konkretną, potrzebuję warunku początkowego – na przykład y od zera równa się 5. Podstawiam ten punkt do rozwiązania ogólnego i obliczam C. To jest zagadnienie Cauchy'ego. Bez niego rozwiązanie nie jest jednoznaczne – tak jak bez punktu startowego nie wiemy, którą trasą jedzie samochód.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: RÓWNANIA WYŻSZYCH RZĘDÓW – DRGANIA              -->
+            <!-- PART 6: RÓWNANIA WYŻSZYCH RZĘDÓW – DRGANIA (oryg.+podpow.) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. Równania drugiego rzędu – „Serce drgań i fal”</strong>
@@ -182,59 +184,45 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Rozwiązanie składa się z <strong>całki ogólnej równania jednorodnego</strong> (f(t)=0, opisuje swobodne drgania własne układu) oraz <strong>całki szczególnej równania niejednorodnego</strong> (odpowiada na wymuszenie zewnętrzne). Charakter rozwiązań zależy od pierwiastków równania charakterystycznego: rzeczywiste → tłumienie aperiodyczne, zespolone → drgania tłumione, czysto urojone → drgania harmoniczne.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Równania drugiego rzędu opisują drgania – to serce fizyki i inżynierii. Weźmy równanie a y bis plus b y prim plus c y równa się f od t. Rozwiązanie składa się z dwóch części: ogólnej – gdy f jest zerem, czyli swobodne drgania układu – i szczególnej, która odpowiada na wymuszenie. Kluczowe jest równanie charakterystyczne. Jeśli pierwiastki są rzeczywiste – drgania gasną bez oscylacji. Jeśli zespolone – mamy tłumione oscylacje, czyli klasyczne drgania tłumione. Jeśli czysto urojone – drgania harmoniczne bez tłumienia. Proszę spojrzeć na wykres – niebieska krzywa to drgania tłumione, pomarańczowa aperiodyczne, zielona harmoniczne.”
+                </div>
             </div>
 
-            <!-- SVG: DRGANIA TŁUMIONE – ILUSTRACJA -->
+            <!-- SVG: DRGANIA TŁUMIONE (oryginalny) -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridDir)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Rozwiązania równania 2. rzędu – drgania tłumione</text>
-
-                <!-- Osie -->
                 <line x1="60" y1="200" x2="720" y2="200" stroke="#546e7a" stroke-width="2"/>
                 <line x1="80" y1="220" x2="80" y2="40" stroke="#546e7a" stroke-width="2"/>
                 <text x="80" y="35" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">y(t)</text>
                 <text x="730" y="205" font-family="sans-serif" font-size="13" font-weight="bold" fill="#546e7a">t</text>
-
-                <!-- Drgania tłumione (oscylacje wygasające) -->
                 <path d="M 80 180 Q 150 80 220 180 Q 290 120 360 180 Q 430 140 500 185 Q 570 160 640 190" fill="none" stroke="#1565c0" stroke-width="2.5"/>
                 <text x="640" y="185" font-family="sans-serif" font-size="11" fill="#1565c0">tłumione</text>
-
-                <!-- Drgania aperiodyczne (zanik bez oscylacji) -->
                 <path d="M 80 100 Q 200 110 350 190 Q 500 200 650 198" fill="none" stroke="#e65100" stroke-width="2.5" stroke-dasharray="5,3"/>
                 <text x="650" y="193" font-family="sans-serif" font-size="11" fill="#e65100">aperiodyczne</text>
-
-                <!-- Drgania harmoniczne (bez tłumienia) -->
                 <path d="M 80 150 Q 140 70 200 150 Q 260 230 320 150 Q 380 70 440 150 Q 500 230 560 150 Q 620 70 680 150" fill="none" stroke="#2e7d32" stroke-width="2" opacity="0.7"/>
                 <text x="680" y="145" font-family="sans-serif" font-size="11" fill="#2e7d32">harmoniczne</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 7: ZASTOSOWANIA INŻYNIERSKIE                        -->
+            <!-- PART 7: ZASTOSOWANIA (oryg. + podpowiedź)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">6. Gdzie to się przydaje? – Równania różniczkowe w akcji</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>⚡ Obwody RLC</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">L·q'' + R·q' + q/C = V(t). To samo równanie co dla drgań mechanicznych.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🌡️ Chłodzenie Newtona</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">T' = −k(T − T<sub>otoczenia</sub>). Równanie pierwszego rzędu – stygnięcie kawy.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🚀 Mechanika</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">m·x'' = F(t, x, x'). Ruch pod wpływem sił – wahadło, amortyzatory.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🧪 Kinetyka chemiczna</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">dC/dt = −k·Cⁿ. Szybkość reakcji zależy od stężenia – równanie różniczkowe.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>⚡ Obwody RLC</strong><br><span style="font-size: 0.9rem; color: #004d40;">L·q'' + R·q' + q/C = V(t). To samo równanie co dla drgań mechanicznych.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🌡️ Chłodzenie Newtona</strong><br><span style="font-size: 0.9rem; color: #004d40;">T' = −k(T − T<sub>otoczenia</sub>). Równanie pierwszego rzędu – stygnięcie kawy.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🚀 Mechanika</strong><br><span style="font-size: 0.9rem; color: #004d40;">m·x'' = F(t, x, x'). Ruch pod wpływem sił – wahadło, amortyzatory.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🧪 Kinetyka chemiczna</strong><br><span style="font-size: 0.9rem; color: #004d40;">dC/dt = −k·Cⁿ. Szybkość reakcji zależy od stężenia – równanie różniczkowe.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Równania różniczkowe to nie tylko teoria. W elektronice obwód RLC opisuje się równaniem drugiego rzędu – dokładnie takim samym jak dla drgań mechanicznych. Chłodzenie kawy to równanie pierwszego rzędu – temperatura zmienia się proporcjonalnie do różnicy temperatur. W mechanice druga zasada dynamiki to równanie różniczkowe. To jest uniwersalny język opisu zmieniających się układów.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 8: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -244,43 +232,28 @@
                     <li><strong>Rząd równania = liczba warunków początkowych</strong> – dla rzędu 2 potrzebujesz y(x₀) oraz y'(x₀). Jeden warunek to za mało.</li>
                     <li><strong>Pierwiastki równania charakterystycznego</strong> – zespolone dają oscylacje (sin, cos). Rzeczywiste – zanik wykładniczy. Nie pomyl interpretacji.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsze błędy? Po pierwsze – zapominanie o stałej całkowania i o warunku początkowym. Po drugie – nie każde równanie jest separowalne; jeśli nie mogę rozdzielić zmiennych, szukam czynnika całkującego. Po trzecie – dla równania drugiego rzędu potrzebuję dwóch warunków: położenia i prędkości na starcie. I po czwarte – interpretacja pierwiastków równania charakterystycznego: zespolone to oscylacje, rzeczywiste to zanik bez oscylacji.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – równania różniczkowe zwyczajne:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ równania</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Metoda</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Uwaga</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ równania</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Metoda</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Uwaga</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Separowalne</td>
-                        <td style="padding: 10px;">dy/h(y) = g(x) dx → całkujemy</td>
-                        <td style="padding: 10px;">y' = x·y → dy/y = x dx</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Liniowe 1. rzędu</td>
-                        <td style="padding: 10px;">Czynnik całkujący μ = e<sup>∫p</sup></td>
-                        <td style="padding: 10px;">y' + p(x)y = q(x)</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold;">Liniowe 2. rzędu o stałych współcz.</td>
-                        <td style="padding: 10px;">Równanie charakterystyczne ar² + br + c = 0</td>
-                        <td style="padding: 10px;">Pierwiastki rzeczywiste → e<sup>rx</sup>, zespolone → e<sup>αx</sup>(A cos βx + B sin βx)</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Separowalne</td><td style="padding: 10px;">dy/h(y) = g(x) dx → całkujemy</td><td style="padding: 10px;">y' = x·y → dy/y = x dx</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Liniowe 1. rzędu</td><td style="padding: 10px;">Czynnik całkujący μ = e<sup>∫p</sup></td><td style="padding: 10px;">y' + p(x)y = q(x)</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Liniowe 2. rzędu o stałych współcz.</td><td style="padding: 10px;">Równanie charakterystyczne ar² + br + c = 0</td><td style="padding: 10px;">Pierwiastki rzeczywiste → e<sup>rx</sup>, zespolone → e<sup>αx</sup>(A cos βx + B sin βx)</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -289,7 +262,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">

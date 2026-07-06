@@ -14,9 +14,9 @@
         <h2 id="q-title">016. Struktura programów w różnych językach programowania.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -53,12 +53,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: PUNKT STARTOWY I STRUKTURA PLIKU               -->
+            <!-- PART 1: PUNKT STARTOWY I STRUKTURA PLIKU -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">1. Punkt startowy – „Drzwi wejściowe”</strong>
@@ -82,85 +82,44 @@
                         <span style="font-size:0.8rem; color:#00695c;">Wykonanie od góry. Idiom modułowy.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, każdy program musi mieć punkt startowy – drzwi wejściowe. W C i C++ jest to funkcja main, która zwraca int – zero oznacza sukces. W Javie main też jest funkcją, ale musi być public static void i znajdować się w publicznej klasie. W Pythonie wykonanie idzie od pierwszej linii pliku, a idiom if __name__ równa się '__main__' pozwala odróżnić uruchomienie bezpośrednie od importu jako modułu. Proszę spojrzeć na planszę – porównuję te same elementy w trzech językach.”
+                </div>
             </div>
 
-            <!-- SVG: PORÓWNANIE STRUKTURY PLIKU – C vs PYTHON vs JAVA -->
+            <!-- SVG: PORÓWNANIE STRUKTURY PLIKU -->
             <svg viewBox="0 0 820 460" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridStruct" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridStruct" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="460" fill="url(#gridStruct)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Struktura programu – porównanie: C, Python, Java</text>
-
-                <!-- Panel: Język C -->
                 <rect x="25" y="45" width="250" height="390" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
                 <text x="150" y="70" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Język C</text>
                 <line x1="35" y1="80" x2="265" y2="80" stroke="#90caf9" stroke-width="1"/>
-                <!-- Bloki kodu -->
-                <rect x="40" y="90" width="220" height="35" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-                <text x="150" y="112" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">#include &lt;stdio.h&gt;</text>
-                <rect x="40" y="135" width="220" height="25" rx="4" fill="#90caf9" stroke="#1976d2" stroke-width="1"/>
-                <text x="150" y="152" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">#define MAX 100</text>
-                <rect x="40" y="170" width="220" height="45" rx="4" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1"/>
-                <text x="150" y="188" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">int dodaj(int a, int b);</text>
-                <text x="150" y="204" text-anchor="middle" font-family="monospace" font-size="10" fill="#546e7a">// deklaracja (prototyp)</text>
-                <rect x="40" y="225" width="220" height="90" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="150" y="245" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">int main() {</text>
-                <text x="150" y="265" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   int x = dodaj(2,3);</text>
-                <text x="150" y="285" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   printf("%d", x);</text>
-                <text x="150" y="305" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   return 0;</text>
-                <rect x="40" y="325" width="220" height="40" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1"/>
-                <text x="150" y="343" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">int dodaj(int a,int b){</text>
-                <text x="150" y="358" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">return a+b;}</text>
-                <text x="150" y="390" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">main() → punkt startowy</text>
-                <text x="150" y="405" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">deklaracje przed użyciem</text>
-
-                <!-- Panel: Python -->
+                <rect x="40" y="90" width="220" height="35" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/><text x="150" y="112" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">#include &lt;stdio.h&gt;</text>
+                <rect x="40" y="135" width="220" height="25" rx="4" fill="#90caf9" stroke="#1976d2" stroke-width="1"/><text x="150" y="152" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">#define MAX 100</text>
+                <rect x="40" y="170" width="220" height="45" rx="4" fill="#e3f2fd" stroke="#42a5f5" stroke-width="1"/><text x="150" y="188" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">int dodaj(int a, int b);</text><text x="150" y="204" text-anchor="middle" font-family="monospace" font-size="10" fill="#546e7a">// deklaracja (prototyp)</text>
+                <rect x="40" y="225" width="220" height="90" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/><text x="150" y="245" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">int main() {</text><text x="150" y="265" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   int x = dodaj(2,3);</text><text x="150" y="285" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   printf("%d", x);</text><text x="150" y="305" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">   return 0;</text>
+                <rect x="40" y="325" width="220" height="40" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1"/><text x="150" y="343" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">int dodaj(int a,int b){</text><text x="150" y="358" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">return a+b;}</text>
+                <text x="150" y="390" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">main() → punkt startowy</text><text x="150" y="405" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">deklaracje przed użyciem</text>
                 <rect x="285" y="45" width="250" height="390" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="410" y="70" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Python</text>
                 <line x1="295" y1="80" x2="525" y2="80" stroke="#a5d6a7" stroke-width="1"/>
-                <rect x="300" y="90" width="220" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">import math</text>
-                <rect x="300" y="130" width="220" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">from random import randint</text>
-                <rect x="300" y="170" width="220" height="70" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="190" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">def dodaj(a, b):</text>
-                <text x="410" y="210" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    return a + b</text>
-                <text x="410" y="230" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a"># definicja i deklaracja razem</text>
-                <rect x="300" y="250" width="220" height="75" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="270" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">if __name__ == "__main__":</text>
-                <text x="410" y="292" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    x = dodaj(2, 3)</text>
-                <text x="410" y="312" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    print(x)</text>
-                <text x="410" y="350" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wykonanie od góry do dołu</text>
-                <text x="410" y="368" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Bloki przez wcięcia (indentacja)</text>
-                <text x="410" y="386" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wszystko jest obiektem</text>
-
-                <!-- Panel: Java -->
+                <rect x="300" y="90" width="220" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">import math</text>
+                <rect x="300" y="130" width="220" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">from random import randint</text>
+                <rect x="300" y="170" width="220" height="70" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="190" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">def dodaj(a, b):</text><text x="410" y="210" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    return a + b</text><text x="410" y="230" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a"># definicja i deklaracja razem</text>
+                <rect x="300" y="250" width="220" height="75" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/><text x="410" y="270" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">if __name__ == "__main__":</text><text x="410" y="292" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    x = dodaj(2, 3)</text><text x="410" y="312" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">    print(x)</text>
+                <text x="410" y="350" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wykonanie od góry do dołu</text><text x="410" y="368" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Bloki przez wcięcia (indentacja)</text><text x="410" y="386" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wszystko jest obiektem</text>
                 <rect x="545" y="45" width="250" height="390" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="670" y="70" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Java</text>
                 <line x1="555" y1="80" x2="785" y2="80" stroke="#ef9a9a" stroke-width="1"/>
-                <rect x="560" y="90" width="220" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="670" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">package pl.example;</text>
-                <rect x="560" y="130" width="220" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="670" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">import java.util.*;</text>
-                <rect x="560" y="170" width="220" height="130" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="670" y="190" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">public class Program {</text>
-                <text x="670" y="212" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    public static int</text>
-                <text x="670" y="228" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">         dodaj(int a,int b){</text>
-                <text x="670" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      return a+b;}</text>
-                <text x="670" y="272" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    public static void</text>
-                <text x="670" y="288" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">         main(String[] a){</text>
-                <text x="670" y="308" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      int x=dodaj(2,3);</text>
-                <text x="670" y="328" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      System.out.println(x);</text>
-                <text x="670" y="348" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    }}</text>
-                <text x="670" y="385" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wszystko w klasach</text>
-                <text x="670" y="402" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">main() w klasie publicznej</text>
+                <rect x="560" y="90" width="220" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="670" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">package pl.example;</text>
+                <rect x="560" y="130" width="220" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="670" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">import java.util.*;</text>
+                <rect x="560" y="170" width="220" height="130" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/><text x="670" y="190" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">public class Program {</text><text x="670" y="212" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    public static int</text><text x="670" y="228" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">         dodaj(int a,int b){</text><text x="670" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      return a+b;}</text><text x="670" y="272" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    public static void</text><text x="670" y="288" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">         main(String[] a){</text><text x="670" y="308" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      int x=dodaj(2,3);</text><text x="670" y="328" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">      System.out.println(x);</text><text x="670" y="348" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">    }}</text>
+                <text x="670" y="385" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wszystko w klasach</text><text x="670" y="402" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">main() w klasie publicznej</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: FUNKCJE, PROCEDURY I METODY                     -->
+            <!-- PART 2: FUNKCJE, PROCEDURY I METODY -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2. Podprogramy – „Cegły budynku”</strong>
@@ -172,53 +131,35 @@
                     <li><strong>Java, C#:</strong> <em>metoda</em> – zawsze należy do klasy. Nie ma funkcji poza klasą.</li>
                     <li><strong>Python, JavaScript:</strong> <em>funkcja</em> (def / function), ale też obiekt pierwszej kategorii – można ją przekazywać jako argument.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podstawową cegłą każdego programu jest podprogram – czyli wydzielony fragment kodu, który wykonuje konkretne zadanie. W C nazywamy go funkcją, a jeśli nic nie zwraca – procedurą. W Javie wszystko jest metodą – nie ma funkcji poza klasą. W Pythonie funkcje to też obiekty – można je przekazywać jako argumenty, przypisywać do zmiennych. To bardzo ważna różnica między tymi językami.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 3: MODUŁY I PRZESTRZENIE NAZW                      -->
+            <!-- PART 3: MODUŁY I PRZESTRZENIE NAZW -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Moduły i przestrzenie nazw – „Segregacja na piętra”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Moduły</strong> grupują powiązane funkcje, klasy i stałe. Zapobiegają chaosowi w dużych projektach. W C to pliki nagłówkowe (.h) i źródłowe (.c), w Pythonie – pliki .py (moduły) i foldery z __init__.py (pakiety), w Javie – pakiety (package) i moduły (Java 9+).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Moduły to sposób na segregację kodu – jak piętra w budynku. W C mamy pliki .h z deklaracjami i .c z implementacjami, łączone przez #include. W Pythonie każdy plik .py to moduł, a foldery z __init__.py to pakiety – importujemy przez import. W Javie struktura katalogów odzwierciedla strukturę pakietów. Każdy z tych systemów rozwiązuje ten sam problem: jak nie zgubić się w dużym projekcie.”
+                </div>
             </div>
 
-            <!-- SVG: MODUŁY I ZALEŻNOŚCI (DIAGRAM STRUKTURY PROJEKTU) -->
+            <!-- SVG: MODUŁY I ZALEŻNOŚCI -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridStruct)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Modułowa struktura projektu – porównanie systemów modułów</text>
-
-                <!-- Panel: C -->
-                <rect x="25" y="45" width="240" height="170" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
-                <text x="145" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">C – pliki nagłówkowe (.h) i źródłowe (.c)</text>
-                <rect x="40" y="80" width="210" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-                <text x="145" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">math.h (deklaracje)</text>
-                <rect x="40" y="120" width="210" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-                <text x="145" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">math.c (implementacje)</text>
-                <text x="145" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">#include – preprocesor</text>
-
-                <!-- Panel: Python -->
-                <rect x="290" y="45" width="240" height="170" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Python – moduły i pakiety</text>
-                <rect x="305" y="80" width="210" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">math.py (moduł)</text>
-                <rect x="305" y="120" width="210" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="410" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">pakiet/__init__.py</text>
-                <text x="410" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">import / from … import</text>
-
-                <!-- Panel: Java -->
-                <rect x="555" y="45" width="240" height="170" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
-                <text x="675" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Java – pakiety</text>
-                <rect x="570" y="80" width="210" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="675" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">package com.app.math;</text>
-                <rect x="570" y="120" width="210" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="675" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">import java.util.List;</text>
-                <text x="675" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Struktura katalogowa == struktura pakietów</text>
+                <rect x="25" y="45" width="240" height="170" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/><text x="145" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">C – pliki nagłówkowe (.h) i źródłowe (.c)</text><rect x="40" y="80" width="210" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/><text x="145" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">math.h (deklaracje)</text><rect x="40" y="120" width="210" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/><text x="145" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">math.c (implementacje)</text><text x="145" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">#include – preprocesor</text>
+                <rect x="290" y="45" width="240" height="170" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Python – moduły i pakiety</text><rect x="305" y="80" width="210" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">math.py (moduł)</text><rect x="305" y="120" width="210" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/><text x="410" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">pakiet/__init__.py</text><text x="410" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">import / from … import</text>
+                <rect x="555" y="45" width="240" height="170" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/><text x="675" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Java – pakiety</text><rect x="570" y="80" width="210" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="675" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">package com.app.math;</text><rect x="570" y="120" width="210" height="30" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/><text x="675" y="140" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">import java.util.List;</text><text x="675" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Struktura katalogowa == struktura pakietów</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: ZAKRES WIDOCZNOŚCI I CZAS ŻYCIA ZMIENNYCH      -->
+            <!-- PART 4: ZAKRES WIDOCZNOŚCI -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">4. Zasięg (scope) i czas życia – „Kto kogo widzi”</strong>
@@ -230,53 +171,54 @@
                     <li><strong>Lokalny (funkcyjny)</strong> – wewnątrz funkcji. W C/C++ też blokowy (wewnątrz { }).</li>
                     <li><strong>Klasowy</strong> – w OOP: pola i metody statyczne.</li>
                 </ul>
-            </div>
-
-            <!-- ======================================================== -->
-            <!-- PART 5: ZARZĄDZANIE PAMIĘCIĄ – MANUALNE vs GC          -->
-            <!-- ======================================================== -->
-            <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">5. Zarządzanie pamięcią – „Kto sprząta po imprezie?”</strong>
-                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
-                        <strong>Manualne (C)</strong><br>
-                        <code>malloc() / free()</code><br>
-                        <span style="font-size:0.85rem;">Programista odpowiada za zwalnianie. Ryzyko wycieków i dangling pointers.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;">
-                        <strong>Półautomatyczne (C++)</strong><br>
-                        <code>new / delete, RAII, smart_ptr</code><br>
-                        <span style="font-size:0.85rem;">Destruktory + inteligentne wskaźniki automatyzują zwalnianie.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
-                        <strong>Garbage Collector (Java, Python)</strong><br>
-                        <span style="font-size:0.85rem;">Automatyczne wykrywanie nieużywanych obiektów. Programista nie woła free().</span>
-                    </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zasięg zmiennych to ważna różnica między językami. W C mamy zasięg blokowy – zmienna zadeklarowana wewnątrz klamer { } nie jest widoczna poza nimi. W Pythonie mamy zasięg funkcyjny – zmienna zadeklarowana w pętli wewnątrz funkcji jest widoczna w całej funkcji po zakończeniu pętli. To potrafi zaskoczyć programistów przechodzących z C do Pythona. W Javie zasięg jest podobny do C – blokowy.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: BLOKI KODU I INSTRUKCJE STERUJĄCE              -->
+            <!-- PART 5: ZARZĄDZANIE PAMIĘCIĄ -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">5. Zarządzanie pamięcią – „Kto sprząta po imprezie?”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 170px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;"><strong>Manualne (C)</strong><br><code>malloc() / free()</code><br><span style="font-size:0.85rem;">Programista odpowiada za zwalnianie. Ryzyko wycieków.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffcc80;"><strong>Półautomatyczne (C++)</strong><br><code>new / delete, RAII, smart_ptr</code><br><span style="font-size:0.85rem;">Destruktory + inteligentne wskaźniki.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;"><strong>Garbage Collector (Java, Python)</strong><br><span style="font-size:0.85rem;">Automatyczne wykrywanie nieużywanych obiektów.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zarządzanie pamięcią to jedna z najważniejszych różnic między językami. W C programista ręcznie przydziela pamięć przez malloc i zwalnia przez free – daje to pełną kontrolę, ale też pełną odpowiedzialność. W C++ mamy RAII i inteligentne wskaźniki, które automatyzują ten proces. W Javie i Pythonie działa Garbage Collector – obiekty, które nie są już potrzebne, są automatycznie usuwane. To wygoda, ale kosztem mniejszej kontroli i czasem nieprzewidywalnych pauz w działaniu programu.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: BLOKI KODU -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">6. Bloki kodu i instrukcje sterujące – „Korytarze i schody”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Blok kodu</strong> to ciąg instrukcji traktowany jako całość. W C, Javie – otoczony nawiasami klamrowymi { }. W Pythonie – wyznaczany przez <strong>wcięcia (indentację)</strong>. Instrukcje sterujące (if, for, while, switch) kierują przepływem sterowania w zależności od warunków.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Sposób oznaczania bloków kodu to jedna z najbardziej widocznych różnic. W C i Javie używamy nawiasów klamrowych – to jest składnia, bez nich program się nie skompiluje. W Pythonie bloki oznaczamy przez wcięcia – i to jest obowiązkowe! W C możesz sformatować kod jak chcesz, kompilator patrzy na klamry. W Pythonie wcięcia są częścią składni – to sprawia, że kod jest czytelniejszy, ale mieszanie spacji i tabulatorów to proszenie się o błędy. Instrukcje sterujące – if, for, while – działają podobnie we wszystkich trzech językach, różnią się tylko szczegółami składni.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 7: OBIEKTOWOŚĆ – KLASY I DZIEDZICZENIE             -->
+            <!-- PART 7: OBIEKTOWOŚĆ -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #4527a0;">7. Obiektowość – „Plany pięter i prototypy”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Języki zorientowane obiektowo (Java, C++, Python) organizują kod wokół <strong>klas</strong> – szablonów łączących dane (pola) z metodami (funkcje operujące na tych danych). Klasa definiuje typ obiektu. Mechanizmy takie jak <strong>dziedziczenie</strong> i <strong>polimorfizm</strong> pozwalają na ponowne użycie kodu i elastyczność.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec warto wspomnieć o obiektowości. Java jest w stu procentach obiektowa – wszystko musi być w klasie. Python i C++ wspierają obiektowość, ale nie zmuszają do niej – można pisać funkcje poza klasami. W C w ogóle nie ma klas – struktury i wskaźniki do funkcji to wszystko, co mamy. Obiektowość daje nam dziedziczenie i polimorfizm, ale to już temat na osobny wykład.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 8: PUŁAPKI -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -286,59 +228,30 @@
                     <li><strong>Java: main() musi być public static void.</strong> Inna sygnatura – program się nie uruchomi.</li>
                     <li><strong>Zasięg zmiennych:</strong> w C blokowy, w Pythonie funkcyjny (zmienna w pętli jest widoczna poza pętlą!).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki dotyczą Pythona i C. W Pythonie wcięcia są składnią – to nie tylko kwestia estetyki. W C deklaracja to nie definicja – można zadeklarować funkcję wiele razy, ale zdefiniować tylko raz. W Javie sygnatura main jest ściśle określona – musi być public static void. I jeszcze zasięg zmiennych: w Pythonie zmienna zadeklarowana w pętli jest widoczna poza nią, w C nie. To potrafi zaskoczyć przy przechodzeniu między językami.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – struktury programów:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">C</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Python</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Java</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">C</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Python</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Java</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Punkt startowy</td>
-                        <td style="padding: 10px;"><code>int main()</code></td>
-                        <td style="padding: 10px;">Pierwsza linia / <code>__name__</code></td>
-                        <td style="padding: 10px;"><code>public static void main</code></td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Podprogramy</td>
-                        <td style="padding: 10px;">Funkcje</td>
-                        <td style="padding: 10px;">Funkcje / metody</td>
-                        <td style="padding: 10px;">Metody (w klasach)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Moduły</td>
-                        <td style="padding: 10px;">.h + .c, #include</td>
-                        <td style="padding: 10px;">.py, pakiety, import</td>
-                        <td style="padding: 10px;">package, import</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold;">Blok kodu</td>
-                        <td style="padding: 10px;">{ }</td>
-                        <td style="padding: 10px;">Wcięcia (obowiązkowo)</td>
-                        <td style="padding: 10px;">{ }</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold;">Pamięć</td>
-                        <td style="padding: 10px;">Manualna</td>
-                        <td style="padding: 10px;">GC</td>
-                        <td style="padding: 10px;">GC</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Punkt startowy</td><td style="padding: 10px;"><code>int main()</code></td><td style="padding: 10px;">Pierwsza linia / <code>__name__</code></td><td style="padding: 10px;"><code>public static void main</code></td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Podprogramy</td><td style="padding: 10px;">Funkcje</td><td style="padding: 10px;">Funkcje / metody</td><td style="padding: 10px;">Metody (w klasach)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Moduły</td><td style="padding: 10px;">.h + .c, #include</td><td style="padding: 10px;">.py, pakiety, import</td><td style="padding: 10px;">package, import</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Blok kodu</td><td style="padding: 10px;">{ }</td><td style="padding: 10px;">Wcięcia (obowiązkowo)</td><td style="padding: 10px;">{ }</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Pamięć</td><td style="padding: 10px;">Manualna</td><td style="padding: 10px;">GC</td><td style="padding: 10px;">GC</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">

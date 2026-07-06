@@ -16,13 +16,13 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎮</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Polimorfizm to „Uniwersalny pilot do wszystkich urządzeń”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Polimorfizm to „Uniwersalny pilot do wszystkich urządzeń":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
-                        Wyobraź sobie, że masz w ręku pilota z jednym zielonym przyciskiem <strong>„Play”</strong>. Celujesz nim w telewizor – włącza się film. Celujesz w odtwarzacz CD – zaczyna grać muzyka. Celujesz w konsolę do gier – startuje rozgrywka. Przycisk jest ten sam, polecenie jest to samo (<code>play()</code>), ale każde urządzenie reaguje inaczej, zgodnie ze swoją naturą. To jest właśnie <strong>polimorfizm</strong> (z greckiego: poly – wiele, morphe – forma). W programowaniu oznacza to zdolność różnych obiektów do odpowiadania na to samo wywołanie metody w sposób specyficzny dla swojej klasy. Ty jako programista nie musisz wiedzieć, jakie konkretnie urządzenie trzymasz – wystarczy, że wiesz, że ma ono przycisk Play.
+                        Wyobraź sobie, że masz w ręku pilota z jednym zielonym przyciskiem <strong>„Play"</strong>. Celujesz nim w telewizor – włącza się film. Celujesz w odtwarzacz CD – zaczyna grać muzyka. Celujesz w konsolę do gier – startuje rozgrywka. Przycisk jest ten sam, polecenie jest to samo (<code>play()</code>), ale każde urządzenie reaguje inaczej, zgodnie ze swoją naturą. To jest właśnie <strong>polimorfizm</strong> (z greckiego: poly – wiele, morphe – forma). W programowaniu oznacza to zdolność różnych obiektów do odpowiadania na to samo wywołanie metody w sposób specyficzny dla swojej klasy. Ty jako programista nie musisz wiedzieć, jakie konkretnie urządzenie trzymasz – wystarczy, że wiesz, że ma ono przycisk Play.
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
                         <li><strong>🔵 Jedna nazwa, wiele zachowań</strong> – ta sama metoda <code>play()</code> wywołuje kod specyficzny dla klasy Telewizor, OdtwarzaczCD lub Konsola.</li>
@@ -61,12 +61,15 @@
             <!-- PART 1: ISTOTA POLIMORFIZMU – METAFORA PILOTA           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Istota polimorfizmu – „Ten sam pilot, różne urządzenia”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Istota polimorfizmu – „Ten sam pilot, różne urządzenia"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Polimorfizm</strong> (wielopostaciowość) to jeden z czterech filarów programowania obiektowego. Pozwala on traktować obiekty różnych klas w jednolity sposób, o ile te klasy współdzielą wspólny interfejs lub klasę bazową. Mechanizm ten opiera się na <strong>późnym wiązaniu (late binding)</strong> – konkretna implementacja metody jest wybierana dopiero w czasie wykonania, na podstawie rzeczywistego (dynamicznego) typu obiektu, a nie typu zadeklarowanego zmiennej.
                 </p>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
-                    <strong>🧠 Kluczowa intuicja:</strong> Polimorfizm to kod, który mówi: „Hej, obiekcie, wykonaj swoją wersję metody X”. Nie obchodzi mnie, kim dokładnie jesteś – ważne, że umiesz to zrobić po swojemu.
+                    <strong>🧠 Kluczowa intuicja:</strong> Polimorfizm to kod, który mówi: „Hej, obiekcie, wykonaj swoją wersję metody X". Nie obchodzi mnie, kim dokładnie jesteś – ważne, że umiesz to zrobić po swojemu.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, polimorfizm to jeden z czterech filarów programowania obiektowego i prawdopodobnie najbardziej elegancki z nich. Najprościej wyobrazić go sobie jako uniwersalny pilot z przyciskiem Play – celujemy nim w różne urządzenia i każde reaguje po swojemu, choć polecenie jest identyczne. W programowaniu oznacza to, że różne obiekty mogą odpowiadać na to samo wywołanie metody w sposób specyficzny dla swojej klasy. Kluczem jest późne wiązanie – decyzja, która konkretnie implementacja zostanie uruchomiona, zapada w czasie wykonania, a nie podczas kompilacji. To daje nam niezwykłą elastyczność: piszemy kod operujący na klasie bazowej, a w czasie wykonania podstawiamy dowolną klasę pochodną."
                 </div>
             </div>
 
@@ -134,16 +137,22 @@
                         <span style="font-size:0.9rem;">Decyzja w czasie wykonania. Wymaga metod wirtualnych i dziedziczenia. Umożliwia traktowanie różnych obiektów przez wspólny interfejs. To jest esencja polimorfizmu OOP.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Polimorfizm dzielimy na statyczny i dynamiczny. Statyczny to przeciążanie funkcji i szablony – decyzja, która wersja zostanie wywołana, zapada w czasie kompilacji na podstawie typów argumentów. Dynamiczny to esencja polimorfizmu obiektowego – wymaga metod wirtualnych i dziedziczenia, a konkretna implementacja wybierana jest w czasie wykonania. Dzięki temu możemy napisać kod, który operuje na wskaźniku do klasy bazowej, a w czasie wykonania podstawiać obiekty różnych klas pochodnych. To właśnie ta druga forma daje nam otwartość na rozszerzenia przy zamknięciu na modyfikacje – fundament zasady otwarte-zamknięte z SOLID."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 3: MECHANIZM VTABLE – JAK TO DZIAŁA POD MASką      -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Tabela wirtualna (vtable) – „Spis treści dla metod”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Tabela wirtualna (vtable) – „Spis treści dla metod"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy klasa posiada metody wirtualne, kompilator tworzy dla niej <strong>tabelę wirtualną (vtable)</strong> – ukrytą tablicę wskaźników do odpowiednich implementacji. Każdy obiekt takiej klasy przechowuje ukryty wskaźnik (vptr) do vtable swojej rzeczywistej klasy. Gdy wywołujesz metodę wirtualną, program pośrednio skacze do adresu pobranego z vtable – to jest właśnie <strong>dynamic dispatch</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Warto zrozumieć, jak polimorfizm działa pod maską, bo to częste pytanie techniczne. W C plus plus i podobnych językach kompilator tworzy dla każdej klasy posiadającej metody wirtualne tak zwaną tabelę wirtualną, czyli vtable. Jest to ukryta tablica wskaźników do odpowiednich implementacji metod. Każdy obiekt przechowuje ukryty wskaźnik, vptr, do vtable swojej rzeczywistej klasy. Gdy wywołujemy metodę wirtualną, program nie skacze bezpośrednio do kodu – zamiast tego pobiera adres z vtable i dopiero tam skacze. To właśnie jest dynamiczny dispatching. Dzięki temu ten sam kod wywołujący metodę przez wskaźnik do bazy uruchomi Pies::dajGlos dla psa, a Kot::dajGlos dla kota. Proszę spojrzeć na planszę."
+                </div>
             </div>
 
             <!-- SVG: SCHEMAT VTABLE -->
@@ -210,6 +219,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     To dwa różne mechanizmy często mylone na egzaminach. <strong>Przeciążanie</strong> ma miejsce w obrębie jednej klasy (lub w hierarchii) – ta sama nazwa metody, różne parametry. <strong>Przesłanianie</strong> występuje między klasą bazową a pochodną – metoda o identycznej sygnaturze w podklasie zastępuje wersję z nadklasy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przeciążanie i przesłanianie to dwa różne mechanizmy, które często są mylone. Przeciążanie, czyli overload, to sytuacja, gdy w tej samej klasie mamy kilka metod o tej samej nazwie, ale różnych parametrach. Kompilator wybiera właściwą na podstawie typów argumentów – to polimorfizm statyczny. Przesłanianie, czyli override, występuje między klasą bazową a pochodną – metoda w podklasie ma identyczną sygnaturę jak w nadklasie i zastępuje jej implementację. Do przesłaniania potrzebne są metody wirtualne i dziedziczenie – to polimorfizm dynamiczny. Proszę spojrzeć na planszę porównującą oba mechanizmy."
+                </div>
             </div>
 
             <!-- SVG: PRZECIĄŻANIE vs PRZESŁANIANIE (TABELA PORÓWNAWCZA) -->
@@ -248,8 +260,11 @@
                     </div>
                     <div style="flex: 1; min-width: 200px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
                         <strong>🐍 Python</strong><br>
-                        <span style="font-size:0.85rem;">Typowanie kaczki (duck typing): „jeśli chodzi jak kaczka i kwacze jak kaczka, to jest kaczką”. Nie wymaga wspólnej bazy – liczy się obecność metody.</span>
+                        <span style="font-size:0.85rem;">Typowanie kaczki (duck typing): „jeśli chodzi jak kaczka i kwacze jak kaczka, to jest kaczką". Nie wymaga wspólnej bazy – liczy się obecność metody.</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy język podchodzi do polimorfizmu nieco inaczej. W C plus plus polimorfizm dynamiczny wymaga słowa kluczowego virtual – bez niego nie zadziała. Czysto wirtualne metody z equals zero tworzą klasy abstrakcyjne i interfejsy. W Javie wszystkie niestatyczne metody są domyślnie wirtualne, więc polimorfizm działa automatycznie – nie ma osobnego słowa kluczowego. Java oferuje też interfejsy, które od wersji 8 mogą zawierać metody domyślne. Python idzie jeszcze dalej z typowaniem kaczki – nie potrzebujemy nawet wspólnej klasy bazowej, wystarczy, że obiekt ma odpowiednią metodę. Jeśli obiekt ma metodę play, to możemy go użyć, niezależnie od hierarchii dziedziczenia. To daje ogromną elastyczność, ale przenosi ryzyko błędów z czasu kompilacji na czas wykonania."
                 </div>
             </div>
 
@@ -264,6 +279,9 @@
                     <li><strong>Przesłanianie zmienia zachowanie, nie typ.</strong> Przez wskaźnik do bazy możesz wywołać tylko metody zadeklarowane w bazie, nawet jeśli obiekt pochodny ma dodatkowe metody publiczne.</li>
                     <li><strong>Python: duck typing jest potężny, ale ryzykowny</strong> – brak błędu kompilacji oznacza, że błąd (AttributeError) pojawi się dopiero w czasie wykonania, gdy obiekt nie ma danej metody.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki polimorfizmu zależą od języka. W C plus plus kluczowe jest słowo virtual – bez niego polimorfizm po prostu nie działa i zawsze uruchomi się metoda z klasy bazowej. Druga sprawa to destruktor wirtualny – jeśli usuwamy obiekt pochodny przez wskaźnik do bazy, a destruktor nie jest wirtualny, wywoła się tylko destruktor bazy i zasoby podklasy nie zostaną zwolnione. W Javie wszystkie metody są domyślnie wirtualne, więc ten problem nie występuje, ale pamiętajmy, że przez referencję do bazy widzimy tylko metody zadeklarowane w bazie, nawet jeśli obiekt ma dodatkowe metody. Python z typowaniem kaczki jest elastyczny, ale AttributeError przy braku metody pojawi się dopiero w czasie wykonania – nie ma bezpieczeństwa czasu kompilacji."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -310,7 +328,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Polimorfizm to sztuka mówienia obiektom „zrób to, co do Ciebie należy”, bez znajomości ich dokładnego typu. To on sprawia, że kod jest otwarty na rozszerzenia, a zamknięty na modyfikacje – fundament SOLID i klucz do elastycznej architektury.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Polimorfizm to sztuka mówienia obiektom „zrób to, co do Ciebie należy", bez znajomości ich dokładnego typu. To on sprawia, że kod jest otwarty na rozszerzenia, a zamknięty na modyfikacje – fundament SOLID i klucz do elastycznej architektury.</span>
                 </p>
             </div>
 
@@ -318,7 +336,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Effective C++” (Scott Meyers) · „Effective Java” (Joshua Bloch) · „Design Patterns” (Gang of Four) · Dokumentacje C++17, Java 17, Python 3.12.
+                    „Effective C++" (Scott Meyers) · „Effective Java" (Joshua Bloch) · „Design Patterns" (Gang of Four) · Dokumentacje C++17, Java 17, Python 3.12.
                 </span>
             </div>
 

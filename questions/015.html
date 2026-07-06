@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pytanie 015 – Zliczanie obiektów kombinatorycznych</title>
+    <title>Pytanie 015 – Zliczanie obiektów kombinatorycznych: ciągi, podzbiory, permutacje.</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/script.js"></script>
 </head>
@@ -14,9 +14,9 @@
         <h2 id="q-title">015. Zliczanie obiektów kombinatorycznych: ciągi, podzbiory, permutacje.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔐</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (oryginalne)                  -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -52,49 +52,40 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: ZASADA MNOŻENIA – DRZEWO DECYZJI               -->
+            <!-- PART 1: ZASADA MNOŻENIA – DRZEWO DECYZJI (oryg.+podpow.) -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">1. Zasada mnożenia – „Drzewo wyborów”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Jeśli wybór składa się z <em>k</em> niezależnych kroków, a w i‑tym kroku mamy <em>nᵢ</em> możliwości, to całkowita liczba wyników to <strong>iloczyn</strong>: n₁ · n₂ · … · nₖ. Każda ścieżka w drzewie decyzyjnym od korzenia do liścia to jeden unikalny wynik.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, kombinatoryka opiera się na jednej fundamentalnej zasadzie: zasadzie mnożenia. Jeśli mam dwa niezależne wybory – pierwszy na 3 sposoby, drugi na 4 – to wszystkich możliwości jest 3 razy 4, czyli 12. Na rysunku widzimy drzewo decyzyjne dla ciągu dwóch bitów. Z korzenia idą dwie gałęzie: 0 i 1. Z każdej znów dwie. W efekcie mamy 4 liście: 00, 01, 10, 11. To jest właśnie 2 razy 2. To jest fundament – wszystko, co będę dalej mówił, wynika z tej prostej zasady.”
+                </div>
             </div>
 
-            <!-- SVG: DRZEWO DECYZYJNE DLA 2 BITÓW -->
+            <!-- SVG: DRZEWO DECYZYJNE DLA 2 BITÓW (oryginalny) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridComb" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridComb" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="220" fill="url(#gridComb)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Zasada mnożenia – drzewo wyborów dla ciągu 2 bitów (każdy bit: 0 lub 1)</text>
-
-                <!-- Korzeń -->
                 <circle cx="410" cy="55" r="8" fill="#ef6c00"/>
                 <text x="410" y="45" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">start</text>
-
-                <!-- Krok 1 -->
                 <line x1="410" y1="63" x2="280" y2="110" stroke="#ef6c00" stroke-width="2"/>
                 <line x1="410" y1="63" x2="540" y2="110" stroke="#ef6c00" stroke-width="2"/>
                 <circle cx="280" cy="115" r="6" fill="#42a5f5"/>
                 <text x="280" y="108" text-anchor="middle" font-family="monospace" font-size="13" fill="#1565c0">0</text>
                 <circle cx="540" cy="115" r="6" fill="#42a5f5"/>
                 <text x="540" y="108" text-anchor="middle" font-family="monospace" font-size="13" fill="#1565c0">1</text>
-
-                <!-- Krok 2 -->
                 <line x1="280" y1="121" x2="200" y2="170" stroke="#1565c0" stroke-width="2"/>
                 <line x1="280" y1="121" x2="360" y2="170" stroke="#1565c0" stroke-width="2"/>
                 <line x1="540" y1="121" x2="460" y2="170" stroke="#1565c0" stroke-width="2"/>
                 <line x1="540" y1="121" x2="620" y2="170" stroke="#1565c0" stroke-width="2"/>
-
-                <!-- Liście (wyniki) -->
                 <rect x="180" y="172" width="40" height="24" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
                 <text x="200" y="189" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">00</text>
                 <rect x="340" y="172" width="40" height="24" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
@@ -103,29 +94,28 @@
                 <text x="460" y="189" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">10</text>
                 <rect x="600" y="172" width="40" height="24" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
                 <text x="620" y="189" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">11</text>
-
-                <!-- Etykieta wyniku -->
                 <text x="700" y="130" font-family="sans-serif" font-size="14" fill="#ef6c00">2 × 2 = 4 ciągi</text>
                 <text x="700" y="150" font-family="sans-serif" font-size="12" fill="#546e7a">ogólnie: nᵏ (wariacja z powt.)</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: CIĄGI (WARIACJE Z POWTÓRZENIAMI)                -->
+            <!-- PART 2: CIĄGI (oryg. + podpowiedź)                     -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2. Ciągi (wariacje z powtórzeniami) – „Kody PIN i hasła”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Ciągiem długości k</strong> nad zbiorem n elementów nazywamy każdy uporządkowany wybór k elementów, przy czym elementy <strong>mogą się powtarzać</strong>. Liczba wszystkich takich ciągów to <strong>nᵏ</strong>. Przykład: Kod PIN (4 cyfry od 0 do 9) → 10⁴ = 10 000 możliwości.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ciągi, czyli wariacje z powtórzeniami. Każda pozycja jest niezależna – dla każdej z k pozycji wybieram jeden z n elementów. Stąd n do potęgi k. Proszę spojrzeć na rysunek – cztery pokrętła, każde od 0 do 9, dają 10 do czwartej, czyli 10 000 możliwych kodów PIN. W informatyce to podstawa bezpieczeństwa: hasło o długości 8 znaków z alfabetu 95 znaków daje 95 do ósmej – to około 6,6 biliarda kombinacji. Atak brute-force musiałby sprawdzić każdą z nich.”
+                </div>
             </div>
 
-            <!-- SVG: KŁÓDKA – SYMBOL CIĄGU -->
+            <!-- SVG: KŁÓDKA – SYMBOL CIĄGU (oryginalny) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="url(#gridComb)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">Ciągi (wariacje z powtórzeniami) – jak kod PIN</text>
-                <!-- Rysunek zamka szyfrowego -->
                 <rect x="150" y="50" width="120" height="100" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
-                <!-- Cztery pokrętła -->
                 <rect x="165" y="65" width="20" height="40" rx="3" fill="#fff" stroke="#1976d2" stroke-width="1"/>
                 <text x="175" y="90" text-anchor="middle" font-family="monospace" font-size="14" fill="#0d47a1">0</text>
                 <rect x="195" y="65" width="20" height="40" rx="3" fill="#fff" stroke="#1976d2" stroke-width="1"/>
@@ -135,8 +125,6 @@
                 <rect x="255" y="65" width="20" height="40" rx="3" fill="#fff" stroke="#1976d2" stroke-width="1"/>
                 <text x="265" y="90" text-anchor="middle" font-family="monospace" font-size="14" fill="#0d47a1">0</text>
                 <text x="210" y="135" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">10⁴ = 10 000</text>
-
-                <!-- Opis -->
                 <rect x="350" y="50" width="430" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
                 <text x="565" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Zastosowania w informatyce</text>
                 <text x="565" y="98" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">• Liczba możliwych haseł n-znakowych → podstawa bezpieczeństwa</text>
@@ -145,65 +133,39 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: PODZBIORY I KOMBINACJE – TRÓJKĄT PASCALA       -->
+            <!-- PART 3: PODZBIORY I KOMBINACJE (oryg. + podpowiedź)    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. Podzbiory (kombinacje) – „Lotto i zespoły”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Kombinacją k elementów ze zbioru n‑elementowego</strong> nazywamy każdy podzbiór o mocy k. Kolejność elementów <strong>nie ma znaczenia</strong>. Liczbę takich podzbiorów wyrażamy symbolem Newtona (n nad k):
+                    <strong>Kombinacją k elementów ze zbioru n‑elementowego</strong> nazywamy każdy podzbiór o mocy k. Kolejność elementów <strong>nie ma znaczenia</strong>. Liczbę takich podzbiorów wyrażamy symbolem Newtona: C(n,k) = n! / (k! · (n−k)!).
                 </p>
-                <div style="text-align: center; margin: 12px 0;">
-                    <code style="background:#e8f5e9; padding:8px 20px; border-radius:8px; font-weight:bold;">C(n,k) = (n k) = n! / (k! · (n−k)!)</code>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podzbiory – czyli kombinacje – to wybór k elementów z n, gdzie kolejność nie ma znaczenia. To jest Lotto: wybieram 6 liczb z 49 i nie obchodzi mnie, w jakiej kolejności je skreśliłem. Liczbę takich podzbiorów wyrażamy symbolem Newtona – n nad k, co czyta się 'n po k'. Wynosi on n silnia przez k silnia razy n minus k silnia. Proszę spojrzeć na trójkąt Pascala – każdy wiersz to wartości symbolu Newtona dla danego n. Suma n-tego wiersza to 2 do n, czyli liczba wszystkich podzbiorów zbioru n-elementowego.”
                 </div>
             </div>
 
-            <!-- SVG: TRÓJKĄT PASCALA -->
+            <!-- SVG: TRÓJKĄT PASCALA (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="url(#gridComb)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Trójkąt Pascala – wizualna reprezentacja symbolu Newtona</text>
-
-                <!-- Wiersz 0 -->
                 <rect x="380" y="55" width="40" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="400" y="75" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
                 <text x="350" y="75" font-family="sans-serif" font-size="10" fill="#546e7a">n=0</text>
-
-                <!-- Wiersz 1 -->
-                <rect x="340" y="95" width="40" height="30" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="360" y="115" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-                <rect x="420" y="95" width="40" height="30" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="440" y="115" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-
-                <!-- Wiersz 2 -->
-                <rect x="300" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="320" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-                <rect x="380" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="400" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">2</text>
-                <rect x="460" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="480" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-
-                <!-- Wiersz 3 -->
-                <rect x="260" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="280" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-                <rect x="340" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="360" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">3</text>
-                <rect x="420" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="440" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">3</text>
-                <rect x="500" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="520" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
-
-                <!-- Wiersz 4 -->
-                <rect x="220" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="240" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">1</text>
-                <rect x="300" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="320" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">4</text>
-                <rect x="380" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="400" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">6</text>
-                <rect x="460" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="480" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">4</text>
-                <rect x="540" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="560" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">1</text>
-
-                <!-- Opis zastosowania -->
+                <rect x="340" y="95" width="40" height="30" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/><text x="360" y="115" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="420" y="95" width="40" height="30" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="1.5"/><text x="440" y="115" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="300" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/><text x="320" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="380" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/><text x="400" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">2</text>
+                <rect x="460" y="135" width="40" height="30" rx="4" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/><text x="480" y="155" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="260" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/><text x="280" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="340" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/><text x="360" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">3</text>
+                <rect x="420" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/><text x="440" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">3</text>
+                <rect x="500" y="175" width="40" height="30" rx="4" fill="#66bb6a" stroke="#2e7d32" stroke-width="1.5"/><text x="520" y="195" text-anchor="middle" font-family="monospace" font-size="16" fill="#1b5e20">1</text>
+                <rect x="220" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/><text x="240" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">1</text>
+                <rect x="300" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/><text x="320" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">4</text>
+                <rect x="380" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/><text x="400" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">6</text>
+                <rect x="460" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/><text x="480" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">4</text>
+                <rect x="540" y="215" width="40" height="30" rx="4" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/><text x="560" y="235" text-anchor="middle" font-family="monospace" font-size="16" fill="#fff">1</text>
                 <rect x="620" y="55" width="180" height="100" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
                 <text x="710" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Dwumian Newtona</text>
                 <text x="710" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">(a+b)ⁿ = Σ (n k)·aᵏbⁿ⁻ᵏ</text>
@@ -211,47 +173,34 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: PERMUTACJE – „Szeregowanie zadań”              -->
+            <!-- PART 4: PERMUTACJE (oryg. + podpowiedź)                -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Permutacje – „Ustawienia w szeregu”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Permutacją</strong> nazywamy ustawienie wszystkich n elementów w określonej kolejności. Liczba wszystkich permutacji zbioru n‑elementowego to <strong>n!</strong> (silnia: n·(n−1)·…·1). W informatyce: liczba możliwych kolejności wykonywania zadań (szeregowanie) lub testowanie wszystkich możliwych kolejności operacji.
                 </p>
-                <p style="line-height: 1.7; color: #2c3e50;">
-                    <strong>Wariacją bez powtórzeń</strong> nazywamy wybór k elementów z n, gdzie kolejność ma znaczenie i elementy nie powtarzają się: V(n,k) = n!/(n−k)!.
-                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Permutacje to ustawienia wszystkich elementów w szeregu. Jeśli mam n elementów, to na pierwszym miejscu mogę postawić każdy z nich – n możliwości. Na drugim już tylko n−1, na trzecim n−2 i tak dalej. Iloczyn daje n silnia. Trzy elementy – 3 razy 2 razy 1, czyli 6 permutacji. Proszę spojrzeć na dolną część planszy – mamy wypisane wszystkie 6. Permutacje są ważne w szeregowaniu zadań: na ile sposobów mogę ustawić 5 zadań do wykonania? 5 silnia, czyli 120. A wariacje bez powtórzeń – na przykład wybieram trzech medalistów z ośmiu zawodników – to 8 razy 7 razy 6, czyli 8 silnia przez 5 silnia.”
+                </div>
             </div>
 
-            <!-- SVG: PORÓWNANIE CIĄGÓW, PODZBIORÓW, PERMUTACJI -->
+            <!-- SVG: PORÓWNANIE CIĄGÓW, PODZBIORÓW, PERMUTACJI (oryginalny) -->
             <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="300" fill="url(#gridComb)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#6a1b9a">Porównanie obiektów kombinatorycznych na przykładzie zbioru {A, B, C}</text>
-
-                <!-- Ciągi (wariacje z powt.) k=2 -->
                 <rect x="30" y="50" width="240" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
                 <text x="150" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Ciągi dł. 2 (3²=9)</text>
                 <text x="150" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">AA, AB, AC, BA, BB, BC, CA, CB, CC</text>
-                <text x="150" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Kolejność ma znaczenie, elementy mogą się powtarzać.</text>
-
-                <!-- Wariacje bez powt. k=2 -->
                 <rect x="290" y="50" width="240" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="410" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Wariacje bez powt. (3!/(3−2)!=6)</text>
                 <text x="410" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">AB, AC, BA, BC, CA, CB</text>
-                <text x="410" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Kolejność ma znaczenie, bez powtórzeń.</text>
-
-                <!-- Kombinacje (podzbiory) k=2 -->
                 <rect x="550" y="50" width="240" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="670" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Podzbiory 2-el. (C(3,2)=3)</text>
                 <text x="670" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">{A,B}, {A,C}, {B,C}</text>
-                <text x="670" y="135" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Kolejność NIE ma znaczenia.</text>
-
-                <!-- Permutacje (wszystkie 3) -->
                 <rect x="30" y="170" width="240" height="90" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
                 <text x="150" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">Permutacje 3 el. (3! = 6)</text>
                 <text x="150" y="225" text-anchor="middle" font-family="monospace" font-size="12" fill="#6a1b9a">ABC, ACB, BAC, BCA, CAB, CBA</text>
-
-                <!-- Wizualizacja totolotka -->
                 <rect x="290" y="170" width="500" height="90" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="540" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Zamek szyfrowy (ciąg) vs Lotto (podzbiór)</text>
                 <text x="540" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c62828">PIN 1234 ≠ 4321 (kolejność ważna) → 10⁴</text>
@@ -259,28 +208,22 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 5: ZASTOSOWANIA W INFORMATYCE                      -->
+            <!-- PART 5: ZASTOSOWANIA (oryg. + podpowiedź)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">5. Gdzie to się przydaje? – Zliczanie w praktyce</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🔐 Bezpieczeństwo</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Przestrzeń haseł = nᵏ. Atak brute‑force na hasło 8‑znakowe z 95 znakami: 95⁸ ≈ 6.6·10¹⁵ prób.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🧪 Testowanie</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Pokrycie wszystkich kombinacji parametrów. Jeśli 5 flag boolowskich → 2⁵=32 przypadków testowych.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🕹️ Algorytmy losowe</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Liczba permutacji n elementów → n!. QuickSort randomizowany wybiera pivot.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🔐 Bezpieczeństwo</strong><br><span style="font-size: 0.9rem; color: #004d40;">Przestrzeń haseł = nᵏ. Atak brute‑force na hasło 8‑znakowe z 95 znakami: 95⁸ ≈ 6.6·10¹⁵ prób.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🧪 Testowanie</strong><br><span style="font-size: 0.9rem; color: #004d40;">Pokrycie wszystkich kombinacji parametrów. Jeśli 5 flag boolowskich → 2⁵=32 przypadków testowych.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🕹️ Algorytmy losowe</strong><br><span style="font-size: 0.9rem; color: #004d40;">Liczba permutacji n elementów → n!. QuickSort randomizowany wybiera pivot.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kombinatoryka jest wszędzie w informatyce. Bezpieczeństwo haseł: liczba możliwych haseł to n do k – to jest ciąg. Testowanie: jeśli mam 5 flag boolowskich, to wszystkich kombinacji jest 2 do 5, czyli 32 przypadki testowe. Algorytmy losowe: QuickSort z losowym wyborem piwota – liczba permutacji to n silnia. To są konkretne, codzienne zastosowania kombinatoryki, które ratują nas przed atakami i pomagają pisać lepsze testy.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 6: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
@@ -291,58 +234,29 @@
                     <li><strong>Symbol Newtona</strong> – (n k) = (n n−k). Wybór 2 z 5 to to samo, co odrzucenie 3 z 5.</li>
                     <li><strong>Permutacje z powtórzeniami:</strong> dla słowa „MAMA” liczba unikalnych przestawień to 4!/(2!·2!), nie 4!.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsza pułapka to pomylenie, kiedy kolejność ma znaczenie. W kodzie PIN – 1234 to nie 4321. Ale w Lotto – wybór liczb 1,2,3 to to samo co 3,1,2. Druga pułapka: czy elementy mogą się powtarzać? PIN tak, medale – nie, jeden zawodnik nie może dostać złota i srebra. Trzecia: zero silnia to 1, nie 0 – to konwencja, która wynika z tego, że pusty zbiór można uporządkować tylko na jeden sposób. I czwarta: permutacje z powtórzeniami – słowo MAMA ma 4 litery, ale dwie M i dwie A są nierozróżnialne, więc dzielimy przez 2 silnia razy 2 silnia.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – zliczanie obiektów:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Obiekt</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kolejność?</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Powtórzenia?</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzór</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Obiekt</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kolejność?</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Powtórzenia?</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzór</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Ciąg (w. z powt.)</td>
-                        <td style="padding: 10px;">TAK</td>
-                        <td style="padding: 10px;">TAK</td>
-                        <td style="padding: 10px;"><code>nᵏ</code></td>
-                        <td style="padding: 10px;">Kod PIN: 10⁴</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Wariacja bez powt.</td>
-                        <td style="padding: 10px;">TAK</td>
-                        <td style="padding: 10px;">NIE</td>
-                        <td style="padding: 10px;"><code>n!/(n−k)!</code></td>
-                        <td style="padding: 10px;">Medale: 8!/(8−3)!</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Kombinacja</td>
-                        <td style="padding: 10px;">NIE</td>
-                        <td style="padding: 10px;">NIE</td>
-                        <td style="padding: 10px;"><code>n!/(k!(n−k)!)</code></td>
-                        <td style="padding: 10px;">Lotto: (49 nad 6)</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Permutacja</td>
-                        <td style="padding: 10px;">TAK</td>
-                        <td style="padding: 10px;">NIE</td>
-                        <td style="padding: 10px;"><code>n!</code></td>
-                        <td style="padding: 10px;">Kolejność zadań: 5!</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #1565c0;">Ciąg (w. z powt.)</td><td style="padding: 10px;">TAK</td><td style="padding: 10px;">TAK</td><td style="padding: 10px;"><code>nᵏ</code></td><td style="padding: 10px;">Kod PIN: 10⁴</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #e65100;">Wariacja bez powt.</td><td style="padding: 10px;">TAK</td><td style="padding: 10px;">NIE</td><td style="padding: 10px;"><code>n!/(n−k)!</code></td><td style="padding: 10px;">Medale: 8!/(8−3)!</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Kombinacja</td><td style="padding: 10px;">NIE</td><td style="padding: 10px;">NIE</td><td style="padding: 10px;"><code>n!/(k!(n−k)!)</code></td><td style="padding: 10px;">Lotto: (49 nad 6)</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Permutacja</td><td style="padding: 10px;">TAK</td><td style="padding: 10px;">NIE</td><td style="padding: 10px;"><code>n!</code></td><td style="padding: 10px;">Kolejność zadań: 5!</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -351,7 +265,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">

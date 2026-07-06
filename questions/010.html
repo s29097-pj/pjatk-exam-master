@@ -14,9 +14,9 @@
         <h2 id="q-title">010. Arytmetyka modularna i jej zastosowanie w informatyce.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING (dodana klasa aha-box)      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.12);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.12);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🕰️</span>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS (oryginalne)                  -->
         <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
@@ -53,12 +53,12 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O PODPOWIEDZI DLA MÓWCY        -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
-            <!-- PART 1: DEFINICJA I KONGRUENCJA                          -->
+            <!-- PART 1: DEFINICJA I KONGRUENCJA (oryg. + podpowiedź)   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">1. Kongruencja – „Jesteśmy równi, gdy dajemy tę samą resztę”</strong>
@@ -66,26 +66,21 @@
                     Mówimy, że dwie liczby całkowite <em>a</em> i <em>b</em> są <strong>przystające modulo n</strong> (gdzie n > 0), jeśli ich różnica <em>(a − b)</em> dzieli się przez n bez reszty. Zapisujemy to:
                 </p>
                 <div style="text-align: center; margin: 12px 0;">
-                    <code style="background:#fff3e0; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">
-                        a ≡ b (mod n) &nbsp; ⇔ &nbsp; n | (a − b)
-                    </code>
+                    <code style="background:#fff3e0; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">a ≡ b (mod n) &nbsp; ⇔ &nbsp; n | (a − b)</code>
                 </div>
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Równoważnie: obie liczby dają <strong>tę samą resztę</strong> przy dzieleniu przez n. W informatyce operatorem reszty jest najczęściej <code>%</code> (np. <code>a % n</code> w C, Pythonie, Java). Zbiór wszystkich możliwych reszt modulo n oznaczamy przez <strong>Z<sub>n</sub> = {0, 1, 2, …, n−1}</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, arytmetyka modularna to matematyka zegara. Spójrzcie na tarczę: 10 dodać 5 daje 15, ale na zegarze po 12 wracamy do zera, więc wynik to 3. To jest właśnie operacja modulo 12. Dwie liczby są równoważne modulo n, jeśli dają tę samą resztę z dzielenia przez n. W informatyce używamy do tego operatora procent – a modulo n. Zbiór wszystkich możliwych reszt to Z indeks n – od 0 do n minus 1. To jest nasz alfabet w arytmetyce modularnej.”
+                </div>
             </div>
 
-            <!-- SVG: TARCZA ZEGARA – ARYTMETYKA MOD 12 -->
+            <!-- SVG: TARCZA ZEGARA (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <defs>
-                    <pattern id="gridMod" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
-                    </pattern>
-                </defs>
+                <defs><pattern id="gridMod" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
                 <rect x="0" y="0" width="820" height="280" fill="url(#gridMod)" opacity="0.4"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Arytmetyka modularna = „Matematyka zegara” (przykład dla n=12)</text>
-
-                <!-- Tarcza zegara -->
                 <circle cx="200" cy="160" r="90" fill="#fff" stroke="#ef6c00" stroke-width="3"/>
                 <text x="200" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">12</text>
                 <text x="240" y="95" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#bf360c">1</text>
@@ -99,17 +94,11 @@
                 <text x="115" y="168" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#bf360c">9</text>
                 <text x="130" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#bf360c">10</text>
                 <text x="160" y="95" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#bf360c">11</text>
-
-                <!-- Wskazówka -->
                 <line x1="200" y1="160" x2="200" y2="95" stroke="#c62828" stroke-width="4" stroke-linecap="round"/>
                 <circle cx="200" cy="160" r="6" fill="#c62828"/>
-
-                <!-- Opis operacji -->
                 <rect x="360" y="60" width="430" height="70" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
                 <text x="575" y="85" text-anchor="middle" font-family="monospace" font-size="15" fill="#bf360c">10 + 5 = 15 → 15 mod 12 = 3</text>
                 <text x="575" y="108" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#e65100">10 ≡ 22 ≡ 34 (mod 12) – „wszystkie dają tę samą resztę”</text>
-
-                <!-- Linia liczbowa vs okrąg -->
                 <rect x="360" y="150" width="430" height="100" rx="8" fill="#fbe9e7" stroke="#ff8a65" stroke-width="1"/>
                 <text x="575" y="172" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#bf360c">Różnica między zwykłą arytmetyką a modularną:</text>
                 <text x="575" y="195" text-anchor="middle" font-family="monospace" font-size="13" fill="#3e2723">Zwykła: → -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, … → (linia prosta)</text>
@@ -118,7 +107,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 2: WŁAŚCIWOŚCI ARYTMETYKI MODULARNEJ                -->
+            <!-- PART 2: WŁAŚCIWOŚCI (oryg. + podpowiedź)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">2. Właściwości – „Reguły gry w Z<sub>n</sub>”</strong>
@@ -126,26 +115,18 @@
                     Działania w arytmetyce modularnej zachowują wiele własności zwykłej arytmetyki:
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;">
-                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
-                        <strong>Dodawanie:</strong><br>
-                        <code>(a + b) mod n = ((a mod n) + (b mod n)) mod n</code>
-                    </div>
-                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
-                        <strong>Mnożenie:</strong><br>
-                        <code>(a · b) mod n = ((a mod n) · (b mod n)) mod n</code>
-                    </div>
-                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;">
-                        <strong>Potęgowanie:</strong><br>
-                        <code>aᵏ mod n = ((a mod n)ᵏ) mod n</code>
-                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;"><strong>Dodawanie:</strong><br><code>(a + b) mod n = ((a mod n) + (b mod n)) mod n</code></div>
+                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;"><strong>Mnożenie:</strong><br><code>(a · b) mod n = ((a mod n) · (b mod n)) mod n</code></div>
+                    <div style="flex: 1; min-width: 180px; background: #f3e5f5; border-radius: 8px; padding: 12px; border: 1px solid #ce93d8;"><strong>Potęgowanie:</strong><br><code>aᵏ mod n = ((a mod n)ᵏ) mod n</code></div>
                 </div>
-                <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;">
-                    <strong>Uwaga:</strong> Dzielenie nie jest tak proste! Zamiast dzielenia używamy <strong>odwrotności modularnej</strong> (o tym za chwilę).
-                </p>
+                <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;"><strong>Uwaga:</strong> Dzielenie nie jest tak proste! Zamiast dzielenia używamy <strong>odwrotności modularnej</strong>.</p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W arytmetyce modularnej dodawanie, mnożenie i potęgowanie działają podobnie jak w zwykłej – mogę najpierw wziąć modulo, a potem wykonać operację. To bardzo przydatne, gdy pracuję z ogromnymi liczbami. Ale uwaga: dzielenie nie jest takie proste. Nie mogę po prostu podzielić modulo. Zamiast tego używam odwrotności modularnej – to jest klucz do kryptografii.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 3: ODWROTNOŚĆ MODULARNA                             -->
+            <!-- PART 3: ODWROTNOŚĆ MODULARNA (oryg. + podpowiedź)      -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. Odwrotność modularna – „Dzielenie bez dzielenia”</strong>
@@ -153,149 +134,116 @@
                     W Z<sub>n</sub> <strong>odwrotność modularna</strong> liczby <em>a</em> to taka liczba <em>a⁻¹</em>, że <code>a · a⁻¹ ≡ 1 (mod n)</code>. Istnieje ona <strong>tylko wtedy, gdy NWD(a, n) = 1</strong> (a i n są względnie pierwsze). Znajdujemy ją za pomocą <strong>rozszerzonego algorytmu Euklidesa (EEA)</strong>.
                 </p>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
-                    <strong>🔑 Przykład:</strong> Odwrotność 3 modulo 7 to 5, ponieważ 3 · 5 = 15 ≡ 1 (mod 7). Sprawdź: 15 mod 7 = 1. Odwrotność 2 modulo 4 <strong>nie istnieje</strong>, bo NWD(2,4)=2 ≠ 1.
+                    <strong>🔑 Przykład:</strong> Odwrotność 3 modulo 7 to 5, ponieważ 3 · 5 = 15 ≡ 1 (mod 7). Odwrotność 2 modulo 4 <strong>nie istnieje</strong>, bo NWD(2,4)=2 ≠ 1.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Odwrotność modularna to sposób na dzielenie w świecie modulo. Szukam takiej liczby a⁻¹, że a razy a⁻¹ daje 1 modulo n. Warunek: a i n muszą być względnie pierwsze. Na przykład odwrotność 3 modulo 7 to 5, bo 3 razy 5 daje 15, a 15 modulo 7 to 1. Odwrotność 2 modulo 4 nie istnieje, bo 2 i 4 nie są względnie pierwsze. Do znajdowania odwrotności służy rozszerzony algorytm Euklidesa.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 4: CHIŃSKIE TWIERDZENIE O RESZTACH (CRT)           -->
+            <!-- PART 4: CRT (oryg. + podpowiedź)                        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">4. Chińskie twierdzenie o resztach – „Składanie układanki”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    CRT pozwala rozwiązać układ kongruencji dla parami względnie pierwszych modułów. Jeśli znamy reszty liczby X względem kilku mniejszych modułów, możemy jednoznacznie odtworzyć X modulo ich iloczyn. Jest to wykorzystywane do <strong>przyspieszenia obliczeń RSA</strong> (CRT-RSA) oraz w algorytmach kryptograficznych.
+                    CRT pozwala rozwiązać układ kongruencji dla parami względnie pierwszych modułów. Jeśli znamy reszty liczby X względem kilku mniejszych modułów, możemy jednoznacznie odtworzyć X modulo ich iloczyn.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Chińskie twierdzenie o resztach to sprytna metoda składania układanki. Jeśli znam reszty liczby X względem kilku małych modułów – na przykład X modulo 3 i X modulo 5 – mogę odtworzyć X modulo 15. W kryptografii używa się tego do przyspieszenia RSA – zamiast liczyć modulo ogromne n, liczę modulo mniejsze p i q, a potem składam wyniki. To znacznie przyspiesza obliczenia.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 5: RSA – KRÓLOWA ZASTOSOWAŃ                        -->
+            <!-- PART 5: RSA (oryg. + podpowiedź)                        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. RSA – „Gdzie arytmetyka modularna zarabia miliony”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Algorytm RSA opiera się na trudności faktoryzacji dużych liczb. Kluczowe operacje to potęgowanie modulo n. Bezpieczeństwo gwarantuje <strong>twierdzenie Eulera</strong>: a<sup>φ(n)</sup> ≡ 1 (mod n) dla NWD(a,n)=1, gdzie φ(n) to funkcja Eulera (dla n=p·q: φ(n)=(p−1)(q−1)).
+                    Algorytm RSA opiera się na trudności faktoryzacji dużych liczb. Kluczowe operacje to potęgowanie modulo n. Bezpieczeństwo gwarantuje <strong>twierdzenie Eulera</strong>: a<sup>φ(n)</sup> ≡ 1 (mod n) dla NWD(a,n)=1.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „RSA to najsłynniejsze zastosowanie arytmetyki modularnej. Opiera się na tym, że łatwo pomnożyć dwie duże liczby pierwsze, ale bardzo trudno z powrotem je odzyskać z iloczynu. Szyfrowanie to potęgowanie modulo n z kluczem publicznym e. Deszyfrowanie to potęgowanie z kluczem prywatnym d. Działa to dzięki twierdzeniu Eulera. Proszę spojrzeć na schemat: generuję klucze, szyfruję wiadomość m jako c równe m do e modulo n, a potem odszyfrowuję jako m równe c do d modulo n. Bez znajomości p i q złamanie RSA jest praktycznie niemożliwe.”
+                </div>
             </div>
 
-            <!-- SVG: SCHEMAT RSA – UPROSZCZONY -->
+            <!-- SVG: SCHEMAT RSA (oryginalny) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="url(#gridMod)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">RSA – podpisywanie i szyfrowanie oparte na potędze modulo n</text>
-
-                <!-- Generacja kluczy -->
                 <rect x="30" y="50" width="230" height="100" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
                 <text x="145" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">🔑 Generacja kluczy</text>
                 <text x="145" y="95" text-anchor="middle" font-family="monospace" font-size="11" fill="#5d1a1a">1. Wybierz duże liczby pierwsze p, q</text>
                 <text x="145" y="115" text-anchor="middle" font-family="monospace" font-size="11" fill="#5d1a1a">2. n = p·q, φ(n) = (p−1)(q−1)</text>
                 <text x="145" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="#5d1a1a">3. Wybierz e: NWD(e,φ(n))=1</text>
                 <text x="145" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#5d1a1a">4. d = e⁻¹ mod φ(n)</text>
-
                 <text x="290" y="105" font-family="sans-serif" font-size="24" fill="#546e7a">→</text>
-
-                <!-- Szyfrowanie -->
                 <rect x="320" y="50" width="220" height="100" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
                 <text x="430" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">🔒 Szyfrowanie</text>
                 <text x="430" y="95" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">wiadomość m (liczba < n)</text>
                 <text x="430" y="115" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">szyfrogram: c = mᵉ mod n</text>
                 <text x="430" y="140" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">klucz publiczny: (e, n)</text>
-
                 <text x="560" y="105" font-family="sans-serif" font-size="24" fill="#546e7a">→</text>
-
-                <!-- Deszyfrowanie -->
                 <rect x="590" y="50" width="220" height="100" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
                 <text x="700" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">🔓 Deszyfrowanie</text>
                 <text x="700" y="95" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">odbieramy szyfrogram c</text>
                 <text x="700" y="115" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">m = cᵈ mod n</text>
                 <text x="700" y="140" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">klucz prywatny: (d, n)</text>
-
-                <!-- Uzasadnienie -->
                 <text x="410" y="190" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Dlaczego działa? m = (mᵉ)ᵈ = mᵉᵈ ≡ m¹ (mod n), ponieważ e·d ≡ 1 (mod φ(n)) i z tw. Eulera mᵏ·φ(n)+1 ≡ m (mod n).</text>
                 <text x="410" y="215" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Bezpieczeństwo: znając tylko (e, n) nie da się efektywnie obliczyć d bez znajomości p i q – czyli bez faktoryzacji n.</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 6: INNE ZASTOSOWANIA                                -->
+            <!-- PART 6: INNE ZASTOSOWANIA (oryg. + podpowiedź)          -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">6. Gdzie jeszcze działa modulo? – Pełen przegląd</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>✅ Sumy kontrolne</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">CRC, MD5, SHA – operują modulo 2³² lub modulo 2. Weryfikacja integralności danych.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🔐 Diffie-Hellman</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">Uzgadnianie klucza: (gᵃ mod p)ᵇ = (gᵇ mod p)ᵃ. Modularne potęgowanie.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>🎲 Generatory pseudolosowe</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">LCG: X<sub>n+1</sub> = (a·X<sub>n</sub> + c) mod m. Cała losowość z modulo.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
-                        <strong>📁 Tablice haszujące</strong><br>
-                        <span style="font-size: 0.9rem; color: #004d40;">hash(key) mod size → indeks w tablicy. Rozpraszanie kluczy w sloty.</span>
-                    </div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>✅ Sumy kontrolne</strong><br><span style="font-size: 0.9rem; color: #004d40;">CRC, MD5, SHA – operują modulo 2³² lub modulo 2.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🔐 Diffie-Hellman</strong><br><span style="font-size: 0.9rem; color: #004d40;">Uzgadnianie klucza przez modularne potęgowanie.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>🎲 Generatory pseudolosowe</strong><br><span style="font-size: 0.9rem; color: #004d40;">LCG: X<sub>n+1</sub> = (a·X<sub>n</sub> + c) mod m.</span></div>
+                    <div style="flex: 1; min-width: 170px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;"><strong>📁 Tablice haszujące</strong><br><span style="font-size: 0.9rem; color: #004d40;">hash(key) mod size → indeks w tablicy.</span></div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Arytmetyka modularna jest wszędzie w informatyce. Sumy kontrolne – CRC, funkcje haszujące – operują modulo. Generatory pseudolosowe używają liniowego generatora kongruencyjnego. Tablice haszujące obliczają indeks jako hash modulo rozmiar tablicy. Nawet proste przepełnienie zmiennej unsigned int to nic innego jak modulo 2 do 32. To fundament, na którym stoi cała współczesna informatyka.”
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- PART 7: PUŁAPKI EGZAMINACYJNE                            -->
+            <!-- PART 7: PUŁAPKI (oryg. + podpowiedź)                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Odwrotność modularna istnieje tylko dla NWD(a, n) = 1.</strong> Jeśli moduł nie jest względnie pierwszy z liczbą, nie ma odwrotności.</li>
-                    <li><strong>Małe twierdzenie Fermata:</strong> a<sup>p−1</sup> ≡ 1 (mod p) dla p-pierwszej i NWD(a,p)=1. To szczególny przypadek tw. Eulera (φ(p)=p−1).</li>
-                    <li><strong>Reszta a operacja modulo:</strong> w matematyce reszta jest zawsze nieujemna (0 ≤ r < n). W niektórych językach programowania <code>−5 % 3</code> może dać −2! Sprawdź konwencję.</li>
-                    <li><strong>RSA jest wolne!</strong> W praktyce szyfruje się tylko klucz sesyjny, a dane szyfruje się szybkim szyfrem symetrycznym (AES).</li>
+                    <li><strong>Odwrotność modularna istnieje tylko dla NWD(a, n) = 1.</strong></li>
+                    <li><strong>Małe twierdzenie Fermata:</strong> a<sup>p−1</sup> ≡ 1 (mod p) dla p-pierwszej i NWD(a,p)=1.</li>
+                    <li><strong>Reszta a operacja modulo:</strong> w matematyce reszta jest zawsze nieujemna. W niektórych językach programowania <code>−5 % 3</code> może dać −2!</li>
+                    <li><strong>RSA jest wolne!</strong> W praktyce szyfruje się tylko klucz sesyjny, a dane szyfruje się AES-em.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najważniejsza pułapka: odwrotność modularna istnieje tylko gdy liczby są względnie pierwsze. Druga pułapka: operator modulo w językach programowania może dawać ujemne reszty dla ujemnych liczb – w matematyce reszta jest zawsze nieujemna. Trzecia: RSA jest bezpieczne, ale zbyt wolne do szyfrowania całej wiadomości – dlatego szyfruje się tylko klucz sesyjny, a właściwe dane szyfruje się szybkim algorytmem symetrycznym.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
+            <!-- CHEAT-SHEET (oryginalny)                                -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – arytmetyka modularna:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-                    <thead>
-                    <tr style="background: #eceff1;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Definicja / Twierdzenie</th>
-                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th>
-                    </tr>
-                    </thead>
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Definicja / Twierdzenie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warunek</th></tr></thead>
                     <tbody>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Kongruencja</td>
-                        <td style="padding: 10px;">a ≡ b (mod n) ⇔ n | (a−b)</td>
-                        <td style="padding: 10px;">n > 0</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Odwrotność mod.</td>
-                        <td style="padding: 10px;">a·a⁻¹ ≡ 1 (mod n)</td>
-                        <td style="padding: 10px;">NWD(a, n) = 1</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Funkcja Eulera φ</td>
-                        <td style="padding: 10px;">φ(n) = liczba liczb ≤ n wzgl. pierwszych z n</td>
-                        <td style="padding: 10px;">φ(p)=p−1, φ(pq)=(p−1)(q−1)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Tw. Eulera</td>
-                        <td style="padding: 10px;">a<sup>φ(n)</sup> ≡ 1 (mod n)</td>
-                        <td style="padding: 10px;">NWD(a, n) = 1</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">RSA</td>
-                        <td style="padding: 10px;">c = mᵉ mod n, m = cᵈ mod n</td>
-                        <td style="padding: 10px;">e·d ≡ 1 mod φ(n)</td>
-                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #e65100;">Kongruencja</td><td style="padding: 10px;">a ≡ b (mod n) ⇔ n | (a−b)</td><td style="padding: 10px;">n > 0</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #2e7d32;">Odwrotność mod.</td><td style="padding: 10px;">a·a⁻¹ ≡ 1 (mod n)</td><td style="padding: 10px;">NWD(a, n) = 1</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #1565c0;">Funkcja Eulera φ</td><td style="padding: 10px;">φ(n) = liczba liczb ≤ n wzgl. pierwszych z n</td><td style="padding: 10px;">φ(p)=p−1, φ(pq)=(p−1)(q−1)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold; color: #c62828;">Tw. Eulera</td><td style="padding: 10px;">a<sup>φ(n)</sup> ≡ 1 (mod n)</td><td style="padding: 10px;">NWD(a, n) = 1</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #6a1b9a;">RSA</td><td style="padding: 10px;">c = mᵉ mod n, m = cᵈ mod n</td><td style="padding: 10px;">e·d ≡ 1 mod φ(n)</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- STOPKA (oryginalna)                                     -->
             <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
@@ -304,7 +252,7 @@
                 </p>
             </div>
 
-            <!-- ŹRÓDŁA -->
+            <!-- ŹRÓDŁA (oryginalne) -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
