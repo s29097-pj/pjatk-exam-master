@@ -14,13 +14,13 @@
         <h2 id="q-title">054. Bezpieczeństwo w bazach danych, rodzaje uprawnień, sposoby zarządzania uprawnieniami.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🛡️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zamek, w którym każdy gość ma klucz tylko do swojego pokoju”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zamek, w którym każdy gość ma klucz tylko do swojego pokoju":</strong>
                     <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
-                        Wyobraź sobie ogromny hotel z setkami pokoi. Nie dajesz każdemu gościowi klucza uniwersalnego („klucz główny”) – bo wtedy mógłby wejść do każdego pokoju, podejrzeć cudze bagaże i narobić bałaganu. Zamiast tego gość dostaje klucz tylko do swojego pokoju, sprzątaczka ma dostęp do pokoi na swoim piętrze, a kierownik może wejść wszędzie.
+                        Wyobraź sobie ogromny hotel z setkami pokoi. Nie dajesz każdemu gościowi klucza uniwersalnego („klucz główny") – bo wtedy mógłby wejść do każdego pokoju, podejrzeć cudze bagaże i narobić bałaganu. Zamiast tego gość dostaje klucz tylko do swojego pokoju, sprzątaczka ma dostęp do pokoi na swoim piętrze, a kierownik może wejść wszędzie.
                     </p>
                     <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
                         W bazach danych działa to identycznie: <strong>uprawnienia (privileges)</strong> decydują, kto może co zrobić – czy dany użytkownik może tylko czytać tabelę <code>Pracownicy</code>, czy też może ją modyfikować, a może nawet usunąć. Zarządzanie tymi uprawnieniami (DCL – Data Control Language) to fundament bezpieczeństwa każdej aplikacji.
@@ -58,6 +58,9 @@
                     <li><strong>Szyfrowanie</strong> – ochrona danych w spoczynku (na dysku) i w transmisji (SSL/TLS).</li>
                     <li><strong>Audyt</strong> – ślad, kto i kiedy co zrobił.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Bezpieczeństwo bazy danych to system warstwowy, jak cebula. Zaczyna się od uwierzytelnienia – czyli potwierdzenia, kim jest użytkownik, przez hasło czy certyfikat. Potem mamy autoryzację – czyli co ten użytkownik może robić, a to realizujemy przez GRANT i REVOKE. Dalej szyfrowanie – osobno danych na dysku i w transmisji przez SSL. Na końcu audyt – ślad, kto i kiedy co zrobił. Żadna z tych warstw sama w sobie nie wystarczy – bezpieczeństwo to zawsze kombinacja wielu mechanizmów."
+                </div>
             </div>
 
             <!-- 2. Rodzaje uprawnień (schemat) -->
@@ -96,6 +99,12 @@
                 <text x="610" y="200" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Nadawane użytkownikom aplikacji</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Uprawnienia dzielą się na dwie kategorie. Systemowe dotyczą całej bazy lub serwera – CREATE DATABASE, CREATE USER, SUPERUSER – i są nadawane głównie administratorom. Obiektowe dotyczą konkretnych tabel, widoków i procedur – SELECT, INSERT, UPDATE, DELETE, EXECUTE – i są nadawane użytkownikom aplikacji. Proszę spojrzeć na planszę – pokazuje ona oba typy uprawnień z ich opisami. W praktyce aplikacja webowa dostaje tylko uprawnienia obiektowe na potrzebnych tabelach, nigdy systemowe."
+                </div>
+            </div>
+
             <!-- 3. GRANT i REVOKE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">3. GRANT i REVOKE – rozdawanie i odbieranie kluczy</strong>
@@ -111,6 +120,9 @@
                 </p>
                 <pre style="background:#f5f6fa; padding:14px; border-radius:8px; font-size:0.9rem;"><code>GRANT SELECT ON Pracownicy TO app_user;
 REVOKE INSERT, UPDATE, DELETE ON Pracownicy FROM app_user;</code></pre>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „GRANT i REVOKE to dwie podstawowe komendy DCL do zarządzania uprawnieniami. GRANT przyznaje, REVOKE odbiera. Składnia jest prosta: GRANT uprawnienie ON obiekt TO użytkownik. Na przykład, aby aplikacja mogła tylko czytać tabelę Pracownicy, dajemy GRANT SELECT, a REVOKE na INSERT, UPDATE i DELETE. To realizuje zasadę najmniejszego uprzywilejowania – aplikacja dostaje tylko to, czego naprawdę potrzebuje, nic więcej."
+                </div>
             </div>
 
             <!-- 4. Role (schemat) -->
@@ -172,13 +184,16 @@ REVOKE INSERT, UPDATE, DELETE ON Pracownicy FROM app_user;</code></pre>
                 <pre style="background:#f5f6fa; padding:14px; border-radius:8px; font-size:0.9rem;"><code>CREATE ROLE analityk;
 GRANT SELECT ON Pracownicy, Zamowienia TO analityk;
 GRANT analityk TO Anna, Bartek;  -- Anna i Bartek dziedziczą uprawnienia roli</code></pre>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Role to grupy uprawnień – genialny mechanizm, który eliminuje konieczność zarządzania uprawnieniami dla każdego użytkownika z osobna. Tworzymy rolę, na przykład 'analityk', nadajemy jej zestaw uprawnień, a potem przypisujemy do niej konkretnych użytkowników – Annę i Bartka. Jeśli później zmienimy uprawnienia roli, automatycznie zmienią się one dla wszystkich jej członków. Proszę spojrzeć na planszę – trzy role i przypisani do nich użytkownicy. To jest standardowy wzorzec zarządzania uprawnieniami w każdej poważnej bazie danych."
+                </div>
             </div>
 
             <!-- 5. Row-Level Security (schemat) -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">5. Row-Level Security (RLS) – jeszcze drobniejsze sito</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Czasami nie wystarczy powiedzieć „użytkownik może czytać tabelę Pracownicy”. Co jeśli tabela zawiera dane wszystkich działów, a Ty chcesz, by menadżer widział tylko swoich podwładnych? Tu wkracza <strong>Row-Level Security</strong> – filtry na poziomie pojedynczych wierszy.
+                    Czasami nie wystarczy powiedzieć „użytkownik może czytać tabelę Pracownicy". Co jeśli tabela zawiera dane wszystkich działów, a Ty chcesz, by menadżer widział tylko swoich podwładnych? Tu wkracza <strong>Row-Level Security</strong> – filtry na poziomie pojedynczych wierszy.
                 </p>
             </div>
 
@@ -219,14 +234,23 @@ GRANT analityk TO Anna, Bartek;  -- Anna i Bartek dziedziczą uprawnienia roli</
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Row-Level Security, czyli bezpieczeństwo na poziomie wierszy, to zaawansowany mechanizm, który filtruje dane jeszcze dokładniej. Zamiast mówić 'użytkownik może czytać tabelę Pracownicy', mówimy 'użytkownik może czytać tylko te wiersze, gdzie dział równa się jego dział'. Proszę spojrzeć na planszę: Manager IT widzi tylko wiersze z działu IT, Manager HR tylko z działu HR – z tej samej tabeli. To potężne narzędzie w systemach wielodostępnych, gdzie dane różnych jednostek organizacyjnych są w jednej tabeli."
+                </div>
+            </div>
+
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Bezpieczeństwo – grzechy główne):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„GRANT ALL na produkcji”</strong> – Nadanie wszystkich uprawnień użytkownikowi aplikacji to zaproszenie do katastrofy. Zawsze stosuj zasadę najmniejszego uprzywilejowania (least privilege): aplikacja dostaje tylko SELECT, INSERT, UPDATE i tylko na potrzebnych tabelach.</li>
-                    <li><strong>„Zapominam o REVOKE po zwolnieniu pracownika”</strong> – Były pracownik z aktywnym kontem w bazie to jedna z najczęstszych luk bezpieczeństwa. Zawsze odbieraj uprawnienia natychmiast po zakończeniu współpracy.</li>
-                    <li><strong>„SQL Injection – uprawnienia mnie nie obronią”</strong> – Nawet restrykcyjne uprawnienia nie pomogą, jeśli aplikacja jest dziurawa na SQL Injection. Atakujący może odczytać dane przez zapytanie aplikacji, która ma do nich legalny dostęp. Uprawnienia to tylko jedna z warstw – konieczne jest też sanityzowanie danych wejściowych.</li>
+                    <li><strong>„GRANT ALL na produkcji"</strong> – Nadanie wszystkich uprawnień użytkownikowi aplikacji to zaproszenie do katastrofy. Zawsze stosuj zasadę najmniejszego uprzywilejowania (least privilege): aplikacja dostaje tylko SELECT, INSERT, UPDATE i tylko na potrzebnych tabelach.</li>
+                    <li><strong>„Zapominam o REVOKE po zwolnieniu pracownika"</strong> – Były pracownik z aktywnym kontem w bazie to jedna z najczęstszych luk bezpieczeństwa. Zawsze odbieraj uprawnienia natychmiast po zakończeniu współpracy.</li>
+                    <li><strong>„SQL Injection – uprawnienia mnie nie obronią"</strong> – Nawet restrykcyjne uprawnienia nie pomogą, jeśli aplikacja jest dziurawa na SQL Injection. Atakujący może odczytać dane przez zapytanie aplikacji, która ma do nich legalny dostęp. Uprawnienia to tylko jedna z warstw – konieczne jest też sanityzowanie danych wejściowych.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki bezpieczeństwa. Po pierwsze, GRANT ALL na produkcji – aplikacja powinna dostawać tylko niezbędne uprawnienia, zgodnie z zasadą najmniejszego uprzywilejowania. Po drugie, zapominanie o REVOKE po zwolnieniu pracownika – to jedna z najczęstszych luk. Po trzecie, złudzenie, że uprawnienia chronią przed SQL Injection – nie chronią, bo atakujący działa przez zalogowaną aplikację. Uprawnienia to tylko jedna warstwa obrony – zawsze muszą iść w parze z sanityzacją danych wejściowych."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -241,7 +265,7 @@ GRANT analityk TO Anna, Bartek;  -- Anna i Bartek dziedziczą uprawnienia roli</
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    Dokumentacja PostgreSQL: „GRANT”, „Row Security Policies” · „Database Security: Concepts, Approaches, and Challenges” (Elmasri, Navathe) · OWASP: „SQL Injection Prevention Cheat Sheet”.
+                    Dokumentacja PostgreSQL: „GRANT", „Row Security Policies" · „Database Security: Concepts, Approaches, and Challenges" (Elmasri, Navathe) · OWASP: „SQL Injection Prevention Cheat Sheet".
                 </span>
             </div>
 

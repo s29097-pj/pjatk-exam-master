@@ -14,11 +14,11 @@
         <h2 id="q-title">052. Podstawowe zasady optymalizacji zapytań, w tym rodzaje i znaczenie indeksów w bazie danych.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📖</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sterty kartek do książki telefonicznej”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sterty kartek do książki telefonicznej":</strong>
                     <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
                         Wyobraź sobie, że masz milion luźnych kartek z nazwiskami i numerami telefonów, ale są one w kompletnie przypadkowej kolejności. Aby znaleźć numer Kowalskiego, musisz przeglądać każdą kartkę – to zajmie wieki. <strong>Full Table Scan (Sequential Scan)</strong> działa dokładnie tak samo: baza czyta całą tabelę wiersz po wierszu.
                     </p>
@@ -103,14 +103,15 @@
                 <line x1="620" y1="230" x2="620" y2="245" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="3,3"/>
                 <rect x="590" y="245" width="60" height="15" rx="2" fill="#c5cae9"/>
                 <text x="620" y="256" font-family="monospace" font-size="7" fill="#1a237e" text-anchor="middle">RowID →</text>
-
-                <text x="410" y="280" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" display="none">(W rzeczywistości węzły B‑tree zawierają wiele kluczy; tu pokazano uproszczony schemat dla jednego klucza na węzeł)</text>
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy wykonujesz <code>SELECT * FROM tabela WHERE nazwisko = 'Kowalski'</code>, baza sięga do indeksu, znajduje wpis "Kowalski" i od razu odczytuje wskaźnik do wiersza. Nie musi oglądać całej tabeli. Im więcej wierszy, tym większa przewaga indeksu nad pełnym skanowaniem.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Indeks B‑tree to podstawowe narzędzie optymalizacyjne w każdej bazie danych. Działa jak książka telefoniczna – dane są posortowane, a struktura drzewa zrównoważonego pozwala na wyszukiwanie w czasie logarytmicznym O(log n). Bez indeksu baza wykonuje Full Table Scan, czyli przegląda każdy wiersz – to O(n). Przy milionie rekordów różnica jest dramatyczna: zamiast miliona odczytów, indeks znajduje rekord w około dwudziestu krokach. Proszę spojrzeć na planszę – pokazuje ona strukturę B‑tree z korzeniem, węzłami pośrednimi i liśćmi wskazującymi na rzeczywiste wiersze w tabeli."
+                </div>
             </div>
 
             <!-- 2. Full Table Scan vs Index Scan (wizualizacja) -->
@@ -184,6 +185,12 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę spojrzeć na porównanie. Bez indeksu baza wykonuje Full Table Scan – czyta każdy wiersz po kolei, aż znajdzie pasujący. To O(n) – przy milionie wierszy to milion operacji. Z indeksem B‑tree baza od razu trafia do odpowiedniego miejsca w strukturze – to O(log n), czyli około dwadzieścia porównań dla miliona wierszy. Indeks to osobna struktura, która zawiera posortowane wartości i wskaźniki do rzeczywistych wierszy. Baza najpierw szuka w indeksie, a potem jednym skokiem odczytuje wiersz z tabeli. Stąd dramatyczna różnica w wydajności."
+                </div>
+            </div>
+
             <!-- 3. Rodzaje indeksów (tabelka wizualna) -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">3. Rodzaje indeksów – nie tylko B‑tree</strong>
@@ -225,10 +232,19 @@
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oprócz uniwersalnego B‑tree, bazy danych oferują inne typy indeksów do specjalistycznych zadań. Indeks Hash jest błyskawiczny dla porównań równości, ale nie obsługuje zakresów ani sortowania – przez to rzadziej używany. Indeksy GIN i GiST w PostgreSQL służą do wyszukiwania pełnotekstowego, obsługi kolumn JSON i danych geometrycznych. Warto znać te typy, bo na egzaminie mogą zapytać, dlaczego do wyszukiwania tekstu nie użyjemy zwykłego B‑tree – odpowiedź: B‑tree nie radzi sobie z operacjami typu 'zawiera słowo'."
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">4. Indeks złożony (composite) – pułapka kolejności</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Indeks na wielu kolumnach <code>(A, B)</code> jest jak wielopoziomowa segregacja: najpierw sortujesz po A, a wewnątrz każdej grupy A – po B. Taki indeks obsłuży zapytania filtrujące tylko po A, lub po A i B. <strong>Nie obsłuży</strong> filtrowania tylko po B (chyba że jest to indeks bitmapowy, ale nie w klasycznym B‑tree). Kolejność kolumn w definicji indeksu ma kluczowe znaczenie – dostosuj ją do najczęstszych zapytań.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Indeks złożony na kolumnach A i B działa jak segregacja wielopoziomowa – najpierw sortujemy po A, potem w ramach każdej grupy po B. Obsłuży on zapytania filtrujące po A oraz po A i B. Nie obsłuży jednak filtrowania wyłącznie po B. Dlatego kolejność kolumn w indeksie złożonym ma kluczowe znaczenie – zawsze umieszczamy na pierwszym miejscu kolumnę, po której filtrujemy najczęściej."
+                </div>
             </div>
 
             <!-- 5. EXPLAIN (plan zapytania) -->
@@ -268,14 +284,23 @@
                 <text x="410" y="215" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(Tu widzimy, że tabela "Zadania" nie ma indeksu – dlatego Seq Scan)</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „EXPLAIN to nasze okno na działanie optymalizatora bazy danych. Pokazuje plan wykonania zapytania jako drzewo operacji – od najgłębiej zagnieżdżonych do najbardziej zewnętrznych. Proszę spojrzeć na planszę: widzimy, że jedna gałąź używa Index Scan – to dobrze, jest szybko. Druga gałąź wykonuje Sequential Scan – to znaczy, że tabela nie ma odpowiedniego indeksu i baza musi przeczytać ją w całości. EXPLAIN ANALYZE idzie o krok dalej – faktycznie wykonuje zapytanie i pokazuje rzeczywiste czasy, dzięki czemu wiemy dokładnie, który krok jest wąskim gardłem."
+                </div>
+            </div>
+
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Optymalizacyjne mity):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Im więcej indeksów, tym lepiej”</strong> – Każdy indeks spowalnia INSERT, UPDATE, DELETE, bo baza musi aktualizować i tabelę, i indeksy. Indeksuj tylko kolumny często używane w WHERE, JOIN i ORDER BY.</li>
-                    <li><strong>„Indeks na FK jest zbędny, bo FK sam go tworzy”</strong> – FK <strong>nie tworzy</strong> automatycznie indeksu! Bez niego operacje DELETE/UPDATE na tabeli nadrzędnej będą tragicznie wolne, bo baza wykona Seq Scan na tabeli podrzędnej.</li>
-                    <li><strong>„Używam funkcji w WHERE, to nic nie szkodzi”</strong> – <code>WHERE LOWER(nazwisko) = 'kowalski'</code> uniemożliwi użycie indeksu na <code>nazwisko</code>. Rozwiązanie: utwórz indeks na wyrażeniu (<code>CREATE INDEX ON tabela (LOWER(nazwisko))</code>).</li>
+                    <li><strong>„Im więcej indeksów, tym lepiej"</strong> – Każdy indeks spowalnia INSERT, UPDATE, DELETE, bo baza musi aktualizować i tabelę, i indeksy. Indeksuj tylko kolumny często używane w WHERE, JOIN i ORDER BY.</li>
+                    <li><strong>„Indeks na FK jest zbędny, bo FK sam go tworzy"</strong> – FK <strong>nie tworzy</strong> automatycznie indeksu! Bez niego operacje DELETE/UPDATE na tabeli nadrzędnej będą tragicznie wolne, bo baza wykona Seq Scan na tabeli podrzędnej.</li>
+                    <li><strong>„Używam funkcji w WHERE, to nic nie szkodzi"</strong> – <code>WHERE LOWER(nazwisko) = 'kowalski'</code> uniemożliwi użycie indeksu na <code>nazwisko</code>. Rozwiązanie: utwórz indeks na wyrażeniu (<code>CREATE INDEX ON tabela (LOWER(nazwisko))</code>).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki przy indeksach. Po pierwsze, nadmiar indeksów – każdy indeks spowalnia operacje zapisu, bo baza musi aktualizować nie tylko tabelę, ale też wszystkie indeksy. Indeksujemy tylko kolumny często używane w WHERE, JOIN i ORDER BY. Po drugie, klucz obcy nie tworzy indeksu automatycznie – to częsty mit. Bez indeksu na FK każdy DELETE z tabeli nadrzędnej wymaga pełnego skanowania tabeli podrzędnej. Po trzecie, użycie funkcji w WHERE na indeksowanej kolumnie – LOWER, UPPER czy DATE_TRUNC – sprawia, że indeks przestaje działać. Rozwiązaniem są indeksy na wyrażeniach."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -290,7 +315,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „SQL Performance Explained” (Markus Winand) – indeksy i plany zapytań · Dokumentacja PostgreSQL: „Indexes” i „Using EXPLAIN” · „High Performance MySQL” (Baron Schwartz).
+                    „SQL Performance Explained" (Markus Winand) – indeksy i plany zapytań · Dokumentacja PostgreSQL: „Indexes" i „Using EXPLAIN" · „High Performance MySQL" (Baron Schwartz).
                 </span>
             </div>
 

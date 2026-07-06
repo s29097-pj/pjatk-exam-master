@@ -14,13 +14,13 @@
         <h2 id="q-title">050. Elementy programistyczne w bazie danych, procedury wyzwalane, definicje, przykłady zastosowań.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎮</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Niewidzialny strażnik bazy danych”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Niewidzialny strażnik bazy danych":</strong>
                     <p style="margin: 0 0 8px 0; color: #1e3a1e; line-height: 1.7;">
-                        Wyobraź sobie grę planszową, w której za każdym razem, gdy gracz postawi pionek na polu „Premia”, automatycznie dostaje dodatkowe 50 punktów. Nie musi o to prosić, nie może tego zapomnieć – po prostu się dzieje. <strong>Procedury wyzwalane (triggery)</strong> działają dokładnie tak samo w bazie danych.
+                        Wyobraź sobie grę planszową, w której za każdym razem, gdy gracz postawi pionek na polu „Premia", automatycznie dostaje dodatkowe 50 punktów. Nie musi o to prosić, nie może tego zapomnieć – po prostu się dzieje. <strong>Procedury wyzwalane (triggery)</strong> działają dokładnie tak samo w bazie danych.
                     </p>
                     <p style="margin: 0; color: #1e3a1e; line-height: 1.7;">
                         Trigger to kawałek kodu SQL, który baza uruchamia <strong>automatycznie</strong>, gdy spełniony zostanie określony warunek – np. dodanie nowego wiersza do tabeli, zmiana oceny studenta albo usunięcie zamówienia. To Twoja tajna broń do egzekwowania reguł biznesowych, pilnowania spójności i zostawiania śladów (audyt) – wszystko bez zmiany kodu aplikacji. Ale uwaga: z wielką mocą przychodzi wielka odpowiedzialność.
@@ -50,11 +50,54 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. Czym są procedury wyzwalane?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Trigger (wyzwalacz) to nazwana procedura, która jest automatycznie wykonywana przez bazę danych w odpowiedzi na określone zdarzenie na tabeli lub widoku. Nie wywołujesz go bezpośrednio – to baza robi to za Ciebie. Trigger definiujesz na stałe przy użyciu polecenia <code>CREATE TRIGGER</code>, a potem „śpi” i czeka na zdarzenie.
+                    Trigger (wyzwalacz) to nazwana procedura, która jest automatycznie wykonywana przez bazę danych w odpowiedzi na określone zdarzenie na tabeli lub widoku. Nie wywołujesz go bezpośrednio – to baza robi to za Ciebie. Trigger definiujesz na stałe przy użyciu polecenia <code>CREATE TRIGGER</code>, a potem „śpi" i czeka na zdarzenie.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zdarzenia, które mogą go obudzić: <strong>INSERT</strong> (wstawienie wiersza), <strong>UPDATE</strong> (modyfikacja), <strong>DELETE</strong> (usunięcie). Można też łączyć je w jednym triggerze (np. `INSERT OR UPDATE`).
                 </p>
+
+                <!-- Grafika 1: Schemat działania triggera -->
+                <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="220" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Jak działa trigger? – Zdarzenie → Reakcja</text>
+
+                    <!-- Tabela źródłowa -->
+                    <rect x="40" y="60" width="150" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="115" y="88" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Tabela: Pracownicy</text>
+                    <rect x="55" y="100" width="120" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="115" y="117" font-family="monospace" font-size="11" fill="#1b5e20" text-anchor="middle">UPDATE pensja = 6000</text>
+
+                    <!-- Strzałka zdarzenia -->
+                    <path d="M 190 100 L 260 100" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrTrig1)"/>
+                    <text x="225" y="92" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">zdarzenie</text>
+
+                    <!-- Trigger -->
+                    <rect x="270" y="55" width="120" height="90" rx="50" fill="#fff3e0" stroke="#ef6c00" stroke-width="3"/>
+                    <text x="330" y="95" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">TRIGGER</text>
+                    <text x="330" y="115" font-family="monospace" font-size="10" fill="#bf360c" text-anchor="middle">trg_audyt</text>
+                    <text x="330" y="130" font-family="sans-serif" font-size="9" fill="#bf360c" text-anchor="middle">AFTER UPDATE</text>
+
+                    <!-- Strzałka akcji -->
+                    <path d="M 390 100 L 460 100" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrTrig1)"/>
+
+                    <!-- Tabela docelowa (audyt) -->
+                    <rect x="470" y="60" width="160" height="80" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                    <text x="550" y="88" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Tabela: log_zmian</text>
+                    <rect x="485" y="100" width="130" height="25" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+                    <text x="550" y="117" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">INSERT wpis audytowy</text>
+
+                    <!-- Opis -->
+                    <text x="410" y="185" font-family="sans-serif" font-size="12" fill="#546e7a" text-anchor="middle">Trigger działa automatycznie – aplikacja nawet nie wie, że coś się wydarzyło!</text>
+                    <text x="410" y="205" font-family="sans-serif" font-size="11" fill="#455a64" text-anchor="middle">Zdarzenie (INSERT/UPDATE/DELETE) → Trigger → Akcja (logowanie, walidacja, synchronizacja)</text>
+
+                    <defs>
+                        <marker id="arrTrig1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Trigger, czyli procedura wyzwalana, to kod SQL, który baza danych wykonuje automatycznie w odpowiedzi na zdarzenie – INSERT, UPDATE lub DELETE na określonej tabeli. Nie wywołujemy go ręcznie – to baza robi to za nas. Trigger 'śpi' i czeka, aż nastąpi zdarzenie, które go obudzi. Proszę spojrzeć na planszę: mamy tabelę Pracownicy, na której wykonujemy UPDATE pensji. Zdarzenie to uruchamia trigger, który automatycznie wpisuje informację o zmianie do tabeli audytowej. Aplikacja nie musi o tym wiedzieć – wszystko dzieje się na poziomie bazy danych."
+                </div>
             </div>
 
             <!-- 2. Rodzaje triggerów -->
@@ -67,12 +110,60 @@
                     <li><strong>FOR EACH ROW</strong> – trigger uruchamia się osobno dla każdego zmodyfikowanego wiersza. Wewnątrz masz dostęp do <code>NEW</code> (nowa wersja rekordu) i <code>OLD</code> (stara wersja). To najczęstszy wybór.</li>
                     <li><strong>FOR EACH STATEMENT</strong> – trigger uruchamia się raz na całe zapytanie, nawet jeśli modyfikuje ono milion wierszy. Nie masz dostępu do pojedynczych wierszy, więc używasz go rzadziej (np. do wyłączenia triggera na czas batcha).</li>
                 </ul>
+
+                <!-- Grafika 2: BEFORE vs AFTER na osi czasu -->
+                <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="240" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">BEFORE vs AFTER – kiedy trigger odpala?</text>
+
+                    <!-- Oś czasu -->
+                    <line x1="80" y1="140" x2="740" y2="140" stroke="#455a64" stroke-width="4" marker-end="url(#arrTime)"/>
+                    <text x="760" y="145" font-family="sans-serif" font-size="12" fill="#455a64">czas</text>
+
+                    <!-- Zdarzenie (INSERT/UPDATE/DELETE) -->
+                    <rect x="350" y="100" width="100" height="40" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                    <text x="400" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zdarzenie</text>
+                    <line x1="400" y1="140" x2="400" y2="148" stroke="#c62828" stroke-width="2"/>
+
+                    <!-- Strefa BEFORE -->
+                    <rect x="120" y="55" width="180" height="55" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                    <text x="210" y="78" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">BEFORE trigger</text>
+                    <text x="210" y="98" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Walidacja, modyfikacja danych</text>
+                    <path d="M 210 110 L 210 125 Q 210 140 230 140" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+                    <!-- Strefa AFTER -->
+                    <rect x="520" y="55" width="180" height="55" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="610" y="78" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">AFTER trigger</text>
+                    <text x="610" y="98" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Audyt, logowanie zmian</text>
+                    <path d="M 570 140 Q 590 155 610 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+                    <!-- Etykiety na osi -->
+                    <text x="210" y="170" font-family="sans-serif" font-size="11" fill="#1565c0" text-anchor="middle">PRZED operacją</text>
+                    <text x="610" y="170" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">PO operacji</text>
+
+                    <!-- NEW i OLD -->
+                    <rect x="120" y="190" width="250" height="35" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                    <text x="245" y="213" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">BEFORE: mogę zmienić NEW.przed zapisem</text>
+
+                    <rect x="450" y="190" width="250" height="35" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                    <text x="575" y="213" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">AFTER: widzę OLD i NEW, nie modyfikuję</text>
+
+                    <defs>
+                        <marker id="arrTime" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#455a64"/></marker>
+                        <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                        <marker id="arrGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Triggery dzielimy według dwóch kryteriów: momentu odpalenia i zakresu działania. BEFORE odpala się przed operacją – możemy w nim modyfikować dane, które dopiero trafią do tabeli, albo nawet anulować operację. AFTER odpala się po zapisie – idealny do audytu, bo mamy już pewność, że dane są trwale zapisane. FOR EACH ROW uruchamia trigger osobno dla każdego zmienionego wiersza – wtedy mamy dostęp do NEW i OLD. FOR EACH STATEMENT odpala się raz na całe zapytanie. Proszę spojrzeć na oś czasu: BEFORE jest przed zdarzeniem, AFTER po nim."
+                </div>
             </div>
 
             <!-- 3. Praktyczne zastosowania z przykładami -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">3. Gdzie triggery ratują życie? (Przykłady)</strong>
-                
+
                 <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 Audyt (logowanie zmian)</strong>
                 <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
                     Chcesz wiedzieć, kto i kiedy zmienił pensję pracownika. Zakładasz tabelę <code>log_zmian</code> i przypinasz trigger <code>AFTER UPDATE</code> na tabeli <code>Pracownicy</code>.
@@ -85,7 +176,7 @@ BEGIN
     VALUES (OLD.id, OLD.pensja, NEW.pensja, NOW());
 END;</code></pre>
                 <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Dzięki temu nikt nie podmieni pensji „po cichu”. A audytorzy będą Ci wdzięczni.
+                    Dzięki temu nikt nie podmieni pensji „po cichu". A audytorzy będą Ci wdzięczni.
                 </p>
 
                 <strong style="display: block; margin-top: 16px; color: #37474f;">🔹 Walidacja danych przed zapisem</strong>
@@ -111,24 +202,34 @@ END;</code></pre>
                 <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy użytkownik doda zamówienie, automatycznie zaktualizuj sumę zamówień w tabeli <code>Klienci</code>. Trigger <code>AFTER INSERT</code> na <code>Zamowienia</code> doda wartość do kolumny <code>suma_zamowien</code>.
                 </p>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Triggery mają cztery główne zastosowania. Po pierwsze, audyt – logowanie każdej zmiany do osobnej tabeli, tak by żadna modyfikacja nie przeszła niezauważona. Po drugie, walidacja – sprawdzanie poprawności danych przed zapisem, na przykład czy ocena mieści się w skali od dwóch do pięciu. Po trzecie, automatyczne ustawianie pól – data utworzenia czy ostatniej modyfikacji bez angażowania kodu aplikacji. Po czwarte, synchronizacja – automatyczne aktualizowanie sum, liczników czy stanów magazynowych w powiązanych tabelach. Wszystko to dzieje się na poziomie bazy, bez zmiany ani jednej linijki w aplikacji."
+                </div>
             </div>
 
-            <!-- 4. Pułapki -->
-            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
-                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Triggerowe miny):</strong>
-                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Niewidzialna logika”</strong> – Deweloper aplikacji może nie wiedzieć, że trigger zmienia dane. Debugowanie staje się koszmarem: dane są inne niż te, które aplikacja wysłała. <em>Zasada: zawsze dokumentuj triggery i testuj je jawnie.</em></li>
-                    <li><strong>Rekurencja</strong> – Trigger A modyfikuje tabelę X, co wyzwala trigger B, który modyfikuje tabelę Y, co wyzwala trigger A… Baza wpada w nieskończoną pętlę. Większość silników ma parametr <code>RECURSIVE TRIGGERS</code> domyślnie wyłączony, ale lepiej nie testować.</li>
-                    <li><strong>Zabójca wydajności</strong> – Trigger <code>FOR EACH ROW</code> przy batchu 100 000 wierszy odpali się 100 000 razy. Jeśli w środku ma skomplikowaną logikę, baza zamuli. Używaj <code>FOR EACH STATEMENT</code> dla operacji masowych, a dla pojedynczych wierszy – optymalizuj kod triggera.</li>
-                </ul>
-            </div>
-
-            <!-- 5. Podsumowanie różnic między triggerami a innymi obiektami -->
+            <!-- 4. Podsumowanie różnic między triggerami a innymi obiektami -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">4. Trigger vs. procedura składowana vs. funkcja</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Procedura składowana</strong> – wywołujesz ją jawnie (<code>CALL nazwa_procedury()</code>). <strong>Funkcja</strong> – wywołujesz jawnie i może zwracać wartość (np. w SELECT). <strong>Trigger</strong> – nigdy nie wywołujesz go ręcznie. To baza go odpala. To podstawowe rozróżnienie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kluczowa różnica: procedurę składowaną i funkcję wywołujemy jawnie – CALL lub SELECT. Triggera nigdy nie wywołujemy ręcznie – to baza robi to za nas w odpowiedzi na zdarzenie. To jest ta fundamentalna cecha, która odróżnia triggery od innych obiektów programistycznych w bazie danych. Trigger to 'zaszyta' logika, która działa automatycznie – i to jest zarówno jego największa siła, jak i największe ryzyko."
+                </div>
+            </div>
+
+            <!-- Pułapki -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Triggerowe miny):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>„Niewidzialna logika"</strong> – Deweloper aplikacji może nie wiedzieć, że trigger zmienia dane. Debugowanie staje się koszmarem: dane są inne niż te, które aplikacja wysłała. <em>Zasada: zawsze dokumentuj triggery i testuj je jawnie.</em></li>
+                    <li><strong>Rekurencja</strong> – Trigger A modyfikuje tabelę X, co wyzwala trigger B, który modyfikuje tabelę Y, co wyzwala trigger A… Baza wpada w nieskończoną pętlę. Większość silników ma parametr <code>RECURSIVE TRIGGERS</code> domyślnie wyłączony, ale lepiej nie testować.</li>
+                    <li><strong>Zabójca wydajności</strong> – Trigger <code>FOR EACH ROW</code> przy batchu 100 000 wierszy odpali się 100 000 razy. Jeśli w środku ma skomplikowaną logikę, baza zamuli. Używaj <code>FOR EACH STATEMENT</code> dla operacji masowych, a dla pojedynczych wierszy – optymalizuj kod triggera.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki triggerów. Po pierwsze, niewidzialna logika – deweloper aplikacji może nie wiedzieć, że trigger modyfikuje dane, co prowadzi do trudnych do zdiagnozowania błędów. Dlatego triggery trzeba zawsze dokumentować. Po drugie, rekurencja – jeśli trigger A wyzwala trigger B, a ten z powrotem A, baza wpada w nieskończoną pętlę. Większość silników ma to domyślnie zablokowane, ale warto o tym pamiętać. Po trzecie, wydajność – FOR EACH ROW przy masowych operacjach odpala trigger dla każdego wiersza osobno, co może sparaliżować bazę. W takich przypadkach lepiej użyć FOR EACH STATEMENT."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -143,7 +244,7 @@ END;</code></pre>
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    Dokumentacja PostgreSQL: „CREATE TRIGGER” · „SQL Antipatterns” (Bill Karwin) – rozdział o ukrytej logice · Dokumentacja Oracle: „Triggers”.
+                    Dokumentacja PostgreSQL: „CREATE TRIGGER" · „SQL Antipatterns" (Bill Karwin) – rozdział o ukrytej logice · Dokumentacja Oracle: „Triggers".
                 </span>
             </div>
 

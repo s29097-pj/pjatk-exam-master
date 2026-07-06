@@ -11,13 +11,13 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">047. Diagramy związków encji (ERD) w projektowaniu baz danych.</h2>
+        <h2 id="q-title">047. Podstawowe elementy i znaczenie diagramow zwiazkow encji (ERD) przy projektowaniu schematu bazy danych.</h2>
 
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa drogowa dla programisty”:</strong>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa drogowa dla programisty":</strong>
                     <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
                         Wyobraź sobie budowę drapacza chmur bez planów architektonicznych. Wyglądałoby to tragicznie, prawda? <strong>ERD (Entity-Relationship Diagram)</strong> to właśnie plan architektoniczny dla Twojej bazy danych.<br><br>
                         Zamiast od razu pisać komendy <code>CREATE TABLE...</code>, rysujesz mapę świata Twojej aplikacji. ERD pozwala Ci w 5 minut odkryć, że relacja, którą wymyśliłeś, jest niespójna, zanim włożysz w to 50 godzin kodowania. Diagramy ERD są <em>niezależne od silnika bazy danych</em> – to czysta logika biznesowa, którą później "tłumaczysz" na konkretny SQL (np. Postgresa czy MySQL).
@@ -49,6 +49,9 @@
                     <li><strong>Atrybut (Attribute):</strong> Cechy encji (np. Klient ma Imię, Nazwisko). Zamieni się w <strong>kolumny</strong>.</li>
                     <li><strong>Relacja (Relationship):</strong> Związek między encjami. Najważniejsza część ERD, która mówi, jak tabele "rozmawiają" ze sobą poprzez klucze obce (FK).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Diagram ERD opiera się na trzech fundamentach. Encja to obiekt w systemie, który stanie się tabelą – na przykład Klient czy Produkt. Atrybuty to cechy encji, które staną się kolumnami – Imię, Nazwisko, Cena. Relacje to związki między encjami, które określają, jak tabele się ze sobą łączą. To właśnie relacje są najważniejszą częścią ERD – one decydują o tym, gdzie trafią klucze obce i jak będziemy pisać JOIN-y. Proszę spojrzeć na planszę – pokazuje ona podstawowe symbole notacji ERD."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -57,7 +60,7 @@
 
                 <rect x="50" y="50" width="120" height="80" rx="4" fill="#fff" stroke="#333" stroke-width="2"/>
                 <text x="110" y="70" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">ENCJA (Tabela)</text>
-                
+
                 <g transform="translate(300, 50)">
                     <rect x="0" y="10" width="220" height="80" rx="4" fill="#fff" stroke="#333" stroke-width="2" stroke-dasharray="4,4"/>
                     <text x="110" y="50" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">RELACJA (Związek)</text>
@@ -78,6 +81,9 @@
                     <li><strong>1:N (Jeden do wielu):</strong> Najczęstsza relacja. Np. "Jeden Klient" ma "Wiele Zamówień". Klient_ID trafia do tabeli Zamówienia jako Klucz Obcy (FK).</li>
                     <li><strong>N:M (Wiele do wielu):</strong> Np. "Wiele Produktów" może być na "Wielu Zamówieniach". <strong>Uwaga:</strong> W SQL nie da się tego wprost zapisać w dwóch tabelach! Musisz stworzyć <strong>tabelę łączącą</strong> (np. `PozycjeZamowienia`), która rozbija to na dwie relacje 1:N.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kardynalność to najważniejszy element projektowania ERD. Mamy trzy typy relacji. Jeden do jednego jest rzadkie – na przykład Obywatel ma jeden Dowód Osobisty. Jeden do wielu to najczęstsza relacja – jeden Klient ma wiele Zamówień, więc klucz obcy Klient_ID trafia do tabeli Zamówienia. Wiele do wielu – na przykład Produkty i Zamówienia – wymaga stworzenia trzeciej, łączącej tabeli, która rozbija relację N:M na dwie relacje 1:N. Bez tej tabeli łączącej nie da się zaimplementować relacji wiele-do-wielu w bazie relacyjnej. To jest bardzo częste pytanie egzaminacyjne."
+                </div>
             </div>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -87,6 +93,9 @@
                     <li><strong>Brak PK (Primary Key)</strong> – Każda encja MUSI mieć identyfikator. Bez niego baza nie może efektywnie indeksować danych, a Ty nie możesz bezpiecznie usuwać rekordów.</li>
                     <li><strong>Zbyt szerokie typy danych</strong> – Jeśli w polu <code>Wiek</code> ustawisz <code>BIGINT</code> (8 bajtów), marnujesz miejsce i pamięć cache procesora. Wybieraj najmniejsze typy, które mieszczą Twoje dane (np. <code>TINYINT</code> dla wieku).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki przy projektowaniu ERD. Po pierwsze, nadmierna normalizacja – rozbicie danych na dwadzieścia mikro-tabelek zmusza bazę do wykonywania dziewiętnastu JOIN-ów przy każdym zapytaniu. To zabija wydajność. Normalizacja jest ważna, ale trzeba znać umiar. Po drugie, każda encja musi mieć klucz główny – bez niego nie ma efektywnego indeksowania ani bezpiecznego usuwania rekordów. Po trzecie, dobór typów danych – nie używajmy BIGINT-a tam, gdzie wystarczy TINYINT. Marnowanie miejsca na dysku i w cache'u procesora sumuje się przy milionach rekordów."
+                </div>
             </div>
 
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
@@ -99,7 +108,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Systemy baz danych" (Hector Garcia-Molina) – rozdziały o projektowaniu koncepcyjnym · „UML w kropelce” (diagramy klas a ERD).
+                    "Systemy baz danych" (Hector Garcia-Molina) – rozdziały o projektowaniu koncepcyjnym · „UML w kropelce" (diagramy klas a ERD).
                 </span>
             </div>
 

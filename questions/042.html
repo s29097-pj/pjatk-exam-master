@@ -13,11 +13,11 @@
     <div class="question-box">
         <h2 id="q-title">042. Dynamiczne struktury danych, m.in.: listy i drzewa; metody reprezentacji i złożoność podstawowych operacji.</h2>
 
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🗺️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Miejsca w kinie vs. Gra w podchody”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Miejsca w kinie vs. Gra w podchody":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
                         Klasyczna <strong>Tablica (Array)</strong> to rząd miejsc w kinie. Komputer rezerwuje np. 10 foteli obok siebie. Jeśli przyjdzie 11. osoba, a fotele obok są zajęte, trzeba przenieść <em>wszystkich</em> do innej sali (zmiana rozmiaru tablicy to kosztowna operacja O(N)).<br><br>
                         <strong>Dynamiczne struktury danych</strong> rozwiązują ten problem, prosząc o pamięć (na stercie / <em>heap</em>) w locie, kawałek po kawałku. Jak to działa?<br>
@@ -51,6 +51,9 @@
                     <li><strong>Dostęp do i-tego elementu: O(N)</strong>. Komputer zna tylko adres "Głowy" (Head). Żeby dostać się do elementu nr 100, musi "przeskakać" przez 99 wskaźników.</li>
                     <li><strong>Rodzaje:</strong> <em>Jednokierunkowa</em> (możesz iść tylko do przodu), <em>Dwukierunkowa</em> (masz też wskaźnik <code>*Prev</code> – możesz się cofać, idealne do przycisków Wstecz/Dalej w przeglądarce).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Lista wiązana to fundamentalna struktura dynamiczna. W przeciwieństwie do tablicy, nie wymaga ciągłego bloku pamięci – każdy węzeł może leżeć w zupełnie innym miejscu RAM-u, połączony wskaźnikami. Daje nam to O(1) na wstawianie i usuwanie w znanym miejscu, ale ceną jest dostęp do dowolnego elementu w O(N), bo musimy przejść przez wszystkie poprzednie węzły. Proszę spojrzeć na planszę – widać, jak tablica to ciągły blok, a lista to rozrzucone po pamięci węzły połączone strzałkami. W praktyce listy sprawdzają się tam, gdzie często modyfikujemy strukturę, a rzadko przeszukujemy po indeksie."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -67,7 +70,7 @@
                 <rect x="120" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
                 <rect x="180" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
                 <rect x="240" y="80" width="60" height="40" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
-                
+
                 <text x="90" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">A</text>
                 <text x="150" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">B</text>
                 <text x="210" y="105" font-family="monospace" font-size="16" font-weight="bold" fill="#004d40" text-anchor="middle">C</text>
@@ -81,7 +84,7 @@
                 <text x="620" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c2185b" text-anchor="middle">Lista Wiązana (Rozrzucona w RAM)</text>
 
                 <text x="450" y="90" font-family="monospace" font-size="11" font-weight="bold" fill="#880e4f">HEAD</text>
-                
+
                 <g transform="translate(480, 80)">
                     <rect x="0" y="0" width="30" height="30" fill="#fce4ec" stroke="#d81b60" stroke-width="2"/>
                     <rect x="30" y="0" width="15" height="30" fill="#f8bbd0" stroke="#d81b60" stroke-width="2"/>
@@ -127,6 +130,9 @@
                     <li><strong>Wyszukiwanie: O(log N)</strong>. Działa jak wyszukiwanie binarne, ale na strukturze dynamicznej.</li>
                     <li><strong>Wstawianie / Usuwanie: O(log N)</strong>. Schodzisz w dół drzewa, znajdujesz puste miejsce i podpinasz nowy węzeł (bez przesuwania innych elementów!).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Drzewa BST łączą elastyczność list z szybkością wyszukiwania binarnego. Każdy węzeł ma dwa wskaźniki: na lewe dziecko, które jest mniejsze, i na prawe dziecko, które jest większe. Dzięki temu przy każdym kroku odrzucamy połowę danych, osiągając O(log N) dla wyszukiwania, wstawiania i usuwania – wszystko to bez konieczności przesuwania elementów jak w tablicy. Proszę spojrzeć na planszę: korzeń to 50, wszystko na lewo jest mniejsze, na prawo – większe. Szukając 60, najpierw idziemy w prawo od 50, potem w lewo od 70. Trzy porównania i gotowe. Ale jest haczyk – o nim za chwilę w pułapkach."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -170,11 +176,11 @@
                 <text x="735" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Szukamy: 60</text>
                 <text x="735" y="98" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">60 > 50 (w prawo)</text>
                 <text x="735" y="112" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">60 < 70 (w lewo)</text>
-                
+
             </svg>
 
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
-                
+
                 <div style="flex: 1; min-width: 300px; background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px; border-radius: 0 10px 10px 0;">
                     <strong style="font-size: 1.05rem; color: #b71c1c;">⚠️ Pułapka Inżynierska (Cache Locality):</strong>
                     <p style="margin: 8px 0; font-size: 0.9rem; line-height: 1.6;">
@@ -187,43 +193,47 @@
                     <strong style="font-size: 1.05rem; color: #1b5e20;">🌳 Pułapka Algorytmiczna (Degeneracja drzewa):</strong>
                     <p style="margin: 8px 0; font-size: 0.9rem; line-height: 1.6;">
                         Co się stanie, jeśli do idealnego BST dodamy pokolei posortowane liczby: 1, 2, 3, 4, 5?
-                        Drzewo w ogóle nie rozrośnie się w lewo! Każdy nowy element będzie "Prawym" dzieckiem poprzedniego. 
+                        Drzewo w ogóle nie rozrośnie się w lewo! Każdy nowy element będzie "Prawym" dzieckiem poprzedniego.
                         <strong>Drzewo zdegeneruje się do zwykłej, jednokierunkowej listy wiązanej.</strong> Złożoność wyszukiwania spadnie z pięknego <code>O(log N)</code> do tragicznego <code>O(N)</code>. Rozwiązaniem są "samobalansujące się" drzewa (Drzewo AVL, Red-Black Tree), które w locie rotują węzły.
                     </p>
                 </div>
 
             </div>
 
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; margin-bottom: 24px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie fundamentalne pułapki przy dynamicznych strukturach danych. Po pierwsze, cache locality – mimo że lista daje O(1) na wstawianie, w praktyce tablice są często szybsze, bo procesor ładuje sąsiednie elementy do pamięci podręcznej. Węzły listy rozrzucone po RAM-ie powodują cache miss i spowalniają działanie nawet stukrotnie. Po drugie, degeneracja drzewa BST – jeśli wstawiamy dane już posortowane, drzewo zamienia się w zwykłą listę, a czas wyszukiwania spada z O(log N) do O(N). Dlatego w praktyce używa się drzew samorównoważących, takich jak AVL czy czerwono-czarne, które automatycznie wykonują rotacje, by utrzymać zbalansowaną strukturę."
+            </div>
+
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjna Tabela Prawdy – Złożoność Struktur:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Struktura (Reprezentacja)</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Dostęp (po indeksie)</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wyszukiwanie (po wartości)</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wstawianie/Usuwanie</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Struktura (Reprezentacja)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Dostęp (po indeksie)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wyszukiwanie (po wartości)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wstawianie/Usuwanie</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #00695c;">Tablica Statyczna (Array)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #c2185b;">Lista Wiązana (Linked List)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1) *</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Drzewo BST (zbalansowane)</td>
-                            <td style="padding: 10px; font-family: monospace;">N/A</td>
-                            <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
-                            <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #00695c;">Tablica Statyczna (Array)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c2185b;">Lista Wiązana (Linked List)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #c62828;">O(N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #2e7d32;">O(1) *</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Drzewo BST (zbalansowane)</td>
+                        <td style="padding: 10px; font-family: monospace;">N/A</td>
+                        <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
+                        <td style="padding: 10px; font-family: monospace; color: #f57f17;">O(log N)</td>
+                    </tr>
                     </tbody>
                 </table>
                 <p style="font-size: 0.8em; color: #7f8c8d; margin-top: 10px;">* O(1) zakłada, że mamy już wskaźnik na odpowiednie miejsce w liście. W przeciwnym razie znalezienie miejsca zajmuje O(N).</p>
@@ -239,7 +249,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Struktury danych i algorytmy” (A.V. Aho) · „What Every Programmer Should Know About Memory” (Ulrich Drepper).
+                    „Wprowadzenie do algorytmów" (Cormen, Leiserson, Rivest, Stein) · „Struktury danych i algorytmy" (A.V. Aho) · „What Every Programmer Should Know About Memory" (Ulrich Drepper).
                 </span>
             </div>
 

@@ -11,14 +11,14 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">049. Redundancja w bazach danych, znaczenie zależności funkcyjnych i postaci normalnych przy projektowaniu schematu bazy danych.</h2>
+        <h2 id="q-title">049. Redundancja w bazach danych, znaczenie zaleznosci funkcyjnych i postaci normalnych przy projektowaniu schematu bazy danych.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧹</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Bałagan w szafie, który zabija aplikację”:</strong>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Bałagan w szafie, który zabija aplikację":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
                         Wyobraź sobie szafę, w której trzymasz wszystkie ubrania: zimowe kurtki, letnie sukienki, buty. Na początku wszystko mieści się na jednej półce. Ale z czasem zaczynasz dokładać kolejne rzeczy – i nagle nie możesz znaleźć ulubionej bluzy, bo jest pod stertą innych ubrań. Co gorsza, gdy chcesz zmienić kolor jednej bluzy, musisz poprawić go w <em>kilku miejscach</em>, bo w chaosie zapisałeś ją wiele razy.
                     </p>
@@ -60,6 +60,72 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Wyobraź sobie tabelę, w której dla każdej oceny studenta powtarzasz jego imię, nazwisko, adres i numer telefonu. Jeśli student zmieni numer, musisz zaktualizować dziesiątki wierszy. Jeden przeoczony wiersz i baza staje się niespójna.
                 </p>
+
+                <!-- Grafika 1: Trzy anomalie -->
+                <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top: 16px; margin-bottom: 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="300" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Trzy anomalie wynikające z redundancji</text>
+
+                    <!-- Tabela z redundancją -->
+                    <rect x="30" y="50" width="380" height="140" rx="6" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                    <rect x="30" y="50" width="380" height="28" rx="6" fill="#c62828"/>
+                    <rect x="30" y="64" width="380" height="14" fill="#c62828"/>
+                    <text x="220" y="69" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Tabela: Oceny (źle zaprojektowana)</text>
+
+                    <line x1="30" y1="105" x2="410" y2="105" stroke="#ef9a9a" stroke-width="1"/>
+                    <line x1="30" y1="135" x2="410" y2="135" stroke="#ef9a9a" stroke-width="1"/>
+                    <line x1="30" y1="165" x2="410" y2="165" stroke="#ef9a9a" stroke-width="1"/>
+
+                    <line x1="100" y1="78" x2="100" y2="190" stroke="#ef9a9a" stroke-width="1"/>
+                    <line x1="200" y1="78" x2="200" y2="190" stroke="#ef9a9a" stroke-width="1"/>
+                    <line x1="280" y1="78" x2="280" y2="190" stroke="#ef9a9a" stroke-width="1"/>
+
+                    <text x="65" y="96" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Indeks</text>
+                    <text x="150" y="96" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Nazwisko</text>
+                    <text x="240" y="96" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Kurs</text>
+                    <text x="340" y="96" font-family="monospace" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Ocena</text>
+
+                    <text x="65" y="126" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">123</text>
+                    <text x="150" y="126" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Kowalski</text>
+                    <text x="240" y="126" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Matematyka</text>
+                    <text x="340" y="126" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">5</text>
+
+                    <text x="65" y="156" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">123</text>
+                    <text x="150" y="156" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Kowalski</text>
+                    <text x="240" y="156" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Fizyka</text>
+                    <text x="340" y="156" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">4</text>
+
+                    <text x="65" y="186" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">123</text>
+                    <text x="150" y="186" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Kowalski</text>
+                    <text x="240" y="186" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">Informatyka</text>
+                    <text x="340" y="186" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">3</text>
+
+                    <!-- Strzałki i opisy anomalii -->
+                    <rect x="450" y="60" width="340" height="45" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                    <text x="620" y="78" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">⚠️ Anomalia aktualizacji</text>
+                    <text x="620" y="95" font-family="sans-serif" font-size="10" fill="#c62828">Zmiana nazwiska → trzeba poprawić w 3 wierszach!</text>
+                    <path d="M 410 140 L 440 83" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrRed)"/>
+
+                    <rect x="450" y="120" width="340" height="45" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                    <text x="620" y="138" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">⚠️ Anomalia usuwania</text>
+                    <text x="620" y="155" font-family="sans-serif" font-size="10" fill="#c62828">Usunięcie ostatniego studenta z kursu = strata kursu</text>
+
+                    <rect x="450" y="180" width="340" height="45" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+                    <text x="620" y="198" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">⚠️ Anomalia wstawiania</text>
+                    <text x="620" y="215" font-family="sans-serif" font-size="10" fill="#c62828">Nie można dodać nowego kursu bez studenta</text>
+
+                    <defs>
+                        <marker id="arrRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    </defs>
+
+                    <!-- Rozwiązanie: normalizacja -->
+                    <rect x="150" y="255" width="520" height="30" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                    <text x="410" y="275" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">✅ Rozwiązanie: Normalizacja → Studenci (indeks, nazwisko) · Kursy (id, nazwa) · Oceny (indeks, kurs, ocena)</text>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Redundancja to wróg numer jeden baz danych. Prowadzi do trzech rodzajów anomalii: wstawiania, usuwania i aktualizacji. Wyobraźmy sobie tabelę, w której przy każdej ocenie studenta powtarzamy jego nazwisko i adres. Gdy student zmieni numer telefonu, musimy zaktualizować dziesiątki wierszy – jeden przeoczony i mamy niespójność. To właśnie anomalia aktualizacji. Normalizacja eliminuje te problemy, rozbijając dane na mniejsze, spójne tabele. Proszę spojrzeć na planszę – pokazuje ona konkretne przykłady wszystkich trzech anomalii na przykładowej tabeli."
+                </div>
             </div>
 
             <!-- 2. Zależności funkcyjne -->
@@ -75,6 +141,46 @@
                     <li><strong>Zależność pełna</strong> – Y zależy od całego klucza, nie tylko jego części.</li>
                     <li><strong>Zależność przechodnia</strong> – X → Y, a Y → Z, więc X → Z pośrednio. (To czerwona flaga dla 3NF).</li>
                 </ul>
+
+                <!-- Grafika 2: Zależności funkcyjne -->
+                <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top: 16px; margin-bottom: 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="220" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#6a1b9a">Zależności funkcyjne – co determinuje co?</text>
+
+                    <!-- Lewa strona: determinanty -->
+                    <rect x="60" y="60" width="120" height="40" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                    <text x="120" y="85" font-family="monospace" font-size="13" font-weight="bold" fill="#4a148c" text-anchor="middle">nr_indeksu</text>
+
+                    <path d="M 180 80 L 250 80" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrPurple)"/>
+                    <text x="215" y="72" font-family="sans-serif" font-size="10" font-weight="bold" fill="#8e24aa" text-anchor="middle">determinuje</text>
+
+                    <!-- Prawa strona: atrybuty zależne -->
+                    <rect x="260" y="60" width="120" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="320" y="85" font-family="monospace" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">nazwisko</text>
+
+                    <!-- Opis -->
+                    <text x="410" y="125" font-family="sans-serif" font-size="12" fill="#546e7a" text-anchor="middle">FD: nr_indeksu → nazwisko</text>
+
+                    <!-- Część dolna: klucz złożony a zależność częściowa -->
+                    <rect x="80" y="155" width="200" height="40" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                    <text x="180" y="180" font-family="monospace" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">(indeks, kurs) → ocena ✓</text>
+
+                    <path d="M 380 175 L 450 175" fill="none" stroke="#c62828" stroke-width="3" marker-end="url(#arrRed2)"/>
+
+                    <rect x="460" y="155" width="220" height="40" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                    <text x="570" y="180" font-family="monospace" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">(indeks, kurs) → nazwisko ✗</text>
+
+                    <text x="410" y="212" font-family="sans-serif" font-size="11" fill="#c62828" text-anchor="middle">Nazwisko zależy tylko od indeksu – łamie 2NF!</text>
+
+                    <defs>
+                        <marker id="arrPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                        <marker id="arrRed2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zależność funkcyjna to matematyczny fundament normalizacji. Mówimy, że X determinuje Y, zapisujemy to jako X strzałka Y, jeśli znając X możemy jednoznacznie wskazać Y. Na przykład numer indeksu determinuje nazwisko studenta. Te zależności są kompasem – jeśli kolumna zależy tylko od części klucza, łamie 2NF. Jeśli zachodzi zależność przechodnia – X determinuje Y, a Y determinuje Z – łamie 3NF. Proszę spojrzeć na planszę – pokazuje ona zależność funkcyjną numer indeksu determinuje nazwisko, a poniżej przykład łamania 2NF, gdzie nazwisko zależy tylko od części klucza złożonego."
+                </div>
             </div>
 
             <!-- 3. Postacie normalne -->
@@ -109,6 +215,9 @@
                 <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
                     Każda determinanta (lewa strona zależności funkcyjnej) musi być <strong>nadkluczem</strong> (kluczem kandydującym lub nadzbiorem klucza). BCNF jest nieco surowsza niż 3NF i eliminuje anomalie, które 3NF mogłaby przeoczyć. W praktyce rzadko musisz iść dalej niż 3NF – BCNF przydaje się, gdy tabela ma kilka zachodzących na siebie kluczy kandydujących.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Normalizacja przebiega przez kolejne postacie. Pierwsza postać normalna, 1NF, wymaga atomowości wartości – żadnych list w komórkach. Druga postać, 2NF, dotyczy tabel z kluczem złożonym – każda kolumna niekluczowa musi zależeć od całego klucza, nie tylko od jego części. Trzecia postać, 3NF, eliminuje zależności przechodnie – kolumna niekluczowa nie może determinować innej kolumny niekluczowej. BCNF zaostrza 3NF – każda determinanta musi być nadkluczem. W praktyce 3NF jest standardem, BCNF stosujemy, gdy mamy wiele nakładających się kluczy kandydujących."
+                </div>
             </div>
 
             <!-- 4. Przykład normalizacji krok po kroku -->
@@ -119,7 +228,7 @@
                 </p>
                 <pre style="background:#f5f6fa; padding:14px; border-radius:8px; font-size:0.85rem;"><code>Zamowienia( id_zam, data, id_klienta, nazwa_klienta, miasto_klienta, kod_pocztowy, id_produktu, nazwa_produktu, ilosc, cena )</code></pre>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    To jedno wielkie „wszystko w jednym”. Problemy: nazwa klienta powtarza się w każdym zamówieniu, nazwa produktu też. Aktualizacja nazwy klienta to koszmar. Rozbijamy według zależności:
+                    To jedno wielkie „wszystko w jednym". Problemy: nazwa klienta powtarza się w każdym zamówieniu, nazwa produktu też. Aktualizacja nazwy klienta to koszmar. Rozbijamy według zależności:
                 </p>
                 <ol style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Klienci:</strong> <code>id_klienta → nazwa, miasto, kod</code></li>
@@ -130,6 +239,48 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Teraz każda informacja jest na swoim miejscu, a klucze obce zapewniają spójność. To jest właśnie siła normalizacji.
                 </p>
+
+                <!-- Grafika 3: Droga normalizacji -->
+                <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top: 16px; margin-bottom: 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="280" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c2185b">Droga normalizacji: od chaosu do 3NF</text>
+
+                    <!-- Krok 0: Tabela wyjściowa -->
+                    <rect x="280" y="50" width="260" height="40" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+                    <text x="410" y="70" font-family="monospace" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zamówienia (Wszystko w jednym)</text>
+                    <text x="410" y="84" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">id, data, klient, miasto, produkt, cena...</text>
+
+                    <!-- Strzałki dekompozycji -->
+                    <path d="M 330 90 L 230 130" fill="none" stroke="#8e24aa" stroke-width="2.5" marker-end="url(#arrDecomp)"/>
+                    <path d="M 410 90 L 410 130" fill="none" stroke="#8e24aa" stroke-width="2.5" marker-end="url(#arrDecomp)"/>
+                    <path d="M 490 90 L 590 130" fill="none" stroke="#8e24aa" stroke-width="2.5" marker-end="url(#arrDecomp)"/>
+
+                    <!-- Krok 1: 1NF -->
+                    <rect x="130" y="135" width="200" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="230" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Klienci (1NF)</text>
+                    <text x="230" y="170" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">id_klienta → nazwa, miasto, kod</text>
+
+                    <rect x="310" y="135" width="200" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="410" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zamówienia (2NF)</text>
+                    <text x="410" y="170" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">id_zam → data, id_klienta</text>
+
+                    <rect x="490" y="135" width="200" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="590" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Produkty (1NF)</text>
+                    <text x="590" y="170" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">id_produktu → nazwa, cena</text>
+
+                    <!-- Tabela łącząca -->
+                    <rect x="310" y="195" width="200" height="40" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                    <text x="410" y="215" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Pozycje (3NF)</text>
+                    <text x="410" y="230" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">(id_zam, id_prod) → ilość</text>
+
+                    <!-- Etykieta końcowa -->
+                    <rect x="180" y="250" width="460" height="22" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="410" y="265" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">✅ 3NF: Brak redundancji, każda informacja w jednym miejscu</text>
+
+                    <defs>
+                        <marker id="arrDecomp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                    </defs>
+                </svg>
             </div>
 
             <!-- 5. Denormalizacja – świadomy kompromis -->
@@ -138,16 +289,22 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Pełna normalizacja oznacza wiele tabel i wiele złączeń (JOIN). Przy ogromnym ruchu każdy JOIN to koszt. Dlatego czasem celowo się <strong>denormalizuje</strong> – np. dodaje kolumnę `nazwa_klienta` bezpośrednio do tabeli zamówień, by zapytania były szybsze. Ale to świadoma decyzja, a nie efekt niedbalstwa. Na egzaminie: najpierw normalizuj, później mów, że znasz powody ewentualnej denormalizacji.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Denormalizacja to świadome złamanie zasad normalizacji w imię wydajności. W systemach o ogromnym ruchu, gdzie liczy się każda milisekunda, czasem celowo powielamy dane – na przykład dodajemy nazwisko klienta bezpośrednio do tabeli zamówień. Dzięki temu unikamy kosztownego JOIN-a. Ale to decyzja inżynierska, nie efekt niedbalstwa. Na egzaminie najpierw pokażcie, że umiecie normalizować, a potem wspomnijcie, że rozumiecie, kiedy można świadomie od tego odstąpić."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Normalizacyjne wpadki):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Tabela jest w 3NF, więc jest idealna”</strong> – Nie zawsze. 3NF nie gwarantuje BCNF. Jeśli masz wiele nakładających się kluczy kandydujących, sprawdź BCNF.</li>
-                    <li><strong>„Im więcej tabel, tym lepiej”</strong> – Przesadna normalizacja prowadzi do dziesiątków mikrotabel i zapytań z 10 JOIN-ami. Wydajność spada. Normalizuj do momentu, gdy dane są spójne, a zapytania wciąż wydajne.</li>
-                    <li><strong>„Atrybuty atomowe to tylko liczby i tekst”</strong> – 1NF wymaga atomowości, ale to nie znaczy, że adres musi być rozbity na 5 kolumn. Jeśli aplikacja zawsze operuje na całym adresie, możesz go trzymać jako jeden tekst.</li>
+                    <li><strong>„Tabela jest w 3NF, więc jest idealna"</strong> – Nie zawsze. 3NF nie gwarantuje BCNF. Jeśli masz wiele nakładających się kluczy kandydujących, sprawdź BCNF.</li>
+                    <li><strong>„Im więcej tabel, tym lepiej"</strong> – Przesadna normalizacja prowadzi do dziesiątków mikrotabel i zapytań z 10 JOIN-ami. Wydajność spada. Normalizuj do momentu, gdy dane są spójne, a zapytania wciąż wydajne.</li>
+                    <li><strong>„Atrybuty atomowe to tylko liczby i tekst"</strong> – 1NF wymaga atomowości, ale to nie znaczy, że adres musi być rozbity na 5 kolumn. Jeśli aplikacja zawsze operuje na całym adresie, możesz go trzymać jako jeden tekst.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki. Po pierwsze, 3NF nie zawsze wystarcza – jeśli tabela ma kilka nakładających się kluczy kandydujących, trzeba sprawdzić BCNF. Po drugie, nadmierna normalizacja – rozbicie na dziesiątki mikrotabel prowadzi do zapytań z dziesięcioma JOIN-ami i spadku wydajności. Po trzecie, atomowość w 1NF nie oznacza, że wszystko musi być rozbijane na pojedyncze kolumny – jeśli aplikacja zawsze operuje na całym adresie, można go trzymać jako jeden tekst."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -162,7 +319,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Database System Concepts” (Silberschatz, Korth, Sudarshan) – rozdział 8: Normalization · „SQL Antipatterns” (Bill Karwin) · materiały PostgreSQL na temat normalizacji.
+                    „Database System Concepts" (Silberschatz, Korth, Sudarshan) – rozdział 8: Normalization · „SQL Antipatterns" (Bill Karwin) · materiały PostgreSQL na temat normalizacji.
                 </span>
             </div>
 

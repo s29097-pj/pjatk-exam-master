@@ -11,13 +11,13 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">048. Konstrukcje języka SQL (DDL, DML, DQL, DCL, JOIN, GROUP BY).</h2>
+        <h2 id="q-title">048. Konstrukcje języka SQL.</h2>
 
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📜</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Restauracja i Język Deklaratywny”:</strong>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Restauracja i Język Deklaratywny":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
                         Programując w Javie czy Pythonie (języki imperatywne), mówisz komputerowi <strong>JAK</strong> ma coś zrobić (krok po kroku, pętla po pętli).<br><br>
                         SQL to język <strong>DEKLARATYWNY</strong>. Działa jak zamawianie jedzenia w restauracji. Mówisz kelnerowi: <em>"Chcę średnio wysmażonego steka z frytkami"</em> (<code>SELECT stek, frytki FROM menu WHERE stopien = 'medium'</code>). Kompletnie nie interesuje Cię, jakiej patelni użyje kucharz, ani w jakiej kolejności usmaży frytki. To optymalizator bazy danych gra rolę szefa kuchni i decyduje o procesie wykonania (Execution Plan).
@@ -44,6 +44,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Język SQL dzieli się na cztery główne podgrupy komend. Egzaminatorzy często pytają o to, czy np. <code>UPDATE</code> to zmiana struktury, czy danych. Odpowiedź brzmi: danych (DML).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „SQL dzieli się na cztery podjęzyki. DDL służy do definiowania struktury - CREATE, ALTER, DROP. DML do manipulacji danymi - INSERT, UPDATE, DELETE. DQL to zapytania - SELECT - tylko do odczytu. DCL kontroluje uprawnienia - GRANT i REVOKE. To podstawowy podział, który musicie znać - na przykład UPDATE to DML, nie DDL. Proszę spojrzeć na planszę."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -89,6 +92,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Ponieważ bazy relacyjne dzielą dane na małe tabele (Normalizacja), potrzebujemy mechanizmu, by złożyć je z powrotem. Służy do tego <code>JOIN</code>, operujący na Kluczach Głównych (PK) i Obcych (FK).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „JOIN-y to serce relacyjnych baz danych. INNER JOIN zwraca tylko pasujące wiersze z obu tabel. LEFT JOIN bierze wszystko z lewej tabeli i dopasowuje z prawej - gdzie nie ma dopasowania, wstawia NULL. FULL OUTER JOIN bierze wszystko z obu stron. Proszę spojrzeć na diagramy - one pokazują to przez analogię do teorii zbiorów."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -134,6 +140,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kiedy masz milion rekordów pracowników z różnymi pensjami, nie chcesz ich wszystkich oglądać. Chcesz zapytać: <em>"Jaka jest suma pensji w danym dziale?"</em>. Używamy do tego <code>GROUP BY</code> wraz z funkcją agregującą (<code>SUM</code>, <code>COUNT</code>, <code>AVG</code>). Baza bierze surowe wiersze, sortuje je i "wrzuca do odpowiednich kubełków" (np. Dział IT, Dział HR), zwracając tylko JEDEN wiersz na kubełek z wynikiem obliczeń.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „GROUP BY grupuje wiersze w kubełki według zadanej kolumny. Następnie funkcje agregujące - SUM, COUNT, AVG - obliczają wartość dla każdego kubełka. Kluczowa różnica: WHERE filtruje surowe wiersze PRZED grupowaniem, HAVING filtruje gotowe kubełki PO grupowaniu. Nie możesz użyć SUM w WHERE - to najczęstszy błąd egzaminacyjny. Proszę spojrzeć na planszę - pokazuje ona przepływ od surowych wierszy przez kubełki do wyniku."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -182,6 +191,9 @@
                     <strong>1. WHERE:</strong> Filtruje "surowe" wiersze <em>ZANIM</em> w ogóle trafią do kubełków w `GROUP BY`. Nie można w nim używać funkcji agregujących (błąd: <code>WHERE SUM(pensja) > 10000</code>)!<br>
                     <strong>2. HAVING:</strong> Filtruje <em>GOTOWE KUBEŁKI</em> już po pogrupowaniu i zsumowaniu. Tu możesz napisać <code>HAVING SUM(pensja) > 10000</code>. Używa się go <strong>wyłącznie</strong> w parze z funkcjami agregującymi lub klauzulą <code>GROUP BY</code>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „To najczęściej sprawdzane zagadnienie. WHERE działa przed grupowaniem, na surowych wierszach. HAVING działa po grupowaniu, na kubełkach. Dlatego tylko w HAVING możesz użyć funkcji agregujących. WHERE SUM byłoby błędem składniowym. Zapamiętajcie kolejność wykonania: FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY. To nie jest kolejność, w jakiej piszemy - to kolejność, w jakiej silnik bazy danych przetwarza zapytanie."
+                </div>
             </div>
 
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">

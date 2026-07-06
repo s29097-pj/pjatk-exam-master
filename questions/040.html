@@ -13,11 +13,11 @@
     <div class="question-box">
         <h2 id="q-title">040. Algorytmy sortowania; przykładowe algorytmy i złożoność.</h2>
 
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🃏</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Sortowanie kart: Amator vs Krupier”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Sortowanie kart: Amator vs Krupier":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
                         Wyobraź sobie, że dostajesz do ręki potasowaną talię 1000 kart i musisz ją ułożyć rosnąco.<br><br>
                         <strong>Podejście amatora (Bubble Sort / O(N²)):</strong> Przeglądasz karty parami od lewej do prawej. Jeśli lewa jest większa od prawej, zamieniasz je miejscami. Powtarzasz to w kółko, dziesiątki razy, aż przejdziesz całą talię bez ani jednej zamiany. Działa? Tak. Ale jest potwornie wolne. Dla 1000 kart wykonasz milion operacji.<br><br>
@@ -50,6 +50,9 @@
                     <li><strong>Bubble Sort (Bąbelkowe):</strong> Najprostszy i najwolniejszy. Porównuje elementy parami i zamienia je, jeśli są w złej kolejności. Największe elementy "bąbelkują" na koniec tablicy w każdej iteracji. Używany wyłącznie w edukacji.</li>
                     <li><strong>Insertion Sort (Przez wstawianie):</strong> Działa jak układanie kart w ręku. Bierzemy kolejny element i wstawiamy w odpowiednie miejsce w już posortowanej części tablicy. <strong>Sekret inżynierski:</strong> Dla tablic <em>prawie całkowicie posortowanych</em> ten algorytm deklasuje wszystkie inne (osiągając czas <strong>O(N)</strong>) i jest często używany jako optymalizacja na samym dnie QuickSorta/MergeSorta.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zaczynamy od algorytmów kwadratowych – Bubble Sort i Insertion Sort. Oba mają złożoność O(N²) w średnim przypadku, ale Insertion Sort ma ciekawą właściwość: dla danych prawie posortowanych osiąga O(N). To dlatego jest używany jako element hybrydowych algorytmów sortujących, takich jak Timsort w Pythonie czy Introsort w C++. Bubble Sort to już tylko ciekawostka dydaktyczna – nikt przy zdrowych zmysłach nie używa go produkcyjnie. Proszę spojrzeć na planszę – wizualizuje ona mechanikę obu algorytmów."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -119,6 +122,9 @@
                     <li><strong>Quick Sort (Szybkie):</strong> Król wydajności w prawdziwym świecie. Wybiera tzw. <strong>Pivot</strong> (punkt odniesienia). Wszystkie mniejsze liczby przerzuca na lewo od niego, większe na prawo. Pivot ląduje na swoim ostatecznym miejscu. Następnie sortuje obie połówki.<br>
                         <strong>Zaleta:</strong> Nie wymaga dodatkowej pamięci – to sortowanie <strong>In-place (O(1) pamięci)</strong>. Działa genialnie szybko w architekturze współczesnych procesorów (cache-friendly).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Merge Sort i Quick Sort to dwa filary algorytmów O(N log N) opartych na paradygmacie 'dziel i zwyciężaj'. Merge Sort gwarantuje O(N log N) zawsze – niezależnie od danych – ale wymaga dodatkowej pamięci O(N) na scalanie. Quick Sort jest średnio szybszy, działa w miejscu i świetnie współpracuje z pamięcią podręczną procesora. Jednak ma piętę achillesową: w przypadku pesymistycznym, gdy pivot jest zawsze najgorszy, degeneruje się do O(N²). Dlatego we współczesnych implementacjach pivot jest losowany albo brany jako mediana z trzech. Proszę spojrzeć na planszę – pokazuje ona mechanikę partycjonowania w Quick Sorcie."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -180,6 +186,9 @@
                     <strong>⚠️ Najgorszy scenariusz Quick Sorta (O(N²)):</strong><br>
                     Wielu studentów mówi, że Quick Sort to zawsze O(N log N). To błąd! Jeśli wybierzesz na pivota element zawsze z brzegu, a tablica jest już (o ironio!) posortowana – Quick Sort zdegeneruje się do zwykłego algorytmu klasy O(N²) i "zje" cały stos wywołań. Aby tego uniknąć, nowoczesne implementacje losują pivota lub biorą medianę z trzech elementów.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dwa kluczowe pojęcia egzaminacyjne to stabilność i pesymistyczny przypadek QuickSorta. Stabilność oznacza, że algorytm zachowuje względną kolejność równych elementów – to kluczowe przy sortowaniu wieloetapowym. Merge Sort i Insertion Sort są stabilne, QuickSort nie. Co do QuickSorta – proszę nie mówić, że zawsze działa w O(N log N). Jeśli pivot jest wybierany najgorzej, na przykład zawsze pierwszy element przy już posortowanej tablicy, algorytm degeneruje się do O(N²). Dlatego w praktyce pivot się losuje albo bierze jako medianę z trzech. Nowoczesne hybrydy, jak Introsort w C++, wykrywają degenerację i przełączają się na Heapsort."
+                </div>
             </div>
 
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
@@ -225,6 +234,9 @@
                     </tr>
                     </tbody>
                 </table>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak podsumować przy tablicy:</strong> „Proszę spojrzeć na tabelę – pokazuje ona kluczowe różnice między algorytmami. Merge Sort daje gwarancję O(N log N) i jest stabilny, ale potrzebuje O(N) dodatkowej pamięci. Quick Sort jest średnio najszybszy i działa w miejscu, ale jest niestabilny i pesymistycznie spada do O(N²). Insertion Sort, choć kwadratowy, dla małych i prawie posortowanych danych jest bezkonkurencyjny. Dlatego współczesne implementacje – Timsort w Pythonie, Introsort w C++ – łączą te algorytmy w hybrydy, dobierając optymalną strategię w zależności od danych."
+                </div>
             </div>
 
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
@@ -237,7 +249,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Grokking Algorithms” (Aditya Bhargava) · „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · Badania nad Timsortem (std::sort w C++ – hybrydą QuickSorta, Heapsorta i InsertionSorta).
+                    „Grokking Algorithms" (Aditya Bhargava) · „Wprowadzenie do algorytmów" (Cormen, Leiserson, Rivest, Stein) · Badania nad Timsortem (std::sort w C++ – hybrydą QuickSorta, Heapsorta i InsertionSorta).
                 </span>
             </div>
 

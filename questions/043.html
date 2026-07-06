@@ -13,11 +13,11 @@
     <div class="question-box">
         <h2 id="q-title">043. Typowe architektury systemów komputerowych (Von Neumann, Harvard, CISC, RISC).</h2>
 
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">👨‍🍳</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szef kuchni i organizacja spiżarni”:</strong>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szef kuchni i organizacja spiżarni":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
                         Procesor (CPU) to szef kuchni. Wykonuje polecenia. Ale skąd bierze przepisy (Instrukcje) i składniki (Dane)?<br><br>
                         <strong>Architektura von Neumanna:</strong> Szef kuchni ma tylko <em>jedną wspólną szafkę</em> na przepisy i składniki, oraz tylko <em>jedne drzwi</em> (szynę systemową) do tej szafki. W danej sekundzie może wziąć ALBO kartkę z przepisem, ALBO pomidora. Nigdy naraz. To rodzi korki (tzw. Wąskie gardło).<br><br>
@@ -50,6 +50,9 @@
                     <li><strong>Architektura von Neumanna (Klasyczna):</strong> Kod programu (instrukcje) i dane współdzielą tę samą fizyczną pamięć RAM i tę samą szynę komunikacyjną. Konstrukcyjnie bardzo prosta, tania i elastyczna (można płynnie zmieniać, ile RAMu dac na kod, a ile na dane). <strong>Problem:</strong> CPU jest dziś tysiące razy szybsze niż RAM. Czekanie na zwolnienie wspólnej szyny tworzy <em>Wąskie gardło von Neumanna</em>.</li>
                     <li><strong>Architektura Harwardzka:</strong> Fizycznie osobna pamięć dla Danych, osobna dla Instrukcji. Dwie niezależne szyny. <strong>Zaleta:</strong> Równoległość! CPU pobiera instrukcję i potrzebne do niej dane w tym samym cyklu zegara. <strong>Zastosowanie:</strong> Mikrokontrolery (np. AVR / Arduino), układy DSP (przetwarzanie sygnałów w czasie rzeczywistym).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podstawowy podział architektur dotyczy organizacji pamięci. Von Neumann używa jednej wspólnej pamięci i jednej szyny dla kodu i danych – to proste i tanie, ale tworzy wąskie gardło, bo procesor nie może jednocześnie pobierać instrukcji i danych. Architektura harwardzka rozdziela te ścieżki – ma osobne pamięci i osobne szyny, co daje równoległość, ale jest droższa w produkcji. Stosuje się ją głównie w mikrokontrolerach i układach DSP. Proszę spojrzeć na planszę – widać wyraźnie różnicę w topologii."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -62,7 +65,7 @@
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Topologia: Wspólna vs Rozdzielona Szyna</text>
 
                 <text x="205" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">Von Neumann (Wąskie gardło)</text>
-                
+
                 <rect x="155" y="90" width="100" height="60" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
                 <text x="205" y="125" font-family="monospace" font-size="18" font-weight="bold" fill="#0d47a1" text-anchor="middle">CPU</text>
 
@@ -84,7 +87,7 @@
                 <line x1="410" y1="50" x2="410" y2="260" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="6,6"/>
 
                 <text x="615" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32" text-anchor="middle">Harwardzka (Równoległość)</text>
-                
+
                 <rect x="565" y="90" width="100" height="60" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
                 <text x="615" y="125" font-family="monospace" font-size="18" font-weight="bold" fill="#0d47a1" text-anchor="middle">CPU</text>
 
@@ -98,7 +101,7 @@
 
                 <path d="M 575 150 L 515 200" fill="none" stroke="#2e7d32" stroke-width="4"/>
                 <path d="M 565 150 L 505 200" fill="none" stroke="#2e7d32" stroke-width="4"/>
-                
+
                 <path d="M 655 150 L 715 200" fill="none" stroke="#ef6c00" stroke-width="4"/>
                 <path d="M 665 150 L 725 200" fill="none" stroke="#ef6c00" stroke-width="4"/>
 
@@ -125,6 +128,9 @@
                         <strong>Przedstawiciele:</strong> Architektury <b>ARM (Apple M1/M2/M3, telefony)</b>.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Druga oś podziału to filozofia zestawu instrukcji. CISC, czyli Complex Instruction Set, stawia na potężne, wielofunkcyjne rozkazy – jedna instrukcja może zrobić wiele rzeczy, ale wykonuje się w zmiennej liczbie cykli. To filozofia Intela i AMD w naszych pecetach. RISC to Reduced Instruction Set – instrukcje są proste, stałej długości i wykonują się w jednym cyklu, co idealnie nadaje się do potokowania. To filozofia ARM, która napędza nasze smartfony i nowe komputery Apple z procesorami M1, M2 i M3. ARM przejmuje obecnie rynek także w segmencie laptopów i serwerów właśnie dzięki efektywności energetycznej RISC-a."
+                </div>
             </div>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -135,6 +141,9 @@
                     <strong>1. Zmodyfikowana Architektura Harwardzka:</strong> Fizyczny RAM na płycie głównej jest von Neumannem (wspólna pamięć). Ale wewnątrz samego procesora, najszybsza pamięć <strong>Cache L1</strong> jest podzielona na osobny <em>L1 Data Cache</em> i osobny <em>L1 Instruction Cache</em> (Architektura harwardzka!). Procesor łączy zalety obu.<br><br>
                     <strong>2. CISC rozbijany na RISC:</strong> Procesor Intela z zewnątrz przyjmuje skomplikowane instrukcje CISC (zgodność z oprogramowaniem x86), ale sprzętowo posiada <em>Dekoder</em>, który w locie rozbija te kobyły na małe, piorunująco szybkie <strong>mikrooperacje (μOps)</strong> w stylu RISC. Złote zdanie na egzamin: <em>Współczesne x86 to rdzeń RISC w przebraniu CISC.</em>
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Kluczowa odpowiedź na egzaminie: współczesne procesory to hybrydy. Intel Core i9 z zewnątrz wygląda na von Neumanna z CISC, bo ma wspólny RAM na płycie głównej i rozumie instrukcje x86. Ale wewnątrz procesora pamięć Cache L1 jest podzielona harwardzko – osobno dla instrukcji, osobno dla danych. I co najważniejsze: sprzętowy dekoder rozbija złożone instrukcje CISC na proste mikrooperacje w stylu RISC. Dlatego mówimy, że współczesne x86 to rdzeń RISC w przebraniu CISC."
+                </div>
             </div>
 
             <div class="answer-step" style="margin-top: 24px; margin-bottom: 24px;">
@@ -145,6 +154,9 @@
                 <div style="background: #f3e5f5; border-left: 5px solid #ab47bc; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>⚙️ SMP (Symmetric Multiprocessing):</strong><br>
                     To architektura systemów, z którą obcujesz na co dzień. Masz w komputerze np. 8 identycznych rdzeni CPU (symetria). Wszystkie mają <strong>równorzędny dostęp do wspólnej puli pamięci RAM</strong>. System operacyjny (np. Windows) dba o to, by rozrzucać wątki programów (Threads) pomiędzy wolne rdzenie. Wyzwaniem tej architektury jest <em>Cache Coherence</em> – dbanie o to, by zmiana zmiennej <code>X</code> w Cache Rdzenia nr 1 od razu została zauważona przez Rdzeń nr 4.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gdy pojedynczy rdzeń nie mógł już być szybszy, przeszliśmy na architekturę SMP – Symmetric Multiprocessing. To po prostu wiele identycznych rdzeni na jednym układzie, z równym dostępem do wspólnego RAM-u. System operacyjny rozdziela między nie wątki programów. Głównym wyzwaniem technicznym jest spójność pamięci cache – gdy rdzeń pierwszy zmodyfikuje zmienną w swoim cache'u, rdzeń czwarty musi to natychmiast zobaczyć. To właśnie mechanizmy cache coherence, które są kluczowym elementem współczesnych procesorów."
                 </div>
             </div>
 
@@ -192,7 +204,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Architektura komputerów” (Andrew S. Tanenbaum) · „Struktura i organizacja systemów komputerowych” (David A. Patterson, John L. Hennessy).
+                    „Architektura komputerów" (Andrew S. Tanenbaum) · „Struktura i organizacja systemów komputerowych" (David A. Patterson, John L. Hennessy).
                 </span>
             </div>
 

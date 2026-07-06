@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔍</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Testowanie to „Kontrola jakości w fabryce oprogramowania”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – Testowanie to „Kontrola jakości w fabryce oprogramowania":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
                         Wyobraź sobie fabrykę produkującą samochody. Na pierwszym etapie inżynierowie sprawdzają <strong>każdą pojedynczą śrubkę i tłok</strong> – czy spełniają specyfikację, czy wytrzymują nacisk. To są <strong>testy jednostkowe</strong>. Potem montują podzespoły – silnik, skrzynię biegów – i sprawdzają, czy do siebie pasują, czy olej nie wycieka. To <strong>testy integracyjne</strong>. Gdy cały samochód jest złożony, wjeżdża na tor testowy – sprawdzają, czy odpala, czy hamuje, czy działa klimatyzacja przy 40°C. To <strong>testy systemowe</strong>. Na koniec siada za kierownicą klient – czy wygodnie mu się wsiada, czy bagażnik pomieści walizki. To <strong>testy akceptacyjne</strong>. Jeśli na którymkolwiek etapie coś jest nie tak, samochód wraca do poprawki – <strong>defekt zostaje zgłoszony i naprawiony</strong>. Bez tego procesu nikt nie wypuściłby auta na ulicę – i dokładnie tak samo jest z oprogramowaniem.
                     </p>
@@ -62,10 +62,13 @@
             <!-- PART 1: PIRAMIDA TESTÓW – POZIOMY TESTOWANIA           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Piramida testów – „Od fundamentów do dachu”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">1. Piramida testów – „Od fundamentów do dachu"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Piramida testów</strong> (Mike Cohn) ilustruje idealną proporcję między poziomami testów. Podstawą są liczne, szybkie <strong>testy jednostkowe</strong>. Środkowy poziom to mniej liczne <strong>testy integracyjne</strong>. Na szczycie znajduje się niewielka liczba <strong>testów E2E (end-to-end)</strong>. Im wyższy poziom, tym testy są wolniejsze, bardziej kosztowne w utrzymaniu i mniej precyzyjne w lokalizacji błędu. Zdrowy projekt ma wiele testów jednostkowych, trochę integracyjnych i kilka E2E.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Piramida testów Mike'a Cohna to fundamentalna koncepcja w inżynierii jakości. U podstawy mamy najwięcej testów jednostkowych – są szybkie, zautomatyzowane i uruchamiane przy każdym commicie. W środku mniej liczne testy integracyjne, które sprawdzają współpracę między modułami, bazą danych czy API. Na szczycie znajduje się niewielka liczba testów E2E, które symulują rzeczywistego użytkownika. Im wyżej w piramidzie, tym testy są wolniejsze, droższe w utrzymaniu i mniej precyzyjne w lokalizacji błędu. Dlatego fundamentem zdrowego projektu są setki lub tysiące testów jednostkowych, kilkadziesiąt integracyjnych i zaledwie kilka end-to-end."
+                </div>
             </div>
 
             <!-- SVG: PIRAMIDA TESTÓW -->
@@ -113,12 +116,15 @@
             <!-- PART 2: TESTY JEDNOSTKOWE – FUNDAMENTY                  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Testy jednostkowe – „Sprawdzamy każdą śrubkę osobno”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Testy jednostkowe – „Sprawdzamy każdą śrubkę osobno"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Test jednostkowy</strong> weryfikuje pojedynczą funkcję, metodę lub klasę w całkowitej izolacji od reszty systemu. Zależności są zastępowane przez <strong>mocki</strong> (obiekty udające prawdziwe), co gwarantuje, że test sprawdza tylko logikę testowanej jednostki, a nie jej otoczenia. Testy jednostkowe powinny być <strong>szybkie</strong> (tysiące w kilka sekund) i <strong>powtarzalne</strong> (deterministyczne). Są uruchamiane przy każdym commitcie w CI/CD. Narzędzia: JUnit (Java), pytest (Python), NUnit/xUnit (.NET).
                 </p>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 TDD (Test-Driven Development):</strong> Najpierw pisz test (czerwony), potem kod (zielony), potem refaktoryzuj. Cykl Red-Green-Refactor. Gwarantuje, że każda linia kodu jest pokryta testem.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Testy jednostkowe to fundament piramidy. Weryfikują pojedyncze funkcje, metody lub klasy w całkowitej izolacji. Zależności zastępujemy mockami – obiektami, które udają prawdziwe komponenty. Dzięki temu test sprawdza tylko logikę testowanej jednostki, a nie jej otoczenia. Testy jednostkowe muszą być szybkie – tysiące w kilka sekund – i w pełni powtarzalne. Są uruchamiane automatycznie przy każdym commicie w pipeline CI/CD. Warto znać metodologię TDD – Test-Driven Development: najpierw piszemy test, który nie przechodzi, potem minimalny kod, który go zalicza, a na końcu refaktoryzujemy. Ten cykl Red-Green-Refactor gwarantuje wysokie pokrycie kodu testami."
                 </div>
             </div>
 
@@ -126,10 +132,13 @@
             <!-- PART 3: TESTY INTEGRACYJNE I SYSTEMOWE                  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">3. Testy integracyjne i systemowe – „Czy silnik pasuje do skrzyni biegów?”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Testy integracyjne i systemowe – „Czy silnik pasuje do skrzyni biegów?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Test integracyjny</strong> sprawdza współpracę między kilkoma modułami, np. czy serwis poprawnie zapisuje dane do bazy, czy API zwraca właściwe odpowiedzi. <strong>Test systemowy (E2E)</strong> symuluje rzeczywistego użytkownika – klika przyciski w przeglądarce, wypełnia formularze. Testy te są wolniejsze i bardziej podatne na awarie infrastruktury, dlatego jest ich mniej.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Testy integracyjne są o poziom wyżej. Sprawdzają, czy moduły, które samodzielnie działają poprawnie, potrafią ze sobą współpracować. Czy serwis prawidłowo zapisuje dane do bazy, czy API zwraca właściwe odpowiedzi. Testy systemowe, zwane też end-to-end, to najwyższy poziom – symulują rzeczywistego użytkownika. Narzędzia takie jak Selenium czy Playwright klikają przyciski w przeglądarce i weryfikują, czy wyświetla się właściwy ekran. Te testy są najwolniejsze i najbardziej podatne na awarie infrastruktury, dlatego jest ich w piramidzie najmniej. Proszę spojrzeć na planszę z V-Modelem – pokazuje, jak poziomy testowania odpowiadają poziomom projektowania."
+                </div>
             </div>
 
             <!-- SVG: V-MODEL – WERYFIKACJA I WALIDACJA -->
@@ -172,7 +181,7 @@
             <!-- PART 4: RODZAJE TESTÓW – PRZEGLĄD                       -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Rodzaje testów – „Każdy defekt ma swoje narzędzie”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Rodzaje testów – „Każdy defekt ma swoje narzędzie"</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
                     <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
                         <strong>✅ Funkcjonalne</strong><br>
@@ -188,8 +197,11 @@
                     </div>
                     <div style="flex: 1; min-width: 200px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
                         <strong>🚬 Smoke / Sanity</strong><br>
-                        <span style="font-size:0.85rem;">Smoke: „czy aplikacja w ogóle odpala?”. Sanity: „czy ostatnia zmiana nie rozwaliła podstawowych funkcji?”.</span>
+                        <span style="font-size:0.85rem;">Smoke: „czy aplikacja w ogóle odpala?". Sanity: „czy ostatnia zmiana nie rozwaliła podstawowych funkcji?".</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oprócz poziomów, testy dzielimy na funkcjonalne i niefunkcjonalne. Testy funkcjonalne sprawdzają, czy system robi to, co powinien – to nasza cała piramida. Testy niefunkcjonalne badają jakość działania: wydajność pod obciążeniem, bezpieczeństwo przed atakami, użyteczność interfejsu. Testy regresyjne uruchamiamy po każdej zmianie, by upewnić się, że nic nie zostało zepsute – są to zwykle zautomatyzowane zestawy testów jednostkowych i integracyjnych. Smoke test to dosłownie test dymu – czy aplikacja w ogóle odpala. Sanity test sprawdza wąski wycinek po konkretnej naprawie. Te rozróżnienia są ważne – na egzaminie często pytają o różnicę między smoke a sanity."
                 </div>
             </div>
 
@@ -240,7 +252,7 @@
             <!-- PART 5: TESTY AUTOMATYCZNE vs MANUALNE                  -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #00897b;">5. Automatyzacja i narzędzia – „Nie testuj ręcznie tego, co może zrobić maszyna”</strong>
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Automatyzacja i narzędzia – „Nie testuj ręcznie tego, co może zrobić maszyna"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Testy automatyczne</strong> są powtarzalne, szybkie i stanowią siatkę bezpieczeństwa przy refaktoryzacji. <strong>Testy manualne</strong> (eksploracyjne) są niezbędne do oceny UX, wykrywania nieoczekiwanych zachowań i walidacji wizualnej. W nowoczesnych zespołach testy automatyczne pokrywają regresję i podstawowe scenariusze, uwalniając testerów do eksploracji.
                 </p>
@@ -258,6 +270,9 @@
                         <span style="font-size:0.85rem;">JMeter, Gatling, Locust. Symulują tysiące równoczesnych użytkowników i mierzą czasy odpowiedzi.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Nowoczesne testowanie opiera się na automatyzacji. Testy automatyczne są powtarzalne, szybkie i stanowią siatkę bezpieczeństwa przy każdej zmianie kodu. Narzędzia jak JUnit, pytest czy xUnit obsługują testy jednostkowe i integracyjne, a Selenium, Cypress czy Playwright automatyzują testy interfejsu użytkownika. Do testów wydajnościowych mamy JMeter, Gatling czy Locust. Testy manualne – eksploracyjne – pozostają niezbędne do oceny użyteczności, wykrywania nieoczekiwanych zachowań i walidacji wizualnej. Automatyzacja nie zastępuje testera – uwalnia go od żmudnej regresji i pozwala skupić się na kreatywnej eksploracji."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -268,9 +283,12 @@
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>100% pokrycia kodu ≠ brak błędów.</strong> Pokrycie mierzy, które linie zostały wykonane, ale nie czy testy są poprawne. Można mieć 100% coverage z asercjami, które nic nie sprawdzają.</li>
                     <li><strong>Testy jednostkowe nie wykryją problemów integracyjnych.</strong> To, że każda klasa działa sama, nie znaczy, że będą ze sobą współpracować.</li>
-                    <li><strong>Smoke test ≠ Sanity test.</strong> Smoke to bardzo ogólny test „czy system żyje”. Sanity to wąski test sprawdzający konkretną naprawę lub zmianę.</li>
-                    <li><strong>Walidacja ≠ Weryfikacja.</strong> Weryfikacja: „czy budujemy produkt zgodnie ze specyfikacją?”. Walidacja: „czy budujemy właściwy produkt?” (czy spełnia potrzeby użytkownika).</li>
+                    <li><strong>Smoke test ≠ Sanity test.</strong> Smoke to bardzo ogólny test „czy system żyje". Sanity to wąski test sprawdzający konkretną naprawę lub zmianę.</li>
+                    <li><strong>Walidacja ≠ Weryfikacja.</strong> Weryfikacja: „czy budujemy produkt zgodnie ze specyfikacją?". Walidacja: „czy budujemy właściwy produkt?" (czy spełnia potrzeby użytkownika).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki w testowaniu to: po pierwsze, stuprocentowe pokrycie kodu nie gwarantuje braku błędów – pokrycie mierzy, które linie zostały wykonane, ale nie czy asercje faktycznie coś sprawdzają. Po drugie, testy jednostkowe nie wykrywają problemów integracyjnych – każda klasa może działać wzorowo w izolacji, a przy integracji wszystko się sypie. Po trzecie, smoke test i sanity test to dwa różne pojęcia – smoke to szeroki test czy system w ogóle żyje, sanity to wąski test konkretnej zmiany. I wreszcie walidacja i weryfikacja – weryfikacja sprawdza, czy budujemy produkt zgodnie ze specyfikacją, a walidacja odpowiada na pytanie, czy w ogóle budujemy właściwy produkt, który rozwiązuje problem użytkownika."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -280,38 +298,38 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – testowanie i walidacja:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Poziom / Rodzaj</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Co testuje?</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Narzędzia</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Poziom / Rodzaj</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Co testuje?</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Narzędzia</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Jednostkowy</td>
-                            <td style="padding: 10px;">Funkcje, metody w izolacji</td>
-                            <td style="padding: 10px;">JUnit, pytest, xUnit</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Integracyjny</td>
-                            <td style="padding: 10px;">Współpraca modułów, DB, API</td>
-                            <td style="padding: 10px;">TestContainers, REST Assured</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Systemowy / E2E</td>
-                            <td style="padding: 10px;">Cały system z perspektywy użytkownika</td>
-                            <td style="padding: 10px;">Selenium, Cypress, Playwright</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #c62828;">Akceptacyjny</td>
-                            <td style="padding: 10px;">Spełnienie wymagań biznesowych</td>
-                            <td style="padding: 10px;">Cucumber (BDD), testy UAT</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Regresyjny / Smoke</td>
-                            <td style="padding: 10px;">Czy zmiana nie zepsuła istniejących funkcji?</td>
-                            <td style="padding: 10px;">Zautomatyzowane zestawy testów</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Jednostkowy</td>
+                        <td style="padding: 10px;">Funkcje, metody w izolacji</td>
+                        <td style="padding: 10px;">JUnit, pytest, xUnit</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Integracyjny</td>
+                        <td style="padding: 10px;">Współpraca modułów, DB, API</td>
+                        <td style="padding: 10px;">TestContainers, REST Assured</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Systemowy / E2E</td>
+                        <td style="padding: 10px;">Cały system z perspektywy użytkownika</td>
+                        <td style="padding: 10px;">Selenium, Cypress, Playwright</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">Akceptacyjny</td>
+                        <td style="padding: 10px;">Spełnienie wymagań biznesowych</td>
+                        <td style="padding: 10px;">Cucumber (BDD), testy UAT</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Regresyjny / Smoke</td>
+                        <td style="padding: 10px;">Czy zmiana nie zepsuła istniejących funkcji?</td>
+                        <td style="padding: 10px;">Zautomatyzowane zestawy testów</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -330,7 +348,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Succeeding with Agile: Software Development Using Scrum” (Mike Cohn) – piramida testów · „Continuous Delivery” (Jez Humble, David Farley) · Dokumentacja JUnit, pytest, Selenium.
+                    „Succeeding with Agile: Software Development Using Scrum" (Mike Cohn) – piramida testów · „Continuous Delivery" (Jez Humble, David Farley) · Dokumentacja JUnit, pytest, Selenium.
                 </span>
             </div>
 

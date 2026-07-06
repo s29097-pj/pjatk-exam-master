@@ -13,7 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">033. Rodzaje testów aplikacji i ich rola: testy jednostkowe i integracyjne.</h2>
 
-        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #0097a7; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,151,167,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #0097a7; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,151,167,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⚙️</span>
                 <div>
@@ -48,6 +48,9 @@
                     Złotą zasadą testów jednostkowych jest <strong>całkowita izolacja</strong>. Badana klasa (tzw. SUT - System Under Test) zostaje odcięta od świata zewnętrznego. Jeśli funkcja próbuje zapisać logi do pliku, połączyć się z bazą danych lub wysłać maila – ucinamy to. Podstawiamy tzw. <strong>Mocki (atrapy)</strong>.<br>
                     Dlaczego? Bo test jednostkowy ma być <strong>błyskawiczny</strong> (wykonanie w milisekundach) i <strong>deterministyczny</strong> (zawsze dawać ten sam wynik, niezależnie od tego czy mamy dostęp do internetu).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Testy jednostkowe to fundament piramidy testowej. Testujemy pojedyncze klasy lub metody w całkowitej izolacji – odcinamy je od baz danych, plików i sieci, zastępując zależności mockami. Dzięki temu test trwa milisekundy i zawsze daje ten sam wynik. Wzorzec AAA – Arrange, Act, Assert – to uniwersalna struktura: najpierw przygotowujemy dane, potem wykonujemy testowaną metodę, na końcu sprawdzamy wynik. Testy jednostkowe powinny być uruchamiane przy każdym commicie – to pierwsza linia obrony przed błędami."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -86,7 +89,7 @@
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">2. Testy Integracyjne – Sprawdzanie „styków” architektonicznych</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Testy Integracyjne – Sprawdzanie „styków" architektonicznych</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kiedy mamy pewność, że poszczególne klasy działają (dzięki testom jednostkowym), musimy sprawdzić, <strong>czy potrafią ze sobą rozmawiać</strong>. Testy integracyjne łączą moduły w większe grupy. Najczęściej sprawdzają tzw. punkty styku (Boundaries):<br>
                     • Czy nasz kod poprawnie zapisuje dane do fizycznej, testowej bazy danych (np. korzystając z <em>TestContainers</em>)?<br>
@@ -95,6 +98,9 @@
                 </p>
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>⚙️ Rola w procesie (Shift-Left Testing):</strong> W nowoczesnych procesach CI/CD zależy nam na wykryciu błędu jak najwcześniej (przesunięcie w lewo na osi czasu). Kiedyś integrację robiono na koniec sprintu (co kończyło się piekłem integracyjnym). Dziś zautomatyzowane testy integracyjne uruchamiają się na serwerze (np. GitHub Actions) za każdym razem, gdy programista wypycha kod.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Testy integracyjne weryfikują współpracę między modułami. Podczas gdy test jednostkowy izoluje pojedynczą klasę, test integracyjny sprawdza, czy kilka klas potrafi ze sobą poprawnie pracować – czy kod zapisuje do bazy, czy API zwraca właściwy JSON, czy konfiguracja frameworka się podnosi. Używamy do tego narzędzi jak TestContainers, które uruchamiają prawdziwą bazę w kontenerze Dockera na czas testu. W podejściu Shift-Left Testing przesuwamy testy integracyjne jak najwcześniej w cyklu wytwarzania – nie czekamy na koniec sprintu, tylko uruchamiamy je automatycznie przy każdym pushu. To eliminuje tak zwane piekło integracyjne."
                 </div>
             </div>
 
@@ -109,6 +115,9 @@
                     </code>
                     Komponent A i B mogą mieć inne oczekiwania względem siebie (tzw. problem kontraktu). Np. Moduł A wysyła datę w formacie `DD-MM-YYYY`, a Moduł B oczekuje `YYYY-MM-DD`. Oba testy jednostkowe z użyciem mocków "założą", że druga strona zachowuje się idealnie. <strong>Tylko test integracyjny wykryje tę niezgodność.</strong>
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Klasyczne pytanie egzaminacyjne brzmi: czy stuprocentowe pokrycie testami jednostkowymi gwarantuje brak błędów. Odpowiedź brzmi kategorycznie nie. Testy jednostkowe sprawdzają klasy w izolacji, z zamockowanymi zależnościami. Ale to nie znaczy, że klasy potrafią ze sobą współpracować. Problem kontraktu – na przykład różne formaty daty między modułami – wykryje dopiero test integracyjny. Mocki zakładają idealne zachowanie drugiej strony, a rzeczywistość często wygląda inaczej. Dlatego potrzebujemy obu rodzajów testów: jednostkowych dla logiki i integracyjnych dla komunikacji."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -195,5 +204,8 @@
                 </span>
             </div>
 
-        </div></div></div></body>
+        </div>
+    </div>
+</div>
+</body>
 </html>

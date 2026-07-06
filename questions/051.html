@@ -14,13 +14,13 @@
         <h2 id="q-title">051. Reguły integralności w bazie danych, przykłady występowania, sposoby realizacji.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏰</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zamek, który sam sprawdza gości”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zamek, który sam sprawdza gości":</strong>
                     <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
-                        Wyobraź sobie zamek, do którego wchodzą rycerze, kupcy i posłańcy. Na bramie stoi strażnik, który sprawdza: „Czy masz zaproszenie? Czy twój strój pasuje do reguł dworu? Czy twój pan istnieje w księgach?”. Gdy ktoś nie spełnia warunków, strażnik po prostu go nie wpuszcza – albo w ogóle nie wypuszcza kogoś, kto jest kluczowy dla zamku.
+                        Wyobraź sobie zamek, do którego wchodzą rycerze, kupcy i posłańcy. Na bramie stoi strażnik, który sprawdza: „Czy masz zaproszenie? Czy twój strój pasuje do reguł dworu? Czy twój pan istnieje w księgach?". Gdy ktoś nie spełnia warunków, strażnik po prostu go nie wpuszcza – albo w ogóle nie wypuszcza kogoś, kto jest kluczowy dla zamku.
                     </p>
                     <p style="margin: 0; color: #0d1b3e; line-height: 1.7;">
                         <strong>Reguły integralności</strong> to właśnie tacy strażnicy w bazie danych. Pilnują, by dane były zawsze poprawne, spójne i kompletne – niezależnie od tego, czy aplikacja popełni błąd, czy ktoś ręcznie grzebie w SQL. Dzięki nim baza nigdy nie przyjmie zamówienia bez klienta, nie pozwoli na wpisanie wieku -5 ani nie usunie wykładowcy, który ma przypisane kursy (chyba że Ty tego świadomie zażądasz). Integralność to fundament, bez którego baza staje się śmietnikiem.
@@ -52,13 +52,68 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Integralność danych to zbiór reguł, które zapewniają, że informacje w bazie są dokładne, spójne i wiarygodne. Bez nich baza może przyjąć absurdalne dane – np. zamówienie od nieistniejącego klienta albo wiek 250 lat. Reguły integralności dzielimy na cztery główne typy. Każdy z nich pilnuje innego aspektu.
                 </p>
+
+                <!-- Grafika 1: Cztery filary integralności -->
+                <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="280" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Cztery filary integralności danych</text>
+
+                    <!-- Filary -->
+                    <rect x="30" y="55" width="175" height="190" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                    <text x="117" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">ENCJI</text>
+                    <line x1="45" y1="90" x2="190" y2="90" stroke="#90caf9" stroke-width="1"/>
+                    <text x="117" y="115" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">PRIMARY KEY</text>
+                    <text x="117" y="135" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">NOT NULL</text>
+                    <text x="117" y="155" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">UNIQUE</text>
+                    <rect x="50" y="170" width="135" height="60" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+                    <text x="117" y="190" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Każdy wiersz</text>
+                    <text x="117" y="205" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">musi być</text>
+                    <text x="117" y="220" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">jednoznaczny</text>
+
+                    <rect x="220" y="55" width="175" height="190" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                    <text x="307" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">REFERENCYJNA</text>
+                    <line x1="235" y1="90" x2="380" y2="90" stroke="#ffcc80" stroke-width="1"/>
+                    <text x="307" y="115" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">FOREIGN KEY</text>
+                    <text x="307" y="135" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">ON DELETE</text>
+                    <text x="307" y="155" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">RESTRICT</text>
+                    <rect x="245" y="170" width="125" height="60" rx="4" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
+                    <text x="307" y="190" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Powiązania</text>
+                    <text x="307" y="205" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">między tabelami</text>
+                    <text x="307" y="220" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">muszą być spójne</text>
+
+                    <rect x="410" y="55" width="175" height="190" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="497" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">DOMENOWA</text>
+                    <line x1="425" y1="90" x2="570" y2="90" stroke="#a5d6a7" stroke-width="1"/>
+                    <text x="497" y="115" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">CHECK</text>
+                    <text x="497" y="135" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">DEFAULT</text>
+                    <text x="497" y="155" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Typy danych</text>
+                    <rect x="435" y="170" width="125" height="60" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="497" y="190" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Wartości muszą</text>
+                    <text x="497" y="205" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">należeć do</text>
+                    <text x="497" y="220" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">określonej domeny</text>
+
+                    <rect x="600" y="55" width="190" height="190" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                    <text x="695" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c" text-anchor="middle">UŻYTKOWNIKA</text>
+                    <line x1="615" y1="90" x2="775" y2="90" stroke="#ce93d8" stroke-width="1"/>
+                    <text x="695" y="115" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">Triggery</text>
+                    <text x="695" y="135" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">Procedury</text>
+                    <text x="695" y="155" font-family="sans-serif" font-size="10" fill="#6a1b9a" text-anchor="middle">Asercje</text>
+                    <rect x="620" y="170" width="150" height="60" rx="4" fill="#e1bee7" stroke="#7b1fa2" stroke-width="1"/>
+                    <text x="695" y="190" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Specyficzne reguły</text>
+                    <text x="695" y="205" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">biznesowe</text>
+                    <text x="695" y="220" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">organizacji</text>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Integralność danych dzielimy na cztery filary. Pierwszy to integralność encji – każdy wiersz musi mieć unikalny identyfikator, realizowany przez PRIMARY KEY i NOT NULL. Drugi to integralność referencyjna – powiązania między tabelami przez FOREIGN KEY, które pilnują, by nie było osieroconych rekordów. Trzeci to integralność domenowa – wartości w kolumnie muszą należeć do określonej domeny, co zapewniamy przez CHECK, DEFAULT i odpowiednie typy danych. Czwarty to integralność użytkownika – specyficzne reguły biznesowe, które realizujemy przez triggery i procedury składowane. Proszę spojrzeć na planszę – pokazuje ona wszystkie cztery filary z ich mechanizmami."
+                </div>
             </div>
 
             <!-- 2. Integralność encji -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #283593;">2. Integralność encji – Każdy wiersz musi mieć „dowód osobisty”</strong>
+                <strong style="font-size: 1.2rem; color: #283593;">2. Integralność encji – Każdy wiersz musi mieć „dowód osobisty"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Encja to po prostu wiersz w tabeli. Integralność encji wymaga, by każdy wiersz był jednoznacznie identyfikowalny. Służy do tego <strong>klucz główny (PRIMARY KEY)</strong> – kolumna (lub zestaw kolumn), która nie może się powtarzać i nie może być pusta (<code>NOT NULL</code>). 
+                    Encja to po prostu wiersz w tabeli. Integralność encji wymaga, by każdy wiersz był jednoznacznie identyfikowalny. Służy do tego <strong>klucz główny (PRIMARY KEY)</strong> – kolumna (lub zestaw kolumn), która nie może się powtarzać i nie może być pusta (<code>NOT NULL</code>).
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Przykład: w tabeli <code>Studenci</code> polem klucza jest <code>nr_indeksu</code>. Baza nie pozwoli dodać drugiego studenta z tym samym indeksem ani wpisać <code>NULL</code>. Integralność encji to pierwszy poziom obrony przed bałaganem.
@@ -67,6 +122,9 @@
                     <li><strong>PRIMARY KEY</strong> – unikalny identyfikator, automatycznie wymusza NOT NULL i unikalność.</li>
                     <li><strong>UNIQUE</strong> – też wymusza unikalność, ale może być wiele takich kluczy w tabeli i dopuszcza NULL (w większości silników).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Integralność encji to najprostsza reguła: każdy wiersz musi mieć swój unikalny identyfikator. PRIMARY KEY gwarantuje, że wartość jest unikalna i nie może być NULL. To absolutna podstawa – bez niej nie da się jednoznacznie wskazać żadnego rekordu. UNIQUE działa podobnie, ale może być wiele takich kluczy w tabeli i w niektórych silnikach dopuszcza wartości NULL."
+                </div>
             </div>
 
             <!-- 3. Integralność referencyjna -->
@@ -76,7 +134,7 @@
                     To najważniejsza reguła w relacyjnych bazach. Mówi, że jeśli wiersz w tabeli A odwołuje się do wiersza w tabeli B, to ten wiersz w B musi istnieć. Realizujemy ją przez <strong>klucz obcy (FOREIGN KEY)</strong>, który wskazuje na klucz główny innej tabeli.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Przykład: <code>Zamowienia.id_klienta</code> jest kluczem obcym do <code>Klienci.id</code>. Baza nie pozwoli dodać zamówienia z <code>id_klienta = 999</code>, jeśli taki klient nie istnieje. To chroni przed „osieroconymi” rekordami.
+                    Przykład: <code>Zamowienia.id_klienta</code> jest kluczem obcym do <code>Klienci.id</code>. Baza nie pozwoli dodać zamówienia z <code>id_klienta = 999</code>, jeśli taki klient nie istnieje. To chroni przed „osieroconymi" rekordami.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Co się stanie, gdy spróbujesz usunąć klienta, który ma zamówienia? To zależy od zdefiniowanej <strong>akcji referencyjnej</strong>:
@@ -90,6 +148,57 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Integralność referencyjna to najsilniejszy spoiwo relacyjnej bazy danych. Używaj jej zawsze – nawet jeśli aplikacja też sprawdza.
                 </p>
+
+                <!-- Grafika 2: Integralność referencyjna -->
+                <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="280" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Integralność referencyjna – akcje ON DELETE</text>
+
+                    <!-- Tabela Klienci -->
+                    <rect x="30" y="55" width="220" height="100" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                    <text x="140" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Klienci</text>
+                    <line x1="30" y1="90" x2="250" y2="90" stroke="#90caf9" stroke-width="1"/>
+                    <text x="140" y="115" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">id: 1 (PK)</text>
+                    <text x="140" y="135" font-family="monospace" font-size="11" fill="#0d47a1" text-anchor="middle">nazwa: Kowalski</text>
+
+                    <!-- FK -->
+                    <path d="M 250 110 L 320 110" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrFK)"/>
+                    <text x="285" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">FK</text>
+
+                    <!-- Tabela Zamowienia -->
+                    <rect x="330" y="55" width="240" height="100" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                    <text x="450" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Zamowienia</text>
+                    <line x1="330" y1="90" x2="570" y2="90" stroke="#ffcc80" stroke-width="1"/>
+                    <text x="450" y="115" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">id_klienta: 1 (FK)</text>
+                    <text x="450" y="135" font-family="monospace" font-size="11" fill="#e65100" text-anchor="middle">kwota: 1500 PLN</text>
+
+                    <!-- Akcje -->
+                    <text x="410" y="185" font-family="sans-serif" font-size="12" font-weight="bold" fill="#455a64" text-anchor="middle">Co się stanie przy DELETE klienta?</text>
+
+                    <rect x="40" y="205" width="160" height="55" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                    <text x="120" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">RESTRICT</text>
+                    <text x="120" y="245" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Nie usuniesz!</text>
+
+                    <rect x="230" y="205" width="160" height="55" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                    <text x="310" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">CASCADE</text>
+                    <text x="310" y="245" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">✅ Usuwa też zamówienia</text>
+
+                    <rect x="420" y="205" width="160" height="55" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+                    <text x="500" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">SET NULL</text>
+                    <text x="500" y="245" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">✅ FK → NULL</text>
+
+                    <rect x="610" y="205" width="180" height="55" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                    <text x="700" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">SET DEFAULT</text>
+                    <text x="700" y="245" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">✅ FK → wartość domyślna</text>
+
+                    <defs>
+                        <marker id="arrFK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Integralność referencyjna to najważniejsza reguła w bazach relacyjnych. Mówi ona, że jeśli wiersz w jednej tabeli wskazuje na wiersz w drugiej, to ten drugi musi istnieć. Realizujemy to przez FOREIGN KEY. Proszę spojrzeć na planszę: mamy tabelę Klienci i Zamówienia połączone kluczem obcym. Gdy próbujemy usunąć klienta, mamy cztery opcje: RESTRICT zabrania usunięcia, CASCADE usuwa też zamówienia, SET NULL ustawia klucz obcy na NULL, a SET DEFAULT na wartość domyślną. To są właśnie akcje referencyjne i to jest bardzo częste pytanie egzaminacyjne."
+                </div>
             </div>
 
             <!-- 4. Integralność domenowa -->
@@ -107,29 +216,70 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Przykład: <code>CREATE TABLE Pracownicy (id INT PRIMARY KEY, pensja DECIMAL(10,2) NOT NULL CHECK (pensja > 0));</code>. Baza nie przyjmie ujemnej pensji, nawet gdyby aplikacja próbowała.
                 </p>
+
+                <!-- Grafika 3: CHECK i NOT NULL -->
+                <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="200" fill="#fafbfc" opacity="0.6"/>
+                    <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#2e7d32">Integralność domenowa – CHECK i NOT NULL w akcji</text>
+
+                    <!-- Tabela Pracownicy -->
+                    <rect x="30" y="50" width="350" height="125" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="205" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">CREATE TABLE Pracownicy (</text>
+
+                    <rect x="50" y="85" width="310" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="205" y="99" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">id INT PRIMARY KEY,</text>
+
+                    <rect x="50" y="110" width="310" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="205" y="124" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">pensja DECIMAL NOT NULL CHECK (pensja > 0),</text>
+
+                    <rect x="50" y="135" width="310" height="20" rx="3" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+                    <text x="205" y="149" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">wiek INT CHECK (wiek BETWEEN 18 AND 120)</text>
+
+                    <text x="205" y="170" font-family="monospace" font-size="10" fill="#1b5e20" text-anchor="middle">);</text>
+
+                    <!-- Rezultaty -->
+                    <rect x="440" y="50" width="350" height="125" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                    <text x="615" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Próby wstawienia</text>
+                    <line x1="440" y1="85" x2="790" y2="85" stroke="#ef9a9a" stroke-width="1"/>
+
+                    <text x="615" y="105" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">INSERT pensja = -100 → ❌ ODRZUCONE</text>
+                    <text x="615" y="125" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">INSERT wiek = 15 → ❌ ODRZUCONE</text>
+                    <text x="615" y="145" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">INSERT pensja = NULL → ❌ ODRZUCONE</text>
+                    <text x="615" y="165" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">INSERT pensja = 5000 → ✅ PRZYJĘTE</text>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Integralność domenowa to pilnowanie, by wartości w kolumnie należały do określonego zbioru. CHECK jest tu najbardziej elastycznym narzędziem – możemy zdefiniować dowolny warunek logiczny. Proszę spojrzeć na przykład: tworzymy tabelę Pracownicy z CHECK-iem, że pensja musi być dodatnia, a wiek między 18 a 120. Baza automatycznie odrzuci każdą próbę wstawienia wartości spoza tego zakresu – nawet jeśli aplikacja się pomyli. To jest właśnie siła integralności na poziomie bazy."
+                </div>
             </div>
 
             <!-- 5. Integralność użytkownika (biznesowa) -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">5. Integralność użytkownika – Twoje własne zasady biznesowe</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    To reguły specyficzne dla danej organizacji, których nie da się wyrazić prostym CHECK ani kluczem. Przykłady: „Student może zapisać się na maksymalnie 5 kursów”, „Rabat nie może przekroczyć 30% ceny bazowej”. Realizuje się je przez:
+                    To reguły specyficzne dla danej organizacji, których nie da się wyrazić prostym CHECK ani kluczem. Przykłady: „Student może zapisać się na maksymalnie 5 kursów", „Rabat nie może przekroczyć 30% ceny bazowej". Realizuje się je przez:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Triggery</strong> – procedury wyzwalane, które sprawdzają warunek przed/po operacji i rzucają wyjątek, jeśli reguła jest złamana.</li>
                     <li><strong>Procedury składowane</strong> – zamiast pozwalać aplikacji na bezpośredni INSERT, dajesz jej procedurę <code>DodajZamowienie()</code>, która wewnątrz sprawdza biznesowe warunki i dopiero wstawia dane.</li>
-                    <li><strong>Asercje (ASSERTION)</strong> – ogólne więzy SQL, które mogą dotyczyć wielu tabel (np. „suma zamówień klienta nie może przekroczyć jego limitu kredytowego”). Niestety, większość silników ich nie implementuje (są w standardzie, ale brak wsparcia w PostgreSQL, MySQL).</li>
+                    <li><strong>Asercje (ASSERTION)</strong> – ogólne więzy SQL, które mogą dotyczyć wielu tabel (np. „suma zamówień klienta nie może przekroczyć jego limitu kredytowego"). Niestety, większość silników ich nie implementuje (są w standardzie, ale brak wsparcia w PostgreSQL, MySQL).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Integralność użytkownika obejmuje reguły specyficzne dla danej firmy, których nie da się wyrazić prostymi więzami. Na przykład student może zapisać się maksymalnie na pięć kursów. Realizujemy to przez triggery i procedury składowane. Asercje teoretycznie są do tego idealne, ale niestety większość silników ich nie implementuje – są w standardzie SQL, ale PostgreSQL i MySQL ich nie wspierają. Dlatego w praktyce używamy triggerów."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Gdy integralność zawodzi):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Polegam tylko na aplikacji”</strong> – Jeśli integralność jest wymuszana wyłącznie w kodzie aplikacji, każdy, kto ma bezpośredni dostęp do bazy (DBA, inny zespół, awaryjny skrypt), może ją złamać. Reguły muszą być na poziomie bazy.</li>
-                    <li><strong>„Zapominam o indeksie na FK”</strong> – Integralność referencyjna działa bez indeksu, ale każda operacja DELETE/UPDATE na tabeli nadrzędnej wymaga sprawdzenia klucza obcego. Bez indeksu to pełne skanowanie tabeli – wydajność leci na łopatki.</li>
-                    <li><strong>„ON DELETE CASCADE wszędzie”</strong> – Brzmi wygodnie, ale wyobraź sobie usunięcie wykładowcy, co kaskadowo usuwa jego kursy, zapisy studentów i oceny. Katastrofa. Stosuj świadomie, z pełną analizą konsekwencji.</li>
+                    <li><strong>„Polegam tylko na aplikacji"</strong> – Jeśli integralność jest wymuszana wyłącznie w kodzie aplikacji, każdy, kto ma bezpośredni dostęp do bazy (DBA, inny zespół, awaryjny skrypt), może ją złamać. Reguły muszą być na poziomie bazy.</li>
+                    <li><strong>„Zapominam o indeksie na FK"</strong> – Integralność referencyjna działa bez indeksu, ale każda operacja DELETE/UPDATE na tabeli nadrzędnej wymaga sprawdzenia klucza obcego. Bez indeksu to pełne skanowanie tabeli – wydajność leci na łopatki.</li>
+                    <li><strong>„ON DELETE CASCADE wszędzie"</strong> – Brzmi wygodnie, ale wyobraź sobie usunięcie wykładowcy, co kaskadowo usuwa jego kursy, zapisy studentów i oceny. Katastrofa. Stosuj świadomie, z pełną analizą konsekwencji.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki. Po pierwsze, poleganie wyłącznie na aplikacji – integralność musi być wymuszana na poziomie bazy, bo zawsze znajdzie się ktoś z bezpośrednim dostępem. Po drugie, zapominanie o indeksie na kluczu obcym – bez niego każdy DELETE na tabeli nadrzędnej wymaga pełnego skanowania. Po trzecie, nadużywanie ON DELETE CASCADE – kaskadowe usuwanie jest potężne, ale może niechcący usunąć dane w kilku powiązanych tabelach. Zawsze analizujcie konsekwencje przed użyciem CASCADE."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -144,7 +294,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Database System Concepts” (Silberschatz, Korth, Sudarshan) – rozdziały o integralności · Dokumentacja PostgreSQL: „Constraints” · „SQL Performance Explained” (Markus Winand) – indeksy na FK.
+                    „Database System Concepts" (Silberschatz, Korth, Sudarshan) – rozdziały o integralności · Dokumentacja PostgreSQL: „Constraints" · „SQL Performance Explained" (Markus Winand) – indeksy na FK.
                 </span>
             </div>
 

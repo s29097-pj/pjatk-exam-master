@@ -13,14 +13,14 @@
     <div class="question-box">
         <h2 id="q-title">046. Charakterystyka relacyjnych (SQL) i nierelacyjnych (NoSQL) baz danych.</h2>
 
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🗂️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Rygorystyczny księgowy vs. Elastyczny archiwista”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Rygorystyczny księgowy vs. Elastyczny archiwista":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
                         Wybór między bazą SQL a NoSQL to decyzja architektoniczna, którą można sprowadzić do metafory organizowania biura.<br><br>
-                        <strong>Relacyjne (SQL):</strong> Działają jak arkusz kalkulacyjny zarządzany przez rygorystycznego księgowego. Księgowy narzuca <em>Ścisły Schemat (Schema-on-write)</em>. Mówi: „W kolumnie 3 wpisujemy tylko daty!”. Jeśli spróbujesz wpisać tam tekst, wyrzuci Cię z biura. Wszystko jest powiązane sztywnymi relacjami (Klucze Obce). Gdy brakuje mu mocy przerobowych, musisz kupić mu droższy kalkulator i szybszy komputer (<strong>Skalowanie Pionowe</strong>).<br><br>
+                        <strong>Relacyjne (SQL):</strong> Działają jak arkusz kalkulacyjny zarządzany przez rygorystycznego księgowego. Księgowy narzuca <em>Ścisły Schemat (Schema-on-write)</em>. Mówi: „W kolumnie 3 wpisujemy tylko daty!". Jeśli spróbujesz wpisać tam tekst, wyrzuci Cię z biura. Wszystko jest powiązane sztywnymi relacjami (Klucze Obce). Gdy brakuje mu mocy przerobowych, musisz kupić mu droższy kalkulator i szybszy komputer (<strong>Skalowanie Pionowe</strong>).<br><br>
                         <strong>Nierelacyjne (NoSQL):</strong> Działają jak elastyczny archiwista z kartonami na dokumenty. Każdy dokument (np. plik JSON) może mieć inny kształt. Jeden dokument klienta ma tylko imię i email, a drugi dodaje listę 50 ulubionych filmów – archiwista przyjmie wszystko (<em>Schema-on-read</em>). Gdy brakuje mu mocy, po prostu zatrudniasz 10 tanich stażystów do pomocy i każdy z nich obsługuje część kartonów (<strong>Skalowanie Poziome</strong>).
                     </p>
                 </div>
@@ -49,6 +49,9 @@
                     <li><strong>Bazy Relacyjne (np. PostgreSQL, MySQL, Oracle):</strong> Dane są silnie znormalizowane (rozbite na małe tabele, by unikać redundancji). Aby odczytać pełen profil klienta, baza musi dokonać kosztownego złączenia tabel (<code>JOIN</code>). Najlepiej działają na jednym, potężnym serwerze (Scale-up). Rozproszenie bazy relacyjnej na wiele serwerów jest ekstremalnie trudne, bo operacje <code>JOIN</code> i zasady transakcji wymagają synchronizacji całego systemu.</li>
                     <li><strong>Bazy Nierelacyjne (np. MongoDB, Redis, Cassandra):</strong> Dane są zazwyczaj zdenormalizowane i trzymane w jednym dokumencie (Agregaty). Zamiast "kleić" dane z 5 tabel, pobierasz jeden kompletny dokument JSON. Brak sztywnych relacji pozwala w łatwy sposób pociąć bazę danych i rozrzucić ją na 100 tanich, niezależnych serwerów (Sharding / Scale-out).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, fundamentalna różnica między SQL a NoSQL leży w strukturze danych i podejściu do skalowania. Bazy relacyjne, jak PostgreSQL czy MySQL, trzymają dane w silnie znormalizowanych tabelach – wszystko jest powiązane kluczami obcymi, a żeby odczytać pełny profil klienta, potrzeba kosztownych JOIN-ów. Skalujemy je pionowo – kupujemy mocniejszy serwer. Bazy NoSQL, jak MongoDB czy Redis, trzymają dane w jednym dokumencie, często w formacie JSON. To pozwala na łatwe rozproszenie danych na dziesiątki tanich serwerów – to skalowanie poziome. Wybór między nimi to decyzja architektoniczna: sztywna struktura i gwarancje transakcyjne kontra elastyczność i nieskończone skalowanie."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -61,12 +64,12 @@
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zderzenie Paradygmatów: Skalowanie i Struktura</text>
 
                 <text x="205" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">RELACYJNE (SQL)</text>
-                
+
                 <rect x="165" y="150" width="80" height="40" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
                 <text x="205" y="175" font-family="monospace" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Serwer</text>
 
                 <path d="M 205 140 L 205 100" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
-                
+
                 <rect x="145" y="80" width="120" height="15" fill="#ffe0b2" stroke="#e65100"/>
                 <rect x="145" y="60" width="120" height="15" fill="#ffe0b2" stroke="#e65100"/>
                 <text x="120" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100">+ RAM</text>
@@ -89,12 +92,12 @@
                 <text x="615" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer 1</text>
 
                 <path d="M 665 130 L 710 130" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrange)"/>
-                
+
                 <rect x="720" y="110" width="80" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2" stroke-dasharray="4,4"/>
                 <text x="760" y="135" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">Serwer 2</text>
 
                 <path d="M 565 130 L 520 130" fill="none" stroke="#e65100" stroke-width="3" marker-end="url(#arrowOrangeL)"/>
-                
+
                 <rect x="430" y="110" width="80" height="40" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2" stroke-dasharray="4,4"/>
                 <text x="470" y="135" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">Serwer 3</text>
 
@@ -127,6 +130,9 @@
                     <strong>🌱 Zasada BASE (Opozycja do ACID):</strong><br>
                     Zamiast sztywnych transakcji, NoSQL używa modelu <em>Eventual Consistency</em> (Spójność Ostateczna). Jeśli zaktualizujesz zdjęcie profilowe na Facebooku w USA, użytkownik w Europie może przez 2 sekundy widzieć stare zdjęcie. Ostatecznie dane rozprzestrzenią się na wszystkie serwery. Porzucenie absolutnej spójności w czasie rzeczywistym odblokowuje gigantyczną wydajność.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Twierdzenie CAP Erica Brewera to fundamentalne prawo systemów rozproszonych. Mówi ono, że w rozproszonym systemie możemy zagwarantować tylko dwie z trzech właściwości: spójność, dostępność i tolerancję na partycjonowanie sieci. Ponieważ sieć zawsze może paść – P jest obowiązkowe – musimy wybierać między C a A. Bazy SQL wybierają CP – w razie awarii odmówią odpowiedzi, ale dane będą spójne. Bazy NoSQL często wybierają AP – zawsze odpowiedzą, ale dane mogą być chwilowo nieaktualne. To się nazywa Eventual Consistency, czyli spójność ostateczna – dane w końcu się zsynchronizują. To jest cena, jaką płacimy za nieskończone skalowanie NoSQL-a."
+                </div>
             </div>
 
             <div class="answer-step" style="margin-bottom: 24px;">
@@ -152,6 +158,9 @@
                         <span style="font-size:0.85rem;">Stworzone wyłącznie w celu modelowania potężnych relacji międzyludzkich i biznesowych (kto zna kogo, kto co kupił). Rekomendacje silnika sieci społecznościowych.<br><em>Przykłady:</em> <strong>Neo4j, Amazon Neptune</strong>.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „NoSQL to nie jeden rodzaj bazy – to cała rodzina czterech typów. Bazy dokumentowe, jak MongoDB, przechowują dane w formacie JSON – to najbardziej uniwersalny typ NoSQL. Bazy klucz-wartość, jak Redis, to słowniki na sterydach – ekstremalnie szybkie, idealne do cache'owania. Bazy kolumnowe, jak Cassandra, są zoptymalizowane do analizy ogromnych ilości danych – idealne dla IoT i Big Data. Bazy grafowe, jak Neo4j, służą do modelowania złożonych relacji – kto kogo zna, co kto kupił – to podstawa silników rekomendacji. Każdy z tych typów rozwiązuje inny problem i w nowoczesnej architekturze często używa się ich wszystkich naraz – to się nazywa Polyglot Persistence."
+                </div>
             </div>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -161,6 +170,9 @@
                     <li><strong>"NoSQL jest zawsze lepszy i szybszy."</strong> Bzdura! Do systemów finansowych, księgowych (gdzie spójność ACID to być albo nie być), system relacyjny (SQL) z twardymi schematami i relacjami 1:N / N:M jest wciąż bezkonkurencyjny.</li>
                     <li><strong>Złudzenie braku relacji:</strong> W bazach dokumentowych (np. MongoDB) też można modelować powiązania danych (robimy to za pomocą tzw. <em>Embedded documents</em> – zagnieżdżania – lub <em>References</em>). Baza ta jednak nie ma wbudowanych więzów integralności, by chronić te powiązania sprzętowo.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki. Po pierwsze, NoSQL to nie brak SQL-a – to 'Not Only SQL'. Wiele baz NoSQL ma własne języki zapytań, czasem bardzo podobne do SQL. Po drugie, NoSQL nie zawsze jest lepszy – w systemach finansowych i księgowych ACID i sztywne schematy SQL są niezastąpione. Po trzecie, w MongoDB też można modelować relacje, ale baza nie pilnuje ich integralności sprzętowo – to spada na programistę. Dlatego wybór między SQL a NoSQL to zawsze analiza konkretnego przypadku użycia, a nie kwestia mody."
+                </div>
             </div>
 
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
@@ -213,7 +225,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Designing Data-Intensive Applications” (Martin Kleppmann) – absolutna biblia wiedzy o SQL, NoSQL i Twierdzeniu CAP.
+                    „Designing Data-Intensive Applications" (Martin Kleppmann) – absolutna biblia wiedzy o SQL, NoSQL i Twierdzeniu CAP.
                 </span>
             </div>
 

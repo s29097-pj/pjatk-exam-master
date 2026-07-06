@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00897b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,137,123,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">👥</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wielozadaniowość to „Wielu kucharzy w jednej kuchni”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – Wielozadaniowość to „Wielu kucharzy w jednej kuchni":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
                         Wyobraź sobie restaurację w godzinach szczytu. Jeśli masz tylko <strong>jednego kucharza</strong>, wszystkie zamówienia są realizowane po kolei – to <strong>program jednowątkowy</strong>. Zatrudniasz <strong>dwóch kucharzy</strong>, którzy pracują jednocześnie przy różnych stanowiskach – to <strong>współbieżność z wątkami (threads)</strong>. Muszą jednak dzielić między sobą ograniczone zasoby: jedną patelnię, jeden piekarnik, jedną zmywarkę. Jeśli dwóch kucharzy jednocześnie sięgnie po tę samą patelnię, powstaje chaos (wyścig – race condition). Potrzebujesz systemu rezerwacji zasobów – <strong>synchronizacji</strong>. Co więcej, niektórzy kucharze mogą <strong>czekać na dostawę składników</strong> – zamiast stać bezczynnie, mogą w tym czasie obierać ziemniaki (asynchroniczność). A jeśli kucharze zaczną czekać na siebie nawzajem (ja czekam na Twoją patelnię, Ty na mój piekarnik), kuchnia staje – to <strong>zakleszczenie (deadlock)</strong>.
                     </p>
@@ -69,6 +69,9 @@
                 <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🧠 Zapamiętaj:</strong> Współbieżność = struktura (jak podzielić zadania). Równoległość = sprzęt (ile rdzeni). Program może być współbieżny na jednym rdzeniu, ale nie wykorzysta równoległości bez wielu rdzeni.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, musimy zacząć od fundamentalnego rozróżnienia – współbieżność to nie to samo co równoległość. Współbieżność dotyczy struktury programu, tego jak dzielimy zadania – wiele zadań może być w toku w tym samym okresie, nawet na jednym rdzeniu, przez przeplatanie. Równoległość to fizyczna możliwość wykonywania wielu zadań jednocześnie na wielu rdzeniach. Program może być współbieżny, ale nie równoległy – klasyczny przykład to JavaScript z pętlą zdarzeń na jednym wątku. I odwrotnie – przetwarzanie potokowe może być równoległe, ale nie współbieżne. Na egzaminie często pada pytanie: czy program współbieżny zawsze jest równoległy? Odpowiedź brzmi: nie."
+                </div>
             </div>
 
             <!-- SVG: WSPÓŁBIEŻNOŚĆ vs RÓWNOLEGŁOŚĆ (OŚ CZASU) -->
@@ -109,16 +112,19 @@
             <!-- PART 2: PROBLEMY SYNCHRONIZACJI                         -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">2. Synchronizacja – „Kto może użyć patelni?”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">2. Synchronizacja – „Kto może użyć patelni?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy wiele wątków współdzieli dane (np. zmienną globalną, kolekcję), powstaje <strong>wyścig (race condition)</strong> – wynik zależy od kolejności wykonania wątków. Aby temu zapobiec, definiujemy <strong>sekcje krytyczne</strong> – fragmenty kodu, które w danym momencie może wykonywać tylko jeden wątek. Mechanizmy synchronizacji:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #b71c1c;">
                     <li><strong>Muteks (mutex)</strong> – zamek. Przed wejściem do sekcji krytycznej wątek blokuje zamek, po wyjściu odblokowuje. Inne czekają.</li>
                     <li><strong>Semafory</strong> – uogólnione zamki. Pozwalają wejść N wątkom jednocześnie (np. ograniczenie liczby zapytań do bazy).</li>
-                    <li><strong>Zmienne warunkowe (condition variables)</strong> – wątek czeka na sygnał od innego wątku (np. „bufor ma dane”).</li>
+                    <li><strong>Zmienne warunkowe (condition variables)</strong> – wątek czeka na sygnał od innego wątku (np. „bufor ma dane").</li>
                     <li><strong>Operacje atomowe</strong> – sprzętowo niepodzielne inkrementacje (np. <code>std::atomic</code> w C++).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gdy wiele wątków współdzieli dane, pojawia się problem wyścigu – wynik zależy od kolejności wykonania, której nie kontrolujemy. Żeby temu zapobiec, wprowadzamy sekcje krytyczne i mechanizmy synchronizacji. Podstawowym narzędziem jest muteks – to taki zamek. Wątek przed wejściem do sekcji krytycznej blokuje zamek, po wyjściu odblokowuje. Inne wątki czekają. Semafory to uogólnienie – pozwalają wejść nie jednemu, ale N wątkom naraz, co jest przydatne na przykład do ograniczenia liczby równoczesnych zapytań do bazy danych. Zmienne warunkowe pozwalają wątkowi czekać na sygnał od innego wątku – na przykład że bufor ma dane do przetworzenia. I wreszcie operacje atomowe, które są sprzętowo niepodzielne i nie wymagają zamków."
+                </div>
             </div>
 
             <!-- SVG: SEKCJA KRYTYCZNA I MUTEKS -->
@@ -163,10 +169,13 @@
             <!-- PART 3: ZAKLESZCZENIE (DEADLOCK)                        -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">3. Zakleszczenie (Deadlock) – „Patowa sytuacja w kuchni”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Zakleszczenie (Deadlock) – „Patowa sytuacja w kuchni"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Zakleszczenie</strong> występuje, gdy dwa (lub więcej) wątki wzajemnie na siebie czekają, trzymając zasoby potrzebne drugiemu. Klasyczny scenariusz: wątek A trzyma zamek Z1 i czeka na Z2, podczas gdy wątek B trzyma Z2 i czeka na Z1. Żaden nie może kontynuować – program się zawiesza. Warunki konieczne do zakleszczenia (wszystkie cztery muszą być spełnione jednocześnie): wzajemne wykluczanie, trzymaj i czekaj, brak wywłaszczania, cykliczne oczekiwanie. Zapobieganie polega na wyeliminowaniu jednego z nich – np. zawsze blokowanie zamków w tej samej kolejności.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zakleszczenie to zmora programowania wielowątkowego. Wyobraźmy sobie dwa wątki: wątek A trzyma zamek numer jeden i czeka na zamek numer dwa, a wątek B trzyma zamek numer dwa i czeka na zamek numer jeden. Żaden nie może ruszyć dalej – to sytuacja patowa, program się zawiesza. Do zakleszczenia potrzebne są cztery warunki jednocześnie: wzajemne wykluczanie, trzymanie i czekanie, brak wywłaszczania oraz cykliczne oczekiwanie. Żeby zapobiec zakleszczeniu, wystarczy wyeliminować jeden z nich – na przykład zawsze blokować zamki w tej samej kolejności. Jeśli wszystkie wątki zawsze najpierw blokują zamek numer jeden, a potem numer dwa, cykliczne oczekiwanie nie wystąpi. Proszę spojrzeć na planszę."
+                </div>
             </div>
 
             <!-- SVG: ZAKLESZCZENIE – DIAGRAM KOŁOWY -->
@@ -218,16 +227,22 @@
                         <span style="font-size:0.85rem;"><strong>GIL</strong> ogranicza równoległość w CPythonie. <code>threading</code> do zadań I/O, <code>multiprocessing</code> do CPU, <code>asyncio</code> do asynchroniczności kooperacyjnej.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy język ma swoje podejście do wielozadaniowości. C plus plus oferuje niskopoziomowe narzędzia – std::thread, std::mutex, std::lock_guard – które dają pełną kontrolę i maksymalną wydajność na wielu rdzeniach, ale cała odpowiedzialność za poprawność spoczywa na programiście. Java poszła o krok dalej z ExecutorService i pulami wątków, słowem kluczowym synchronized oraz zaawansowanymi kolekcjami współbieżnymi jak ConcurrentHashMap, które są bezpieczne wątkowo bez dodatkowych zamków. Python jest przypadkiem szczególnym ze względu na GIL – globalną blokadę interpretera, która sprawia, że tylko jeden wątek może wykonywać kod Pythona w danym momencie. Dlatego w Pythonie wątki sprawdzają się tylko przy zadaniach wejścia-wyjścia, do obliczeń CPU trzeba użyć multiprocessingu, a do asynchroniczności – biblioteki asyncio."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 5: ASYNC / AWAIT – MODEL KOOPERACYJNY              -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">5. Async / Await – „Nie blokuj, idź dalej”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">5. Async / Await – „Nie blokuj, idź dalej"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W modelu asynchronicznym (C#, Python, JavaScript) zadania same oddają sterowanie (<code>await</code>), gdy czekają na I/O. Nie blokują wątku – ten może obsłużyć inne zadanie. To idealne dla serwerów z tysiącami połączeń. W Pythonie <code>asyncio</code> działa w jednym wątku, przełączając między korutynami (współprogramami). W przeciwieństwie do wątków, tutaj przełączenie zachodzi tylko w jawnie oznaczonych miejscach (<code>await</code>), co eliminuje wyścigi na poziomie przełączania (ale nie na danych współdzielonych!).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Async i await to nowoczesny model programowania asynchronicznego, dostępny w C-sharp, Pythonie i JavaScripcie. Idea jest prosta: gdy zadanie czeka na operację wejścia-wyjścia, zamiast blokować wątek, oddaje sterowanie z powrotem do pętli zdarzeń, która może w tym czasie obsłużyć inne zadanie. Gdy dane z I/O wrócą, zadanie wznawia się od miejsca await. To niezwykle wydajne dla serwerów obsługujących tysiące połączeń – zamiast tworzyć tysiąc wątków, mamy jeden wątek i tysiąc korutyn. W Pythonie asyncio działa właśnie w ten sposób – jeden wątek, wiele korutyn. Ważna uwaga: async-await nie oznacza wielowątkowości. Jeśli w korutynie wykonamy zadanie CPU-bound bez await, zablokuje ono całą pętlę zdarzeń."
+                </div>
             </div>
 
             <!-- SVG: ASYNC AWAIT – PRZEPŁYW STEROWANIA -->
@@ -254,10 +269,13 @@
             <!-- PART 6: MODEL AKTORÓW (ACTOR MODEL)                    -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 20px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">6. Model aktorów – „Każdy kucharz ma swój blat”</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">6. Model aktorów – „Każdy kucharz ma swój blat"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W modelu aktorów (znanym z Erlanga, Akka dla Javy/Scali) każdy wątek to <strong>izolowany aktor</strong>, który ma swoją prywatną skrzynkę na wiadomości. Aktory nie współdzielą pamięci – komunikują się wyłącznie przez wysyłanie sobie wiadomości. To eliminuje problemy z synchronizacją i wyścigi. Każdy aktor przetwarza wiadomości po kolei, jedno po drugim. Jeśli potrzebuje odpowiedzi od innego aktora, wysyła wiadomość i kontynuuje pracę (albo czeka na odpowiedź).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Model aktorów to radykalnie inne podejście do wielozadaniowości, spopularyzowane przez język Erlang i bibliotekę Akka. W tym modelu każdy aktor to izolowana jednostka z własną skrzynką na wiadomości. Aktory nie współdzielą pamięci – komunikują się wyłącznie przez asynchroniczne wiadomości. To całkowicie eliminuje problemy z synchronizacją, wyścigami i zakleszczeniami, bo nie ma współdzielonych danych. Każdy aktor przetwarza wiadomości pojedynczo, jedna po drugiej, więc wewnątrz aktora nie ma współbieżności. Model ten doskonale sprawdza się w systemach rozproszonych, gdzie odporność na błędy i izolacja są ważniejsze niż surowa wydajność synchronizacji niskopoziomowej."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -279,6 +297,9 @@
                         <span style="font-size:0.85rem;">Dla systemów rozproszonych, gdzie izolacja i odporne na błędy komunikaty są ważniejsze niż wydajność surowej synchronizacji.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podsumowując, wybór modelu zależy od rodzaju zadań. Jeśli mamy zadania CPU-bound, czyli obciążające procesor – przeliczanie dużych macierzy, kompresja – najlepsze są klasyczne wątki z blokadami, bo dają maksymalną kontrolę i wydajność na wielu rdzeniach. Jeśli dominują zadania wejścia-wyjścia – sieć, dysk, bazy danych – idealnie sprawdzi się model async-await, który pozwala jednemu wątkowi obsłużyć tysiące połączeń bez narzutu przełączania kontekstu. Jeśli budujemy system rozproszony, gdzie kluczowa jest izolacja i odporność na błędy, model aktorów jest naturalnym wyborem – aktory nie współdzielą stanu, komunikują się wiadomościami, a awaria jednego nie pociąga za sobą innych. Każdy z tych modeli ma swoje miejsce w arsenale programisty."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -287,11 +308,14 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki Egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Współbieżność ≠ równoległość.</strong> Program może być współbieżny na jednym rdzeniu. Pytanie często brzmi: „Czy program współbieżny zawsze jest równoległy?” Odpowiedź: NIE.</li>
+                    <li><strong>Współbieżność ≠ równoległość.</strong> Program może być współbieżny na jednym rdzeniu. Pytanie często brzmi: „Czy program współbieżny zawsze jest równoległy?" Odpowiedź: NIE.</li>
                     <li><strong>GIL w Pythonie</strong> – tylko jeden wątek może wykonywać kod Pythona naraz. <code>threading</code> nie przyspieszy zadań CPU-bound, tylko I/O-bound.</li>
                     <li><strong>Deadlock wymaga spełnienia 4 warunków jednocześnie</strong> – wzajemne wykluczanie, trzymaj i czekaj, brak wywłaszczania, cykliczne oczekiwanie. Wystarczy zlikwidować jeden.</li>
                     <li><strong>Async/await nie oznacza wielowątkowości!</strong> W Pythonie i JavaScripcie to wciąż jeden wątek – przełączanie zachodzi tylko na <code>await</code>. Jeśli masz zadanie CPU-bound, zablokuje ono całą pętlę zdarzeń.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki egzaminacyjne to: po pierwsze, mylenie współbieżności z równoległością – program może być współbieżny na jednym rdzeniu, więc odpowiedź na pytanie czy współbieżny zawsze znaczy równoległy brzmi nie. Po drugie, GIL w Pythonie – threading nie przyspieszy zadań obliczeniowych, bo tylko jeden wątek wykonuje kod Pythona na raz. Po trzecie, cztery warunki zakleszczenia – jeśli potraficie je wymienić i wskazać, który eliminuje rozwiązanie, zdacie pytanie śpiewająco. I po czwarte, async-await w Pythonie i JavaScripcie to wciąż jednowątkowość – zadanie CPU-bound bez await zablokuje całą pętlę zdarzeń."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -345,7 +369,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „C++ Concurrency in Action” (A. Williams) · „Java Concurrency in Practice” (B. Goetz) · Dokumentacja Python asyncio · Erlang/OTP documentation.
+                    „C++ Concurrency in Action" (A. Williams) · „Java Concurrency in Practice" (B. Goetz) · Dokumentacja Python asyncio · Erlang/OTP documentation.
                 </span>
             </div>
 

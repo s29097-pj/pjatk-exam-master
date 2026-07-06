@@ -13,7 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">037. Metody reprezentacji danych (od bitów po struktury).</h2>
 
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔮</span>
                 <div>
@@ -57,6 +57,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Dlaczego tak skomplikowanie? Ponieważ dzięki temu <strong>układ elektroniczny (sumator) w procesorze dodaje liczby ujemne i dodatnie dokładnie w ten sam sposób!</strong> Nie trzeba budować osobnego układu do odejmowania. Dodanie 5 i -5 w kodzie U2 sprzętowo daje nam same zera (z jedną przepełnioną jedynką, która "wypada" poza rejestr).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kod U2, czyli uzupełnień do dwóch, to fundamentalny sposób reprezentacji liczb ujemnych we wszystkich współczesnych procesorach. Problem polegał na tym, że początkowe podejście znak-moduł tworzyło podwójne zero – plus zero i minus zero – i utrudniało arytmetykę sprzętową. Kod U2 rozwiązuje to genialnie. Aby uzyskać reprezentację liczby ujemnej, bierzemy jej dodatni odpowiednik binarnie, negujemy wszystkie bity i dodajemy jeden. Dzięki temu zwykły sumator sprzętowy działa identycznie dla dodawania i odejmowania – nie potrzebujemy osobnego układu. Proszę spojrzeć na planszę: pokazuje ona krok po kroku transformację plus pięć w minus pięć."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -104,6 +107,9 @@
                     <li><strong>Wykładnik (Exponent) - 8 bitów:</strong> Mówi nam, o ile miejsc w lewo lub w prawo mamy "przesunąć przecinek" (mnożymy przez 2 do potęgi).</li>
                     <li><strong>Mantysa (Fraction/Mantissa) - 23 bity:</strong> Zawiera "znaczące" cyfry ułamka. Im więcej bitów mantysy (np. 52 bity w <code>double</code>), tym wyższa precyzja, ale pochłania to więcej pamięci.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Standard IEEE 754 definiuje, jak komputery przechowują liczby zmiennoprzecinkowe. Trzydziestodwubitowy float dzieli się na trzy strefy: jeden bit znaku, osiem bitów wykładnika i dwadzieścia trzy bity mantysy. To taka komputerowa notacja naukowa – mantysa przechowuje cyfry znaczące, a wykładnik mówi, o ile miejsc przesunąć przecinek. Więcej bitów mantysy, jak w typie double z pięćdziesięcioma dwoma bitami, daje większą precyzję kosztem pamięci. To prowadzi nas do słynnej pułapki zero kropka jeden plus zero kropka dwa – ale o tym za chwilę."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -129,7 +135,7 @@
             </svg>
 
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
-                
+
                 <div style="flex: 1; min-width: 300px; background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px; border-radius: 0 10px 10px 0;">
                     <strong style="font-size: 1.05rem; color: #b71c1c;">⚠️ Pułapka "0.1 + 0.2 != 0.3":</strong>
                     <p style="margin: 8px 0; font-size: 0.9rem; line-height: 1.6;">
@@ -156,6 +162,9 @@
                     <strong>ASCII</strong> był pierwszym standardem. Używał 7 bitów (max 128 znaków). Wystarczyło na alfabet angielski i znaki kontrolne. Problem: co z chińskimi znakami czy polskim "ą"? Tu wkracza <strong>Unicode (UTF-8)</strong>.<br>
                     UTF-8 to genialne <strong>kodowanie o zmiennej długości</strong>. Zwykła litera 'A' zajmuje w nim tylko 1 bajt (jest wstecznie kompatybilna z ASCII i oszczędza sieć). Polskie znaki czy cyrylica zajmują 2, 3 bajty, a emoji (np. 🚀) pochłaniają 4 bajty. System wie, ile bajtów przeczytać, patrząc na specjalne bity startowe w pierwszym bajcie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ewolucja reprezentacji tekstu to fascynująca historia. ASCII używał siedmiu bitów i obsługiwał tylko sto dwadzieścia osiem znaków – wystarczyło na angielski, ale już nie na polskie znaki czy chińskie ideogramy. Rozwiązaniem jest Unicode i jego najpopularniejsze kodowanie – UTF-8. To kodowanie o zmiennej długości: zwykłe litery angielskie zajmują tylko jeden bajt, polskie znaki dwa do trzech bajtów, a emoji nawet cztery bajty. System rozpoznaje, ile bajtów należy do jednego znaku, po specjalnych bitach startowych w pierwszym bajcie. To genialne, bo jest wstecznie kompatybilne z ASCII – każdy plik ASCII jest automatycznie poprawnym plikiem UTF-8 – a jednocześnie obsługuje wszystkie systemy pisma świata."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -169,7 +178,7 @@
 
                 <rect x="420" y="60" width="80" height="40" rx="4" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <text x="460" y="85" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">11110xxx</text>
-                
+
                 <rect x="510" y="60" width="80" height="40" rx="4" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <text x="550" y="85" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">10xxxxxx</text>
 
@@ -189,33 +198,33 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Cheat-Sheet Inżyniera: Typy Danych w C / Java:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rozmiar / Standard</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zakres / Zastosowanie</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rozmiar / Standard</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zakres / Zastosowanie</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #00796b;">Integer (int)</td>
-                            <td style="padding: 10px;">32 bity (4 bajty) - Kod U2</td>
-                            <td style="padding: 10px;">Od -2 mld do +2 mld (Liczby całkowite).</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Float / Double</td>
-                            <td style="padding: 10px;">32/64 bity - IEEE 754</td>
-                            <td style="padding: 10px;">Ogromny zakres, ale spada precyzja (fizyka, rendering 3D).</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Char / String</td>
-                            <td style="padding: 10px;">1 do 4 bajtów - UTF-8</td>
-                            <td style="padding: 10px;">Znak tekstowy. Pamiętaj, że w pamięci C to wciąż są zwykłe INTy!</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">JSON / XML</td>
-                            <td style="padding: 10px;">Tekstowa serializacja</td>
-                            <td style="padding: 10px;">Metoda przesyłania bogatych stuktur przez sieć jako zwykły String.</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #00796b;">Integer (int)</td>
+                        <td style="padding: 10px;">32 bity (4 bajty) - Kod U2</td>
+                        <td style="padding: 10px;">Od -2 mld do +2 mld (Liczby całkowite).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Float / Double</td>
+                        <td style="padding: 10px;">32/64 bity - IEEE 754</td>
+                        <td style="padding: 10px;">Ogromny zakres, ale spada precyzja (fizyka, rendering 3D).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Char / String</td>
+                        <td style="padding: 10px;">1 do 4 bajtów - UTF-8</td>
+                        <td style="padding: 10px;">Znak tekstowy. Pamiętaj, że w pamięci C to wciąż są zwykłe INTy!</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">JSON / XML</td>
+                        <td style="padding: 10px;">Tekstowa serializacja</td>
+                        <td style="padding: 10px;">Metoda przesyłania bogatych stuktur przez sieć jako zwykły String.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

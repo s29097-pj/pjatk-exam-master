@@ -14,16 +14,16 @@
         <h2 id="q-title">055. Hurtownie danych.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sklepiku osiedlowego do hipermarketu”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od sklepiku osiedlowego do hipermarketu":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
                         Wyobraź sobie mały sklepik osiedlowy. Ekspedientka kasuje klientów jedna transakcja po drugiej, wydaje resztę, paragon – wszystko dzieje się w ułamku sekundy. Bazy transakcyjne (OLTP) działają dokładnie tak: szybko, pojedynczo, bez oglądania się wstecz. Ale co, jeśli szef sieci chce wiedzieć, które produkty sprzedawały się najlepiej w ostatnie święta we wszystkich sklepach? Sięgnie po raport z <strong>hurtowni danych</strong>.
                     </p>
                     <p style="margin: 0; color: #1a3a3a; line-height: 1.7;">
-                        Hurtownia danych to nie jest zwykła baza – to <strong>wyspecjalizowany system do analiz</strong>. Nie służy do obsługi klienta, tylko do odpowiadania na wielkie pytania: „Jakie są trendy?”, „Który dział zarabia najwięcej?”, „Jaka była sprzedaż rok do roku?”. Podczas gdy baza produkcyjna (OLTP) jest jak kasjer w sklepie, hurtownia (OLAP) jest jak zespół analityków z arkuszami Excela, którzy przeglądają dane z całego miesiąca.
+                        Hurtownia danych to nie jest zwykła baza – to <strong>wyspecjalizowany system do analiz</strong>. Nie służy do obsługi klienta, tylko do odpowiadania na wielkie pytania: „Jakie są trendy?", „Który dział zarabia najwięcej?", „Jaka była sprzedaż rok do roku?". Podczas gdy baza produkcyjna (OLTP) jest jak kasjer w sklepie, hurtownia (OLAP) jest jak zespół analityków z arkuszami Excela, którzy przeglądają dane z całego miesiąca.
                     </p>
                 </div>
             </div>
@@ -80,6 +80,12 @@
                 <text x="615" y="180" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">🎯 Cel: analiza trendów</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podstawowy podział w świecie baz danych to OLTP kontra OLAP. OLTP to baza produkcyjna – tysiące małych transakcji na sekundę, pojedyncze INSERT-y i UPDATE-y, dane silnie znormalizowane w trzeciej postaci normalnej. Służy do rejestracji zdarzeń na bieżąco. OLAP, czyli hurtownia danych, to przeciwieństwo – kilka złożonych zapytań dziennie, agregacje SUM i COUNT, dane celowo zdenormalizowane w schemacie gwiazdy lub płatka śniegu. Przechowuje dane historyczne z lat i służy do analizy trendów. Proszę spojrzeć na planszę – porównuje ona oba światy obok siebie."
+                </div>
+            </div>
+
             <!-- 2. Proces ETL -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">2. ETL – rurociąg danych z produkcji do analityki</strong>
@@ -130,6 +136,12 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „ETL to proces, który zasila hurtownię danymi. Składa się z trzech etapów. Ekstrakcja – pobieramy dane z różnych źródeł: baz produkcyjnych, plików CSV, API. Transformacja – czyścimy dane, normalizujemy, agregujemy. Ładowanie – zapisujemy przetworzone dane do hurtowni. To nie jest proces jednorazowy – ETL działa cyklicznie, co godzinę lub co dzień, i wymaga monitorowania, bo błędy w transformacji mogą zafałszować wyniki analiz. Proszę spojrzeć na planszę – ilustruje ona przepływ danych przez wszystkie trzy etapy."
+                </div>
+            </div>
+
             <!-- 3. Schemat gwiazdy i śniegu -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">3. Schemat gwiazdy (Star Schema) – serce hurtowni</strong>
@@ -177,10 +189,19 @@
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Schemat gwiazdy to serce hurtowni danych. W centrum mamy tabelę faktów – na przykład Sprzedaż – która zawiera klucze obce do wymiarów oraz miary, czyli kwotę i ilość. Wokół niej znajdują się tabele wymiarów: Czas, Produkt, Sklep, Klient. Każdy wymiar zawiera atrybuty opisowe – na przykład Produkt ma nazwę i kategorię. Dzięki temu zapytania analityczne są proste: SELECT SUM z tabeli faktów połączonej z filtrowaniem po wymiarach. Proszę spojrzeć na planszę – centralna tabela faktów otoczona czterema wymiarami, wszystko połączone kluczami obcymi. To celowa denormalizacja dla szybkości analiz."
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">4. Schemat płatka śniegu (Snowflake) – dodatkowa normalizacja</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    W schemacie gwiazdy tabele wymiarów są zdenormalizowane (np. w wymiarze Produkt powtarza się kategoria). W schemacie <strong>płatka śniegu</strong> wymiary są dodatkowo normalizowane – np. kategoria ma osobną tabelę, co tworzy „rozgałęzienia”. To oszczędność miejsca, ale kosztem dodatkowych JOIN-ów.
+                    W schemacie gwiazdy tabele wymiarów są zdenormalizowane (np. w wymiarze Produkt powtarza się kategoria). W schemacie <strong>płatka śniegu</strong> wymiary są dodatkowo normalizowane – np. kategoria ma osobną tabelę, co tworzy „rozgałęzienia". To oszczędność miejsca, ale kosztem dodatkowych JOIN-ów.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Schemat płatka śniegu to wariant gwiazdy, w którym wymiary są dodatkowo normalizowane. Na przykład wymiar Produkt rozbijamy na osobne tabele dla kategorii i podkategorii. Daje to oszczędność miejsca i eliminuje redundancję, ale kosztem dodatkowych JOIN-ów w zapytaniach. W praktyce częściej stosuje się schemat gwiazdy ze względu na prostotę i wydajność odczytu, a płatek śniegu wybiera się, gdy zależy nam na oszczędności miejsca lub gdy wymiary są bardzo rozbudowane."
+                </div>
             </div>
 
             <!-- 5. Data Mart i kostki OLAP -->
@@ -190,8 +211,11 @@
                     Podczas gdy hurtownia danych obejmuje całą firmę, <strong>Data Mart</strong> to podzbiór hurtowni dla konkretnego działu (np. marketing, sprzedaż). To szybsze i tańsze wdrożenie dla pojedynczego zespołu.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Dla zaawansowanych analiz używa się <strong>kostek OLAP</strong> – wielowymiarowych struktur, które pozwalają „przekrawać” dane według różnych wymiarów (np. sprzedaż według czasu, produktu i regionu).
+                    Dla zaawansowanych analiz używa się <strong>kostek OLAP</strong> – wielowymiarowych struktur, które pozwalają „przekrawać" dane według różnych wymiarów (np. sprzedaż według czasu, produktu i regionu).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Data Mart to podzbiór hurtowni danych dla konkretnego działu – marketingu, sprzedaży, HR. To szybsze i tańsze wdrożenie niż pełna hurtownia korporacyjna. Kostki OLAP to z kolei wielowymiarowe struktury, które pozwalają analitykom 'przekrawać' dane – na przykład zobaczyć sprzedaż produktów w podziale na regiony i miesiące, jednym zapytaniem. To narzędzie do eksploracji danych, które drastycznie przyspiesza analizy w porównaniu do tradycyjnego SQL."
+                </div>
             </div>
 
             <!-- 6. Kimball vs Inmon -->
@@ -204,23 +228,29 @@
                     <li><strong>Kimball (oddolnie)</strong> – najpierw budujemy Data Marty (dla konkretnych działów), a potem łączymy je w całość. Szybsze wdrożenie, elastyczne.</li>
                     <li><strong>Inmon (odgórnie)</strong> – najpierw budujemy centralną, znormalizowaną hurtownię (jak wielki magazyn), a z niej dopiero tworzymy Data Marty. Bardziej spójne, ale droższe i wolniejsze.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dwa główne podejścia do budowy hurtowni to Kimball i Inmon. Kimball proponuje podejście oddolne – najpierw budujemy Data Marty dla konkretnych działów, a potem łączymy je w całość. To szybsze, elastyczne, biznes szybciej widzi wartość. Inmon proponuje podejście odgórne – najpierw budujemy centralną, znormalizowaną hurtownię, a z niej tworzymy Data Marty. To bardziej spójne, ale droższe i wolniejsze. W praktyce większość firm wybiera podejście Kimballa, bo szybciej dostarcza wartość biznesową."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Hurtowniowe mity):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Hurtownia to po prostu kopia bazy produkcyjnej”</strong> – Nie. Hurtownia ma zdenormalizowany schemat (gwiazda), dane historyczne i jest zoptymalizowana pod analityczne zapytania. Kopia bazy OLTP nie nadaje się do analiz.</li>
-                    <li><strong>„ETL wystarczy zrobić raz”</strong> – Nie. Hurtownia musi być regularnie zasilana nowymi danymi (co godzinę, co dzień). ETL to proces ciągły, który wymaga monitorowania i zarządzania błędami.</li>
-                    <li><strong>„Im więcej danych, tym lepiej”</strong> – Hurtownia pełna zbędnych danych to kosztowny bałagan. Ładuje się tylko te dane, które mają wartość analityczną – nie każdy log z aplikacji jest potrzebny.</li>
+                    <li><strong>„Hurtownia to po prostu kopia bazy produkcyjnej"</strong> – Nie. Hurtownia ma zdenormalizowany schemat (gwiazda), dane historyczne i jest zoptymalizowana pod analityczne zapytania. Kopia bazy OLTP nie nadaje się do analiz.</li>
+                    <li><strong>„ETL wystarczy zrobić raz"</strong> – Nie. Hurtownia musi być regularnie zasilana nowymi danymi (co godzinę, co dzień). ETL to proces ciągły, który wymaga monitorowania i zarządzania błędami.</li>
+                    <li><strong>„Im więcej danych, tym lepiej"</strong> – Hurtownia pełna zbędnych danych to kosztowny bałagan. Ładuje się tylko te dane, które mają wartość analityczną – nie każdy log z aplikacji jest potrzebny.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe mity o hurtowniach. Po pierwsze, hurtownia to nie kopia bazy produkcyjnej – ma inny schemat, dane historyczne i jest zoptymalizowana pod analitykę. Po drugie, ETL to proces ciągły, nie jednorazowy – wymaga monitorowania i obsługi błędów. Po trzecie, nie ładujemy do hurtowni wszystkiego – tylko dane mające wartość analityczną, inaczej hurtownia staje się kosztownym śmietnikiem."
+                </div>
             </div>
 
             <!-- Grokking -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Hurtownia danych to nie tylko technologia – to sposób myślenia o danych jako o <em>zasobie strategicznym</em>. Podczas gdy baza produkcyjna odpowiada na pytanie „Co się dzieje teraz?”, hurtownia odpowiada na pytanie „Co działo się przez ostatnie 5 lat i dlaczego?”. Gdy to zrozumiesz, zobaczysz, że ETL, schematy gwiazdy i kostki OLAP to tylko narzędzia do wydobywania prawdy z danych.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Hurtownia danych to nie tylko technologia – to sposób myślenia o danych jako o <em>zasobie strategicznym</em>. Podczas gdy baza produkcyjna odpowiada na pytanie „Co się dzieje teraz?", hurtownia odpowiada na pytanie „Co działo się przez ostatnie 5 lat i dlaczego?". Gdy to zrozumiesz, zobaczysz, że ETL, schematy gwiazdy i kostki OLAP to tylko narzędzia do wydobywania prawdy z danych.</span>
                 </p>
             </div>
 
@@ -228,7 +258,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „The Data Warehouse Toolkit” (Ralph Kimball) – biblia hurtowni danych · „Building the Data Warehouse” (W.H. Inmon) · Dokumentacja PostgreSQL: „Materialized Views”.
+                    „The Data Warehouse Toolkit" (Ralph Kimball) – biblia hurtowni danych · „Building the Data Warehouse" (W.H. Inmon) · Dokumentacja PostgreSQL: „Materialized Views".
                 </span>
             </div>
 

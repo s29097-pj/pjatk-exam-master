@@ -16,11 +16,11 @@
     <!-- ============================================================ -->
     <!-- GROKKING-STYLE METAPHOR OPENING                             -->
     <!-- ============================================================ -->
-    <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #303f9f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(48,63,159,0.15);">
+    <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #303f9f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(48,63,159,0.15);">
       <div style="display: flex; align-items: flex-start; gap: 14px;">
         <span style="font-size: 2.2rem; flex-shrink: 0;">🏛️</span>
         <div>
-          <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zasady wytwarzania to „Kodeks mistrza rzemiosła”:</strong>
+          <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – Zasady wytwarzania to „Kodeks mistrza rzemiosła":</strong>
           <p style="margin: 0 0 8px 0; color: #283593; line-height: 1.7;">
             Wyobraź sobie, że budujesz dom. Możesz postawić go "na oko", z przypadkowych materiałów, bez planu – będzie stał, dopóki nie przyjdzie pierwszy wiatr. Ale możesz też trzymać się sprawdzonego kodeksu budowlanego: fundamenty z żelbetu, ściany nośne w odpowiednich miejscach, instalacje w łatwo dostępnych kanałach. Ten dom przetrwa dekady, a każdy elektryk czy hydraulik od razu zrozumie, gdzie co jest. <strong>Zasady wytwarzania oprogramowania</strong> to właśnie taki kodeks dla programistów. <strong>SOLID</strong> to pięć zasad projektowania klas, które sprawiają, że kod jest odporny na zmiany. <strong>DRY</strong> (Don't Repeat Yourself) to święta wojna z powielaniem – każda reguła biznesowa powinna mieć jedno, autorytatywne źródło. <strong>KISS</strong> (Keep It Simple, Stupid) to modlitwa o prostotę – nie komplikuj, jeśli nie musisz. A <strong>CQS</strong> (Command-Query Separation) uczy, że pytanie (zapytanie) nie powinno zmieniać stanu, a rozkaz (polecenie) nie powinno nic zwracać – to jak rozdzielenie przycisku "sprawdź saldo" od przycisku "wypłać pieniądze".
           </p>
@@ -56,7 +56,7 @@
       <!-- PART 1: SOLID – PIĘĆ FILARÓW ARCHITEKTURY               -->
       <!-- ======================================================== -->
       <div class="answer-step" style="margin-bottom: 24px;">
-        <strong style="font-size: 1.2rem; color: #303f9f;">1. SOLID – „Konstytucja obiektowości”</strong>
+        <strong style="font-size: 1.2rem; color: #303f9f;">1. SOLID – „Konstytucja obiektowości"</strong>
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           SOLID to akronim pięciu zasad, które pomagają tworzyć oprogramowanie łatwe w utrzymaniu, testowaniu i rozszerzaniu. Sformułowane przez Roberta C. Martina (Uncle Bob), stały się fundamentem współczesnej inżynierii oprogramowania.
         </p>
@@ -92,6 +92,9 @@
             <strong style="color:#b71c1c;">🔴 D – Dependency Inversion</strong>
             <p style="margin:4px 0; font-size:0.9rem;">Zależność od abstrakcji, nie od konkretów. Warstwa wysokopoziomowa nie powinna zależeć od niskopoziomowej – obie powinny zależeć od interfejsów. Nie <code>new EmailSender()</code>, tylko wstrzykiwanie zależności przez konstruktor: <code>class Zamowienie { constructor(sender: INotifier) {} }</code>.</p>
           </div>
+        </div>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „SOLID to akronim pięciu zasad, które są fundamentem nowoczesnego projektowania obiektowego. Proszę zapamiętać litery i ich znaczenie. S jak Single Responsibility – klasa ma tylko jeden powód do zmiany, zajmuje się jedną odpowiedzialnością. O jak Open-Closed – kod otwarty na rozszerzenia przez dziedziczenie czy kompozycję, ale zamknięty na modyfikacje istniejącego kodu. L jak Liskov – podklasa musi być w pełni zastępowalna z klasą bazową; jeśli Pingwin nie potrafi latać, nie powinien dziedziczyć po Ptaku z metodą leć. I jak Interface Segregation – interfejsy powinny być małe i konkretne, nie zmuszaj klienta do implementowania metod, których nie używa. D jak Dependency Inversion – zależności od abstrakcji, nie od konkretów; używamy wstrzykiwania zależności, a nie tworzenia obiektów przez new wewnątrz klasy. Te pięć zasad stosowanych razem daje kod elastyczny, testowalny i odporny na zmiany."
         </div>
       </div>
 
@@ -133,10 +136,13 @@
       <!-- PART 2: DRY – NIE POWTARZAJ SIĘ                        -->
       <!-- ======================================================== -->
       <div class="answer-step" style="margin-bottom: 20px;">
-        <strong style="font-size: 1.2rem; color: #e65100;">2. DRY (Don't Repeat Yourself) – „Święta wojna z powielaniem”</strong>
+        <strong style="font-size: 1.2rem; color: #e65100;">2. DRY (Don't Repeat Yourself) – „Święta wojna z powielaniem"</strong>
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           Zasada DRY mówi, że <strong>każdy fragment wiedzy w systemie powinien mieć pojedynczą, jednoznaczną i autorytatywną reprezentację</strong>. Nie chodzi tylko o kopiowanie kodu – chodzi o powielanie logiki, reguł biznesowych, definicji. Jeśli zmiana jednego faktu wymaga modyfikacji w kilku miejscach, to narusza DRY. Jednak nie każdy podobny kod to powielenie – czasem to przypadkowa zbieżność, która nie powinna być łączona na siłę (to się nazywa <strong>unikanie fałszywej wspólności</strong>). Wzorce takie jak szablony, funkcje pomocnicze, czy reguły biznesowe wyciągnięte do osobnej biblioteki to realizacja DRY.
         </p>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „DRY, czyli Don't Repeat Yourself, to jedna z najważniejszych zasad w całym rzemiośle programowania. Mówi ona, że każdy fragment wiedzy – czy to reguła biznesowa, stała konfiguracyjna, czy algorytm – powinien mieć jedno i tylko jedno źródło prawdy w systemie. Jeśli ta sama formuła podatku pojawia się w pięciu miejscach, to zmiana stawki VAT wymaga edycji w pięciu miejscach, co jest proszeniem się o błąd. Ale uwaga – DRY nie oznacza, że każdy podobnie wyglądający kod trzeba łączyć na siłę. Czasem to fałszywa wspólność – dwa fragmenty mogą wyglądać identycznie, ale reprezentować różną wiedzę i zmieniać się z różnych powodów. Łączenie ich na siłę stworzy sztywne sprzężenie. DRY dotyczy wiedzy, nie przypadkowego podobieństwa składni."
+        </div>
       </div>
 
       <!-- SVG: DRY – WYKRES KOŁOWY POWIELANIA -->
@@ -167,10 +173,13 @@
       <!-- PART 3: KISS – PROSTOTA PONAD WSZYSTKO                -->
       <!-- ======================================================== -->
       <div class="answer-step" style="margin-bottom: 20px;">
-        <strong style="font-size: 1.2rem; color: #2e7d32;">3. KISS (Keep It Simple, Stupid) – „Nie komplikuj”</strong>
+        <strong style="font-size: 1.2rem; color: #2e7d32;">3. KISS (Keep It Simple, Stupid) – „Nie komplikuj"</strong>
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           Najprostsze rozwiązanie, które działa, jest prawie zawsze najlepsze. Unikaj przedwczesnej optymalizacji i nadmiernego inżynieringu (over-engineering). Nie implementuj dziedziczenia i polimorfizmu, gdy wystarczy zwykła instrukcja <code>if</code>. Nie rób fabryk abstrakcyjnych, gdy potrzebujesz tylko jednego obiektu. Piękno KISS polega na tym, że prosty kod łatwiej zrozumieć, testować i modyfikować. Złożoność dodaje się warstwami, tylko tam gdzie to konieczne – nigdy na zapas.
         </p>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „KISS – Keep It Simple, Stupid – zasada, która mówi, że prostota jest cnotą, a nie wadą. Najprostsze rozwiązanie, które działa, jest prawie zawsze najlepsze. To zasada walki z nadmiernym inżynieringiem, czyli over-engineeringiem. Jeśli potrzebuję posortować trzy elementy, nie implementuję QuickSorta z szablonami i polimorfizmem – wystarczy zwykły if. Jeśli potrzebuję jednego obiektu, nie tworzę fabryki abstrakcyjnej. KISS przypomina nam, że każda linijka kodu to potencjalne źródło błędu i koszt utrzymania. Złożoność powinna być dodawana tylko wtedy, gdy jest naprawdę potrzebna – nie na zapas. Prosty kod łatwiej zrozumieć, testować i modyfikować. To nie znaczy, że mamy pisać prymitywnie – chodzi o to, żeby nie komplikować tam, gdzie nie trzeba."
+        </div>
       </div>
 
       <!-- SVG: KISS – PORÓWNANIE ZŁOŻONOŚCI -->
@@ -196,7 +205,7 @@
       <!-- PART 4: CQS – COMMAND-QUERY SEPARATION                   -->
       <!-- ======================================================== -->
       <div class="answer-step" style="margin-bottom: 24px;">
-        <strong style="font-size: 1.2rem; color: #6a1b9a;">4. CQS (Command-Query Separation) – „Zapytaj albo zrób, nigdy oba”</strong>
+        <strong style="font-size: 1.2rem; color: #6a1b9a;">4. CQS (Command-Query Separation) – „Zapytaj albo zrób, nigdy oba"</strong>
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           Zasada CQS (sformułowana przez Bertranda Meyera) dzieli metody obiektu na dwie kategorie:
         </p>
@@ -207,6 +216,9 @@
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           Rozszerzeniem CQS jest <strong>CQRS (Command Query Responsibility Segregation)</strong> – wzorzec architektoniczny, gdzie modele do odczytu i zapisu są fizycznie rozdzielone (inne tabele, inne serwisy, często inne bazy danych). Stosowany w systemach o wysokiej skali, gdzie odczytów jest znacznie więcej niż zapisów.
         </p>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „CQS, czyli Command-Query Separation, to zasada sformułowana przez Bertranda Meyera, twórcę języka Eiffel. Mówi ona, że każda metoda powinna być albo zapytaniem – czyli zwracać dane i nie modyfikować stanu – albo poleceniem – czyli modyfikować stan i nie zwracać danych. Nie można robić obu rzeczy naraz. Klasycznym przykładem naruszenia CQS jest metoda pop na stosie – jednocześnie zwraca element i modyfikuje stos. Zgodnie z CQS powinniśmy mieć top do odczytu i osobno pop do usunięcia. Rozszerzeniem tej zasady jest wzorzec architektoniczny CQRS – Command Query Responsibility Segregation – gdzie fizycznie rozdzielamy modele do odczytu i zapisu, często na osobnych bazach danych. To potężne narzędzie w systemach o wysokiej skali, gdzie odczytów jest wielokrotnie więcej niż zapisów, i gdzie można zoptymalizować każdy kierunek osobno."
+        </div>
       </div>
 
       <!-- SVG: CQS – PORÓWNANIE POPRAWNEGO I BŁĘDNEGO PODEJŚCIA -->
@@ -237,6 +249,9 @@
         <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
           SOLID, DRY, KISS i CQS to nie religia, ale drogowskazy. Mistrz rzemiosła wie, kiedy ich użyć, a kiedy można od nich odstąpić. W praktyce <strong>SOLID</strong> stosuje się przede wszystkim w rdzeniu systemu, gdzie stabilność ma kluczowe znaczenie. <strong>DRY</strong> jest świętością, dopóki nie prowadzi do zbyt silnych sprzężeń. <strong>KISS</strong> przypomina, że złożoność musi się opłacać. A <strong>CQS</strong> to potężny sojusznik w walce z niezrozumiałymi efektami ubocznymi.
         </p>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „Podsumowując – te zasady to nie dogmaty, ale drogowskazy, które pomagają nam podejmować lepsze decyzje projektowe. SOLID stosujemy przede wszystkim w rdzeniu systemu, gdzie stabilność i testowalność są kluczowe. DRY jest świętością, ale tylko do momentu, gdy nie prowadzi do zbyt silnych sprzężeń – czasem lepiej zostawić dwa podobne fragmenty, jeśli reprezentują różną wiedzę. KISS przypomina nam, że każda dodana złożoność musi się opłacać – nie projektujemy na zapas. A CQS pomaga utrzymać porządek w metodach – zapytania nie zmieniają stanu, polecenia nie zwracają danych. Mistrz rzemiosła wie, kiedy trzymać się tych zasad, a kiedy świadomie od nich odstąpić – ale zawsze rozumie, dlaczego to robi."
+        </div>
       </div>
 
       <!-- ======================================================== -->
@@ -250,6 +265,9 @@
           <li><strong>CQS a side-effecty:</strong> Getter, który modyfikuje stan (np. leniwa inicjalizacja), technicznie narusza CQS, ale jest akceptowalny, jeśli efekt uboczny jest niewidoczny dla klienta (np. cache).</li>
           <li><strong>KISS a over-engineering:</strong> "Zróbmy na zapas" to najczęstsza przyczyna gulaszu architektonicznego. Projektuj na dziś, z myślą o jutrze, ale nie implementuj jutra.</li>
         </ul>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki to mylenie DRY z bezmyślnym usuwaniem każdego podobnego kodu – DRY dotyczy wiedzy, nie składni. Dwa identyczne fragmenty mogą reprezentować różną wiedzę i zmieniać się niezależnie. Druga pułapka to rozumienie Liskov tylko jako kwestii klas – to zasada dotycząca kontraktów: metoda przesłaniająca nie może zaostrzać warunków wstępnych ani osłabiać warunków końcowych. Trzecia – CQS a gettery z efektami ubocznymi jak leniwa inicjalizacja czy cache – technicznie naruszają CQS, ale są akceptowalne, jeśli efekt jest niewidoczny dla klienta. I wreszcie KISS a over-engineering – projektowanie na zapas to najczęstsza przyczyna przerostu formy nad treścią. Projektujemy na dziś, myślimy o jutrze, ale nie implementujemy jutra."
+        </div>
       </div>
 
       <!-- ======================================================== -->
@@ -324,7 +342,7 @@
       <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
         <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
         <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Clean Code” (Robert C. Martin) · „The Pragmatic Programmer” (Hunt, Thomas) · „Domain-Driven Design” (Eric Evans) · Dokumentacje C++, Java, Python.
+                    „Clean Code" (Robert C. Martin) · „The Pragmatic Programmer" (Hunt, Thomas) · „Domain-Driven Design" (Eric Evans) · Dokumentacje C++, Java, Python.
                 </span>
       </div>
 

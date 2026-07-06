@@ -16,16 +16,16 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🥞</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Talerze w stołówce, rura z wodą i sortownik na poczcie”:</strong>
+                    <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Talerze w stołówce, rura z wodą i sortownik na poczcie":</strong>
                     <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
                         Zbiorami skończonymi w pamięci RAM komputera można zarządzać na wiele sposobów, ale w informatyce królują trzy żelazne polityki dostępu:<br><br>
                         <strong>STOS (Stack) to LIFO (Last In, First Out).</strong> Działa jak dyspenser na talerze w stołówce. Dokładasz talerz zawsze na <strong>samą górę</strong>. Kiedy klient przychodzi po obiad, bierze talerz z <strong>samej góry</strong>. Ostatni odłożony talerz jest pierwszym, który zostanie zabrany. Nie da się wyciągnąć talerza ze środka bez zrzucenia reszty.<br><br>
                         <strong>KOLEJKA (Queue) to FIFO (First In, First Out).</strong> Działa jak rura, do której wrzucasz piłeczki ping-pongowe, albo jak kolejka do kasy. Kto pierwszy stanie, ten pierwszy wyjdzie. Nowe elementy wchodzą jednym końcem, a wychodzą drugim.<br><br>
-                        <strong>KOLEJKA PRIORYTETOWA (Priority Queue)</strong> to sortownik na poczcie. Ludzie wchodzą do kolejki, ale nie obsługuje się ich według czasu przybycia – zamiast tego najpierw obsługuje się „priorytetowych” (np. najpilniejsze przesyłki ekspresowe, najdroższe zlecenia). Kluczowa jest tu wartość priorytetu, a nie kolejność przybycia.
+                        <strong>KOLEJKA PRIORYTETOWA (Priority Queue)</strong> to sortownik na poczcie. Ludzie wchodzą do kolejki, ale nie obsługuje się ich według czasu przybycia – zamiast tego najpierw obsługuje się „priorytetowych" (np. najpilniejsze przesyłki ekspresowe, najdroższe zlecenia). Kluczowa jest tu wartość priorytetu, a nie kolejność przybycia.
                     </p>
                 </div>
             </div>
@@ -71,11 +71,14 @@
                     <li><strong>Peek() / Top():</strong> Odczytaj wartość z wierzchołka bez usuwania.</li>
                 </ul>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
-                    <strong>🔑 Zastosowania inżynierskie:</strong> Mechanizm „Cofnij” (Ctrl+Z) w edytorach tekstu · <em>Call Stack</em> (śledzenie, z której funkcji wrócić) · Odwracanie ciągów znaków · Obliczanie wyrażeń w ONP (Odwrotna Notacja Polska) · Przeszukiwanie w głąb (DFS – Depth First Search) w grafach i drzewach.
+                    <strong>🔑 Zastosowania inżynierskie:</strong> Mechanizm „Cofnij" (Ctrl+Z) w edytorach tekstu · <em>Call Stack</em> (śledzenie, z której funkcji wrócić) · Odwracanie ciągów znaków · Obliczanie wyrażeń w ONP (Odwrotna Notacja Polska) · Przeszukiwanie w głąb (DFS – Depth First Search) w grafach i drzewach.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Stos to najprostsza struktura danych, która realizuje politykę LIFO – Last In, First Out. Proszę sobie wyobrazić stos talerzy w stołówce – zawsze dokładamy na górę i zawsze z góry zabieramy. W implementacji używamy zwykłej tablicy ze wskaźnikiem Top. Operacje Push i Pop mają złożoność O(1), bo zawsze operujemy tylko na wierzchołku. Stos jest fundamentem mechanizmu Cofnij, stosu wywołań funkcji, odwrotnej notacji polskiej i algorytmu przeszukiwania w głąb – DFS. Proszę spojrzeć na planszę ilustrującą anatomię stosu."
                 </div>
             </div>
 
-            <!-- SVG: ANATOMIA STOSU (zachowany z oryginału, lekko poprawiony) -->
+            <!-- SVG: ANATOMIA STOSU -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridStack" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -127,9 +130,12 @@
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>⚙️ Zastosowania w IT:</strong> Pule wątków (Thread Pools) · Kolejki wiadomości (RabbitMQ, Kafka) · Buforowanie ruchu sieciowego · Algorytmy przeszukiwania wszerz (BFS – Breadth First Search) · Szeregowanie zadań w systemie operacyjnym.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kolejka realizuje politykę FIFO – First In, First Out. Działa dokładnie jak kolejka w sklepie – kto pierwszy przyszedł, ten pierwszy jest obsłużony. Do implementacji potrzebujemy dwóch wskaźników: Head, wskazującego początek, i Tail, wskazującego koniec. Problem pojawia się przy implementacji na zwykłej tablicy – po kilku operacjach Dequeue mamy puste miejsce na początku, a nowe elementy wstawiamy na koniec, aż tablica się skończy. Rozwiązaniem jest bufor cykliczny – gdy Tail dochodzi do końca tablicy, zawija się na początek. Proszę spojrzeć na planszę – to kluczowy koncept, który pozwala zachować złożoność O(1) dla obu operacji."
+                </div>
             </div>
 
-            <!-- SVG: BUFOR CYKLICZNY (zachowany z oryginału, poprawiony) -->
+            <!-- SVG: BUFOR CYKLICZNY -->
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridStack)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Rozwiązanie problemu pamięci: Bufor Cykliczny O(1) dla kolejki</text>
@@ -182,10 +188,10 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 3: KOLEJKA PRIORYTETOWA I KOPIEC BINARNY (NOWA!)   -->
+            <!-- PART 3: KOLEJKA PRIORYTETOWA I KOPIEC BINARNY          -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Kolejka priorytetowa i Kopiec Binarny (Binary Heap) – „Sortownik na poczcie”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Kolejka priorytetowa i Kopiec Binarny (Binary Heap) – „Sortownik na poczcie"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Kolejka priorytetowa</strong> to struktura, w której każdy element ma przypisany <strong>priorytet</strong>. Element o najwyższym priorytecie jest zawsze obsługiwany jako pierwszy – niezależnie od kolejności dodawania. Najczęściej implementuje się ją za pomocą <strong>kopca binarnego (binary heap)</strong> – drzewa binarnego, w którym każdy rodzic ma wyższy priorytet niż jego dzieci (max-heap) lub niższy (min-heap).
                 </p>
@@ -196,6 +202,9 @@
                 </ul>
                 <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>⚙️ Zastosowania:</strong> Algorytm Dijkstry (najkrótsza ścieżka w grafie) · Sortowanie przez kopcowanie (Heapsort) · Efektywne znajdowanie mediany · Harmonogramowanie zadań w systemach czasu rzeczywistego.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kolejka priorytetowa to struktura, w której nie obowiązuje ani LIFO, ani FIFO – o kolejności decyduje priorytet. Najczęściej implementujemy ją za pomocą kopca binarnego, który jest drzewem binarnym z własnością kopca: w max-heapie każdy rodzic jest większy lub równy swoim dzieciom. Dzięki temu korzeń zawsze zawiera element o najwyższym priorytecie. Wstawianie i usuwanie mają złożoność O(log n), a podgląd korzenia O(1). To jest kluczowa struktura dla algorytmu Dijkstry, sortowania przez kopcowanie i systemów czasu rzeczywistego. Proszę spojrzeć na planszę ilustrującą budowę kopca."
                 </div>
             </div>
 
@@ -234,7 +243,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 4: IMPLEMENTACJE W JĘZYKACH PROGRAMOWANIA (NOWE!)  -->
+            <!-- PART 4: IMPLEMENTACJE W JĘZYKACH PROGRAMOWANIA         -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00897b;">4. Implementacje w popularnych językach programowania</strong>
@@ -261,6 +270,9 @@
                         <span style="font-size:0.8rem; color:#004d40;">Domyślnie min-heap. Dla max-heap: <code>new PriorityQueue&lt;&gt;(Collections.reverseOrder())</code>.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każdy nowoczesny język programowania dostarcza gotowe implementacje tych struktur. W C plus plus mamy std::stack, std::queue i std::priority_queue w bibliotece STL. W Pythonie używamy listy jako stosu, collections.deque jako kolejki, a modułu heapq dla kopca – domyślnie min-heap. W Javie mamy klasę Stack, interfejs Queue z LinkedList i klasę PriorityQueue – domyślnie min-heap. Warto znać te różnice – na przykład fakt, że Pythonowy heapq to min-heap i trzeba negować wartości dla max-heap. Albo że używanie listy jako kolejki w Pythonie przez pop(0) to złożoność O(n), więc zawsze używamy deque."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -274,9 +286,12 @@
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🧠 Algorytm Dijkstry:</strong> Używa kolejki priorytetowej, by zawsze rozpatrywać wierzchołek o najmniejszej aktualnej odległości od źródła. To klucz do systemów nawigacji GPS, routingu sieciowego (OSPF) i planowania tras.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „DFS i BFS to dwa fundamentalne algorytmy przeszukiwania grafów, które doskonale ilustrują zastosowanie stosu i kolejki. DFS używa stosu – schodzi w głąb tak daleko, jak to możliwe, zanim się cofnie. BFS używa kolejki – eksploruje wszystkie węzły na bieżącym poziomie przed przejściem głębiej. BFS ma tę zaletę, że gwarantuje znalezienie najkrótszej ścieżki w grafie nieważonym. Algorytm Dijkstry idzie o krok dalej – używa kolejki priorytetowej, aby zawsze rozpatrywać wierzchołek o najmniejszej odległości od źródła. To klucz do nawigacji GPS i routingu sieciowego. Proszę spojrzeć na planszę porównującą DFS i BFS."
+                </div>
             </div>
 
-            <!-- SVG: DFS vs BFS WIZUALIZACJA (NOWA) -->
+            <!-- SVG: DFS vs BFS WIZUALIZACJA -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="url(#gridStack)" opacity="0.3"/>
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1565c0">DFS (stos) vs BFS (kolejka) – ta sama mapa, inna droga</text>
@@ -308,7 +323,7 @@
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE (ROZSZERZONE)             -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Krawędzie bezpieczeństwa):</strong>
@@ -319,10 +334,13 @@
                     <li><strong>Kopiec a drzewo BST:</strong> Kopiec nie jest drzewem przeszukiwań binarnych! Kopiec gwarantuje tylko własność między rodzicem a dziećmi, nie globalną kolejność. Znalezienie dowolnego elementu w kopcu to O(n), nie O(log n).</li>
                     <li><strong>Python: lista jako kolejka to antywzorzec</strong> – <code>list.pop(0)</code> ma złożoność O(n)! Zawsze używaj <code>collections.deque</code>.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z tymi strukturami to: po pierwsze, Stack Overflow przy nieograniczonej rekurencji – stos wywołań ma ograniczony rozmiar i przepełnienie go prowadzi do awarii. Po drugie, implementacja kolejki na zwykłej tablicy bez bufora cyklicznego – każde Dequeue przesuwa wszystkie elementy, dając złożoność O(n) zamiast O(1). Po trzecie, mylenie kopca z drzewem BST – kopiec nie gwarantuje globalnej kolejności, tylko relację rodzic-dziecko, więc znalezienie dowolnego elementu to O(n). Po czwarte, Python – używanie listy jako kolejki przez pop(0) to antywzorzec, zawsze używamy collections.deque. I wreszcie, próba Pop na pustym stosie powinna być obsłużona wyjątkiem."
+                </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- CHEAT-SHEET (ROZSZERZONY)                                -->
+            <!-- CHEAT-SHEET                                              -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Porównanie Architektur Zbiorów Skończonych:</strong>
@@ -342,7 +360,7 @@
                         <td style="padding: 10px;">LIFO</td>
                         <td style="padding: 10px;">Push, Pop, Peek</td>
                         <td style="padding: 10px;">O(1) każda</td>
-                        <td style="padding: 10px;">Algorytm DFS, Przycisk „Cofnij”</td>
+                        <td style="padding: 10px;">Algorytm DFS, Przycisk „Cofnij"</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
                         <td style="padding: 10px; font-weight: bold; color: #e65100;">Kolejka (Queue)</td>
@@ -376,7 +394,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Algorytmy i struktury danych” (Aho, Hopcroft, Ullman) · Dokumentacja C++ STL, Python collections, Java Collections Framework · Opracowanie inżynierskie buforów cyklicznych i kolejek priorytetowych.
+                    „Wprowadzenie do algorytmów" (Cormen, Leiserson, Rivest, Stein) · „Algorytmy i struktury danych" (Aho, Hopcroft, Ullman) · Dokumentacja C++ STL, Python collections, Java Collections Framework · Opracowanie inżynierskie buforów cyklicznych i kolejek priorytetowych.
                 </span>
             </div>
 

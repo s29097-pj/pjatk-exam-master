@@ -13,7 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">036. Metoda dziel i zwyciężaj (Divide and Conquer).</h2>
 
-        <div style="background: linear-gradient(135deg, #ede7f6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #ede7f6 0%, #c5cae9 100%); border-left: 6px solid #3f51b5; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(63,81,181,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🪓</span>
                 <div>
@@ -52,6 +52,9 @@
                     <li><strong>2. Zwyciężaj (Conquer):</strong> Rozwiąż te podproblemy wywołując funkcję rekurencyjnie. Jeśli problem jest na tyle mały, że nie da się go podzielić (np. tablica jednoelementowa), rozwiąż go bezpośrednio (<em>Base case</em>).</li>
                     <li><strong>3. Połącz (Combine):</strong> Złącz wyniki podproblemów w jedno, ostateczne rozwiązanie dla pierwotnego problemu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Metoda 'dziel i zwyciężaj' opiera się na trzech filarach, które realizujemy za pomocą rekurencji. Faza pierwsza – dzielimy problem na mniejsze, niezależne podproblemy, zazwyczaj o połowę mniejsze. Faza druga – zwyciężamy, czyli rozwiązujemy te podproblemy, najczęściej przez wywołanie rekurencyjne. Gdy dochodzimy do przypadku bazowego, na przykład tablicy jednoelementowej, rozwiązanie jest trywialne. Faza trzecia – łączymy wyniki w całość. W Merge Sorcie to właśnie faza łączenia jest kluczowa, w Quick Sorcie – faza dzielenia. Proszę spojrzeć na planszę – ilustruje ona przepływ danych między tymi trzema etapami."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -78,7 +81,7 @@
 
                 <path d="M 250 170 L 250 200" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
                 <path d="M 570 170 L 570 200" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
-                
+
                 <text x="170" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">ZWYCIĘŻAJ</text>
                 <text x="650" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">ZWYCIĘŻAJ</text>
 
@@ -107,6 +110,9 @@
                     <li><strong>Quick Sort (Sortowanie szybkie):</strong> Magia dzieje się w fazie <em>Dziel</em>. Wybieramy "Pivota" (element osiowy) i wrzucamy mniejsze liczby na lewo, większe na prawo. Faza <em>Połącz</em> praktycznie nie istnieje (tablica sortuje się "w miejscu"). Najszybsze w praktyce dla pamięci RAM (Cache-friendly).</li>
                     <li><strong>Binary Search (Wyszukiwanie binarne):</strong> W posortowanej tablicy sprawdzamy środkowy element. Jeśli szukana liczba jest mniejsza, <strong>odrzucamy całą prawą połowę</strong> i powtarzamy rekurencję dla lewej. Złożoność to spektakularne <code>O(log N)</code>. Miliard rekordów przeszukamy w zaledwie 30 krokach!</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W praktyce inżynierskiej 'dziel i zwyciężaj' widzimy wszędzie tam, gdzie podział redukuje złożoność obliczeniową. Merge Sort to klasyczny przykład – dzieli tablicę na pojedyncze elementy, a potem scalamy posortowane połówki w czasie liniowym. Quick Sort działa odwrotnie – cała magia jest w fazie dzielenia wokół pivota, a faza łączenia jest trywialna. Binary Search to przykład, gdzie odrzucamy połowę danych w każdym kroku – przeszukanie miliarda rekordów zajmuje tylko trzydzieści porównań. To pokazuje potęgę złożoności logarytmicznej – dlatego 'dziel i zwyciężaj' jest jednym z najważniejszych paradygmatów algorytmicznych."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -116,7 +122,7 @@
                 <line x1="300" y1="60" x2="300" y2="90" stroke="#00897b" stroke-width="2"/>
                 <text x="265" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">2</text>
                 <text x="335" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">7</text>
-                
+
                 <rect x="450" y="60" width="140" height="30" rx="3" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
                 <line x1="520" y1="60" x2="520" y2="90" stroke="#00897b" stroke-width="2"/>
                 <text x="485" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">1</text>
@@ -124,12 +130,12 @@
 
                 <path d="M 335 95 L 440 160" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-orange)"/>
                 <path d="M 485 95 L 360 160" fill="none" stroke="#ff9800" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-orange)"/>
-                
+
                 <rect x="270" y="165" width="280" height="30" rx="3" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
                 <line x1="340" y1="165" x2="340" y2="195" stroke="#f57c00" stroke-width="2"/>
                 <line x1="410" y1="165" x2="410" y2="195" stroke="#f57c00" stroke-width="2"/>
                 <line x1="480" y1="165" x2="480" y2="195" stroke="#f57c00" stroke-width="2"/>
-                
+
                 <text x="305" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">1</text>
                 <text x="375" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">2</text>
                 <text x="445" y="185" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">5</text>
@@ -151,34 +157,37 @@
                     Obie metody dzielą problem na podproblemy. Ale w <strong>Dziel i Zwyciężaj podproblemy są NIEZALEŻNE</strong>. Np. w Merge Sort sortowanie lewej połowy tablicy nie ma nic wspólnego z sortowaniem prawej.
                     <br>W <strong>Programowaniu Dynamicznym podproblemy się POKRYWAJĄ (Overlapping subproblems)</strong>. Np. przy obliczaniu ciągu Fibonacciego F(5) musisz policzyć F(4) i F(3). Ale żeby policzyć F(4), znowu musisz policzyć F(3)! D&C policzyłoby F(3) dwa razy, marnując czas. DP zapisuje wynik pierwszego obliczenia do pamięci (<em>Memoization</em>) i używa go ponownie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Kluczowa różnica między 'dziel i zwyciężaj' a programowaniem dynamicznym leży w zależności podproblemów. W 'dziel i zwyciężaj' podproblemy są niezależne – sortowanie lewej połowy tablicy w Merge Sorcie nie wpływa na sortowanie prawej. W programowaniu dynamicznym podproblemy nakładają się na siebie – w ciągu Fibonacciego F(3) jest potrzebne do obliczenia zarówno F(4), jak i F(5). 'Dziel i zwyciężaj' liczy takie rzeczy wielokrotnie, marnując czas, podczas gdy DP zapamiętuje wyniki przez memoizację i używa ich ponownie. To fundamentalna różnica, która decyduje o wyborze paradygmatu."
+                </div>
             </div>
 
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Porównanie Architektury Algorytmów:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Paradygmat Algorytmu</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Jak podchodzi do problemu?</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Sztandarowy Przykład</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Paradygmat Algorytmu</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Jak podchodzi do problemu?</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Sztandarowy Przykład</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #3f51b5;">Dziel i Zwyciężaj (D&C)</td>
-                            <td style="padding: 10px;">Dzieli z góry na dół na niezależne podproblemy. Łączy wyniki.</td>
-                            <td style="padding: 10px;">Merge Sort, Fast Fourier Transform (FFT)</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #c2185b;">Prog. Dynamiczne (DP)</td>
-                            <td style="padding: 10px;">Rozwiązuje nakładające się podproblemy i ZAPISUJE wyniki (Memoization).</td>
-                            <td style="padding: 10px;">Fibonacci, Problem Plecakowy, Bellman-Ford</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Algorytmy Zachłanne</td>
-                            <td style="padding: 10px;">Podejmuje lokalnie najlepszą decyzję TU I TERAZ, nie patrząc w przód.</td>
-                            <td style="padding: 10px;">Algorytm Dijkstry, Kodowanie Huffmana</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #3f51b5;">Dziel i Zwyciężaj (D&C)</td>
+                        <td style="padding: 10px;">Dzieli z góry na dół na niezależne podproblemy. Łączy wyniki.</td>
+                        <td style="padding: 10px;">Merge Sort, Fast Fourier Transform (FFT)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c2185b;">Prog. Dynamiczne (DP)</td>
+                        <td style="padding: 10px;">Rozwiązuje nakładające się podproblemy i ZAPISUJE wyniki (Memoization).</td>
+                        <td style="padding: 10px;">Fibonacci, Problem Plecakowy, Bellman-Ford</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #2e7d32;">Algorytmy Zachłanne</td>
+                        <td style="padding: 10px;">Podejmuje lokalnie najlepszą decyzję TU I TERAZ, nie patrząc w przód.</td>
+                        <td style="padding: 10px;">Algorytm Dijkstry, Kodowanie Huffmana</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

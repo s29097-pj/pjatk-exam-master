@@ -13,7 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">034. Paradygmaty programowania – Fundamenty myślenia inżynierskiego.</h2>
 
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
                 <div>
@@ -51,6 +51,9 @@
                     <li><strong>Paradygmat Imperatywny:</strong> Bliski sprzętowi (architektura von Neumanna). Kod to sekwencja instrukcji, która linijka po linijce modyfikuje stan pamięci komputera. Posiada pętle (<code>for</code>, <code>while</code>) i instrukcje warunkowe (<code>if</code>). Należą do niego <em>Paradygmat Proceduralny</em> oraz <em>Paradygmat Obiektowy (OOP)</em>.</li>
                     <li><strong>Paradygmat Deklaratywny:</strong> Oparty na matematyce (np. rachunek lambda, logika). Zamiast podawać instrukcje krok po kroku, opisujemy logikę obliczeń i definicje. Najlepszy przykład to <strong>SQL</strong> (mówisz <code>SELECT * FROM Users WHERE age > 18</code>, a baza sama wymyśla, jakich pętli i indeksów użyć). Należą do niego <em>Paradygmat Funkcyjny</em>, <em>Logiczny (Prolog)</em> oraz <em>Reaktywny</em>.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, fundamentem zrozumienia współczesnych języków jest podział na dwa główne nurty: imperatywny i deklaratywny. Paradygmat imperatywny mówi komputerowi JAK ma wykonać zadanie – krok po kroku, instrukcja po instrukcji, modyfikując stan pamięci. To bliskie sprzętowi, naturalne dla nas, bo sami tak myślimy. Należą tu podejście proceduralne i obiektowe. Paradygmat deklaratywny z kolei mówi CO chcemy osiągnąć, nie wnikając w szczegóły implementacji. SQL jest tego najlepszym przykładem – mówimy SELECT, a baza sama decyduje, jakich indeksów użyć i jak optymalnie pobrać dane. Współczesne języki łączą oba podejścia – stają się wieloparadygmatowe."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -91,6 +94,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Odpowiedzią był <strong>Paradygmat Obiektowy (OOP - Java, C#, C++)</strong>. Zamknęliśmy dane (stan) oraz metody (zachowanie) w jednej kapsule zwanej Obiektem (<strong>Hermetyzacja</strong>). <br>Program w OOP to nie sekwencja instrukcji, to <em>sieć obiektów komunikujących się ze sobą poprzez wysyłanie wiadomości (wywoływanie metod)</em>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ewolucja paradygmatów imperatywnych to fascynująca historia. Zaczęliśmy od programowania proceduralnego w C czy Pascalu – dane leżały osobno, funkcje osobno. Przy większych systemach prowadziło to do tak zwanego spaghetti code – każda funkcja mogła zmodyfikować globalne dane i trudno było nad tym zapanować. Odpowiedzią była obiektowość – zamknęliśmy dane i metody w jednej kapsule, w obiekcie, i powiedzieliśmy: tylko ten obiekt może modyfikować swój stan. To hermetyzacja. Do tego doszły dziedziczenie i polimorfizm. Program przestał być listą instrukcji, stał się siecią komunikujących się obiektów. Java, C-sharp i C plus plus to sztandarowe języki tego paradygmatu."
+                </div>
             </div>
 
             <div class="answer-step" style="margin-bottom: 24px;">
@@ -104,6 +110,9 @@
                 </ul>
                 <div style="background: #f3e5f5; border-left: 5px solid #ab47bc; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>⚙️ Zastosowanie inżynierskie (Dlaczego FP jest modne?):</strong> Żyjemy w erze procesorów wielordzeniowych. OOP ma problem z wielowątkowością (dwa wątki próbują zmienić ten sam obiekt i powstaje *Race Condition*, trzeba używać Mutexów). W FP dane są niezmienne! Nie ma ryzyka, że wątek A zepsuje dane wątkowi B. Możesz bezpiecznie odpalać tysiące wątków.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Paradygmat funkcyjny przeżywa obecnie renesans i nie jest to przypadek. Opiera się na dwóch fundamentach: niezmienności i czystych funkcjach. Niezmienność oznacza, że raz stworzonej wartości nigdy nie modyfikujemy – zamiast tego tworzymy nową. Czysta funkcja dla tych samych argumentów zawsze zwraca ten sam wynik i nie ma skutków ubocznych – nie zmienia globalnych zmiennych, nie zapisuje nic do bazy po cichu. Dlaczego to takie ważne? Bo żyjemy w erze procesorów wielordzeniowych. W OOP dwa wątki próbujące zmodyfikować ten sam obiekt to proszenie się o wyścig i potrzebę blokad. W FP dane są niezmienne, więc wiele wątków może bezpiecznie czytać te same dane bez synchronizacji. To jest główny powód, dla którego FP wraca do łask."
                 </div>
             </div>
 
@@ -158,6 +167,9 @@
                     <br><br><strong>ODPOWIEDŹ: Kategorycznie NIE.</strong><br>
                     Czyste OOP czy czyste FP to rzadkość. Współczesne języki (Java, C#, JavaScript, Python, C++) to <strong>języki wieloparadygmatowe (Multi-paradigm)</strong>. W profesjonalnym kodzie architekturę systemu (serwisy, kontrolery) buduje się z użyciem obiektowości (OOP), ale samą logikę wewnątrz metod pisze się w stylu funkcyjnym (używając <em>Streams</em>, <em>LINQ</em>, funkcji wyższego rzędu i wyrażeń lambda), by kod był czytelny i pozbawiony skutków ubocznych.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisja często pyta, czy w nowoczesnych projektach wybieramy tylko jeden paradygmat. Odpowiedź brzmi: absolutnie nie. Współczesne języki są wieloparadygmatowe. W Javie czy C-sharp architekturę systemu – serwisy, kontrolery – budujemy obiektowo, bo OOP doskonale nadaje się do modelowania złożonych domen biznesowych. Ale logikę wewnątrz metod coraz częściej piszemy w stylu funkcyjnym – używamy strumieni, LINQ, wyrażeń lambda, funkcji wyższego rzędu. Łączymy to, co najlepsze z obu światów: OOP daje nam strukturę i hermetyzację, FP daje czytelność, bezpieczeństwo i łatwość zrównoleglania."
+                </div>
             </div>
 
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">

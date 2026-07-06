@@ -13,7 +13,7 @@
   <div class="question-box">
     <h2 id="q-title">032. Wzorce Projektowe: kreacyjne, strukturalne i behawioralne.</h2>
 
-    <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+    <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
       <div style="display: flex; align-items: flex-start; gap: 14px;">
         <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
         <div>
@@ -55,6 +55,9 @@
           <li><strong>Factory Method (Metoda Fabrykująca):</strong> Klasa-fabryka sama decyduje, jakiego typu obiekt zwrócić. Zamiast <code>new Car()</code>, wołasz <code>Factory.create("Auto")</code>.</li>
           <li><strong>Builder (Budowniczy):</strong> Służy do konstruowania bardzo złożonych obiektów krok po kroku (np. <code>new Burger().addCheese().addMeat().build()</code>).</li>
         </ul>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „Wzorce kreacyjne odpowiadają na pytanie: jak mądrze tworzyć obiekty, żeby nie usztywniać kodu. Proszę zwrócić uwagę na trzy kluczowe. Singleton gwarantuje, że w całej aplikacji istnieje dokładnie jedna instancja danej klasy – proszę jednak pamiętać, że nadużywany staje się antywzorcem, globalną zmienną, która utrudnia testowanie. Factory Method oddziela proces tworzenia obiektu od jego używania – zamiast wszędzie pisać new, pytamy fabrykę, a ona decyduje, jaki konkretny typ zwrócić. Builder sprawdza się przy konstruowaniu złożonych obiektów – zamiast konstruktora z dziesięcioma parametrami, budujemy obiekt krok po kroku i wołamy build. To trzy najczęściej pytane wzorce kreacyjne na egzaminie."
+        </div>
       </div>
 
       <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -116,6 +119,9 @@
           <li><strong>Fasada (Facade):</strong> Udostępnia uproszczony interfejs dla bardzo skomplikowanego podsystemu. Klient wciska jeden guzik "Uruchom Kino", a Fasada w tle włącza TV, ustawia głośność, gasi światło i odpala Netflixa.</li>
           <li><strong>Dekorator (Decorator):</strong> Pozwala dynamicznie dodawać nowe funkcje do obiektu bez modyfikowania jego kodu bazowego (zamiast tworzyć setki subklas).</li>
         </ul>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „Wzorce strukturalne dotyczą tego, jak łączyć klasy i obiekty w większe całości. Adapter to jak przejściówka podróżna – zmienia jeden interfejs na drugi, idealny gdy chcemy podłączyć stary, legacy kod do nowego systemu bez modyfikowania obu stron. Fasada to uproszczony panel sterowania – zamiast klient musiał wiedzieć o wszystkich szczegółach podsystemu, dajemy mu jeden przycisk 'uruchom', a fasada w tle koordynuje wiele komponentów. Dekorator pozwala dynamicznie dodawać funkcje do obiektu – zamiast tworzyć klasę EspressoZMlekiemICukrem, nakładamy dekoratory na bazowe espresso. Kluczowa idea: kompozycja zamiast dziedziczenia. Łączymy obiekty, a nie tworzymy sztywne hierarchie klas."
+        </div>
       </div>
 
       <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -168,6 +174,9 @@
           <li><strong>Strategia (Strategy):</strong> Pozwala wyciągnąć algorytm z klasy głównej do osobnych klas-strategii. Klient decyduje w locie, jakiego algorytmu użyć. Np. w aplikacji z mapami masz metody: jedź autem, idź pieszo, jedź rowerem.</li>
           <li><strong>Polecenie (Command):</strong> Zamienia żądanie w samodzielny obiekt. Idealny do tworzenia logiki "Cofnij/Ponów" (Undo/Redo) lub kolejkowania zadań.</li>
         </ul>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak to powiedzieć:</strong> „Wzorce behawioralne dotyczą komunikacji między obiektami i podziału odpowiedzialności. Obserwator to model subskrypcji – wydawca nie wie, kto go obserwuje, po prostu rozsyła powiadomienia. To fundament systemów zdarzeń, od newsletterów po powiadomienia w mediach społecznościowych. Strategia pozwala wyciągnąć algorytm z klasy i uczynić go wymiennym – w nawigacji możesz w locie zmienić strategię z 'jedź autem' na 'idź pieszo', a reszta kodu nawet nie zauważy różnicy. Polecenie zamienia żądanie w obiekt – dzięki temu możemy zapamiętywać historię poleceń, cofać je i ponawiać. Wszystkie te wzorce łączy idea luźnego powiązania: obiekty wiedzą o sobie jak najmniej, komunikują się przez dobrze zdefiniowane interfejsy."
+        </div>
       </div>
 
       <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -223,6 +232,9 @@
           <li><strong>Singleton jako globalna zmienna:</strong> To klasyczny antywzorzec. Jeśli używasz Singletona tylko po to, żeby mieć dostęp do zmiennej z każdego miejsca w kodzie, łamiesz zasady hermetyzacji kodu i ekstremalnie utrudniasz testy jednostkowe.</li>
           <li><strong>Overengineering:</strong> "Użyłem 5 wzorców projektowych do napisania kalkulatora!". To najczęstszy błąd juniorów. Wzorce wprowadzają dodatkową warstwę abstrakcji (nowe klasy i interfejsy). Zastosuj wzorzec dopiero wtedy, gdy czujesz "ból" i problem architektoniczny faktycznie istnieje.</li>
         </ul>
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+          <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie największe pułapki ze wzorcami projektowymi to: po pierwsze, Singleton stosowany jako wygodna globalna zmienna – łamie hermetyzację i uniemożliwia testowanie, bo nie da się podmienić instancji na mocka. Po drugie, overengineering, czyli nadmierne stosowanie wzorców tam, gdzie nie są potrzebne. Pamiętajcie: wzorce to rozwiązania konkretnych problemów, nie ozdobniki. Jeśli kod jest prosty i działa, nie komplikujcie go na siłę. Wzorzec stosujemy wtedy, gdy faktycznie odczuwamy ból architektoniczny – zbyt sztywne zależności, trudność w testowaniu, problemy z rozszerzaniem."
+        </div>
       </div>
 
       <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
@@ -258,9 +270,12 @@
       <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
         <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
           🧠 <strong>Grokking means truly understanding.</strong><br>
-          <span style="font-size: 0.9rem; opacity: 0.85;">Wzorce projektowe to język, którym rozmawiają inżynierowie. Zamiast tłumaczyć przez 10 minut: "Zróbmy osobną klasę, która będzie sprawdzać zmiany w bazie i wysyłać ping do innych klas", po prostu powiedz "Użyjmy Obserwatora". Wzorce czynią kod zrozumiałym, testowalnym i łatwym do rozbudowy na lata do przodu.</span>
+          <span style="font-size: 0.9rem; opacity: 0.85;">Wzorce projektowe to język, którym rozmawiają inżynierowie. Zamiast tłumaczyć przez 10 minut: „Zróbmy osobną klasę, która będzie sprawdzać zmiany w bazie i wysyłać ping do innych klas”, po prostu powiedz „Użyjmy Obserwatora”. Wzorce czynią kod zrozumiałym, testowalnym i łatwym do rozbudowy na lata do przodu.</span>
         </p>
       </div>
 
-    </div></div></div></body>
+    </div>
+  </div>
+</div>
+</body>
 </html>

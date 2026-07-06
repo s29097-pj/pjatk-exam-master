@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📖</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szukanie nazwiska w książce telefonicznej”:</strong>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szukanie nazwiska w książce telefonicznej":</strong>
                     <p style="margin: 0 0 8px 0; color: #311b22; line-height: 1.7;">
                         Inżynierowie nie mierzą szybkości algorytmów w sekundach. Dlaczego? Bo ten sam algorytm na starym laptopie wykona się w 5 sekund, a na superkomputerze w 0.1 sekundy. Mierzymy coś o wiele ważniejszego: <strong>jak rośnie liczba operacji, gdy rośnie rozmiar danych wejściowych (N)</strong>.<br><br>
                         Wyobraź sobie książkę telefoniczną z 1 000 000 stron (<code>N = 1 000 000</code>). Szukasz nazwiska "Kowalski":<br>
@@ -71,6 +71,9 @@
                 </ul>
                 <div style="background: #fce4ec; border-left: 5px solid #d81b60; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Odrzucanie stałych i składników niższego rzędu:</strong> Jeśli algorytm wykonuje <code>5N² + 3N + 100</code> operacji, zapisujemy to jako <strong>O(N²)</strong>. Gdy N = 10 000, N² = 100 000 000, a 3N = 30 000 – ten drugi składnik jest zaniedbywalny. Stała 5 też znika – Big-O ignoruje stałe mnożniki, bo opisuje <em>tempo wzrostu</em>, nie konkretną liczbę cykli CPU.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Analiza asymptotyczna opiera się na trzech notacjach. Big-O to górna granica – mówi, że algorytm nigdy nie będzie gorszy niż jakaś funkcja. To przypadek pesymistyczny, którego używamy najczęściej, bo daje gwarancję. Omega to dolna granica – algorytm nigdy nie będzie lepszy. Theta to ścisłe ograniczenie – gdy górna i dolna granica się spotykają, wiemy dokładnie, jak algorytm się zachowuje. Kluczowa zasada: odrzucamy stałe i składniki niższego rzędu, bo przy dużym N są one nieistotne. Funkcja pięć N kwadrat plus trzy N plus sto to po prostu O(N kwadrat)."
                 </div>
             </div>
 
@@ -132,7 +135,7 @@
             <!-- PART 2: TRZY PRZYPADKI ANALIZY – PESYMISTYCZNY, ŚREDNI, OPTYMISTYCZNY -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">2. Przypadek pesymistyczny, średni i optymistyczny – „Którą twarz algorytmu mierzymy?”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Przypadek pesymistyczny, średni i optymistyczny – „Którą twarz algorytmu mierzymy?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W zależności od danych wejściowych algorytm może zachowywać się zupełnie inaczej. Dlatego analizujemy go z trzech perspektyw:
                 </p>
@@ -153,6 +156,9 @@
                 <p style="margin-top: 12px; line-height: 1.7; color: #2c3e50;">
                     <strong>W inżynierii najczęściej używamy przypadku pesymistycznego (Big-O)</strong>, bo chcemy gwarancji. Ale czasem, gdy dane są specyficzne (np. prawie posortowane), analiza średnia jest bardziej miarodajna.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Analizujemy algorytm z trzech perspektyw. Przypadek pesymistyczny, czyli Big-O, to gwarancja, że algorytm nie wykona więcej operacji niż podana granica – tego używamy najczęściej. Przypadek średni pokazuje oczekiwane zachowanie przy losowych danych. Przypadek optymistyczny, czyli Omega, to sytuacja idealna – ale rzadko występuje w praktyce. W inżynierii najczęściej polegamy na przypadku pesymistycznym, bo chcemy gwarancji, że system nie padnie przy niekorzystnych danych."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -195,6 +201,9 @@
                         <span style="font-size:0.8rem; color:#4a148c;">Katastrofa wydajnościowa. N=20 → 1 048 576 operacji; N=30 → miliard. N=100? Wszechświat się skończy wcześniej.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Szacowanie złożoności z kodu to podstawowa umiejętność inżynierska. Patrzymy przede wszystkim na pętle i zagnieżdżenia. Pojedyncza pętla przechodząca przez N elementów to O(N). Dwie zagnieżdżone pętle to O(N²). Jeśli w każdym kroku dzielimy problem na pół – jak w wyszukiwaniu binarnym – mamy O(log N). Algorytmy 'dziel i zwyciężaj' jak Merge Sort dają O(N log N). A rekurencyjny Fibonacci bez memoizacji to katastrofa – O(2ⁿ). Dla N równego sto Wszechświat skończy się wcześniej, niż algorytm policzy wynik."
+                </div>
             </div>
 
             <!-- SVG: DLACZEGO UNIKAMY O(N²) – WIZUALIZACJA (Z ORYGINAŁU) -->
@@ -236,19 +245,25 @@
                     <strong>⚖️ Space-Time Tradeoff (Kompromis Czasowo-Pamięciowy):</strong><br>
                     W inżynierii nie ma nic za darmo. Często <strong>możesz drastycznie przyspieszyć działanie algorytmu (skrócić czas), jeśli poświęcisz więcej pamięci</strong>. Przykład: zamiast pętli w pętli O(N²) do znajdowania duplikatów, używasz słownika (Hash Set). Słownik zajmie dodatkowe miejsce O(N), ale obniży czas do O(N). RAM jest dziś tani, więc inżynierowie chętnie wybierają to rozwiązanie (cache, memoizacja).
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Złożoność pamięciowa jest równie ważna jak czasowa. Mierzy, ile dodatkowej pamięci RAM potrzebuje algorytm. I tu dochodzimy do fundamentalnego kompromisu w inżynierii: space-time tradeoff. Często możemy drastycznie przyspieszyć algorytm, poświęcając więcej pamięci. Klasyczny przykład: zamiast szukać duplikatów przez zagnieżdżoną pętlę O(N²), używamy HashSetu, który zajmuje O(N) pamięci, ale redukuje czas do O(N). RAM jest dziś tani, więc inżynierowie chętnie wybierają ten kompromis."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 5: ZŁOŻONOŚĆ ZAMORTYZOWANA (NOWA!)               -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00897b;">5. Złożoność zamortyzowana (Amortized Complexity) – „Rzadki koszt rozłożony na raty”</strong>
+                <strong style="font-size: 1.2rem; color: #00897b;">5. Złożoność zamortyzowana (Amortized Complexity) – „Rzadki koszt rozłożony na raty"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Niektóre operacje są zazwyczaj tanie, ale <strong>sporadycznie</strong> wymagają kosztownej reorganizacji. <strong>Złożoność zamortyzowana</strong> uśrednia ten rzadki, duży koszt na wiele tanich operacji.
                 </p>
                 <div style="background: #e0f2f1; border-left: 5px solid #00897b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>📦 Przykład – dynamiczna tablica (ArrayList w Javie, lista w Pythonie):</strong><br>
                     Dodanie elementu (<code>append</code> / <code>add</code>) zwykle kosztuje O(1). Ale gdy tablica się przepełni, system alokuje nową (2× większą) i kopiuje wszystkie N elementów – to O(N). Jednak to zdarza się tylko raz na N operacji. Średni koszt na jedną operację to <strong>O(1)</strong> – to właśnie <strong>złożoność zamortyzowana O(1)</strong>.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Złożoność zamortyzowana to pojęcie, które pojawia się przy strukturach dynamicznych. Weźmy ArrayList w Javie albo listę w Pythonie. Dodawanie elementu zwykle kosztuje O(1). Ale gdy tablica się przepełni, system alokuje nową, dwukrotnie większą, i kopiuje wszystkie elementy – to O(N). Jednak to zdarza się rzadko – raz na N operacji. Rozkładając ten koszt na wszystkie dodania, dostajemy zamortyzowane O(1). To ważne rozróżnienie: operacja nie zawsze jest O(1), ale średnio, w długim ciągu operacji, tak się zachowuje."
                 </div>
             </div>
 
@@ -258,7 +273,7 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4527a0;">6. Analiza rekurencji – Twierdzenie o rekurencji uniwersalnej (Master Theorem)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Algorytmy typu „dziel i zwyciężaj” (Merge Sort, QuickSort, Binary Search) dzielą problem na <strong>a</strong> podproblemów o rozmiarze <strong>N/b</strong> każdy, a potem scalają wyniki w czasie <strong>f(N)</strong>. Ich złożoność opisuje równanie rekurencyjne:
+                    Algorytmy typu „dziel i zwyciężaj" (Merge Sort, QuickSort, Binary Search) dzielą problem na <strong>a</strong> podproblemów o rozmiarze <strong>N/b</strong> każdy, a potem scalają wyniki w czasie <strong>f(N)</strong>. Ich złożoność opisuje równanie rekurencyjne:
                 </p>
                 <div style="text-align: center; margin: 12px 0;">
                     <code style="background:#ede7f6; padding:8px 20px; border-radius:8px; font-weight:bold; font-size:1.1rem;">T(N) = a · T(N/b) + f(N)</code>
@@ -266,39 +281,9 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Master Theorem</strong> podaje gotowe rozwiązanie tego równania w trzech przypadkach (porównując f(N) z N<sup>log<sub>b</sub> a</sup>):
                 </p>
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px;">
-                    <thead>
-                    <tr style="background: #ede7f6;">
-                        <th style="padding: 8px; border: 1px solid #b39ddb;">Przypadek</th>
-                        <th style="padding: 8px; border: 1px solid #b39ddb;">Warunek</th>
-                        <th style="padding: 8px; border: 1px solid #b39ddb;">Wynik T(N)</th>
-                        <th style="padding: 8px; border: 1px solid #b39ddb;">Przykład</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">1</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = O(N<sup>c</sup>), c &lt; log<sub>b</sub> a</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(N<sup>log<sub>b</sub> a</sup>)</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">–</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">2</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = Θ(N<sup>c</sup> log<sup>k</sup> N), c = log<sub>b</sub> a</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(N<sup>c</sup> log<sup>k+1</sup> N)</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">Merge Sort: a=2, b=2, c=1 → Θ(N log N)</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">3</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">f(N) = Ω(N<sup>c</sup>), c &gt; log<sub>b</sub> a</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">Θ(f(N))</td>
-                        <td style="padding: 8px; border: 1px solid #b39ddb;">–</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p style="margin-top: 10px; line-height: 1.7; color: #2c3e50;">
-                    <strong>Przykład – Rekurencyjny Fibonacci:</strong> Naiwna rekurencja: T(N) = T(N−1) + T(N−2) + O(1). Master Theorem nie ma tu zastosowania, ale drzewo wywołań rośnie wykładniczo – <strong>O(2ⁿ)</strong>. Po dodaniu memoizacji (cache) spada do O(N).
-                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Do analizy algorytmów rekurencyjnych typu 'dziel i zwyciężaj' używamy Master Theorem. Mamy równanie T(N) = a razy T(N przez b) plus f(N). Dla Merge Sort: a równa się 2, b równa się 2, f(N) równa się O(N). Porównujemy f(N) z N do potęgi logarytm przy podstawie b z a. Tu wychodzi przypadek drugi twierdzenia, który daje O(N log N). Dla naiwnego Fibonacciego Master Theorem nie działa – tam złożoność rośnie wykładniczo, do O(2 do potęgi N). Po dodaniu memoizacji spada do O(N)."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -369,6 +354,9 @@
                     <li><strong>O(N + M) – dwie zmienne:</strong> Gdy są dwa niezależne rozmiary wejścia (np. graf o V wierzchołkach i E krawędziach), złożoność zapisujemy jako O(V + E), nie O(N).</li>
                     <li><strong>Ω(N log N) dla sortowania przez porównania:</strong> Dowolny algorytm sortujący przez porównania nie może być lepszy niż Ω(N log N) w przypadku pesymistycznym. To matematycznie udowodnione.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki to: po pierwsze, O(1) nie oznacza jednej instrukcji – oznacza, że czas jest niezależny od rozmiaru danych. Algorytm może wykonywać pięć tysięcy linii kodu i nadal być O(1), jeśli działa tak samo dla dziesięciu i dziesięciu milionów elementów. Po drugie, domyślnie Big-O oznacza przypadek pesymistyczny. Po trzecie, złożoność zamortyzowana – dodawanie do ArrayList jest zwykle O(1), ale czasem O(N) przy realokacji. Po czwarte, przy dwóch niezależnych rozmiarach wejścia używamy O(V plus E), a nie O(N). I po piąte, każde sortowanie przez porównania ma dolną granicę Omega(N log N) – szybciej się nie da."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -440,7 +428,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Grokking Algorithms” (Aditya Bhargava) · „Wprowadzenie do algorytmów” (Cormen, Leiserson, Rivest, Stein) · „Cracking the Coding Interview” (G. McDowell) · „Algorytmy i struktury danych” (Aho, Hopcroft, Ullman).
+                    „Grokking Algorithms" (Aditya Bhargava) · „Wprowadzenie do algorytmów" (Cormen, Leiserson, Rivest, Stein) · „Cracking the Coding Interview" (G. McDowell) · „Algorytmy i struktury danych" (Aho, Hopcroft, Ullman).
                 </span>
             </div>
 

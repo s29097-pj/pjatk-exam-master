@@ -11,21 +11,21 @@
 <div class="container">
 
     <div class="question-box">
-        <h2 id="q-title">041. Metody wyszukiwania informacji (Algorytmy wyszukiwania).</h2>
+        <h2 id="q-title">041. Metody wyszukiwania informacji.</h2>
 
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔍</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szukanie hasła w Encyklopedii”:</strong>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Szukanie hasła w Encyklopedii":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
-                        Wyobraź sobie, że musisz znaleźć słowo „Kryptografia” w potężnej, 1000-stronicowej encyklopedii.<br><br>
+                        Wyobraź sobie, że musisz znaleźć słowo „Kryptografia" w potężnej, 1000-stronicowej encyklopedii.<br><br>
                         <strong>Podejście Brutalne (Wyszukiwanie Liniowe):</strong> Czytasz każdą stronę po kolei, od okładki do okładki, aż trafisz na właściwe słowo. Dla 1000 stron zajmie Ci to średnio 500 kroków. (<strong>O(N)</strong>)<br><br>
-                        <strong>Podejście Inżynierskie (Wyszukiwanie Binarne):</strong> Otwierasz księgę dokładnie w połowie (na literze „M”). „K” jest przed „M”, więc odrywasz i wyrzucasz całą prawą połowę encyklopedii! Zostało 500 stron. Znów otwierasz w połowie. Kontynuując ten podział, znajdziesz słowo w maksymalnie 10 krokach! (<strong>O(log N)</strong>)<br><br>
-                        <strong>Podejście Magiczne (Tablica Haszująca):</strong> Masz zaklęcie. Mówisz „Kryptografia”, a zaklęcie od razu teleportuje Cię na stronę 432, do akapitu trzeciego. Szukanie zajmuje dokładnie 1 krok. (<strong>O(1)</strong>)
+                        <strong>Podejście Inżynierskie (Wyszukiwanie Binarne):</strong> Otwierasz księgę dokładnie w połowie (na literze „M"). „K" jest przed „M", więc odrywasz i wyrzucasz całą prawą połowę encyklopedii! Zostało 500 stron. Znów otwierasz w połowie. Kontynuując ten podział, znajdziesz słowo w maksymalnie 10 krokach! (<strong>O(log N)</strong>)<br><br>
+                        <strong>Podejście Magiczne (Tablica Haszująca):</strong> Masz zaklęcie. Mówisz „Kryptografia", a zaklęcie od razu teleportuje Cię na stronę 432, do akapitu trzeciego. Szukanie zajmuje dokładnie 1 krok. (<strong>O(1)</strong>)
                     </p>
                 </div>
             </div>
@@ -62,6 +62,9 @@
                     <li><strong>Wyszukiwanie liniowe (Sequential/Linear Search):</strong> Sprawdza element po elemencie (np. w pętli <code>for</code>). <br><em>Zalety:</em> Działa na <strong>nieposortowanych</strong> danych. Działa na strumieniach i listach jednokierunkowych.<br><em>Wady:</em> Czas działania <strong>O(N)</strong> rośnie liniowo. Milion elementów = milion sprawdzeń w najgorszym razie.</li>
                     <li><strong>Wyszukiwanie binarne (Binary Search):</strong> Wymaga <strong>posortowanej</strong> tablicy z bezpośrednim dostępem do indeksów. Ustawia dwa wskaźniki (Lewy i Prawy), oblicza środek (<code>Mid</code>) i odrzuca połowę przeszukiwanej przestrzeni.<br><em>Zalety:</em> Błyskawiczne! Czas <strong>O(log N)</strong>. Przeszukanie 1 miliarda elementów wymaga zaledwie 30 porównań!</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wyszukiwanie liniowe sprawdza każdy element po kolei – działa na nieposortowanych danych, ale jego złożoność O(N) oznacza, że dla miliona elementów wykonamy milion porównań. Wyszukiwanie binarne wymaga posortowanej tablicy, ale w każdym kroku odrzuca połowę danych, osiągając O(log N). Dla miliarda elementów to tylko trzydzieści porównań. Proszę spojrzeć na planszę – widać, jak wskaźniki Lewy i Prawy przesuwają się, odrzucając niepotrzebne dane."
+                </div>
             </div>
 
             <!-- SVG 1: BINARY SEARCH WIZUALIZACJA -->
@@ -84,15 +87,15 @@
                 <text x="200" y="96" font-family="monospace" font-size="16" fill="#b0bec5" text-anchor="middle">2</text>
                 <text x="250" y="96" font-family="monospace" font-size="16" fill="#b0bec5" text-anchor="middle">4</text>
                 <text x="300" y="96" font-family="monospace" font-size="16" fill="#b0bec5" text-anchor="middle">5</text>
-                
+
                 <!-- Odrzucenie - przekreślenie -->
                 <path d="M 120 120 L 310 60" fill="none" stroke="#cfd8dc" stroke-width="3"/>
 
                 <!-- Aktywne -->
                 <!-- Środek -->
-                <rect x="330" y="70" width="40" height="40" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="3"/> 
+                <rect x="330" y="70" width="40" height="40" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="3"/>
                 <text x="350" y="96" font-family="monospace" font-size="16" font-weight="bold" fill="#f57f17" text-anchor="middle">7</text>
-                
+
                 <rect x="380" y="70" width="40" height="40" rx="4" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
                 <rect x="430" y="70" width="40" height="40" rx="4" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
                 <rect x="480" y="70" width="40" height="40" rx="4" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
@@ -141,6 +144,9 @@
                     3. Funkcja ta zamienia tekst na liczbę (np. indeks <code>42</code>).<br>
                     4. Program od razu zagląda pod indeks <code>tablica[42]</code>. Czas dostępu: <strong>O(1) – czas stały!</strong>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Tablica haszująca to struktura, która daje nam średni czas dostępu O(1). Bierzemy klucz, przepuszczamy przez funkcję haszującą i od razu wiemy, pod którym indeksem szukać. Ale jest haczyk – kolizje. Gdy dwa różne klucze dostają ten sam indeks, musimy je obsłużyć, na przykład przez listę wiązaną w komórce. Wtedy czas wyszukiwania może wzrosnąć nawet do O(N), jeśli funkcja haszująca jest słaba. Dlatego w Javie HashMap łączy listy z drzewami – gdy lista robi się za długa, zamienia ją w drzewo."
+                </div>
             </div>
 
             <!-- SVG 2: HASH FUNCTION WIZUALIZACJA -->
@@ -176,7 +182,7 @@
 
                 <rect x="550" y="80" width="200" height="30" fill="#fff" stroke="#78909c" stroke-width="2"/>
                 <text x="530" y="100" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">1</text>
-                
+
                 <rect x="550" y="110" width="200" height="30" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
                 <text x="530" y="130" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">2</text>
                 <!-- Collision representation -->
@@ -218,6 +224,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Dzięki temu zarówno Wyszukiwanie, Wstawianie, jak i Usuwanie trwają średnio <strong>O(log N)</strong>. Warunkiem jest to, aby drzewo było "zrównoważone" (np. Drzewo AVL lub Czerwono-Czarne), by nie zamieniło się w zwykłą listę (tzw. degeneracja drzewa).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Drzewa binarne poszukiwań łączą zalety obu poprzednich podejść. Dają czas O(log N) zarówno dla wyszukiwania, jak i wstawiania, bez konieczności przesuwania elementów jak w tablicy. Ale warunkiem jest zrównoważenie drzewa – jeśli wstawimy dane w złej kolejności, drzewo może się zdegenerować do listy i czas spadnie do O(N). Dlatego w praktyce używa się drzew samorównoważących się, takich jak AVL czy czerwono-czarne."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -229,6 +238,9 @@
                     <li><strong>"Wyszukiwanie binarne jest zawsze najlepsze"</strong> – <strong>FAŁSZ!</strong> Wyszukiwanie binarne wymaga POSORTOWANEJ tablicy. Samo sortowanie kosztuje minimum <code>O(N log N)</code>. Jeśli szukasz elementu tylko jeden raz, taniej i szybciej jest użyć zwykłego wyszukiwania liniowego <code>O(N)</code> niż najpierw sortować, a potem szukać binarnie.</li>
                     <li><strong>"HashMapa ma zawsze czas O(1)"</strong> – <strong>FAŁSZ!</strong> O(1) to czas <em>średni (zamortyzowany)</em>. W najgorszym scenariuszu, jeśli funkcja haszująca jest kiepska i wszystkie klucze wpadną do tego samego wiaderka (Kolizja), ułożą się w listę jednokierunkową. Wyszukiwanie spadnie wtedy do żenującego <code>O(N)</code>.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie największe pułapki egzaminacyjne: po pierwsze, wyszukiwanie binarne wymaga posortowanych danych, a samo sortowanie kosztuje O(N log N). Jeśli szukamy tylko raz, wyszukiwanie liniowe O(N) jest szybsze niż sortowanie plus binarne. Po drugie, HashMapa daje O(1) tylko średnio – przy słabej funkcji haszującej i dużej liczbie kolizji czas spada do O(N). Dlatego w Javie od wersji 8 stosuje się technikę zamiany długich łańcuchów w drzewa, by utrzymać O(log N) nawet przy kolizjach."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -288,7 +300,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Grokking Algorithms” (Aditya Bhargava) – Hash Tables & Binary Search · „Wprowadzenie do algorytmów” (Cormen) · Architektura Java Collections Framework (szczegóły obsługi kolizji w HashMap).
+                    „Grokking Algorithms" (Aditya Bhargava) – Hash Tables & Binary Search · „Wprowadzenie do algorytmów" (Cormen) · Architektura Java Collections Framework (szczegóły obsługi kolizji w HashMap).
                 </span>
             </div>
 

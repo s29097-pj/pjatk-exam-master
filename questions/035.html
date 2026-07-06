@@ -13,7 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">035. Narzędzia wspomagające budowanie i zarządzanie cyklem rozwoju aplikacji (ALM).</h2>
 
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -49,6 +49,9 @@
                     <li><strong>Zarządzanie zależnościami:</strong> W pliku konfiguracyjnym (np. <code>pom.xml</code> lub <code>package.json</code>) deklarujesz, że potrzebujesz "Spring Boot w wersji 3.0". Narzędzie samo łączy się z centralnym repozytorium w internecie, pobiera tę bibliotekę <em>oraz wszystkie inne biblioteki, których ona potrzebuje</em> (tzw. zależności przechodnie).</li>
                     <li><strong>Standaryzacja cyklu (Build lifecycle):</strong> Narzędzie automatyzuje kroki: <code>clean</code> (czyszczenie starych plików) ➔ <code>compile</code> (kompilacja kodu) ➔ <code>test</code> (uruchomienie testów) ➔ <code>package</code> (spakowanie do .jar / .war).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Narzędzia budowania to fundament zautomatyzowanego procesu wytwarzania. W Javie mamy Maven i Gradle, w JavaScripcie npm i Webpack, w .NET – NuGet. Działają one według jednej zasady: deklarujemy w pliku konfiguracyjnym, jakich bibliotek potrzebujemy, a narzędzie samo łączy się z centralnym repozytorium, pobiera je oraz wszystkie ich zależności przechodnie. To eliminuje ręczne zarządzanie plikami JAR czy DLL. Dodatkowo standaryzują cykl budowania: clean czyści stare pliki, compile kompiluje kod, test uruchamia testy jednostkowe, a package tworzy gotowy artefakt – na przykład plik JAR."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -89,6 +92,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     To serwer automatyzacji (np. <strong>Jenkins, GitLab CI, GitHub Actions</strong>). Czeka w ukryciu jak pająk. Gdy tylko programista wyśle nowy kod do repozytorium (Git push), serwer CI budzi się i uruchamia zdefiniowany <strong>Pipeline (Taśmę produkcyjną)</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „CI/CD to serce nowoczesnej inżynierii oprogramowania. Mamy serwery automatyzacji – Jenkins, GitLab CI, GitHub Actions – które czekają w ukryciu. Gdy tylko programista wyśle kod do repozytorium przez git push, serwer CI budzi się i uruchamia zdefiniowany pipeline, czyli taśmę produkcyjną. Pipeline składa się z etapów: build – kompilacja, test – uruchomienie testów, quality – statyczna analiza kodu, package – spakowanie artefaktu, i deploy – wdrożenie. Cały proces jest w pełni automatyczny. Proszę spojrzeć na planszę – pokazuje ona kompletny przepływ od commitu do wdrożenia. I proszę zapamiętać kluczową różnicę: Continuous Delivery oznacza, że kod jest gotowy do wdrożenia, ale wymaga ręcznego zatwierdzenia, a Continuous Deployment wdraża automatycznie, bez udziału człowieka."
+                </div>
             </div>
 
             <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -143,6 +149,9 @@
                     <li><strong>Statyczna Analiza Kodu (np. SonarQube):</strong> To automatyczny recenzent kodu. Podczas pipeline'u czyta Twój kod i szuka antywzorców, luk bezpieczeństwa (np. SQL Injection) i długu technicznego. Może <em>zablokować</em> wdrożenie, jeśli kod jest "brzydki" (tzw. Quality Gates).</li>
                     <li><strong>Zarządzanie Artefaktami (np. Nexus, Artifactory):</strong> Kiedy serwer zbuduje paczkę (plik <code>.jar</code>, obraz <code>Docker</code>), nie wrzuca jej luzem na serwer. Pakuje ją do bezpiecznego magazynu z numerem wersji (np. <code>v1.4.2</code>). Dzięki temu, jeśli nowe wdrożenie padnie, wdrożeniowiec klika jeden przycisk i przywraca poprzednią, zarchiwizowaną wersję (Rollback).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W ekosystemie ALM mamy też narzędzia do higieny kodu i przechowywania artefaktów. SonarQube to automatyczny recenzent – podczas pipeline'u czyta nasz kod i szuka antywzorców, luk bezpieczeństwa jak SQL Injection, oraz mierzy dług techniczny. Może zablokować wdrożenie przez tak zwane Quality Gates, jeśli kod nie spełnia standardów. Z kolei narzędzia jak Nexus czy Artifactory to bezpieczne magazyny artefaktów – każda zbudowana paczka, plik JAR czy obraz Dockera, jest tam przechowywana z numerem wersji. Dzięki temu, jeśli nowe wdrożenie zawiedzie, możemy jednym kliknięciem przywrócić poprzednią wersję – to się nazywa rollback. To są kluczowe elementy profesjonalnego łańcucha narzędzi."
+                </div>
             </div>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -151,6 +160,9 @@
                     <li><strong>Git to nie GitHub!</strong> Git to darmowe oprogramowanie (System Kontroli Wersji) żyjące w terminalu. GitHub/GitLab to komercyjne platformy w chmurze, które hostują pliki Gita i dorzucają narzędzia do CI/CD i zarządzania biletami.</li>
                     <li><strong>Continuous Delivery vs Continuous Deployment:</strong> Brzmią tak samo (CD), ale to potężna różnica! <strong>Delivery (Dostarczanie)</strong>: kod przechodzi testy i jest GOTOWY do wdrożenia, ale wdrożenie wymaga <em>kliknięcia guzika przez człowieka</em>. <strong>Deployment (Wdrażanie)</strong>: brak człowieka w procesie. Kod przechodzi testy i automatycznie, bez niczyjej zgody leci na serwery produkcyjne do klientów.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie kluczowe pułapki egzaminacyjne. Po pierwsze, Git i GitHub to nie to samo – Git to system kontroli wersji działający lokalnie w terminalu, a GitHub i GitLab to komercyjne platformy w chmurze, które hostują repozytoria Gita i dodają narzędzia CI/CD oraz zarządzanie projektem. Po drugie, Continuous Delivery i Continuous Deployment – oba skracane jako CD, ale to fundamentalnie różne rzeczy. Delivery oznacza, że kod przeszedł testy i jest gotowy do wdrożenia, ale wymaga ręcznego zatwierdzenia przez człowieka. Deployment to pełna automatyzacja – kod przechodzi testy i sam wlatuje na produkcję bez niczyjej zgody. To rozróżnienie jest bardzo często sprawdzane."
+                </div>
             </div>
 
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">

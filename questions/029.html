@@ -16,13 +16,13 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🌉</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – ORM to „Tłumacz między światem obiektów a światem tabel”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – ORM to „Tłumacz między światem obiektów a światem tabel":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
-                        Wyobraź sobie dwie osoby, które mówią zupełnie różnymi językami. Jedna myśli <strong>obiektami</strong>: „Mam klasę Zamówienie, która zawiera listę Produktów i referencję do Klienta”. Druga myśli <strong>tabelami</strong>: „Mam tabelę orders z kluczem obcym do customers i tabelę łączącą order_items”. <strong>ORM (Object-Relational Mapping)</strong> to tłumacz, który siedzi między nimi i na bieżąco przekłada: gdy mówisz <code>zamowienie.klient.nazwa</code>, ORM generuje <code>SELECT customers.name FROM orders JOIN customers ON …</code>. Gdy wołasz <code>session.save(nowyProdukt)</code>, ORM zamienia to na <code>INSERT INTO products VALUES (…)</code>. Dzięki ORM programista nie pisze surowego SQL-a – operuje na obiektach, a biblioteka ORM dba o całą komunikację z bazą danych.
+                        Wyobraź sobie dwie osoby, które mówią zupełnie różnymi językami. Jedna myśli <strong>obiektami</strong>: „Mam klasę Zamówienie, która zawiera listę Produktów i referencję do Klienta". Druga myśli <strong>tabelami</strong>: „Mam tabelę orders z kluczem obcym do customers i tabelę łączącą order_items". <strong>ORM (Object-Relational Mapping)</strong> to tłumacz, który siedzi między nimi i na bieżąco przekłada: gdy mówisz <code>zamowienie.klient.nazwa</code>, ORM generuje <code>SELECT customers.name FROM orders JOIN customers ON …</code>. Gdy wołasz <code>session.save(nowyProdukt)</code>, ORM zamienia to na <code>INSERT INTO products VALUES (…)</code>. Dzięki ORM programista nie pisze surowego SQL-a – operuje na obiektach, a biblioteka ORM dba o całą komunikację z bazą danych.
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #1a3a2a; line-height: 1.8;">
                         <li><strong>🔵 Impedance mismatch</strong> – fundamentalna różnica między modelem obiektowym (dziedziczenie, referencje, kolekcje) a relacyjnym (tabele, klucze obce, JOIN-y). ORM tę różnicę niweluje.</li>
@@ -62,12 +62,15 @@
             <!-- PART 1: OBJECT-RELATIONAL IMPEDANCE MISMATCH            -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00695c;">1. Impedance mismatch – „Dlaczego potrzebujemy tłumacza?”</strong>
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Impedance mismatch – „Dlaczego potrzebujemy tłumacza?"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Świat obiektowy i świat relacyjny różnią się fundamentalnie. W obiektach mamy <strong>dziedziczenie</strong> (w tabelach – kilka strategii: jedna tabela na hierarchię, na klasę, na konkretną klasę), <strong>referencje do obiektów</strong> (w tabelach – klucze obce), <strong>kolekcje</strong> (w tabelach – osobna tabela łącząca lub klucz obcy po stronie „wiele”). Te różnice nazywamy <strong>object-relational impedance mismatch</strong>. ORM mostkuje tę przepaść, automatyzując tłumaczenie obiektów na wiersze i odwrotnie.
+                    Świat obiektowy i świat relacyjny różnią się fundamentalnie. W obiektach mamy <strong>dziedziczenie</strong> (w tabelach – kilka strategii: jedna tabela na hierarchię, na klasę, na konkretną klasę), <strong>referencje do obiektów</strong> (w tabelach – klucze obce), <strong>kolekcje</strong> (w tabelach – osobna tabela łącząca lub klucz obcy po stronie „wiele"). Te różnice nazywamy <strong>object-relational impedance mismatch</strong>. ORM mostkuje tę przepaść, automatyzując tłumaczenie obiektów na wiersze i odwrotnie.
                 </p>
                 <div style="background: #e0f2f1; border-left: 5px solid #00695c; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Przykład różnicy:</strong> W kodzie: <code>zamowienie.produkty.add(produkt)</code>. W bazie: <code>INSERT INTO order_items (order_id, product_id) VALUES (…)</code>. ORM robi to za Ciebie.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, kluczowym pojęciem jest tu 'object-relational impedance mismatch', czyli fundamentalna różnica między światem obiektów a światem tabel relacyjnych. W obiektach mamy dziedziczenie, referencje do innych obiektów i kolekcje. W bazie mamy tabele, klucze obce i JOIN-y. ORM pełni rolę tłumacza między tymi dwoma światami. Gdy w kodzie napiszemy <code>zamowienie.klient.nazwa</code>, ORM automatycznie wygeneruje odpowiednie zapytanie SELECT z JOIN-em. Dzięki temu programista nie musi pisać surowego SQL-a dla podstawowych operacji – zamiast tego operuje na obiektach, a ORM dba o komunikację z bazą danych."
                 </div>
             </div>
 
@@ -121,10 +124,13 @@
             <!-- PART 2: JAK DZIAŁA ORM – CYKL ŻYCIA ENCJI             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura ORM – „Sesja, Unit of Work i Dirty Checking”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura ORM – „Sesja, Unit of Work i Dirty Checking"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Większość dojrzałych ORM-ów (Hibernate, Entity Framework, SQLAlchemy) opiera się na wzorcu <strong>Unit of Work</strong> zarządzanym przez <strong>Sesję</strong> (Hibernate), <strong>DbContext</strong> (EF Core) lub <strong>Session</strong> (SQLAlchemy). Sesja śledzi wszystkie encje pobrane z bazy – sprawdza, które zostały zmodyfikowane (<strong>dirty checking</strong>). Przy zatwierdzeniu transakcji (<code>commit</code> / <code>saveChanges</code>) ORM generuje odpowiednie instrukcje INSERT, UPDATE, DELETE i wysyła je do bazy w odpowiedniej kolejności.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Architektura dojrzałych ORM-ów opiera się na wzorcu Unit of Work, realizowanym przez Sesję – w Hibernate, DbContext w Entity Framework czy Session w SQLAlchemy. Sesja działa jak bufor zmian. Śledzi wszystkie encje, które zostały pobrane, sprawdza, które zostały zmodyfikowane – to tak zwany 'dirty checking' – a przy zatwierdzeniu transakcji, czyli commit lub saveChanges, generuje odpowiednie INSERT-y, UPDATE-y i DELETE-y i wysyła je do bazy w odpowiedniej kolejności. Dzięki temu nie musimy ręcznie śledzić zmian – ORM robi to za nas."
+                </div>
             </div>
 
             <!-- SVG: CYKL ŻYCIA ENCJI I SESJI -->
@@ -168,10 +174,13 @@
             <!-- PART 3: LENIWE ŁADOWANIE I PROBLEM N+1                 -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">3. Lazy Loading i problem N+1 – „Pułapka ukrytych zapytań”</strong>
+                <strong style="font-size: 1.2rem; color: #c62828;">3. Lazy Loading i problem N+1 – „Pułapka ukrytych zapytań"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Lazy loading</strong> (leniwe ładowanie) oznacza, że powiązane encje (np. lista produktów w zamówieniu) nie są pobierane od razu z bazą główną – ORM pobiera je dopiero przy pierwszym dostępie do pola. To wygodne, ale prowadzi do <strong>problemu N+1</strong>: jeśli pobierzesz listę 10 zamówień, a potem dla każdego z nich odwołasz się do <code>zamowienie.produkty</code>, ORM wykona 1 zapytanie o zamówienia i 10 dodatkowych zapytań o produkty – zamiast jednego JOIN-a. Rozwiązaniem jest <strong>eager loading</strong> (<code>fetch join</code>, <code>Include</code>), które ładuje powiązane dane w jednym zapytaniu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Problem N+1 to najczęstsza pułapka wydajnościowa przy korzystaniu z ORM-ów. Wynika on z leniwego ładowania, czyli lazy loading. Załóżmy, że pobieramy listę 10 zamówień. Jeśli dla każdego z nich odwołamy się do jego listy produktów, ORM – zamiast zrobić jedno zapytanie z JOIN-em – wykona najpierw jedno zapytanie o zamówienia, a potem 10 dodatkowych zapytań o produkty. To jest właśnie problem N+1. Rozwiązaniem jest eager loading, czyli ładowanie zachłanne. W JPA używamy 'join fetch', w Entity Framework metody 'Include'. Dzięki temu wszystko jest pobierane w jednym zapytaniu, co drastycznie poprawia wydajność."
+                </div>
             </div>
 
             <!-- SVG: PROBLEM N+1 -->
@@ -202,10 +211,13 @@
             <!-- PART 4: MIGRACJE – EWOLUCJA SCHEMATU                   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Migracje – „Ewolucja bazy razem z kodem”</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Migracje – „Ewolucja bazy razem z kodem"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy zmieniają się klasy encji (nowe pole, nowa tabela, zmiana typu), baza danych musi zostać zaktualizowana. <strong>Migracje</strong> to mechanizm, który automatycznie generuje skrypt różnicowy (lub umożliwia ręczne jego napisanie) i aplikuje go do bazy. Narzędzia: <strong>Flyway</strong>, <strong>Liquibase</strong> (Java), <strong>EF Core Migrations</strong> (.NET), <strong>Alembic</strong> (Python/SQLAlchemy). Migracje są wersjonowane i umożliwiają cofanie zmian (rollback).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Migracje to mechanizm, który pozwala na ewolucję schematu bazy danych razem z kodem. Gdy zmieniamy klasy – dodajemy pole, tworzymy nową encję – baza danych musi zostać zaktualizowana. Narzędzia do migracji, takie jak Flyway, Liquibase w Javie, wbudowane migracje Entity Framework w .NET czy Alembic dla Pythona, potrafią automatycznie wygenerować skrypt różnicowy i zaaplikować go do bazy. Migracje są wersjonowane, co pozwala na bezpieczne aktualizowanie bazy na różnych środowiskach i ewentualne wycofywanie zmian, czyli rollback."
+                </div>
             </div>
 
             <!-- SVG: MIGRACJE – SCHEMAT -->
@@ -262,6 +274,9 @@
                         <span style="font-size:0.85rem;">Dwa style: Core (zbliżony do SQL) i ORM (deklaratywny). Sesja jako Unit of Work. Alembic do migracji. Bardzo dojrzały i elastyczny.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W różnych ekosystemach mamy różne implementacje ORM-ów, ale wszystkie realizują tę samą ideę. W Javie standardem jest JPA z Hibernate jako najpopularniejszą implementacją – bogaty, ale złożony. W .NET mamy Entity Framework Core z LINQ, DbContext i migracjami. W Pythonie króluje SQLAlchemy, które oferuje zarówno niskopoziomowy Core, jak i deklaratywny ORM. Wszystkie te narzędzia zapewniają mapowanie obiektowo-relacyjne, sesję śledzącą zmiany i mechanizmy migracji, choć różnią się składnią i szczegółami konfiguracji."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -275,6 +290,9 @@
                     <li><strong>Detached entities.</strong> Encja poza sesją nie jest śledzona. Próba zapisu wymaga ponownego przyłączenia (merge / attach).</li>
                     <li><strong>ORM nie zastępuje znajomości SQL-a.</strong> Przy skomplikowanych zapytaniach analitycznych lepiej napisać surowy SQL lub użyć widoku. ORM jest do CRUD-a i relacji.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z ORM to: po pierwsze, problem N+1, który potrafi zabić wydajność – zawsze należy sprawdzać generowane zapytania i stosować eager loading. Po drugie, sesja ORM nie jest bezpieczna wątkowo – w aplikacjach wielowątkowych każdy wątek musi mieć własną sesję. Po trzecie, tak zwane 'detached entities' – encja poza sesją nie jest śledzona i próba zapisu wymaga ponownego przyłączenia. I najważniejsze: ORM nie zwalnia ze znajomości SQL-a. Przy skomplikowanych zapytaniach analitycznych, widokach czy procedurach składowanych lepiej napisać surowy SQL. ORM jest świetny do CRUD-a i obsługi relacji, ale nie zastępuje wiedzy o bazach danych."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -284,33 +302,33 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – ORM:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Analogia</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pojęcie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład / Analogia</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #00695c;">ORM</td>
-                            <td style="padding: 10px;">Biblioteka mapująca obiekty na tabele relacyjne i generująca SQL automatycznie</td>
-                            <td style="padding: 10px;">Tłumacz między światem klas a światem tabel</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #c62828;">N+1 problem</td>
-                            <td style="padding: 10px;">Wiele zapytań zamiast jednego z JOIN z powodu lazy loading</td>
-                            <td style="padding: 10px;">10 zamówień → 1 + 10 zapytań</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Migracje</td>
-                            <td style="padding: 10px;">Wersjonowane skrypty aktualizujące schemat bazy do aktualnego modelu klas</td>
-                            <td style="padding: 10px;">Flyway, EF Core Migrations, Alembic</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Unit of Work</td>
-                            <td style="padding: 10px;">Sesja śledząca zmiany w encjach i generująca SQL przy commit</td>
-                            <td style="padding: 10px;">Hibernate Session, EF Core DbContext</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #00695c;">ORM</td>
+                        <td style="padding: 10px;">Biblioteka mapująca obiekty na tabele relacyjne i generująca SQL automatycznie</td>
+                        <td style="padding: 10px;">Tłumacz między światem klas a światem tabel</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #c62828;">N+1 problem</td>
+                        <td style="padding: 10px;">Wiele zapytań zamiast jednego z JOIN z powodu lazy loading</td>
+                        <td style="padding: 10px;">10 zamówień → 1 + 10 zapytań</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Migracje</td>
+                        <td style="padding: 10px;">Wersjonowane skrypty aktualizujące schemat bazy do aktualnego modelu klas</td>
+                        <td style="padding: 10px;">Flyway, EF Core Migrations, Alembic</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Unit of Work</td>
+                        <td style="padding: 10px;">Sesja śledząca zmiany w encjach i generująca SQL przy commit</td>
+                        <td style="padding: 10px;">Hibernate Session, EF Core DbContext</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -329,7 +347,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Java Persistence with Hibernate” (C. Bauer, G. King) · „Entity Framework Core in Action” (J. Smith) · Dokumentacja SQLAlchemy · Martin Fowler – „Patterns of Enterprise Application Architecture”.
+                    „Java Persistence with Hibernate" (C. Bauer, G. King) · „Entity Framework Core in Action" (J. Smith) · Dokumentacja SQLAlchemy · Martin Fowler – „Patterns of Enterprise Application Architecture".
                 </span>
             </div>
 

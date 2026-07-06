@@ -16,13 +16,13 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📚</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Repository i Unit of Work to „Biblioteka z systemem wypożyczeń”:</strong>
+                    <strong style="font-size: 1.15rem; color: #e65100; display: block; margin-bottom: 6px;">💡 Aha! Moment – Repository i Unit of Work to „Biblioteka z systemem wypożyczeń":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a3000; line-height: 1.7;">
-                        Wyobraź sobie staroświecką bibliotekę. <strong>Repository</strong> to półki z książkami – możesz poprosić bibliotekarza: „znajdź mi wszystkie książki Tolkiena” albo „dodaj ten nowy egzemplarz na półkę z fantastyką”. Nie musisz wiedzieć, jak książki są ułożone, w którym dokładnie regale stoją, ani jak działa system katalogowania. Dostajesz to, czego potrzebujesz, przez proste, zrozumiałe API. <strong>Unit of Work</strong> to rejestr wypożyczeń przy ladzie – bibliotekarz zapisuje w nim każdą zmianę: tę książkę wypożyczono, tamtą zwrócono, a ta została zniszczona i trzeba ją wycofać. Na koniec dnia jednym podpisem zatwierdza wszystkie zmiany naraz (commit), zamiast biegać do magazynu po każdej pojedynczej operacji. Jeśli coś pójdzie nie tak, rejestr jest cały unieważniany (rollback) i wszystko wraca do poprzedniego stanu.
+                        Wyobraź sobie staroświecką bibliotekę. <strong>Repository</strong> to półki z książkami – możesz poprosić bibliotekarza: „znajdź mi wszystkie książki Tolkiena" albo „dodaj ten nowy egzemplarz na półkę z fantastyką". Nie musisz wiedzieć, jak książki są ułożone, w którym dokładnie regale stoją, ani jak działa system katalogowania. Dostajesz to, czego potrzebujesz, przez proste, zrozumiałe API. <strong>Unit of Work</strong> to rejestr wypożyczeń przy ladzie – bibliotekarz zapisuje w nim każdą zmianę: tę książkę wypożyczono, tamtą zwrócono, a ta została zniszczona i trzeba ją wycofać. Na koniec dnia jednym podpisem zatwierdza wszystkie zmiany naraz (commit), zamiast biegać do magazynu po każdej pojedynczej operacji. Jeśli coś pójdzie nie tak, rejestr jest cały unieważniany (rollback) i wszystko wraca do poprzedniego stanu.
                     </p>
                     <ul style="margin: 0; padding-left: 20px; color: #4a3000; line-height: 1.8;">
                         <li><strong>🔵 Repository</strong> – abstrakcja nad kolekcją obiektów. Ukrywa szczegóły dostępu do danych (SQL, pliki, API). Daje metody: znajdź, dodaj, usuń, filtruj.</li>
@@ -61,7 +61,7 @@
             <!-- PART 1: WZORZEC REPOSITORY – ABSTRAKCJA NAD KOLEKCJĄ   -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">1. Wzorzec Repository – „Półka z książkami, nie szuflada z SQL”</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">1. Wzorzec Repository – „Półka z książkami, nie szuflada z SQL"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Repository</strong> to wzorzec, który pośredniczy między warstwą domeny (logiką biznesową) a warstwą mapowania danych (ORM, surowy SQL, API zewnętrzne). Zachowuje się jak <strong>kolekcja obiektów w pamięci</strong>: możesz zapytać <code>repo.Find(czyTolkien)</code>, dodać <code>repo.Add(nowaKsiazka)</code>, usunąć <code>repo.Remove(staraKsiazka)</code>. Nie musisz wiedzieć, czy dane są w PostgreSQL, MongoDB, czy w pliku XML – dla Ciebie to po prostu kolekcja.
                 </p>
@@ -70,6 +70,9 @@
                 </p>
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Generyczne repozytorium:</strong> Często tworzy się <code>IRepository&lt;T&gt;</code> z podstawowymi operacjami (GetById, GetAll, Add, Remove), a potem dziedziczy dla konkretnych encji (IBookRepository : IRepository&lt;Book&gt;), dodając specjalistyczne zapytania.
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wzorzec Repository to abstrakcja nad kolekcją obiektów. Działa jak bibliotekarz, który podaje książki na żądanie – nie musicie wiedzieć, gdzie dokładnie stoją ani jak są skatalogowane. Repository ukrywa szczegóły dostępu do danych i wystawia metody w języku domeny: ZnajdźPoAutorze, DodajZamówienie, a nie surowe zapytania SQL. To daje dwie fundamentalne korzyści. Po pierwsze, logika biznesowa jest czysta i czytelna, nie zanieczyszczona technicznymi szczegółami bazy danych. Po drugie, w testach jednostkowych możecie podmienić prawdziwe repozytorium na mocka, który zwraca dane z listy w pamięci – bez potrzeby stawiania bazy danych. Często tworzy się generyczne repozytorium z podstawowymi operacjami CRUD, a potem rozszerza dla konkretnych encji."
                 </div>
             </div>
 
@@ -123,10 +126,13 @@
             <!-- PART 2: UNIT OF WORK – TRANSKACYJNOŚĆ I SPÓJNOŚĆ      -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Unit of Work – „Rejestr wypożyczeń bibliotekarza”</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Unit of Work – „Rejestr wypożyczeń bibliotekarza"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Unit of Work (UoW)</strong> to wzorzec, który śledzi wszystkie zmiany dokonane na obiektach w trakcie jednej operacji biznesowej. Jego zadaniem jest zapewnienie <strong>atomowości</strong>: albo wszystkie zmiany zostaną zapisane w bazie naraz, albo żadna. UoW rejestruje nowe obiekty (INSERT), zmodyfikowane (UPDATE) i usunięte (DELETE), a przy wywołaniu <code>commit()</code> / <code>saveChanges()</code> generuje odpowiednie zapytania w jednej transakcji. Jeśli coś pójdzie nie tak, transakcja jest wycofywana (rollback). UoW często zawiera też <strong>Identity Map</strong> – gwarantuje, że każdy wiersz bazy jest reprezentowany przez dokładnie jeden obiekt w pamięci w ramach sesji.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Unit of Work to wzorzec, który działa jak rejestr wypożyczeń bibliotekarza – zapisuje każdą zmianę, ale zatwierdza wszystko naraz na koniec dnia. Technicznie rzecz biorąc, UoW śledzi wszystkie nowe, zmodyfikowane i usunięte encje w ramach jednej operacji biznesowej. Gdy wywołujemy commit lub saveChanges, UoW generuje odpowiednie INSERT-y, UPDATE-y i DELETE-y i wysyła je do bazy w jednej transakcji. Jeśli cokolwiek pójdzie nie tak, transakcja jest wycofywana – mamy rollback. UoW zawiera też Identity Map, czyli mapę tożsamości – gwarantuje, że w ramach jednej sesji ten sam wiersz bazy jest zawsze reprezentowany przez ten sam obiekt. Dzięki temu modyfikacja obiektu w jednym miejscu jest natychmiast widoczna wszędzie indziej."
+                </div>
             </div>
 
             <!-- SVG: UNIT OF WORK – PRZEPŁYW ZMIAN -->
@@ -193,13 +199,16 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     <strong>Kluczowa zaleta:</strong> logika biznesowa nie woła bezpośrednio <code>SaveChanges()</code> po każdej zmianie. Gromadzi zmiany i zatwierdza je zbiorczo na końcu operacji. To eliminuje problem częściowych zapisów i zwiększa wydajność (mniej transakcji).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Repository i Unit of Work są projektowane jako zgrany duet. Repository daje dostęp do encji – znajdowanie, dodawanie, usuwanie. Unit of Work śledzi wszystkie te zmiany i zatwierdza je atomowo. Proszę spojrzeć na przykład: znajdujemy klienta przez repozytorium, zmieniamy mu nazwę, dodajemy nowe zamówienie i na końcu wywołujemy jeden commit. UoW zapisuje UPDATE klienta i INSERT zamówienia w jednej transakcji. Kluczowa zaleta: logika biznesowa nie woła saveChanges po każdej pojedynczej zmianie. Zbiera wszystkie zmiany i zatwierdza je razem. To eliminuje ryzyko częściowych zapisów – jeśli coś pójdzie nie tak, transakcja jest wycofywana i baza zostaje w spójnym stanie. Dodatkowo zwiększa to wydajność, bo mamy mniej transakcji do bazy."
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- PART 4: PRZYKŁADY W POPULARNYCH FRAMEWORKACH           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00897b;">4. Implementacja w frameworkach – „Wbudowane wsparcie”</strong>
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Implementacja w frameworkach – „Wbudowane wsparcie"</strong>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
                     <div style="flex: 1; min-width: 250px; background: #e0f2f1; border-radius: 10px; padding: 14px; border: 1px solid #4db6ac;">
                         <strong>☕ Hibernate / JPA (Java)</strong><br>
@@ -213,6 +222,9 @@
                         <strong>🐍 SQLAlchemy (Python)</strong><br>
                         <span style="font-size:0.85rem;"><strong>Session</strong> to Unit of Work. Metody <code>add()</code>, <code>delete()</code>, <code>query()</code> to operacje repozytoryjne. <code>session.commit()</code> zatwierdza wszystkie zmiany. <code>session.rollback()</code> wycofuje. Możesz tworzyć klasy repozytoriów przyjmujące Session w konstruktorze.</span>
                     </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wiele frameworków ma wbudowane wsparcie dla obu wzorców. W Hibernate i JPA to EntityManager pełni rolę Unit of Work z wbudowanymi repozytoriami – metody find, persist, remove. Sesja śledzi zmiany przez dirty checking i przy commit wysyła je do bazy. Spring Data JPA idzie o krok dalej – automatycznie generuje repozytoria na podstawie nazw metod, więc piszecie tylko interfejs z findByNazwisko, a implementacja powstaje sama. W Entity Framework Core mamy DbContext jako Unit of Work z metodą SaveChanges oraz DbSet jako gotowe repozytorium z pełnym wsparciem LINQ. W Pythonie SQLAlchemy używa Session jako Unit of Work – add, delete, query, a commit zatwierdza wszystkie zmiany. Możecie tworzyć własne klasy repozytoriów opakowujące te mechanizmy, co zwiększa testowalność i izoluje resztę kodu od konkretnego frameworka."
                 </div>
             </div>
 
@@ -248,6 +260,9 @@
                         }
                     </code>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę spojrzeć na konkretny przykład implementacji w C# z Entity Framework Core. Mamy generyczny interfejs IRepository z podstawowymi operacjami: GetById, GetAll, Add, Remove. Następnie tworzymy interfejs IUnitOfWork, który udostępnia konkretne repozytoria jako właściwości – Klienci, Zamowienia – oraz metodę Commit. W serwisie używamy obu wzorców razem: pobieramy klienta przez repozytorium, modyfikujemy go, dodajemy nowe zamówienie i wywołujemy jeden Commit. Pod spodem UoW wykonuje UPDATE i INSERT w jednej transakcji. Taka architektura jest czysta, testowalna – w testach wstrzykujemy mock IUnitOfWork – i całkowicie oddziela logikę biznesową od konkretnego ORM-a."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -261,6 +276,9 @@
                     <li><strong>SaveChanges() za często = problem.</strong> Wołanie Commit() po każdej zmianie zabija ideę Unit of Work. Zbieraj zmiany i zatwierdzaj je razem.</li>
                     <li><strong>Identity Map – pamiętaj o niej.</strong> W ramach jednego UoW ta sama encja (ten sam ID) to ten sam obiekt. Jeśli zmodyfikujesz go przez jedno repozytorium, zmiana będzie widoczna we wszystkich innych. To dobrze, ale trzeba być tego świadomym.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największe pułapki związane z tymi wzorcami to: po pierwsze, nie należy mylić Repository z DAO – DAO jest niskopoziomowe i operuje na surowych danych, Repository mówi językiem domeny i zwraca encje. Po drugie, nie wszystko trzeba opakowywać – w EF Core DbSet już jest repozytorium, dodatkowe opakowanie ma sens głównie dla testowalności. Po trzecie, wołanie Commit po każdej zmianie zabija ideę Unit of Work – zbierajcie zmiany i zatwierdzajcie je razem. I po czwarte, pamiętajcie o Identity Map – w ramach jednego UoW ta sama encja to ten sam obiekt, więc modyfikacja przez jedno repozytorium jest widoczna wszędzie. To zaleta, ale trzeba być świadomym tego mechanizmu."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -270,23 +288,23 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Repository i Unit of Work:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzorzec</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rola</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">W EF Core / Hibernate</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wzorzec</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rola</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">W EF Core / Hibernate</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Repository</td>
-                            <td style="padding: 10px;">Abstrakcja nad kolekcją obiektów. Metody: Find, Add, Remove, Query.</td>
-                            <td style="padding: 10px;">EF: <code>DbSet&lt;T&gt;</code>. Hibernate: <code>EntityManager.find()</code>.</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Unit of Work</td>
-                            <td style="padding: 10px;">Śledzi zmiany, zarządza transakcją. Atomowy commit lub rollback.</td>
-                            <td style="padding: 10px;">EF: <code>DbContext.SaveChanges()</code>. Hibernate: <code>Session.commit()</code>.</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Repository</td>
+                        <td style="padding: 10px;">Abstrakcja nad kolekcją obiektów. Metody: Find, Add, Remove, Query.</td>
+                        <td style="padding: 10px;">EF: <code>DbSet&lt;T&gt;</code>. Hibernate: <code>EntityManager.find()</code>.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Unit of Work</td>
+                        <td style="padding: 10px;">Śledzi zmiany, zarządza transakcją. Atomowy commit lub rollback.</td>
+                        <td style="padding: 10px;">EF: <code>DbContext.SaveChanges()</code>. Hibernate: <code>Session.commit()</code>.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -305,7 +323,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Patterns of Enterprise Application Architecture” (Martin Fowler) · „Domain-Driven Design” (Eric Evans) · Dokumentacja Entity Framework Core, Hibernate, SQLAlchemy.
+                    „Patterns of Enterprise Application Architecture" (Martin Fowler) · „Domain-Driven Design" (Eric Evans) · Dokumentacja Entity Framework Core, Hibernate, SQLAlchemy.
                 </span>
             </div>
 
