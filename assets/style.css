@@ -569,6 +569,7 @@ li.question-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #
 .content-blur-wrapper {
     position: relative;
     margin-top: 10px;
+    padding-top: 30px; /* DODANE: Robi lekki "margines wewnętrzny" u góry, by przycisk miał na czym leżeć */
 }
 
 .content-blurred {
@@ -588,11 +589,14 @@ li.question-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #
 
 .reveal-btn-container {
     position: absolute;
-    top: 30%;
+    top: 35px; /* ZMIANA Z 30%: Przycisk jest teraz sztywno 35px od samej góry zamazanej sekcji! */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%); /* ZMIANA: Wyśrodkowuje przycisk tylko w poziomie */
     z-index: 10;
     text-align: center;
+    width: 100%; /* Upewnia się, że kontener zajmuje całą szerokość ekranu do idealnego wyśrodkowania */
+    display: flex;
+    justify-content: center;
 }
 
 .btn-reveal {
