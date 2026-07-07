@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🚽</span>
                 <div>
@@ -55,46 +55,49 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zjawisko wyścigu (Race condition) występuje, gdy dwa procesy (lub wątki) próbują odczytać i zmodyfikować współdzielone dane dokładnie w tym samym czasie. Fragment kodu, który operuje na tych współdzielonych danych, nazywamy <strong>Sekcją Krytyczną</strong>. Musi ona być "atomowa" (niepodzielna).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, problem zaczyna się od wyścigu – race condition. Dwa wątki jednocześnie czytają stan konta, oba widzą 100 zł, jeden dodaje 50, drugi 20, ale ten który zapisze później nadpisuje wynik pierwszego. Kończymy z 120 zł zamiast 170. To się dzieje, bo operacja nie była atomowa. Fragment kodu operujący na wspólnych danych nazywamy sekcją krytyczną i musimy ją chronić. Proszę spojrzeć na planszę – pokazuje ona dokładnie ten mechanizm utraty danych.”
+                </div>
             </div>
 
-            <!-- SVG 1: RACE CONDITION -->
-            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="250" fill="#fce4ec" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Katastrofa współbieżności: Zjawisko Wyścigu (Race Condition)</text>
+            <!-- SVG 1: RACE CONDITION (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 290" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="290" fill="#fce4ec" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#880e4f">Katastrofa współbieżności: Zjawisko Wyścigu (Race Condition)</text>
 
                 <!-- Baza danych / Konto -->
-                <rect x="360" y="50" width="100" height="150" rx="8" fill="#fff" stroke="#880e4f" stroke-width="2"/>
-                <text x="410" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#880e4f" text-anchor="middle">Konto Bankowe</text>
+                <rect x="340" y="55" width="140" height="160" rx="10" fill="#fff" stroke="#880e4f" stroke-width="2.5"/>
+                <text x="410" y="85" font-family="sans-serif" font-size="14" font-weight="bold" fill="#880e4f" text-anchor="middle">Konto Bankowe</text>
 
-                <rect x="370" y="100" width="80" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
-                <text x="410" y="125" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">100 PLN</text>
+                <rect x="360" y="105" width="100" height="50" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="410" y="135" font-family="monospace" font-size="18" font-weight="bold" fill="#b71c1c" text-anchor="middle">100 PLN</text>
 
                 <!-- Wątek 1 -->
-                <rect x="40" y="80" width="140" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="110" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek 1 (Wpłaca 50)</text>
-                <text x="110" y="125" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
-                <text x="110" y="140" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">2. Dodaj: 100+50</text>
+                <rect x="30" y="85" width="160" height="90" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="110" y="112" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek 1 (Wpłaca 50)</text>
+                <text x="110" y="135" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
+                <text x="110" y="155" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">2. Dodaj: 100+50</text>
 
                 <!-- Wątek 2 -->
-                <rect x="640" y="80" width="140" height="80" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="710" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Wątek 2 (Wpłaca 20)</text>
-                <text x="710" y="125" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
-                <text x="710" y="140" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">2. Dodaj: 100+20</text>
+                <rect x="630" y="85" width="160" height="90" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="710" y="112" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Wątek 2 (Wpłaca 20)</text>
+                <text x="710" y="135" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">1. Odczyt: 100</text>
+                <text x="710" y="155" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">2. Dodaj: 100+20</text>
 
                 <!-- Zapis jednoczesny (Nadpisywanie) -->
-                <path d="M 180 145 L 350 145" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueR)"/>
-                <text x="260" y="140" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1565c0" text-anchor="middle">Zapisz: 150</text>
+                <path d="M 200 150 L 330 150" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueR)"/>
+                <text x="265" y="143" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">Zapisz: 150</text>
 
-                <path d="M 640 160 L 470 160" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgR)"/>
-                <text x="560" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Zapisz: 120</text>
+                <path d="M 620 170 L 490 170" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgR)"/>
+                <text x="555" y="163" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Zapisz: 120</text>
 
-                <rect x="250" y="190" width="320" height="40" fill="#fff5f5" stroke="#d32f2f" rx="4"/>
-                <text x="410" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Wynik końcowy to 120 PLN! Pieniądze zniknęły!</text>
-                <text x="410" y="222" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Wątek 2 nadpisał pracę Wątku 1, bo operacje nie były atomowe.</text>
+                <rect x="230" y="220" width="360" height="50" fill="#fff5f5" stroke="#d32f2f" stroke-width="2.5" rx="6"/>
+                <text x="410" y="242" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">Wynik końcowy to 120 PLN! Pieniądze zniknęły!</text>
+                <text x="410" y="260" font-family="sans-serif" font-size="11" fill="#c62828" text-anchor="middle">Wątek 2 nadpisał pracę Wątku 1, bo operacje nie były atomowe.</text>
 
                 <defs>
-                    <marker id="arrowBlueR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
-                    <marker id="arrowOrgR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowBlueR" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1976d2"/></marker>
+                    <marker id="arrowOrgR" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#f57c00"/></marker>
                 </defs>
             </svg>
 
@@ -104,43 +107,46 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Mutex to obiekt systemowy przypominający "klucz". Jeśli Wątek A chce zmodyfikować konto, najpierw musi założyć <em>Lock</em> (zamknąć zamek) na obiekcie Mutexa. Jeśli w tym czasie Wątek B spróbuje wejść do tej samej sekcji, OS automatycznie uśpi Wątek B i wsadzi go do poczekalni. B obudzi się dopiero, gdy A wywoła funkcję <em>Unlock</em>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Rozwiązaniem jest Mutex – mutual exclusion, czyli wzajemne wykluczanie. To obiekt systemowy działający jak klucz do toalety. Przed wejściem do sekcji krytycznej wątek zakłada blokadę – lock. Jeśli inny wątek spróbuje wejść, system go usypia i wstawia do kolejki oczekujących. Gdy pierwszy wątek skończy i wywoła unlock, system budzi następnego z kolejki. Dzięki temu operacja na koncie jest atomowa – niepodzielna. Proszę spojrzeć na planszę – Wątek 1 trzyma zamek i bezpiecznie modyfikuje dane, a Wątek 2 czeka.”
+                </div>
             </div>
 
-            <!-- SVG 2: MUTEX -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Rozwiązanie 1: Mutex (Wzajemne Wykluczanie)</text>
+            <!-- SVG 2: MUTEX (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Rozwiązanie 1: Mutex (Wzajemne Wykluczanie)</text>
 
                 <!-- Baza danych -->
-                <rect x="360" y="50" width="100" height="140" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="410" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sekcja Kryt.</text>
-                <rect x="375" y="90" width="70" height="30" rx="4" fill="#bbdefb"/>
-                <text x="410" y="110" font-family="monospace" font-size="12" fill="#0d47a1" text-anchor="middle">100 PLN</text>
+                <rect x="340" y="55" width="140" height="150" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="410" y="82" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sekcja Krytyczna</text>
+                <rect x="365" y="100" width="90" height="40" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="410" y="125" font-family="monospace" font-size="14" fill="#0d47a1" text-anchor="middle">100 PLN</text>
 
                 <!-- Zamek (Kłódka) -->
-                <circle cx="410" cy="155" r="18" fill="#ffca28" stroke="#f57f17" stroke-width="2"/>
-                <text x="410" y="160" font-family="sans-serif" font-size="14" text-anchor="middle">🔒</text>
+                <circle cx="410" cy="170" r="22" fill="#ffca28" stroke="#f57f17" stroke-width="3"/>
+                <text x="410" y="178" font-family="sans-serif" font-size="18" text-anchor="middle">🔒</text>
 
                 <!-- Wątek 1 (Działa) -->
-                <rect x="60" y="90" width="140" height="60" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="130" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek 1</text>
-                <text x="130" y="135" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">Zablokował Mutex</text>
+                <rect x="40" y="95" width="160" height="70" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="120" y="122" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wątek 1</text>
+                <text x="120" y="145" font-family="monospace" font-size="12" fill="#2e7d32" text-anchor="middle">Zablokował Mutex</text>
 
-                <path d="M 200 120 L 350 120" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM)"/>
-                <text x="275" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Zapisuje</text>
+                <path d="M 200 130 L 330 130" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnM)"/>
+                <text x="265" y="120" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">Zapisuje bezpiecznie</text>
 
                 <!-- Wątek 2 (Zablokowany) -->
-                <rect x="620" y="90" width="140" height="60" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="690" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 2</text>
-                <text x="690" y="135" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Czeka (Zablokowany)</text>
+                <rect x="620" y="95" width="160" height="70" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="700" y="122" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 2</text>
+                <text x="700" y="145" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">Czeka (Zablokowany)</text>
 
                 <!-- Bariera -->
-                <path d="M 620 120 L 510 120" fill="none" stroke="#c62828" stroke-width="3"/>
-                <line x1="510" y1="100" x2="510" y2="140" stroke="#c62828" stroke-width="4"/>
-                <text x="565" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Zamek zamknięty</text>
+                <path d="M 620 130 L 500 130" fill="none" stroke="#c62828" stroke-width="3"/>
+                <line x1="500" y1="108" x2="500" y2="152" stroke="#c62828" stroke-width="5"/>
+                <text x="560" y="120" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">Zamek zamknięty!</text>
 
                 <defs>
-                    <marker id="arrowGrnM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowGrnM" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/></marker>
                 </defs>
             </svg>
 
@@ -153,68 +159,74 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Innym, wyższopoziomowym pojęciem są <strong>Monitory</strong> (np. słowo kluczowe <code>synchronized</code> w Javie). Monitor to gotowy, wbudowany w język programowania "sejf", który automatycznie łączy Mutex ze strukturą danych.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Semafor to narzędzie do zarządzania pulą zasobów. Bramkarz z licznikiem – gdy licznik jest większy od zera, wpuszcza kolejnych. Operacje P i V zmniejszają i zwiększają licznik. Monitory to wygodniejsze opakowanie – słowo kluczowe synchronized w Javie. I wreszcie deadlock – zakleszczenie. Wątek A trzyma plik 1 i czeka na plik 2, a Wątek B trzyma plik 2 i czeka na plik 1. Żaden nie może ruszyć dalej – to matematyczna matnia. Proszę spojrzeć na planszę – doskonale widać cykliczne oczekiwanie prowadzące do deadlocka.”
+                </div>
             </div>
 
-            <!-- SVG 3: SEMAFOR & DEADLOCK -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Rozwiązanie 2: Semafor & Największe ryzyko: Deadlock</text>
+            <!-- SVG 3: SEMAFOR & DEADLOCK (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 270" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="270" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Rozwiązanie 2: Semafor & Największe ryzyko: Deadlock</text>
 
                 <!-- Semafor (Lewa) -->
-                <rect x="30" y="50" width="360" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="210" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Semafor (Licznik = 2 połączenia)</text>
+                <rect x="25" y="55" width="370" height="180" rx="10" fill="#fff" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="210" y="80" font-family="sans-serif" font-size="15" font-weight="bold" fill="#e65100" text-anchor="middle">Semafor (Licznik = 2 połączenia)</text>
 
                 <!-- Resource Pool -->
-                <rect x="230" y="90" width="120" height="90" rx="4" fill="#fff3e0" stroke="#f57c00"/>
-                <text x="290" y="110" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Zasoby (Baza)</text>
-                <rect x="250" y="120" width="80" height="20" fill="#ffcc80"/>
-                <text x="290" y="134" font-family="sans-serif" font-size="9" text-anchor="middle">Zajęte przez W1</text>
-                <rect x="250" y="150" width="80" height="20" fill="#ffcc80"/>
-                <text x="290" y="164" font-family="sans-serif" font-size="9" text-anchor="middle">Zajęte przez W2</text>
+                <rect x="230" y="100" width="130" height="110" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="295" y="125" font-family="sans-serif" font-size="13" fill="#e65100" text-anchor="middle">Zasoby (Baza)</text>
+                <rect x="245" y="140" width="100" height="28" fill="#ffcc80" stroke="#f57c00" rx="4"/>
+                <text x="295" y="159" font-family="sans-serif" font-size="11" text-anchor="middle">Zajęte przez W1</text>
+                <rect x="245" y="175" width="100" height="28" fill="#ffcc80" stroke="#f57c00" rx="4"/>
+                <text x="295" y="194" font-family="sans-serif" font-size="11" text-anchor="middle">Zajęte przez W2</text>
 
-                <rect x="50" y="90" width="80" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
-                <text x="90" y="110" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 3</text>
+                <rect x="40" y="110" width="90" height="35" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="85" y="132" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 3</text>
 
-                <path d="M 130 105 L 220 105" fill="none" stroke="#d32f2f" stroke-width="2"/>
-                <line x1="220" y1="90" x2="220" y2="120" stroke="#d32f2f" stroke-width="4"/>
-                <text x="175" y="100" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Licznik 0. Czeka!</text>
+                <path d="M 130 127 L 220 127" fill="none" stroke="#d32f2f" stroke-width="2.5"/>
+                <line x1="220" y1="108" x2="220" y2="148" stroke="#d32f2f" stroke-width="5"/>
+                <text x="175" y="118" font-family="sans-serif" font-size="12" fill="#c62828" text-anchor="middle">Licznik 0. Czeka!</text>
 
 
                 <!-- Deadlock (Prawa) -->
-                <rect x="430" y="50" width="360" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="610" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">Zakleszczenie (Deadlock)</text>
+                <rect x="425" y="55" width="370" height="180" rx="10" fill="#fff" stroke="#d32f2f" stroke-width="2.5"/>
+                <text x="610" y="80" font-family="sans-serif" font-size="15" font-weight="bold" fill="#c62828" text-anchor="middle">Zakleszczenie (Deadlock)</text>
 
                 <!-- T1 and T2 -->
-                <rect x="460" y="90" width="70" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
-                <text x="495" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek A</text>
+                <rect x="445" y="105" width="80" height="35" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="485" y="127" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek A</text>
 
-                <rect x="690" y="150" width="70" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
-                <text x="725" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek B</text>
+                <rect x="695" y="175" width="80" height="35" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="735" y="197" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wątek B</text>
 
                 <!-- Res X and Y -->
-                <circle cx="520" cy="165" r="20" fill="#ffcc80" stroke="#f57c00"/>
-                <text x="520" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 1</text>
+                <circle cx="520" cy="190" r="25" fill="#ffcc80" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="520" y="196" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 1</text>
 
-                <circle cx="700" cy="105" r="20" fill="#ffcc80" stroke="#f57c00"/>
-                <text x="700" y="110" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 2</text>
+                <circle cx="700" cy="115" r="25" fill="#ffcc80" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="700" y="121" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Plik 2</text>
 
                 <!-- Hold lines (solid) -->
-                <path d="M 495 120 L 520 145" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnS)"/>
-                <text x="490" y="145" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="end">Trzyma Zamek</text>
+                <path d="M 485 140 L 520 165" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnS)"/>
+                <text x="485" y="168" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="end">Trzyma Zamek</text>
 
-                <path d="M 725 150 L 700 125" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnS)"/>
-                <text x="730" y="145" font-family="sans-serif" font-size="9" fill="#2e7d32">Trzyma Zamek</text>
+                <path d="M 735 175 L 700 140" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnS)"/>
+                <text x="745" y="168" font-family="sans-serif" font-size="11" fill="#2e7d32">Trzyma Zamek</text>
 
                 <!-- Wait lines (dashed) -->
-                <path d="M 530 105 L 680 105" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedS)"/>
-                <text x="605" y="95" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Czeka na Plik 2...</text>
+                <path d="M 540 115 L 675 115" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowRedS)"/>
+                <text x="607" y="106" font-family="sans-serif" font-size="12" fill="#c62828" text-anchor="middle">Czeka na Plik 2...</text>
 
-                <path d="M 690 165 L 540 165" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedS)"/>
-                <text x="615" y="180" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Czeka na Plik 1...</text>
+                <path d="M 695 200 L 545 200" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowRedS)"/>
+                <text x="620" y="218" font-family="sans-serif" font-size="12" fill="#c62828" text-anchor="middle">Czeka na Plik 1...</text>
+
+                <rect x="230" y="250" width="360" height="30" fill="#ffebee" stroke="#ef5350" stroke-width="2" rx="6"/>
+                <text x="410" y="270" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">Cykliczne oczekiwanie – żaden nie może ruszyć dalej.</text>
 
                 <defs>
-                    <marker id="arrowGrnS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                    <marker id="arrowRedS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnS" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedS" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d32f2f"/></marker>
                 </defs>
             </svg>
 
@@ -227,6 +239,9 @@
                     <li><strong>Mylenie Mutexa z Semaforem binarnym:</strong> Na pierwszy rzut oka wyglądają tak samo (wartość 0 i 1). Różnica polega na mechanizmie <em>Własności (Ownership)</em>. W Mutexie TYLKO ten sam wątek, który założył blokadę, może ją zdjąć (oddać klucz). W semaforze binarnym, Wątek A może opuścić szlaban, ale Wątek B może go podnieść. Semafor służy do sygnalizacji między procesami, a Mutex wyłącznie do ochrony pamięci.</li>
                     <li><strong>Spinlocks vs Zamki Usypiające:</strong> Co robi wątek, gdy napotka zamknięty Mutex? Domyślnie system operacyjny go usypia (Sleeping Lock), co jest "tanie" pod kątem baterii, ale bardzo drogie pod kątem przełączania kontekstu. W programowaniu systemowym używa się czasem <strong>Spinlocków</strong> – wątek zapętla się w pustej pętli pytając <em>"Już otwarte? A teraz? A teraz?"</em>. Pali to w 100% procesor, ale gwarantuje natychmiastowe (mikrosekundowe) wejście do sekcji, gdy tylko zwolni się zamek. Używane wyłącznie dla skrajnie krótkich operacji.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – Mutex a semafor binarny. Mutex ma własność: tylko wątek który go zamknął może go otworzyć. Semafor binarny nie ma własności – jeden wątek może opuścić, inny podnieść. Po drugie – spinlocki kontra zamki usypiające. Spinlock aktywnie czeka w pętli, paląc CPU, ale daje natychmiastową reakcję. Używamy go tylko przy bardzo krótkich sekcjach krytycznych. Zwykły mutex usypia wątek, oszczędzając energię, ale kosztem przełączenia kontekstu.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

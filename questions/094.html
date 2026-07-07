@@ -16,14 +16,14 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">💎</span>
                 <div>
                     <strong style="font-size: 1.15rem; color: #4a148c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Przeklęte Złoto i Zaufany Skarbiec”:</strong>
                     <p style="margin: 0 0 8px 0; color: #311b92; line-height: 1.7;">
                         Ochrona infrastruktury (firewalle) to budowanie potężnych murów wokół skarbca. Ale co, jeśli złodziej znajdzie tunel, albo co gorsza – złodziejem okaże się zaufany strażnik będący już wewnątrz?<br><br>
-                        <strong>Bezpieczeństwo informacji</strong> zakłada, że mury mogą paść, a informację trzeba chronić samą w sobie. To tak, jakby na każdą sztabkę złota rzucić "zaklęcie" (Kryptografia). Nawet jeśli złodziej ukradnie złoto i wyniesie je ze skarbca, w jego rękach zamieni się ono w bezużyteczny kamień (zaszyfrowany ciąg bitów), dopóki nie użyje on magicznego klucza. Ponadto, w nowoczesnym systemie dokładnie stemplujemy kto, kiedy i do jakiej sztabki ma prawo dotknąć (Kontrola Dostępu).
+                        <strong>Bezpieczeństwo informacji</strong> zakłada, że mury mogą paść, a informację trzeba chronić samą w sobie. To tak, jakby na każdą sztabkę złota rzucić „zaklęcie” (Kryptografia). Nawet jeśli złodziej ukradnie złoto i wyniesie je ze skarbca, w jego rękach zamieni się ono w bezużyteczny kamień (zaszyfrowany ciąg bitów), dopóki nie użyje on magicznego klucza. Ponadto, w nowoczesnym systemie dokładnie stemplujemy kto, kiedy i do jakiej sztabki ma prawo dotknąć (Kontrola Dostępu).
                     </p>
                 </div>
             </div>
@@ -41,6 +41,9 @@
             <span class="keyword-tag">IAM (Identity and Access Management)</span>
             <span class="keyword-tag">RBAC (Role-Based Access Control)</span>
             <span class="keyword-tag">DLP (Data Loss Prevention)</span>
+            <span class="keyword-tag">Kryptografia hybrydowa (TLS/SSL)</span>
+            <span class="keyword-tag">MAC, DAC, RBAC</span>
+            <span class="keyword-tag">Solenie haseł (Salt)</span>
         </div>
 
         <!-- ============================================================ -->
@@ -54,52 +57,55 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Informacja to byt dynamiczny. Inżynier dba o jej bezpieczeństwo w każdym z trzech momentów jej "cyklu życia". Luki najczęściej powstają, gdy zabezpieczymy dane w jednym stanie, ignorując inny.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, informacja istnieje w trzech stanach. W spoczynku – na dysku, w bazie danych. Chronimy ją szyfrowaniem nośników, jak BitLocker czy AES-256. W ruchu – gdy przesyłamy dane przez sieć. Chronimy ją protokołami TLS, HTTPS, VPN. I w użyciu – gdy procesor przetwarza dane w pamięci RAM. To najtrudniejszy stan do ochrony, ale nowoczesne enklawy procesora, jak Intel SGX, już to umożliwiają. Proszę spojrzeć na planszę – pokazuje ona wszystkie trzy stany i odpowiadające im mechanizmy ochronne.”
+                </div>
             </div>
 
-            <!-- SVG 1: TRZY STANY DANYCH -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Modele ochrony dla 3 stanów skupienia informacji</text>
+            <!-- SVG 1: TRZY STANY DANYCH (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#4a148c">Modele ochrony dla 3 stanów skupienia informacji</text>
 
                 <!-- Data at Rest -->
-                <rect x="30" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <rect x="30" y="50" width="230" height="35" rx="8" fill="#1565c0"/>
-                <rect x="30" y="65" width="230" height="20" fill="#1565c0"/>
-                <text x="145" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data at Rest (W spoczynku)</text>
-                
-                <circle cx="145" cy="115" r="20" fill="#e3f2fd"/>
-                <text x="145" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">💾</text>
-                <text x="145" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zagrożenie: Kradzież dysku / bazy</text>
-                <text x="145" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Szyfrowanie nośników</text>
-                <text x="145" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(BitLocker, AES-256)</text>
+                <rect x="30" y="50" width="235" height="175" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="50" width="235" height="38" rx="8" fill="#1565c0"/>
+                <rect x="30" y="68" width="235" height="20" fill="#1565c0"/>
+                <text x="147" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Data at Rest (W spoczynku)</text>
+
+                <circle cx="147" cy="125" r="22" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="147" y="132" font-family="sans-serif" font-size="18" text-anchor="middle">💾</text>
+                <text x="147" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zagrożenie: Kradzież dysku</text>
+                <text x="147" y="185" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Szyfrowanie nośników</text>
+                <text x="147" y="200" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(BitLocker, AES-256)</text>
 
                 <!-- Data in Transit -->
-                <rect x="295" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <rect x="295" y="50" width="230" height="35" rx="8" fill="#f57c00"/>
-                <rect x="295" y="65" width="230" height="20" fill="#f57c00"/>
-                <text x="410" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data in Transit (W ruchu)</text>
+                <rect x="292" y="50" width="235" height="175" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="292" y="50" width="235" height="38" rx="8" fill="#f57c00"/>
+                <rect x="292" y="68" width="235" height="20" fill="#f57c00"/>
+                <text x="409" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Data in Transit (W ruchu)</text>
 
-                <circle cx="410" cy="115" r="20" fill="#fff3e0"/>
-                <text x="410" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">🌐</text>
-                <text x="410" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Zagrożenie: Podsłuch (Sniffing)</text>
-                <text x="410" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kanały szyfrowane</text>
-                <text x="410" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Protokoły TLS / HTTPS, VPN)</text>
+                <circle cx="409" cy="125" r="22" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="409" y="132" font-family="sans-serif" font-size="18" text-anchor="middle">🌐</text>
+                <text x="409" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Zagrożenie: Podsłuch (Sniffing)</text>
+                <text x="409" y="185" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kanały szyfrowane</text>
+                <text x="409" y="200" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(TLS / HTTPS, VPN)</text>
 
                 <!-- Data in Use -->
-                <rect x="560" y="50" width="230" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <rect x="560" y="50" width="230" height="35" rx="8" fill="#d32f2f"/>
-                <rect x="560" y="65" width="230" height="20" fill="#d32f2f"/>
-                <text x="675" y="73" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Data in Use (W użyciu)</text>
+                <rect x="554" y="50" width="235" height="175" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <rect x="554" y="50" width="235" height="38" rx="8" fill="#d32f2f"/>
+                <rect x="554" y="68" width="235" height="20" fill="#d32f2f"/>
+                <text x="671" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Data in Use (W użyciu)</text>
 
-                <circle cx="675" cy="115" r="20" fill="#ffebee"/>
-                <text x="675" y="122" font-family="sans-serif" font-size="16" text-anchor="middle">🧠</text>
-                <text x="675" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Zagrożenie: Odczyt z pamięci RAM</text>
-                <text x="675" y="175" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kwarantanna procesów,</text>
-                <text x="675" y="190" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Enklawy procesora (Intel SGX)</text>
+                <circle cx="671" cy="125" r="22" fill="#ffebee" stroke="#d32f2f" stroke-width="1.5"/>
+                <text x="671" y="132" font-family="sans-serif" font-size="18" text-anchor="middle">🧠</text>
+                <text x="671" y="165" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Zagrożenie: Odczyt z RAM</text>
+                <text x="671" y="185" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Ochrona: Kwarantanna procesów</text>
+                <text x="671" y="200" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Enklawy procesora (Intel SGX)</text>
 
                 <!-- Arrows -->
-                <path d="M 265 105 L 290 105" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
-                <path d="M 530 105 L 555 105" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
+                <path d="M 268 137 L 288 137" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
+                <path d="M 530 137 L 550 137" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGry)"/>
 
                 <defs>
                     <marker id="arrowGry" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
@@ -117,59 +123,61 @@
                     <li><strong>Asymetryczna (np. RSA):</strong> Używa pary kluczy. Klucz Publiczny (który możesz rozdać wszystkim) służy TYLKO do zamykania kłódki (szyfrowania). Klucz Prywatny (który masz tylko Ty) służy do otwierania. Jest bardzo wolna, dlatego służy wyłącznie do bezpiecznej wymiany klucza symetrycznego.</li>
                     <li><strong>Funkcja Skrótu / Hash (np. SHA-256):</strong> Operacja <em>jednokierunkowa</em>. Zamienia dowolny plik/hasło w unikalny, krótki podpis. Nie da się z hasha odzyskać pliku! Używana do weryfikacji haseł (baza danych zapisuje tylko hash) i sprawdzania, czy plik nie został zmieniony przez hakera (Integralność).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kryptografia to matematyczna tarcza informacji. Symetryczna – jeden klucz do szyfrowania i deszyfrowania, szybka jak AES, używana do dysków. Asymetryczna – para kluczy, publiczny i prywatny, wolniejsza, ale rozwiązuje problem wymiany kluczy. I funkcja skrótu, hash – jednokierunkowa, z mięsa mielonego nie odtworzymy steka. Hasła w bazach przechowujemy jako hashe, nie jako tekst jawny. Proszę spojrzeć na planszę – porównuje ona szyfrowanie symetryczne i asymetryczne.”
+                </div>
             </div>
 
-            <!-- SVG 2: KRYPTOGRAFIA -->
-            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="300" fill="#e3f2fd" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wizualizacja Algorytmów Kryptograficznych</text>
+            <!-- SVG 2: KRYPTOGRAFIA (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wizualizacja Algorytmów Kryptograficznych</text>
 
                 <!-- Symetryczna -->
-                <rect x="40" y="45" width="740" height="110" rx="6" fill="#fff" stroke="#90caf9" stroke-width="2"/>
-                <text x="60" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">1. Szyfrowanie Symetryczne (Ten sam klucz = Szybkość)</text>
-                
-                <rect x="100" y="85" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
-                <text x="120" y="115" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+                <rect x="40" y="45" width="740" height="120" rx="8" fill="#fff" stroke="#90caf9" stroke-width="2"/>
+                <text x="60" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0">1. Szyfrowanie Symetryczne (Ten sam klucz = Szybkość)</text>
 
-                <path d="M 150 110 L 220 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnK)"/>
-                <text x="185" y="100" font-family="sans-serif" font-size="14" text-anchor="middle">🔑</text>
-                <text x="185" y="130" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
+                <rect x="100" y="90" width="50" height="55" fill="#eceff1" stroke="#b0bec5" rx="3"/>
+                <text x="125" y="122" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Plik</text>
+
+                <path d="M 160 117 L 230 117" fill="none" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#arrowGrnK)"/>
+                <text x="195" y="108" font-family="sans-serif" font-size="16" text-anchor="middle">🔑</text>
+                <text x="195" y="138" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
 
                 <!-- Ciphertext -->
-                <rect x="230" y="85" width="280" height="50" fill="#37474f" rx="4"/>
-                <text x="370" y="110" font-family="monospace" font-size="12" fill="#4caf50" text-anchor="middle">@!#%x$#9q(Zaszyfrowane)*&^</text>
+                <rect x="240" y="90" width="290" height="55" fill="#37474f" rx="4"/>
+                <text x="385" y="122" font-family="monospace" font-size="12" fill="#4caf50" text-anchor="middle">@!#%x$#9q(Zaszyfrowane)*&^</text>
 
-                <path d="M 520 110 L 590 110" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnK)"/>
-                <text x="555" y="100" font-family="sans-serif" font-size="14" text-anchor="middle">🔑</text>
-                <text x="555" y="130" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
+                <path d="M 540 117 L 610 117" fill="none" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#arrowGrnK)"/>
+                <text x="575" y="108" font-family="sans-serif" font-size="16" text-anchor="middle">🔑</text>
+                <text x="575" y="138" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Klucz A</text>
 
-                <rect x="600" y="85" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
-                <text x="620" y="115" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
-
+                <rect x="620" y="90" width="50" height="55" fill="#eceff1" stroke="#b0bec5" rx="3"/>
+                <text x="645" y="122" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Plik</text>
 
                 <!-- Asymetryczna -->
-                <rect x="40" y="170" width="740" height="110" rx="6" fill="#fff" stroke="#ffcc80" stroke-width="2"/>
-                <text x="60" y="190" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">2. Szyfrowanie Asymetryczne (Dwa klucze = Bezpieczny transport)</text>
-                
-                <rect x="100" y="210" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
-                <text x="120" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+                <rect x="40" y="180" width="740" height="120" rx="8" fill="#fff" stroke="#ffcc80" stroke-width="2"/>
+                <text x="60" y="203" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">2. Szyfrowanie Asymetryczne (Dwa klucze = Bezpieczny transport)</text>
 
-                <path d="M 150 235 L 220 235" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedK)"/>
-                <text x="185" y="225" font-family="sans-serif" font-size="14" text-anchor="middle">🔓</text>
-                <text x="185" y="255" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Klucz PUBLICZNY</text>
-                <text x="185" y="267" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Odbiorcy (Zamyka)</text>
+                <rect x="100" y="225" width="50" height="55" fill="#eceff1" stroke="#b0bec5" rx="3"/>
+                <text x="125" y="257" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Plik</text>
+
+                <path d="M 160 252 L 230 252" fill="none" stroke="#d32f2f" stroke-width="2.5" marker-end="url(#arrowRedK)"/>
+                <text x="195" y="243" font-family="sans-serif" font-size="16" text-anchor="middle">🔓</text>
+                <text x="195" y="273" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Klucz PUBLICZNY</text>
+                <text x="195" y="286" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Odbiorcy (Zamyka)</text>
 
                 <!-- Ciphertext -->
-                <rect x="230" y="210" width="280" height="50" fill="#37474f" rx="4"/>
-                <text x="370" y="235" font-family="monospace" font-size="12" fill="#ffb74d" text-anchor="middle">&^%@!(Zaszyfrowane)*#!x</text>
+                <rect x="240" y="225" width="290" height="55" fill="#37474f" rx="4"/>
+                <text x="385" y="257" font-family="monospace" font-size="12" fill="#ffb74d" text-anchor="middle">&^%@!(Zaszyfrowane)*#!x</text>
 
-                <path d="M 520 235 L 590 235" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgK)"/>
-                <text x="555" y="225" font-family="sans-serif" font-size="14" text-anchor="middle">🗝️</text>
-                <text x="555" y="255" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Klucz PRYWATNY</text>
-                <text x="555" y="267" font-family="sans-serif" font-size="8" fill="#e65100" text-anchor="middle">Odbiorcy (Otwiera)</text>
+                <path d="M 540 252 L 610 252" fill="none" stroke="#f57c00" stroke-width="2.5" marker-end="url(#arrowOrgK)"/>
+                <text x="575" y="243" font-family="sans-serif" font-size="16" text-anchor="middle">🗝️</text>
+                <text x="575" y="273" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Klucz PRYWATNY</text>
+                <text x="575" y="286" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Odbiorcy (Otwiera)</text>
 
-                <rect x="600" y="210" width="40" height="50" fill="#eceff1" stroke="#b0bec5"/>
-                <text x="620" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Plik</text>
+                <rect x="620" y="225" width="50" height="55" fill="#eceff1" stroke="#b0bec5" rx="3"/>
+                <text x="645" y="257" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">Plik</text>
 
                 <defs>
                     <marker id="arrowGrnK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
@@ -189,47 +197,50 @@
                     <li><strong>DAC (Discretionary Access Control):</strong> Stosowany w domowych Windowsach/Linuxach. Twórca pliku jest jego właścicielem i według własnego uznania "klika", komu udostępnić plik, a komu nie.</li>
                     <li><strong>RBAC (Role-Based Access Control):</strong> Złoty standard korporacji. Użytkownik nie dostaje praw do pliku bezpośrednio! Użytkownik przypisywany jest do <strong>Roli</strong> (np. "Księgowy", "Stażysta"). Prawa nadawane są Roli, a nie osobie. Zwolnienie pracownika lub zmiana działu polega po prostu na odpięciu od niego jednej grupy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy trzy modele kontroli dostępu. MAC – obowiązkowy, wojskowy, system decyduje. DAC – uznaniowy, właściciel pliku decyduje. RBAC – oparty na rolach, to złoty standard w firmach. Nie nadajemy praw użytkownikowi, tylko roli – księgowy, stażysta, admin. Gdy pracownik zmienia dział, odpinamy mu starą rolę i przypinamy nową. Zero ręcznego zarządzania pojedynczymi uprawnieniami. Proszę spojrzeć na planszę – pokazuje ona model RBAC z użytkownikami, rolami i zasobami.”
+                </div>
             </div>
 
-            <!-- SVG 3: RBAC MODEL -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Struktura modelu RBAC (Role-Based Access Control)</text>
+            <!-- SVG 3: RBAC MODEL (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="#e8f5e9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Struktura modelu RBAC (Role-Based Access Control)</text>
 
                 <!-- Użytkownicy -->
-                <rect x="60" y="60" width="100" height="30" rx="15" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="110" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Anna (Użytkownik)</text>
+                <rect x="60" y="65" width="110" height="35" rx="17" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="115" y="87" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Anna (Użytkownik)</text>
 
-                <rect x="60" y="140" width="100" height="30" rx="15" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="110" y="160" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Jan (Użytkownik)</text>
+                <rect x="60" y="150" width="110" height="35" rx="17" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="115" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Jan (Użytkownik)</text>
 
                 <!-- Role -->
-                <rect x="300" y="60" width="140" height="40" rx="4" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
-                <text x="370" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: "Senior Dev"</text>
+                <rect x="300" y="65" width="150" height="45" rx="6" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
+                <text x="375" y="92" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: „Senior Dev”</text>
 
-                <rect x="300" y="140" width="140" height="40" rx="4" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
-                <text x="370" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: "Audytor"</text>
+                <rect x="300" y="150" width="150" height="45" rx="6" fill="#ffecb3" stroke="#ffa000" stroke-width="2"/>
+                <text x="375" y="177" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ff6f00" text-anchor="middle">Rola: „Audytor”</text>
 
                 <!-- Zasoby/Prawa -->
-                <rect x="580" y="60" width="160" height="40" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="660" y="78" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Baza Danych Klientów</text>
-                <text x="660" y="92" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">(Odczyt + Modyfikacja)</text>
+                <rect x="580" y="65" width="180" height="45" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="670" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Baza Danych Klientów</text>
+                <text x="670" y="100" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Odczyt + Modyfikacja)</text>
 
-                <rect x="580" y="140" width="160" height="40" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="660" y="158" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Logi Zdarzeń Systemu</text>
-                <text x="660" y="172" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">(Tylko Odczyt)</text>
+                <rect x="580" y="150" width="180" height="45" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="670" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Logi Zdarzeń Systemu</text>
+                <text x="670" y="185" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Tylko Odczyt)</text>
 
                 <!-- Relacje User -> Role -->
-                <path d="M 160 75 L 290 75" fill="none" stroke="#78909c" stroke-width="2" marker-end="url(#arrowGryM)"/>
-                <path d="M 160 155 L 290 155" fill="none" stroke="#78909c" stroke-width="2" marker-end="url(#arrowGryM)"/>
+                <path d="M 170 82 L 290 82" fill="none" stroke="#78909c" stroke-width="2.5" marker-end="url(#arrowGryM)"/>
+                <path d="M 170 167 L 290 167" fill="none" stroke="#78909c" stroke-width="2.5" marker-end="url(#arrowGryM)"/>
                 <!-- Anna has also Auditor -->
-                <path d="M 160 75 L 290 155" fill="none" stroke="#78909c" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowGryM)"/>
-                
+                <path d="M 170 82 L 290 167" fill="none" stroke="#78909c" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrowGryM)"/>
+
                 <!-- Relacje Role -> Permission -->
-                <path d="M 440 75 L 570 75" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
-                <path d="M 440 155 L 570 155" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
+                <path d="M 450 82 L 570 82" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
+                <path d="M 450 167 L 570 167" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrgM)"/>
                 <!-- Senior dev has also read access to logs -->
-                <path d="M 440 75 L 570 155" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowOrgM)"/>
+                <path d="M 450 82 L 570 167" fill="none" stroke="#f57c00" stroke-width="3" stroke-dasharray="5,4" marker-end="url(#arrowOrgM)"/>
 
                 <defs>
                     <marker id="arrowGryM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#78909c"/></marker>
@@ -246,6 +257,9 @@
                     <li><strong>Mylenie Szyfrowania z Hashowaniem:</strong> To grzech główny! Szyfrowanie to ukrycie tekstu tak, aby zaufany odbiorca mógł go przeczytać (jest ODWARACALNE używając klucza). Hashowanie to matematyczne "zmielenie" pliku w maszynce do mięsa. Wynik (hash) służy tylko do weryfikacji. <em>NIGDY nie mów, że odzyskałeś hasło z hasha (bo z mięsa mielonego nie da się zrobić z powrotem steka).</em> Bazy danych przechowują hasła w postaci Hashy.</li>
                     <li><strong>"Szyfrowanie asymetryczne jest lepsze, więc używamy tylko jego"</strong> – Mit! RSA (asymetryczne) wymaga tak potwornej mocy obliczeniowej, że szyfrowanie nim całego dysku zajęłoby wieki, a procesor spaliłby się z przegrzania. Zamiast tego stosuje się <em>Kryptografię Hybrydową</em> (TLS/SSL używa RSA tylko na początku by bezpiecznie przesłać jeden mały klucz symetryczny AES, a reszta szybkiej transmisji leci symetrycznie).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – szyfrowanie to nie hashowanie. Szyfrowanie jest odwracalne, hash jest jednokierunkowy. Haseł nie przechowujemy zaszyfrowanych, tylko hashowane – z hasha nie da się odzyskać oryginału. Po drugie – w praktyce używamy kryptografii hybrydowej. Asymetryczne RSA jest zbyt wolne do szyfrowania dużych danych, więc używamy go tylko do bezpiecznej wymiany szybkiego klucza AES. TLS/SSL działa właśnie w ten sposób.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

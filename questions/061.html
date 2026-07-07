@@ -14,7 +14,7 @@
         <h2 id="q-title">061. Podział wymagań stawianych oprogramowaniu. Klasyfikacja wymagań niefunkcjonalnych.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
                 <div>
@@ -57,6 +57,9 @@
                     <li><strong>Wymagania Niefunkcjonalne (NF)</strong> – Opisują jakość, z jaką system działa. Przykład: „Email zostaje wysłany w ciągu 30 sekund”.</li>
                     <li><strong>Ograniczenia (Constraints)</strong> – Zewnętrze limity, na które nie masz wpływu. Przykład: „System musi być napisany w Javie, bo taki jest standard w firmie”, „Całość nie może przekroczyć budżetu 500k PLN”.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wymagania dzielimy na trzy główne kategorie. Funkcjonalne – opisują CO system robi, na przykład 'system wysyła email po rejestracji'. Niefunkcjonalne – opisują JAK system działa, na przykład 'email zostaje wysłany w ciągu trzydziestu sekund'. Ograniczenia to zewnętrzne limity, na które nie mamy wpływu – budżet, narzucona technologia, deadline. Proszę spojrzeć na piramidę – u podstawy mamy funkcjonalności, które są najbardziej widoczne dla użytkownika, ale to niefunkcjonalne i ograniczenia decydują o tym, czy system w ogóle będzie działał w realnym świecie."
+                </div>
             </div>
 
             <!-- SVG: Piramida podziału wymagań -->
@@ -85,6 +88,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Aby nie mówić o wymaganiach niefunkcjonalnych „na czuja”, organizacja ISO stworzyła normę <strong>ISO 25010</strong> (dawniej 9126), która dzieli jakość systemu na osiem głównych charakterystyk:
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Norma ISO 25010 definiuje osiem kategorii wymagań niefunkcjonalnych i to jest standard, który musicie znać. Są to: wydajność – czas odpowiedzi i przepustowość; bezpieczeństwo – poufność, integralność, niezaprzeczalność; niezawodność – dostępność i odporność na awarie; użyteczność – łatwość obsługi i estetyka; przenaszalność – łatwość instalacji na różnych platformach; kompatybilność – współpraca z innymi systemami; utrzymywalność – modularność i testowalność; oraz zgodność z prawem i normami. Proszę spojrzeć na planszę – każda z tych kategorii jest tam szczegółowo opisana."
+                </div>
             </div>
 
             <!-- SVG: Model ISO 25010 -->
@@ -188,6 +194,9 @@
                         </tr>
                     </table>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wymagania niefunkcjonalne muszą być mierzalne i testowalne – to jest absolutnie kluczowe. Nie można napisać 'system jest szybki' – to nic nie znaczy. Trzeba podać konkret: 'czas odpowiedzi API dla dziewięćdziesięciu pięciu procent żądań nie przekracza dwustu milisekund przy obciążeniu pięciuset żądań na sekundę'. Proszę spojrzeć na przykłady w tabeli – pokazują one, jak przekształcić niejednoznaczne stwierdzenia w precyzyjne, testowalne wymagania. Bez tego nie da się zweryfikować, czy system spełnia wymagania jakościowe."
+                </div>
             </div>
 
             <!-- 4. FURPS+ -->
@@ -204,6 +213,9 @@
                     <li><strong>S</strong>upportability (Wsparcie) – łatwość testowania, instalacji, konfiguracji, utrzymania.</li>
                     <li><strong>+</strong> – Ograniczenia projektowe (Design Constraints), wymagania implementacyjne, fizyczne, interfejsu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oprócz ISO 25010 warto znać prostszą klasyfikację FURPS+. F to funkcjonalność, U to użyteczność, R to niezawodność, P to wydajność, S to wsparcie – łatwość testowania i utrzymania. Plus oznacza dodatkowe ograniczenia projektowe i implementacyjne. Ta klasyfikacja jest często używana w praktyce, bo jest prostsza do zapamiętania niż osiem kategorii ISO. Na egzaminie mogą zapytać o obie – warto znać zarówno ISO 25010, jak i FURPS+."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
@@ -213,6 +225,9 @@
                     <li><strong>„Na początku zbudujemy funkcje, a wydajnością zajmiemy się później”</strong> – PÓŹNIEJ to w IT zazwyczaj oznacza „na miesiąc przed deadlinem, z przekroczonym budżetem, bez możliwości zmiany architektury”. NFR-y muszą być brane pod uwagę od fazy projektowania, ponieważ wpływają na wybór architektury, frameworka i bazy danych.</li>
                     <li><strong>„Użyteczność to tylko ładny CSS”</strong> – Użyteczność (Usability) obejmuje też dostępność (Accessibility) dla osób z niepełnosprawnościami, intuicyjność nawigacji, zrozumiałość komunikatów błędów. W wielu krajach dostępność jest wymogiem PRAWNYM, a nie tylko „fajnym dodatkiem”.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie największe pułapki związane z wymaganiami niefunkcjonalnymi. Po pierwsze, odkładanie wydajności na później – w IT 'później' zazwyczaj oznacza miesiąc przed deadlinem, gdy nie ma już czasu ani budżetu na zmiany architektury. NFR-y trzeba uwzględniać od fazy projektowania, bo wpływają na wybór technologii. Po drugie, redukowanie użyteczności do ładnego wyglądu – użyteczność to także dostępność dla osób z niepełnosprawnościami, która w wielu krajach jest wymogiem prawnym, a nie opcjonalnym dodatkiem."
+                </div>
             </div>
 
             <!-- Grokking -->

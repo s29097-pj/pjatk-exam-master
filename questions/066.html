@@ -14,16 +14,16 @@
         <h2 id="q-title">066. Proces wytwarzania oprogramowania: cykl życia projektu IT, etapy i czynności w procesie budowy oprogramowania, ich rola.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie buduje się drapacza chmur bez planu i harmonogramu”:</strong>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie buduje się drapacza chmur bez planu i harmonogramu":</strong>
                     <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
                         Wyobraź sobie, że masz wybudować 50-piętrowy wieżowiec. Czy zaczynasz od razu wylewać beton na chybił-trafił? Absolutnie nie. Najpierw architekt rysuje plany (analiza i projekt), potem ekipa budowlana stawia szkielet (implementacja), inspektor sprawdza zgodność z normami (testowanie), a na końcu następuje odbiór i wprowadzają się lokatorzy (wdrożenie). Co więcej, przez kolejne lata konserwatorzy naprawiają usterki i remontują (utrzymanie).
                     </p>
                     <p style="margin: 0; color: #3e2723; line-height: 1.7;">
-                        <strong>Proces wytwarzania oprogramowania (SDLC – Software Development Life Cycle)</strong> to dokładnie taka sama sekwencja działań. To ustrukturyzowana metoda, która przeprowadza system informatyczny od pierwszego pomysłu („potrzebujemy aplikacji do zarządzania magazynem”) aż do wyłączenia go z użytku po latach. Bez SDLC projekty IT toną w chaosie: wymagania się zmieniają bez kontroli, kod jest niespójny, a użytkownik dostaje produkt, który nie działa.
+                        <strong>Proces wytwarzania oprogramowania (SDLC – Software Development Life Cycle)</strong> to dokładnie taka sama sekwencja działań. To ustrukturyzowana metoda, która przeprowadza system informatyczny od pierwszego pomysłu („potrzebujemy aplikacji do zarządzania magazynem") aż do wyłączenia go z użytku po latach. Bez SDLC projekty IT toną w chaosie: wymagania się zmieniają bez kontroli, kod jest niespójny, a użytkownik dostaje produkt, który nie działa.
                     </p>
                 </div>
             </div>
@@ -50,6 +50,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>SDLC</strong> to ramy opisujące kolejne etapy powstawania systemu informatycznego – od pomysłu do wycofania. Jest jak przepis na ciasto: masz listę składników (ludzi, budżet, technologie) i kolejność kroków, które musisz wykonać, by upiec udany produkt. SDLC nie jest jednym sztywnym procesem – istnieje wiele modeli (Waterfall, V-Model, Iterative, Agile), ale <strong>wszystkie zawierają te same podstawowe fazy</strong>, tylko realizowane w różnej kolejności i z różną częstotliwością.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „SDLC, czyli Software Development Life Cycle, to ustrukturyzowany proces, który przeprowadza system od pomysłu do wycofania. To jak przepis na ciasto – mamy składniki i kolejność kroków. SDLC nie jest jednym sztywnym procesem – Waterfall, V-Model, iteracyjny czy Agile to różne modele, ale wszystkie zawierają te same podstawowe fazy: analizę, projektowanie, implementację, testowanie, wdrożenie i utrzymanie. Różnica polega na tym, jak często i w jakiej kolejności te fazy są realizowane."
+                </div>
             </div>
 
             <!-- 2. Główne fazy (schemat SVG) -->
@@ -118,6 +121,12 @@
                     <marker id="arrBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
                 </defs>
             </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Niezależnie od metodyki, każdy projekt przechodzi przez sześć uniwersalnych faz SDLC: analiza wymagań, projektowanie architektury i interfejsu, implementacja czyli kodowanie, testowanie na wielu poziomach, wdrożenie z migracją danych i szkoleniami, oraz utrzymanie, które trwa latami. W Waterfallu robimy te fazy raz, po kolei. W Agile powtarzamy je w każdym Sprincie dla małego wycinka funkcjonalności. Proszę spojrzeć na planszę – pokazuje ona przepływ między fazami i pętlę utrzymania, a poniżej porównanie Waterfalla z Agile."
+                </div>
+            </div>
 
             <!-- 3. Czynności i role -->
             <div class="answer-step" style="margin-bottom: 24px;">
@@ -208,29 +217,41 @@
                 <text x="700" y="317" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Logi, Raporty incydentów</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każda faza ma swoje czynności, role i artefakty. W analizie analityk biznesowy przeprowadza wywiady i tworzy SRS. W projektowaniu architekt i UX designer tworzą dokument architektury i makiety. W implementacji programiści piszą kod i unit testy. W testowaniu testerzy i automatycy QA wykonują testy na wielu poziomach. We wdrożeniu DevOps i project manager migrują dane i szkolą użytkowników. A w utrzymaniu zespół utrzymania naprawia błędy i monitoruje system. Proszę spojrzeć na tabelę – rozbija ona każdą fazę na czynności, role i artefakty. To jest mapa, którą warto znać na egzamin."
+                </div>
+            </div>
+
             <!-- 4. Bramki decyzyjne -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">4. Bramki decyzyjne (Quality Gates) – nie przechodzisz dalej bez odbioru</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Między fazami często stoją <strong>bramki jakości</strong> – formalne punkty kontrolne, w których sprawdza się, czy faza została zakończona poprawnie. Bez zaliczenia bramki nie wolno przejść dalej. Przykłady: zakończenie analizy wymaga formalnej akceptacji SRS przez klienta; zakończenie testów wymaga, by wszystkie krytyczne błędy były naprawione.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Między fazami stoją bramki jakości – formalne punkty kontrolne. Bez zaliczenia bramki nie można przejść dalej. Na przykład zakończenie analizy wymaga formalnej akceptacji SRS przez klienta. Zakończenie testów wymaga, by wszystkie krytyczne błędy były naprawione. Bramki jakości to mechanizm obronny – zapobiegają sytuacji, w której niedokończona faza przechodzi do następnej, a błędy z początku projektu ujawniają się dopiero na produkcji, gdzie ich naprawa jest sto razy droższa."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (SDLC w praktyce):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Faza testowania jest po implementacji”</strong> – W Waterfallu tak. W Agile testowanie jest równoległe z implementacją (TDD, CI/CD). Nowoczesne procesy nie czekają z testowaniem na koniec.</li>
-                    <li><strong>„Utrzymanie to nie jest faza SDLC”</strong> – Jest. To najdłuższa i najdroższa faza (nawet 70% całkowitych kosztów systemu). Egzaminatorzy lubią pytać o koszty utrzymania vs. koszty budowy.</li>
-                    <li><strong>„SDLC to tylko dla dużych korporacji”</strong> – Nawet startup jednoosobowy przechodzi przez wszystkie fazy – po prostu szybciej i mniej formalnie. Cykl życia jest nieunikniony, zmienia się tylko jego formalność i długość.</li>
+                    <li><strong>„Faza testowania jest po implementacji"</strong> – W Waterfallu tak. W Agile testowanie jest równoległe z implementacją (TDD, CI/CD). Nowoczesne procesy nie czekają z testowaniem na koniec.</li>
+                    <li><strong>„Utrzymanie to nie jest faza SDLC"</strong> – Jest. To najdłuższa i najdroższa faza (nawet 70% całkowitych kosztów systemu). Egzaminatorzy lubią pytać o koszty utrzymania vs. koszty budowy.</li>
+                    <li><strong>„SDLC to tylko dla dużych korporacji"</strong> – Nawet startup jednoosobowy przechodzi przez wszystkie fazy – po prostu szybciej i mniej formalnie. Cykl życia jest nieunikniony, zmienia się tylko jego formalność i długość.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki związane z SDLC. Po pierwsze, testowanie nie zawsze jest po implementacji – w Agile jest równoległe, z TDD i ciągłą integracją. Po drugie, utrzymanie to najdłuższa i najdroższa faza – nawet siedemdziesiąt procent kosztów systemu – i egzaminatorzy często o to pytają. Po trzecie, SDLC nie jest tylko dla korporacji – nawet jednoosobowy startup przechodzi przez wszystkie fazy, tylko szybciej i mniej formalnie. Cykl życia jest nieunikniony, zmienia się tylko poziom formalności."
+                </div>
             </div>
 
             <!-- Grokking -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">SDLC nie jest biurokratyczną zmorą – to mapa, która nie pozwala Ci zabłądzić. Bez względu na to, czy używasz Waterfalla, Scruma czy Kanbana, zawsze musisz przejść od „co robimy?” do „działa i jest używane”. Zrozumienie faz i czynności to podstawa, by później świadomie wybierać, które z nich przyspieszasz, a których nie możesz pominąć bez ryzyka katastrofy.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">SDLC nie jest biurokratyczną zmorą – to mapa, która nie pozwala Ci zabłądzić. Bez względu na to, czy używasz Waterfalla, Scruma czy Kanbana, zawsze musisz przejść od „co robimy?" do „działa i jest używane". Zrozumienie faz i czynności to podstawa, by później świadomie wybierać, które z nich przyspieszasz, a których nie możesz pominąć bez ryzyka katastrofy.</span>
                 </p>
             </div>
 
@@ -238,7 +259,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    PMBOK Guide (PMI) – rozdziały o cyklu życia projektu · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman) · „The Mythical Man-Month” (Frederick Brooks) – o kosztach utrzymania.
+                    PMBOK Guide (PMI) – rozdziały o cyklu życia projektu · „Software Engineering: A Practitioner's Approach" (Roger S. Pressman) · „The Mythical Man-Month" (Frederick Brooks) – o kosztach utrzymania.
                 </span>
             </div>
 

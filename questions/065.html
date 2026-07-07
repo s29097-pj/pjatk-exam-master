@@ -14,16 +14,16 @@
         <h2 id="q-title">065. Interfejs programowania aplikacji (API).</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🍽️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kelner, który łączy Cię z kuchnią”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kelner, który łączy Cię z kuchnią":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
-                        Wyobraź sobie restaurację. Siedzisz przy stoliku i masz przed sobą <strong>menu</strong> – listę dań, które możesz zamówić. Nie wchodzisz do kuchni, nie grzebiesz w garnkach, nie krzyczysz do kucharza. Mówisz kelnerowi: „Poproszę pizzę Margherita i wodę mineralną”. Kelner przekazuje zamówienie do kuchni, a po chwili wraca z Twoim daniem. Co dokładnie dzieje się w kuchni – jakich składników użyto, na jakiej patelni smażono – Cię nie interesuje. Ważne, że dostałeś to, co zamówiłeś.
+                        Wyobraź sobie restaurację. Siedzisz przy stoliku i masz przed sobą <strong>menu</strong> – listę dań, które możesz zamówić. Nie wchodzisz do kuchni, nie grzebiesz w garnkach, nie krzyczysz do kucharza. Mówisz kelnerowi: „Poproszę pizzę Margherita i wodę mineralną". Kelner przekazuje zamówienie do kuchni, a po chwili wraca z Twoim daniem. Co dokładnie dzieje się w kuchni – jakich składników użyto, na jakiej patelni smażono – Cię nie interesuje. Ważne, że dostałeś to, co zamówiłeś.
                     </p>
                     <p style="margin: 0; color: #1a3a2a; line-height: 1.7;">
-                        <strong>API (Application Programming Interface)</strong> działa identycznie. To „kelner” w świecie oprogramowania – zestaw reguł, który mówi: „Możesz poprosić o te rzeczy (endpoints), w taki sposób (metody HTTP, parametry), a ja dostarczę Ci odpowiedź (JSON, XML)”. Nie musisz wiedzieć, jak system działa w środku – czy używa PostgreSQL czy MongoDB, czy kod jest w Javie czy Pythonie. Wysyłasz żądanie, dostajesz odpowiedź. API to menu, kelner i drzwi do kuchni w jednym.
+                        <strong>API (Application Programming Interface)</strong> działa identycznie. To „kelner" w świecie oprogramowania – zestaw reguł, który mówi: „Możesz poprosić o te rzeczy (endpoints), w taki sposób (metody HTTP, parametry), a ja dostarczę Ci odpowiedź (JSON, XML)". Nie musisz wiedzieć, jak system działa w środku – czy używa PostgreSQL czy MongoDB, czy kod jest w Javie czy Pythonie. Wysyłasz żądanie, dostajesz odpowiedź. API to menu, kelner i drzwi do kuchni w jednym.
                     </p>
                 </div>
             </div>
@@ -50,11 +50,14 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. API – umowa między systemami</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>API</strong> to zbiór zdefiniowanych reguł i protokołów, które umożliwiają komunikację między różnymi aplikacjami. API mówi: „Jeśli wyślesz mi żądanie w takim formacie, odpowiem Ci w takim formacie, wykonując przy tym konkretną operację”. To <strong>kontrakt</strong> – obie strony (klient i serwer) go znają i przestrzegają.
+                    <strong>API</strong> to zbiór zdefiniowanych reguł i protokołów, które umożliwiają komunikację między różnymi aplikacjami. API mówi: „Jeśli wyślesz mi żądanie w takim formacie, odpowiem Ci w takim formacie, wykonując przy tym konkretną operację". To <strong>kontrakt</strong> – obie strony (klient i serwer) go znają i przestrzegają.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     API nie jest nowym wynalazkiem – korzystasz z niego codziennie. Gdy aplikacja pogodowa na telefonie pokazuje temperaturę, łączy się przez API z serwerem meteorologicznym. Gdy logujesz się przez Google na jakiejś stronie, strona ta komunikuje się z API Google. Gdy płacisz kartą w sklepie, terminal rozmawia z API banku. API jest dosłownie wszędzie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „API to umowa między systemami – zestaw reguł, który mówi, jak wysłać żądanie i w jakim formacie otrzymamy odpowiedź. To jak menu w restauracji – nie wchodzimy do kuchni, tylko składamy zamówienie przez kelnera. API jest wszędzie: aplikacja pogodowa łączy się z serwerem meteorologicznym, logowanie przez Google to komunikacja z API Google, a płatność kartą to rozmowa terminala z API banku. Najważniejsze: API ukrywa implementację – nie musimy wiedzieć, czy serwer używa PostgreSQL czy MongoDB, Java czy Pythona. Wysyłamy żądanie, dostajemy odpowiedź."
+                </div>
             </div>
 
             <!-- 2. Rodzaje API (mapa) -->
@@ -104,8 +107,14 @@
 
                 <!-- Pasek na dole -->
                 <rect x="150" y="295" width="520" height="30" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
-                <text x="410" y="315" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f57f17" text-anchor="middle">💡 Nie ma jednego „najlepszego” API – wybór zależy od wymagań: szybkość, elastyczność, bezpieczeństwo.</text>
+                <text x="410" y="315" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f57f17" text-anchor="middle">💡 Nie ma jednego „najlepszego" API – wybór zależy od wymagań: szybkość, elastyczność, bezpieczeństwo.</text>
             </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy cztery główne style API. REST jest najpopularniejszy – opiera się na zasobach, metodach HTTP i jest bezstanowy. GraphQL pozwala klientowi pytać dokładnie o to, czego potrzebuje, eliminując nadmiarowe dane. SOAP to starszy, sztywny protokół z XML-em, wciąż używany w bankowości ze względu na wbudowane bezpieczeństwo transakcyjne. gRPC od Google używa binarnych Protocol Buffers i jest błyskawiczny – idealny do komunikacji między mikroserwisami. Nie ma jednego najlepszego – wybór zależy od tego, czy priorytetem jest szybkość, elastyczność, czy bezpieczeństwo. Proszę spojrzeć na planszę."
+                </div>
+            </div>
 
             <!-- 3. REST – jak wygląda w praktyce? -->
             <div class="answer-step" style="margin-bottom: 24px;">
@@ -118,6 +127,9 @@
                     <li><strong>Metody HTTP</strong> – <code>GET</code> (pobierz), <code>POST</code> (utwórz), <code>PUT</code> (podmień całość), <code>PATCH</code> (zmień część), <code>DELETE</code> (usuń).</li>
                     <li><strong>Reprezentacje</strong> – klient dostaje dane w formacie, który rozumie (JSON, XML), a nie bezpośredni dostęp do bazy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „REST opiera się na trzech filarach. Po pierwsze, zasoby – URL-e są rzeczownikami, nigdy czasownikami. Nie piszemy getUsers, tylko GET /users. Po drugie, metody HTTP – GET do pobierania, POST do tworzenia, PUT do podmiany całości, PATCH do częściowej zmiany, DELETE do usuwania. Po trzecie, reprezentacje – klient dostaje dane w JSON lub XML, a nie bezpośredni dostęp do bazy. Proszę spojrzeć na przykłady na planszy – pokazują one kompletne API CRUD dla zasobu Książki z metodami, endpointami i przykładową odpowiedzią JSON."
+                </div>
             </div>
 
             <!-- SVG: Przykład REST API -->
@@ -171,16 +183,22 @@
                     <li><strong>OAuth 2.0 + JWT</strong> – standard branżowy. Użytkownik loguje się, dostaje token, a każdy request zawiera go w nagłówku <code>Authorization: Bearer eyJhbG...</code>. Token wygasa, można go odświeżyć.</li>
                     <li><strong>Rate Limiting</strong> – ogranicza liczbę zapytań na minutę. Chroni przed przeciążeniem (DDoS) i nadużyciami.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Bezpieczeństwo API to osobny, kluczowy temat. API Key to najprostsza metoda – klucz w nagłówku, dobry dla komunikacji między firmami. Standardem branżowym jest OAuth 2.0 z JWT – użytkownik loguje się, dostaje token, który wysyła w każdym żądaniu w nagłówku Authorization Bearer. Token wygasa i można go odświeżyć, co zwiększa bezpieczeństwo. Rate limiting ogranicza liczbę zapytań na minutę, chroniąc przed atakami DDoS i nadużyciami. Bez tych mechanizmów publiczne API to jak kuchnia bez drzwi – każdy może wejść."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy API):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„GET do modyfikacji danych”</strong> – Kardynalny błąd. <code>GET /api/deleteUser/5</code> narusza zasady REST i bezpieczeństwa. GET musi być idempotentny i bezpieczny (bez efektów ubocznych). Do usuwania służy DELETE.</li>
-                    <li><strong>„API = REST”</strong> – REST to najpopularniejszy styl, ale nie jedyny. GraphQL, gRPC, SOAP, WebSockets też są API. Wybór zależy od potrzeb.</li>
-                    <li><strong>„Wersjonowanie API jest zbędne”</strong> – Gdy zmienisz strukturę odpowiedzi JSON (np. usuniesz pole), wszystkie aplikacje klienckie, które z niej korzystały, przestają działać. Wersjonuj przez URL (<code>/v1/...</code>) lub nagłówek Accept.</li>
+                    <li><strong>„GET do modyfikacji danych"</strong> – Kardynalny błąd. <code>GET /api/deleteUser/5</code> narusza zasady REST i bezpieczeństwa. GET musi być idempotentny i bezpieczny (bez efektów ubocznych). Do usuwania służy DELETE.</li>
+                    <li><strong>„API = REST"</strong> – REST to najpopularniejszy styl, ale nie jedyny. GraphQL, gRPC, SOAP, WebSockets też są API. Wybór zależy od potrzeb.</li>
+                    <li><strong>„Wersjonowanie API jest zbędne"</strong> – Gdy zmienisz strukturę odpowiedzi JSON (np. usuniesz pole), wszystkie aplikacje klienckie, które z niej korzystały, przestają działać. Wersjonuj przez URL (<code>/v1/...</code>) lub nagłówek Accept.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki przy projektowaniu API. Po pierwsze, używanie GET do modyfikacji danych – GET musi być bezpieczny i bez efektów ubocznych, do usuwania służy DELETE. Po drugie, mylenie API z REST-em – GraphQL, gRPC i SOAP też są API. Po trzecie, brak wersjonowania – gdy zmienimy strukturę JSON, wszystkie aplikacje klienckie przestają działać. Wersjonujemy przez URL z prefixem v1 lub przez nagłówek Accept."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -195,7 +213,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „RESTful Web APIs” (Leonard Richardson, Mike Amundsen) · „GraphQL in Action” (Samer Buna) · Dokumentacja OAuth 2.0 (RFC 6749) · „API Design Patterns” (John J. Geewax).
+                    „RESTful Web APIs" (Leonard Richardson, Mike Amundsen) · „GraphQL in Action" (Samer Buna) · Dokumentacja OAuth 2.0 (RFC 6749) · „API Design Patterns" (John J. Geewax).
                 </span>
             </div>
 

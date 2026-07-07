@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #f57c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(245,124,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #f57c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(245,124,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎥</span>
                 <div>
@@ -30,6 +30,9 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Ambient / Diffuse / Specular</span>
@@ -39,8 +42,15 @@
             <span class="keyword-tag">Normal Mapping (Mapa Normalnych)</span>
             <span class="keyword-tag">PBR (Physically Based Rendering)</span>
             <span class="keyword-tag">Zasada Zachowania Energii</span>
+            <span class="keyword-tag">Ray Tracing (Śledzenie promieni)</span>
+            <span class="keyword-tag">Równanie renderingu (Kajiya)</span>
+            <span class="keyword-tag">Path Tracing</span>
+            <span class="keyword-tag">RTX / DXR / Vulkan RT</span>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
@@ -51,33 +61,41 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     To najbardziej znany model oświetlenia lokalnego. Traktuje on kolor piksela jako sumę trzech niezależnych składników: <strong>Ambient</strong> (tło), <strong>Diffuse</strong> (kolor bazowy) i <strong>Specular</strong> (błysk).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, model Phonga to suma trzech składników. Ambient – światło tła, zawsze obecne, zapobiega całkowitej czerni. Diffuse – kolor bazowy, zależny od kąta między normalną a kierunkiem światła, zgodnie z prawem Lamberta. Specular – błysk, czyli odbicie kierunkowe. W wariancie Blinna-Phonga używamy wektora połówkowego H, który jest znacznie szybszy obliczeniowo. Proszę spojrzeć na planszę – pokazuje ona geometrię wszystkich wektorów: N, L, V i H.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridPhong" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
-                    <marker id="arrN" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#2e7d32"/></marker>
-                    <marker id="arrL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
-                    <marker id="arrV" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                    <marker id="arrH" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#ff8f00"/></marker>
+                    <marker id="arrN" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M0,0 L8,0 L4,8 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrL" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#fbc02d"/></marker>
+                    <marker id="arrV" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1565c0"/></marker>
+                    <marker id="arrH" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M0,0 L8,0 L4,8 Z" fill="#ff8f00"/></marker>
                 </defs>
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridPhong)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Geometria Modelu Oświetlenia Phonga i Blinn-Phonga</text>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridPhong)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Geometria Modelu Oświetlenia Phonga i Blinn-Phonga</text>
 
-                <g transform="translate(100, 60)">
-                    <line x1="0" y1="180" x2="400" y2="180" stroke="#546e7a" stroke-width="3"/>
-                    <line x1="180" y1="180" x2="180" y2="60" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrN)"/>
-                    <text x="190" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#1b5e20">N (Normalna)</text>
-                    <line x1="180" y1="180" x2="80" y2="100" stroke="#fbc02d" stroke-width="3" marker-end="url(#arrL)"/>
-                    <text x="60" y="110" font-family="monospace" font-size="14" font-weight="bold" fill="#f57f17">L (Światło)</text>
-                    <line x1="180" y1="180" x2="280" y2="130" stroke="#1565c0" stroke-width="3" marker-end="url(#arrV)"/>
-                    <text x="290" y="140" font-family="monospace" font-size="14" font-weight="bold" fill="#0d47a1">V (Kamera)</text>
-                    <line x1="180" y1="180" x2="220" y2="90" stroke="#ff8f00" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrH)"/>
-                    <text x="225" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100">H (Połówkowy)</text>
+                <g transform="translate(80, 55)">
+                    <line x1="0" y1="200" x2="440" y2="200" stroke="#546e7a" stroke-width="4"/>
+                    <line x1="200" y1="200" x2="200" y2="50" stroke="#2e7d32" stroke-width="4" marker-end="url(#arrN)"/>
+                    <text x="215" y="70" font-family="monospace" font-size="16" font-weight="bold" fill="#1b5e20">N</text>
+                    <text x="215" y="88" font-family="sans-serif" font-size="12" fill="#1b5e20">(Normalna)</text>
+                    <line x1="200" y1="200" x2="80" y2="100" stroke="#fbc02d" stroke-width="4" marker-end="url(#arrL)"/>
+                    <text x="50" y="110" font-family="monospace" font-size="16" font-weight="bold" fill="#f57f17">L</text>
+                    <text x="35" y="128" font-family="sans-serif" font-size="12" fill="#f57f17">(Światło)</text>
+                    <line x1="200" y1="200" x2="320" y2="120" stroke="#1565c0" stroke-width="4" marker-end="url(#arrV)"/>
+                    <text x="335" y="125" font-family="monospace" font-size="16" font-weight="bold" fill="#0d47a1">V</text>
+                    <text x="345" y="143" font-family="sans-serif" font-size="12" fill="#0d47a1">(Kamera)</text>
+                    <line x1="200" y1="200" x2="250" y2="85" stroke="#ff8f00" stroke-width="4" stroke-dasharray="8,5" marker-end="url(#arrH)"/>
+                    <text x="260" y="80" font-family="monospace" font-size="16" font-weight="bold" fill="#e65100">H</text>
+                    <text x="270" y="98" font-family="sans-serif" font-size="12" fill="#e65100">(Połówkowy)</text>
                 </g>
-                <rect x="480" y="80" width="300" height="90" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1"/>
-                <text x="630" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#e65100">I = Ambient + Diffuse + Specular</text>
-                <text x="630" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Diffuse: (L · N) * L_d</text>
-                <text x="630" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Specular (Blinn): (N · H)^α * L_s</text>
+                <rect x="450" y="80" width="340" height="120" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="620" y="108" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100">I = Ambient + Diffuse + Specular</text>
+                <text x="620" y="135" text-anchor="middle" font-family="monospace" font-size="13" fill="#bf360c">Diffuse: (L · N) · k_d · L_d</text>
+                <text x="620" y="160" text-anchor="middle" font-family="monospace" font-size="13" fill="#bf360c">Specular (Blinn): (N · H)^α · k_s · L_s</text>
+                <text x="620" y="185" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">α – wykładnik połysku (im większy, tym mniejszy błysk)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -88,28 +106,31 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Model oświetlenia mówi nam <strong>jaki kolor</strong> powinien mieć punkt. Model cieniowania mówi nam <strong>dla jakich punktów</strong> wykonujemy te obliczenia. Ta decyzja dramatycznie wpływa na realizm i szybkość renderowania.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy trzy techniki cieniowania. Flat – najszybszy, jedna normalna na trójkąt, daje efekt kanciasty. Gouraud – liczymy światło w wierzchołkach i interpolujemy kolor, szybki ale gubi refleksy wewnątrz dużych trójkątów. Phong – interpolujemy normalne i liczymy światło dla każdego piksela, najwolniejszy ale daje perfekcyjne refleksy. Współczesne gry używają właśnie Phong Shadingu w Fragment Shaderze. Proszę spojrzeć na planszę – porównuje ona wizualnie te trzy techniki.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridPhong)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Ewolucja Cieniowania: Flat, Gouraud i Phong</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridPhong)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Ewolucja Cieniowania: Flat, Gouraud i Phong</text>
 
-                <rect x="40" y="55" width="220" height="150" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="150" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Flat Shading</text>
-                <circle cx="150" cy="135" r="35" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
-                <polygon points="150,100 130,120 150,140 170,120" fill="#e57373" stroke="#c62828" stroke-width="1"/>
-                <text x="150" y="200" font-family="sans-serif" font-size="10" fill="#546e7a">1 normalna na trójkąt.</text>
+                <rect x="35" y="58" width="235" height="160" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="152" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Flat Shading</text>
+                <circle cx="152" cy="145" r="40" fill="#ef9a9a" stroke="#c62828" stroke-width="2.5"/>
+                <polygon points="152,105 132,125 152,145 172,125" fill="#e57373" stroke="#c62828" stroke-width="2"/>
+                <text x="152" y="210" font-family="sans-serif" font-size="12" fill="#546e7a">1 normalna na trójkąt.</text>
 
-                <rect x="300" y="55" width="220" height="150" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="410" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Gouraud Shading</text>
-                <circle cx="410" cy="135" r="35" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                <ellipse cx="420" cy="125" rx="10" ry="15" fill="#fff" opacity="0.6" transform="rotate(30 420 125)"/>
-                <text x="410" y="200" font-family="sans-serif" font-size="10" fill="#546e7a">Liczymy światło w wierzchołkach.</text>
+                <rect x="292" y="58" width="235" height="160" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="409" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Gouraud Shading</text>
+                <circle cx="409" cy="145" r="40" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2.5"/>
+                <ellipse cx="420" cy="135" rx="12" ry="18" fill="#fff" opacity="0.6" transform="rotate(30 420 135)"/>
+                <text x="409" y="210" font-family="sans-serif" font-size="12" fill="#546e7a">Światło w wierzchołkach.</text>
 
-                <rect x="560" y="55" width="220" height="150" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
-                <text x="670" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Phong Shading</text>
-                <circle cx="670" cy="135" r="35" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
-                <circle cx="660" cy="120" r="5" fill="#fff" opacity="0.9"/>
-                <text x="670" y="200" font-family="sans-serif" font-size="10" fill="#546e7a">Liczymy światło dla każdego piksela.</text>
+                <rect x="549" y="58" width="235" height="160" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="666" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Phong Shading</text>
+                <circle cx="666" cy="145" r="40" fill="#90caf9" stroke="#1976d2" stroke-width="2.5"/>
+                <circle cx="655" cy="130" r="6" fill="#fff" opacity="0.9"/>
+                <text x="666" y="210" font-family="sans-serif" font-size="12" fill="#546e7a">Światło dla każdego piksela.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -120,27 +141,30 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zamiast zmieniać kształt siatki, zmieniamy wektor normalny (<strong>N</strong>) dla każdego piksela na podstawie specjalnej tekstury (mapy normalnych). Dzięki temu płaska ściana może mieć widoczne wypukłości i zagłębienia.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mapowanie normalnych to genialny trik. Zamiast dodawać miliony trójkątów do siatki, zmieniamy tylko wektor normalny dla każdego piksela. Informacja o tym, jak zmienić normalną, jest zakodowana w teksturze – kanał R to odchylenie X, G to Y, B to Z. W efekcie płaska geometrycznie ściana wygląda jak ceglany mur z wypukłościami i zagłębieniami. To standard we wszystkich współczesnych grach. Proszę spojrzeć na planszę – widać, jak z płaskiej powierzchni i mapy normalnych powstaje iluzja wypukłości.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridPhong)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Mapowanie Normalnych: Przechowywanie geometrii w teksturze</text>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridPhong)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Mapowanie Normalnych: Przechowywanie geometrii w teksturze</text>
 
-                <rect x="40" y="60" width="200" height="100" rx="6" fill="#e0e0e0" stroke="#546e7a" stroke-width="2"/>
-                <text x="140" y="115" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#37474f">Płaska powierzchnia</text>
+                <rect x="35" y="65" width="200" height="110" rx="8" fill="#e0e0e0" stroke="#546e7a" stroke-width="2.5"/>
+                <text x="135" y="125" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#37474f">Płaska powierzchnia</text>
 
-                <text x="260" y="115" font-family="sans-serif" font-size="20" fill="#ff8f00">+</text>
+                <text x="255" y="125" font-family="sans-serif" font-size="28" fill="#ff8f00">+</text>
 
-                <rect x="290" y="60" width="200" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="390" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Mapa Normalnych</text>
-                <rect x="330" y="100" width="120" height="40" fill="#8e24aa" rx="4"/>
-                <text x="390" y="125" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff">RGB → XYZ Wektora N</text>
+                <rect x="290" y="65" width="200" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="390" y="92" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Mapa Normalnych</text>
+                <rect x="325" y="110" width="130" height="45" fill="#8e24aa" stroke="#7b1fa2" stroke-width="1.5" rx="6"/>
+                <text x="390" y="138" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff">RGB → XYZ Wektora N</text>
 
-                <text x="510" y="115" font-family="sans-serif" font-size="20" fill="#ff8f00">=</text>
+                <text x="510" y="125" font-family="sans-serif" font-size="28" fill="#ff8f00">=</text>
 
-                <rect x="540" y="60" width="240" height="100" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="660" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Efekt Wizualny</text>
-                <path d="M 580 130 Q 600 100 620 120 T 660 130 T 700 110" fill="none" stroke="#2e7d32" stroke-width="4"/>
-                <text x="660" y="115" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Wypukłości (tylko wizualnie)</text>
+                <rect x="540" y="65" width="245" height="110" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="662" y="92" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Efekt Wizualny</text>
+                <path d="M 580 140 Q 600 110 620 130 T 660 140 T 700 120" fill="none" stroke="#2e7d32" stroke-width="4.5"/>
+                <text x="662" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Wypukłości (tylko wizualnie)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -151,78 +175,137 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Model Phonga był intuicyjny, ale często wyglądał sztucznie (jak plastik). Współczesne gry i filmy używają <strong>PBR</strong>, które opiera się na zasadzie <strong>zachowania energii</strong> (powierzchnia nie może odbić więcej światła, niż otrzymała).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „PBR to fizycznie oparty rendering – koniec ery zgadywania parametrów. W modelu Phonga artysta ręcznie ustawiał wartości ambient, diffuse i specular, często łamiąc prawa fizyki. PBR wymusza zasadę zachowania energii: powierzchnia nie może odbić więcej światła niż otrzyma. Wprowadza też pojęcia metaliczności i chropowatości. Efekt? Materiały wyglądają realistycznie w każdych warunkach oświetleniowych. Proszę spojrzeć na planszę – porównuje ona zachowanie refleksów w Phongu i PBR.”
+                </div>
             </div>
             <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="240" fill="url(#gridPhong)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">PBR (Physically Based Rendering) – Zasada Zachowania Energii</text>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#004d40">PBR (Physically Based Rendering) – Zasada Zachowania Energii</text>
 
-                <!-- Phong (Strata energii) -->
-                <rect x="40" y="55" width="350" height="140" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="215" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Model Phonga (Niefizyczny)</text>
-                <circle cx="160" cy="130" r="30" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <path d="M 120 100 L 140 80 L 160 100" fill="none" stroke="#fbc02d" stroke-width="2"/>
-                <path d="M 160 100 L 200 80 L 220 100" fill="none" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrRefl1)"/>
-                <text x="215" y="150" font-family="sans-serif" font-size="10" fill="#b71c1c">Refleksy niezależne od kąta.</text>
-                <text x="215" y="162" font-family="sans-serif" font-size="10" fill="#b71c1c">Energia może być dodana/zgubiona.</text>
+                <rect x="35" y="55" width="360" height="155" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Model Phonga (Niefizyczny)</text>
+                <circle cx="160" cy="140" r="35" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <path d="M 115 110 L 135 90 L 155 110" fill="none" stroke="#fbc02d" stroke-width="2.5"/>
+                <path d="M 155 110 L 205 85" fill="none" stroke="#fbc02d" stroke-width="2.5" marker-end="url(#arrRefl1)"/>
+                <text x="215" y="165" font-family="sans-serif" font-size="12" fill="#b71c1c">Refleksy niezależne od kąta.</text>
+                <text x="215" y="182" font-family="sans-serif" font-size="12" fill="#b71c1c">Energia może być dodana/zgubiona.</text>
 
-                <!-- PBR (Zachowanie energii) -->
-                <rect x="430" y="55" width="350" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="605" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Model PBR (Fizyczny)</text>
-                <circle cx="550" cy="130" r="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <path d="M 510 100 L 540 80 L 560 100" fill="none" stroke="#fbc02d" stroke-width="2"/>
-                <path d="M 550 100 L 580 60" fill="none" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrRefl2)"/>
-                <text x="605" y="150" font-family="sans-serif" font-size="10" fill="#1b5e20">Refleksy są szersze przy kątach grazingu.</text>
-                <text x="605" y="162" font-family="sans-serif" font-size="10" fill="#1b5e20">Zasada zachowania energii spełniona.</text>
+                <rect x="425" y="55" width="360" height="155" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="605" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Model PBR (Fizyczny)</text>
+                <circle cx="550" cy="140" r="35" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                <path d="M 505 110 L 535 90 L 555 110" fill="none" stroke="#fbc02d" stroke-width="2.5"/>
+                <path d="M 545 110 L 580 65" fill="none" stroke="#fbc02d" stroke-width="2.5" marker-end="url(#arrRefl2)"/>
+                <text x="605" y="165" font-family="sans-serif" font-size="12" fill="#1b5e20">Refleksy szersze przy kątach grazing.</text>
+                <text x="605" y="182" font-family="sans-serif" font-size="12" fill="#1b5e20">Zasada zachowania energii spełniona.</text>
 
                 <defs>
-                    <marker id="arrRefl1" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#fbc02d"/></marker>
-                    <marker id="arrRefl2" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#fbc02d"/></marker>
+                    <marker id="arrRefl1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
+                    <marker id="arrRefl2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
                 </defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 5: PUŁAPKI EGZAMINACYJNE Z GRAFIKĄ                 -->
+            <!-- PART 5: RAY TRACING – GLOBALNE OŚWIETLENIE             -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c62828;">5. Pułapki Egzaminacyjne – Wizualna Ściągawka</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Ray Tracing – od lokalnych modeli do globalnego oświetlenia</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Omówione dotąd modele (Phong, PBR w rasteryzacji) to <strong>modele lokalne</strong> – liczą oświetlenie punktu na podstawie bezpośredniego światła, ignorując wpływ innych obiektów w scenie. <strong>Ray tracing (śledzenie promieni)</strong> to podejście <strong>globalne</strong>: symuluje fizyczną drogę promieni światła. Dla każdego piksela wysyłamy promień z kamery, znajdujemy przecięcie z geometrią, a następnie rekurencyjnie śledzimy promienie odbite, załamane i cienia. Dzięki temu automatycznie dostajemy realistyczne odbicia, refrakcje i miękkie cienie – co w rasteryzacji wymaga trików (environment mapy, shadow mapy).
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Matematyczną podstawą ray tracingu jest <strong>równanie renderingu</strong> (Kajiya, 1986), które całkuje światło docierające do punktu z całej półsfery. W praktyce używa się <strong>path tracingu</strong> – metody Monte Carlo, która losowo próbkuje ścieżki promieni, zbiegając do fotorealistycznego obrazu. Ceną jest ogromny koszt obliczeniowy – ray tracing w czasie rzeczywistym stał się możliwy dopiero niedawno dzięki dedykowanym jednostkom RT w kartach graficznych (NVIDIA RTX, DirectX Raytracing DXR, Vulkan RT).
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ray tracing to podejście globalne w przeciwieństwie do lokalnych modeli jak Phong czy PBR w rasteryzacji. Zamiast liczyć tylko bezpośrednie światło, wysyłamy promienie z kamery przez każdy piksel i śledzimy ich odbicia, załamania i cienie. Dzięki temu dostajemy automatycznie realistyczne odbicia w lustrach, refrakcje w szkle i miękkie cienie. Podstawą jest równanie renderingu Kajiyi, a w praktyce stosuje się path tracing – metodę Monte Carlo. Do niedawna ray tracing był zbyt wolny dla gier, ale karty NVIDIA RTX z dedykowanymi rdzeniami RT i DirectX Raytracing zmieniły to – dziś gry łączą rasteryzację z ray tracingiem w czasie rzeczywistym.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="url(#gridPhong)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Pułapki: Transformacja Normalnych i Kierunek Wektora L</text>
-
-                <!-- Błąd 1: Normalna przy skalowaniu -->
-                <rect x="30" y="50" width="360" height="140" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Problem: Nierównomierne skalowanie</text>
-                <g transform="translate(60, 100)">
-                    <rect x="0" y="0" width="80" height="80" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                    <line x1="40" y1="80" x2="40" y2="0" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrN1)"/>
-                    <text x="50" y="10" font-family="monospace" font-size="10" fill="#1b5e20">N</text>
-                    <text x="0" y="95" font-family="sans-serif" font-size="9" fill="#b71c1c">Oryginał</text>
-                </g>
-                <g transform="translate(220, 100)">
-                    <rect x="0" y="0" width="140" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                    <line x1="70" y1="40" x2="70" y2="0" stroke="#c62828" stroke-width="3" marker-end="url(#arrN2)"/>
-                    <text x="80" y="10" font-family="monospace" font-size="10" fill="#c62828">N'</text>
-                    <text x="0" y="55" font-family="sans-serif" font-size="9" fill="#b71c1c">Po skalowaniu (x2, y0.5)</text>
-                </g>
-                <text x="210" y="180" font-family="sans-serif" font-size="9" fill="#b71c1c">Normalna nie jest już prostopadła! Należy użyć macierzy odwrotnej transponowanej.</text>
-
-                <!-- Błąd 2: Wektor L -->
-                <rect x="430" y="50" width="360" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Poprawny kierunek: L wskazuje NA źródło</text>
-                <g transform="translate(460, 100)">
-                    <circle cx="80" cy="80" r="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                    <line x1="80" y1="80" x2="30" y2="30" stroke="#fbc02d" stroke-width="3" marker-end="url(#arrL2)"/>
-                    <text x="20" y="40" font-family="monospace" font-size="11" fill="#f57f17">L (Światło)</text>
-                    <circle cx="30" cy="30" r="8" fill="#fbc02d"/>
-                </g>
-                <text x="610" y="180" font-family="sans-serif" font-size="9" fill="#1b5e20">L = normalize(PozycjaŚwiatła - PozycjaPunktu). Nigdy odwrotnie!</text>
-
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
-                    <marker id="arrN1" markerWidth="4" markerHeight="4" refX="2" refY="3" orient="auto"><path d="M0,0 L4,0 L2,4 Z" fill="#2e7d32"/></marker>
-                    <marker id="arrN2" markerWidth="4" markerHeight="4" refX="2" refY="3" orient="auto"><path d="M0,0 L4,0 L2,4 Z" fill="#c62828"/></marker>
-                    <marker id="arrL2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
+                    <marker id="arrowRT" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff8f00"/></marker>
+                    <marker id="arrowRT2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowRT3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7b1fa2"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="280" fill="#fafbfc"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#6a1b9a">Ray Tracing – śledzenie promieni od kamery do źródeł światła</text>
+
+                <!-- Kamera -->
+                <rect x="30" y="70" width="60" height="40" rx="6" fill="#455a64" stroke="#263238" stroke-width="2"/>
+                <text x="60" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Kamera</text>
+
+                <!-- Siatka pikseli -->
+                <rect x="100" y="50" width="120" height="80" fill="none" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="160" y="45" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Siatka pikseli</text>
+
+                <!-- Promień pierwotny -->
+                <line x1="160" y1="90" x2="400" y2="60" stroke="#ff8f00" stroke-width="2.5" marker-end="url(#arrowRT)"/>
+                <text x="280" y="55" font-family="sans-serif" font-size="11" fill="#e65100">Promień pierwotny</text>
+
+                <!-- Sfera (obiekt) -->
+                <circle cx="450" cy="90" r="35" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="450" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Obiekt</text>
+
+                <!-- Promień odbity -->
+                <path d="M 470 70 Q 580 10 650 50" fill="none" stroke="#d32f2f" stroke-width="2.5" marker-end="url(#arrowRT2)"/>
+                <text x="560" y="25" font-family="sans-serif" font-size="11" fill="#c62828">Promień odbity</text>
+
+                <!-- Promień cienia -->
+                <line x1="430" y1="120" x2="430" y2="220" stroke="#7b1fa2" stroke-width="2.5" marker-end="url(#arrowRT3)"/>
+                <text x="440" y="175" font-family="sans-serif" font-size="11" fill="#6a1b9a">Promień</text>
+                <text x="440" y="190" font-family="sans-serif" font-size="11" fill="#6a1b9a">cienia</text>
+
+                <!-- Źródło światła -->
+                <circle cx="430" cy="245" r="18" fill="#fbc02d" stroke="#f57f17" stroke-width="2"/>
+                <text x="430" y="275" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Światło</text>
+
+                <!-- Równanie renderingu -->
+                <rect x="560" y="170" width="240" height="80" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="680" y="195" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#4a148c">L_o = L_e + ∫ f_r · L_i · cosθ dω</text>
+                <text x="680" y="218" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6a1b9a">Równanie renderingu (Kajiya 1986)</text>
+                <text x="680" y="238" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6a1b9a">Path tracing: Monte Carlo → fotorealizm</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE Z GRAFIKĄ                 -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">6. Pułapki Egzaminacyjne – Wizualna Ściągawka</strong>
+            </div>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrN1b" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M0,0 L8,0 L4,8 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrN2b" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M0,0 L8,0 L4,8 Z" fill="#c62828"/></marker>
+                    <marker id="arrL2b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#fbc02d"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridPhong)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">Pułapki: Transformacja Normalnych i Kierunek Wektora L</text>
+
+                <rect x="30" y="50" width="370" height="155" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Problem: Nierównomierne skalowanie</text>
+                <g transform="translate(60, 105)">
+                    <rect x="0" y="0" width="80" height="80" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                    <line x1="40" y1="80" x2="40" y2="0" stroke="#2e7d32" stroke-width="3.5" marker-end="url(#arrN1b)"/>
+                    <text x="52" y="15" font-family="monospace" font-size="14" fill="#1b5e20">N</text>
+                    <text x="0" y="100" font-family="sans-serif" font-size="11" fill="#b71c1c">Oryginał</text>
+                </g>
+                <g transform="translate(220, 105)">
+                    <rect x="0" y="0" width="140" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                    <line x1="70" y1="40" x2="70" y2="0" stroke="#c62828" stroke-width="3.5" marker-end="url(#arrN2b)"/>
+                    <text x="85" y="15" font-family="monospace" font-size="14" fill="#c62828">N'</text>
+                    <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#b71c1c">Po skalowaniu (x2, y0.5)</text>
+                </g>
+                <text x="215" y="195" font-family="sans-serif" font-size="11" fill="#b71c1c">Normalna nie jest już prostopadła! Należy użyć macierzy odwrotnej transponowanej.</text>
+
+                <rect x="430" y="50" width="360" height="155" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Poprawny kierunek: L wskazuje NA źródło</text>
+                <g transform="translate(450, 100)">
+                    <circle cx="80" cy="80" r="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                    <line x1="80" y1="80" x2="25" y2="25" stroke="#fbc02d" stroke-width="4" marker-end="url(#arrL2b)"/>
+                    <text x="15" y="35" font-family="monospace" font-size="15" fill="#f57f17">L</text>
+                    <circle cx="25" cy="25" r="10" fill="#fbc02d"/>
+                    <text cx="25" cy="22" font-size="10" fill="#000" text-anchor="middle">☀️</text>
+                </g>
+                <text x="610" y="195" font-family="sans-serif" font-size="12" fill="#1b5e20">L = normalize(PozycjaŚwiatła - PozycjaPunktu). Nigdy odwrotnie!</text>
             </svg>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -230,14 +313,18 @@
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>Gouraud vs Phong Shading:</strong> To nie to samo co model oświetlenia! Gouraud liczy światło w wierzchołkach, Phong liczy je dla każdego piksela. Dlatego refleksy w Gouraud są "rozmyte" i mogą znikać wewnątrz dużych trójkątów.</li>
                     <li><strong>PBR wymaga liniowej przestrzeni kolorów.</strong> Jeśli używasz PBR bez korekcji gamma (przestrzeń sRGB), materiały będą wyglądać źle, a energia światła nie będzie się zgadzać.</li>
+                    <li><strong>Ray tracing a rasteryzacja:</strong> Ray tracing nie zastępuje rasteryzacji w grach – współczesne silniki (Unreal Engine 5, Cyberpunk 2077) łączą obie techniki: rasteryzację dla geometrii podstawowej i ray tracing dla odbić, cieni i globalnego oświetlenia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, kluczowe pułapki. Po pierwsze – Gouraud Shading to nie model oświetlenia, tylko technika cieniowania. Po drugie – przy nierównomiernym skalowaniu normalna przestaje być prostopadła, trzeba użyć macierzy odwrotnej transponowanej. Po trzecie – PBR wymaga liniowej przestrzeni kolorów. I wreszcie – ray tracing nie zastąpił rasteryzacji; we współczesnych grach obie techniki są łączone: rasteryzacja dla wydajności, ray tracing dla realizmu odbić i cieni.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
             <!-- CHEAT-SHEET                                              -->
             <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
-                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Oświetlenie i Cieniowanie:</strong>
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Oświetlenie, Cieniowanie i Ray Tracing:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
                     <tr style="background: #eceff1;">
@@ -248,24 +335,34 @@
                     </thead>
                     <tbody>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Diffuse</td>
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Diffuse (Lambert)</td>
                         <td style="padding: 10px;"><code>k_d * (L · N) * L_d</code></td>
-                        <td style="padding: 10px;">Matowe wykończenie. Zgodnie z prawem Lamberta.</td>
+                        <td style="padding: 10px;">Matowe wykończenie, zgodnie z prawem Lamberta.</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Blinn-Phong</td>
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Blinn-Phong Specular</td>
                         <td style="padding: 10px;"><code>k_s * (N · H)^α * L_s</code></td>
-                        <td style="padding: 10px;">Szybszy od Phonga. Używa wektora H (Halfway).</td>
+                        <td style="padding: 10px;">Szybszy od Phonga, używa wektora połówkowego H.</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
-                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Gouraud Shading</td>
-                        <td style="padding: 10px;">Interpolacja kolorów z wierzchołków</td>
-                        <td style="padding: 10px;">Szybki, ale gubi refleksy wewnątrz trójkąta.</td>
-                    </tr>
-                    <tr>
                         <td style="padding: 10px; font-weight: bold; color: #1565c0;">Phong Shading</td>
                         <td style="padding: 10px;">Interpolacja normalnych, oświetlenie per piksel</td>
-                        <td style="padding: 10px;">Standard współczesnych gier. Perfekcyjne refleksy.</td>
+                        <td style="padding: 10px;">Standard gier. Perfekcyjne refleksy.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Normal Mapping</td>
+                        <td style="padding: 10px;">Tekstura RGB kodująca wektory normalnych</td>
+                        <td style="padding: 10px;">Wypukłości bez dodatkowej geometrii.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #00897b;">PBR</td>
+                        <td style="padding: 10px;">Metalness + Roughness, zasada zachowania energii</td>
+                        <td style="padding: 10px;">Fizyczny realizm, standard w nowych silnikach.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Ray Tracing</td>
+                        <td style="padding: 10px;">Równanie renderingu Kajiyi, path tracing (Monte Carlo)</td>
+                        <td style="padding: 10px;">Globalne oświetlenie, odbicia, refrakcje, RTX/DXR.</td>
                     </tr>
                     </tbody>
                 </table>
@@ -274,17 +371,19 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Oświetlenie w 3D to gra geometrii i koloru. Ambient daje bazę, Diffuse daje kształt, a Specular daje charakter. Wybór między Gouraudem a Phongiem to decyzja o budżecie wydajnościowym, a PBR wprowadza nas w erę fizycznego realizmu.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Oświetlenie w 3D to gra geometrii i koloru – od prostego Ambient po fotorealistyczny Path Tracing. Ambient daje bazę, Diffuse daje kształt, Specular daje charakter. Wybór między Gouraudem a Phongiem to decyzja o budżecie wydajnościowym. PBR wprowadza fizyczny realizm. Ray tracing wynosi to na poziom globalny – śledzi promienie, odbicia i cienie, co jeszcze niedawno było domeną filmów, a dziś dzięki RTX-om działa w czasie rzeczywistym w grach.</span>
                 </p>
             </div>
 
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Real-Time Rendering" (Akenine-Möller, Haines, Hoffman) · "The Cg Tutorial" (Fernando, Kilgard) · "Physically Based Rendering" (Pharr, Jakob, Humphreys).
+                    "Real-Time Rendering" (Akenine-Möller, Haines, Hoffman) · "The Cg Tutorial" (Fernando, Kilgard) · "Physically Based Rendering: From Theory to Implementation" (Pharr, Jakob, Humphreys) · "The Rendering Equation" (Kajiya, 1986).
                 </span>
             </div>
 
         </div>
     </div>
 </div>
+</body>
+</html>

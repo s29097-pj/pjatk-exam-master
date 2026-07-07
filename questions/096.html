@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">♟️</span>
                 <div>
@@ -42,6 +42,9 @@
             <span class="keyword-tag">SJF (Shortest Job First) & Głodzenie</span>
             <span class="keyword-tag">Round Robin (Kwant czasu)</span>
             <span class="keyword-tag">Wielopoziomowe kolejki (MLFQ)</span>
+            <span class="keyword-tag">Postarzanie (Aging)</span>
+            <span class="keyword-tag">PCB (Process Control Block)</span>
+            <span class="keyword-tag">Kwant czasu (Time Quantum)</span>
         </div>
 
         <!-- ============================================================ -->
@@ -55,44 +58,51 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zanim Planista zacznie wybierać <em>kto</em> ma działać, musi mieć mechanizm odbierania procesora. W dawnych systemach (jak Windows 3.1) proces musiał "dobrowolnie" oddać CPU (szeregowanie bez wywłaszczania). Jeśli program zawiesił się w pętli <code>while(true)</code>, cały system zamarzał. Dziś używamy <strong>szeregowania z wywłaszczaniem (Preemptive Scheduling)</strong> wspieranego przez sprzętowy Timer na płycie głównej.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, fundamentem wielozadaniowości jest wywłaszczanie. Dawniej proces musiał sam oddać procesor – jeśli się zawiesił, system stawał. Dziś sprzętowy timer co kilka milisekund generuje przerwanie i jądro systemu odbiera CPU, zapisuje stan procesu do struktury PCB, a planista wybiera następny proces. To się nazywa przełączanie kontekstu. Jest kosztowne – czyści bufory TLB i cache procesora – ale niezbędne. Proszę spojrzeć na planszę, która pokazuje anatomię context switch.”
+                </div>
             </div>
 
-            <!-- SVG 1: CONTEXT SWITCH -->
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="#e0f2f1" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Anatomia Przełączania Kontekstu (Context Switch)</text>
+            <!-- SVG 1: CONTEXT SWITCH (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 310" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="310" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#004d40">Anatomia Przełączania Kontekstu (Context Switch)</text>
 
                 <!-- Oś czasu centralna -->
-                <line x1="410" y1="50" x2="410" y2="250" stroke="#90a4ae" stroke-width="4" stroke-dasharray="6,4"/>
-                <text x="410" y="270" font-family="sans-serif" font-size="12" font-weight="bold" fill="#546e7a" text-anchor="middle">CZAS (CPU)</text>
+                <line x1="410" y1="55" x2="410" y2="280" stroke="#90a4ae" stroke-width="4" stroke-dasharray="8,5"/>
+                <text x="410" y="302" font-family="sans-serif" font-size="14" font-weight="bold" fill="#546e7a" text-anchor="middle">CZAS (CPU) →</text>
 
                 <!-- Proces A -->
-                <rect x="80" y="50" width="280" height="50" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
-                <text x="220" y="80" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">Proces A: Wykonuje się</text>
+                <rect x="70" y="55" width="290" height="60" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="215" y="82" font-family="sans-serif" font-size="15" font-weight="bold" fill="#0d47a1" text-anchor="middle">Proces A: Wykonuje się</text>
+                <text x="215" y="102" font-family="sans-serif" font-size="11" fill="#1976d2" text-anchor="middle">użytkownik słucha muzyki, procesor pracuje</text>
 
                 <!-- Timer Interrupt -->
-                <path d="M 360 100 L 410 115" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedC)"/>
-                <text x="280" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Przerwanie Timera!</text>
+                <path d="M 370 110 L 410 125" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedC)"/>
+                <text x="280" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">⏰ Przerwanie Timera! Kwant wyczerpany.</text>
 
                 <!-- OS / Jądro -->
-                <rect x="260" y="115" width="300" height="70" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
-                <text x="410" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">JĄDRO SYSTEMU (OS)</text>
-                <text x="410" y="150" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">1. Zapisz stan (rejestry) Procesu A do PCB_A</text>
-                <text x="410" y="165" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">2. Scheduler wybiera Proces B z kolejki</text>
-                <text x="410" y="180" font-family="monospace" font-size="10" fill="#37474f" text-anchor="middle">3. Załaduj stan Procesu B z PCB_B</text>
+                <rect x="250" y="130" width="320" height="80" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="410" y="152" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">JĄDRO SYSTEMU (Kernel)</text>
+                <text x="410" y="172" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">1. Zapisz stan (rejestry) Procesu A → PCB_A</text>
+                <text x="410" y="190" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">2. Scheduler wybiera Proces B z kolejki</text>
+                <text x="410" y="208" font-family="monospace" font-size="12" fill="#37474f" text-anchor="middle">3. Załaduj stan Procesu B z PCB_B</text>
 
-                <!-- Narzut -->
-                <path d="M 570 120 Q 620 150 570 180" fill="none" stroke="#e65100" stroke-width="2"/>
-                <text x="640" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Kosztowny NARZUT</text>
+                <!-- Narzut – wyróżniony -->
+                <path d="M 580 140 Q 640 170 580 200" fill="none" stroke="#e65100" stroke-width="2.5"/>
+                <rect x="650" y="155" width="160" height="40" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="1.5"/>
+                <text x="730" y="172" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">⚠️ Kosztowny NARZUT</text>
+                <text x="730" y="188" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">TLB flush, Cache miss!</text>
 
                 <!-- Wznowienie B -->
-                <path d="M 410 185 L 460 200" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnC)"/>
-                <rect x="460" y="200" width="280" height="50" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="600" y="230" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">Proces B: Wznawia pracę</text>
+                <path d="M 410 215 L 460 230" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnC)"/>
+                <rect x="460" y="230" width="290" height="55" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="605" y="255" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20" text-anchor="middle">Proces B: Wznawia pracę</text>
+                <text x="605" y="275" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">teraz on otrzymuje swój kwant czasu</text>
 
                 <defs>
-                    <marker id="arrowRedC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowGrnC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedC" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnC" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/></marker>
                 </defs>
             </svg>
 
@@ -102,65 +112,70 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kiedy masz kolejkę gotowych procesów, musisz zdecydować, kogo obsłużyć najpierw. Poniżej przedstawiono Wykresy Gantta dla dwóch skrajnych podejść, w scenariuszu gdzie do kolejki trafiają: Proces P1 (10 ms), P2 (2 ms) oraz P3 (2 ms).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Klasyczne algorytmy szeregowania najlepiej zrozumieć na wykresach Gantta. FCFS – first come, first served – to najprostszy algorytm, ale cierpi na efekt konwoju: długi proces blokuje wszystkie krótkie za sobą. Round Robin z kwantem czasu rozwiązuje ten problem – każdy dostaje krótki odcinek CPU po kolei. Dzięki temu krótkie procesy kończą się szybko, a system jest responsywny. Proszę spojrzeć na planszę – widać, że w FCFS procesy P2 i P3 czekają 10 ms, a w Round Robin kończą się już po 4-6 ms.”
+                </div>
             </div>
 
-            <!-- SVG 2: FCFS vs RR GANTT -->
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="#fff" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wykresy Gantta: FCFS vs Round Robin</text>
+            <!-- SVG 2: FCFS vs RR GANTT (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 310" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="310" fill="#fff" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wykresy Gantta: FCFS vs Round Robin</text>
 
-                <text x="40" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Zadania: P1 (Trwa 10ms) | P2 (Trwa 2ms) | P3 (Trwa 2ms)</text>
+                <rect x="40" y="48" width="740" height="34" rx="6" fill="#eceff1" stroke="#b0bec5" stroke-width="1"/>
+                <text x="410" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#37474f" text-anchor="middle">Zadania: P1 (Trwa 10 ms) | P2 (Trwa 2 ms) | P3 (Trwa 2 ms)</text>
 
                 <!-- FCFS -->
-                <text x="40" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d32f2f">1. FCFS (Kto pierwszy, ten lepszy - Brak wywłaszczenia)</text>
+                <text x="40" y="110" font-family="sans-serif" font-size="14" font-weight="bold" fill="#d32f2f">1. FCFS (Kto pierwszy, ten lepszy – Brak wywłaszczenia)</text>
 
-                <rect x="40" y="100" width="400" height="35" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
-                <text x="240" y="122" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1 blokuje procesor na pełne 10ms!</text>
+                <rect x="40" y="125" width="410" height="45" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2.5"/>
+                <text x="245" y="152" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1 blokuje procesor na pełne 10 ms!</text>
 
-                <rect x="440" y="100" width="80" height="35" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="480" y="122" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">P2</text>
+                <rect x="450" y="125" width="85" height="45" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2.5"/>
+                <text x="492" y="152" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">P2</text>
 
-                <rect x="520" y="100" width="80" height="35" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <text x="560" y="122" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">P3</text>
+                <rect x="535" y="125" width="85" height="45" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="577" y="152" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">P3</text>
 
                 <!-- Oś czasu FCFS -->
-                <text x="40" y="150" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">0</text>
-                <text x="440" y="150" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">10</text>
-                <text x="520" y="150" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">12</text>
-                <text x="600" y="150" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">14 ms</text>
+                <text x="40" y="190" font-family="monospace" font-size="13" fill="#546e7a" text-anchor="middle">0</text>
+                <text x="450" y="190" font-family="monospace" font-size="13" fill="#546e7a" text-anchor="middle">10</text>
+                <text x="535" y="190" font-family="monospace" font-size="13" fill="#546e7a" text-anchor="middle">12</text>
+                <text x="620" y="190" font-family="monospace" font-size="13" fill="#546e7a" text-anchor="middle">14 ms</text>
 
-                <text x="630" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828">⚠️ Efekt Konwoju!</text>
-                <text x="630" y="130" font-family="sans-serif" font-size="9" fill="#37474f">Krótkie procesy P2 i P3 cierpią,</text>
-                <text x="630" y="142" font-family="sans-serif" font-size="9" fill="#37474f">czekając w korku za wielkim P1.</text>
+                <rect x="650" y="120" width="155" height="65" rx="6" fill="#ffebee" stroke="#ef5350" stroke-width="1.5"/>
+                <text x="727" y="140" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">⚠️ Efekt Konwoju!</text>
+                <text x="727" y="158" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">Krótkie procesy P2 i P3</text>
+                <text x="727" y="174" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">czekają za wielkim P1.</text>
 
-                <line x1="40" y1="165" x2="780" y2="165" stroke="#cfd8dc" stroke-width="2" stroke-dasharray="4,4"/>
+                <line x1="40" y1="210" x2="780" y2="210" stroke="#cfd8dc" stroke-width="3" stroke-dasharray="6,5"/>
 
                 <!-- ROUND ROBIN -->
-                <text x="40" y="195" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32">2. Round Robin (Karuzela - Kwant czasu = 2ms)</text>
+                <text x="40" y="240" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2e7d32">2. Round Robin (Karuzela – Kwant czasu = 2 ms)</text>
 
-                <!-- RR Blocks (Scale: 40px = 1ms) -->
-                <rect x="40" y="210" width="80" height="35" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
-                <text x="80" y="232" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1</text>
+                <!-- RR Blocks -->
+                <rect x="40" y="255" width="85" height="45" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2.5"/>
+                <text x="82" y="282" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1</text>
 
-                <rect x="120" y="210" width="80" height="35" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="160" y="232" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">P2 (Koniec)</text>
+                <rect x="125" y="255" width="85" height="45" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2.5"/>
+                <text x="167" y="282" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">P2 ✓</text>
 
-                <rect x="200" y="210" width="80" height="35" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <text x="240" y="232" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">P3 (Koniec)</text>
+                <rect x="210" y="255" width="85" height="45" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="252" y="282" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">P3 ✓</text>
 
-                <rect x="280" y="210" width="320" height="35" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
-                <text x="440" y="232" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1 (Dokańcza swoje 8ms)</text>
+                <rect x="295" y="255" width="330" height="45" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2.5"/>
+                <text x="460" y="282" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">P1 (dokańcza pozostałe 8 ms)</text>
 
                 <!-- Oś czasu RR -->
-                <text x="40" y="260" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">0</text>
-                <text x="120" y="260" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">2</text>
-                <text x="200" y="260" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">4</text>
-                <text x="280" y="260" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">6</text>
-                <text x="600" y="260" font-family="monospace" font-size="10" fill="#546e7a" text-anchor="middle">14 ms</text>
+                <text x="40" y="300" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">0</text>
+                <text x="125" y="300" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">2</text>
+                <text x="210" y="300" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">4</text>
+                <text x="295" y="300" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">6</text>
+                <text x="625" y="300" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="middle">14 ms</text>
 
-                <text x="630" y="225" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32">✅ Szybka reakcja (Responsywność)</text>
-                <text x="630" y="240" font-family="sans-serif" font-size="9" fill="#37474f">P2 i P3 zostały załatwione szybko.</text>
-                <text x="630" y="252" font-family="sans-serif" font-size="9" fill="#37474f">Podstawa wszystkich systemów PC!</text>
+                <rect x="650" y="250" width="155" height="55" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5"/>
+                <text x="727" y="270" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Responsywność!</text>
+                <text x="727" y="288" font-family="sans-serif" font-size="11" fill="#37474f" text-anchor="middle">P2 i P3 kończą się błyskawicznie.</text>
             </svg>
 
             <!-- PART 3: NOWOCZESNE SZEREGOWANIE (MLFQ) -->
@@ -173,43 +188,53 @@
                     <li><strong>Procesy Interaktywne (np. Kliknięcia myszką):</strong> Krótkie zrywy CPU, po których proces czeka na człowieka. System daje im <em>Najwyższy Priorytet</em> i krótki kwant czasu. Dzięki temu komputer "nie tnie się" podczas poruszania oknami.</li>
                     <li><strong>Procesy Obliczeniowe (np. Renderowanie Wideo):</strong> Jeśli proces w całości wyczerpie swój kwant czasu (czyli udowodni, że jest żarłocznym potworem obliczeniowym), system operacyjny "karze go", zrzucając do kolejki o <em>Niższym Priorytecie</em> z dłuższym kwantem czasu (gdzie będzie rzadziej przeszkadzał reszcie, ale dostanie więcej czasu na liczenie, gdy już dostanie CPU).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Nowoczesne systemy używają MLFQ – wielopoziomowych kolejek ze sprzężeniem zwrotnym. To genialny mechanizm: nowe procesy startują na najwyższym priorytecie z krótkim kwantem. Jeśli proces zużyje cały kwant, system go degraduje – spada do niższej kolejki z dłuższym kwantem, ale rzadszym dostępem do CPU. Jeśli proces odda CPU przed końcem kwantu – zostaje na swoim poziomie lub awansuje. Dzięki temu interaktywne aplikacje są responsywne, a obliczenia w tle nie blokują systemu. Proszę spojrzeć na planszę z piramidą kolejek.”
+                </div>
             </div>
 
-            <!-- SVG 3: MLFQ -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Wielopoziomowe Kolejki (MLFQ) w Praktyce</text>
+            <!-- SVG 3: MLFQ (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 270" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="270" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Wielopoziomowe Kolejki (MLFQ) – jak robi to Windows i Linux</text>
 
                 <!-- Kolejka 1 -->
-                <rect x="60" y="60" width="280" height="30" rx="4" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="200" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Priorytet WYSOKI (Q = 10ms)</text>
-                <rect x="70" y="65" width="20" height="20" rx="2" fill="#ffcdd2" stroke="#d32f2f"/>
-                <rect x="100" y="65" width="20" height="20" rx="2" fill="#ffcdd2" stroke="#d32f2f"/>
+                <rect x="60" y="65" width="350" height="40" rx="6" fill="#fff" stroke="#d32f2f" stroke-width="2.5"/>
+                <text x="235" y="90" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">Priorytet WYSOKI (Q = 10 ms)</text>
+                <rect x="75" y="72" width="24" height="24" rx="3" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="108" y="72" width="24" height="24" rx="3" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+                <rect x="141" y="72" width="24" height="24" rx="3" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
 
-                <text x="360" y="75" font-family="sans-serif" font-size="10" fill="#37474f">Tu lądują nowe procesy. Szybka odpowiedź.</text>
+                <text x="430" y="85" font-family="sans-serif" font-size="12" fill="#37474f">Tu lądują nowe procesy. Szybka odpowiedź.</text>
+                <text x="430" y="100" font-family="sans-serif" font-size="11" fill="#546e7a">Kliknięcia myszką, naciśnięcia klawiszy.</text>
 
                 <!-- Arrow down 1 -->
-                <path d="M 120 90 L 120 115" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryMLFQ)"/>
-                <text x="200" y="110" font-family="sans-serif" font-size="9" font-weight="bold" fill="#f57c00" text-anchor="middle">Zużył cały kwant? Zdegraduj!</text>
+                <path d="M 120 108 L 120 138" fill="none" stroke="#90a4ae" stroke-width="2.5" marker-end="url(#arrowGryMLFQ)"/>
+                <text x="240" y="132" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">Zużył cały kwant? → Degradacja w dół!</text>
 
                 <!-- Kolejka 2 -->
-                <rect x="60" y="120" width="280" height="30" rx="4" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="200" y="140" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Priorytet ŚREDNI (Q = 20ms)</text>
-                <rect x="70" y="125" width="20" height="20" rx="2" fill="#ffe0b2" stroke="#f57c00"/>
+                <rect x="60" y="145" width="350" height="40" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2.5"/>
+                <text x="235" y="170" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">Priorytet ŚREDNI (Q = 20 ms)</text>
+                <rect x="75" y="152" width="24" height="24" rx="3" fill="#ffe0b2" stroke="#f57c00" stroke-width="1.5"/>
+                <rect x="108" y="152" width="24" height="24" rx="3" fill="#ffe0b2" stroke="#f57c00" stroke-width="1.5"/>
+
+                <text x="430" y="165" font-family="sans-serif" font-size="12" fill="#37474f">Procesy, które potrzebują więcej CPU.</text>
+                <text x="430" y="180" font-family="sans-serif" font-size="11" fill="#546e7a">Lekkie obliczenia, kompresja plików.</text>
 
                 <!-- Arrow down 2 -->
-                <path d="M 120 150 L 120 175" fill="none" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryMLFQ)"/>
-                <text x="200" y="170" font-family="sans-serif" font-size="9" font-weight="bold" fill="#f57c00" text-anchor="middle">Dalej chciwy na CPU? Na dół!</text>
+                <path d="M 120 188 L 120 218" fill="none" stroke="#90a4ae" stroke-width="2.5" marker-end="url(#arrowGryMLFQ)"/>
+                <text x="240" y="212" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">Dalej chciwy na CPU? → Na sam dół!</text>
 
                 <!-- Kolejka 3 -->
-                <rect x="60" y="180" width="280" height="30" rx="4" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="200" y="200" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Priorytet NISKI (FCFS w Tle)</text>
-                <rect x="70" y="185" width="20" height="20" rx="2" fill="#bbdefb" stroke="#1565c0"/>
+                <rect x="60" y="225" width="350" height="40" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2.5"/>
+                <text x="235" y="250" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">Priorytet NISKI (Q = 50 ms, działa w tle)</text>
+                <rect x="75" y="232" width="24" height="24" rx="3" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
 
-                <text x="360" y="195" font-family="sans-serif" font-size="10" fill="#37474f">Tu trafiają renderowanie, kompilacje i zipowanie.</text>
+                <text x="430" y="245" font-family="sans-serif" font-size="12" fill="#37474f">Tu trafiają renderowanie, kompilacje, zipowanie.</text>
+                <text x="430" y="260" font-family="sans-serif" font-size="11" fill="#546e7a">Dostają CPU rzadko, ale za to duży kwant naraz.</text>
 
                 <defs>
-                    <marker id="arrowGryMLFQ" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                    <marker id="arrowGryMLFQ" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#90a4ae"/></marker>
                 </defs>
             </svg>
 
@@ -222,6 +247,9 @@
                     <li><strong>Zjawisko Głodzenia (Starvation):</strong> W algorytmach, które używają statycznych Priorytetów lub w algorytmie SJF (Shortest Job First), procesy ciężkie/o niskim priorytecie mogą NIGDY nie doczekać się na procesor, jeśli system ciągle dostaje nowe zadania o wyższym priorytecie. Sposobem inżynierów na głodzenie jest <strong>Postarzanie (Aging)</strong> – system stopniowo zwiększa priorytet procesu, im dłużej on czeka w kolejce.</li>
                     <li><strong>"Przełączanie kontekstu jest darmowe":</strong> Bzdura, na której polegają słabi architekci. Zmiana kontekstu jest koszmarnie droga sprzętowo. Nie polega tylko na przekopiowaniu rejestrów z PCB. Każdy proces ma swój własny obszar pamięci, więc przy przełączeniu kontekstu jądro musi wyczyścić tzw. bufory TLB (Translation Lookaside Buffer) i często unieważnić całą szybką pamięć Cache procesora (Cache Flush). Dlatego zbyt krótki Kwant Czasu "zabija" komputer poprzez narzut systemu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – głodzenie procesów: w algorytmach z priorytetami statycznymi lub SJF, procesy o niskim priorytecie mogą nigdy nie dostać CPU. Rozwiązaniem jest postarzanie – stopniowe podnoszenie priorytetu im dłużej proces czeka. Po drugie – context switch nie jest darmowy. Przy każdym przełączeniu jądro musi zapisać rejestry, wyczyścić TLB i często unieważnić cache procesora. Zbyt krótki kwant czasu powoduje, że system spędza więcej czasu na przełączaniu niż na rzeczywistej pracy. Dlatego w MLFQ procesy w tle dostają dłuższy kwant – żeby zminimalizować ten narzut.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

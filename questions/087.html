@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%); border-left: 6px solid #8e24aa; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(142,36,170,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🪛</span>
                 <div>
@@ -25,6 +25,12 @@
                         W latach 70. pamięć RAM była potwornie droga. Inżynierowie musieli pisać jak najkrótszy kod. Tak powstał <strong>CISC (Complex Instruction Set Computer)</strong> – przypomina on Szwajcarski Scyzoryk. Ma w sobie piłę, korkociąg i nożyczki. Wysyłasz mu jedną skomplikowaną komendę (np. <em>"Zbuduj stół"</em>), a on sam, używając skomplikowanych układów wewnątrz (mikrokodu), realizuje to w wielu cyklach zegara. Kompilator ma mało pracy, ale sprzęt jest ogromny, gorący i żre prąd.<br><br>
                         Potem pamięć staniała i narodził się <strong>RISC (Reduced Instruction Set Computer)</strong>. To zestaw prostych, dedykowanych narzędzi (np. młotek, śrubokręt). Zamiast "Zbuduj stół", musisz mu wysłać 20 poleceń (<em>"Weź gwóźdź", "Uderz"</em>). Programy w RISC zajmują więcej miejsca (kompilator musi się napocić), ale każda instrukcja jest tak prosta, że procesor wykonuje ją w dokładnie JEDNYM cyklu zegara. Układ jest mały, lodowato zimny i idealny do potokowości (Pipelining).
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a1a2e; line-height: 1.8;">
+                        <li><strong>🔵 CISC (x86, Intel, AMD)</strong> – złożone instrukcje, zmienna długość, mało rejestrów. Sprzęt robi więcej, kompilator mniej.</li>
+                        <li><strong>🟠 RISC (ARM, Apple Silicon)</strong> – proste instrukcje, stała długość, dużo rejestrów. Architektura Load/Store. Kompilator robi więcej, sprzęt mniej.</li>
+                        <li><strong>🟢 Load/Store</strong> – święta zasada RISC: tylko instrukcje LOAD i STORE dotykają pamięci RAM. Reszta operuje wyłącznie na rejestrach.</li>
+                        <li><strong>🟣 Konwergencja</strong> – współczesne Intele rozbijają CISC na mikrooperacje RISC. Granica się zatarła.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -41,6 +47,10 @@
             <span class="keyword-tag">Rejestry (Mało vs Dużo)</span>
             <span class="keyword-tag">Mikrokod (Microcode)</span>
             <span class="keyword-tag">Złożoność: Sprzęt vs Kompilator</span>
+            <span class="keyword-tag">Potokowość (Pipelining)</span>
+            <span class="keyword-tag">Mikrooperacje (Micro-ops)</span>
+            <span class="keyword-tag">Konwergencja architektur</span>
+            <span class="keyword-tag">ISA (Instruction Set Architecture)</span>
         </div>
 
         <!-- ============================================================ -->
@@ -54,6 +64,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Wyobraźmy sobie prostą operację C++: <code>A = A * B</code> (gdzie A i B to zmienne w pamięci RAM). Zobaczmy, jak radzi sobie z tym CISC (gdzie zależy nam na krótkim kodzie maszynowym) i RISC (gdzie zależy nam na prostocie sprzętu).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zacznijmy od konkretnego przykładu: mnożenie dwóch liczb z pamięci RAM. W CISC mamy jedną potężną instrukcję MUL, która sama pobiera dane z RAM-u, mnoży i zapisuje wynik. Sprzęt robi wszystko – to jak szwajcarski scyzoryk. W RISC mamy cztery osobne instrukcje: LOAD, LOAD, MUL, STORE. Ale uwaga – MUL w RISC operuje tylko na rejestrach, nie dotyka RAM-u. To architektura Load/Store. Proszę spojrzeć na planszę – pokazuje ona dokładnie tę różnicę.”
+                </div>
             </div>
 
             <!-- SVG 1: CISC VS RISC EXECUTION -->
@@ -66,7 +79,7 @@
                 <rect x="30" y="50" width="360" height="30" rx="8" fill="#d32f2f"/>
                 <rect x="30" y="65" width="360" height="15" fill="#d32f2f"/>
                 <text x="210" y="70" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">CISC (Intel x86)</text>
-                
+
                 <text x="210" y="105" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">MUL A, B</text>
                 <text x="210" y="120" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(Tylko JEDNA potężna instrukcja!)</text>
 
@@ -89,7 +102,7 @@
                 <text x="610" y="115" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">LOAD R2, B</text>
                 <text x="610" y="130" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">MUL R1, R2</text>
                 <text x="610" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">STORE R1, A</text>
-                
+
                 <path d="M 460 160 L 760 160" fill="none" stroke="#cfd8dc" stroke-dasharray="4,2"/>
                 <text x="460" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f">Co robi prosty sprzęt pod maską:</text>
                 <text x="460" y="195" font-family="sans-serif" font-size="10" fill="#546e7a">Architektura "Load/Store" (Tylko Load i Store</text>
@@ -110,11 +123,20 @@
                 <div style="background: #e8f5e9; border-radius: 8px; padding: 14px; border: 1px solid #81c784; margin-top: 12px;">
                     <strong style="color: #2e7d32;">🔥 Skutek Load/Store:</strong> Ponieważ instrukcje w RISC są tak trywialne, mają <strong>stałą długość</strong> (np. zawsze równe 32 bity). A skoro każda instrukcja ma równy rozmiar, procesor może przewidywać ich ładowanie z pamięci i stosować genialnie wydajny potok (Pipelining) - podczas gdy CISC z instrukcjami o zmiennej długości musi je mozolnie analizować.
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Architektura Load/Store to kluczowa cecha RISC. W CISC ALU może bezpośrednio sięgnąć do RAM-u – to wygodne, ale blokuje procesor na wiele cykli. W RISC jest inaczej: tylko dwie instrukcje mają dostęp do pamięci – LOAD ładuje dane z RAM do rejestru, STORE zapisuje z rejestru do RAM. Cała reszta – dodawanie, mnożenie, porównania – operuje wyłącznie na rejestrach. Dzięki temu instrukcje mają stałą długość, a to umożliwia idealny pipelining. To jest właśnie przewaga RISC w nowoczesnych zastosowaniach – prostota sprzętu przekłada się na wydajność.”
+                </div>
             </div>
 
             <!-- PART 3: PORÓWNANIE I TERAŹNIEJSZOŚĆ -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Zestawienie cech i współczesna konwergencja</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Poniższa tabela podsumowuje najważniejsze różnice między CISC a RISC. Warto jednak pamiętać, że współczesne procesory Intela (x86) na zewnątrz udają CISC, ale wewnątrz rozbijają złożone instrukcje na proste mikrooperacje – zachowując się jak RISC. To zjawisko nazywamy konwergencją architektur.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podsumowując różnice: CISC ma zmienną długość instrukcji i mało rejestrów, RISC ma stałą długość i dużo rejestrów. CISC utrudnia potokowość, RISC ją ułatwia. CISC krótszy kod, RISC dłuższy, ale szybszy w przeliczeniu na cykl. Gdzie to stosujemy? CISC w pecetach i serwerach, RISC w smartfonach, IoT i nowych Macach z Apple Silicon. I uwaga na pułapkę: nowoczesne Intele to już nie czysty CISC – wewnątrz tłumaczą instrukcje na mikrooperacje RISC. Proszę spojrzeć na tabelę.”
+                </div>
             </div>
 
             <!-- SVG 2: CHEAT SHEET -->
@@ -124,7 +146,7 @@
 
                 <!-- Tabela -->
                 <rect x="40" y="45" width="740" height="150" fill="#fff" stroke="#cfd8dc" stroke-width="2"/>
-                
+
                 <!-- Nagłówki -->
                 <rect x="40" y="45" width="246" height="30" fill="#eceff1" stroke="#cfd8dc" stroke-width="1"/>
                 <text x="163" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Cecha</text>
@@ -170,8 +192,31 @@
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapka Egzaminacyjna (Bardzo ważne - Konwergencja architektur):</strong>
                 <p style="margin: 8px 0; font-size: 0.95rem; line-height: 1.6;">
                     Wykładowca zapyta: <em>"A więc mój nowoczesny procesor Intel Core i9 to czysty CISC?"</em>. Jeśli odpowiesz "Tak", oblejesz.<br><br>
-                    Współczesne procesory to hybrydy. Czysty CISC przegrał fizykę (był za wolny i za gorący w dobie potokowości). Nowoczesne układy Intela (x86) na zewnątrz udają CISC (by działał na nich stary system Windows), ale wewnątrz chipu posiadają sprzętowy tłumacz, który "rozbija" skomplikowane instrukcje CISC na małe, szybkie "mikro-operacje" (Micro-ops), które zachowują się... <strong>dokładnie jak RISC!</strong> 
+                    Współczesne procesory to hybrydy. Czysty CISC przegrał fizykę (był za wolny i za gorący w dobie potokowości). Nowoczesne układy Intela (x86) na zewnątrz udają CISC (by działał na nich stary system Windows), ale wewnątrz chipu posiadają sprzętowy tłumacz, który "rozbija" skomplikowane instrukcje CISC na małe, szybkie "mikro-operacje" (Micro-ops), które zachowują się... <strong>dokładnie jak RISC!</strong>
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o konwergencję:</strong> „Komisjo, to kluczowe pytanie. Nowoczesny Intel Core i9 nie jest czystym CISC. Zewnętrznie prezentuje interfejs x86, by zachować kompatybilność wsteczną. Ale wewnątrz ma dekoder, który tłumaczy złożone instrukcje CISC na proste mikrooperacje – i te mikrooperacje są wykonywane w potoku, dokładnie jak w RISC. To się nazywa konwergencja architektur: CISC na zewnątrz, RISC w środku. Dzięki temu Intel może konkurować wydajnością z układami ARM, zachowując kompatybilność z ogromnym ekosystemem Windows.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                               -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – RISC vs CISC:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">CISC (x86)</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">RISC (ARM)</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Filozofia</td><td style="padding: 10px;">Sprzęt robi więcej</td><td style="padding: 10px;">Kompilator robi więcej</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Długość instrukcji</td><td style="padding: 10px;">Zmienna (1–15 B)</td><td style="padding: 10px;">Stała (zwykle 4 B)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Rejestry</td><td style="padding: 10px;">Mało (~8–16)</td><td style="padding: 10px;">Dużo (32+)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Dostęp do RAM</td><td style="padding: 10px;">Dowolna instrukcja może</td><td style="padding: 10px;">Tylko LOAD i STORE</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Pipelining</td><td style="padding: 10px;">Utrudniony</td><td style="padding: 10px;">Idealny</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Kod wynikowy</td><td style="padding: 10px;">Krótszy</td><td style="padding: 10px;">Dłuższy</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Zastosowanie</td><td style="padding: 10px;">PC, serwery</td><td style="padding: 10px;">Mobile, embedded, Apple M</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 12px; font-size: 0.8rem; color: #546e7a; text-align: center; font-style: italic;">Współczesność: Intel wewnętrznie tłumaczy CISC na mikrooperacje RISC – konwergencja architektur.</p>
             </div>
 
             <!-- ======================================================== -->
@@ -180,7 +225,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Architektura RISC była kiedyś wyszydzana, że to procesory "dla zabawek". Jednak to RISC ostatecznie wygrał przyszłość informatyki mobilnej. Dlaczego? Ponieważ proste układy krzemowe potrzebują bardzo mało prądu i wydzielają mało ciepła. To dlatego Twój smartfon z procesorem ARM (RISC) działa cały dzień na baterii bez wentylatora, podczas gdy stary laptop z procesorem CISC grzał się po godzinie. Gdy Apple porzuciło architekturę x86 (Intel) i wydało procesory z serii M1 (które bazują na RISC/ARM), inżynierowie ostatecznie udowodnili, że ulepszony kompilator i prosty sprzęt pobiją każdą "starą szkołę" ciężkiej architektury na głowę.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Architektura RISC była kiedyś wyszydzana, że to procesory „dla zabawek”. Jednak to RISC ostatecznie wygrał przyszłość informatyki mobilnej. Dlaczego? Ponieważ proste układy krzemowe potrzebują bardzo mało prądu i wydzielają mało ciepła. To dlatego Twój smartfon z procesorem ARM (RISC) działa cały dzień na baterii bez wentylatora, podczas gdy stary laptop z procesorem CISC grzał się po godzinie. Gdy Apple porzuciło architekturę x86 (Intel) i wydało procesory z serii M1 (które bazują na RISC/ARM), inżynierowie ostatecznie udowodnili, że ulepszony kompilator i prosty sprzęt pobiją każdą „starą szkołę” ciężkiej architektury na głowę.</span>
                 </p>
             </div>
 
@@ -188,7 +233,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Computer Organization and Architecture" (William Stallings) · Różnice w Setach Instrukcji (ISA) - ARM Cortex vs Intel x86.
+                    „Computer Organization and Architecture” (William Stallings) · Różnice w Setach Instrukcji (ISA) - ARM Cortex vs Intel x86.
                 </span>
             </div>
 

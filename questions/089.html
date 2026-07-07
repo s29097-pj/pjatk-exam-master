@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
                 <div>
@@ -26,6 +26,12 @@
                         <strong>TCP to Listonosz z przesyłką poleconą.</strong> Zanim cokolwiek wyśle, najpierw dzwoni, by upewnić się, że jesteś w domu (nawiązanie połączenia). Oddaje Ci paczki dokładnie w takiej kolejności, w jakiej zostały nadane, i czeka na Twój podpis pod każdą (potwierdzenie odbioru - ACK). Jeśli paczka zginie po drodze, wysyła ją jeszcze raz. Jest niezawodny, ale <em>powolny</em>.<br><br>
                         <strong>UDP to Wyrzutnia koszulek na koncercie rockowym (T-shirt cannon).</strong> Celuje w tłum i strzela z ogromną prędkością ("Fire and forget"). Nie pyta, czy jesteś gotowy. Nie sprawdza, kto złapał koszulkę. Nie obchodzi go, czy upadła na ziemię. Liczy się tylko <em>maksymalna wydajność i brak opóźnień</em>.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00363a; line-height: 1.8;">
+                        <li><strong>🔵 TCP</strong> – listonosz z poleconym: 3-way handshake, potwierdzenia ACK, retransmisja, kolejność.</li>
+                        <li><strong>🟠 UDP</strong> – wyrzutnia koszulek: strzelasz i zapominasz, zero gwarancji, minimalny narzut.</li>
+                        <li><strong>🟢 Nagłówek TCP</strong> – 20-60 bajtów (sequence number, ACK, flags, window size).</li>
+                        <li><strong>🟣 Nagłówek UDP</strong> – tylko 8 bajtów (porty, długość, suma kontrolna).</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -39,9 +45,13 @@
             <span class="keyword-tag">Protokół połączeniowy (Connection-oriented)</span>
             <span class="keyword-tag">Bezpołączeniowy (Connectionless)</span>
             <span class="keyword-tag">Three-way handshake (SYN, SYN-ACK, ACK)</span>
-            <span class="keyword-tag">Rozmiar nagłówka (20 bajtów vs 8 bajtów)</span>
+            <span class="keyword-tag">Rozmiar nagłówka (20-60 B vs 8 B)</span>
             <span class="keyword-tag">Gwarancja dostarczenia / Retransmisja</span>
             <span class="keyword-tag">Zastosowanie (HTTP/FTP vs VoIP/DNS)</span>
+            <span class="keyword-tag">Head-of-Line Blocking (blokowanie kolejki)</span>
+            <span class="keyword-tag">Kontrola przepływu (Flow Control)</span>
+            <span class="keyword-tag">Numer sekwencyjny i ACK</span>
+            <span class="keyword-tag">Fire-and-Forget</span>
         </div>
 
         <!-- ============================================================ -->
@@ -53,8 +63,11 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #0277bd;">1. Mechanika działania: 3-Way Handshake vs Fire-and-Forget</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Różnicę między protokołami najlepiej widać, analizując, w jaki sposób rozpoczynają one transmisję i jak reagują na zgubienie pakietu (co w internecie jest zjawiskiem powszechnym).
+                    Różnicę między protokołami najlepiej widać, analizując, w jaki sposób rozpoczynają one transmisję i jak reagują na zgubienie pakietu (co w internecie jest zjawiskiem powszechnym). TCP przed wysłaniem jakichkolwiek danych przeprowadza rytuał <strong>three-way handshake</strong> (SYN → SYN-ACK → ACK), ustanawiając niezawodny kanał komunikacji. UDP nie robi nic z tych rzeczy – po prostu wysyła dane.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, oba protokoły działają w warstwie transportowej i używają portów. Ale na tym podobieństwa się kończą. TCP to protokół połączeniowy – zanim wyśle dane, nawiązuje połączenie przez 3-way handshake: SYN, SYN-ACK, ACK. Potem numeruje pakiety, czeka na potwierdzenia i w razie zguby retransmituje. UDP to bezpołączeniowy 'fire and forget' – strzelasz pakietem i zapominasz. Zero gwarancji, zero potwierdzeń. Proszę spojrzeć na planszę – doskonale widać, jak TCP radzi sobie ze zgubionym pakietem przez retransmisję, a UDP po prostu leci dalej.”
+                </div>
             </div>
 
             <!-- SVG 1: TCP vs UDP -->
@@ -65,13 +78,13 @@
                 <!-- TCP (Lewa strona) -->
                 <rect x="20" y="45" width="380" height="215" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
                 <text x="210" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">TCP (Transmission Control Protocol)</text>
-                
+
                 <!-- PC L / PC R for TCP -->
                 <rect x="40" y="80" width="40" height="30" rx="2" fill="#e3f2fd" stroke="#0d47a1"/>
                 <text x="60" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">PC A</text>
                 <rect x="340" y="80" width="40" height="30" rx="2" fill="#e3f2fd" stroke="#0d47a1"/>
                 <text x="360" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">PC B</text>
-                
+
                 <!-- Oś czasu TCP -->
                 <line x1="60" y1="120" x2="60" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
                 <line x1="360" y1="120" x2="360" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
@@ -90,7 +103,7 @@
                 <text x="90" y="201" font-family="sans-serif" font-size="8" font-weight="bold" fill="#546e7a" text-anchor="middle">ESTABLISHED</text>
 
                 <!-- Data & Retransmission -->
-                <path d="M 60 215 L 210 225" fill="none" stroke="#c62828" stroke-width="2"/> <!-- Zgubiony pakiet -->
+                <path d="M 60 215 L 210 225" fill="none" stroke="#c62828" stroke-width="2"/>
                 <text x="215" y="230" font-family="sans-serif" font-size="12" fill="#c62828" font-weight="bold">X</text>
                 <text x="100" y="213" font-family="monospace" font-size="9" fill="#c62828">Dane (Zgubione!)</text>
 
@@ -107,7 +120,7 @@
                 <text x="460" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ef6c00" text-anchor="middle">PC A</text>
                 <rect x="740" y="80" width="40" height="30" rx="2" fill="#fff3e0" stroke="#ef6c00"/>
                 <text x="760" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#ef6c00" text-anchor="middle">PC B</text>
-                
+
                 <!-- Oś czasu UDP -->
                 <line x1="460" y1="120" x2="460" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
                 <line x1="760" y1="120" x2="760" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="2,2"/>
@@ -118,7 +131,7 @@
                 <path d="M 460 130 L 750 145" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrang)"/>
                 <text x="540" y="135" font-family="monospace" font-size="9" fill="#e65100">Datagram 1 (Szybko!)</text>
 
-                <path d="M 460 150 L 610 160" fill="none" stroke="#c62828" stroke-width="2"/> <!-- Zgubiony pakiet -->
+                <path d="M 460 150 L 610 160" fill="none" stroke="#c62828" stroke-width="2"/>
                 <text x="615" y="165" font-family="sans-serif" font-size="12" fill="#c62828" font-weight="bold">X</text>
                 <text x="540" y="152" font-family="monospace" font-size="9" fill="#c62828">Datagram 2 (Zgubiony)</text>
 
@@ -148,11 +161,63 @@
                     <li><strong>Nagłówek TCP:</strong> Jest gigantyczny. Zajmuje <strong>od 20 do 60 bajtów</strong>. Aby kontrolować jakość, TCP musi dokleić numer sekwencyjny (Sequence Number, by posortować paczki u odbiorcy), numer potwierdzenia (ACK Number), rozmiar okna (Window Size - by nie zalać odbiorcy zbyt dużą ilością danych naraz) oraz zestaw flag (SYN, ACK, FIN, RST).</li>
                     <li><strong>Nagłówek UDP:</strong> Jest minimalistyczny. Zajmuje tylko <strong>8 bajtów</strong>. Zawiera absolutne minimum: Port źródłowy, Port docelowy, Długość pakietu i Sumę kontrolną. Żadnego sortowania i potwierdzania.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Różnica w budowie nagłówka jest fundamentalna. TCP potrzebuje od 20 do 60 bajtów na sam nagłówek – zawiera numery sekwencyjne, potwierdzenia, flagi SYN/ACK/FIN/RST, rozmiar okna do kontroli przepływu. To ogromny narzut, ale daje pełną kontrolę. UDP ma tylko 8 bajtów nagłówka: port źródłowy, port docelowy, długość i sumę kontrolną. Dlatego jest tak szybki – nie dźwiga tego całego 'balastu' niezawodności. Proszę spojrzeć na planszę – pokazuje ona porównanie tych nagłówków.”
+                </div>
             </div>
+
+            <!-- SVG 2: PORÓWNANIE NAGŁÓWKÓW -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f5f5f5"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#263238">Porównanie nagłówków: TCP (20-60 B) vs UDP (8 B)</text>
+
+                <!-- TCP Header -->
+                <rect x="30" y="45" width="360" height="155" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="210" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Nagłówek TCP (20-60 bajtów)</text>
+
+                <rect x="45" y="75" width="60" height="25" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+                <text x="75" y="92" font-family="sans-serif" font-size="8" fill="#0d47a1" text-anchor="middle">Port źródłowy</text>
+                <rect x="110" y="75" width="60" height="25" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+                <text x="140" y="92" font-family="sans-serif" font-size="8" fill="#0d47a1" text-anchor="middle">Port docelowy</text>
+
+                <rect x="45" y="105" width="125" height="25" fill="#90caf9" stroke="#1565c0" stroke-width="1"/>
+                <text x="107" y="122" font-family="sans-serif" font-size="8" fill="#0d47a1" text-anchor="middle">Sequence Number</text>
+
+                <rect x="45" y="135" width="125" height="25" fill="#90caf9" stroke="#1565c0" stroke-width="1"/>
+                <text x="107" y="152" font-family="sans-serif" font-size="8" fill="#0d47a1" text-anchor="middle">ACK Number</text>
+
+                <rect x="45" y="165" width="125" height="25" fill="#64b5f6" stroke="#1565c0" stroke-width="1"/>
+                <text x="107" y="182" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Flags + Window Size</text>
+
+                <text x="210" y="195" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">+ Opcje (do 40 B więcej)</text>
+
+                <!-- UDP Header -->
+                <rect x="430" y="45" width="360" height="155" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+                <text x="610" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Nagłówek UDP (tylko 8 bajtów)</text>
+
+                <rect x="445" y="85" width="60" height="25" fill="#ffe0b2" stroke="#f57c00" stroke-width="1"/>
+                <text x="475" y="102" font-family="sans-serif" font-size="8" fill="#e65100" text-anchor="middle">Port źródłowy</text>
+                <rect x="510" y="85" width="60" height="25" fill="#ffe0b2" stroke="#f57c00" stroke-width="1"/>
+                <text x="540" y="102" font-family="sans-serif" font-size="8" fill="#e65100" text-anchor="middle">Port docelowy</text>
+
+                <rect x="445" y="120" width="125" height="25" fill="#ffcc80" stroke="#f57c00" stroke-width="1"/>
+                <text x="507" y="137" font-family="sans-serif" font-size="8" fill="#e65100" text-anchor="middle">Długość</text>
+
+                <rect x="445" y="155" width="125" height="25" fill="#ffb74d" stroke="#f57c00" stroke-width="1"/>
+                <text x="507" y="172" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Suma kontrolna</text>
+
+                <text x="610" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#bf360c" text-anchor="middle">Koniec nagłówka. Minimalny narzut!</text>
+            </svg>
 
             <!-- PART 3: ZASTOSOWANIE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Zastosowanie (Kiedy użyć którego?)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Wybór protokołu to klasyczny <strong>trade-off inżynierski: niezawodność kontra szybkość</strong>. TCP stosujemy wszędzie tam, gdzie zgubienie choćby jednego bajtu oznacza katastrofę (przelew bankowy, załącznik e-mail, plik .exe). UDP króluje w transmisjach czasu rzeczywistego, gdzie opóźnienie 200 ms jest gorsze niż chwilowa utrata piksela czy próbki dźwięku (VoIP, gry online, streaming wideo).
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zastosowanie obu protokołów wynika bezpośrednio z ich cech. TCP – wszędzie tam, gdzie nie możemy sobie pozwolić na utratę danych: HTTP/HTTPS, poczta SMTP/IMAP, transfer plików FTP, SSH. UDP – tam, gdzie liczy się czas rzeczywisty i niski ping: VoIP, gry online, streaming wideo (YouTube/Netflix), zapytania DNS, DHCP. Proszę spojrzeć na tabelę – podsumowuje ona wszystkie kluczowe różnice.”
+                </div>
             </div>
 
             <!-- CHEAT SHEET TABLE -->
@@ -173,13 +238,38 @@
                         <td style="padding: 10px;">Bezpołączeniowy (Connectionless)</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Nawiązanie połączenia</td>
+                        <td style="padding: 10px;">3-way handshake (SYN, SYN-ACK, ACK)</td>
+                        <td style="padding: 10px;">Brak – dane wysyłane natychmiast</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
                         <td style="padding: 10px; font-weight: bold;">Niezawodność</td>
                         <td style="padding: 10px; color: #2e7d32;">Pełna gwarancja dostarczenia i kolejności</td>
-                        <td style="padding: 10px; color: #c62828;">Brak gwarancji (pakiety mogą zginać/zmienić kolejność)</td>
+                        <td style="padding: 10px; color: #c62828;">Brak gwarancji (pakiety mogą zginąć/zmienić kolejność)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Retransmisja</td>
+                        <td style="padding: 10px;">Tak – zgubione pakiety wysyłane ponownie</td>
+                        <td style="padding: 10px;">Nie – brak mechanizmu retransmisji</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Kolejność pakietów</td>
+                        <td style="padding: 10px;">Zachowana (sequence number)</td>
+                        <td style="padding: 10px;">Nie gwarantowana</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Rozmiar nagłówka</td>
+                        <td style="padding: 10px;">20-60 bajtów</td>
+                        <td style="padding: 10px; font-weight:bold;">8 bajtów</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold;">Kontrola przepływu</td>
+                        <td style="padding: 10px;">Tak (Window Size)</td>
+                        <td style="padding: 10px;">Brak</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #e0e0e0;">
                         <td style="padding: 10px; font-weight: bold;">Szybkość</td>
-                        <td style="padding: 10px;">Wolny (Narzut na 3-way handshake i ACK)</td>
+                        <td style="padding: 10px;">Wolniejszy (narzut na handshake i ACK)</td>
                         <td style="padding: 10px; font-weight:bold;">Bardzo szybki i lekki</td>
                     </tr>
                     <tr>
@@ -208,7 +298,11 @@
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>"UDP jest bezużyteczne, bo gubi dane"</strong> – Kompletny absurd! Podczas oglądania meczu na żywo przez internet (Streaming), jeśli zgubisz jeden mały pakiet z obrazem (wypadnie jedna klatka/piksel), UDP po prostu idzie dalej, a Ty nawet tego nie zauważysz. Gdyby transmisja leciała przez TCP, obraz by się zawiesił (buforowanie), ponieważ TCP kazałoby wstrzymać cały strumień aż zagubiony pakiet zostanie retransmitowany z serwera. UDP wybacza drobne straty w imię braku opóźnień (niskiego Ping-u).</li>
                     <li><strong>Blokowanie na czele kolejki (Head-of-Line Blocking):</strong> To największa wada TCP. Jeśli wysyłasz 10 pakietów w TCP i pakiet nr 2 zginie, pakiety 3-10 dotrą na miejsce, ale zostaną zablokowane w buforze odbiorcy i system ich nie odczyta, dopóki serwer nie dośle zagubionego pakietu nr 2. Skutkuje to ogromnymi spadkami wydajności na słabych łączach.</li>
+                    <li><strong>UDP też może mieć sumę kontrolną:</strong> Wiele osób myśli, że UDP w ogóle nie sprawdza poprawności danych. Nagłówek UDP zawiera sumę kontrolną (checksum), która pozwala wykryć uszkodzone pakiety – tyle że UDP uszkodzony pakiet po prostu odrzuca, nie retransmituje.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – mit, że UDP jest bezużyteczny. W streamingu wideo czy VoIP utrata kilku pakietów to pomijalny szum, a opóźnienie spowodowane retransmisją TCP zabiłoby całe doświadczenie. Po drugie – Head-of-Line Blocking: w TCP zgubienie jednego pakietu blokuje wszystkie kolejne w buforze, to ogromna wada na słabych łączach. Po trzecie – UDP też ma sumę kontrolną, więc potrafi wykryć uszkodzone dane – po prostu je odrzuca bez retransmisji. No i warto pamiętać, że nowy protokół QUIC (HTTP/3) łączy zalety obu – szybkość UDP z niezawodnością wbudowaną w warstwę aplikacji.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

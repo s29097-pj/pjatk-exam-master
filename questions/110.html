@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
                 <div>
@@ -28,6 +28,9 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Rastrowy (Bitmapa) vs Wektorowy (Vector)</span>
@@ -43,6 +46,9 @@
             <span class="keyword-tag">Metadane EXIF</span>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
@@ -53,44 +59,48 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Podstawowy podział w świecie plików graficznych. <strong>Raster</strong> (bitmapa) opisuje obraz jako tablicę kolorowych pikseli. <strong>Wektor</strong> opisuje obraz jako zbiór matematycznych figur (linii, krzywych, wielokątów). Raster jest idealny do zdjęć, wektor do logo, ikon i czcionek.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, podstawowy podział to raster kontra wektor. Raster to tablica pikseli – powiększasz i widzisz kwadraty. Idealny do zdjęć. Wektor to matematyczne opisy figur – kół, linii, krzywych. Powiększasz dowolnie i zawsze jest ostry. Dlatego logo firmowe to zawsze wektor, a zdjęcie z wakacji to raster. Proszę spojrzeć na planszę – pokazuje ona, co się dzieje z jakością przy skalowaniu w obu przypadkach.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridForm" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridForm)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Grafika Rastrowa vs Wektorowa</text>
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridForm)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">Grafika Rastrowa vs Wektorowa</text>
 
-                <rect x="40" y="55" width="350" height="170" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="215" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Raster (Piksele)</text>
-                <g transform="translate(80, 100)">
-                    <rect x="0" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="40" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
-                    <rect x="0" y="20" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="20" width="20" height="20" fill="#e57373" stroke="#c62828"/><rect x="40" y="20" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
-                    <rect x="0" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="40" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
-                    <text x="100" y="30" font-family="sans-serif" font-size="10" fill="#b71c1c">skaluje się → piksele</text>
-                    <path d="M 30 60 L 60 60" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrScaleR)"/>
-                    <g transform="translate(0, 70) scale(0.5)">
-                        <rect x="0" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="40" y="0" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
-                        <rect x="0" y="20" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="20" width="20" height="20" fill="#e57373" stroke="#c62828"/><rect x="40" y="20" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
-                        <rect x="0" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="20" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="40" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef9a9a"/>
+                <rect x="35" y="55" width="360" height="190" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="215" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Raster (Piksele)</text>
+                <g transform="translate(80, 105)">
+                    <rect x="0" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="56" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
+                    <rect x="0" y="28" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="28" width="28" height="28" fill="#e57373" stroke="#c62828" stroke-width="2"/><rect x="56" y="28" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
+                    <rect x="0" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="56" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
+                    <text x="120" y="30" font-family="sans-serif" font-size="12" fill="#b71c1c">skaluje się → pikseloza</text>
+                    <path d="M 40 80 L 70 80" fill="none" stroke="#c62828" stroke-width="2.5" marker-end="url(#arrScaleR)"/>
+                    <g transform="translate(0, 100) scale(0.5)">
+                        <rect x="0" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="56" y="0" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
+                        <rect x="0" y="28" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="28" width="28" height="28" fill="#e57373" stroke="#c62828" stroke-width="2"/><rect x="56" y="28" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
+                        <rect x="0" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="28" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/><rect x="56" y="56" width="28" height="28" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1.5"/>
                     </g>
                 </g>
-                <text x="215" y="210" font-family="sans-serif" font-size="10" fill="#546e7a">BMP, JPEG, GIF, PNG, WebP</text>
+                <text x="215" y="235" font-family="sans-serif" font-size="12" fill="#546e7a">BMP, JPEG, GIF, PNG, WebP</text>
 
-                <rect x="430" y="55" width="350" height="170" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
-                <text x="605" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Wektor (Matematyka)</text>
-                <g transform="translate(480, 100)">
-                    <circle cx="60" cy="60" r="40" fill="#bbdefb" stroke="#1976d2" stroke-width="3"/>
-                    <text x="60" y="65" text-anchor="middle" font-family="monospace" font-size="14" fill="#0d47a1">r=40</text>
-                    <text x="120" y="30" font-family="sans-serif" font-size="10" fill="#0d47a1">skaluje się → matematyka</text>
-                    <path d="M 90 60 L 120 60" fill="none" stroke="#1976d2" stroke-width="2" marker-end="url(#arrScaleV)"/>
-                    <circle cx="150" cy="60" r="60" fill="none" stroke="#1976d2" stroke-width="2" stroke-dasharray="4,3"/>
+                <rect x="425" y="55" width="360" height="190" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="605" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Wektor (Matematyka)</text>
+                <g transform="translate(470, 105)">
+                    <circle cx="60" cy="60" r="45" fill="#bbdefb" stroke="#1976d2" stroke-width="3"/>
+                    <text x="60" y="65" text-anchor="middle" font-family="monospace" font-size="16" fill="#0d47a1">r=45</text>
+                    <text x="130" y="30" font-family="sans-serif" font-size="12" fill="#0d47a1">skaluje się →</text>
+                    <text x="130" y="48" font-family="sans-serif" font-size="12" fill="#0d47a1">zawsze ostro</text>
+                    <path d="M 100 60 L 130 60" fill="none" stroke="#1976d2" stroke-width="2.5" marker-end="url(#arrScaleV)"/>
+                    <circle cx="160" cy="60" r="70" fill="none" stroke="#1976d2" stroke-width="2.5" stroke-dasharray="6,4"/>
                 </g>
-                <text x="605" y="210" font-family="sans-serif" font-size="10" fill="#546e7a">SVG, EPS, AI, CDR</text>
+                <text x="605" y="235" font-family="sans-serif" font-size="12" fill="#546e7a">SVG, EPS, AI, CDR</text>
 
                 <defs>
-                    <marker id="arrScaleR" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#c62828"/></marker>
-                    <marker id="arrScaleV" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#1976d2"/></marker>
+                    <marker id="arrScaleR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrScaleV" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
                 </defs>
             </svg>
 
@@ -102,19 +112,26 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     BMP to jeden z najprostszych formatów. Przechowuje dane piksel po pikselu, bez kompresji. Przez to pliki są ogromne (zdjęcie 4000x3000 to ~36 MB), ale odczyt i zapis są natychmiastowe. Używany głównie w aplikacjach inżynieryjnych i systemowych, gdzie jakość 1:1 jest ważniejsza niż miejsce na dysku.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „BMP to najprostszy format – zero kompresji. Każdy piksel zapisany jako trzy bajty: B, G, R. Pliki są ogromne, ale odczyt jest natychmiastowy, bo nie trzeba nic dekompresować. Stosowany tam, gdzie jakość 1:1 jest święta – w systemach wbudowanych, aplikacjach inżynieryjnych, albo jako format pośredni przed kompresją do JPEG. Proszę spojrzeć na planszę – pokazuje ona strukturę pliku BMP.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Struktura pliku BMP – Surowa tablica pikseli</text>
-                <rect x="60" y="50" width="120" height="100" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="120" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">Nagłówek</text>
-                <rect x="190" y="50" width="140" height="100" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="260" y="95" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">Info Obraz</text>
-                <rect x="340" y="50" width="100" height="100" rx="6" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="2"/>
-                <text x="390" y="95" text-anchor="middle" font-family="monospace" font-size="9" fill="#424242">Paleta</text>
-                <rect x="450" y="50" width="280" height="100" rx="6" fill="#fff" stroke="#546e7a" stroke-width="2"/>
-                <text x="590" y="105" text-anchor="middle" font-family="monospace" font-size="14" fill="#37474f">Dane Pikseli (B, G, R, B, G, R...)</text>
-                <text x="590" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">Każdy piksel to 3 bajty (24 bity). Brak kompresji!</text>
+            <svg viewBox="0 0 820 210" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="210" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">Struktura pliku BMP – Surowa tablica pikseli</text>
+                <rect x="50" y="55" width="130" height="110" rx="8" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="115" y="110" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Nagłówek</text>
+                <text x="115" y="130" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">(14 B)</text>
+                <rect x="195" y="55" width="150" height="110" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="270" y="100" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Info Obraz</text>
+                <text x="270" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">(40 B)</text>
+                <rect x="360" y="55" width="110" height="110" rx="8" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="2"/>
+                <text x="415" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#424242">Paleta</text>
+                <text x="415" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#424242">(opcjonalnie)</text>
+                <rect x="485" y="55" width="280" height="110" rx="8" fill="#fff" stroke="#546e7a" stroke-width="2.5"/>
+                <text x="625" y="105" text-anchor="middle" font-family="monospace" font-size="13" fill="#37474f">Dane Pikseli</text>
+                <text x="625" y="128" text-anchor="middle" font-family="monospace" font-size="12" fill="#37474f">(B, G, R, B, G, R...)</text>
+                <text x="625" y="152" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c62828">Każdy piksel to 3 bajty. Zero kompresji!</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -125,25 +142,28 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     JPEG to król fotografii w internecie. Używa <strong>stratnej kompresji</strong> opartej na DCT (Discrete Cosine Transform). Stopień kompresji można regulować (jakość 0-100). Wada: nie obsługuje przezroczystości i tworzy artefakty („rozmazanie”) na ostrych krawędziach.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „JPEG to format stratny – odrzuca informacje, których ludzkie oko i tak słabo widzi. Opiera się na DCT – dyskretnej transformacie kosinusowej. Obraz dzielony jest na bloki 8 na 8 pikseli, każdy blok przechodzi przez DCT, a potem wysokie częstotliwości są obcinane. Im niższa jakość, tym więcej obcinamy. Efekt: małe pliki, ale artefakty blokowe na ostrych krawędziach i przy tekście. JPEG nie obsługuje przezroczystości. Proszę spojrzeć na planszę – porównuje ona jakość JPEG przy różnych poziomach kompresji.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">JPEG – Kompresja stratna oparta na DCT i blokach 8x8</text>
-                <rect x="40" y="55" width="180" height="140" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
-                <text x="130" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Oryginał (TIF/BMP)</text>
-                <circle cx="130" cy="130" r="35" fill="none" stroke="#1565c0" stroke-width="12"/>
-                <text x="250" y="130" font-family="sans-serif" font-size="20" fill="#546e7a">→</text>
-                <rect x="300" y="55" width="180" height="140" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="390" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">JPEG (jakość 90%)</text>
-                <circle cx="390" cy="130" r="35" fill="none" stroke="#2e7d32" stroke-width="12"/>
-                <text x="390" y="170" font-family="sans-serif" font-size="9" fill="#1b5e20">Gładkie, bez strat</text>
-                <text x="510" y="130" font-family="sans-serif" font-size="20" fill="#546e7a">→</text>
-                <rect x="560" y="55" width="220" height="140" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="670" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">JPEG (jakość 10%)</text>
-                <circle cx="670" cy="130" r="35" fill="none" stroke="#c62828" stroke-width="12"/>
-                <rect x="640" y="110" width="15" height="15" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="655" y="110" width="15" height="15" fill="#ffcdd2" stroke="#ef9a9a"/>
-                <rect x="640" y="125" width="15" height="15" fill="#ffcdd2" stroke="#ef9a9a"/><rect x="655" y="125" width="15" height="15" fill="#ffcdd2" stroke="#ef9a9a"/>
-                <text x="670" y="170" font-family="sans-serif" font-size="9" fill="#b71c1c">Artefakty! Bloki 8x8 widoczne.</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">JPEG – Kompresja stratna oparta na DCT i blokach 8×8</text>
+                <rect x="35" y="55" width="185" height="155" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="127" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Oryginał (TIF/BMP)</text>
+                <circle cx="127" cy="145" r="40" fill="none" stroke="#1565c0" stroke-width="14"/>
+                <text x="240" y="140" font-family="sans-serif" font-size="24" fill="#546e7a">→</text>
+                <rect x="295" y="55" width="185" height="155" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="387" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">JPEG (jakość 90%)</text>
+                <circle cx="387" cy="145" r="40" fill="none" stroke="#2e7d32" stroke-width="14"/>
+                <text x="387" y="200" font-family="sans-serif" font-size="11" fill="#1b5e20">Gładkie, bez widocznych strat</text>
+                <text x="500" y="140" font-family="sans-serif" font-size="24" fill="#546e7a">→</text>
+                <rect x="555" y="55" width="230" height="155" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="670" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">JPEG (jakość 10%)</text>
+                <circle cx="670" cy="145" r="40" fill="none" stroke="#c62828" stroke-width="14"/>
+                <rect x="640" y="120" width="18" height="18" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/><rect x="658" y="120" width="18" height="18" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                <rect x="640" y="138" width="18" height="18" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/><rect x="658" y="138" width="18" height="18" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="1"/>
+                <text x="670" y="200" font-family="sans-serif" font-size="11" fill="#b71c1c">Artefakty! Bloki 8×8 widoczne.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -154,22 +174,25 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     GIF to format, który jako pierwszy zdobył internet. Używa bezstratnej kompresji LZW, ale jest ograniczony do maksymalnie 256 kolorów (8-bitowa paleta). Idealny do grafik z płaskimi kolorami (logo, ikony, memy), ale fatalny do zdjęć.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „GIF to legenda internetu. Bezstratna kompresja LZW, ale tylko 256 kolorów w palecie. Obsługuje animację – wiele klatek w jednym pliku. Przezroczystość jest 1-bitowa: piksel jest albo całkowicie przezroczysty, albo kryjący – nie ma półśrodków. Dlatego logo zapisane jako GIF ma postrzępione krawędzie przy przezroczystości. Do zdjęć kompletnie się nie nadaje – 256 kolorów to o wiele za mało. Proszę spojrzeć na planszę – pokazuje ona strukturę animacji GIF.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">GIF – Animacja i 1-bitowa przezroczystość</text>
-                <rect x="40" y="55" width="100" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="90" y="90" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Klatka 1</text>
-                <text x="160" y="110" font-family="sans-serif" font-size="16" fill="#546e7a">→</text>
-                <rect x="190" y="55" width="100" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="240" y="90" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Klatka 2</text>
-                <text x="310" y="110" font-family="sans-serif" font-size="16" fill="#546e7a">→</text>
-                <rect x="340" y="55" width="100" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="390" y="90" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Klatka 3</text>
-                <rect x="480" y="60" width="130" height="80" rx="4" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1"/>
-                <rect x="500" y="80" width="90" height="40" fill="#ce93d8" stroke="#7b1fa2" stroke-width="1"/>
-                <text x="545" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff">Tło szare</text>
-                <text x="545" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#4a148c">1-bit alpha: piksel przezroczysty lub nie.</text>
+            <svg viewBox="0 0 820 210" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="210" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">GIF – Animacja i 1-bitowa przezroczystość</text>
+                <rect x="35" y="60" width="120" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="95" y="100" text-anchor="middle" font-family="monospace" font-size="14" fill="#4a148c">Klatka 1</text>
+                <text x="175" y="120" font-family="sans-serif" font-size="22" fill="#546e7a">→</text>
+                <rect x="210" y="60" width="120" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="270" y="100" text-anchor="middle" font-family="monospace" font-size="14" fill="#4a148c">Klatka 2</text>
+                <text x="350" y="120" font-family="sans-serif" font-size="22" fill="#546e7a">→</text>
+                <rect x="385" y="60" width="120" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="445" y="100" text-anchor="middle" font-family="monospace" font-size="14" fill="#4a148c">Klatka 3</text>
+                <rect x="540" y="65" width="150" height="90" rx="8" fill="#e0e0e0" stroke="#9e9e9e" stroke-width="1.5"/>
+                <rect x="565" y="90" width="100" height="45" fill="#ce93d8" stroke="#7b1fa2" stroke-width="1.5" rx="4"/>
+                <text x="615" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff">Tło szare</text>
+                <text x="615" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a148c">1-bit alpha: tylko pełna przezroczystość lub pełne krycie.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -180,22 +203,25 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     PNG powstał jako odpowiedź na ograniczenia GIF. Używa bezstratnej kompresji DEFLATE. Oferuje pełną paletę 24-bitową (True Color) oraz 8-bitowy kanał Alfa (256 poziomów przezroczystości). Idealny do UI, logo, screenshotów.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „PNG to następca GIF – stworzony, gdy Unisys zaczął pobierać opłaty za patent na LZW w GIF-ie. PNG używa bezstratnej kompresji DEFLATE – połączenia LZ77 i kodowania Huffmana. Oferuje 24-bitowy kolor True Color i co najważniejsze – 8-bitowy kanał alfa. To 256 poziomów przezroczystości, a nie tylko zero-jedynkowo jak w GIF-ie. Dzięki temu logo z cieniem półprzezroczystym wygląda idealnie. PNG-24 to standard dla UI, logo i screenshotów. Proszę spojrzeć na planszę – porównuje ona kompresję DEFLATE i kanał alfa.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">PNG – Bezstratna kompresja DEFLATE i kanał Alfa</text>
-                <rect x="60" y="50" width="200" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="160" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Kompresja DEFLATE</text>
-                <rect x="80" y="95" width="160" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-                <text x="160" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">LZ77 + Huffman</text>
-                <rect x="340" y="50" width="200" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="440" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Kanał Alfa (8-bit)</text>
-                <rect x="360" y="100" width="160" height="30" fill="#a5d6a7" opacity="0.5"/>
-                <text x="440" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">0 (przezroczysty) → 255 (kryjący)</text>
-                <rect x="560" y="50" width="200" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
-                <text x="660" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">PNG-24 vs PNG-8</text>
-                <text x="660" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">PNG-24: True Color (16M kolorów)</text>
-                <text x="660" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">PNG-8: Paleta 256 kolorów</text>
+            <svg viewBox="0 0 820 210" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="210" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">PNG – Bezstratna kompresja DEFLATE i kanał Alfa</text>
+                <rect x="40" y="55" width="220" height="130" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2.5"/>
+                <text x="150" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Kompresja DEFLATE</text>
+                <rect x="60" y="100" width="180" height="50" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5" rx="6"/>
+                <text x="150" y="122" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">LZ77 + Huffman</text>
+                <rect x="290" y="55" width="220" height="130" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="400" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Kanał Alfa (8-bit)</text>
+                <rect x="310" y="105" width="180" height="35" fill="#a5d6a7" opacity="0.5" rx="6"/>
+                <text x="400" y="128" text-anchor="middle" font-family="monospace" font-size="12" fill="#1b5e20">0 (przezroczysty) → 255 (kryjący)</text>
+                <rect x="540" y="55" width="240" height="130" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5"/>
+                <text x="660" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">PNG-24 vs PNG-8</text>
+                <text x="660" y="115" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">PNG-24: True Color (16M kolorów)</text>
+                <text x="660" y="140" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">PNG-8: Paleta 256 kolorów</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -206,20 +232,23 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     WebP (Google) i AVIF (bazujący na kodeku AV1) to formaty nowej generacji, które łączą zalety JPEG i PNG. Pliki są średnio 25-35% mniejsze niż JPEG/PNG przy tej samej jakości.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „WebP od Google i AVIF oparty na kodeku AV1 to formaty nowej generacji. WebP potrafi być stratny jak JPEG i bezstratny jak PNG w jednym formacie – z kanałem alfa. AVIF idzie jeszcze dalej: obsługuje HDR, 12-bitową głębię kolorów i daje jeszcze mniejsze pliki. Oba formaty są już wspierane przez wszystkie główne przeglądarki i stanowią przyszłość grafiki internetowej. Proszę spojrzeć na planszę – porównuje ona rozmiary plików przy tej samej jakości wizualnej.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 160" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="160" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">WebP / AVIF – Mniejszy rozmiar, lepsza jakość</text>
-                <rect x="80" y="60" width="140" height="60" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="150" y="85" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">JPEG</text>
-                <text x="150" y="105" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">100 KB</text>
-                <rect x="340" y="60" width="140" height="60" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="85" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">WebP</text>
-                <text x="410" y="105" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">~65 KB</text>
-                <rect x="600" y="60" width="140" height="60" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="670" y="85" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">AVIF</text>
-                <text x="670" y="105" text-anchor="middle" font-family="monospace" font-size="13" fill="#0d47a1">~50 KB</text>
-                <text x="410" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Ta sama jakość wizualna, mniejszy rozmiar pliku.</text>
+            <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="180" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#004d40">WebP / AVIF – Mniejszy rozmiar, lepsza jakość</text>
+                <rect x="50" y="60" width="155" height="70" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="127" y="90" text-anchor="middle" font-family="monospace" font-size="15" fill="#b71c1c">JPEG</text>
+                <text x="127" y="115" text-anchor="middle" font-family="monospace" font-size="15" fill="#b71c1c">100 KB</text>
+                <rect x="280" y="60" width="155" height="70" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="357" y="90" text-anchor="middle" font-family="monospace" font-size="15" fill="#1b5e20">WebP</text>
+                <text x="357" y="115" text-anchor="middle" font-family="monospace" font-size="15" fill="#1b5e20">~65 KB</text>
+                <rect x="510" y="60" width="155" height="70" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2.5"/>
+                <text x="587" y="90" text-anchor="middle" font-family="monospace" font-size="15" fill="#0d47a1">AVIF</text>
+                <text x="587" y="115" text-anchor="middle" font-family="monospace" font-size="15" fill="#0d47a1">~50 KB</text>
+                <text x="410" y="165" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">Ta sama jakość wizualna, mniejszy rozmiar pliku.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -230,82 +259,83 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     SVG to język oparty na XML do opisu dwuwymiarowej grafiki. Zamiast pikseli przechowuje polecenia matematyczne. Dzięki temu obraz można powiększać dowolnie, bez utraty jakości.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „SVG to wektorowy format oparty na XML-u. Zamiast pikseli przechowuje komendy: narysuj okrąg o promieniu 40 w punkcie 50,50, narysuj prostokąt, narysuj ścieżkę. Dzięki temu logo w SVG waży kilka kilobajtów i można je powiększyć na billboard – zawsze będzie ostre. SVG jest natywnie wspierany przez wszystkie przeglądarki i można go stylować CSS-em oraz animować. Idealny do ikon, logo i ilustracji. Nie nadaje się do zdjęć. Proszę spojrzeć na planszę – pokazuje ona kod XML i odpowiadający mu rysunek.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">SVG – Grafika wektorowa w XML</text>
-                <rect x="40" y="50" width="350" height="120" rx="6" fill="#263238" stroke="#455a64" stroke-width="2"/>
-                <text x="60" y="75" font-family="monospace" font-size="11" fill="#8bc34a">&lt;svg&gt;</text>
-                <text x="60" y="95" font-family="monospace" font-size="11" fill="#8bc34a">  &lt;circle cx="50" cy="50" r="40"/&gt;</text>
-                <text x="60" y="115" font-family="monospace" font-size="11" fill="#8bc34a">  &lt;rect x="30" y="80" width="100"/&gt;</text>
-                <text x="60" y="135" font-family="monospace" font-size="11" fill="#8bc34a">  &lt;path d="M10 10 L20 30"/&gt;</text>
-                <text x="60" y="155" font-family="monospace" font-size="11" fill="#8bc34a">&lt;/svg&gt;</text>
-                <rect x="430" y="50" width="350" height="120" rx="6" fill="#fff" stroke="#1976d2" stroke-width="2"/>
-                <circle cx="510" cy="110" r="30" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
-                <rect x="550" y="80" width="120" height="40" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <path d="M 600 120 L 630 80 L 660 120" fill="none" stroke="#c62828" stroke-width="2"/>
-                <text x="605" y="170" font-family="sans-serif" font-size="10" fill="#0d47a1">Efekt wizualny kodu XML po lewej.</text>
+            <svg viewBox="0 0 820 210" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="210" fill="url(#gridForm)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">SVG – Grafika wektorowa w XML</text>
+                <rect x="35" y="50" width="360" height="130" rx="8" fill="#263238" stroke="#455a64" stroke-width="2.5"/>
+                <text x="55" y="78" font-family="monospace" font-size="13" fill="#8bc34a">&lt;svg&gt;</text>
+                <text x="55" y="102" font-family="monospace" font-size="13" fill="#8bc34a">  &lt;circle cx="50" cy="50" r="40"/&gt;</text>
+                <text x="55" y="126" font-family="monospace" font-size="13" fill="#8bc34a">  &lt;rect x="30" y="80" width="100"/&gt;</text>
+                <text x="55" y="150" font-family="monospace" font-size="13" fill="#8bc34a">  &lt;path d="M10 10 L20 30"/&gt;</text>
+                <text x="55" y="174" font-family="monospace" font-size="13" fill="#8bc34a">&lt;/svg&gt;</text>
+                <rect x="425" y="50" width="360" height="130" rx="8" fill="#fff" stroke="#1976d2" stroke-width="2.5"/>
+                <circle cx="510" cy="115" r="35" fill="#bbdefb" stroke="#1976d2" stroke-width="2.5"/>
+                <rect x="560" y="80" width="130" height="45" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <path d="M 610 125 L 640 85 L 670 125" fill="none" stroke="#c62828" stroke-width="2.5"/>
+                <text x="605" y="190" font-family="sans-serif" font-size="12" fill="#0d47a1">Efekt wizualny kodu XML po lewej.</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 8: PUŁAPKI EGZAMINACYJNE (POPRAWIONE)              -->
+            <!-- PART 8: PUŁAPKI EGZAMINACYJNE                           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">8. Pułapki Egzaminacyjne: Wybór odpowiedniego formatu do zadania</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Każdy format ma swoje ograniczenia. Użycie JPEG tam, gdzie potrzebna jest przezroczystość, albo PNG do fotografii to jedne z najczęstszych błędów prowadzących do utraty danych lub nieefektywnego przechowywania. Poniższa grafika ilustruje, jak *nie* należy postępować.
+                    Każdy format ma swoje ograniczenia. Użycie JPEG tam, gdzie potrzebna jest przezroczystość, albo PNG do fotografii to jedne z najczęstszych błędów prowadzących do utraty danych lub nieefektywnego przechowywania.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dwa klasyczne błędy. Po pierwsze: logo z przezroczystością zapisane jako JPEG – JPEG nie obsługuje kanału alfa, więc przezroczystość zamieni się w białe tło. Logo trzeba zapisać jako PNG lub SVG. Po drugie: zdjęcie zapisane jako PNG – plik będzie wielokrotnie większy niż ten sam obraz w JPEG, bo kompresja bezstratna słabo radzi sobie z fotografią. Do zdjęć używamy JPEG lub nowoczesnego WebP. Proszę spojrzeć na planszę – pokazuje ona oba scenariusze.”
+                </div>
             </div>
             <svg viewBox="0 0 820 360" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="360" fill="url(#gridForm)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">Scenariusze decyzyjne: Jak NIE wybierać formatów graficznych</text>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#c62828">Scenariusze decyzyjne: Jak NIE wybierać formatów graficznych</text>
 
                 <!-- Scenariusz 1: Przezroczystość -->
-                <rect x="30" y="50" width="370" height="280" rx="8" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
-                <text x="215" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Scenariusz 1: Potrzebuję grafiki z przezroczystością (np. logo)</text>
+                <rect x="25" y="50" width="375" height="285" rx="10" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="212" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Scenariusz 1: Grafika z przezroczystością (np. logo)</text>
 
-                <!-- Zły wybór: JPEG -->
-                <rect x="50" y="90" width="150" height="70" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="125" y="115" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">❌ Zapis jako JPEG</text>
-                <text x="125" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#c62828">logo.jpg</text>
-                <rect x="220" y="90" width="150" height="70" rx="6" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="2"/>
-                <text x="295" y="115" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Efekt: Białe tło</text>
-                <text x="295" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">zamiast przezroczystości!</text>
+                <rect x="45" y="95" width="155" height="75" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="122" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">❌ Zapis jako JPEG</text>
+                <text x="122" y="148" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">logo.jpg</text>
+                <rect x="215" y="95" width="155" height="75" rx="8" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="2"/>
+                <text x="292" y="125" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Efekt: Białe tło</text>
+                <text x="292" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">zamiast przezroczystości!</text>
 
-                <!-- Dobry wybór: PNG -->
-                <rect x="50" y="180" width="150" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="125" y="205" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">✅ Zapis jako PNG</text>
-                <text x="125" y="225" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">logo.png</text>
-                <rect x="220" y="180" width="150" height="70" rx="6" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="2"/>
-                <text x="295" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Efekt: Płynna</text>
-                <text x="295" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">przezroczystość (Alfa).</text>
+                <rect x="45" y="190" width="155" height="75" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="122" y="220" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">✅ Zapis jako PNG</text>
+                <text x="122" y="243" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">logo.png</text>
+                <rect x="215" y="190" width="155" height="75" rx="8" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="2"/>
+                <text x="292" y="220" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Efekt: Płynna</text>
+                <text x="292" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">przezroczystość (Alfa).</text>
 
-                <!-- Separator -->
-                <line x1="40" y1="270" x2="390" y2="270" stroke="#ffcc80" stroke-width="2" stroke-dasharray="6,4"/>
-                <text x="215" y="290" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e65100">JPEG nie przechowuje informacji o nieprzezroczystości!</text>
+                <line x1="35" y1="275" x2="390" y2="275" stroke="#ffcc80" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="212" y="298" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">JPEG nie przechowuje kanału alfa!</text>
 
                 <!-- Scenariusz 2: Fotografia -->
-                <rect x="420" y="50" width="370" height="280" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="605" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Scenariusz 2: Potrzebuję zapisać zdjęcie z aparatu</text>
+                <rect x="420" y="50" width="375" height="285" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="607" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Scenariusz 2: Zdjęcie z aparatu</text>
 
-                <!-- Zły wybór: PNG -->
-                <rect x="440" y="90" width="150" height="70" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="515" y="115" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">❌ Zapis jako PNG</text>
-                <text x="515" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#c62828">zdjecie.png</text>
-                <rect x="610" y="90" width="150" height="70" rx="6" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="2"/>
-                <text x="685" y="115" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Efekt: Rozmiar pliku</text>
-                <text x="685" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">2.5 MB!</text>
+                <rect x="440" y="95" width="155" height="75" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="517" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">❌ Zapis jako PNG</text>
+                <text x="517" y="148" text-anchor="middle" font-family="monospace" font-size="12" fill="#c62828">zdjecie.png</text>
+                <rect x="610" y="95" width="155" height="75" rx="8" fill="#ffcdd2" stroke="#ef9a9a" stroke-width="2"/>
+                <text x="687" y="125" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Efekt: Rozmiar pliku</text>
+                <text x="687" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">2.5 MB!</text>
 
-                <!-- Dobry wybór: JPEG -->
-                <rect x="440" y="180" width="150" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="515" y="205" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">✅ Zapis jako JPEG</text>
-                <text x="515" y="225" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">zdjecie.jpg</text>
-                <rect x="610" y="180" width="150" height="70" rx="6" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="2"/>
-                <text x="685" y="205" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Efekt: Rozmiar pliku</text>
-                <text x="685" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">300 KB!</text>
+                <rect x="440" y="190" width="155" height="75" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="517" y="220" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">✅ Zapis jako JPEG</text>
+                <text x="517" y="243" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">zdjecie.jpg</text>
+                <rect x="610" y="190" width="155" height="75" rx="8" fill="#c8e6c9" stroke="#a5d6a7" stroke-width="2"/>
+                <text x="687" y="220" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Efekt: Rozmiar pliku</text>
+                <text x="687" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">300 KB!</text>
 
-                <line x1="430" y1="270" x2="780" y2="270" stroke="#90caf9" stroke-width="2" stroke-dasharray="6,4"/>
-                <text x="605" y="290" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0d47a1">Bezstratna kompresja PNG jest mało skuteczna dla zdjęć.</text>
+                <line x1="430" y1="275" x2="785" y2="275" stroke="#90caf9" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="607" y="298" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Bezstratna kompresja PNG jest mało skuteczna dla zdjęć.</text>
             </svg>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -315,6 +345,9 @@
                     <li><strong>GIF to nie tylko animacja.</strong> To także format statyczny z 8-bitową paletą. Zapisanie zdjęcia jako GIF spowoduje potworną posteryzację kolorów (ograniczenie do 256 barw).</li>
                     <li><strong>SVG nie nadaje się do zdjęć.</strong> Próba zapisania zdjęcia jako wektorów (wektoryzacja) skończy się gigantycznym plikiem lub totalną abstrakcją. SVG jest dla geometrii, nie dla fotorealizmu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – JPEG jest stratny generacyjnie: każde zapisanie pogarsza jakość. Zawsze edytuj w PNG lub TIFF, eksportuj do JPEG na końcu. Po drugie – GIF ma tylko 256 kolorów i 1-bitową przezroczystość, przez co logo zapisane jako GIF ma postrzępione krawędzie. Po trzecie – SVG to wektor, nie nadaje się do zdjęć. Próba wektoryzacji fotografii kończy się gigantycznym plikiem pełnym bezsensownych ścieżek. Klucz to dobór formatu do treści: JPEG do zdjęć, PNG do UI, SVG do logo, GIF do animacji.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -348,7 +381,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Formy plików graficznych to nie tylko rozszerzenia – to całe filozofie przechowywania obrazów. Od surowego BMP, przez sprytny JPEG, aż po matematyczny SVG. Wybór formatu to decyzja inżynierska balansująca między jakością, rozmiarem a funkcjonalnością. Pamiętaj: JPEG do zdjęć, PNG do UI, SVG do logo, a GIF... do memów!</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Formaty plików graficznych to nie tylko rozszerzenia – to całe filozofie przechowywania obrazów. Od surowego BMP, przez sprytny JPEG, aż po matematyczny SVG. Wybór formatu to decyzja inżynierska balansująca między jakością, rozmiarem a funkcjonalnością. Pamiętaj: JPEG do zdjęć, PNG do UI, SVG do logo, a GIF... do memów!</span>
                 </p>
             </div>
 
@@ -362,3 +395,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -28,6 +28,9 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Pobór dynamiczny (P ~ C·V²·f)</span>
@@ -42,6 +45,9 @@
             <span class="keyword-tag">Race-to-halt / dark silicon</span>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
@@ -50,36 +56,39 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. Dwie natury poboru mocy w układach CMOS</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Całkowita moc tracona w układzie CMOS to suma dwóch składników. <strong>Moc dynamiczna</strong> P<sub>dyn</sub> = C·V²·f związana jest z ładowaniem i rozładowywaniem pojemności przy każdym przełączeniu – im wyższe napięcie i częstotliwość, tym większy pobór. <strong>Moc statyczna</strong> (upływnościowa, leakage) płynie nawet wtedy, gdy tranzystor jest w stanie spoczynku. W historycznych procesach (powyżej 90 nm) dominowała moc dynamiczna. W procesach poniżej 28 nm, z powodu miniaturyzacji i cienkich tlenków bramki, prądy upływu stały się porównywalne z dynamicznymi – a czasem je przewyższają.
+                    Całkowita moc tracona w układzie CMOS to suma dwóch składników. <strong>Moc dynamiczna</strong> P<sub>dyn</sub> = C·V²·f związana jest z ładowaniem i rozładowywaniem pojemności przy każdym przełączeniu – im wyższe napięcie i częstotliwość, tym większy pobór. <strong>Moc statyczna</strong> (upływnościowa, leakage) płynie nawet wtedy, gdy tranzystor jest w stanie spoczynku. W historycznych procesach dominowała moc dynamiczna. W procesach poniżej 28 nm prądy upływu stały się porównywalne z dynamicznymi, a czasem je przewyższają.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pobór mocy w CMOS ma dwa składniki. Dynamiczny – P równa się C razy V kwadrat razy f – zależy od napięcia i częstotliwości. Im szybciej i wyższe napięcie, tym większy pobór. Statyczny – prądy upływu – płynie zawsze, nawet gdy układ nic nie robi. W starych procesach dominowała dynamika, poniżej 28 nanometrów upływy stają się ogromne – czasem ponad 40% całkowitego poboru. Dlatego nowoczesne metody oszczędzania energii muszą zwalczać oba składniki. Proszę spojrzeć na planszę – pokazuje ona podział na moc dynamiczną i statyczną.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridPower" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridPower)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Dwa składniki poboru mocy: dynamiczny i statyczny</text>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridPower)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">Dwa składniki poboru mocy: dynamiczny i statyczny</text>
 
                 <!-- Wykres kołowy -->
-                <g transform="translate(80, 60)">
-                    <circle cx="100" cy="100" r="80" fill="none" stroke="#546e7a" stroke-width="2"/>
-                    <path d="M 100 20 A 80 80 0 0 1 175 145 L 100 100 Z" fill="#66bb6a" opacity="0.8"/>
-                    <text x="140" y="70" font-family="sans-serif" font-size="11" fill="#1b5e20">Dyn.</text>
-                    <path d="M 175 145 A 80 80 0 0 1 25 145 L 100 100 Z" fill="#ff8a65" opacity="0.8"/>
-                    <text x="60" y="140" font-family="sans-serif" font-size="11" fill="#bf360c">Statyczna</text>
+                <g transform="translate(70, 55)">
+                    <circle cx="110" cy="110" r="95" fill="none" stroke="#546e7a" stroke-width="2.5"/>
+                    <path d="M 110 15 A 95 95 0 0 1 198 162 L 110 110 Z" fill="#66bb6a" opacity="0.8"/>
+                    <text x="155" y="70" font-family="sans-serif" font-size="14" fill="#1b5e20">Dyn.</text>
+                    <path d="M 198 162 A 95 95 0 0 1 22 162 L 110 110 Z" fill="#ff8a65" opacity="0.8"/>
+                    <text x="55" y="155" font-family="sans-serif" font-size="14" fill="#bf360c">Stat.</text>
                 </g>
 
-                <rect x="280" y="60" width="200" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="380" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Moc dynamiczna</text>
-                <text x="380" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">P<sub>dyn</sub> = C · V² · f</text>
-                <text x="380" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Zależy od napięcia i częstotliwości.</text>
+                <rect x="280" y="65" width="230" height="90" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="395" y="92" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Moc dynamiczna</text>
+                <text x="395" y="118" text-anchor="middle" font-family="monospace" font-size="13" fill="#2e7d32">P<sub>dyn</sub> = C · V² · f</text>
+                <text x="395" y="142" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Zależy od napięcia i częstotliwości.</text>
 
-                <rect x="500" y="60" width="280" height="80" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="640" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Moc statyczna (leakage)</text>
-                <text x="640" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">P<sub>stat</sub> = V · I<sub>leak</sub></text>
-                <text x="640" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Płynie zawsze, gdy układ jest zasilany.</text>
+                <rect x="530" y="65" width="260" height="90" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="660" y="92" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Moc statyczna (leakage)</text>
+                <text x="660" y="118" text-anchor="middle" font-family="monospace" font-size="13" fill="#c62828">P<sub>stat</sub> = V · I<sub>leak</sub></text>
+                <text x="660" y="142" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Płynie zawsze, gdy układ jest zasilany.</text>
 
-                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">W procesach poniżej 28 nm prądy upływu mogą stanowić ponad 40% całkowitego poboru mocy!</text>
+                <text x="410" y="230" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">W procesach poniżej 28 nm prądy upływu mogą stanowić ponad 40% całkowitego poboru mocy!</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -90,23 +99,26 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Z równania P ~ V²·f wynika, że obniżenie napięcia daje kwadratową oszczędność mocy, a obniżenie częstotliwości – liniową. <strong>DVFS</strong> to technika dynamicznego dostosowywania obu tych parametrów do aktualnego obciążenia procesora. Gdy system jest bezczynny (idle), procesor przechodzi w stan niskiego napięcia i częstotliwości (P-state). W systemach operacyjnych zarządza tym sterownik (governor), np. „powersave”, „ondemand”, „performance”.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „DVFS to skrót od Dynamic Voltage and Frequency Scaling. Z równania na moc dynamiczną widać, że napięcie jest w kwadracie – więc obniżenie go o połowę zmniejsza pobór czterokrotnie. Częstotliwość daje oszczędność liniową. DVFS robi jedno i drugie jednocześnie: gdy CPU jest bezczynny, obniża napięcie i częstotliwość do minimum. Zarządza tym governor w systemie operacyjnym – tryby powersave, ondemand, performance. Proszę spojrzeć na planszę – wyjaśnia ona zależność P od V i f.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridPower)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">DVFS – Dynamiczne skalowanie napięcia i częstotliwości</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridPower)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">DVFS – Dynamiczne skalowanie napięcia i częstotliwości</text>
 
-                <rect x="30" y="50" width="360" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Zasada DVFS</text>
-                <text x="210" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">P ~ C · V² · f</text>
-                <text x="210" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Jeśli obniżę V o połowę → P spada 4×!</text>
-                <text x="210" y="148" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Jeśli obniżę f o połowę → P spada 2×.</text>
-                <text x="210" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">DVFS robi jedno i drugie jednocześnie.</text>
+                <rect x="30" y="55" width="370" height="170" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2.5"/>
+                <text x="215" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#0d47a1">Zasada DVFS</text>
+                <text x="215" y="115" text-anchor="middle" font-family="monospace" font-size="14" fill="#1565c0">P ~ C · V² · f</text>
+                <text x="215" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Obniżenie V o połowę → P spada 4×!</text>
+                <text x="215" y="168" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Obniżenie f o połowę → P spada 2×.</text>
+                <text x="215" y="195" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">DVFS robi jedno i drugie jednocześnie.</text>
 
-                <rect x="430" y="50" width="360" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">P-states (Performance States)</text>
-                <text x="610" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">P0: max V, max f (wydajność)</text>
-                <text x="610" y="128" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">P1, P2, … Pn: coraz niższe</text>
-                <text x="610" y="155" text-anchor="middle" font-family="monospace" font-size="10" fill="#2e7d32">Governor: ondemand / powersave</text>
+                <rect x="430" y="55" width="360" height="170" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="610" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">P-states (Performance States)</text>
+                <text x="610" y="118" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">P0: max V, max f (wydajność)</text>
+                <text x="610" y="142" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">P1, P2, … Pn: coraz niższe V i f</text>
+                <text x="610" y="172" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">Governor: ondemand / powersave</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -117,29 +129,32 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Clock Gating</strong> odcina sygnał zegara od nieaktywnych bloków (np. jednostki FPU, gdy program używa tylko liczb całkowitych). Przerzutniki przestają się przełączać, eliminując praktycznie całą moc dynamiczną w tym bloku. <strong>Power Gating</strong> idzie krok dalej – całkowicie odłącza napięcie zasilania od nieużywanego bloku za pomocą tranzystorów przełączających (sleep transistors). Eliminuje to również prądy upływu, ale wybudzenie bloku trwa dłużej. Oba mechanizmy są kluczowe w nowoczesnych SoC i procesorach.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Clock Gating i Power Gating to dwie strategie wyłączania nieaktywnych bloków. Clock Gating odcina tylko sygnał zegara – tranzystory przestają się przełączać, więc moc dynamiczna spada do zera. Ale napięcie wciąż jest podłączone, więc prądy upływu płyną nadal. Power Gating idzie dalej – fizycznie odłącza zasilanie od całego bloku przez tak zwane sleep transistory. Eliminuje to zarówno moc dynamiczną, jak i statyczną, ale wybudzenie takiego bloku trwa dłużej. W nowoczesnych procesorach obie techniki są stosowane jednocześnie. Proszę spojrzeć na planszę – porównuje ona obie metody.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridPower)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Clock Gating vs Power Gating – dwie strategie wyłączania</text>
+            <svg viewBox="0 0 820 270" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="270" fill="url(#gridPower)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Clock Gating vs Power Gating – dwie strategie wyłączania</text>
 
-                <rect x="30" y="50" width="370" height="180" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
-                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Clock Gating (bramkowanie zegara)</text>
-                <rect x="60" y="100" width="100" height="50" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1"/>
-                <text x="110" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">Blok CPU</text>
-                <text x="170" y="130" font-family="sans-serif" font-size="14" fill="#e65100">→</text>
-                <rect x="190" y="100" width="100" height="50" fill="#bdbdbd" stroke="#757575" stroke-width="2"/>
-                <text x="240" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#424242">CLK OFF</text>
-                <text x="215" y="180" font-family="sans-serif" font-size="10" fill="#546e7a">Zegar odcięty, blok nie przełącza się → oszczędność P<sub>dyn</sub>.</text>
+                <rect x="25" y="55" width="375" height="190" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5"/>
+                <text x="212" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#e65100">Clock Gating (bramkowanie zegara)</text>
+                <rect x="55" y="108" width="110" height="55" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1.5" rx="4"/>
+                <text x="110" y="140" text-anchor="middle" font-family="monospace" font-size="13" fill="#bf360c">Blok CPU</text>
+                <text x="180" y="140" font-family="sans-serif" font-size="18" fill="#e65100">→</text>
+                <rect x="200" y="108" width="110" height="55" fill="#bdbdbd" stroke="#757575" stroke-width="2.5" rx="4"/>
+                <text x="255" y="140" text-anchor="middle" font-family="monospace" font-size="13" fill="#424242">CLK OFF</text>
+                <text x="212" y="195" font-family="sans-serif" font-size="12" fill="#546e7a">Zegar odcięty, blok nie przełącza się → oszczędność P<sub>dyn</sub>.</text>
 
-                <rect x="420" y="50" width="370" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Power Gating (odłączanie zasilania)</text>
-                <rect x="450" y="100" width="100" height="50" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="500" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">Blok FPU</text>
-                <text x="560" y="130" font-family="sans-serif" font-size="14" fill="#c62828">→</text>
-                <rect x="580" y="100" width="100" height="50" fill="#ffcdd2" stroke="#c62828" stroke-width="2" stroke-dasharray="6,3"/>
-                <text x="630" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">VDD OFF</text>
-                <text x="605" y="180" font-family="sans-serif" font-size="10" fill="#546e7a">Zasilanie odcięte → eliminuje też prądy upływu!</text>
-                <text x="605" y="198" font-family="sans-serif" font-size="9" fill="#c62828">(ale wybudzenie trwa dłużej)</text>
+                <rect x="420" y="55" width="375" height="190" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="607" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#b71c1c">Power Gating (odłączanie zasilania)</text>
+                <rect x="450" y="108" width="110" height="55" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5" rx="4"/>
+                <text x="505" y="140" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Blok FPU</text>
+                <text x="575" y="140" font-family="sans-serif" font-size="18" fill="#c62828">→</text>
+                <rect x="595" y="108" width="110" height="55" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5" stroke-dasharray="8,5" rx="4"/>
+                <text x="650" y="140" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">VDD OFF</text>
+                <text x="607" y="195" font-family="sans-serif" font-size="12" fill="#546e7a">Zasilanie odcięte → eliminuje też prądy upływu!</text>
+                <text x="607" y="215" font-family="sans-serif" font-size="11" fill="#c62828">(ale wybudzenie trwa dłużej)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -150,32 +165,35 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Po co używać potężnego, energochłonnego rdzenia do przeglądania wiadomości? Architektura <strong>big.LITTLE</strong> (ARM) łączy w jednym procesorze wydajne rdzenie „big” (np. Cortex-A78) i energooszczędne rdzenie „LITTLE” (np. Cortex-A55). System operacyjny dynamicznie przerzuca wątki między nimi w zależności od obciążenia. Nowoczesne implementacje (DynamIQ) pozwalają na dowolne kombinacje rdzeni.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wielordzeniowość heterogeniczna to pomysł ARM-a: big.LITTLE. W jednym układzie mamy wydajne, ale prądożerne rdzenie big, na przykład Cortex-A78, i energooszczędne rdzenie LITTLE, na przykład Cortex-A55. System operacyjny sam decyduje, które wątki na których rdzeniach uruchomić – lekkie zadania na LITTLE, ciężkie gry na big. Nowszy standard DynamIQ pozwala dowolnie mieszać rdzenie. Dzięki temu smartfon podczas przeglądania internetu pracuje na oszczędnych rdzeniach, a przy uruchomieniu gry włącza te wydajne. Proszę spojrzeć na planszę – porównuje ona oba typy rdzeni.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="url(#gridPower)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Architektura heterogeniczna: big.LITTLE</text>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridPower)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Architektura heterogeniczna: big.LITTLE</text>
 
-                <rect x="40" y="55" width="200" height="130" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="140" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Big Core (np. Cortex-A78)</text>
-                <circle cx="100" cy="130" r="35" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="100" y="135" font-family="monospace" font-size="16" fill="#b71c1c" text-anchor="middle">⚡</text>
-                <text x="140" y="160" font-family="sans-serif" font-size="9" fill="#c62828">Wysoka wydajność</text>
-                <text x="140" y="172" font-family="sans-serif" font-size="9" fill="#c62828">Wysoki pobór mocy</text>
+                <rect x="35" y="60" width="220" height="145" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="145" y="90" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Big Core (Cortex-A78)</text>
+                <circle cx="100" cy="142" r="38" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="100" y="148" font-family="monospace" font-size="18" fill="#b71c1c" text-anchor="middle">⚡</text>
+                <text x="145" y="178" font-family="sans-serif" font-size="11" fill="#c62828">Wysoka wydajność</text>
+                <text x="145" y="193" font-family="sans-serif" font-size="11" fill="#c62828">Wysoki pobór mocy</text>
 
-                <text x="260" y="125" font-family="sans-serif" font-size="20" fill="#546e7a">+</text>
+                <text x="275" y="140" font-family="sans-serif" font-size="24" fill="#546e7a">+</text>
 
-                <rect x="290" y="55" width="200" height="130" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="390" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">LITTLE Core (np. Cortex-A55)</text>
-                <circle cx="350" cy="130" r="25" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="350" y="135" font-family="monospace" font-size="14" fill="#1b5e20" text-anchor="middle">🌿</text>
-                <text x="390" y="160" font-family="sans-serif" font-size="9" fill="#2e7d32">Niska wydajność</text>
-                <text x="390" y="172" font-family="sans-serif" font-size="9" fill="#2e7d32">Bardzo niski pobór</text>
+                <rect x="305" y="60" width="220" height="145" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="415" y="90" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">LITTLE Core (Cortex-A55)</text>
+                <circle cx="370" cy="142" r="28" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="370" y="148" font-family="monospace" font-size="16" fill="#1b5e20" text-anchor="middle">🌿</text>
+                <text x="415" y="178" font-family="sans-serif" font-size="11" fill="#2e7d32">Niska wydajność</text>
+                <text x="415" y="193" font-family="sans-serif" font-size="11" fill="#2e7d32">Bardzo niski pobór</text>
 
-                <rect x="540" y="60" width="250" height="120" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="665" y="88" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Scheduler OS</text>
-                <text x="665" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">Lekkie wątki → LITTLE</text>
-                <text x="665" y="132" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">Ciężkie gry → Big</text>
-                <text x="665" y="152" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">DynamIQ: mix dowolny</text>
+                <rect x="555" y="65" width="240" height="130" rx="10" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="675" y="95" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Scheduler OS</text>
+                <text x="675" y="125" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">Lekkie wątki → LITTLE</text>
+                <text x="675" y="148" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">Ciężkie gry → Big</text>
+                <text x="675" y="171" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">DynamIQ: mix dowolny</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -186,23 +204,26 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy miniaturyzacja zeszła poniżej 28 nm, tradycyjne planarne tranzystory MOSFET zaczęły cierpieć na ogromne prądy upływu (krótki kanał, tunelowanie). Rozwiązaniem okazała się struktura <strong>FinFET</strong> (tranzystor 3D z „płetwą”) oraz zastąpienie tlenku krzemu w bramce dielektrykiem o wysokiej stałej dielektrycznej <strong>High-K</strong> oraz metalową elektrodą bramki (zamiast polikrzemu). Pozwala to na lepszą kontrolę kanału i drastyczne zmniejszenie upływu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ostatnia metoda to nie trik projektowy, tylko fundamentalna zmiana w fizycznej budowie tranzystora. Poniżej 28 nanometrów planarne tranzystory mają ogromne prądy upływu – elektrony tunelują przez zbyt cienką bramkę. Rozwiązaniem jest FinFET – tranzystor 3D, gdzie bramka otacza kanał z trzech stron, co daje znacznie lepszą kontrolę. Do tego zastąpiono tlenek krzemu dielektrykiem High-K i dodano metalową bramkę. Te technologie, wprowadzone przez Intela w 2011 roku, radykalnie zmniejszyły prądy upływu i umożliwiły dalszą miniaturyzację. Proszę spojrzeć na planszę – porównuje ona budowę planarnego MOSFET-a i FinFET-a.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="url(#gridPower)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Ewolucja tranzystora: Planarny MOSFET → FinFET (3D)</text>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridPower)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#004d40">Ewolucja tranzystora: Planarny MOSFET → FinFET (3D)</text>
 
-                <rect x="40" y="50" width="340" height="140" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Planarny MOSFET (historyczny)</text>
-                <rect x="120" y="95" width="100" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="170" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#b71c1c">Bramka planarna</text>
-                <text x="210" y="160" font-family="sans-serif" font-size="10" fill="#c62828">Duże prądy upływu poniżej 28 nm.</text>
+                <rect x="30" y="55" width="360" height="155" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="210" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#b71c1c">Planarny MOSFET (historyczny)</text>
+                <rect x="120" y="105" width="110" height="45" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5" rx="4"/>
+                <text x="175" y="132" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Bramka planarna</text>
+                <text x="210" y="180" font-family="sans-serif" font-size="12" fill="#c62828">Duże prądy upływu poniżej 28 nm.</text>
 
-                <rect x="420" y="50" width="360" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="600" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">FinFET / Tri-Gate (3D)</text>
-                <rect x="480" y="95" width="20" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <rect x="500" y="95" width="120" height="15" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                <rect x="500" y="115" width="120" height="15" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                <text x="600" y="170" font-family="sans-serif" font-size="10" fill="#1b5e20">Bramka otacza kanał z 3 stron → lepsza kontrola, niskie upływy.</text>
+                <rect x="420" y="55" width="370" height="155" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="605" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">FinFET / Tri-Gate (3D)</text>
+                <rect x="485" y="105" width="24" height="65" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5" rx="2"/>
+                <rect x="509" y="105" width="130" height="18" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2.5" rx="2"/>
+                <rect x="509" y="128" width="130" height="18" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2.5" rx="2"/>
+                <text x="605" y="185" font-family="sans-serif" font-size="12" fill="#1b5e20">Bramka otacza kanał z 3 stron → lepsza kontrola, niskie upływy.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -215,6 +236,9 @@
                     <li><strong>Więcej rdzeni ≠ mniejszy pobór mocy.</strong> Choć wiele wolniejszych rdzeni może być bardziej energooszczędnych niż jeden szybki (dzięki nieliniowej zależności P~V²·f), to samo uruchomienie dodatkowych rdzeni zwiększa pobór statyczny.</li>
                     <li><strong>Clock Gating nie eliminuje prądów upływu.</strong> Tranzystor, do którego nie dociera zegar, wciąż jest zasilany i „przecieka”. Power Gating rozwiązuje ten problem przez całkowite odłączenie napięcia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – DVFS zmniejsza tylko moc dynamiczną, prądy upływu wciąż płyną. Tylko Power Gating radzi sobie z oboma. Po drugie – więcej wolniejszych rdzeni nie zawsze znaczy mniejszy pobór, bo każdy dodatkowy rdzeń to dodatkowe prądy upływu. Po trzecie – Clock Gating odcina tylko zegar, tranzystor wciąż 'przecieka'. Power Gating fizycznie odłącza napięcie i dopiero to eliminuje upływy – ale kosztem dłuższego wybudzania.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -225,11 +249,11 @@
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Metoda</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Zasada działania</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Eliminuje P<sub>dyn</sub>?</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Eliminuje P<sub>stat</sub>?</th></tr></thead>
                     <tbody>
-                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">DVFS</td><td style="padding:10px;">Obniża V i f w zależności od obciążenia</td><td style="padding:10px;">✅ Tak (kwadratowo)</td><td style="padding:10px;">Częściowo</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Clock Gating</td><td style="padding:10px;">Odłącza zegar od nieaktywnych bloków</td><td style="padding:10px;">✅ Tak (w bloku)</td><td style="padding:10px;">❌ Nie</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Power Gating</td><td style="padding:10px;">Całkowicie odłącza napięcie zasilania</td><td style="padding:10px;">✅ Tak</td><td style="padding:10px;">✅ Tak (w bloku)</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">big.LITTLE</td><td style="padding:10px;">Używa słabszych rdzeni do lekkich zadań</td><td style="padding:10px;">✅ (uśrednione)</td><td style="padding:10px;">Częściowo</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">FinFET / High-K</td><td style="padding:10px;">Fizycznie redukuje prądy upływu w tranzystorze</td><td style="padding:10px;">—</td><td style="padding:10px;">✅ Tak (fundamentalnie)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">DVFS</td><td style="padding:10px;">Obniża V i f w zależności od obciążenia</td><td style="padding:10px;">✅ Tak (kwadratowo)</td><td style="padding:10px;">Częściowo</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Clock Gating</td><td style="padding:10px;">Odłącza zegar od nieaktywnych bloków</td><td style="padding:10px;">✅ Tak (w bloku)</td><td style="padding:10px;">❌ Nie</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Power Gating</td><td style="padding:10px;">Całkowicie odłącza napięcie zasilania</td><td style="padding:10px;">✅ Tak</td><td style="padding:10px;">✅ Tak (w bloku)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">big.LITTLE</td><td style="padding:10px;">Używa słabszych rdzeni do lekkich zadań</td><td style="padding:10px;">✅ (uśrednione)</td><td style="padding:10px;">Częściowo</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">FinFET / High-K</td><td style="padding:10px;">Fizycznie redukuje prądy upływu w tranzystorze</td><td style="padding:10px;">—</td><td style="padding:10px;">✅ Tak (fundamentalnie)</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -255,3 +279,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

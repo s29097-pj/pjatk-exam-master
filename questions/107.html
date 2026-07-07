@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🖨️</span>
                 <div>
@@ -65,6 +65,9 @@
                     <strong>Algorytm DDA (Digital Differential Analyzer)</strong> oblicza kolejne piksele linii, dodając małe przyrosty <code>dx</code> i <code>dy</code> do poprzedniej pozycji. Niestety, używa przy tym liczb zmiennoprzecinkowych (float), które są wolniejsze i podatne na błędy zaokrągleń.<br><br>
                     <strong>Algorytm Bresenhama</strong> rozwiązuje ten problem, wprowadzając <strong>zmienną decyzyjną Pk</strong>. Jest to wartość całkowita, która mówi, który z dwóch sąsiednich pikseli jest bliżej idealnej linii. Jeśli Pk &lt; 0, wybieramy piksel po prawej (E). Jeśli Pk ≥ 0, wybieramy piksel w górę i w prawo (NE). Dzięki temu cały algorytm działa na liczbach całkowitych, co czyni go niezwykle szybkim i idealnym dla sprzętu graficznego.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, mamy dwa algorytmy rysowania linii. DDA używa liczb zmiennoprzecinkowych – dodaje małe przyrosty, ale jest powolny i niedokładny. Bresenham to przełom: wprowadza zmienną decyzyjną Pk, która działa wyłącznie na liczbach całkowitych. Jeśli Pk jest ujemne, idziemy w prawo. Jeśli nieujemne – w górę i w prawo. Zero floatów, samo dodawanie i odejmowanie. Dlatego Bresenham od 1962 roku jest złotym standardem w sprzęcie graficznym. Proszę spojrzeć na planszę – pokazuje ona, jak zmienna decyzyjna wybiera piksele.”
+                </div>
             </div>
 
             <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -83,7 +86,7 @@
                     <path d="M 0 0 L 240 0 L 240 240 L 0 240 Z" fill="none" stroke="#b0bec5" stroke-width="1"/>
                     <!-- Idealna linia -->
                     <line x1="20" y1="200" x2="200" y2="40" stroke="#c62828" stroke-width="2.5" stroke-dasharray="6,4"/>
-                    
+
                     <!-- Piksele wybrane przez Bresenhama (symulacja) -->
                     <rect x="20" y="180" width="20" height="20" fill="#ffcdd2" stroke="#ef5350" stroke-width="2"/>
                     <rect x="40" y="180" width="20" height="20" fill="#ffcdd2" stroke="#ef5350" stroke-width="2"/>
@@ -94,7 +97,7 @@
                     <rect x="140" y="80" width="20" height="20" fill="#ffcdd2" stroke="#ef5350" stroke-width="2"/>
                     <rect x="160" y="60" width="20" height="20" fill="#ffcdd2" stroke="#ef5350" stroke-width="2"/>
                     <rect x="180" y="40" width="20" height="20" fill="#ffcdd2" stroke="#ef5350" stroke-width="2"/>
-                    
+
                     <!-- Punkt decyzyjny -->
                     <circle cx="90" cy="150" r="18" fill="none" stroke="#ff8f00" stroke-width="2"/>
                     <text x="90" y="146" font-family="monospace" font-size="12" fill="#e65100" text-anchor="middle">Pk</text>
@@ -125,6 +128,9 @@
                 <p style="line-height: 1.7; color: #2c3e50;">
                     Podobnie jak w linii, używamy zmiennej decyzyjnej. Definiujemy funkcję <code>f(x,y) = x^2 + y^2 - R^2</code>. Jeśli piksel jest wewnątrz okręgu (f &lt; 0), idziemy w górę; jeśli na zewnątrz (f ≥ 0), idziemy w lewo.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Okrąg ma symetrię 8-krotną – to klucz do wydajności. Algorytm Bresenhama dla okręgu rysuje tylko jedną ósmą łuku – od 0 do 45 stopni – a pozostałe siedem części uzyskuje przez odbicia lustrzane względem osi i przekątnych. Dla każdego obliczonego piksela od razu zapalamy osiem symetrycznych punktów. Zmienna decyzyjna, oparta na równaniu okręgu, działa podobnie jak w linii – wyłącznie na liczbach całkowitych. Efekt: osiem pikseli w cenie jednego obliczenia. Proszę spojrzeć na planszę – pomarańczowe linie pokazują osie symetrii.”
+                </div>
             </div>
 
             <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -132,36 +138,36 @@
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Algorytm Okręgu – Symetria 8-krotna (Rysujesz 1/8, dostajesz całość!)</text>
 
                 <!-- Okrąg na siatce -->
-                <g transform="translate(150, 50)">
+                <g transform="translate(100, 45)">
                     <circle cx="130" cy="130" r="110" fill="none" stroke="#1976d2" stroke-width="3" stroke-dasharray="6,4"/>
                     <!-- Siatka -->
                     <path d="M 0 0 L 260 0 L 260 260 L 0 260 Z" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                    
+
                     <!-- 1/8 okręgu (łuk 0-45 stopni) -->
                     <path d="M 240 130 A 110 110 0 0 0 207 53" fill="none" stroke="#1565c0" stroke-width="5"/>
                     <text x="250" y="80" font-family="sans-serif" font-size="12" fill="#1565c0">1/8 łuku</text>
-                    
+
                     <!-- Punkty symetrii -->
-                    <circle cx="240" cy="130" r="5" fill="#e65100"/><text x="250" y="140" font-family="monospace" font-size="10" fill="#e65100">(x,y)</text>
-                    <circle cx="130" cy="240" r="5" fill="#e65100"/><text x="100" y="250" font-family="monospace" font-size="10" fill="#e65100">(y,x)</text>
-                    <circle cx="130" cy="20" r="5" fill="#e65100"/><text x="100" y="15" font-family="monospace" font-size="10" fill="#e65100">(-x,y)</text>
-                    <circle cx="20" cy="130" r="5" fill="#e65100"/><text x="0" y="140" font-family="monospace" font-size="10" fill="#e65100">(-y,x)</text>
-                    
+                    <circle cx="240" cy="130" r="5" fill="#e65100"/><text x="250" y="140" font-family="monospace" font-size="11" fill="#e65100">(x,y)</text>
+                    <circle cx="130" cy="240" r="5" fill="#e65100"/><text x="100" y="255" font-family="monospace" font-size="11" fill="#e65100">(y,x)</text>
+                    <circle cx="130" cy="20" r="5" fill="#e65100"/><text x="95" y="12" font-family="monospace" font-size="11" fill="#e65100">(-x,y)</text>
+                    <circle cx="20" cy="130" r="5" fill="#e65100"/><text x="-5" y="140" font-family="monospace" font-size="11" fill="#e65100">(-y,x)</text>
+
                     <!-- Linie odbicia -->
-                    <line x1="130" y1="0" x2="130" y2="260" stroke="#ff8f00" stroke-width="1" stroke-dasharray="4,3"/>
-                    <line x1="0" y1="130" x2="260" y2="130" stroke="#ff8f00" stroke-width="1" stroke-dasharray="4,3"/>
-                    <line x1="0" y1="0" x2="260" y2="260" stroke="#ff8f00" stroke-width="1" stroke-dasharray="4,3"/>
-                    <line x1="0" y1="260" x2="260" y2="0" stroke="#ff8f00" stroke-width="1" stroke-dasharray="4,3"/>
+                    <line x1="130" y1="0" x2="130" y2="260" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="0" y1="130" x2="260" y2="130" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="0" y1="0" x2="260" y2="260" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="5,4"/>
+                    <line x1="0" y1="260" x2="260" y2="0" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="5,4"/>
                 </g>
 
-                <rect x="450" y="60" width="340" height="200" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
-                <text x="620" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Dlaczego to działa?</text>
-                <text x="620" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">Okrąg ma symetrię 8-krotną.</text>
-                <text x="620" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">Rysujemy tylko piksele w 1/8 okręgu.</text>
-                <text x="620" y="160" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">Dla każdego (x,y) od razu zapalamy:</text>
-                <text x="620" y="185" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">(x,y), (y,x), (-x,y), (-y,x),</text>
-                <text x="620" y="210" text-anchor="middle" font-family="monospace" font-size="11" fill="#0d47a1">(x,-y), (y,-x), (-x,-y), (-y,-x)</text>
-                <text x="620" y="240" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">Wydajność: 8 pikseli w cenie jednego obliczenia!</text>
+                <rect x="430" y="50" width="360" height="230" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Dlaczego to działa?</text>
+                <text x="610" y="108" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">Okrąg ma symetrię 8-krotną.</text>
+                <text x="610" y="138" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">Rysujemy tylko piksele w 1/8 okręgu.</text>
+                <text x="610" y="168" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">Dla każdego (x,y) od razu zapalamy:</text>
+                <text x="610" y="198" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">(x,y), (y,x), (-x,y), (-y,x),</text>
+                <text x="610" y="228" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">(x,-y), (y,-x), (-x,-y), (-y,-x)</text>
+                <text x="610" y="262" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Wydajność: 8 pikseli w cenie jednego obliczenia!</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -174,6 +180,9 @@
                     <strong>• Scanline Fill (wypełnianie liniami skanującymi):</strong> Działa jak drukarka atramentowa. Przechodzi poziomymi liniami przez cały obraz. Gdy linia trafi na krawędź wielokąta, włącza "tryb malowania", a gdy trafi na drugą krawędź – wyłącza. Szybkie i efektywne dla wielokątów.<br>
                     <strong>• Flood Fill / Seed Fill (wypełnianie przez zalewanie):</strong> Klikasz "wiaderko z farbą" w Paintcie. Algorytm zaczyna od wskazanego piksela (ziarna) i rekurencyjnie (lub iteracyjnie ze stosem) rozlewa kolor na sąsiadów, o ile nie napotka koloru granicy. Może być 4-spójne (tylko góra/dół/lewo/prawo) lub 8-spójne (także po skosie).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy dwie rodziny algorytmów wypełniania. Scanline Fill działa jak drukarka – przecina wielokąt poziomymi liniami i koloruje segmenty między krawędziami. Jest szybki i nie zużywa stosu. Flood Fill zaczyna od ziarna i rozlewa kolor rekurencyjnie aż do granic – jak wiaderko z farbą. Jest intuicyjny, ale rekurencja może przepełnić stos przy dużych obszarach. W praktyce inżynierskiej częściej stosuje się scanline fill, szczególnie w renderingu. Proszę spojrzeć na planszę – porównuje ona obie metody.”
+                </div>
             </div>
 
             <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -206,6 +215,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Po co rysować piksele, które i tak są poza ekranem? Algorytm Cohena-Sutherlanda dzieli przestrzeń na 9 regionów za pomocą 4-bitowych kodów (outcodes). Każdy bit mówi, czy punkt jest powyżej (Top), poniżej (Bottom), na prawo (Right) lub na lewo (Left) od prostokąta przycinania. Jeśli oba końce linii są w regionie 0000 – linia jest w środku i rysujemy ją w całości. Jeśli iloczyn logiczny outcodes jest niezerowy – linia jest całkowicie poza i odrzucamy ją. W przeciwnym razie tniemy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Cohen-Sutherland to algorytm przycinania linii do prostokątnego okna. Dzieli przestrzeń na 9 regionów za pomocą 4-bitowych kodów: Top, Bottom, Right, Left. Jeśli oba końce linii mają kod 0000 – linia jest w środku, rysujemy. Jeśli iloczyn logiczny AND obu kodów jest niezerowy – linia jest całkowicie poza jedną krawędzią, odrzucamy. W przeciwnym razie – tniemy. To sprytne: najpierw szybko eliminujemy oczywiste przypadki, a dopiero potem wykonujemy kosztowne obliczenia przecięć dla linii częściowo widocznych. Proszę spojrzeć na planszę – pokazuje ona 9 regionów i ich kody.”
+                </div>
             </div>
 
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
@@ -213,37 +225,40 @@
                 <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Cohen-Sutherland – Przycinanie linii do widocznego okna</text>
 
                 <!-- Okno przycinania i regiony -->
-                <g transform="translate(100, 50)">
+                <g transform="translate(80, 45)">
                     <!-- 9 regionów -->
-                    <rect x="0" y="0" width="200" height="180" fill="none" stroke="#90a4ae" stroke-width="1"/>
-                    <rect x="60" y="60" width="80" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                    <rect x="0" y="0" width="220" height="200" fill="none" stroke="#90a4ae" stroke-width="1"/>
+                    <rect x="70" y="65" width="90" height="70" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
                     <!-- Etykiety outcodes -->
-                    <text x="30" y="30" font-family="monospace" font-size="10" fill="#4a148c">1001</text>
-                    <text x="100" y="30" font-family="monospace" font-size="10" fill="#4a148c">1000</text>
-                    <text x="170" y="30" font-family="monospace" font-size="10" fill="#4a148c">1010</text>
-                    <text x="30" y="100" font-family="monospace" font-size="10" fill="#4a148c">0001</text>
-                    <text x="100" y="100" font-family="monospace" font-size="10" fill="#4a148c">0000</text>
-                    <text x="170" y="100" font-family="monospace" font-size="10" fill="#4a148c">0010</text>
-                    <text x="30" y="170" font-family="monospace" font-size="10" fill="#4a148c">0101</text>
-                    <text x="100" y="170" font-family="monospace" font-size="10" fill="#4a148c">0100</text>
-                    <text x="170" y="170" font-family="monospace" font-size="10" fill="#4a148c">0110</text>
+                    <text x="35" y="35" font-family="monospace" font-size="12" fill="#4a148c">1001</text>
+                    <text x="110" y="35" font-family="monospace" font-size="12" fill="#4a148c">1000</text>
+                    <text x="185" y="35" font-family="monospace" font-size="12" fill="#4a148c">1010</text>
+                    <text x="30" y="115" font-family="monospace" font-size="12" fill="#4a148c">0001</text>
+                    <text x="110" y="115" font-family="monospace" font-size="12" fill="#4a148c">0000</text>
+                    <text x="190" y="115" font-family="monospace" font-size="12" fill="#4a148c">0010</text>
+                    <text x="35" y="195" font-family="monospace" font-size="12" fill="#4a148c">0101</text>
+                    <text x="110" y="195" font-family="monospace" font-size="12" fill="#4a148c">0100</text>
+                    <text x="190" y="195" font-family="monospace" font-size="12" fill="#4a148c">0110</text>
 
                     <!-- Linia całkowicie wewnątrz -->
-                    <line x1="70" y1="80" x2="130" y2="110" stroke="#2e7d32" stroke-width="3"/>
+                    <line x1="80" y1="90" x2="145" y2="125" stroke="#2e7d32" stroke-width="3"/>
+                    <text x="160" y="130" font-family="sans-serif" font-size="10" fill="#2e7d32">OK</text>
                     <!-- Linia całkowicie na zewnątrz -->
-                    <line x1="10" y1="10" x2="50" y2="40" stroke="#c62828" stroke-width="3"/>
+                    <line x1="15" y1="15" x2="55" y2="45" stroke="#c62828" stroke-width="3"/>
+                    <text x="55" y="55" font-family="sans-serif" font-size="10" fill="#c62828">OUT</text>
                     <!-- Linia do przycięcia -->
-                    <line x1="20" y1="80" x2="140" y2="20" stroke="#ff8f00" stroke-width="3" stroke-dasharray="6,4"/>
+                    <line x1="25" y1="90" x2="160" y2="25" stroke="#ff8f00" stroke-width="3" stroke-dasharray="6,4"/>
+                    <text x="120" y="30" font-family="sans-serif" font-size="10" fill="#ff8f00">TNĄCA</text>
                 </g>
 
-                <rect x="450" y="60" width="340" height="180" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
-                <text x="620" y="85" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">4-bitowe Outcodes (TBRL)</text>
-                <text x="620" y="110" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Bit 1: Top (y &gt; ymax)</text>
-                <text x="620" y="130" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Bit 2: Bottom (y &lt; ymin)</text>
-                <text x="620" y="150" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Bit 3: Right (x &gt; xmax)</text>
-                <text x="620" y="170" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">Bit 4: Left (x &lt; xmin)</text>
-                <text x="620" y="200" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7b1fa2">O1 &amp; O2 != 0 → Całkowicie poza (odrzuć)</text>
-                <text x="620" y="220" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#7b1fa2">O1 == 0 &amp;&amp; O2 == 0 → Całkowicie wewnątrz (rysuj)</text>
+                <rect x="430" y="55" width="360" height="195" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">4-bitowe Outcodes (TBRL)</text>
+                <text x="610" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">Bit 1: Top (y &gt; ymax)</text>
+                <text x="610" y="138" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">Bit 2: Bottom (y &lt; ymin)</text>
+                <text x="610" y="164" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">Bit 3: Right (x &gt; xmax)</text>
+                <text x="610" y="190" text-anchor="middle" font-family="monospace" font-size="12" fill="#4a148c">Bit 4: Left (x &lt; xmin)</text>
+                <text x="610" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#7b1fa2">O1 AND O2 != 0 → Całkowicie poza (odrzuć)</text>
+                <text x="610" y="245" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#7b1fa2">O1 = 0 AND O2 = 0 → Całkowicie wewnątrz (rysuj)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -257,6 +272,9 @@
                     <li><strong>Flood Fill a przepełnienie stosu.</strong> Rekurencyjny Flood Fill jest elegancki, ale dla dużych obszarów powoduje Stack Overflow. W praktyce używa się wersji iteracyjnej (z jawnym stosem) lub scanline fill.</li>
                     <li><strong>Outcodes w Cohen-Sutherland.</strong> Pamiętaj, że jeśli logiczny iloczyn (AND) dwóch kodów jest różny od zera, linia jest całkowicie poza oknem. Suma (OR) mówi, że trzeba ciąć.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, cztery kluczowe pułapki. Po pierwsze – DDA używa floatów, Bresenham tylko integerów, stąd przewaga wydajnościowa Bresenhama. Po drugie – symetria okręgu jest 8-krotna, nie 4-krotna, bo inaczej zostałyby dziury na przekątnych. Po trzecie – rekurencyjny Flood Fill może przepełnić stos, dlatego w praktyce używa się wersji iteracyjnej. Po czwarte – w Cohen-Sutherland AND oznacza całkowicie poza, OR oznacza że trzeba ciąć. Te operacje bitowe to serce algorytmu.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -266,38 +284,38 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Algorytmy Rastrowe:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Algorytm</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zastosowanie</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowy Mechanizm</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wydajność</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Algorytm</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zastosowanie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowy Mechanizm</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wydajność</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #00695c;">Bresenham (Linia)</td>
-                            <td style="padding: 10px;">Rysowanie krawędzi, siatki</td>
-                            <td style="padding: 10px;">Zmienna decyzyjna Pk (Integer)</td>
-                            <td style="padding: 10px;">Bardzo szybki (brak float)</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #1565c0;">Bresenham (Okrąg)</td>
-                            <td style="padding: 10px;">Rysowanie okręgów, łuków</td>
-                            <td style="padding: 10px;">Symetria 8-krotna</td>
-                            <td style="padding: 10px;">Ekstremalnie szybki</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #e65100;">Scanline Fill</td>
-                            <td style="padding: 10px;">Wypełnianie wielokątów</td>
-                            <td style="padding: 10px;">Przecięcia z liniami skanującymi</td>
-                            <td style="padding: 10px;">Efektywny dla renderingu</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Cohen-Sutherland</td>
-                            <td style="padding: 10px;">Przycinanie linii do okna</td>
-                            <td style="padding: 10px;">4-bitowe kody (Outcodes)</td>
-                            <td style="padding: 10px;">Szybka eliminacja / przycięcie</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #00695c;">Bresenham (Linia)</td>
+                        <td style="padding: 10px;">Rysowanie krawędzi, siatki</td>
+                        <td style="padding: 10px;">Zmienna decyzyjna Pk (Integer)</td>
+                        <td style="padding: 10px;">Bardzo szybki (brak float)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #1565c0;">Bresenham (Okrąg)</td>
+                        <td style="padding: 10px;">Rysowanie okręgów, łuków</td>
+                        <td style="padding: 10px;">Symetria 8-krotna</td>
+                        <td style="padding: 10px;">Ekstremalnie szybki</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #e65100;">Scanline Fill</td>
+                        <td style="padding: 10px;">Wypełnianie wielokątów</td>
+                        <td style="padding: 10px;">Przecięcia z liniami skanującymi</td>
+                        <td style="padding: 10px;">Efektywny dla renderingu</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #6a1b9a;">Cohen-Sutherland</td>
+                        <td style="padding: 10px;">Przycinanie linii do okna</td>
+                        <td style="padding: 10px;">4-bitowe kody (Outcodes)</td>
+                        <td style="padding: 10px;">Szybka eliminacja / przycięcie</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

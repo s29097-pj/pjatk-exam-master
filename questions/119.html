@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⏰</span>
                 <div>
@@ -68,48 +68,50 @@
                     <br>• <strong>Latency (opóźnienie)</strong> – czas od wystąpienia zdarzenia (np. przerwania) do momentu rozpoczęcia wykonywania kodu obsługi (ISR).
                     <br>• <strong>Jitter (rozrzut)</strong> – zmienność czasu reakcji. Idealnie jitter = 0.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, w systemie czasu rzeczywistego poprawność wyniku zależy nie tylko od tego, co zostało obliczone, ale też kiedy. Mamy trzy kluczowe parametry. Deadline – to sztywna granica, po której wynik jest bezwartościowy lub niebezpieczny. Latency – to opóźnienie od zdarzenia do rozpoczęcia obsługi. Jitter – to zmienność tego opóźnienia. Idealnie jitter powinien być zerowy. Proszę spojrzeć na planszę – pokazuje ona te trzy parametry na osi czasu.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridRT" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridRT)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Anatomia czasowa systemu RT: Deadline, Latency, Jitter</text>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridRT)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#880e4f">Anatomia czasowa systemu RT: Deadline, Latency, Jitter</text>
 
-                <!-- Oś czasu -->
-                <g transform="translate(40, 60)">
-                    <line x1="0" y1="80" x2="720" y2="80" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowTime)"/>
-                    <text x="730" y="85" font-family="sans-serif" font-size="12" fill="#546e7a">t</text>
+                <g transform="translate(40, 55)">
+                    <line x1="0" y1="90" x2="740" y2="90" stroke="#546e7a" stroke-width="3" marker-end="url(#arrowTime)"/>
+                    <text x="760" y="95" font-family="sans-serif" font-size="13" fill="#546e7a">t</text>
 
                     <!-- Zdarzenie -->
-                    <line x1="60" y1="50" x2="60" y2="110" stroke="#ff8f00" stroke-width="3" stroke-dasharray="6,3"/>
-                    <text x="60" y="45" font-family="sans-serif" font-size="11" fill="#e65100" text-anchor="middle">Zdarzenie</text>
+                    <line x1="60" y1="55" x2="60" y2="125" stroke="#ff8f00" stroke-width="3" stroke-dasharray="8,4"/>
+                    <text x="60" y="48" font-family="sans-serif" font-size="12" fill="#e65100" text-anchor="middle">Zdarzenie</text>
 
                     <!-- Start obsługi -->
-                    <line x1="140" y1="60" x2="140" y2="100" stroke="#1976d2" stroke-width="3" stroke-dasharray="6,3"/>
-                    <text x="140" y="55" font-family="sans-serif" font-size="11" fill="#1565c0" text-anchor="middle">Start ISR</text>
+                    <line x1="150" y1="65" x2="150" y2="115" stroke="#1976d2" stroke-width="3" stroke-dasharray="8,4"/>
+                    <text x="150" y="58" font-family="sans-serif" font-size="12" fill="#1565c0" text-anchor="middle">Start ISR</text>
 
                     <!-- Deadline -->
-                    <line x1="500" y1="50" x2="500" y2="110" stroke="#c62828" stroke-width="4"/>
-                    <text x="500" y="45" font-family="sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">DEADLINE</text>
+                    <line x1="530" y1="55" x2="530" y2="125" stroke="#c62828" stroke-width="4.5"/>
+                    <text x="530" y="48" font-family="sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle">DEADLINE</text>
 
-                    <!-- Zaznaczenie latency -->
-                    <path d="M 60 140 L 110 140" fill="none" stroke="#ff8f00" stroke-width="6" opacity="0.4"/>
-                    <line x1="60" y1="140" x2="60" y2="150" stroke="#ff8f00" stroke-width="2"/>
-                    <line x1="110" y1="140" x2="110" y2="150" stroke="#ff8f00" stroke-width="2"/>
-                    <text x="85" y="165" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">Latency (opóźnienie)</text>
+                    <!-- Latency -->
+                    <path d="M 60 155 L 115 155" fill="none" stroke="#ff8f00" stroke-width="8" opacity="0.4" stroke-linecap="round"/>
+                    <line x1="60" y1="155" x2="60" y2="168" stroke="#ff8f00" stroke-width="2.5"/>
+                    <line x1="115" y1="155" x2="115" y2="168" stroke="#ff8f00" stroke-width="2.5"/>
+                    <text x="87" y="185" font-family="sans-serif" font-size="13" fill="#e65100" text-anchor="middle">Latency (opóźnienie)</text>
 
                     <!-- Czas wykonania -->
-                    <rect x="140" y="145" width="180" height="25" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" rx="4"/>
-                    <text x="230" y="163" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Czas wykonania (WCET)</text>
+                    <rect x="150" y="165" width="200" height="30" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="6"/>
+                    <text x="250" y="185" font-family="sans-serif" font-size="13" fill="#0d47a1" text-anchor="middle">Czas wykonania (WCET)</text>
 
-                    <!-- Jitter (zmienność) -->
-                    <rect x="360" y="145" width="40" height="25" fill="#ffcdd2" stroke="#c62828" stroke-width="2" rx="2"/>
-                    <text x="380" y="163" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Jitter</text>
-                    <text x="380" y="185" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(zmienność)</text>
+                    <!-- Jitter -->
+                    <rect x="380" y="165" width="55" height="30" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5" rx="4"/>
+                    <text x="407" y="185" font-family="sans-serif" font-size="12" fill="#b71c1c" text-anchor="middle">Jitter</text>
+                    <text x="407" y="212" font-family="sans-serif" font-size="11" fill="#c62828" text-anchor="middle">(zmienność)</text>
                 </g>
                 <defs>
-                    <marker id="arrowTime" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowTime" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#546e7a"/></marker>
                 </defs>
             </svg>
 
@@ -121,29 +123,32 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Podstawowy podział systemów czasu rzeczywistego opiera się na konsekwencjach przekroczenia deadline'u. <strong>Hard Real-Time (twardy)</strong> oznacza, że jakiekolwiek spóźnienie jest katastrofą (zagrożenie życia, ogromne straty finansowe, uszkodzenie sprzętu). <strong>Soft Real-Time (miękki)</strong> dopuszcza sporadyczne przekroczenia – jakość usługi spada, ale system nadal działa (np. chwilowe zacinanie się wideo). <strong>Firm Real-Time</strong> to kategoria pośrednia: spóźnienie nie jest katastrofą, ale wynik staje się bezużyteczny i jest odrzucany.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podstawowy podział to twardy i miękki czas rzeczywisty. Hard RT – spóźnienie to katastrofa. Poduszka powietrzna musi odpalić w 10 ms, rozrusznik serca nie może się spóźnić ani o milisekundę. Soft RT – spóźnienie obniża jakość, ale system działa dalej. Streaming wideo może się na chwilę zaciąć. Firm RT – wynik po deadlinie jest bezużyteczny i odrzucany. Proszę spojrzeć na planszę – porównuje ona konsekwencje spóźnienia w obu kategoriach.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridRT)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Hard vs Soft Real-Time – konsekwencje spóźnienia</text>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Hard vs Soft Real-Time – konsekwencje spóźnienia</text>
 
                 <!-- Hard RT -->
-                <rect x="30" y="50" width="370" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
-                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Hard Real-Time (Twardy Czas)</text>
-                <text x="215" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#c62828">Deadline przekroczony → KATASTROFA</text>
-                <circle cx="150" cy="160" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="150" y="165" font-family="sans-serif" font-size="10" fill="#b71c1c">🚗💥</text>
-                <text x="150" y="200" font-family="sans-serif" font-size="9" fill="#c62828">Poduszka powietrzna, ABS</text>
-                <circle cx="280" cy="160" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="280" y="165" font-family="sans-serif" font-size="10" fill="#b71c1c">❤️</text>
-                <text x="280" y="200" font-family="sans-serif" font-size="9" fill="#c62828">Rozrusznik serca</text>
+                <rect x="25" y="55" width="375" height="195" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+                <text x="212" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#b71c1c">Hard Real-Time (Twardy Czas)</text>
+                <text x="212" y="115" text-anchor="middle" font-family="monospace" font-size="13" fill="#c62828">Deadline przekroczony → KATASTROFA</text>
+                <circle cx="145" cy="172" r="24" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="145" y="179" font-family="sans-serif" font-size="13" fill="#b71c1c">🚗💥</text>
+                <text x="145" y="215" font-family="sans-serif" font-size="11" fill="#c62828">Poduszka powietrzna, ABS</text>
+                <circle cx="280" cy="172" r="24" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="280" y="179" font-family="sans-serif" font-size="13" fill="#b71c1c">❤️</text>
+                <text x="280" y="215" font-family="sans-serif" font-size="11" fill="#c62828">Rozrusznik serca</text>
 
                 <!-- Soft RT -->
-                <rect x="420" y="50" width="370" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
-                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Soft Real-Time (Miękki Czas)</text>
-                <text x="605" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">Deadline czasem przekroczony → jakość spada</text>
-                <rect x="550" y="130" width="110" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="605" y="155" font-family="sans-serif" font-size="10" fill="#1b5e20">Streaming video</text>
-                <text x="605" y="200" font-family="sans-serif" font-size="9" fill="#2e7d32">Spóźnienie = chwilowe zacinanie się obrazu.</text>
+                <rect x="420" y="55" width="375" height="195" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
+                <text x="607" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">Soft Real-Time (Miękki Czas)</text>
+                <text x="607" y="115" text-anchor="middle" font-family="monospace" font-size="13" fill="#2e7d32">Deadline czasem przekroczony → jakość spada</text>
+                <rect x="540" y="145" width="135" height="45" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="6"/>
+                <text x="607" y="173" font-family="sans-serif" font-size="13" fill="#1b5e20">Streaming video</text>
+                <text x="607" y="215" font-family="sans-serif" font-size="12" fill="#2e7d32">Spóźnienie = chwilowe zacinanie się obrazu.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -154,24 +159,27 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Determinizm</strong> to cecha systemu, która oznacza, że dla danego zestawu wejść i stanu początkowego, system zawsze zachowa się w ten sam sposób i <strong>w tym samym czasie</strong>. W kontekście czasu rzeczywistego kluczowy jest <strong>determinizm czasowy</strong> – górna granica czasu wykonania (WCET) musi być znana i nieprzekraczalna. System deterministyczny niekoniecznie jest szybki – może być wolny, ale przewidywalny. To dlatego w RTOS-ach unika się dynamicznej alokacji pamięci (<code>malloc</code>) i garbage collectora – ich czas wykonania jest nieprzewidywalny.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Determinizm to cecha ważniejsza niż surowa szybkość. System RT nie musi być najszybszy – musi być przewidywalny. Zwykły Linux może być średnio szybszy od RTOS-a, ale jego czasy odpowiedzi skaczą od mikrosekund do setek milisekund. W systemie RT każda operacja ma znany, górny limit czasu – WCET. Dlatego unikamy malloca i garbage collectora – ich czas jest nieprzewidywalny. Proszę spojrzeć na planszę – porównuje ona system szybki, ale niedeterministyczny, z wolniejszym, ale przewidywalnym.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridRT)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Determinizm vs Szybkość – system RT nie musi być najszybszy</text>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Determinizm vs Szybkość – system RT nie musi być najszybszy</text>
 
                 <!-- Szybki, ale niedeterministyczny -->
-                <rect x="30" y="50" width="370" height="160" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">System szybki, ale niedeterministyczny</text>
-                <path d="M 60 120 L 100 110 L 140 130 L 180 100 L 220 140 L 260 100 L 300 130 L 340 110" fill="none" stroke="#c62828" stroke-width="3"/>
-                <text x="215" y="165" font-family="sans-serif" font-size="10" fill="#c62828">Średnio szybki, ale czasem "zacina się" na długo.</text>
-                <text x="215" y="180" font-family="sans-serif" font-size="10" fill="#c62828">Nie do przyjęcia w RT!</text>
+                <rect x="25" y="55" width="375" height="178" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="212" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#b71c1c">System szybki, ale niedeterministyczny</text>
+                <path d="M 55 135 L 100 120 L 145 145 L 190 105 L 235 155 L 280 105 L 325 145 L 370 120" fill="none" stroke="#c62828" stroke-width="3.5"/>
+                <text x="212" y="185" font-family="sans-serif" font-size="13" fill="#c62828">Średnio szybki, ale czasem "zacina się" na długo.</text>
+                <text x="212" y="205" font-family="sans-serif" font-size="13" fill="#c62828">Nie do przyjęcia w RT!</text>
 
                 <!-- Wolniejszy, ale deterministyczny -->
-                <rect x="420" y="50" width="370" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">System wolniejszy, ale deterministyczny</text>
-                <path d="M 460 120 L 500 115 L 540 125 L 580 115 L 620 125 L 660 115 L 700 125 L 740 115" fill="none" stroke="#2e7d32" stroke-width="3"/>
-                <text x="605" y="165" font-family="sans-serif" font-size="10" fill="#1b5e20">Wolniejszy, ale zawsze taki sam.</text>
-                <text x="605" y="180" font-family="sans-serif" font-size="10" fill="#1b5e20">W sam raz do RT!</text>
+                <rect x="420" y="55" width="375" height="178" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">System wolniejszy, ale deterministyczny</text>
+                <path d="M 455 135 L 500 128 L 545 142 L 590 128 L 635 142 L 680 128 L 725 142 L 770 128" fill="none" stroke="#2e7d32" stroke-width="3.5"/>
+                <text x="607" y="185" font-family="sans-serif" font-size="13" fill="#1b5e20">Wolniejszy, ale zawsze taki sam.</text>
+                <text x="607" y="205" font-family="sans-serif" font-size="13" fill="#1b5e20">W sam raz do RT!</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -182,31 +190,34 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W RTOS każde zadanie ma przypisany priorytet. Zasada jest prosta: <strong>zadanie o wyższym priorytecie zawsze wywłaszcza (przerywa) zadanie o niższym priorytecie</strong>. To gwarantuje, że krytyczne funkcje (np. sterowanie silnikiem) dostaną procesor natychmiast, bez czekania na zakończenie mniej ważnych zadań (np. logowania). Problemem jest tu <strong>odwrócenie priorytetów (priority inversion)</strong> – sytuacja, gdy zadanie o wysokim priorytecie czeka na zasób zablokowany przez zadanie o niskim priorytecie. Rozwiązaniem jest <strong>dziedziczenie priorytetów (priority inheritance)</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W RTOS każde zadanie ma priorytet. Wyższy priorytet zawsze wywłaszcza niższy – to gwarantuje, że krytyczne funkcje dostaną procesor natychmiast. Problemem jest odwrócenie priorytetów: zadanie o wysokim priorytecie czeka na zasób zablokowany przez zadanie o niskim priorytecie. To realny problem – w 1997 roku prawie zniszczył misję Mars Pathfinder. Rozwiązaniem jest dziedziczenie priorytetów: zadanie niskiego priorytetu tymczasowo dziedziczy wysoki priorytet, by szybko zwolnić zasób. Proszę spojrzeć na planszę – pokazuje ona oba scenariusze.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridRT)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Priorytetyzacja i Problem Odwrócenia Priorytetów (Priority Inversion)</text>
+            <svg viewBox="0 0 820 290" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="290" fill="url(#gridRT)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Priorytetyzacja i Problem Odwrócenia Priorytetów (Priority Inversion)</text>
 
                 <!-- Diagram wywłaszczania -->
-                <rect x="30" y="50" width="370" height="200" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Prawidłowe wywłaszczanie</text>
-                <rect x="50" y="95" width="180" height="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
-                <text x="140" y="110" font-size="8" fill="#1b5e20" text-anchor="middle">Zadanie niskiego priorytetu (NP)</text>
-                <rect x="50" y="120" width="100" height="20" fill="#81c784" stroke="#2e7d32" stroke-width="1"/>
-                <text x="100" y="135" font-size="8" fill="#fff" text-anchor="middle">Przerwane!</text>
-                <rect x="150" y="120" width="200" height="20" fill="#e65100" stroke="#bf360c" stroke-width="1"/>
-                <text x="250" y="135" font-size="8" fill="#fff" text-anchor="middle">Zadanie wysokiego priorytetu (WP)</text>
-                <text x="215" y="175" font-family="sans-serif" font-size="10" fill="#1b5e20">WP przyszło → NP natychmiast wywłaszczone.</text>
+                <rect x="25" y="55" width="375" height="205" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="212" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1b5e20">Prawidłowe wywłaszczanie</text>
+                <rect x="45" y="108" width="200" height="24" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5" rx="4"/>
+                <text x="145" y="125" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Zadanie niskiego priorytetu (NP)</text>
+                <rect x="45" y="138" width="110" height="24" fill="#81c784" stroke="#2e7d32" stroke-width="1.5" rx="4"/>
+                <text x="100" y="155" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle">Przerwane!</text>
+                <rect x="155" y="138" width="215" height="24" fill="#e65100" stroke="#bf360c" stroke-width="1.5" rx="4"/>
+                <text x="262" y="155" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle">Zadanie wysokiego priorytetu (WP)</text>
+                <text x="212" y="195" font-family="sans-serif" font-size="13" fill="#1b5e20">WP przyszło → NP natychmiast wywłaszczone.</text>
 
                 <!-- Diagram odwrócenia priorytetów -->
-                <rect x="420" y="50" width="370" height="200" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Odwrócenie priorytetów (Problem!)</text>
-                <rect x="440" y="95" width="100" height="20" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
-                <text x="490" y="110" font-size="8" fill="#b71c1c" text-anchor="middle">NP blokuje zasób</text>
-                <rect x="550" y="95" width="200" height="20" fill="#e65100" stroke="#bf360c" stroke-width="1"/>
-                <text x="650" y="110" font-size="8" fill="#fff" text-anchor="middle">WP czeka na zasób!</text>
-                <text x="605" y="175" font-family="sans-serif" font-size="10" fill="#b71c1c">WP czeka na NP → Priorytety odwrócone.</text>
-                <text x="605" y="195" font-family="sans-serif" font-size="10" fill="#c62828">Rozwiązanie: dziedziczenie priorytetów.</text>
+                <rect x="420" y="55" width="375" height="205" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="607" y="85" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#b71c1c">Odwrócenie priorytetów (Problem!)</text>
+                <rect x="440" y="108" width="115" height="24" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5" rx="4"/>
+                <text x="497" y="125" font-family="sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">NP blokuje zasób</text>
+                <rect x="565" y="108" width="200" height="24" fill="#e65100" stroke="#bf360c" stroke-width="1.5" rx="4"/>
+                <text x="665" y="125" font-family="sans-serif" font-size="11" fill="#fff" text-anchor="middle">WP czeka na zasób!</text>
+                <text x="607" y="195" font-family="sans-serif" font-size="13" fill="#b71c1c">WP czeka na NP → Priorytety odwrócone.</text>
+                <text x="607" y="218" font-family="sans-serif" font-size="13" fill="#c62828">Rozwiązanie: dziedziczenie priorytetów.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -219,6 +230,9 @@
                     <li><strong>Odwrócenie priorytetów to nie teoria.</strong> To realny problem, który omal nie zniszczył misji Mars Pathfinder w 1997 roku. Rozwiązaniem jest dziedziczenie priorytetów.</li>
                     <li><strong>WCET ≠ średni czas wykonania.</strong> Do analizy schedulingu (np. Rate Monotonic) używa się najgorszego przypadku, nie średniego. W systemie Hard RT musisz udowodnić, że deadline będzie dotrzymany zawsze.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – szybkość to nie determinizm. System RT musi być przewidywalny, nawet jeśli jest wolniejszy. Po drugie – odwrócenie priorytetów to realny problem, który omal nie zabił misji Mars Pathfinder. Rozwiązuje go dziedziczenie priorytetów. Po trzecie – do analizy schedulingu używamy WCET, najgorszego przypadku, a nie średniej. W Hard RT musimy matematycznie udowodnić, że deadline będzie dotrzymany zawsze.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -229,12 +243,12 @@
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Wymaganie / Pojęcie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Definicja</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Przykład</th></tr></thead>
                     <tbody>
-                        <tr><td style="padding:10px; font-weight:bold; color:#c2185b;">Deadline</td><td style="padding:10px;">Ostateczny czas zakończenia zadania</td><td style="padding:10px;">Poduszka powietrzna: 10 ms od zderzenia</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Latency</td><td style="padding:10px;">Opóźnienie od zdarzenia do startu obsługi</td><td style="padding:10px;">Opóźnienie przerwania (ISR latency)</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Jitter</td><td style="padding:10px;">Zmienność czasu odpowiedzi</td><td style="padding:10px;">Idealnie = 0. W praktyce < 1 µs dla Hard RT.</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Hard RT</td><td style="padding:10px;">Spóźnienie = katastrofa</td><td style="padding:10px;">Sterownik silnika, rozrusznik serca</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Soft RT</td><td style="padding:10px;">Spóźnienie = obniżenie jakości</td><td style="padding:10px;">Streaming wideo, gry komputerowe</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Odwrócenie priorytetów</td><td style="padding:10px;">Zadanie o wysokim priorytecie czeka na zasób trzymany przez niski priorytet</td><td style="padding:10px;">Rozwiązanie: dziedziczenie priorytetów (priority inheritance)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#c2185b;">Deadline</td><td style="padding:10px;">Ostateczny czas zakończenia zadania</td><td style="padding:10px;">Poduszka powietrzna: 10 ms od zderzenia</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Latency</td><td style="padding:10px;">Opóźnienie od zdarzenia do startu obsługi</td><td style="padding:10px;">Opóźnienie przerwania (ISR latency)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Jitter</td><td style="padding:10px;">Zmienność czasu odpowiedzi</td><td style="padding:10px;">Idealnie = 0. W praktyce < 1 µs dla Hard RT.</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">Hard RT</td><td style="padding:10px;">Spóźnienie = katastrofa</td><td style="padding:10px;">Sterownik silnika, rozrusznik serca</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Soft RT</td><td style="padding:10px;">Spóźnienie = obniżenie jakości</td><td style="padding:10px;">Streaming wideo, gry komputerowe</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Odwrócenie priorytetów</td><td style="padding:10px;">WP czeka na zasób trzymany przez NP</td><td style="padding:10px;">Rozwiązanie: dziedziczenie priorytetów</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -260,3 +274,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

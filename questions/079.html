@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📊</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kupno auta z Excelem w ręku”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Kupno auta z Excelem w ręku":</strong>
                     <p style="margin: 0 0 8px 0; color: #00251a; line-height: 1.7;">
                         Wyobraź sobie, że potrzebujesz samochodu do firmy.<br><br>
                         <strong>Analiza podstawowa (Feasibility Study)</strong> to stwierdzenie: <em>"Tak, potrzebujemy auta, stać nas na ratę leasingu do 2000 zł, to usprawni nasz biznes"</em>. Na tym etapie wiesz, że projekt ma sens.<br><br>
@@ -60,6 +60,42 @@
                     <li><strong>Obiektywizacja:</strong> Odejście od decyzji opartych na intuicji ("Vendor Lock-in" na ulubioną technologię) na rzecz matematycznego, wielokryterialnego uzasadnienia decyzji.</li>
                     <li><strong>Rezultat:</strong> Dokument rekomendacyjny dla sponsora projektu, stanowiący twardą podstawę do uruchomienia budżetu.</li>
                 </ul>
+
+                <!-- SVG: Analiza podstawowa vs Rozszerzona -->
+                <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="200" fill="#e0f2f1" opacity="0.3"/>
+                    <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Dwa etapy analizy – podstawowa i rozszerzona</text>
+
+                    <!-- Analiza podstawowa -->
+                    <rect x="30" y="45" width="350" height="130" rx="8" fill="#fff" stroke="#00695c" stroke-width="2"/>
+                    <rect x="30" y="45" width="350" height="30" rx="8" fill="#00695c"/>
+                    <text x="205" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📋 Analiza Podstawowa</text>
+                    <text x="205" y="95" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">Odpowiada na pytanie: CZY projekt ma sens?</text>
+                    <text x="205" y="115" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">✅ Opłacalność ekonomiczna</text>
+                    <text x="205" y="135" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">✅ Wykonalność techniczna i prawna</text>
+                    <text x="205" y="155" font-family="sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle">Wynik: TAK/NIE (GO / NO-GO)</text>
+
+                    <!-- Strzałka -->
+                    <path d="M 380 110 L 420 110" fill="none" stroke="#00796b" stroke-width="3" marker-end="url(#arrTeal)"/>
+                    <text x="400" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#00796b" text-anchor="middle">GO</text>
+
+                    <!-- Analiza rozszerzona -->
+                    <rect x="430" y="45" width="360" height="130" rx="8" fill="#fff" stroke="#004d40" stroke-width="2"/>
+                    <rect x="430" y="45" width="360" height="30" rx="8" fill="#004d40"/>
+                    <text x="610" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">📊 Analiza Rozszerzona (SODIS)</text>
+                    <text x="610" y="95" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">Odpowiada na pytanie: JAK projekt zrealizować?</text>
+                    <text x="610" y="115" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">✅ Wybór optymalnego wariantu</text>
+                    <text x="610" y="135" font-family="sans-serif" font-size="11" fill="#004d40" text-anchor="middle">✅ Porównanie Make vs Buy vs SaaS</text>
+                    <text x="610" y="155" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">Wynik: Rekomendacja z uzasadnieniem</text>
+
+                    <defs>
+                        <marker id="arrTeal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00796b"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Analiza rozszerzona to drugi etap analizy przedprojektowej. Pierwszy etap – analiza podstawowa – odpowiada na pytanie, czy projekt w ogóle ma sens. Jeśli tak, przechodzimy do analizy rozszerzonej, która odpowiada na pytanie: jak go zrealizować. Celem jest wybór optymalnego wariantu spośród dostępnych opcji – budowa od zera, zakup gotowego systemu, czy może przejście na chmurę SaaS. Kluczowe jest tu odejście od decyzji podejmowanych na wyczucie na rzecz matematycznego, wielokryterialnego uzasadnienia. Rezultatem jest dokument rekomendacyjny, który daje sponsorowi twardą podstawę do uruchomienia budżetu."
+                </div>
             </div>
 
             <!-- PART 2: PROCES SODIS -->
@@ -110,7 +146,7 @@
 
                 <!-- Przykład tabeli punktowej -->
                 <rect x="160" y="140" width="500" height="110" rx="4" fill="#fff" stroke="#cfd8dc" stroke-width="2"/>
-                
+
                 <!-- Nagłówki tabeli -->
                 <rect x="160" y="140" width="500" height="25" fill="#eceff1" rx="4"/>
                 <text x="230" y="157" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Kryterium</text>
@@ -150,6 +186,12 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proces SODIS składa się z pięciu rygorystycznych kroków. Krok pierwszy – definiujemy warianty do porównania, na przykład system budowany od zera kontra gotowy SaaS. Krok drugi – wybieramy kryteria oceny z czterech grup: funkcjonalne, techniczne, ekonomiczne i dotyczące dostawcy. Krok trzeci – nadajemy kryteriom wagi, które odzwierciedlają priorytety biznesowe. Krok czwarty – punktujemy każdy wariant według każdego kryterium. Krok piąty – obliczamy sumę ważoną i wybieramy wariant z najwyższym wynikiem. Proszę spojrzeć na tabelę – pokazuje ona konkretny przykład, gdzie gotowy SaaS wygrywa z systemem budowanym na zamówienie."
+                </div>
+            </div>
+
             <!-- PART 3: GRUPY KRYTERIÓW -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Klasyfikacja Kryteriów (Obszary oceny)</strong>
@@ -162,6 +204,105 @@
                     <li><strong>Ekonomiczne:</strong> TCO (Total Cost of Ownership - Całkowity Koszt Posiadania), czyli nie tylko koszt licencji, ale koszt serwerów, prądu, szkoleń pracowników i wsparcia przez np. 5 lat.</li>
                     <li><strong>Kryteria Dostawcy (Vendor):</strong> Wiarygodność firmy dostarczającej oprogramowanie, stabilność na rynku, dostępność dokumentacji technicznej i SLA (Service Level Agreement).</li>
                 </ul>
+
+                <!-- SVG: Cztery grupy kryteriów -->
+                <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="260" fill="#fff3e0" opacity="0.3"/>
+                    <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Cztery grupy kryteriów w analizie rozszerzonej</text>
+
+                    <!-- Funkcjonalne -->
+                    <rect x="30" y="50" width="175" height="90" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                    <rect x="30" y="50" width="175" height="28" rx="8" fill="#e65100"/>
+                    <text x="117" y="69" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">⚙️ Funkcjonalne</text>
+                    <text x="117" y="95" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">Pokrycie procesów</text>
+                    <text x="117" y="112" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">biznesowych,</text>
+                    <text x="117" y="129" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">zgodność ze specyfikacją</text>
+
+                    <!-- Techniczne -->
+                    <rect x="220" y="50" width="175" height="90" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                    <rect x="220" y="50" width="175" height="28" rx="8" fill="#1565c0"/>
+                    <text x="307" y="69" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">🔧 Techniczne</text>
+                    <text x="307" y="95" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Bezpieczeństwo,</text>
+                    <text x="307" y="112" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">skalowalność, API,</text>
+                    <text x="307" y="129" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">stos technologiczny</text>
+
+                    <!-- Ekonomiczne -->
+                    <rect x="410" y="50" width="195" height="90" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                    <rect x="410" y="50" width="195" height="28" rx="8" fill="#2e7d32"/>
+                    <text x="507" y="69" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">💰 Ekonomiczne (TCO)</text>
+                    <text x="507" y="95" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Koszt licencji, serwerów,</text>
+                    <text x="507" y="112" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">szkoleń, wsparcia,</text>
+                    <text x="507" y="129" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">prądu – przez 5 lat!</text>
+
+                    <!-- Dostawcy -->
+                    <rect x="620" y="50" width="175" height="90" rx="8" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                    <rect x="620" y="50" width="175" height="28" rx="8" fill="#6a1b9a"/>
+                    <text x="707" y="69" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">🏢 Dostawcy</text>
+                    <text x="707" y="95" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">Wiarygodność, SLA,</text>
+                    <text x="707" y="112" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">dokumentacja,</text>
+                    <text x="707" y="129" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">stabilność na rynku</text>
+
+                    <!-- TCO – na dole -->
+                    <rect x="130" y="170" width="560" height="65" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="410" y="190" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">💡 TCO = Total Cost of Ownership (Całkowity Koszt Posiadania)</text>
+                    <text x="410" y="210" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">Licencje + Wdrożenie + Szkolenia + Serwery + Wsparcie + Energia + Migracja danych</text>
+                    <text x="410" y="228" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Nie patrz tylko na cenę zakupu! Oprogramowanie Open Source może mieć wyższe TCO niż komercyjne.</text>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kryteria w analizie SODIS dzielimy na cztery grupy. Funkcjonalne – jak dobrze system pokrywa procesy biznesowe. Techniczne – bezpieczeństwo, skalowalność i integracja z istniejącą infrastrukturą. Ekonomiczne – i tu kluczowe pojęcie: TCO, czyli Total Cost of Ownership, całkowity koszt posiadania przez na przykład pięć lat, a nie tylko cena zakupu. I wreszcie kryteria dotyczące dostawcy – jego wiarygodność, SLA i dostępność dokumentacji. Proszę spojrzeć na planszę – pokazuje ona wszystkie cztery grupy z ich składowymi."
+                </div>
+            </div>
+
+            <!-- PART 4: Confirmation Bias – dodatkowa grafika -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Pułapka: Efekt Potwierdzenia (Confirmation Bias)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    To najczęstszy błąd procesu SODIS – zespół podświadomie dobiera kryteria i wagi tak, aby faworyzować z góry upatrzony wariant. Prawidłowa kolejność to: najpierw kryteria i wagi, potem punktacja – nigdy odwrotnie.
+                </p>
+
+                <!-- SVG: Confirmation Bias -->
+                <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="220" fill="#ffebee" opacity="0.3"/>
+                    <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Confirmation Bias – największy wróg obiektywnej analizy</text>
+
+                    <!-- Błędne podejście -->
+                    <rect x="30" y="50" width="360" height="140" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                    <text x="210" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">❌ Błędne podejście</text>
+                    <line x1="45" y1="85" x2="375" y2="85" stroke="#ef9a9a" stroke-width="1"/>
+
+                    <rect x="50" y="95" width="320" height="25" rx="4" fill="#ffcdd2"/>
+                    <text x="210" y="112" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">1. Najpierw decyduję: "Bierzemy React!" 🎯</text>
+
+                    <path d="M 210 120 L 210 135" fill="none" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrDownRed)"/>
+
+                    <rect x="50" y="138" width="320" height="25" rx="4" fill="#ffcdd2"/>
+                    <text x="210" y="155" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">2. Dopasowuję kryteria i wagi, by udowodnić wyższość Reacta 📊</text>
+
+                    <!-- Poprawne podejście -->
+                    <rect x="430" y="50" width="360" height="140" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                    <text x="610" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">✅ Poprawne podejście (SODIS)</text>
+                    <line x1="445" y1="85" x2="775" y2="85" stroke="#a5d6a7" stroke-width="1"/>
+
+                    <rect x="450" y="95" width="320" height="25" rx="4" fill="#c8e6c9"/>
+                    <text x="610" y="112" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">1. Najpierw ustalam kryteria i wagi ⚖️</text>
+
+                    <path d="M 610 120 L 610 135" fill="none" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#arrDownGrn)"/>
+
+                    <rect x="450" y="138" width="320" height="25" rx="4" fill="#c8e6c9"/>
+                    <text x="610" y="155" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">2. Potem oceniam każdy wariant – matematyka decyduje! 📊</text>
+
+                    <text x="410" y="200" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">💡 Złota zasada: Kryteria i WAGI ZANIM ocenimy pierwszy wariant!</text>
+
+                    <defs>
+                        <marker id="arrDownRed" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#c62828"/></marker>
+                        <marker id="arrDownGrn" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L6,0 L3,6 Z" fill="#2e7d32"/></marker>
+                    </defs>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Confirmation bias, czyli efekt potwierdzenia, to największy wróg obiektywnej analizy SODIS. Polega on na tym, że zespół najpierw podejmuje decyzję – na przykład bierzemy React – a potem dobiera kryteria i wagi tak, by matematyka potwierdziła słuszność tej decyzji. Prawidłowe podejście jest odwrotne: najpierw ustalamy kryteria i wagi, a dopiero potem oceniamy każdy wariant. Tylko wtedy wynik jest obiektywny. Proszę spojrzeć na planszę – porównuje ona oba podejścia."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -173,6 +314,9 @@
                     <li><strong>Błąd TCO:</strong> Inżynier amator patrzy tylko na cenę wdrożenia. Profesjonalista podczas analizy rozszerzonej liczy TCO (Total Cost of Ownership). Pamiętaj, że oprogramowanie "darmowe" (Open Source) może mieć drastycznie wysokie TCO ze względu na koszty dedykowanego utrzymania, łatania luk i brak darmowego wsparcia technicznego producenta.</li>
                     <li><strong>Efekt Potwierdzenia (Confirmation Bias):</strong> To najczęstszy błąd procesu. Zespół IT już na samym początku podjął decyzję (np. "robimy to w React"), a proces punktacji i wag dobiera tak, aby matematyka sztucznie "udowodniła" wyższość z góry upatrzonego faworyta. Kryteria i WAGI muszą być ustalone <em>ZANIM</em> ocenimy pierwsze rozwiązanie.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie największe pułapki w analizie rozszerzonej. Po pierwsze, błąd TCO – niedoświadczony analityk patrzy tylko na koszt licencji, a profesjonalista liczy całkowity koszt posiadania przez kilka lat, uwzględniając serwery, szkolenia i wsparcie. Oprogramowanie open source może mieć niski koszt zakupu, ale wysokie TCO. Po drugie, confirmation bias – najpierw wybieramy faworyta, a potem dopasowujemy kryteria, by udowodnić jego wyższość. To najczęstszy błąd. Złota zasada brzmi: kryteria i wagi ustalamy ZANIM zaczniemy oceniać warianty."
+                </div>
             </div>
 
             <!-- ======================================================== -->

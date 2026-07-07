@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0288d1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,136,209,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); border-left: 6px solid #0288d1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,136,209,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔑</span>
                 <div>
@@ -55,6 +55,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zadaniem Mutexa jest zagwarantowanie, że w danym momencie tylko jeden wątek wykonuje instrukcje wewnątrz <strong>Sekcji Krytycznej</strong> (np. modyfikuje współdzieloną zmienną w RAM). Mutex posiada stan: <em>Locked (Zablokowany)</em> lub <em>Unlocked (Odblokowany)</em>. Fundamentalną cechą Mutexa jest <strong>Własność (Thread Ownership)</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mutex to mechanizm ochrony sekcji krytycznej. Jego kluczową cechą jest własność – tylko wątek, który założył blokadę, może ją zdjąć. Jeśli Wątek A zablokuje mutex i wejdzie do sekcji krytycznej, Wątek B czeka. Co ważne, Wątek B nie może zdjąć blokady założonej przez A – to właśnie odróżnia mutex od semafora binarnego. Proszę spojrzeć na planszę – Wątek A bezpiecznie modyfikuje zmienną, a Wątek B jest zablokowany.”
+                </div>
             </div>
 
             <!-- SVG 1: MUTEX -->
@@ -102,6 +105,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Semafor to w swej istocie <strong>zmienna całkowita (Licznik)</strong>, dla której matematyk Edsger Dijkstra zdefiniował dwie atomowe operacje: <code>P()</code> (Wait/Aquire - zmniejsz licznik, a jeśli 0 to czekaj) oraz <code>V()</code> (Signal/Release - zwiększ licznik). Używa się go do zarządzania ograniczoną pulą zasobów (np. basen połączeń z bazą danych) lub do <strong>sygnalizacji</strong> (Wątek A mówi Wątkowi B: <em>"Skończyłem liczyć, teraz Twoja kolej"</em>).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Semafor to licznik z dwiema operacjami: P – zmniejsza i jeśli zero to czeka, V – zwiększa i budzi oczekujących. Służy do zarządzania pulą zasobów – na przykład maksymalnie 3 połączenia z bazą danych. Gdy wszystkie są zajęte, licznik wynosi zero i kolejne wątki czekają. Służy też do sygnalizacji – Wątek A może czekać na sygnał od Wątku B. Kluczowa różnica: semafor nie ma własności. Każdy wątek może wykonać signal, nawet jeśli to nie on czekał. Proszę spojrzeć na planszę – Wątek T4 czeka, aż zwolni się miejsce w puli połączeń.”
+                </div>
             </div>
 
             <!-- SVG 2: SEMAFOR -->
@@ -112,14 +118,14 @@
                 <!-- Semafor box -->
                 <rect x="340" y="60" width="140" height="70" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Semafor DB</text>
-                
+
                 <rect x="380" y="95" width="60" height="25" fill="#ffe0b2"/>
                 <text x="410" y="112" font-family="monospace" font-size="14" font-weight="bold" fill="#d32f2f" text-anchor="middle">Stan: 0</text>
 
                 <!-- Baza Danych -->
                 <rect x="340" y="150" width="140" height="80" rx="8" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
                 <text x="410" y="170" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Połączenia (Max 3)</text>
-                
+
                 <rect x="350" y="180" width="35" height="40" fill="#f3e5f5" stroke="#9c27b0"/>
                 <text x="367" y="205" font-family="sans-serif" font-size="10" fill="#4a148c" text-anchor="middle">T1</text>
                 <rect x="392" y="180" width="35" height="40" fill="#f3e5f5" stroke="#9c27b0"/>
@@ -154,6 +160,12 @@
             <!-- PART 3: ZESTAWIENIE I WŁASNOŚĆ -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">3. Zestawienie i Demaskowanie Mitu (Semafor Binarny to NIE Mutex)</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Kluczowa różnica między tymi mechanizmami sprowadza się do własności i przeznaczenia. Mutex chroni sekcję krytyczną i tylko właściciel może go odblokować. Semafor binarny może zostać podniesiony przez dowolny wątek – służy do sygnalizacji między wątkami, a nie do ochrony kodu.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podsumowując: mutex to ochrona sekcji krytycznej z własnością. Tylko ten, kto zamknął, może otworzyć. Semafor to licznik do zarządzania pulą lub sygnalizacji. Semafor binarny wygląda podobnie do mutexa, ale nie ma własności – Wątek A może czekać, a Wątek B może go obudzić. W mutexie to niemożliwe – jeśli Wątek B spróbuje odblokować mutex założony przez Wątek A, dostaniemy wyjątek. To jest kluczowa różnica, o którą pytają na egzaminach. Proszę spojrzeć na planszę – pokazuje ona dokładnie ten scenariusz.”
+                </div>
             </div>
 
             <!-- SVG 3: CHEAT SHEET & OWNERSHIP -->
@@ -174,7 +186,7 @@
                 <path d="M 170 160 L 230 160" fill="none" stroke="#c62828" stroke-width="3" marker-end="url(#arrowRedM3)"/>
                 <text x="300" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">EXCEPTION!</text>
                 <text x="300" y="170" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">W2 nie jest właścicielem.</text>
-                
+
                 <text x="210" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">W1 założył zamek.</text>
 
 
@@ -209,6 +221,9 @@
                     <li><strong>"Semafor Binarny to to samo co Mutex":</strong> O to pytają na każdej obronie! Jak widzisz na grafice wyżej, to fałsz. Mutex wymaga Własności. Semafor Binarny (liczący tylko 0 lub 1) nie ma własności – Wątek A może ustawić semafor na 0 (czekać), a Wątek B może przestawić go na 1 (sygnalizując, że np. skończył pobierać plik z sieci). To fundament problemu <em>Producenta-Konsumenta</em>.</li>
                     <li><strong>Inwersja Priorytetów (Priority Inversion):</strong> Największa przewaga Mutexa. Załóżmy, że Wątek o <em>niskim</em> priorytecie zablokował Mutex. Wątek o <em>bardzo wysokim</em> priorytecie chce go zająć, więc zasypia (czeka). W tym momencie Wątek o <em>średnim</em> priorytecie wywłaszcza wątek niski! Skutek? Średni wątek blokuje wątek najwyższy! Aby temu zapobiec, Mutexy posiadają mechanizm <strong>Dziedziczenia Priorytetów (Priority Inheritance)</strong> – system tymczasowo podnosi priorytet wątku niskiego do poziomu wysokiego, by ten czym prędzej skończył pracę i oddał zamek. Semafory tego nie potrafią!</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – semafor binarny to nie mutex. Mutex ma własność, semafor nie. W mutexie tylko właściciel może odblokować, w semaforze każdy może dać sygnał. Po drugie – inwersja priorytetów. Mutexy mają mechanizm dziedziczenia priorytetów, który zapobiega blokowaniu wysoko priorytetowych wątków przez średnio priorytetowe. Semafory tego nie mają, dlatego w systemach czasu rzeczywistego zawsze używamy mutexów do ochrony sekcji krytycznych.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

@@ -16,18 +16,22 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📡</span>
                 <div>
                     <strong style="font-size: 1.15rem; color: #1b5e20; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Prywatny tunel vs Zatłoczona Sala Balowa”:</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a2a; line-height: 1.7;">
-                        Ludzie myślą, że Wi-Fi to po prostu "Ethernet, ale w powietrzu". To gigantyczny błąd architektoniczny.<br><br>
+                        Ludzie myślą, że Wi-Fi to po prostu „Ethernet, ale w powietrzu”. To gigantyczny błąd architektoniczny.<br><br>
                         <strong>Kabel miedziany (Ethernet)</strong> to prywatny, dwukierunkowy tunel autostradowy z Twojego komputera prosto do Switcha. Ty masz swój pas, Switch ma swój. Możecie wysyłać i odbierać dane jednocześnie na pełnej prędkości. Zjawisko to nazywamy <strong>Full-Duplex</strong>.<br><br>
                         <strong>Sieć bezprzewodowa (Wi-Fi)</strong> to z kolei zatłoczona sala balowa, gdzie jest totalnie ciemno. Powietrze jest medium <em>współdzielonym</em>. Jeśli dwie osoby krzykną naraz, powstaje niezrozumiały hałas (kolizja). Urządzenia Wi-Fi potrafią w danej chwili <em>albo nadawać, albo odbierać</em> (zjawisko <strong>Half-Duplex</strong>) i muszą czekać na swoją kolej. Właśnie z powodu fizyki fal radiowych gigabitowe Wi-Fi na papierze rzadko oznacza gigabit w rzeczywistości.
                     </p>
                 </div>
             </div>
+        </div>
+
+        <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-bottom: 28px; border-radius: 0 6px 6px 0;">
+            <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, podstawowa różnica między siecią przewodową a bezprzewodową to duplex. Kabel ethernetowy to Full-Duplex – dwukierunkowy tunel, gdzie nadawanie i odbiór odbywają się jednocześnie, bez kolizji. Wi-Fi to Half-Duplex – współdzielone medium radiowe, gdzie urządzenia muszą czekać na swoją kolej. To dlatego nawet najszybsze Wi-Fi 6 nie osiąga stabilności i niskich opóźnień zwykłego kabla gigabitowego. Proszę spojrzeć na planszę – pokazuje ona tę fundamentalną różnicę w architekturze.”
         </div>
 
         <!-- ============================================================ -->
@@ -61,6 +65,10 @@
                 </ul>
             </div>
 
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; margin-bottom: 24px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak to powiedzieć:</strong> „Sieci przewodowe opierają się na standardzie IEEE 802.3, czyli Ethernet. Medium to skrętka miedziana – kategorie Cat5e, Cat6, Cat6A – lub światłowód. Kluczowy parametr: limit 100 metrów dla skrętki. Powyżej tego dystansu sygnał elektryczny zanika. Dlatego w dużych budynkach co 100 metrów stawiamy switch. Do zarządzania dostępem do medium używamy CSMA/CD – urządzenie nasłuchuje, czy kabel jest wolny, a jeśli wykryje kolizję, przerywa transmisję i czeka losowy czas przed ponowną próbą. Proszę spojrzeć na planszę – pokazuje ona działanie CSMA/CD.”
+            </div>
+
             <!-- SVG 1: CSMA/CD vs CSMA/CA -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="#e3f2fd" opacity="0.4"/>
@@ -70,15 +78,15 @@
                 <rect x="40" y="50" width="350" height="200" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
                 <text x="215" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565c0" text-anchor="middle">Ethernet: CSMA/CD</text>
                 <text x="215" y="90" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">(Carrier Sense Multiple Access / Collision Detection)</text>
-                
+
                 <!-- Graphic CD -->
                 <line x1="80" y1="130" x2="350" y2="130" stroke="#90caf9" stroke-width="4"/>
                 <rect x="60" y="115" width="40" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
                 <rect x="330" y="115" width="40" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
-                
+
                 <path d="M 110 130 L 190 130" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedD)"/>
                 <path d="M 320 130 L 240 130" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedD)"/>
-                
+
                 <!-- BUM! -->
                 <circle cx="215" cy="130" r="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
                 <text x="215" y="134" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">BUM!</text>
@@ -124,6 +132,56 @@
                 </defs>
             </svg>
 
+            <!-- SVG 2: FULL-DUPLEX vs HALF-DUPLEX -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Full-Duplex (Kabel Ethernet) vs Half-Duplex (Wi-Fi)</text>
+
+                <!-- Full-Duplex -->
+                <rect x="30" y="50" width="360" height="140" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">Full-Duplex (Kabel Ethernet)</text>
+
+                <rect x="60" y="90" width="50" height="40" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="85" y="115" font-family="sans-serif" font-size="11" fill="#0d47a1" text-anchor="middle">PC</text>
+
+                <rect x="300" y="90" width="60" height="40" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="330" y="115" font-family="sans-serif" font-size="11" fill="#0d47a1" text-anchor="middle">Switch</text>
+
+                <!-- Dwa osobne pasy -->
+                <path d="M 110 100 L 300 100" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <text x="205" y="95" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">TX (Nadawanie)</text>
+
+                <path d="M 300 120 L 110 120" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGreen)"/>
+                <text x="205" y="135" font-family="sans-serif" font-size="9" fill="#388e3c" text-anchor="middle">RX (Odbiór)</text>
+
+                <text x="210" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Nadawanie i odbiór JEDNOCZEŚNIE. Zero kolizji!</text>
+
+                <!-- Half-Duplex -->
+                <rect x="430" y="50" width="360" height="140" rx="8" fill="#fff" stroke="#e65100" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">Half-Duplex (Wi-Fi)</text>
+
+                <rect x="460" y="90" width="50" height="40" rx="4" fill="#fff3e0" stroke="#e65100"/>
+                <text x="485" y="115" font-family="sans-serif" font-size="11" fill="#bf360c" text-anchor="middle">📱</text>
+
+                <rect x="700" y="90" width="60" height="40" rx="4" fill="#fff3e0" stroke="#e65100"/>
+                <text x="730" y="115" font-family="sans-serif" font-size="11" fill="#bf360c" text-anchor="middle">Router</text>
+
+                <!-- Jeden wspólny pas, raz w jedną, raz w drugą -->
+                <path d="M 510 105 L 700 105" fill="none" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowOrang)"/>
+                <text x="605" y="100" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">TX albo RX</text>
+                <path d="M 700 115 L 510 115" fill="none" stroke="#ffcc80" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowOrangLight)"/>
+                <text x="605" y="130" font-family="sans-serif" font-size="9" fill="#ff8f00" text-anchor="middle">(czeka na swoją kolej)</text>
+
+                <text x="610" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">W danej chwili ALBO nadaje, ALBO odbiera. Kolizje!</text>
+
+                <defs>
+                    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                    <marker id="arrowOrang" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowOrangLight" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ffcc80"/></marker>
+                </defs>
+            </svg>
+
             <!-- PART 2: BEZPRZEWODOWE LAN -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">2. Sieci Bezprzewodowe LAN (Standard IEEE 802.11 - Wi-Fi)</strong>
@@ -132,7 +190,11 @@
                 </p>
             </div>
 
-            <!-- SVG 2: 2.4 vs 5 GHz -->
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; margin-bottom: 24px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak to powiedzieć:</strong> „Wi-Fi, czyli standard IEEE 802.11, operuje na falach radiowych w pasmach 2.4 GHz i 5 GHz. Pasmo 2.4 GHz ma większy zasięg i lepiej przenika przez ściany, ale jest zatłoczone – działają tam też mikrofalówki, Bluetooth, urządzenia IoT. Pasmo 5 GHz oferuje wyższe prędkości i jest mniej zatłoczone, ale znacznie gorzej radzi sobie z przeszkodami. Do zarządzania dostępem używamy CSMA/CA – urządzenie przed nadawaniem wysyła prośbę RTS i czeka na zgodę CTS od routera. Proszę spojrzeć na planszę – pokazuje ona, jak fala 2.4 GHz przechodzi przez ścianę, a 5 GHz jest przez nią tłumiona.”
+            </div>
+
+            <!-- SVG 3: 2.4 vs 5 GHz -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.3"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Fizyka Fali Radiowej: Pasmo 2.4 GHz vs 5 GHz</text>
@@ -147,7 +209,7 @@
 
                 <!-- Fala długa -->
                 <path d="M 170 80 Q 220 50 270 80 T 370 80 T 470 80 T 570 80 T 670 80" fill="none" stroke="#4caf50" stroke-width="3"/>
-                
+
                 <!-- Odbiornik za ścianą -->
                 <rect x="690" y="65" width="80" height="30" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
                 <text x="730" y="84" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Odbiera OK</text>
@@ -225,6 +287,10 @@
                     <li><strong>Marketingowe prędkości na pudełkach:</strong> Pudełko domowego routera krzyczy: "Wi-Fi 3000 Mbps!". Pamiętaj, że to: A) suma wszystkich dostępnych pasm (np. 2.4 GHz + 5 GHz + 6 GHz), a jeden telefon może podpiąć się naraz tylko do jednego. B) Prędkość liczona w *warstwie fizycznej*, wliczając cały narzut kontrolny i nagłówki. Prawdziwa prędkość aplikacji (TCP) z tak zwanego "3000 Mbps" rzadko przekracza 800 Mbps na jednym urządzeniu. Z kablem Gigabitowym (1000 Mbps) zawsze dostajesz stabilne ~950 Mbps.</li>
                     <li><strong>CSMA/CD dziś:</strong> Egzaminator może Cię złapać na pytaniu: "Czy nowoczesne switche używają CSMA/CD?". Haczyk! CSMA/CD było niezbędne w czasach <em>Hubów</em> (Koncentratorów), gdzie kabel był jednym wspólnym medium dla wszystkich (jak radio). W nowoczesnych Switchach używamy pełnego Full-Duplexu (każdy ma własny pas ruchu do switcha). W środowisku Full-Duplex <strong>kolizje nie istnieją</strong>, a więc algorytm CSMA/CD jest domyślnie wyłączony.</li>
                 </ul>
+            </div>
+
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 20px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – marketingowe prędkości Wi-Fi na pudełkach to suma pasm i wartość teoretyczna warstwy fizycznej, a nie realna przepustowość aplikacji. Kabel gigabitowy zawsze da stabilne ~950 Mbps, Wi-Fi '3000' rzadko przekracza 800 Mbps na jednym urządzeniu. Po drugie – CSMA/CD nie jest już używane w nowoczesnych switchach. Przy Full-Dupleksie kolizje nie istnieją, więc algorytm detekcji kolizji jest wyłączony. CSMA/CD było potrzebne tylko w czasach hubów i Half-Dupleksu.”
             </div>
 
             <!-- ======================================================== -->

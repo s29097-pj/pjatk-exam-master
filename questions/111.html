@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎨</span>
                 <div>
@@ -30,6 +30,9 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Model addytywny (RGB) vs subtraktywny (CMYK)</span>
@@ -53,35 +56,38 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Modele addytywne (RGB)</strong> dotyczą światła emitowanego bezpośrednio ze źródła. Kiedy nałożymy na siebie czerwone, zielone i niebieskie światło, otrzymamy światło białe. <strong>Modele subtraktywne (CMYK)</strong> dotyczą światła odbitego od powierzchni. Farba pochłania (odejmuje) część widma. Idealna mieszanka cyjanu, magenty i żółcieni powinna dać czerń, dlatego w druku dodaje się czarny (K) dla oszczędności tuszu i głębi cieni.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, fundamentalny podział to addytywny i subtraktywny. RGB to światło – dodajemy czerwone, zielone i niebieskie, a suma daje biel. To model monitorów, telewizorów, projektorów. CMYK to farba – nakładamy cyjan, magentę i żółty, a one odejmują kolejne składowe od białego światła odbitego od papieru. W teorii C+M+Y daje czerń, w praktyce wychodzi brudny brąz, dlatego dodajemy czwartą farbę – czarny Key. Proszę spojrzeć na planszę – porównuje ona nakładanie się świateł RGB i farb CMYK.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridCol" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridCol)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Synteza barw: Addytywna (RGB) vs Subtraktywna (CMYK)</text>
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridCol)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#880e4f">Synteza barw: Addytywna (RGB) vs Subtraktywna (CMYK)</text>
 
                 <!-- Panel lewy: RGB (Światło) -->
-                <rect x="30" y="50" width="360" height="200" rx="10" fill="#263238" stroke="#455a64" stroke-width="2"/>
-                <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff">ADDYTYWNA (RGB) – Światło</text>
-                <g transform="translate(120, 110)">
-                    <circle cx="0" cy="30" r="40" fill="#e53935" opacity="0.8"/>
-                    <circle cx="34" cy="-10" r="40" fill="#43a047" opacity="0.8"/>
-                    <circle cx="68" cy="30" r="40" fill="#1e88e5" opacity="0.8"/>
-                    <text x="34" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff" font-weight="bold">Biały</text>
+                <rect x="30" y="50" width="365" height="220" rx="10" fill="#263238" stroke="#455a64" stroke-width="2.5"/>
+                <text x="212" y="82" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#fff">ADDYTYWNA (RGB) – Światło</text>
+                <g transform="translate(115, 115)">
+                    <circle cx="0" cy="35" r="48" fill="#e53935" opacity="0.8"/>
+                    <circle cx="42" cy="-12" r="48" fill="#43a047" opacity="0.8"/>
+                    <circle cx="84" cy="35" r="48" fill="#1e88e5" opacity="0.8"/>
+                    <text x="42" y="50" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#fff" font-weight="bold">Biały</text>
                 </g>
-                <text x="210" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#90a4ae">R + G + B → Biały (emitowany)</text>
+                <text x="212" y="260" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#90a4ae">R + G + B → Biały (emitowany)</text>
 
                 <!-- Panel prawy: CMYK (Farba) -->
-                <rect x="430" y="50" width="360" height="200" rx="10" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="2"/>
-                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#424242">SUBTRAKTYWNA (CMYK) – Farba</text>
-                <g transform="translate(520, 110)">
-                    <circle cx="0" cy="30" r="40" fill="#00bcd4" opacity="0.8"/>
-                    <circle cx="34" cy="-10" r="40" fill="#ec407a" opacity="0.8"/>
-                    <circle cx="68" cy="30" r="40" fill="#ffee58" opacity="0.8"/>
-                    <text x="34" y="45" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#000" font-weight="bold">Czerń</text>
+                <rect x="425" y="50" width="365" height="220" rx="10" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="2.5"/>
+                <text x="607" y="82" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#424242">SUBTRAKTYWNA (CMYK) – Farba</text>
+                <g transform="translate(510, 115)">
+                    <circle cx="0" cy="35" r="48" fill="#00bcd4" opacity="0.8"/>
+                    <circle cx="42" cy="-12" r="48" fill="#ec407a" opacity="0.8"/>
+                    <circle cx="84" cy="35" r="48" fill="#ffee58" opacity="0.8"/>
+                    <text x="42" y="50" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#000" font-weight="bold">Czerń</text>
                 </g>
-                <text x="610" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#757575">C + M + Y → Czerń (odejmowana od bieli)</text>
+                <text x="607" y="260" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#757575">C + M + Y → Czerń (odejmowana od bieli)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -92,34 +98,34 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     RGB jest podstawowym modelem w urządzeniach emitujących światło (monitory, projektory, aparaty cyfrowe). Każdy piksel składa się z trzech subpikseli. Kolor jest reprezentowany jako trójka wartości (R, G, B), zazwyczaj w zakresie 0–255 (8 bitów na kanał) lub 0.0–1.0 (zmiennoprzecinkowo). Model ten jest <strong>zależny od urządzenia</strong> – ten sam RGB na różnych monitorach może wyglądać inaczej bez kalibracji (profil ICC).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „RGB to model addytywny – każdy piksel na monitorze składa się z trzech subpikseli: czerwonego, zielonego i niebieskiego. Kolor zapisujemy jako trójkę wartości od 0 do 255 na kanał, co daje łącznie około 16 milionów kolorów. RGB jest zależny od urządzenia – ten sam kod koloru może wyglądać inaczej na różnych monitorach bez kalibracji. Dlatego istnieją profile ICC. RGBA dodaje czwarty kanał – alfa – odpowiadający za przezroczystość. Proszę spojrzeć na planszę – kostka RGB to trójwymiarowa przestrzeń wszystkich możliwych kolorów tego modelu.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridCol)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Model RGB – Przestrzeń sześcianu i głębia bitowa</text>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridCol)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Model RGB – Przestrzeń sześcianu i głębia bitowa</text>
 
                 <!-- Kostka RGB -->
-                <g transform="translate(80, 60)">
-                    <polygon points="0,80 50,50 130,50 80,80" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
-                    <polygon points="0,80 80,80 80,150 0,150" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                    <polygon points="0,80 50,50 50,120 0,150" fill="#90caf9" stroke="#1565c0" stroke-width="2"/>
-                    <circle cx="130" cy="50" r="4" fill="#e53935"/><text x="140" y="55" font-size="10" fill="#b71c1c">R (255,0,0)</text>
-                    <circle cx="80" cy="150" r="4" fill="#43a047"/><text x="85" y="170" font-size="10" fill="#2e7d32">G (0,255,0)</text>
-                    <circle cx="0" cy="80" r="4" fill="#1e88e5"/><text x="-30" y="85" font-size="10" fill="#0d47a1">B (0,0,255)</text>
-                    <circle cx="0" cy="150" r="4" fill="#000"/><text x="-30" y="170" font-size="10" fill="#000">(0,0,0)</text>
-                    <text x="130" y="50" font-size="14" fill="#fff">⬤</text>
+                <g transform="translate(60, 50)">
+                    <polygon points="0,100 60,65 150,65 90,100" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+                    <polygon points="0,100 90,100 90,180 0,180" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                    <polygon points="0,100 60,65 60,145 0,180" fill="#90caf9" stroke="#1565c0" stroke-width="2.5"/>
+                    <circle cx="150" cy="65" r="6" fill="#e53935"/><text x="162" y="70" font-family="sans-serif" font-size="12" fill="#b71c1c">R (255,0,0)</text>
+                    <circle cx="90" cy="180" r="6" fill="#43a047"/><text x="98" y="200" font-family="sans-serif" font-size="12" fill="#2e7d32">G (0,255,0)</text>
+                    <circle cx="0" cy="100" r="6" fill="#1e88e5"/><text x="-55" y="103" font-family="sans-serif" font-size="12" fill="#0d47a1">B (0,0,255)</text>
+                    <circle cx="0" cy="180" r="6" fill="#000"/><text x="-55" y="198" font-family="sans-serif" font-size="12" fill="#000">(0,0,0)</text>
                 </g>
 
-                <rect x="340" y="60" width="220" height="80" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="450" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Głębia bitowa (na kanał)</text>
-                <text x="450" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">8-bit: 256 poziomów (0–255)</text>
-                <text x="450" y="126" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">10-bit (HDR): 1024 poziomów</text>
-                <text x="450" y="144" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">Float (HDR): 0.0 – 1.0+</text>
+                <rect x="320" y="60" width="240" height="90" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="440" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Głębia bitowa (na kanał)</text>
+                <text x="440" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">8-bit: 256 poziomów (0–255)</text>
+                <text x="440" y="132" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">10-bit (HDR): 1024 poziomów</text>
 
-                <rect x="580" y="60" width="200" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="680" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">RGBA (z kanałem Alfa)</text>
-                <text x="680" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">(R, G, B, A)</text>
-                <text x="680" y="126" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">A=0 → przezroczysty</text>
-                <text x="680" y="144" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">A=255 → kryjący</text>
+                <rect x="580" y="60" width="200" height="90" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="680" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">RGBA (z kanałem Alfa)</text>
+                <text x="680" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">(R, G, B, A)</text>
+                <text x="680" y="132" text-anchor="middle" font-family="monospace" font-size="12" fill="#2e7d32">A=0 → przezroczysty</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -130,25 +136,27 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W druku kolorowym używa się farb, które pochłaniają część światła. Teoretycznie zmieszanie C, M i Y powinno dać czerń, ale w praktyce wychodzi brudny brąz. Dlatego dodano osobny czarny tusz (K – Key). Wartości CMYK są podawane w procentach (0%–100%) pokrycia farbą danego koloru. Konwersja z RGB do CMYK jest nieodwracalna i wiąże się z utratą jasnych, świecących barw (neony).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „CMYK to model subtraktywny używany w poligrafii. Cyjan pochłania czerwień, magenta pochłania zieleń, żółty pochłania niebieski. W teorii C+M+Y daje czerń, ale farby nie są idealne – wychodzi brudny brąz. Dlatego dodano czwartą farbę – czarny Key, która daje głęboką czerń i oszczędza kolorowe tusze. Wartości podajemy w procentach od 0 do 100. Konwersja z RGB do CMYK jest nieodwracalna – jaskrawe neony z ekranu nie istnieją w druku, bo gamut CMYK jest węższy. Proszę spojrzeć na planszę – pokazuje ona cztery farby procesowe i zasadę druku.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridCol)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Model CMYK – Separacja farb w druku</text>
-                
-                <!-- Rysunek puszki z farbą / rozseparowanych kolorów -->
-                <rect x="60" y="60" width="140" height="50" rx="4" fill="#00bcd4" stroke="#006064" stroke-width="2"/>
-                <text x="130" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">CYAN</text>
-                <rect x="220" y="60" width="140" height="50" rx="4" fill="#ec407a" stroke="#ad1457" stroke-width="2"/>
-                <text x="290" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">MAGENTA</text>
-                <rect x="380" y="60" width="140" height="50" rx="4" fill="#ffee58" stroke="#f57f17" stroke-width="2"/>
-                <text x="450" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#000">YELLOW</text>
-                <rect x="540" y="60" width="140" height="50" rx="4" fill="#212121" stroke="#000" stroke-width="2"/>
-                <text x="610" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff">KEY (BLACK)</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridCol)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#004d40">Model CMYK – Separacja farb w druku</text>
+
+                <rect x="40" y="65" width="150" height="55" rx="6" fill="#00bcd4" stroke="#006064" stroke-width="2.5"/>
+                <text x="115" y="98" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff">CYAN</text>
+                <rect x="210" y="65" width="150" height="55" rx="6" fill="#ec407a" stroke="#ad1457" stroke-width="2.5"/>
+                <text x="285" y="98" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff">MAGENTA</text>
+                <rect x="380" y="65" width="150" height="55" rx="6" fill="#ffee58" stroke="#f57f17" stroke-width="2.5"/>
+                <text x="455" y="98" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#000">YELLOW</text>
+                <rect x="550" y="65" width="150" height="55" rx="6" fill="#212121" stroke="#000" stroke-width="2.5"/>
+                <text x="625" y="98" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff">KEY (BLACK)</text>
 
                 <!-- Efekt na papierze -->
-                <rect x="180" y="140" width="460" height="60" rx="8" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="2"/>
-                <text x="410" y="165" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#424242">Na papierze: każda farba jest nakładana osobno (rastry) i odejmuje światło odbite.</text>
-                <text x="410" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#757575">Drukarki laserowe i offsetowe używają separacji CMYK.</text>
+                <rect x="150" y="150" width="520" height="70" rx="8" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="2.5"/>
+                <text x="410" y="178" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#424242">Na papierze: każda farba jest nakładana osobno (rastry) i odejmuje światło odbite.</text>
+                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#757575">Drukarki laserowe i offsetowe używają separacji CMYK.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -159,31 +167,34 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     RGB jest świetny dla maszyn, ale fatalny dla ludzi. Jeśli powiesz komuś "zmień nasycenie tego koloru", nikt nie będzie zgadywał, jak przesunąć suwaki R, G, B. Model HSV (Barwa, Nasycenie, Jasność) opisuje kolor w sposób zbliżony do ludzkiej percepcji. Jest to cylindryczny układ współrzędnych, gdzie kąt (H) to odcień na kole barw, odległość od osi (S) to intensywność koloru, a wysokość (V) to jasność.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „HSV to model stworzony dla ludzi, nie dla maszyn. Hue – barwa – to kąt na kole barw: 0 stopni to czerwień, 120 to zieleń, 240 to niebieski. Saturation – nasycenie – to intensywność koloru: zero daje szarość, maksimum daje czysty, żywy kolor. Value – jasność – to jak jasny jest kolor. HSV to tylko przekształcenie matematyczne RGB, a nie osobna przestrzeń. Jest niezwykle intuicyjny i dlatego używa się go we wszystkich edytorach graficznych i paletach kolorów. Proszę spojrzeć na planszę – stożek HSV z zaznaczonymi wymiarami.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridCol)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Model HSV/HSL – Stożek / Walec intuicji</text>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridCol)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Model HSV/HSL – Stożek / Walec intuicji</text>
 
                 <!-- Stożek HSV -->
-                <g transform="translate(80, 50)">
-                    <ellipse cx="100" cy="20" rx="80" ry="25" fill="none" stroke="#546e7a" stroke-width="2"/>
-                    <path d="M 20 20 L 60 160 L 180 20 Z" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" opacity="0.8"/>
-                    <line x1="100" y1="20" x2="100" y2="160" stroke="#ef6c00" stroke-width="2" stroke-dasharray="4,3"/>
-                    <text x="100" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">S (Nasycenie)</text>
-                    <text x="-10" y="25" font-family="sans-serif" font-size="11" fill="#bf360c">H (Barwa/Kąt)</text>
-                    <text x="170" y="100" font-family="sans-serif" font-size="11" fill="#bf360c">V (Jasność)</text>
+                <g transform="translate(70, 50)">
+                    <ellipse cx="100" cy="25" rx="90" ry="30" fill="none" stroke="#546e7a" stroke-width="2.5"/>
+                    <path d="M 10 25 L 60 180 L 190 25 Z" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5" opacity="0.85"/>
+                    <line x1="100" y1="25" x2="100" y2="180" stroke="#ef6c00" stroke-width="2.5" stroke-dasharray="6,4"/>
+                    <text x="100" y="208" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#bf360c">S (Nasycenie)</text>
+                    <text x="-15" y="28" font-family="sans-serif" font-size="13" fill="#bf360c">H (Barwa)</text>
+                    <text x="185" y="100" font-family="sans-serif" font-size="13" fill="#bf360c">V (Jasność)</text>
                 </g>
 
-                <rect x="380" y="60" width="200" height="140" rx="8" fill="#fff" stroke="#ff8f00" stroke-width="2"/>
-                <text x="480" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">HSV vs HSL</text>
-                <text x="480" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">HSV: V = max(R,G,B)</text>
-                <text x="480" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#bf360c">HSL: L = (max+min)/2</text>
-                <text x="480" y="155" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">HSV: stożek (czerń na szczycie)</text>
-                <text x="480" y="170" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">HSL: podwójny stożek (czerń i biel)</text>
+                <rect x="370" y="60" width="210" height="160" rx="8" fill="#fff" stroke="#ff8f00" stroke-width="2.5"/>
+                <text x="475" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">HSV vs HSL</text>
+                <text x="475" y="115" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">HSV: V = max(R,G,B)</text>
+                <text x="475" y="138" text-anchor="middle" font-family="monospace" font-size="12" fill="#bf360c">HSL: L = (max+min)/2</text>
+                <text x="475" y="165" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">HSV: stożek (czerń na szczycie)</text>
+                <text x="475" y="185" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">HSL: podwójny stożek</text>
 
-                <rect x="610" y="60" width="180" height="60" rx="6" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
-                <text x="700" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#004d40">Zastosowanie</text>
-                <text x="700" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#00695c">Palety kolorów w UI, edytory graficzne, filtry.</text>
+                <rect x="605" y="60" width="185" height="70" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="2.5"/>
+                <text x="697" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#004d40">Zastosowanie</text>
+                <text x="697" y="112" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#00695c">Palety kolorów w UI, edytory graficzne.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -194,55 +205,56 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Aby rozwiązać problem zależności od urządzenia, Międzynarodowa Komisja Oświetleniowa (CIE) zdefiniowała matematyczny, absolutny model barw oparty na ludzkim oku. <strong>CIE XYZ</strong> jest bazą, z której wyprowadza się inne. <strong>CIE Lab (L*a*b*)</strong> jest percepcyjnie jednorodny – oznacza to, że taka sama matematyczna odległość między dwoma kolorami odpowiada podobnej różnicy postrzeganej przez człowieka. Jest to standardowy model w zarządzaniu kolorem (profile ICC) i przemyśle (pomiar barwy).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „CIE XYZ i CIE Lab to modele absolutne – niezależne od urządzenia. XYZ powstał w 1931 roku jako matematyczny model oparty na eksperymentach z ludzkim okiem. Lab rozszerza go o percepcyjną jednorodność – ta sama matematyczna odległość między dwoma kolorami odpowiada podobnej różnicy widzianej przez człowieka. L to jasność od zera do stu, a i b to opozycje kolorystyczne: zieleń-czerwień i niebieski-żółty. Lab jest podstawą zarządzania kolorem, profili ICC i przemysłowej kontroli barwy. Metryka Delta E mierzy różnicę między kolorami – wartość poniżej 1 jest niezauważalna dla oka. Proszę spojrzeć na planszę.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridCol)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Model CIE XYZ / Lab – Absolutna, percepcyjnie jednorodna przestrzeń</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridCol)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Model CIE XYZ / Lab – Absolutna, percepcyjnie jednorodna przestrzeń</text>
 
                 <!-- Symboliczny diagram chromatyczności (podkowa) -->
-                <g transform="translate(80, 50)">
-                    <path d="M 20 150 Q 80 30 180 50 Q 220 150 180 150 Q 80 170 20 150" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                    <text x="100" y="180" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a148c">Diagram Chromatyczności xy</text>
+                <g transform="translate(60, 50)">
+                    <path d="M 20 160 Q 80 30 180 50 Q 230 160 180 160 Q 80 180 20 160" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                    <text x="100" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a148c">Diagram Chromatyczności xy</text>
                 </g>
 
-                <rect x="340" y="60" width="200" height="70" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="440" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">CIE Lab (L*a*b*)</text>
-                <text x="440" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a1b9a">L*: Jasność (0-czarne, 100-białe)</text>
-                <text x="440" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a1b9a">a*: Zieleń (-) ↔ Czerwień (+)</text>
-                <text x="440" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a1b9a">b*: Niebieski (-) ↔ Żółty (+)</text>
+                <rect x="310" y="60" width="220" height="80" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="420" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">CIE Lab (L*a*b*)</text>
+                <text x="420" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#6a1b9a">L*: Jasność (0-czarne, 100-białe)</text>
+                <text x="420" y="132" text-anchor="middle" font-family="monospace" font-size="12" fill="#6a1b9a">a*: Zieleń (–) ↔ Czerwień (+)</text>
 
-                <rect x="580" y="60" width="200" height="70" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="680" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Kluczowa cecha</text>
-                <text x="680" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Niezależny od urządzenia.</text>
-                <text x="680" y="125" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">ΔE – metryka różnicy kolorów</text>
-                <text x="680" y="142" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">(ΔE < 1: różnica niezauważalna).</text>
+                <rect x="560" y="60" width="230" height="80" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="675" y="88" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Kluczowa cecha</text>
+                <text x="675" y="112" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Niezależny od urządzenia.</text>
+                <text x="675" y="132" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">ΔE – metryka różnicy kolorów</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE (Z GRAFIKĄ)               -->
+            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">6. Pułapki Egzaminacyjne – Wizualna Ściągawka</strong>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridCol)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">Pułapki Egzaminacyjne: RGB vs CMYK w praktyce</text>
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridCol)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#c62828">Pułapki Egzaminacyjne: RGB vs CMYK w praktyce</text>
 
-                <rect x="30" y="50" width="360" height="190" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="210" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c">Problem: Neony RGB w druku</text>
-                <rect x="80" y="100" width="80" height="80" fill="#00ff00" stroke="#76ff03" stroke-width="4"/>
-                <text x="120" y="200" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">(0, 255, 0)</text>
-                <text x="250" y="130" font-family="sans-serif" font-size="20" fill="#546e7a">→ druk →</text>
-                <rect x="300" y="100" width="80" height="80" fill="#7cb342" stroke="#558b2f" stroke-width="4"/>
-                <text x="340" y="200" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">(70,0,100,0)</text>
-                <text x="210" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Jasna zieleń RGB nie istnieje w CMYK!</text>
+                <rect x="30" y="50" width="365" height="210" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="212" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Problem: Neony RGB w druku</text>
+                <rect x="70" y="105" width="90" height="90" fill="#00ff00" stroke="#76ff03" stroke-width="5" rx="4"/>
+                <text x="115" y="218" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">(0, 255, 0)</text>
+                <text x="240" y="145" font-family="sans-serif" font-size="24" fill="#546e7a">→ druk →</text>
+                <rect x="300" y="105" width="90" height="90" fill="#7cb342" stroke="#558b2f" stroke-width="5" rx="4"/>
+                <text x="345" y="218" text-anchor="middle" font-family="monospace" font-size="12" fill="#b71c1c">(70,0,100,0)</text>
+                <text x="212" y="250" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Jasna zieleń RGB nie istnieje w CMYK!</text>
 
-                <rect x="430" y="50" width="360" height="190" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="610" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Rozwiązanie: Soft proofing</text>
-                <text x="610" y="120" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Zawsze pracuj w przestrzeni sRGB/AdobeRGB,</text>
-                <text x="610" y="145" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">a konwersji do CMYK dokonuj dopiero</text>
-                <text x="610" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">na końcu, z odpowiednim profilem ICC.</text>
-                <text x="610" y="210" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Sprawdzaj gamut warning w Photoshopie!</text>
+                <rect x="425" y="50" width="365" height="210" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Rozwiązanie: Soft proofing</text>
+                <text x="607" y="120" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#2e7d32">Zawsze pracuj w przestrzeni sRGB/AdobeRGB,</text>
+                <text x="607" y="148" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#2e7d32">a konwersji do CMYK dokonuj dopiero</text>
+                <text x="607" y="176" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#2e7d32">na końcu, z odpowiednim profilem ICC.</text>
+                <text x="607" y="215" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#2e7d32">Sprawdzaj gamut warning w Photoshopie!</text>
             </svg>
 
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
@@ -252,6 +264,9 @@
                     <li><strong>Nie myl kanału K w CMYK z czarnym kolorem w RGB.</strong> K (Key) to osobna farba, a (0,0,0) w RGB to po prostu wygaszony piksel. Konwersja RGB(0,0,0) → CMYK daje wysoki poziom K, ale też domieszkę CMY (tzw. "Rich Black").</li>
                     <li><strong>HSV nie jest modelem absolutnym.</strong> Jest to tylko przekształcenie współrzędnych RGB. Nie ma własnej przestrzeni barw, a jedynie zmienia układ odniesienia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – RGB i CMYK są zależne od urządzenia. Tylko CIE XYZ i Lab są absolutne i niezależne od sprzętu. Po drugie – konwersja RGB do CMYK jest stratna i nieodwracalna. Neony z ekranu nie istnieją w druku, bo gamut CMYK jest węższy. Zawsze pracuj w RGB, konwertuj na końcu z profilem ICC. Po trzecie – HSV to tylko przekształcenie matematyczne RGB, a nie osobny model. Jest intuicyjny, ale nie ma własnej przestrzeni barw. No i K w CMYK to osobna farba, nie odpowiednik (0,0,0) z RGB.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -261,18 +276,18 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Modele Barw:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Model</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ / Zastosowanie</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Składowe</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa Cecha</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Model</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ / Zastosowanie</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Składowe</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa Cecha</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding: 10px; font-weight: bold;">RGB</td><td style="padding: 10px;">Addytywny, monitory, ekrany</td><td style="padding: 10px;">Red, Green, Blue</td><td style="padding: 10px;">Zależny od urządzenia, 0-255/0.0-1.0</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">CMYK</td><td style="padding: 10px;">Substraktywny, poligrafia, druk</td><td style="padding: 10px;">Cyan, Magenta, Yellow, Key</td><td style="padding: 10px;">Procentowy (0-100%), węższy gamut niż RGB</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">HSV</td><td style="padding: 10px;">Cylindryczny, UI, edytory graficzne</td><td style="padding: 10px;">Hue, Saturation, Value</td><td style="padding: 10px;">Intuicyjny dla ludzi, pochodna RGB</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">CIE XYZ / Lab</td><td style="padding: 10px;">Absolutny, nauka, metrologia</td><td style="padding: 10px;">X, Y, Z / L*, a*, b*</td><td style="padding: 10px;">Niezależny od urządzenia, percepcyjnie jednorodny</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">RGB</td><td style="padding: 10px;">Addytywny, monitory, ekrany</td><td style="padding: 10px;">Red, Green, Blue</td><td style="padding: 10px;">Zależny od urządzenia, 0-255/0.0-1.0</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">CMYK</td><td style="padding: 10px;">Substraktywny, poligrafia, druk</td><td style="padding: 10px;">Cyan, Magenta, Yellow, Key</td><td style="padding: 10px;">Procentowy (0-100%), węższy gamut niż RGB</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">HSV</td><td style="padding: 10px;">Cylindryczny, UI, edytory graficzne</td><td style="padding: 10px;">Hue, Saturation, Value</td><td style="padding: 10px;">Intuicyjny dla ludzi, pochodna RGB</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">CIE XYZ / Lab</td><td style="padding: 10px;">Absolutny, nauka, metrologia</td><td style="padding: 10px;">X, Y, Z / L*, a*, b*</td><td style="padding: 10px;">Niezależny od urządzenia, percepcyjnie jednorodny</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -298,3 +313,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

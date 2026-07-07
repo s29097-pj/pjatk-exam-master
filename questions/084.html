@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00796b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,121,107,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -26,6 +26,12 @@
                         <strong>Procesor (CPU)</strong> to Dyrektor Fabryki i Główny Inżynier w jednym – podejmuje decyzje i wykonuje obliczenia. Nie ma jednak dobrej pamięci, więc wszystko kładzie na swoim szybkim blacie roboczym – <strong>Pamięci RAM</strong>. Niestety blat jest mały i znika z niego wszystko, gdy gasną światła (brak zasilania). Dlatego na zapleczu znajduje się ogromny, powolny magazyn: <strong>Dysk Twardy (SSD/HDD)</strong>.<br><br>
                         Wszystkie te działy nie mogłyby ze sobą współpracować, gdyby nie taśmociągi logistyczne – <strong>Szyny Systemowe (Buses)</strong>, po których kurierzy w ułamkach sekund przenoszą towary (Dane) pod odpowiednie numery pokoi (Adresy).
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00251a; line-height: 1.8;">
+                        <li><strong>🔵 CPU (ALU + CU + Rejestry)</strong> – Dyrektor i Główny Inżynier. Liczy, decyduje, steruje.</li>
+                        <li><strong>🟠 Pamięć RAM</strong> – Szybki blat roboczy. Ulotny – znika po wyłączeniu zasilania.</li>
+                        <li><strong>🟢 Dysk twardy (SSD/HDD)</strong> – Ogromny, powolny magazyn na zapleczu. Trwały.</li>
+                        <li><strong>🟣 Szyny systemowe (Buses)</strong> – Taśmociągi: adresowa (gdzie), danych (co), sterująca (czy czytać/pisać).</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,6 +48,10 @@
             <span class="keyword-tag">Cykl Maszynowy (Fetch-Decode-Execute)</span>
             <span class="keyword-tag">Zegar taktujący (Clock)</span>
             <span class="keyword-tag">Architektura von Neumanna</span>
+            <span class="keyword-tag">DMA (Direct Memory Access)</span>
+            <span class="keyword-tag">Cache L1/L2/L3</span>
+            <span class="keyword-tag">Rejestry: PC, Akumulator</span>
+            <span class="keyword-tag">32-bit vs 64-bit – limit RAM</span>
         </div>
 
         <!-- ============================================================ -->
@@ -53,88 +63,92 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00796b;">1. Główne bloki funkcjonalne komputera (Hardware)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Współczesne komputery wciąż opierają się na koncepcji maszyny von Neumanna, rozbudowanej o nowoczesne magistrale. Składają się z trzech fundamentalnych filarów połączonych <strong>Systemem Szyn (Magistralą systemową)</strong>.
+                    Współczesne komputery wciąż opierają się na koncepcji maszyny von Neumanna, rozbudowanej o nowoczesne magistrale. Składają się z trzech fundamentalnych filarów połączonych <strong>Systemem Szyn (Magistralą systemową)</strong>. Szyna adresowa jest jednokierunkowa (tylko CPU nadaje adresy), szyna danych – dwukierunkowa, a szyna sterująca rozsyła sygnały odczytu/zapisu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, współczesny komputer to wciąż maszyna von Neumanna. Mamy trzy główne bloki: CPU – procesor, pamięć główną RAM oraz urządzenia wejścia-wyjścia. Łączy je magistrala systemowa, czyli trzy szyny: adresowa – jednokierunkowa, procesor wystawia na nią adres komórki pamięci; danych – dwukierunkowa, po niej płyną instrukcje i dane; oraz sterująca, która mówi, czy chcemy z pamięci czytać, czy do niej pisać. Proszę spojrzeć na planszę – każda szyna ma swój kolor i kierunek.”
+                </div>
             </div>
 
-            <!-- SVG 1: STRUKTURA BLOKOWA -->
-            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="300" fill="#e0f2f1" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Struktura Blokowa Komputera i System Szyn</text>
-
-                <!-- CPU -->
-                <rect x="50" y="50" width="160" height="180" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <rect x="50" y="50" width="160" height="30" rx="8" fill="#1565c0"/>
-                <rect x="50" y="65" width="160" height="15" fill="#1565c0"/>
-                <text x="130" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">CPU (Procesor)</text>
-                
-                <rect x="65" y="90" width="130" height="40" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
-                <text x="130" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">ALU</text>
-                <text x="130" y="122" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Arytmetyka i Logika)</text>
-
-                <rect x="65" y="140" width="130" height="40" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
-                <text x="130" y="160" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">CU (Control Unit)</text>
-                <text x="130" y="172" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Jednostka Sterująca)</text>
-
-                <rect x="65" y="190" width="130" height="25" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
-                <text x="130" y="206" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rejestry / Cache L1</text>
-
-                <!-- PAMIĘĆ RAM -->
-                <rect x="330" y="50" width="160" height="180" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <rect x="330" y="50" width="160" height="30" rx="8" fill="#f57c00"/>
-                <rect x="330" y="65" width="160" height="15" fill="#f57c00"/>
-                <text x="410" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">Pamięć Główna</text>
-
-                <rect x="345" y="90" width="130" height="60" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="1"/>
-                <text x="410" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Instrukcje</text>
-                <text x="410" y="135" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">(Kod programu)</text>
-
-                <rect x="345" y="160" width="130" height="55" rx="4" fill="#ffe0b2" stroke="#f57c00" stroke-width="1"/>
-                <text x="410" y="185" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Dane</text>
-                <text x="410" y="205" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">(Zmienne, sterty)</text>
-
-                <!-- I/O -->
-                <rect x="610" y="50" width="160" height="180" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
-                <rect x="610" y="50" width="160" height="30" rx="8" fill="#388e3c"/>
-                <rect x="610" y="65" width="160" height="15" fill="#388e3c"/>
-                <text x="690" y="70" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">I/O (Wejście/Wyjście)</text>
-
-                <rect x="625" y="90" width="130" height="35" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
-                <text x="690" y="112" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Pamięć Masowa (SSD)</text>
-
-                <rect x="625" y="135" width="130" height="35" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
-                <text x="690" y="157" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Klawiatura / Mysz</text>
-
-                <rect x="625" y="180" width="130" height="35" rx="4" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
-                <text x="690" y="202" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">Ekran / Karta Siec.</text>
-
-                <!-- SYSTEM SZYN (BUSES) -->
-                <!-- Szyna Adresowa -->
-                <path d="M 210 110 L 330 110" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedBlock)"/>
-                <path d="M 490 110 L 610 110" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedBlock)"/>
-                <text x="270" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Szyna Adresowa</text>
-
-                <!-- Szyna Danych -->
-                <path d="M 210 150 L 330 150" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueBlock)" marker-start="url(#arrowBlueBlockRev)"/>
-                <path d="M 490 150 L 610 150" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueBlock)" marker-start="url(#arrowBlueBlockRev)"/>
-                <text x="270" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Szyna Danych</text>
-
-                <!-- Szyna Sterująca -->
-                <path d="M 210 190 L 330 190" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnBlock)" marker-start="url(#arrowGrnBlockRev)"/>
-                <path d="M 490 190 L 610 190" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnBlock)" marker-start="url(#arrowGrnBlockRev)"/>
-                <text x="270" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Szyna Sterująca</text>
-
-                <!-- Notatki -->
-                <text x="410" y="260" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Szyna adresowa decyduje "GDZIE", szyna danych przesyła "CO", a sterująca pyta "CZY CZYTAĆ CZY PISAĆ".</text>
-                <text x="410" y="275" font-family="sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">(Zauważ: Szyna adresowa jest JEDNOKIERUNKOWA - tylko CPU nadaje adresy!)</text>
-
+            <!-- SVG 1: STRUKTURA BLOKOWA (ULEPSZONA) -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
+                    <filter id="shadowBlock"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/></filter>
                     <marker id="arrowRedBlock" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
                     <marker id="arrowBlueBlock" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1976d2"/></marker>
                     <marker id="arrowBlueBlockRev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#1976d2"/></marker>
                     <marker id="arrowGrnBlock" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
                     <marker id="arrowGrnBlockRev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#388e3c"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="320" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#004d40">Struktura Blokowa Komputera i System Szyn (Architektura von Neumanna)</text>
+
+                <!-- CPU -->
+                <rect x="40" y="55" width="170" height="185" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadowBlock)"/>
+                <rect x="40" y="55" width="170" height="32" rx="10" fill="#1565c0"/>
+                <rect x="40" y="72" width="170" height="15" fill="#1565c0"/>
+                <text x="125" y="76" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">🧠 CPU (Procesor)</text>
+
+                <rect x="55" y="100" width="140" height="40" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="125" y="118" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">ALU</text>
+                <text x="125" y="132" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Arytmetyka i Logika)</text>
+
+                <rect x="55" y="148" width="140" height="40" rx="5" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+                <text x="125" y="166" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">CU (Control Unit)</text>
+                <text x="125" y="180" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">(Jednostka Sterująca)</text>
+
+                <rect x="55" y="196" width="140" height="28" rx="5" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="125" y="214" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rejestry / Cache L1</text>
+
+                <!-- PAMIĘĆ RAM -->
+                <rect x="325" y="55" width="170" height="185" rx="10" fill="#fff" stroke="#f57c00" stroke-width="2" filter="url(#shadowBlock)"/>
+                <rect x="325" y="55" width="170" height="32" rx="10" fill="#f57c00"/>
+                <rect x="325" y="72" width="170" height="15" fill="#f57c00"/>
+                <text x="410" y="76" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">💾 Pamięć Główna</text>
+
+                <rect x="340" y="100" width="140" height="55" rx="5" fill="#fff3e0" stroke="#f57c00" stroke-width="1"/>
+                <text x="410" y="122" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Instrukcje</text>
+                <text x="410" y="140" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">(Kod programu)</text>
+
+                <rect x="340" y="163" width="140" height="55" rx="5" fill="#ffe0b2" stroke="#f57c00" stroke-width="1"/>
+                <text x="410" y="185" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Dane</text>
+                <text x="410" y="203" font-family="sans-serif" font-size="10" fill="#e65100" text-anchor="middle">(Zmienne, stos, sterta)</text>
+
+                <!-- I/O -->
+                <rect x="610" y="55" width="170" height="185" rx="10" fill="#fff" stroke="#388e3c" stroke-width="2" filter="url(#shadowBlock)"/>
+                <rect x="610" y="55" width="170" height="32" rx="10" fill="#388e3c"/>
+                <rect x="610" y="72" width="170" height="15" fill="#388e3c"/>
+                <text x="695" y="76" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">⌨️ I/O (We/Wy)</text>
+
+                <rect x="625" y="100" width="140" height="32" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
+                <text x="695" y="120" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Pamięć Masowa (SSD/HDD)</text>
+
+                <rect x="625" y="140" width="140" height="32" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
+                <text x="695" y="160" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Klawiatura / Mysz</text>
+
+                <rect x="625" y="180" width="140" height="32" rx="5" fill="#e8f5e9" stroke="#388e3c" stroke-width="1"/>
+                <text x="695" y="200" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">Ekran / Karta Sieciowa</text>
+
+                <!-- SYSTEM SZYN (BUSES) – z etykietami -->
+                <rect x="210" y="108" width="115" height="18" rx="3" fill="#ffcdd2"/>
+                <text x="267" y="121" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Szyna Adresowa →</text>
+                <path d="M 210 117 L 325 117" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedBlock)"/>
+                <path d="M 495 117 L 610 117" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedBlock)"/>
+
+                <rect x="210" y="148" width="115" height="18" rx="3" fill="#e3f2fd"/>
+                <text x="267" y="161" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">Szyna Danych ↔</text>
+                <path d="M 210 157 L 325 157" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueBlock)" marker-start="url(#arrowBlueBlockRev)"/>
+                <path d="M 495 157 L 610 157" fill="none" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowBlueBlock)" marker-start="url(#arrowBlueBlockRev)"/>
+
+                <rect x="210" y="188" width="115" height="18" rx="3" fill="#e8f5e9"/>
+                <text x="267" y="201" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Szyna Sterująca ↔</text>
+                <path d="M 210 197 L 325 197" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnBlock)" marker-start="url(#arrowGrnBlockRev)"/>
+                <path d="M 495 197 L 610 197" fill="none" stroke="#388e3c" stroke-width="3" marker-end="url(#arrowGrnBlock)" marker-start="url(#arrowGrnBlockRev)"/>
+
+                <!-- Notatki -->
+                <text x="410" y="270" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Szyna adresowa: jednokierunkowa (CPU →). Szyna danych: dwukierunkowa (CPU ↔ RAM).</text>
+                <text x="410" y="288" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">💡 Ciekawostka: DMA (Direct Memory Access) pozwala dyskowi SSD zapisywać dane w RAM z pominięciem CPU!</text>
+                <text x="410" y="305" font-family="sans-serif" font-size="9" fill="#78909c" text-anchor="middle">32-bitowa szyna adresowa → 2³² adresów → maks. 4 GB RAM. 64-bitowa → teoretycznie 16 EB (eksabajtów).</text>
             </svg>
 
             <!-- PART 2: WNĘTRZE CPU -->
@@ -144,73 +158,66 @@
                     Procesor sam w sobie jest złożonym układem. Egzaminator oczekuje znajomości jego trzech absolutnie najważniejszych podzespołów:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>ALU (Jednostka Arytmetyczno-Logiczna):</strong> Matematyczny "mięsień" procesora. To tutaj układ bramek logicznych fizycznie dodaje, odejmuje, mnoży i wykonuje operacje AND, OR, XOR na ciągach zer i jedynek.</li>
-                    <li><strong>CU (Jednostka Sterująca - Control Unit):</strong> "Dyrygent" procesora. Pobiera instrukcje z pamięci, rozszyfrowuje je i wysyła sygnały elektryczne do ALU lub innych części komputera, mówiąc im, co mają robić.</li>
+                    <li><strong>ALU (Jednostka Arytmetyczno-Logiczna):</strong> Matematyczny „mięsień” procesora. To tutaj układ bramek logicznych fizycznie dodaje, odejmuje, mnoży i wykonuje operacje AND, OR, XOR na ciągach zer i jedynek.</li>
+                    <li><strong>CU (Jednostka Sterująca - Control Unit):</strong> „Dyrygent” procesora. Pobiera instrukcje z pamięci, rozszyfrowuje je i wysyła sygnały elektryczne do ALU lub innych części komputera, mówiąc im, co mają robić.</li>
                     <li><strong>Rejestry:</strong> Ultraszybka pamięć wewnątrz procesora o znikomej pojemności (kilka bajtów). Najważniejsze z nich to <strong>PC (Program Counter / Licznik rozkazów)</strong> trzymający adres kolejnej instrukcji oraz <strong>Akumulator</strong>, do którego ALU zapisuje wyniki matematyczne.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Procesor składa się z trzech kluczowych elementów. ALU – to mięsień, tu dzieje się cała matematyka i logika. CU – to dyrygent, który steruje całym przepływem. I rejestry – ultraszybka pamięć wewnątrz CPU. Najważniejszy rejestr to Program Counter – przechowuje adres następnej instrukcji do wykonania. Drugi to Akumulator – tu ALU zapisuje wyniki obliczeń. Proszę zapamiętać: rejestry są w CPU, są ekstremalnie szybkie, ale jest ich bardzo mało – dosłownie kilka bajtów.”
+                </div>
             </div>
 
             <!-- PART 3: CYKL ROZKAZU -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Cykl Maszynowy (Fetch-Decode-Execute)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Cały kod, który piszesz w C++, Pythonie czy Javie, jest ostatecznie kompilowany do kodu maszynowego. Komputer wykonuje te instrukcje w niekończącej się pętli, miliony razy na sekundę (częstotliwość tę wyznacza zegar taktujący – Clock). To bicie serca komputera dzieli się na fazy:
+                    Cały kod, który piszesz w C++, Pythonie czy Javie, jest ostatecznie kompilowany do kodu maszynowego. Komputer wykonuje te instrukcje w niekończącej się pętli, miliony razy na sekundę (częstotliwość tę wyznacza <strong>zegar taktujący – Clock</strong>). To bicie serca komputera dzieli się na fazy: Fetch (pobranie instrukcji z RAM pod adres z PC), Decode (CU rozszyfrowuje instrukcję), Execute (ALU wykonuje obliczenia), Store (opcjonalny zapis wyniku).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Cykl maszynowy to bicie serca komputera, wyznaczane przez zegar taktujący. Składa się z czterech faz. Fetch – procesor wystawia adres z rejestru PC na szynę adresową i pobiera instrukcję z RAM-u. Decode – CU rozszyfrowuje, co ta instrukcja oznacza. Execute – ALU wykonuje działanie, np. dodaje dwie liczby. Store – wynik trafia do rejestru lub z powrotem do RAM-u. I tak w kółko, miliardy razy na sekundę. Proszę spojrzeć na planszę – fazy są oznaczone kolorami i strzałkami.”
+                </div>
             </div>
 
-            <!-- SVG 2: CYKL ROZKAZU -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Bicie serca komputera: Cykl Rozkazowy (Instruction Cycle)</text>
+            <!-- SVG 2: CYKL ROZKAZU (ULEPSZONY) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <filter id="shadowCycle"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.12"/></filter>
+                    <marker id="arrowCycleF" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#fff3e0" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Bicie serca komputera: Cykl Rozkazowy (Fetch–Decode–Execute–Store)</text>
 
                 <!-- Centralne koło (Cykl) -->
-                <circle cx="410" cy="120" r="70" fill="none" stroke="#ffb74d" stroke-width="4" stroke-dasharray="8,8"/>
+                <circle cx="410" cy="130" r="75" fill="none" stroke="#ffb74d" stroke-width="4" stroke-dasharray="10,6"/>
 
                 <!-- 1. FETCH (Góra) -->
-                <rect x="340" y="40" width="140" height="40" rx="20" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="410" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">1. POBRANIE</text>
-                <text x="410" y="73" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Fetch)</text>
-                
-                <rect x="250" y="40" width="80" height="40" rx="4" fill="#e3f2fd"/>
-                <text x="290" y="55" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Z RAM do Rejestru.</text>
-                <text x="290" y="68" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">PC = PC + 1.</text>
+                <rect x="335" y="48" width="150" height="45" rx="22" fill="#fff" stroke="#1565c0" stroke-width="2.5" filter="url(#shadowCycle)"/>
+                <text x="410" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">1. POBRANIE (Fetch)</text>
+                <text x="410" y="84" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Instrukcja z RAM → CPU</text>
 
                 <!-- 2. DECODE (Prawa) -->
-                <rect x="490" y="100" width="140" height="40" rx="20" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="560" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57c00" text-anchor="middle">2. DEKODOWANIE</text>
-                <text x="560" y="133" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Decode)</text>
-
-                <rect x="640" y="100" width="120" height="40" rx="4" fill="#fff3e0"/>
-                <text x="700" y="115" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Jednostka Sterująca (CU)</text>
-                <text x="700" y="128" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">tłumaczy ciąg 0101 na akcję.</text>
+                <rect x="500" y="108" width="150" height="45" rx="22" fill="#fff" stroke="#f57c00" stroke-width="2.5" filter="url(#shadowCycle)"/>
+                <text x="575" y="128" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f57c00" text-anchor="middle">2. DEKODOWANIE</text>
+                <text x="575" y="144" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">(Decode) – CU rozszyfrowuje</text>
 
                 <!-- 3. EXECUTE (Dół) -->
-                <rect x="340" y="160" width="140" height="40" rx="20" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="410" y="180" font-family="sans-serif" font-size="12" font-weight="bold" fill="#d32f2f" text-anchor="middle">3. WYKONANIE</text>
-                <text x="410" y="193" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Execute)</text>
-
-                <rect x="490" y="160" width="120" height="40" rx="4" fill="#ffebee"/>
-                <text x="550" y="175" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">ALU wykonuje obliczenia</text>
-                <text x="550" y="188" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">fizyczne na tranzystorach.</text>
+                <rect x="335" y="168" width="150" height="45" rx="22" fill="#fff" stroke="#d32f2f" stroke-width="2.5" filter="url(#shadowCycle)"/>
+                <text x="410" y="188" font-family="sans-serif" font-size="13" font-weight="bold" fill="#d32f2f" text-anchor="middle">3. WYKONANIE (Execute)</text>
+                <text x="410" y="204" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">ALU wykonuje obliczenia</text>
 
                 <!-- 4. STORE (Lewa) -->
-                <rect x="190" y="100" width="140" height="40" rx="20" fill="#fff" stroke="#388e3c" stroke-width="2"/>
-                <text x="260" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#388e3c" text-anchor="middle">4. ZAPIS (Opcj.)</text>
-                <text x="260" y="133" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Store)</text>
+                <rect x="170" y="108" width="150" height="45" rx="22" fill="#fff" stroke="#388e3c" stroke-width="2.5" filter="url(#shadowCycle)"/>
+                <text x="245" y="128" font-family="sans-serif" font-size="13" font-weight="bold" fill="#388e3c" text-anchor="middle">4. ZAPIS (Store)</text>
+                <text x="245" y="144" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Wynik → Rejestr / RAM</text>
 
-                <rect x="60" y="100" width="120" height="40" rx="4" fill="#e8f5e9"/>
-                <text x="120" y="115" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Wynik ląduje w Rejestrze</text>
-                <text x="120" y="128" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">lub wraca do pamięci RAM.</text>
+                <!-- Strzałki łączące -->
+                <path d="M 465 75 Q 535 75 535 108" fill="none" stroke="#37474f" stroke-width="2.5" marker-end="url(#arrowCycleF)"/>
+                <path d="M 535 153 Q 535 190 465 190" fill="none" stroke="#37474f" stroke-width="2.5" marker-end="url(#arrowCycleF)"/>
+                <path d="M 355 190 Q 285 190 285 153" fill="none" stroke="#37474f" stroke-width="2.5" marker-end="url(#arrowCycleF)"/>
+                <path d="M 285 108 Q 285 75 355 75" fill="none" stroke="#37474f" stroke-width="2.5" marker-end="url(#arrowCycleF)"/>
 
-                <!-- Strzałki łączące (okrągłe) -->
-                <path d="M 450 65 Q 520 70 520 100" fill="none" stroke="#37474f" stroke-width="2" marker-end="url(#arrowDarkF)"/>
-                <path d="M 520 140 Q 520 170 450 170" fill="none" stroke="#37474f" stroke-width="2" marker-end="url(#arrowDarkF)"/>
-                <path d="M 370 170 Q 300 170 300 140" fill="none" stroke="#37474f" stroke-width="2" marker-end="url(#arrowDarkF)"/>
-                <path d="M 300 100 Q 300 70 370 65" fill="none" stroke="#37474f" stroke-width="2" marker-end="url(#arrowDarkF)"/>
-
-                <defs>
-                    <marker id="arrowDarkF" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
-                </defs>
+                <!-- Notatka dolna -->
+                <text x="410" y="233" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">⏱️ Cały cykl powtarza się miliardy razy na sekundę – tempo wyznacza zegar taktujący (Clock), np. 3.5 GHz = 3.5 miliarda cykli/s.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -219,9 +226,31 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki z hardware'u):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Mylenie Szyny Danych z Szyną Adresową:</strong> Częste pytanie brzmi: "Jeśli procesor 32-bitowy ma 32-bitową szynę adresową, to ile pamięci RAM potrafi obsłużyć?". Odpowiedź: Szyna adresowa decyduje o ilości adresów. 2<sup>32</sup> to około 4 Miliardy adresów. Każdy adres to zazwyczaj 1 Bajt, co daje maksymalnie 4 GB pamięci RAM. To dlatego starsze systemy Windows nie "widziały" więcej niż 4GB RAMu!</li>
-                    <li><strong>"Wszystko musi przejść przez procesor":</strong> Mit. W nowoczesnych komputerach istnieje moduł <strong>DMA (Direct Memory Access)</strong>. Pozwala on karcie graficznej lub dyskowi SSD na odczytywanie i zapisywanie danych BEZPOŚREDNIO w pamięci RAM, całkowicie omijając procesor. Dzięki temu CPU nie marnuje czasu na bycie "tragarzem" danych.</li>
+                    <li><strong>Mylenie Szyny Danych z Szyną Adresową:</strong> Częste pytanie brzmi: „Jeśli procesor 32-bitowy ma 32-bitową szynę adresową, to ile pamięci RAM potrafi obsłużyć?”. Odpowiedź: Szyna adresowa decyduje o ilości adresów. 2<sup>32</sup> to około 4 Miliardy adresów. Każdy adres to zazwyczaj 1 Bajt, co daje maksymalnie 4 GB pamięci RAM. To dlatego starsze systemy Windows nie „widziały” więcej niż 4 GB RAM-u!</li>
+                    <li><strong>„Wszystko musi przejść przez procesor”:</strong> Mit. W nowoczesnych komputerach istnieje moduł <strong>DMA (Direct Memory Access)</strong>. Pozwala on karcie graficznej lub dyskowi SSD na odczytywanie i zapisywanie danych BEZPOŚREDNIO w pamięci RAM, całkowicie omijając procesor. Dzięki temu CPU nie marnuje czasu na bycie „tragarzem” danych.</li>
+                    <li><strong>RAM vs Cache:</strong> Nie mylić! RAM to pamięć główna – duża (GB), wolniejsza. Cache L1/L2/L3 to ultraszybka pamięć wewnątrz lub bardzo blisko CPU – mała (KB-MB), ale wielokrotnie szybsza od RAM-u. Hierarchia: Rejestry → Cache L1 → L2 → L3 → RAM → SSD.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy najważniejsze pułapki. Po pierwsze – szyna adresowa a limit RAM-u. 32-bitowa szyna adresowa daje 2³² adresów, czyli około 4 GB. To jest twardy limit sprzętowy. Po drugie – DMA. Nie wszystko musi przechodzić przez CPU. Karta sieciowa czy dysk SSD mogą zapisywać dane bezpośrednio w RAM, odciążając procesor. Po trzecie – hierarchia pamięci. Rejestry są najszybsze, potem cache L1, L2, L3, potem RAM, a na końcu wolny dysk. Programista, który to rozumie, inaczej projektuje algorytmy – dba o to, by dane trafiały do cache'a.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                               -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Struktura i działanie komputera:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Komponent</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Metafora</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa cecha</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">CPU (ALU+CU+Rejestry)</td><td style="padding: 10px;">Dyrektor + Inżynier</td><td style="padding: 10px;">Wykonuje instrukcje, steruje. ALU = mięsień, CU = mózg.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">RAM</td><td style="padding: 10px;">Szybki blat roboczy</td><td style="padding: 10px;">Ulotna – znika po wyłączeniu. Szybka, droga, mniejsza od dysku.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SSD/HDD</td><td style="padding: 10px;">Wielki magazyn</td><td style="padding: 10px;">Trwała, tania, duża pojemność. Wolniejsza od RAM-u.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Szyna adresowa</td><td style="padding: 10px;">System adresów pokoi</td><td style="padding: 10px;">Jednokierunkowa (CPU →). 32 bity → 4 GB RAM max.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Szyna danych</td><td style="padding: 10px;">Taśmociąg towarów</td><td style="padding: 10px;">Dwukierunkowa. Przesyła instrukcje i dane.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Cykl rozkazowy</td><td style="padding: 10px;">Bicie serca</td><td style="padding: 10px;">Fetch → Decode → Execute → Store. Clock = tempo.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -238,7 +267,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Architektura komputerów" (Andrew S. Tanenbaum) · Model von Neumanna i architektura systemów obliczeniowych.
+                    „Architektura komputerów” (Andrew S. Tanenbaum) · Model von Neumanna i architektura systemów obliczeniowych · Materiały własne z organizacji sprzętu komputerowego.
                 </span>
             </div>
 

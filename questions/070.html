@@ -14,11 +14,11 @@
         <h2 id="q-title">070. Wzorce analizy i projektowania; wykorzystanie wzorców.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #e65100; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(230,81,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📖</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie wymyślaj koła na nowo – sięgnij po sprawdzony przepis”:</strong>
+                    <strong style="font-size: 1.15rem; color: #bf360c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Nie wymyślaj koła na nowo – sięgnij po sprawdzony przepis":</strong>
                     <p style="margin: 0 0 8px 0; color: #3e2723; line-height: 1.7;">
                         Wyobraź sobie, że jesteś szefem kuchni. Codziennie stajesz przed nowymi wyzwaniami: gość chce sos bezglutenowy, inny potrzebuje ciasta bez jajek. Czy za każdym razem wymyślasz zupełnie nowy przepis, eksperymentując od zera? Absolutnie nie. Sięgasz po swoją <strong>książkę kucharską</strong> – zbiór sprawdzonych receptur, które zawsze działają. Wiesz, że <em>beza</em> to pianka z białek z cukrem, a <em>zasmażka</em> zagęści każdy sos. Te przepisy są efektem lat doświadczeń tysięcy kucharzy przed Tobą.
                     </p>
@@ -51,11 +51,14 @@
                     Wzorzec projektowy to nazwany, uniwersalny i sprawdzony w praktyce schemat rozwiązania powtarzającego się problemu w projektowaniu oprogramowania. Nie jest to biblioteka ani gotowy kod – to <strong>opis abstrakcyjnego rozwiązania</strong>, który musisz dostosować do swojego konkretnego przypadku. Każdy wzorzec ma cztery podstawowe elementy:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Nazwa</strong> – jednoznacznie identyfikuje wzorzec i ułatwia komunikację (np. „Adapter”, „Observer”).</li>
+                    <li><strong>Nazwa</strong> – jednoznacznie identyfikuje wzorzec i ułatwia komunikację (np. „Adapter", „Observer").</li>
                     <li><strong>Problem</strong> – opisuje, kiedy i dlaczego stosować wzorzec.</li>
                     <li><strong>Rozwiązanie</strong> – struktura klas, interfejsów i obiektów oraz ich współpraca.</li>
                     <li><strong>Konsekwencje</strong> – korzyści i ewentualne koszty użycia wzorca.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wzorzec projektowy to sprawdzony schemat rozwiązania typowego problemu – to nie gotowy kod, tylko szablon, który adaptujemy do swojej sytuacji. Każdy wzorzec ma cztery elementy: nazwę, która ułatwia komunikację w zespole, opis problemu – kiedy go stosować, abstrakcyjne rozwiązanie – strukturę klas i obiektów, oraz konsekwencje – czyli koszty i korzyści. Wzorce zostały spopularyzowane przez książkę tak zwanego Gangu Czterech z 1994 roku, która skatalogowała 23 klasyczne wzorce. Od tego czasu powstały ich setki."
+                </div>
             </div>
 
             <!-- SVG: Kategorie wzorców -->
@@ -109,17 +112,26 @@
                 <text x="410" y="342" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">GoF (Gang of Four): Gamma, Helm, Johnson, Vlissides – twórcy katalogu 23 wzorców (1994)</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Katalog Gangu Czterech dzieli 23 klasyczne wzorce na trzy kategorie. Kreacyjne dotyczą tworzenia obiektów – Singleton zapewnia jedną instancję, Factory Method deleguje tworzenie do podklas, Builder konstruuje złożone obiekty krok po kroku. Strukturalne dotyczą kompozycji klas i obiektów – Adapter dopasowuje interfejsy, Decorator dynamicznie dodaje funkcje, Fasada upraszcza skomplikowany podsystem. Behawioralne dotyczą komunikacji między obiektami – Observer powiadamia o zmianach, Strategy pozwala wymieniać algorytmy, Command opakowuje żądania jako obiekty. Proszę spojrzeć na planszę – wszystkie trzy kategorie z przykładami."
+                </div>
+            </div>
+
             <!-- 3. Wzorce analityczne -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">2. Wzorce analityczne – wyższy poziom abstrakcji</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Wzorce analityczne (np. GRASP) dotyczą nie kodu, ale <strong>modelowania pojęć domenowych</strong>. Odpowiadają na pytania: „Jakich klas użyć?”, „Kto powinien być odpowiedzialny za tę logikę?”. Przykłady:
+                    Wzorce analityczne (np. GRASP) dotyczą nie kodu, ale <strong>modelowania pojęć domenowych</strong>. Odpowiadają na pytania: „Jakich klas użyć?", „Kto powinien być odpowiedzialny za tę logikę?". Przykłady:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Expert (Ekspert)</strong> – odpowiedzialność dostaje ta klasa, która ma potrzebne dane. Np. to Klasa `Faktura` oblicza sumę, a nie `Zamówienie`.</li>
                     <li><strong>Controller (Kontroler)</strong> – logikę obsługi zdarzeń UI umieszczamy w dedykowanym obiekcie, a nie rozrzucamy po widokach.</li>
                     <li><strong>Low Coupling / High Cohesion</strong> – minimalizuj powiązania między klasami, maksymalizuj spójność wewnątrz klasy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wzorce analityczne, takie jak GRASP, działają na wyższym poziomie abstrakcji – nie dotyczą konkretnego kodu, tylko modelowania domeny. Expert mówi, że odpowiedzialność za obliczenia dostaje ta klasa, która ma dane – na przykład Faktura sama oblicza sumę, a nie robi tego Zamówienie. Controller mówi, że logika obsługi zdarzeń trafia do dedykowanego obiektu, a nie jest rozrzucona po widokach. Low Coupling i High Cohesion to fundamentalne zasady – minimalizujemy powiązania między klasami i maksymalizujemy spójność wewnątrz klasy. Te wzorce pomagają odpowiedzieć na pytanie: kto powinien być za co odpowiedzialny w naszym modelu."
+                </div>
             </div>
 
             <!-- 4. Przykład: Observer -->
@@ -131,23 +143,29 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W kodzie: `Subject` (temat) utrzymuje listę `Observer`-ów i gdy jego stan się zmieni, wywołuje ich metodę `update()`. Dzięki temu `Subject` nie wie, kim są Obserwatorzy – zna tylko ich interfejs. Luźne powiązanie w czystej postaci.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Observer, czyli Obserwator, to jeden z najczęściej używanych wzorców – jest fundamentem systemów zdarzeń i powiadomień. Wyobraźcie sobie subskrypcję newslettera: zapisujecie się na listę i gdy sklep ma promocję, dostajecie powiadomienie. Nie musicie co godzinę odświeżać strony. W kodzie działa to tak: Subject, czyli temat, utrzymuje listę Observerów i gdy jego stan się zmieni, wywołuje ich metodę update. Dzięki temu Subject nie wie, kim są konkretni Obserwatorzy – zna tylko ich interfejs. To jest właśnie luźne powiązanie w czystej postaci – jeden z głównych celów stosowania wzorców."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy wzorcowe):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Wzorce są celem samym w sobie”</strong> – Jeśli masz prosty problem, który rozwiązują 3 linijki kodu, nie musisz stosować Fabryki ani Strategii. Wzorce to narzędzia, nie obowiązek.</li>
-                    <li><strong>„Każdy wzorzec jest zawsze dobry”</strong> – Singleton jest często krytykowany jako ukryty globalny stan (utrudnia testowanie). Używaj go świadomie.</li>
-                    <li><strong>„Wzorce to tylko GoF”</strong> – Istnieją setki innych: korporacyjne (EAA Fowlera), integracyjne, mikroserwisowe, analityczne. GoF to tylko wierzchołek góry lodowej.</li>
+                    <li><strong>„Wzorce są celem samym w sobie"</strong> – Jeśli masz prosty problem, który rozwiązują 3 linijki kodu, nie musisz stosować Fabryki ani Strategii. Wzorce to narzędzia, nie obowiązek.</li>
+                    <li><strong>„Każdy wzorzec jest zawsze dobry"</strong> – Singleton jest często krytykowany jako ukryty globalny stan (utrudnia testowanie). Używaj go świadomie.</li>
+                    <li><strong>„Wzorce to tylko GoF"</strong> – Istnieją setki innych: korporacyjne (EAA Fowlera), integracyjne, mikroserwisowe, analityczne. GoF to tylko wierzchołek góry lodowej.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki związane ze wzorcami. Po pierwsze, wzorce nie są celem samym w sobie – jeśli prosty problem rozwiązują trzy linijki kodu, nie potrzebujemy Fabryki ani Strategii. Po drugie, nie każdy wzorzec jest zawsze dobry – Singleton jest często krytykowany jako ukryty globalny stan, który utrudnia testowanie jednostkowe. Po trzecie, wzorce to nie tylko katalog Gangu Czterech – istnieją setki innych: korporacyjne Martina Fowlera, integracyjne, mikroserwisowe. GoF to tylko wierzchołek góry lodowej."
+                </div>
             </div>
 
             <!-- Grokking -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Wzorce to słownik, którym posługują się profesjonaliści. Zamiast mówić: „Zróbmy obiekt, który przyjmuje różne strategie i deleguje do nich wywołania w zależności od kontekstu”, mówisz: „Użyjmy Strategii”. Oszczędzasz czas, unikasz błędów i korzystasz z mądrości pokoleń programistów. Ucz się ich nie na pamięć, ale przez zrozumienie problemu, który rozwiązują.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wzorce to słownik, którym posługują się profesjonaliści. Zamiast mówić: „Zróbmy obiekt, który przyjmuje różne strategie i deleguje do nich wywołania w zależności od kontekstu", mówisz: „Użyjmy Strategii". Oszczędzasz czas, unikasz błędów i korzystasz z mądrości pokoleń programistów. Ucz się ich nie na pamięć, ale przez zrozumienie problemu, który rozwiązują.</span>
                 </p>
             </div>
 
@@ -155,7 +173,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Design Patterns: Elements of Reusable Object-Oriented Software” (GoF) – biblia wzorców · „Patterns of Enterprise Application Architecture” (Martin Fowler) · „Applying UML and Patterns” (Craig Larman) – GRASP.
+                    „Design Patterns: Elements of Reusable Object-Oriented Software" (GoF) – biblia wzorców · „Patterns of Enterprise Application Architecture" (Martin Fowler) · „Applying UML and Patterns" (Craig Larman) – GRASP.
                 </span>
             </div>
 

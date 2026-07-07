@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📜</span>
                 <div>
@@ -63,29 +63,32 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Technika analogowa</strong> operuje bezpośrednio na wielkościach fizycznych (napięcie, prąd, fala dźwiękowa), które zmieniają się w sposób ciągły. Każda wartość w każdym ułamku sekundy ma znaczenie. <strong>Technika cyfrowa</strong> przekształca te wielkości na ciągi liczb – próbkuje sygnał w regularnych odstępach czasu i zaokrągla zmierzoną wartość do najbliższego poziomu kwantyzacji. Im wyższa częstotliwość próbkowania i większa głębia bitowa, tym wierniejsze odwzorowanie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, fundamentalna różnica leży w reprezentacji. Sygnał analogowy jest ciągły – każda wartość w każdej chwili ma znaczenie. Sygnał cyfrowy jest dyskretny – rejestrujemy tylko próbki w określonych odstępach czasu i zaokrąglamy je do skończonej liczby poziomów. To tak, jakby zamiast gładkiej fali narysować schodki. Im częściej próbkujemy i im więcej mamy poziomów, tym bliżej oryginału. Proszę spojrzeć na planszę – pokazuje ona różnicę między gładką sinusoidą a schodkowym sygnałem cyfrowym.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 340" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridAD" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="320" fill="url(#gridAD)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Reprezentacja sygnału: analogowa (ciągła) vs cyfrowa (dyskretna)</text>
+                <rect x="0" y="0" width="820" height="340" fill="url(#gridAD)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1a237e">Reprezentacja sygnału: analogowa (ciągła) vs cyfrowa (dyskretna)</text>
 
                 <!-- Panel lewy: Sygnał analogowy (sinusoida) -->
-                <rect x="30" y="45" width="370" height="250" rx="8" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
-                <text x="215" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1a237e">Sygnał analogowy</text>
-                <path d="M 60 200 Q 120 100 180 200 T 300 200 T 360 200" fill="none" stroke="#5c6bc0" stroke-width="4"/>
-                <text x="215" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3949ab">Ciągły w czasie i amplitudzie</text>
-                <text x="215" y="248" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3949ab">Nieskończona rozdzielczość (teoretycznie)</text>
-                <text x="215" y="266" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#3949ab">Każda wartość ma znaczenie</text>
+                <rect x="25" y="48" width="375" height="265" rx="10" fill="#e8eaf6" stroke="#3949ab" stroke-width="2.5"/>
+                <text x="212" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1a237e">Sygnał analogowy</text>
+                <path d="M 55 215 Q 115 105 175 215 T 295 215 T 355 215" fill="none" stroke="#5c6bc0" stroke-width="5"/>
+                <text x="212" y="250" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3949ab">Ciągły w czasie i amplitudzie</text>
+                <text x="212" y="270" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3949ab">Nieskończona rozdzielczość (teoretycznie)</text>
+                <text x="212" y="290" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3949ab">Każda wartość ma znaczenie</text>
 
                 <!-- Panel prawy: Sygnał cyfrowy (schodki kwantyzacji) -->
-                <rect x="420" y="45" width="370" height="250" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="605" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Sygnał cyfrowy (po ADC)</text>
-                <path d="M 440 200 L 470 200 L 470 170 L 500 170 L 500 140 L 530 140 L 530 160 L 560 160 L 560 180 L 590 180 L 590 190 L 620 190 L 620 185 L 650 185 L 650 195 L 680 195 L 680 210 L 710 210" fill="none" stroke="#43a047" stroke-width="4" stroke-linejoin="round"/>
-                <text x="605" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Dyskretny w czasie (próbki) i amplitudzie (poziomy)</text>
-                <text x="605" y="248" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Skończona liczba wartości (głębia bitowa)</text>
-                <text x="605" y="266" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Strata informacji między próbkami (błąd kwantyzacji)</text>
+                <rect x="420" y="48" width="375" height="265" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Sygnał cyfrowy (po ADC)</text>
+                <path d="M 440 215 L 470 215 L 470 185 L 500 185 L 500 155 L 530 155 L 530 175 L 560 175 L 560 195 L 590 195 L 590 205 L 620 205 L 620 200 L 650 200 L 650 210 L 680 210 L 680 225 L 710 225" fill="none" stroke="#43a047" stroke-width="5" stroke-linejoin="round"/>
+                <text x="607" y="250" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Dyskretny w czasie (próbki) i amplitudzie (poziomy)</text>
+                <text x="607" y="270" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Skończona liczba wartości (głębia bitowa)</text>
+                <text x="607" y="290" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Strata informacji między próbkami (błąd kwantyzacji)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -96,26 +99,29 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     W technice analogowej każdy szum (termiczny, indukowany) dodaje się bezpośrednio do sygnału i jest praktycznie nie do usunięcia. Po przejściu przez kilka wzmacniaczy sygnał analogowy kumuluje zniekształcenia. W technice cyfrowej sygnał to tylko zera i jedynki. Nawet gdy szum zniekształci napięcie, układ cyfrowy potrafi je <strong>zregenerować</strong> do idealnego stanu logicznego. Dzięki temu sygnał cyfrowy można przesyłać na tysiące kilometrów bez utraty jakości, kopiować go w nieskończoność, a każda kopia jest identyczna z oryginałem.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kluczowa przewaga techniki cyfrowej to odporność na szum. W analogu szum dodaje się do sygnału i zostaje na zawsze. Po kilku wzmacniaczach sygnał jest zniekształcony. W cyfrze mamy tylko zera i jedynki. Nawet jeśli szum odchyli napięcie, układ cyfrowy regeneruje je do czystego stanu logicznego. Dlatego plik MP3 skopiowany tysiąc razy brzmi identycznie, a kaseta magnetofonowa przegrana dziesięć razy to szum. Cyfra daje perfekcyjne klony. Proszę spojrzeć na planszę – porównuje ona degradację sygnału analogowego z regeneracją cyfrowego.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridAD)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Odporność na szum: degradacja analogu vs regeneracja cyfry</text>
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="url(#gridAD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">Odporność na szum: degradacja analogu vs regeneracja cyfry</text>
 
                 <!-- Panel lewy: Szum w analogu (gruba, zniekształcona linia) -->
-                <rect x="30" y="50" width="370" height="200" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="215" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Analog: szum dodaje się do sygnału</text>
-                <path d="M 60 180 Q 120 100 180 180 T 300 180 T 360 180" fill="none" stroke="#ef9a9a" stroke-width="8" opacity="0.6"/>
-                <path d="M 60 180 Q 120 100 180 180 T 300 180 T 360 180" fill="none" stroke="#c62828" stroke-width="3"/>
-                <text x="215" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Szum zniekształca wartości bezpowrotnie.</text>
-                <text x="215" y="238" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Po kilku kopiach sygnał staje się nieczytelny.</text>
+                <rect x="25" y="50" width="375" height="220" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="212" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Analog: szum dodaje się do sygnału</text>
+                <path d="M 55 200 Q 115 110 175 200 T 295 200 T 355 200" fill="none" stroke="#ef9a9a" stroke-width="10" opacity="0.6"/>
+                <path d="M 55 200 Q 115 110 175 200 T 295 200 T 355 200" fill="none" stroke="#c62828" stroke-width="3.5"/>
+                <text x="212" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Szum zniekształca wartości bezpowrotnie.</text>
+                <text x="212" y="260" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Po kilku kopiach sygnał staje się nieczytelny.</text>
 
                 <!-- Panel prawy: Regeneracja cyfry (prosty przebieg) -->
-                <rect x="420" y="50" width="370" height="200" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="605" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Cyfra: regeneracja progu logicznego</text>
-                <path d="M 440 180 L 470 180 L 470 100 L 500 100 L 500 180 L 530 180 L 530 100 L 560 100 L 560 180 L 590 180 L 590 100 L 620 100 L 620 180 L 650 180 L 650 100 L 680 100 L 680 180 L 710 180" fill="none" stroke="#81c784" stroke-width="8" opacity="0.6"/>
-                <path d="M 440 180 L 470 180 L 470 100 L 500 100 L 500 180 L 530 180 L 530 100 L 560 100 L 560 180 L 590 180 L 590 100 L 620 100 L 620 180 L 650 180 L 650 100 L 680 100 L 680 180 L 710 180" fill="none" stroke="#2e7d32" stroke-width="4"/>
-                <text x="605" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Sygnał jest odtwarzany do idealnych stanów 0/1.</text>
-                <text x="605" y="238" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1b5e20">Nawet przy szumie, 0.7 V to logiczne "1".</text>
+                <rect x="420" y="50" width="375" height="220" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="80" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Cyfra: regeneracja progu logicznego</text>
+                <path d="M 440 200 L 470 200 L 470 110 L 500 110 L 500 200 L 530 200 L 530 110 L 560 110 L 560 200 L 590 200 L 590 110 L 620 110 L 620 200 L 650 200 L 650 110 L 680 110 L 680 200 L 710 200" fill="none" stroke="#81c784" stroke-width="10" opacity="0.6"/>
+                <path d="M 440 200 L 470 200 L 470 110 L 500 110 L 500 200 L 530 200 L 530 110 L 560 110 L 560 200 L 590 200 L 590 110 L 620 110 L 620 200 L 650 200 L 650 110 L 680 110 L 680 200 L 710 200" fill="none" stroke="#2e7d32" stroke-width="5"/>
+                <text x="607" y="240" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Sygnał jest odtwarzany do idealnych stanów 0/1.</text>
+                <text x="607" y="260" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1b5e20">Nawet przy szumie, 0.7 V to logiczne „1”.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -126,32 +132,35 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Nośniki analogowe (kaseta VHS, winyl, taśma magnetofonowa) z każdym odtworzeniem i każdą kopią tracą jakość. To tzw. <strong>degradacja generacyjna</strong>. Nośniki cyfrowe (CD, plik WAV, pamięć flash) nie mają tej wady – dopóki dane nie ulegną całkowitemu uszkodzeniu, jakość jest idealna. Kopiowanie pliku to matematyczne odtworzenie każdego bitu. To dlatego cała współczesna kultura, nauka i gospodarka opierają się na zapisie cyfrowym.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kopiowanie to kolejny obszar, gdzie cyfra wygrywa. Winyl czy kaseta VHS – każda kopia jest gorsza od oryginału. To degradacja generacyjna. Plik cyfrowy – każda kopia jest matematycznie identyczna. Kopiowanie to po prostu przepisanie zer i jedynek. Co więcej, dane cyfrowe można zabezpieczyć kodami korekcyjnymi – płyta CD może mieć rysę, a i tak odtworzy dane bezbłędnie dzięki kodom Reeda-Solomona. Proszę spojrzeć na planszę – porównuje ona winyl i plik WAV.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridAD)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Kopiowanie i przechowywanie – Degradacja vs Perfekcyjne Klony</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridAD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">Kopiowanie i przechowywanie – Degradacja vs Perfekcyjne Klony</text>
 
                 <!-- Winyl i plik mp3 -->
-                <g transform="translate(60, 60)">
-                    <circle cx="80" cy="80" r="60" fill="#212121" stroke="#424242" stroke-width="4"/>
-                    <circle cx="80" cy="80" r="10" fill="#e53935"/>
-                    <text x="80" y="165" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b71c1c">Analog (winyl)</text>
-                    <text x="80" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#b71c1c">Każda kopia gorsza</text>
+                <g transform="translate(50, 55)">
+                    <circle cx="80" cy="80" r="65" fill="#212121" stroke="#424242" stroke-width="4.5"/>
+                    <circle cx="80" cy="80" r="12" fill="#e53935"/>
+                    <text x="80" y="175" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#b71c1c">Analog (winyl)</text>
+                    <text x="80" y="193" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#b71c1c">Każda kopia gorsza</text>
                 </g>
 
-                <g transform="translate(280, 60)">
-                    <rect x="30" y="30" width="100" height="80" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" rx="4"/>
-                    <text x="80" y="75" text-anchor="middle" font-family="monospace" font-size="24" fill="#0d47a1">0110</text>
-                    <text x="80" y="135" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0d47a1">Cyfra (plik .wav)</text>
-                    <text x="80" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0d47a1">Kopie identyczne</text>
+                <g transform="translate(280, 55)">
+                    <rect x="25" y="25" width="110" height="90" fill="#e3f2fd" stroke="#1976d2" stroke-width="3.5" rx="6"/>
+                    <text x="80" y="75" text-anchor="middle" font-family="monospace" font-size="26" fill="#0d47a1">0110</text>
+                    <text x="80" y="145" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#0d47a1">Cyfra (plik .wav)</text>
+                    <text x="80" y="163" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Kopie identyczne</text>
                 </g>
 
                 <!-- Opis słowny -->
-                <rect x="460" y="60" width="320" height="130" rx="6" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
-                <text x="620" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#004d40">Dlaczego?</text>
-                <text x="620" y="115" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#00695c">Analog: kopiowanie to odczyt + ponowny zapis z błędami.</text>
-                <text x="620" y="138" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#00695c">Cyfra: kopiowanie to matematyczne odtworzenie ciągu liczb.</text>
-                <text x="620" y="160" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#00695c">Dane cyfrowe można zabezpieczyć kodami korekcyjnymi (Reed-Solomon na CD).</text>
+                <rect x="450" y="65" width="340" height="140" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="2"/>
+                <text x="620" y="95" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#004d40">Dlaczego?</text>
+                <text x="620" y="122" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#00695c">Analog: kopiowanie to odczyt + ponowny zapis z błędami.</text>
+                <text x="620" y="148" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#00695c">Cyfra: kopiowanie to matematyczne odtworzenie ciągu liczb.</text>
+                <text x="620" y="174" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#00695c">Dane cyfrowe można zabezpieczyć kodami korekcyjnymi (Reed-Solomon na CD).</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -162,69 +171,75 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Przetwarzanie analogowe (np. filtr RC, wzmacniacz operacyjny) jest niezwykle szybkie, działa w czasie rzeczywistym bez opóźnień, ale jest sztywne – do zmiany charakterystyki trzeba wymienić fizyczne komponenty. Przetwarzanie cyfrowe (DSP, FPGA) pozwala na implementację niezwykle złożonych algorytmów (FFT, filtry adaptacyjne), które w analogu byłyby niemożliwe. Ceną jest opóźnienie (próbkowanie, kwantyzacja, buforowanie) i pobór mocy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przetwarzanie to obszar, gdzie obie techniki mają swoje miejsce. Wzmacniacz analogowy działa natychmiast, bez opóźnień – idealny do sprzężeń zwrotnych w przetwornicach. Ale jest sztywny – by zmienić filtr, trzeba wymienić rezystor. DSP – cyfrowe przetwarzanie sygnałów – pozwala na FFT, filtry adaptacyjne, kompresję. To rzeczy niemożliwe w analogu. Ceną jest opóźnienie – sygnał musi zostać spróbkowany, skwantowany i przeliczony. Proszę spojrzeć na planszę – porównuje ona elastyczność DSP ze sztywnością układu analogowego.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridAD)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Przetwarzanie: Sprzęt analogowy vs Algorytm cyfrowy (DSP)</text>
+            <svg viewBox="0 0 820 210" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="210" fill="url(#gridAD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Przetwarzanie: Sprzęt analogowy vs Algorytm cyfrowy (DSP)</text>
 
                 <!-- Wzmacniacz operacyjny (symbol) -->
-                <g transform="translate(60, 50)">
-                    <polygon points="0,30 40,0 40,60" fill="none" stroke="#1565c0" stroke-width="3"/>
-                    <text x="-20" y="20" font-family="monospace" font-size="12" fill="#0d47a1">IN</text>
-                    <text x="50" y="35" font-family="monospace" font-size="12" fill="#0d47a1">OUT</text>
-                    <text x="20" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">Wzmacniacz analogowy</text>
+                <g transform="translate(50, 50)">
+                    <polygon points="0,35 45,0 45,70" fill="none" stroke="#1565c0" stroke-width="4"/>
+                    <text x="-25" y="25" font-family="monospace" font-size="14" fill="#0d47a1">IN</text>
+                    <text x="58" y="40" font-family="monospace" font-size="14" fill="#0d47a1">OUT</text>
+                    <text x="22" y="105" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#0d47a1">Wzmacniacz analogowy</text>
                 </g>
 
                 <!-- Układ FPGA / DSP -->
                 <g transform="translate(280, 50)">
-                    <rect x="0" y="0" width="180" height="80" fill="#263238" stroke="#455a64" stroke-width="3" rx="6"/>
-                    <text x="90" y="30" text-anchor="middle" font-family="monospace" font-size="10" fill="#8bc34a">FFT / FIR / IIR</text>
-                    <text x="90" y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#8bc34a">Algorytm DSP</text>
-                    <text x="90" y="70" text-anchor="middle" font-family="monospace" font-size="10" fill="#8bc34a">(oprogramowanie)</text>
-                    <text x="90" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a148c">Procesor DSP / FPGA</text>
+                    <rect x="0" y="0" width="200" height="85" fill="#263238" stroke="#455a64" stroke-width="3.5" rx="8"/>
+                    <text x="100" y="32" text-anchor="middle" font-family="monospace" font-size="12" fill="#8bc34a">FFT / FIR / IIR</text>
+                    <text x="100" y="54" text-anchor="middle" font-family="monospace" font-size="12" fill="#8bc34a">Algorytm DSP</text>
+                    <text x="100" y="76" text-anchor="middle" font-family="monospace" font-size="12" fill="#8bc34a">(oprogramowanie)</text>
+                    <text x="100" y="115" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a148c">Procesor DSP / FPGA</text>
                 </g>
 
                 <!-- Porównanie -->
-                <rect x="500" y="60" width="280" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
-                <text x="640" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Kluczowa różnica</text>
-                <text x="640" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">Analog: Błyskawiczny (czas rzeczywisty), ale nieelastyczny.</text>
-                <text x="640" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">Cyfra: Elastyczna (ten sam układ może robić różne rzeczy),</text>
-                <text x="640" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6a1b9a">ale wprowadza opóźnienie (próbkowanie + obliczenia).</text>
+                <rect x="510" y="55" width="285" height="115" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="652" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Kluczowa różnica</text>
+                <text x="652" y="110" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">Analog: Błyskawiczny (czas rzeczywisty), ale nieelastyczny.</text>
+                <text x="652" y="135" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">Cyfra: Elastyczna (ten sam układ może robić różne rzeczy),</text>
+                <text x="652" y="158" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#6a1b9a">ale wprowadza opóźnienie (próbkowanie + obliczenia).</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PART 5: PUŁAPKI EGZAMINACYJNE (POPRAWIONE)              -->
+            <!-- PART 5: PUŁAPKI EGZAMINACYJNE                           -->
             <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">5. Pułapki egzaminacyjne – Gdzie cyfra przegrywa, a gdzie analog jest niezastąpiony</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Technika cyfrowa jest dziś dominująca, ale nie zawsze jest idealnym rozwiązaniem. W bardzo wysokich częstotliwościach (dziesiątki GHz), przy minimalizacji poboru mocy (czujniki IoT) oraz w aplikacjach wymagających absolutnie zerowego opóźnienia (sprzężenie zwrotne w przetwornicach), technika analogowa wciąż jest niezbędna.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Cyfra nie zawsze wygrywa. Przy częstotliwościach rzędu dziesiątek GHz przetworniki ADC są drogie i energochłonne – mikser analogowy z heterodyną jest prostszy. W sprzężeniach zwrotnych, na przykład w przetwornicach, potrzebujemy reakcji w nanosekundach – DSP dodałoby opóźnienie, które zdestabilizowałoby układ. Analogowy komparator jest tu niezastąpiony. I wreszcie – w najprostszych czujnikach IoT układ analogowy pobiera mikroampery, a cyfrowy potrzebowałby mikrokontrolera. Proszę spojrzeć na planszę – pokazuje ona te dwa scenariusze graniczne.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="300" fill="url(#gridAD)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c62828">Kiedy cyfra nie jest odpowiedzią na wszystko? (Granice technik)</text>
+            <svg viewBox="0 0 820 310" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="310" fill="url(#gridAD)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#c62828">Kiedy cyfra nie jest odpowiedzią na wszystko? (Granice technik)</text>
 
                 <!-- Scenariusz 1: Częstotliwość -->
-                <rect x="30" y="50" width="370" height="220" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="215" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Problem: Bardzo wysokie częstotliwości (RF/Mikrofale)</text>
-                <path d="M 60 180 Q 90 120 120 180 T 180 180 T 240 180 T 300 180 T 360 180" fill="none" stroke="#1565c0" stroke-width="4"/>
-                <text x="215" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Przy 30 GHz przetworniki ADC są drogie, pobierają dużo mocy.</text>
-                <text x="215" y="228" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Mikser analogowy i heterodyna są prostsze i tańsze.</text>
-                <text x="215" y="250" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Analog wciąż rządzi w antenach i radarach.</text>
+                <rect x="25" y="50" width="375" height="230" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2.5"/>
+                <text x="212" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Problem: Bardzo wysokie częstotliwości (RF/Mikrofale)</text>
+                <path d="M 55 195 Q 85 130 115 195 T 175 195 T 235 195 T 295 195 T 355 195" fill="none" stroke="#1565c0" stroke-width="4.5"/>
+                <text x="212" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">Przy 30 GHz przetworniki ADC są drogie, pobierają dużo mocy.</text>
+                <text x="212" y="245" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">Mikser analogowy i heterodyna są prostsze i tańsze.</text>
+                <text x="212" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Analog wciąż rządzi w antenach i radarach.</text>
 
                 <!-- Scenariusz 2: Opóźnienie -->
-                <rect x="420" y="50" width="370" height="220" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="605" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Problem: Zerowe opóźnienie (sprzężenie zwrotne)</text>
-                <circle cx="530" cy="150" r="30" fill="none" stroke="#2e7d32" stroke-width="4"/>
-                <path d="M 530 120 L 530 180" fill="none" stroke="#2e7d32" stroke-width="6" marker-end="url(#arrFB)"/>
-                <text x="530" y="100" font-family="sans-serif" font-size="12" fill="#1b5e20">IN</text>
-                <text x="530" y="210" font-family="sans-serif" font-size="12" fill="#1b5e20">OUT</text>
-                <text x="605" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Sterowanie PWM w przetwornicy musi reagować</text>
-                <text x="605" y="228" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">w ciągu nanosekund. DSP dodałoby opóźnienie.</text>
-                <text x="605" y="250" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Analogowy komparator jest tu niezastąpiony.</text>
+                <rect x="420" y="50" width="375" height="230" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="78" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Problem: Zerowe opóźnienie (sprzężenie zwrotne)</text>
+                <circle cx="535" cy="160" r="35" fill="none" stroke="#2e7d32" stroke-width="4.5"/>
+                <path d="M 535 125 L 535 195" fill="none" stroke="#2e7d32" stroke-width="7" marker-end="url(#arrFB)"/>
+                <text x="535" y="108" font-family="sans-serif" font-size="14" fill="#1b5e20">IN</text>
+                <text x="535" y="225" font-family="sans-serif" font-size="14" fill="#1b5e20">OUT</text>
+                <text x="607" y="225" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Sterowanie PWM w przetwornicy musi reagować</text>
+                <text x="607" y="245" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">w ciągu nanosekund. DSP dodałoby opóźnienie.</text>
+                <text x="607" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Analogowy komparator jest tu niezastąpiony.</text>
                 <defs>
-                    <marker id="arrFB" markerWidth="4" markerHeight="4" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrFB" markerWidth="6" markerHeight="6" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2e7d32"/></marker>
                 </defs>
             </svg>
 
@@ -235,6 +250,9 @@
                     <li><strong>Twierdzenie Nyquista to teoria.</strong> W praktyce, aby uniknąć aliasingu, potrzebujesz filtra anty-aliasingowego (analogowego!) przed przetwornikiem ADC, który wytnie częstotliwości powyżej połowy próbkowania.</li>
                     <li><strong>Błąd kwantyzacji jest nieusuwalny.</strong> W dźwięku cyfrowym objawia się to szumem tła. Techniki ditheringu (dodanie kontrolowanego szumu) maskują ten błąd, ale nie eliminują go.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – cyfra nie zawsze wygrywa. Przy bardzo wysokich częstotliwościach i w układach o minimalnym poborze mocy analog jest nadal lepszy. Po drugie – twierdzenie Nyquista wymaga fizycznego filtra anty-aliasingowego przed ADC, a ten filtr jest analogowy. Po trzecie – błąd kwantyzacji jest nieusuwalny, można go jedynie maskować ditheringiem. Cyfra daje nam perfekcyjne kopie i odporność na szum, ale płacimy za to przybliżeniem i opóźnieniem.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -244,19 +262,19 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Analog vs Cyfra:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Właściwość</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Technika analogowa</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Technika cyfrowa</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Właściwość</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Technika analogowa</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Technika cyfrowa</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding: 10px; font-weight: bold;">Reprezentacja</td><td style="padding: 10px;">Ciągła (nieskończona rozdzielczość)</td><td style="padding: 10px;">Dyskretna (próbki, poziomy kwantyzacji)</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">Szum / Zakłócenia</td><td style="padding: 10px;">Sumuje się, nieodwracalny</td><td style="padding: 10px;">Możliwa pełna regeneracja sygnału</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">Kopiowanie</td><td style="padding: 10px;">Stratne, degradacja generacyjna</td><td style="padding: 10px;">Bezstratne, idealne klony</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">Przechowywanie</td><td style="padding: 10px;">Degradacja nośnika = utrata jakości</td><td style="padding: 10px;">Perfekcyjne, dopóki dane są odczytane (kody CRC/korekcyjne)</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">Przetwarzanie</td><td style="padding: 10px;">Szybkie, proste układy, trudno zmienne</td><td style="padding: 10px;">B. złożone algorytmy, elastyczne, ale z opóźnieniem</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold;">Granice</td><td style="padding: 10px;">Króluje przy b. wysokich częstotliwościach i minimalnym opóźnieniu</td><td style="padding: 10px;">Króluje wszędzie tam, gdzie liczy się dokładność, przechowywanie i kopiowanie</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Reprezentacja</td><td style="padding: 10px;">Ciągła (nieskończona rozdzielczość)</td><td style="padding: 10px;">Dyskretna (próbki, poziomy kwantyzacji)</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Szum / Zakłócenia</td><td style="padding: 10px;">Sumuje się, nieodwracalny</td><td style="padding: 10px;">Możliwa pełna regeneracja sygnału</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Kopiowanie</td><td style="padding: 10px;">Stratne, degradacja generacyjna</td><td style="padding: 10px;">Bezstratne, idealne klony</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Przechowywanie</td><td style="padding: 10px;">Degradacja nośnika = utrata jakości</td><td style="padding: 10px;">Perfekcyjne, dopóki dane są odczytane (kody CRC/korekcyjne)</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Przetwarzanie</td><td style="padding: 10px;">Szybkie, proste układy, trudno zmienne</td><td style="padding: 10px;">B. złożone algorytmy, elastyczne, ale z opóźnieniem</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Granice</td><td style="padding: 10px;">Króluje przy b. wysokich częstotliwościach i minimalnym opóźnieniu</td><td style="padding: 10px;">Króluje wszędzie tam, gdzie liczy się dokładność, przechowywanie i kopiowanie</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -282,3 +300,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

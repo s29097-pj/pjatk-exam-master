@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 6px solid #ef6c00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(239,108,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">💡</span>
                 <div>
@@ -28,6 +28,9 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Dioda prostownicza / LED / Zenera</span>
@@ -42,6 +45,9 @@
             <span class="keyword-tag">Napięcie progowe / przewodzenia</span>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT                                                -->
+        <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- ======================================================== -->
@@ -52,6 +58,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Najprostszy element półprzewodnikowy. Powstaje przez połączenie kryształu typu P (nadmiar dziur) i typu N (nadmiar elektronów). Na granicy powstaje <strong>obszar zubożony</strong>, który działa jak bariera potencjału. Dioda przewodzi prąd tylko przy polaryzacji w kierunku przewodzenia (anoda +, katoda −). Kluczowe parametry: napięcie progowe (dla krzemu ~0.7 V), prąd przewodzenia, napięcie wsteczne przebicia.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, dioda to najprostszy element półprzewodnikowy – złącze P-N, które przewodzi tylko w jedną stronę. W kierunku przewodzenia potrzebuje napięcia progowego: dla krzemu to około 0.7 wolta, dla LED-ów od 2 do 3 woltów. W kierunku zaporowym nie przewodzi, chyba że przekroczymy napięcie przebicia – i tu właśnie pracuje dioda Zenera jako stabilizator napięcia. Proszę spojrzeć na planszę – pokazuje ona strukturę złącza i charakterystykę prądowo-napięciową.”
+                </div>
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Rodzaje diod:</strong>
                     <br>• <strong>Prostownicza:</strong> Duże prądy, zamienia AC na DC (mostek Graetza).
@@ -59,42 +68,43 @@
                     <br>• <strong>Zenera:</strong> Pracuje przy polaryzacji zaporowej. Utrzymuje stałe napięcie (stabilizator).
                 </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 290" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridSemi" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridSemi)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Dioda – Złącze P-N, polaryzacja i charakterystyka</text>
+                <rect x="0" y="0" width="820" height="290" fill="url(#gridSemi)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Dioda – Złącze P-N, polaryzacja i charakterystyka</text>
 
-                <g transform="translate(40, 50)">
-                    <rect x="0" y="20" width="60" height="30" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/><text x="30" y="40" text-anchor="middle" font-size="11" fill="#0d47a1">Typ P</text>
-                    <rect x="60" y="20" width="60" height="30" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/><text x="90" y="40" text-anchor="middle" font-size="11" fill="#b71c1c">Typ N</text>
-                    <line x1="110" y1="35" x2="180" y2="35" stroke="#e65100" stroke-width="3" marker-end="url(#arrDiode1)"/>
-                    <text x="145" y="25" font-size="10" fill="#e65100">Kierunek przewodzenia</text>
-                    <circle cx="220" cy="35" r="15" fill="none" stroke="#e65100" stroke-width="2"/>
-                    <line x1="220" y1="15" x2="220" y2="55" stroke="#e65100" stroke-width="2"/>
-                    <line x1="205" y1="35" x2="235" y2="35" stroke="#e65100" stroke-width="2"/>
+                <g transform="translate(40, 55)">
+                    <rect x="0" y="25" width="70" height="35" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5" rx="4"/><text x="35" y="48" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#0d47a1">Typ P</text>
+                    <rect x="70" y="25" width="70" height="35" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5" rx="4"/><text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#b71c1c">Typ N</text>
+                    <line x1="130" y1="42" x2="210" y2="42" stroke="#e65100" stroke-width="4" marker-end="url(#arrDiode1)"/>
+                    <text x="170" y="30" font-family="sans-serif" font-size="12" fill="#e65100">Kierunek przewodzenia</text>
+                    <circle cx="250" cy="42" r="18" fill="none" stroke="#e65100" stroke-width="3"/>
+                    <line x1="250" y1="20" x2="250" y2="64" stroke="#e65100" stroke-width="3"/>
+                    <line x1="234" y1="42" x2="266" y2="42" stroke="#e65100" stroke-width="3"/>
+                    <text x="250" y="90" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#e65100">Symbol diody</text>
                 </g>
 
-                <g transform="translate(300, 70)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828">Polaryzacja zaporowa</text>
-                    <line x1="20" y1="30" x2="80" y2="30" stroke="#c62828" stroke-width="3" marker-end="url(#arrDiode2)"/>
-                    <circle cx="120" cy="30" r="20" fill="none" stroke="#c62828" stroke-width="4" stroke-dasharray="4,3"/>
-                    <text x="140" y="55" font-size="10" fill="#b71c1c">Prąd nie płynie</text>
+                <g transform="translate(320, 70)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#c62828">Polaryzacja zaporowa</text>
+                    <line x1="20" y1="35" x2="90" y2="35" stroke="#c62828" stroke-width="4" marker-end="url(#arrDiode2)"/>
+                    <circle cx="135" cy="35" r="25" fill="none" stroke="#c62828" stroke-width="5" stroke-dasharray="6,4"/>
+                    <text x="160" y="65" font-family="sans-serif" font-size="12" fill="#b71c1c">Prąd nie płynie</text>
                 </g>
 
                 <g transform="translate(560, 60)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Charakterystyka I-V</text>
-                    <line x1="0" y1="80" x2="200" y2="80" stroke="#546e7a" stroke-width="2"/>
-                    <line x1="60" y1="120" x2="60" y2="20" stroke="#546e7a" stroke-width="2"/>
-                    <text x="200" y="85" font-size="10" fill="#546e7a">U</text><text x="50" y="15" font-size="10" fill="#546e7a">I</text>
-                    <path d="M 60 80 L 60 80 Q 60 80 80 80 T 120 40 T 200 30" fill="none" stroke="#2e7d32" stroke-width="3"/>
-                    <text x="160" y="40" font-size="10" fill="#2e7d32">~0.7V (Si)</text>
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Charakterystyka I-V</text>
+                    <line x1="0" y1="90" x2="220" y2="90" stroke="#546e7a" stroke-width="2.5"/>
+                    <line x1="70" y1="140" x2="70" y2="20" stroke="#546e7a" stroke-width="2.5"/>
+                    <text x="225" y="95" font-family="sans-serif" font-size="12" fill="#546e7a">U</text><text x="55" y="15" font-family="sans-serif" font-size="12" fill="#546e7a">I</text>
+                    <path d="M 70 90 L 70 90 Q 70 90 90 90 T 135 45 T 220 35" fill="none" stroke="#2e7d32" stroke-width="4"/>
+                    <text x="180" y="45" font-family="sans-serif" font-size="12" fill="#2e7d32">~0.7V (Si)</text>
                 </g>
 
                 <defs>
-                    <marker id="arrDiode1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
-                    <marker id="arrDiode2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c62828"/></marker>
+                    <marker id="arrDiode1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e65100"/></marker>
+                    <marker id="arrDiode2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#c62828"/></marker>
                 </defs>
             </svg>
 
@@ -106,48 +116,51 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     BJT to element trójkońcówkowy (baza B, emiter E, kolektor C). Działa jak <strong>sterowane źródło prądowe</strong>: niewielki prąd bazy I<sub>B</sub> kontroluje znacznie większy prąd kolektora I<sub>C</sub>. Wzmocnienie prądowe oznaczamy β (h<sub>FE</sub>). BJT ma trzy stany: zatkania (I<sub>B</sub>=0, tranzystor „wyłączony”), aktywny (wzmacniacz liniowy) i nasycenia (w pełni włączony, działa jak klucz). Podstawowe układy pracy: wspólny emiter (WE), wspólny kolektor (WC) i wspólna baza (WB).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Tranzystor bipolarny, BJT, to element trójkońcówkowy – baza, emiter, kolektor. Działa na zasadzie sterowania prądowego: mały prąd bazy kontroluje duży prąd kolektora. Wzmocnienie oznaczamy beta. BJT ma trzy stany: zatkania – wyłączony, aktywny – wzmacnia liniowo, i nasycenia – w pełni włączony jako klucz. Główne układy to wspólny emiter, wspólny kolektor i wspólna baza. BJT stosujemy we wzmacniaczach audio i układach kluczujących. Proszę spojrzeć na planszę – pokazuje ona symbol, stany pracy i zasadę wzmacniania.”
+                </div>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Zastosowanie:</strong> Wzmacniacze audio, układy kluczujące (sterowanie przekaźnikami, silnikami), stabilizatory napięcia. W technice cyfrowej BJT został w dużej mierze wyparty przez MOSFET.
                 </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridSemi)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Tranzystor bipolarny (BJT) – symbol, stany i wzmacnianie</text>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridSemi)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Tranzystor bipolarny (BJT) – symbol, stany i wzmacnianie</text>
 
                 <g transform="translate(60, 60)">
-                    <circle cx="80" cy="80" r="50" fill="none" stroke="#1565c0" stroke-width="3"/>
-                    <line x1="30" y1="80" x2="130" y2="80" stroke="#1565c0" stroke-width="3"/>
-                    <line x1="80" y1="30" x2="80" y2="50" stroke="#1565c0" stroke-width="3"/>
-                    <text x="10" y="85" font-family="monospace" font-size="12" fill="#0d47a1">C</text>
-                    <text x="75" y="25" font-family="monospace" font-size="12" fill="#0d47a1">B</text>
-                    <text x="135" y="85" font-family="monospace" font-size="12" fill="#0d47a1">E</text>
-                    <text x="80" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">NPN</text>
+                    <circle cx="80" cy="80" r="55" fill="none" stroke="#1565c0" stroke-width="3.5"/>
+                    <line x1="25" y1="80" x2="135" y2="80" stroke="#1565c0" stroke-width="3.5"/>
+                    <line x1="80" y1="25" x2="80" y2="50" stroke="#1565c0" stroke-width="3.5"/>
+                    <text x="5" y="85" font-family="monospace" font-size="14" fill="#0d47a1">C</text>
+                    <text x="72" y="22" font-family="monospace" font-size="14" fill="#0d47a1">B</text>
+                    <text x="142" y="85" font-family="monospace" font-size="14" fill="#0d47a1">E</text>
+                    <text x="80" y="165" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#0d47a1">NPN</text>
                 </g>
 
                 <g transform="translate(280, 60)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Stany pracy</text>
-                    <rect x="0" y="15" width="200" height="25" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
-                    <text x="100" y="33" text-anchor="middle" font-family="monospace" font-size="11" fill="#b71c1c">Zatkanie: I<sub>B</sub>=0, I<sub>C</sub>=0</text>
-                    <rect x="0" y="50" width="200" height="25" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
-                    <text x="100" y="68" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">Aktywny: I<sub>C</sub> = β · I<sub>B</sub></text>
-                    <rect x="0" y="85" width="200" height="25" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1"/>
-                    <text x="100" y="103" text-anchor="middle" font-family="monospace" font-size="11" fill="#e65100">Nasycenie: U<sub>CE</sub> ~ 0.2V</text>
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Stany pracy</text>
+                    <rect x="0" y="18" width="210" height="30" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                    <text x="105" y="38" text-anchor="middle" font-family="monospace" font-size="13" fill="#b71c1c">Zatkanie: I<sub>B</sub>=0, I<sub>C</sub>=0</text>
+                    <rect x="0" y="58" width="210" height="30" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                    <text x="105" y="78" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">Aktywny: I<sub>C</sub> = β · I<sub>B</sub></text>
+                    <rect x="0" y="98" width="210" height="30" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+                    <text x="105" y="118" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100">Nasycenie: U<sub>CE</sub> ~ 0.2V</text>
                 </g>
 
-                <g transform="translate(520, 60)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Układ WE (wzmacniacz)</text>
-                    <line x1="0" y1="40" x2="200" y2="40" stroke="#1565c0" stroke-width="2"/>
-                    <circle cx="100" cy="40" r="30" fill="none" stroke="#1565c0" stroke-width="2"/>
-                    <text x="100" y="45" text-anchor="middle" font-family="monospace" font-size="10" fill="#0d47a1">BJT</text>
-                    <path d="M 0 80 Q 50 90 50 60" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrBJT)"/>
-                    <text x="20" y="90" font-family="monospace" font-size="9" fill="#bf360c">I<sub>B</sub> (mały)</text>
-                    <path d="M 130 40 L 180 40" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrBJT2)"/>
-                    <text x="155" y="30" font-family="monospace" font-size="10" fill="#1b5e20">I<sub>C</sub> (duży)</text>
+                <g transform="translate(530, 60)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Układ WE (wzmacniacz)</text>
+                    <line x1="0" y1="45" x2="210" y2="45" stroke="#1565c0" stroke-width="2.5"/>
+                    <circle cx="105" cy="45" r="35" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+                    <text x="105" y="50" text-anchor="middle" font-family="monospace" font-size="12" fill="#0d47a1">BJT</text>
+                    <path d="M 0 90 Q 55 100 55 65" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrBJT)"/>
+                    <text x="20" y="105" font-family="monospace" font-size="11" fill="#bf360c">I<sub>B</sub> (mały)</text>
+                    <path d="M 140 45 L 195 45" fill="none" stroke="#2e7d32" stroke-width="3.5" marker-end="url(#arrBJT2)"/>
+                    <text x="165" y="35" font-family="monospace" font-size="12" fill="#1b5e20">I<sub>C</sub> (duży)</text>
                 </g>
 
                 <defs>
-                    <marker id="arrBJT" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#e65100"/></marker>
-                    <marker id="arrBJT2" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><path d="M0,0 L4,2 L0,4 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrBJT" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
+                    <marker id="arrBJT2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
                 </defs>
             </svg>
 
@@ -159,41 +172,44 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor) jest podstawowym elementem współczesnych układów scalonych. W przeciwieństwie do BJT, <strong>sterowany jest napięciem</strong> (prąd bramki jest praktycznie zerowy). Posiada trzy końcówki: bramkę (G), źródło (S) i dren (D). Napięcie między G a S tworzy pole elektryczne, które otwiera lub zamyka kanał przewodzący między D i S. MOSFET-y dzielimy na kanał N i P, a każdy typ może być zubożany (normalnie przewodzący) lub wzbogacany (normalnie zablokowany).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „MOSFET to król współczesnej elektroniki cyfrowej. Sterowany jest napięciem – prąd bramki jest praktycznie zerowy. Napięcie między bramką a źródłem tworzy pole elektryczne, które otwiera lub zamyka kanał przewodzący między drenem a źródłem. Mamy MOSFET-y z kanałem N i P, normalnie wyłączone i normalnie załączone. Technologia CMOS łączy je w pary komplementarne, dzięki czemu bramki logiczne pobierają mikroskopijny prąd. Proszę spojrzeć na planszę – pokazuje ona symbol, strukturę i parę CMOS realizującą negację.”
+                </div>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Zastosowanie:</strong> Bramki logiczne CMOS (komplementarne pary N i P MOSFET), przetwornice DC/DC, sterowniki silników (PWM), pamięci Flash (pływająca bramka).
                 </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridSemi)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">MOSFET – Symbol, struktura i zasada działania</text>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridSemi)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">MOSFET – Symbol, struktura i zasada działania</text>
 
-                <g transform="translate(60, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Symbol (kanał N)</text>
-                    <line x1="20" y1="50" x2="120" y2="50" stroke="#2e7d32" stroke-width="3"/>
-                    <line x1="70" y1="30" x2="70" y2="50" stroke="#2e7d32" stroke-width="3"/>
-                    <line x1="70" y1="10" x2="70" y2="30" stroke="#2e7d32" stroke-width="3"/>
-                    <text x="5" y="55" font-family="monospace" font-size="11" fill="#1b5e20">S</text>
-                    <text x="65" y="15" font-family="monospace" font-size="11" fill="#1b5e20">G</text>
-                    <text x="125" y="55" font-family="monospace" font-size="11" fill="#1b5e20">D</text>
+                <g transform="translate(60, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Symbol (kanał N)</text>
+                    <line x1="20" y1="55" x2="130" y2="55" stroke="#2e7d32" stroke-width="3.5"/>
+                    <line x1="75" y1="30" x2="75" y2="55" stroke="#2e7d32" stroke-width="3.5"/>
+                    <line x1="75" y1="10" x2="75" y2="30" stroke="#2e7d32" stroke-width="3.5"/>
+                    <text x="2" y="60" font-family="monospace" font-size="14" fill="#1b5e20">S</text>
+                    <text x="68" y="12" font-family="monospace" font-size="14" fill="#1b5e20">G</text>
+                    <text x="138" y="60" font-family="monospace" font-size="14" fill="#1b5e20">D</text>
                 </g>
 
-                <g transform="translate(260, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Zasada: kanał przewodzący</text>
-                    <rect x="0" y="20" width="180" height="40" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="4"/>
-                    <line x1="0" y1="30" x2="0" y2="50" stroke="#c62828" stroke-width="2"/>
-                    <text x="30" y="45" font-family="monospace" font-size="10" fill="#1b5e20">Bramka (G) – pole elektryczne</text>
-                    <text x="30" y="70" font-family="monospace" font-size="10" fill="#1b5e20">Kanał przewodzi, gdy U<sub>GS</sub> &gt; U<sub>th</sub></text>
+                <g transform="translate(270, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Zasada: kanał przewodzący</text>
+                    <rect x="0" y="25" width="190" height="45" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5" rx="6"/>
+                    <line x1="0" y1="35" x2="0" y2="55" stroke="#c62828" stroke-width="2.5"/>
+                    <text x="35" y="52" font-family="monospace" font-size="12" fill="#1b5e20">Bramka (G) – pole elektryczne</text>
+                    <text x="35" y="82" font-family="monospace" font-size="12" fill="#1b5e20">Kanał przewodzi, gdy U<sub>GS</sub> &gt; U<sub>th</sub></text>
                 </g>
 
-                <g transform="translate(520, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">CMOS (N+P) – bramka NOT</text>
-                    <line x1="40" y1="30" x2="40" y2="100" stroke="#546e7a" stroke-width="2"/>
-                    <line x1="80" y1="30" x2="80" y2="100" stroke="#546e7a" stroke-width="2"/>
-                    <rect x="20" y="30" width="40" height="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                    <rect x="60" y="30" width="40" height="30" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                    <text x="40" y="20" font-family="monospace" font-size="9" fill="#1b5e20">P-MOS</text>
-                    <text x="80" y="20" font-family="monospace" font-size="9" fill="#1b5e20">N-MOS</text>
-                    <text x="60" y="120" font-family="sans-serif" font-size="10" fill="#1b5e20">Niski pobór mocy</text>
+                <g transform="translate(530, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">CMOS (N+P) – bramka NOT</text>
+                    <line x1="45" y1="35" x2="45" y2="110" stroke="#546e7a" stroke-width="2.5"/>
+                    <line x1="90" y1="35" x2="90" y2="110" stroke="#546e7a" stroke-width="2.5"/>
+                    <rect x="25" y="35" width="40" height="35" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5" rx="4"/>
+                    <rect x="65" y="35" width="40" height="35" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5" rx="4"/>
+                    <text x="45" y="22" font-family="monospace" font-size="12" fill="#1b5e20">P-MOS</text>
+                    <text x="85" y="22" font-family="monospace" font-size="12" fill="#1b5e20">N-MOS</text>
+                    <text x="67" y="135" font-family="sans-serif" font-size="12" fill="#1b5e20">Niski pobór mocy</text>
                 </g>
             </svg>
 
@@ -205,33 +221,36 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Tyrystor (SCR – Silicon Controlled Rectifier)</strong> jest elementem czterowarstwowym (PNPN). Krótki impuls dodatni na bramce (G) powoduje jego <strong>trwałe załączenie</strong> – przewodzi on nawet po zaniku sygnału bramki. Wyłącza się dopiero, gdy główny prąd (anoda-katoda) spadnie poniżej prądu podtrzymania. <strong>Triak</strong> to dwa tyrystory połączone przeciwrównolegle – może przewodzić w obu kierunkach. Stosowane do ściemniaczy oświetlenia i sterowania silnikami AC.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Tyrystor, czyli SCR, to element zatrzaskowy. Wystarczy krótki impuls na bramkę, a tyrystor załącza się na stałe i przewodzi, nawet gdy impuls zniknie. Wyłączy się dopiero, gdy główny prąd spadnie poniżej prądu podtrzymania – w sieci AC dzieje się to przy każdym przejściu przez zero. Triak to dwa tyrystory przeciwrównolegle – przewodzi w obie strony. Oba stosuje się do sterowania mocą: ściemniacze oświetlenia, regulatory obrotów silników. Proszę spojrzeć na planszę – pokazuje ona symbole i zasadę działania ściemniacza na triaku.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="url(#gridSemi)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Tyrystor (SCR) i Triak – Przełączniki mocy</text>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="url(#gridSemi)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">Tyrystor (SCR) i Triak – Przełączniki mocy</text>
 
-                <g transform="translate(40, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">SCR – Tyrystor</text>
-                    <path d="M 20 40 L 60 20 L 60 60 Z" fill="none" stroke="#c62828" stroke-width="3"/>
-                    <line x1="20" y1="40" x2="40" y2="40" stroke="#c62828" stroke-width="2"/>
-                    <line x1="60" y1="30" x2="80" y2="20" stroke="#c62828" stroke-width="2"/>
-                    <text x="5" y="45" font-family="monospace" font-size="10" fill="#b71c1c">A</text>
-                    <text x="85" y="20" font-family="monospace" font-size="10" fill="#b71c1c">G</text>
-                    <text x="80" y="70" font-family="sans-serif" font-size="10" fill="#c62828">Przewodzi po impulsie bramki</text>
+                <g transform="translate(40, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">SCR – Tyrystor</text>
+                    <path d="M 20 45 L 65 20 L 65 70 Z" fill="none" stroke="#c62828" stroke-width="3.5"/>
+                    <line x1="20" y1="45" x2="45" y2="45" stroke="#c62828" stroke-width="2.5"/>
+                    <line x1="65" y1="35" x2="90" y2="20" stroke="#c62828" stroke-width="2.5"/>
+                    <text x="0" y="50" font-family="monospace" font-size="13" fill="#b71c1c">A</text>
+                    <text x="98" y="22" font-family="monospace" font-size="13" fill="#b71c1c">G</text>
+                    <text x="0" y="95" font-family="sans-serif" font-size="12" fill="#c62828">Przewodzi po impulsie bramki</text>
                 </g>
 
-                <g transform="translate(280, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Triak</text>
-                    <path d="M 20 40 L 60 20 L 60 60 Z" fill="none" stroke="#c62828" stroke-width="3"/>
-                    <path d="M 60 20 L 100 40 L 60 60 Z" fill="none" stroke="#c62828" stroke-width="3"/>
-                    <text x="60" y="80" font-family="sans-serif" font-size="10" fill="#c62828">Steruje AC w obu kierunkach</text>
+                <g transform="translate(290, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Triak</text>
+                    <path d="M 20 45 L 65 20 L 65 70 Z" fill="none" stroke="#c62828" stroke-width="3.5"/>
+                    <path d="M 65 20 L 110 45 L 65 70 Z" fill="none" stroke="#c62828" stroke-width="3.5"/>
+                    <text x="60" y="100" font-family="sans-serif" font-size="12" fill="#c62828">Steruje AC w obu kierunkach</text>
                 </g>
 
-                <g transform="translate(520, 50)">
-                    <text x="0" y="0" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Ściemniacz (Triak)</text>
-                    <path d="M 0 40 Q 40 20 80 40 T 160 40" fill="none" stroke="#ff8f00" stroke-width="3"/>
-                    <line x1="40" y1="40" x2="40" y2="20" stroke="#c62828" stroke-width="2" stroke-dasharray="4,2"/>
-                    <text x="80" y="70" font-family="sans-serif" font-size="10" fill="#b71c1c">Opóźnienie załączenia = regulacja mocy</text>
+                <g transform="translate(530, 55)">
+                    <text x="0" y="0" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Ściemniacz (Triak)</text>
+                    <path d="M 0 45 Q 45 20 90 45 T 180 45" fill="none" stroke="#ff8f00" stroke-width="3.5"/>
+                    <line x1="45" y1="45" x2="45" y2="20" stroke="#c62828" stroke-width="2.5" stroke-dasharray="5,3"/>
+                    <text x="90" y="85" font-family="sans-serif" font-size="12" fill="#b71c1c">Opóźnienie załączenia = regulacja mocy</text>
                 </g>
             </svg>
 
@@ -243,35 +262,38 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Układ scalony (Integrated Circuit)</strong> to cały obwód elektroniczny (tranzystory, rezystory, kondensatory) zminiaturyzowany na pojedynczej płytce krzemowej. Skala integracji wzrosła od SSI (kilka tranzystorów) do VLSI (miliardy tranzystorów). Najważniejsze typy: układy cyfrowe (procesory, pamięci, FPGA), układy analogowe (wzmacniacze operacyjne, stabilizatory) i mieszane (przetworniki ADC/DAC).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Układy scalone to zwieńczenie miniaturyzacji. Od kilku tranzystorów w wzmacniaczu operacyjnym, przez miliony w pamięci DRAM, po miliardy w procesorze. Skala integracji: SSI, MSI, LSI, VLSI. Mamy układy cyfrowe – procesory, pamięci, FPGA – układy analogowe – wzmacniacze, stabilizatory – i mieszane – przetworniki ADC i DAC. Wszystkie one są zbudowane z poznanych wcześniej elementów: diod i tranzystorów. Proszę spojrzeć na planszę – pokazuje ona ewolucję od pojedynczego wzmacniacza do procesora.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridSemi)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Układy scalone (IC) – Od wzmacniacza do procesora</text>
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="url(#gridSemi)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Układy scalone (IC) – Od wzmacniacza do procesora</text>
 
-                <g transform="translate(40, 60)">
-                    <rect x="0" y="0" width="140" height="50" fill="#e0e0e0" stroke="#424242" stroke-width="2" rx="8"/>
-                    <text x="70" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Wzmacniacz Op-Amp</text>
-                    <text x="70" y="70" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">(kilka tranzystorów)</text>
+                <g transform="translate(35, 65)">
+                    <rect x="0" y="0" width="160" height="55" fill="#e0e0e0" stroke="#424242" stroke-width="3" rx="10"/>
+                    <text x="80" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#000">Wzmacniacz Op-Amp</text>
+                    <text x="80" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(kilka tranzystorów)</text>
                 </g>
 
-                <g transform="translate(220, 60)">
-                    <rect x="0" y="0" width="140" height="50" fill="#e0e0e0" stroke="#424242" stroke-width="2" rx="8"/>
-                    <text x="70" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Pamięć DRAM</text>
-                    <text x="70" y="70" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">(miliony tranzystorów)</text>
+                <g transform="translate(225, 65)">
+                    <rect x="0" y="0" width="160" height="55" fill="#e0e0e0" stroke="#424242" stroke-width="3" rx="10"/>
+                    <text x="80" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#000">Pamięć DRAM</text>
+                    <text x="80" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(miliony tranzystorów)</text>
                 </g>
 
-                <g transform="translate(400, 60)">
-                    <rect x="0" y="0" width="140" height="50" fill="#e0e0e0" stroke="#424242" stroke-width="2" rx="8"/>
-                    <text x="70" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#000">Procesor CPU</text>
-                    <text x="70" y="70" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">(miliardy tranzystorów)</text>
+                <g transform="translate(415, 65)">
+                    <rect x="0" y="0" width="160" height="55" fill="#e0e0e0" stroke="#424242" stroke-width="3" rx="10"/>
+                    <text x="80" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#000">Procesor CPU</text>
+                    <text x="80" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">(miliardy tranzystorów)</text>
                 </g>
 
-                <g transform="translate(580, 60)">
-                    <rect x="0" y="0" width="180" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="8"/>
-                    <text x="90" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0d47a1">FPGA – programowalny układ cyfrowy</text>
+                <g transform="translate(605, 65)">
+                    <rect x="0" y="0" width="180" height="55" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" rx="10"/>
+                    <text x="90" y="35" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#0d47a1">FPGA – programowalny układ</text>
                 </g>
 
-                <text x="410" y="180" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a148c">Skala integracji: SSI → MSI → LSI → VLSI (miliardy elementów na jednej kości).</text>
+                <text x="410" y="185" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4a148c">Skala integracji: SSI → MSI → LSI → VLSI (miliardy elementów na jednej kości).</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -285,6 +307,9 @@
                     <li><strong>Tyrystor nie wyłączy się sam!</strong> Po załączeniu impulsem bramki przewodzi nadal, nawet po odłączeniu bramki. Wyłączenie wymaga zaniku głównego prądu.</li>
                     <li><strong>CMOS ≠ pojedynczy tranzystor.</strong> To para komplementarnych MOSFET-ów (N i P). Główna zaleta: pobór mocy tylko podczas przełączania stanów.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, cztery kluczowe pułapki. Po pierwsze – dioda potrzebuje napięcia progowego, nie przewodzi od zera. Po drugie – BJT sterujemy prądem bazy, a MOSFET napięciem bramki. Po trzecie – tyrystor to zatrzask, nie wyłączy się po zaniku impulsu bramki – musi spaść główny prąd. Po czwarte – CMOS to para komplementarnych MOSFET-ów, a nie pojedynczy tranzystor, i dlatego pobiera moc tylko przy przełączaniu.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -294,17 +319,17 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Elementy półprzewodnikowe:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Element</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasada działania</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowe cechy</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Element</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasada działania</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowe cechy</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding: 10px; font-weight: bold; color: #e65100;">Dioda</td><td style="padding: 10px;">Złącze P-N, przewodzi w jednym kierunku</td><td style="padding: 10px;">U<sub>F</sub> ~0.7 V (Si), LED: 2-3 V. Zenera: stabilizacja napięcia.</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">BJT (NPN/PNP)</td><td style="padding: 10px;">Prąd bazy steruje prądem kolektora (β)</td><td style="padding: 10px;">Stany: zatkanie/aktywny/nasycenie. Wzmacniacze i klucze.</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold; color: #2e7d32;">MOSFET</td><td style="padding: 10px;">Napięcie bramki tworzy kanał przewodzący</td><td style="padding: 10px;">Bardzo duża rezystancja wejściowa. CMOS = N+P.</td></tr>
-                        <tr><td style="padding: 10px; font-weight: bold; color: #c62828;">Tyrystor (SCR)</td><td style="padding: 10px;">Zatrzask – impuls bramki trwale załącza</td><td style="padding: 10px;">Wyłączenie tylko przez spadek prądu głównego. Sterowanie mocą.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #e65100;">Dioda</td><td style="padding: 10px;">Złącze P-N, przewodzi w jednym kierunku</td><td style="padding: 10px;">U<sub>F</sub> ~0.7 V (Si), LED: 2-3 V. Zenera: stabilizacja napięcia.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #1565c0;">BJT (NPN/PNP)</td><td style="padding: 10px;">Prąd bazy steruje prądem kolektora (β)</td><td style="padding: 10px;">Stany: zatkanie/aktywny/nasycenie. Wzmacniacze i klucze.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #2e7d32;">MOSFET</td><td style="padding: 10px;">Napięcie bramki tworzy kanał przewodzący</td><td style="padding: 10px;">Bardzo duża rezystancja wejściowa. CMOS = N+P.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold; color: #c62828;">Tyrystor (SCR)</td><td style="padding: 10px;">Zatrzask – impuls bramki trwale załącza</td><td style="padding: 10px;">Wyłączenie tylko przez spadek prądu głównego. Sterowanie mocą.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -330,3 +355,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>

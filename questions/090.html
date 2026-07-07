@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🛂</span>
                 <div>
@@ -57,6 +57,10 @@
                 </p>
             </div>
 
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, konfigurację routera opieramy na trzech filarach. Pierwszy to interfejs WAN – czyli jak łączymy się z internetem od dostawcy. Drugi to sieć LAN i DHCP – jak rozdzielamy adresy wewnątrz naszej firmy czy domu. Trzeci to NAT i ewentualnie Port Forwarding – jak tłumaczymy adresy prywatne na publiczne i jak wpuszczamy wybrane usługi ze świata do środka. Bez NAT nasze komputery z adresami 192.168.x.x byłyby niewidzialne w internecie. Proszę spojrzeć na planszę – pokazuje ona dokładnie, gdzie jest granica między WAN a LAN i gdzie działa mechanizm NAT.”
+            </div>
+
             <!-- SVG 1: TOPOLOGIA I NAT -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="280" fill="#e8f5e9" opacity="0.4"/>
@@ -74,11 +78,11 @@
                 <!-- ROUTER -->
                 <rect x="310" y="50" width="200" height="180" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <text x="410" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">ROUTER</text>
-                
+
                 <!-- Interfejsy Routera -->
                 <rect x="295" y="120" width="30" height="30" rx="4" fill="#ffcc80" stroke="#f57c00" stroke-width="2"/>
                 <text x="310" y="139" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">W</text>
-                
+
                 <rect x="495" y="120" width="30" height="30" rx="4" fill="#a5d6a7" stroke="#388e3c" stroke-width="2"/>
                 <text x="510" y="139" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">L</text>
 
@@ -87,7 +91,7 @@
                 <text x="410" y="118" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Mechanizm NAT</text>
                 <text x="410" y="135" font-family="monospace" font-size="9" fill="#37474f" text-anchor="middle">Pub IP: 83.12.X.X</text>
                 <text x="410" y="155" font-family="monospace" font-size="9" fill="#37474f" text-anchor="middle">&lt; TŁUMACZENIE &gt;</text>
-                
+
                 <text x="410" y="215" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Serwer DHCP (Pula adresów)</text>
 
 
@@ -99,7 +103,7 @@
                 <!-- PC 1 -->
                 <rect x="630" y="120" width="120" height="25" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
                 <text x="690" y="136" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">PC 1: 192.168.1.10</text>
-                
+
                 <!-- PC 2 -->
                 <rect x="630" y="160" width="120" height="25" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
                 <text x="690" y="176" font-family="monospace" font-size="10" fill="#0d47a1" text-anchor="middle">PC 2: 192.168.1.11</text>
@@ -108,7 +112,7 @@
                 <!-- KABLE -->
                 <!-- WAN to Router -->
                 <path d="M 220 135 L 295 135" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedNet)"/>
-                
+
                 <!-- Router to LAN -->
                 <path d="M 525 135 L 630 135" fill="none" stroke="#1976d2" stroke-width="4" marker-end="url(#arrowBlueNet)"/>
 
@@ -131,6 +135,10 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kiedy klient mówi "Nie mam internetu", inżynier nie restartuje komputera w ciemno. Używa wiersza poleceń (CLI), aby zlokalizować punkt awarii. Używamy tu trzech komend:
                 </p>
+            </div>
+
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak to powiedzieć:</strong> „Gdy mamy problem z siecią, nie zgadujemy – diagnozujemy warstwowo. Zaczynamy od `ipconfig` – sprawdzamy, czy komputer w ogóle dostał adres IP i adres bramy domyślnej. Potem używamy `ping` w trzech krokach: najpierw localhost, potem brama, potem internet. Na końcu `tracert` pokazuje nam dokładnie, na którym routerze po drodze pakiety się gubią. To pozwala udowodnić, czy awaria jest u nas, czy u dostawcy internetu. Proszę spojrzeć na planszę – pokazuje ona metodologię ping krok po kroku.”
             </div>
 
             <!-- SVG 2: PING I TRACEROUTE -->
@@ -169,7 +177,7 @@
                 <path d="M 80 200 Q 180 220 270 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
                 <path d="M 270 200 Q 375 220 470 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
                 <path d="M 470 200 Q 580 220 680 200" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrowOrgDiag)"/>
-                
+
                 <text x="385" y="225" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">TRACEROUTE (Wykrywanie ścieżki i skoków)</text>
                 <text x="385" y="240" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Odkrywa "po kolei" każdy router (Hop) na trasie. Ujawnia, GDZIE urwał się kabel.</text>
 
@@ -179,13 +187,79 @@
                 </defs>
             </svg>
 
+            <!-- SVG 3: METODOLOGIA PING KROK PO KROKU -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Metodologia inżynierska: Diagnostyka Ping krok po kroku</text>
+
+                <!-- Krok 1: Ping 127.0.0.1 -->
+                <rect x="30" y="50" width="240" height="240" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <rect x="30" y="50" width="240" height="35" rx="8" fill="#1565c0"/>
+                <rect x="30" y="70" width="240" height="15" fill="#1565c0"/>
+                <text x="150" y="73" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Krok 1: ping 127.0.0.1</text>
+
+                <circle cx="150" cy="115" r="20" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="150" y="121" font-family="monospace" font-size="14" fill="#0d47a1" text-anchor="middle">🖥️</text>
+
+                <text x="150" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Test karty sieciowej (localhost)</text>
+                <text x="150" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Sprawdza, czy stos TCP/IP</text>
+                <text x="150" y="192" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">w Twoim własnym komputerze</text>
+                <text x="150" y="209" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">jest sprawny.</text>
+
+                <rect x="45" y="230" width="210" height="45" rx="4" fill="#e8f5e9"/>
+                <text x="150" y="250" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Sukces → Karta sieciowa OK</text>
+                <text x="150" y="265" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">❌ Brak → Awaria sterownika/systemu</text>
+
+
+                <!-- Krok 2: Ping Bramy -->
+                <rect x="290" y="50" width="240" height="240" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <rect x="290" y="50" width="240" height="35" rx="8" fill="#f57c00"/>
+                <rect x="290" y="70" width="240" height="15" fill="#f57c00"/>
+                <text x="410" y="73" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Krok 2: ping 192.168.1.1</text>
+
+                <circle cx="410" cy="115" r="20" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="410" y="121" font-family="monospace" font-size="14" fill="#e65100" text-anchor="middle">📡</text>
+
+                <text x="410" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Test łączności z routerem (Brama)</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Sprawdza, czy kabel/Wi-Fi</text>
+                <text x="410" y="192" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">do routera jest sprawne</text>
+                <text x="410" y="209" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">i czy router odpowiada.</text>
+
+                <rect x="305" y="230" width="210" height="45" rx="4" fill="#e8f5e9"/>
+                <text x="410" y="250" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Sukces → LAN działa poprawnie</text>
+                <text x="410" y="265" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Brak → Problem z kablem/Wi-Fi/routerem</text>
+
+
+                <!-- Krok 3: Ping Internetu -->
+                <rect x="550" y="50" width="240" height="240" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <rect x="550" y="50" width="240" height="35" rx="8" fill="#2e7d32"/>
+                <rect x="550" y="70" width="240" height="15" fill="#2e7d32"/>
+                <text x="670" y="73" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Krok 3: ping 8.8.8.8</text>
+
+                <circle cx="670" cy="115" r="20" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="670" y="121" font-family="monospace" font-size="14" fill="#1b5e20" text-anchor="middle">🌍</text>
+
+                <text x="670" y="155" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Test wyjścia na świat (Internet)</text>
+                <text x="670" y="175" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Sprawdza, czy router</text>
+                <text x="670" y="192" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">przepuszcza ruch do sieci</text>
+                <text x="670" y="209" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">globalnej (NAT, routing).</text>
+
+                <rect x="565" y="230" width="210" height="45" rx="4" fill="#e8f5e9"/>
+                <text x="670" y="250" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Sukces → Internet działa globalnie</text>
+                <text x="670" y="265" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Brak → Awaria WAN/routera/ISP</text>
+            </svg>
+
             <!-- KOMENDY W PRAKTYCE -->
             <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                 <li><strong><code>ipconfig /all</code> (Windows) lub <code>ifconfig / ip a</code> (Linux):</strong> Krok zerowy. Sprawdza, czy nasz komputer w ogóle dostał poprawną adresację z serwera DHCP. Sprawdzamy tu, czy adres BRAMY (Gateway) jest wypełniony. Brak bramy = brak możliwości wyjścia z LAN do internetu.</li>
-                <li><strong><code>ping</code>:</strong> Korzysta z warstwy sieciowej (Protokół ICMP). Wysyła pakiety <em>Echo Request</em> i czeka na <em>Echo Reply</em>. 
+                <li><strong><code>ping</code>:</strong> Korzysta z warstwy sieciowej (Protokół ICMP). Wysyła pakiety <em>Echo Request</em> i czeka na <em>Echo Reply</em>.
                     <br><em>Metodologia inżynierska (Ping na 3 fronty):</em> Najpierw <code>ping 127.0.0.1</code> (czy moja własna karta sieciowa działa?), potem <code>ping [IP_Routera]</code> (czy mam połączenie kablem/WIFI z moją bramą domyślną?), a na końcu <code>ping 8.8.8.8</code> (czy mój router faktycznie wypuszcza mnie do globalnego internetu?).</li>
                 <li><strong><code>tracert</code> (Windows) lub <code>traceroute</code> (Linux):</strong> Pokazuje całą ścieżkę pakietu. Działa poprzez manipulowanie parametrem <strong>TTL (Time To Live)</strong>. Wysyła pakiet z TTL=1, więc "umiera" on na pierwszym routerze, który odsyła błąd. Potem z TTL=2 (umiera na drugim). Dzięki temu rysuje nam pełną mapę urządzeń po drodze. Pozwala udowodnić klientowi: <em>"To nie nasza sieć firmowa padła, paczki urywają się dopiero na węźle we Frankfurcie u dostawcy ISP"</em>.</li>
             </ul>
+
+            <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                <strong>🗣️ Jak to powiedzieć (podsumowując diagnostykę):</strong> „Podsumowując diagnostykę: `ipconfig` to krok zerowy – sprawdzamy, czy w ogóle mamy adres IP i bramę. `ping` w trzech krokach izoluje problem: localhost → karta OK, brama → LAN OK, 8.8.8.8 → internet OK. `tracert` pokazuje mapę drogi i punkt awarii. Te trzy komendy to podstawowy zestaw każdego inżyniera sieci. Bez nich wróżymy z fusów, z nimi precyzyjnie lokalizujemy usterkę.”
+            </div>
 
             <!-- ======================================================== -->
             <!-- PUŁAPKI EGZAMINACYJNE                                   -->
@@ -196,6 +270,9 @@
                     <li><strong>"Ping timeout = Serwer nie działa":</strong> BZDURA! Uczelnie z przyjemnością weryfikują ten błąd. Brak odpowiedzi na komendę <code>ping</code> ("Request timed out") wcale nie oznacza, że serwer jest wyłączony. W dzisiejszych czasach większość sprzętowych Firewalli oraz systemów (w tym domyślny Windows Defender) celowo <strong>blokuje i odrzuca pakiety ICMP (Ping)</strong> w celach bezpieczeństwa, aby ukryć się przed skanerami hakerów. Serwer webowy (port 80/TCP) może działać perfekcyjnie, mimo że <code>ping</code> do niego zwraca 100% strat.</li>
                     <li><strong>Mylenie roli NAT:</strong> Router sam w sobie nie potrzebuje NAT, by działać. Prawdziwe, korporacyjne routery na szkielecie internetu po prostu przekazują pakiety (Routing). Konieczność używania translacji NAT wynika wyłącznie z faktu, że skończyły się publiczne adresy IPv4 i wewnątrz domów musimy używać darmowych, prywatnych pul adresowych (192.168.x.x), które są nierutowalne w globalnym internecie.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, największe pułapki to dwie. Po pierwsze – brak odpowiedzi na ping nie oznacza, że serwer nie działa. Firewalle często blokują ICMP, więc serwer WWW może działać, a ping pokaże timeout. Po drugie – NAT nie jest niezbędny do działania routera. To rozwiązanie wymuszone brakiem adresów IPv4. W sieciach korporacyjnych i w IPv6 routery po prostu przekazują pakiety bez translacji adresów.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

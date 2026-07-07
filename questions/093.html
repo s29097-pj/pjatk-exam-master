@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #eceff1 0%, #cfd8dc 100%); border-left: 6px solid #455a64; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(69,90,100,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏰</span>
                 <div>
@@ -53,50 +53,92 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #455a64;">1. Fundament: Triada CIA (Cel Bezpieczeństwa)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Bezpieczeństwo to nie jest po prostu "instalowanie antywirusa". Bezpieczeństwo to proces zarządzania ryzykiem, którego nadrzędnym celem jest ochrona trzech właściwości informacji, znanych jako <strong>Triada CIA (Confidentiality, Integrity, Availability)</strong>. Każdy znany atak hakerski uderza w co najmniej jeden z tych wierzchołków.
+                    Bezpieczeństwo to nie jest po prostu „instalowanie antywirusa”. Bezpieczeństwo to proces zarządzania ryzykiem, którego nadrzędnym celem jest ochrona trzech właściwości informacji, znanych jako <strong>Triada CIA (Confidentiality, Integrity, Availability)</strong>. Każdy znany atak hakerski uderza w co najmniej jeden z tych wierzchołków.
                 </p>
+                <!-- 🗣️ Jak to powiedzieć – przeniesione do tego bloku -->
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, bezpieczeństwo IT przeszło fundamentalną ewolucję. Kiedyś myśleliśmy kategoriami zamku – mur i fosa na brzegu sieci. Kto był w środku, był zaufany. Dziś wiemy, że to nie działa – hakerzy i ransomware przedostają się przez pendrive'y, phishing, ataki na zdalny pulpit. Obecny paradygmat to Zero Trust – nikomu nie ufamy domyślnie, nawet wewnątrz sieci. Weryfikujemy każdą tożsamość i każde żądanie, jak na lotnisku: bilet, kontrola bezpieczeństwa, bramka. To jest kluczowa zmiana w myśleniu o bezpieczeństwie.”
+                </div>
             </div>
 
-            <!-- SVG 1: TRIADA CIA -->
-            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="300" fill="#f5f7f8"/>
+            <!-- SVG 1: TRIADA CIA (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 330" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="330" fill="#f5f7f8"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#263238">Święty Graal Bezpieczeństwa: Triada CIA</text>
 
                 <!-- Trójkąt CIA -->
-                <polygon points="410,70 250,230 570,230" fill="#e0e0e0" stroke="#90a4ae" stroke-width="4" stroke-linejoin="round"/>
-                
+                <polygon points="410,70 240,240 580,240" fill="#e0e0e0" stroke="#90a4ae" stroke-width="4" stroke-linejoin="round"/>
+
                 <!-- Wierzchołek 1: Confidentiality -->
                 <circle cx="410" cy="70" r="35" fill="#1565c0" stroke="#fff" stroke-width="3"/>
-                <text x="410" y="65" font-family="sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">C</text>
-                <text x="410" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0" text-anchor="middle">POUFNOŚĆ</text>
-                <text x="410" y="140" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Tylko uprawnieni widzą)</text>
+                <text x="410" y="65" font-family="sans-serif" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">C</text>
+                <text x="410" y="125" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1565c0" text-anchor="middle">POUFNOŚĆ</text>
+                <text x="410" y="142" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Tylko uprawnieni widzą)</text>
 
                 <!-- Wierzchołek 2: Integrity -->
-                <circle cx="250" cy="230" r="35" fill="#2e7d32" stroke="#fff" stroke-width="3"/>
-                <text x="250" y="225" font-family="sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">I</text>
-                <text x="170" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">INTEGRALNOŚĆ</text>
-                <text x="170" y="240" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Dane nie są</text>
-                <text x="170" y="255" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">zmieniane w locie)</text>
+                <circle cx="240" cy="240" r="35" fill="#2e7d32" stroke="#fff" stroke-width="3"/>
+                <text x="240" y="235" font-family="sans-serif" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">I</text>
+                <text x="170" y="235" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">INTEGRALNOŚĆ</text>
+                <text x="170" y="252" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(Dane nie są zmieniane w locie)</text>
 
                 <!-- Wierzchołek 3: Availability -->
-                <circle cx="570" cy="230" r="35" fill="#d32f2f" stroke="#fff" stroke-width="3"/>
-                <text x="570" y="225" font-family="sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
-                <text x="660" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">DOSTĘPNOŚĆ</text>
-                <text x="660" y="240" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(System działa i</text>
-                <text x="660" y="255" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">odpowiada na czas)</text>
+                <circle cx="580" cy="240" r="35" fill="#d32f2f" stroke="#fff" stroke-width="3"/>
+                <text x="580" y="235" font-family="sans-serif" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+                <text x="660" y="235" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">DOSTĘPNOŚĆ</text>
+                <text x="660" y="252" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">(System działa i odpowiada na czas)</text>
 
-                <!-- Boxy z atakami -->
-                <rect x="290" y="45" width="240" height="25" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-dasharray="2,2" transform="translate(140, -10)"/>
-                <text x="550" y="52" font-family="sans-serif" font-size="10" fill="#0d47a1" font-weight="bold">Atak: Sniffing (Podsłuch), Kradzież bazy.</text>
-                <text x="550" y="64" font-family="sans-serif" font-size="9" fill="#0d47a1">Obrona: Szyfrowanie (AES/TLS).</text>
+                <!-- Ataki – przesunięte na dół, czytelniejsze -->
+                <rect x="270" y="290" width="280" height="30" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-dasharray="2,2"/>
+                <text x="410" y="310" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Atak na POUFNOŚĆ: Sniffing, kradzież bazy danych</text>
 
-                <rect x="40" y="270" width="220" height="25" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-dasharray="2,2"/>
-                <text x="150" y="277" font-family="sans-serif" font-size="10" fill="#1b5e20" font-weight="bold">Atak: MITM (Zmiana salda w locie).</text>
-                <text x="150" y="289" font-family="sans-serif" font-size="9" fill="#1b5e20">Obrona: Sumy kontrolne (Hashe SHA), Certyfikaty.</text>
+                <rect x="40" y="290" width="210" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-dasharray="2,2"/>
+                <text x="145" y="310" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Atak na INTEGRALNOŚĆ: MITM</text>
 
-                <rect x="560" y="270" width="220" height="25" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-dasharray="2,2"/>
-                <text x="670" y="277" font-family="sans-serif" font-size="10" fill="#b71c1c" font-weight="bold">Atak: DDoS (Zalanie serwera ruchem).</text>
-                <text x="670" y="289" font-family="sans-serif" font-size="9" fill="#b71c1c">Obrona: Klastry (Redundancja), Cloudflare.</text>
+                <rect x="570" y="290" width="210" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-dasharray="2,2"/>
+                <text x="675" y="310" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Atak na DOSTĘPNOŚĆ: DDoS</text>
+            </svg>
+
+            <!-- SVG 2: ZAMEK vs ZERO TRUST (POPRAWIONA CZYTELNOŚĆ) -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="#f5f5f5"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#263238">Ewolucja paradygmatu: Zamek (Perimeter) → Zero Trust</text>
+
+                <!-- MODEL ZAMKU -->
+                <rect x="30" y="45" width="360" height="240" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="210" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#c62828" text-anchor="middle">❌ Stary model: Zamek (Perimeter Security)</text>
+
+                <!-- Mury i fosa -->
+                <path d="M 60 90 Q 100 70 140 90 L 140 200 Q 100 220 60 200 Z" fill="#ffebee" stroke="#ef5350" stroke-width="2"/>
+                <text x="100" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Firewall</text>
+                <text x="100" y="152" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">(Mur+Fosa)</text>
+
+                <!-- Wnętrze – wszyscy zaufani -->
+                <rect x="160" y="95" width="200" height="145" rx="4" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5"/>
+                <text x="260" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Sieć wewnętrzna – ZAUFANA</text>
+                <text x="260" y="140" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">• Serwery baz danych</text>
+                <text x="260" y="158" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">• Stacje robocze</text>
+                <text x="260" y="176" font-family="sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">• Drukarki, kamery IP</text>
+                <text x="260" y="200" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">⚠️ Problem: ransomware</text>
+                <text x="260" y="218" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">w środku = dostęp do wszystkiego!</text>
+
+                <!-- MODEL ZERO TRUST -->
+                <rect x="430" y="45" width="360" height="240" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="610" y="68" font-family="sans-serif" font-size="13" font-weight="bold" fill="#2e7d32" text-anchor="middle">✅ Nowy model: Zero Trust (Lotnisko)</text>
+
+                <!-- Kontrole -->
+                <rect x="450" y="90" width="320" height="30" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="610" y="110" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Kontrola 1: Uwierzytelnianie (MFA)</text>
+
+                <rect x="450" y="130" width="320" height="30" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="610" y="150" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Kontrola 2: Autoryzacja (PoLP)</text>
+
+                <rect x="450" y="170" width="320" height="30" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="610" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Kontrola 3: Szyfrowanie (TLS, VPN)</text>
+
+                <rect x="450" y="210" width="320" height="30" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="610" y="230" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Kontrola 4: Monitoring (IDS/IPS, SIEM)</text>
+
+                <text x="610" y="270" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">„Nigdy nie ufaj, zawsze weryfikuj”</text>
             </svg>
 
             <!-- PART 2: ZAGROŻENIA -->
@@ -111,9 +153,12 @@
                     <li><strong>Ataki Sieciowe (MITM - Man In The Middle):</strong> Haker staje na ścieżce między klientem a serwerem (np. wystawiając fałszywą, publiczną sieć Wi-Fi w kawiarni "Free_Coffee_WiFi"). Odbiera ruch, modyfikuje go w locie (np. zmieniając numer konta przy przelewie) i przekazuje dalej.</li>
                     <li><strong>Najsłabsze ogniwo: Inżynieria Społeczna (Phishing):</strong> Zamiast miesiącami łamać 256-bitowy klucz szyfrujący, haker dzwoni do pracownika podając się za dział IT i prosi o podanie hasła. W 90% przypadków to czynnik ludzki (kliknięcie w fałszywy link e-mail) jest powodem włamania.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zagrożenia dzielimy na kilka kategorii. DDoS – atak na dostępność, botnet zalewa serwer ruchem. Ransomware – szyfruje dane i żąda okupu, uderza w integralność i dostępność jednocześnie. MITM – haker staje między klientem a serwerem, modyfikuje dane w locie. I najważniejsze – phishing i socjotechnika. W 90% przypadków to człowiek jest najsłabszym ogniwem, nie technologia. Haker nie będzie łamał szyfrowania, jeśli może zadzwonić i poprosić o hasło. Proszę spojrzeć na planszę z wizualizacją ataków DDoS i MITM.”
+                </div>
             </div>
 
-            <!-- SVG 2: ANATOMIA ATAKÓW -->
+            <!-- SVG 3: ANATOMIA ATAKÓW (delikatnie poprawiona) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fff" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#d32f2f">Wizualizacja dwóch kluczowych ataków</text>
@@ -157,13 +202,13 @@
 
                 <!-- Sciezki -->
                 <path d="M 490 135 L 575 135" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrowRedSec)"/>
-                <text x="532" y="125" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Hasło: 123</text>
+                <text x="532" y="125" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Hasło: 123</text>
 
                 <path d="M 635 135 L 720 135" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrowRedSec)"/>
-                <text x="677" y="125" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Hasło: 123</text>
+                <text x="677" y="125" font-family="monospace" font-size="10" fill="#c62828" text-anchor="middle">Hasło: 123</text>
 
                 <path d="M 465 110 Q 605 80 745 100" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="4,4"/>
-                <text x="605" y="90" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Ochrona: HTTPS zrywa ten most!</text>
+                <text x="605" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Ochrona: HTTPS zrywa ten most!</text>
 
                 <defs>
                     <marker id="arrowRedSec" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
@@ -184,6 +229,9 @@
                         Firewall to strażnik portów, blokujący ruch na poziomie IP/Portu. <em>IDS (Intrusion Detection System)</em> to alarm – analizuje pakiety w poszukiwaniu anomalii i powiadamia admina. <em>IPS (Intrusion Prevention System)</em> to alarm połączony z automatycznym ryglowaniem drzwi – potrafi zablokować atakujący adres IP w locie.</li>
                     <li><strong>Kryptografia:</strong> Stosowanie szyfrowania dysków (BitLocker), tuneli VPN (ukrywanie pakietów w zaszyfrowanych kopertach) oraz protokołów TLS (HTTPS), które całkowicie eliminują zagrożenie atakiem MITM, ponieważ nawet przechwycone pakiety są dla hakera ciągiem bezsensownych bajtów.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mechanizmy obronne opieramy na strategii 'obrony w głąb' – wielu warstwach. Pierwsza warstwa to uwierzytelnianie i autoryzacja – nie mylmy tych pojęć. Uwierzytelnianie to 'kim jesteś', autoryzacja to 'co ci wolno'. Kluczowa jest zasada najmniejszych przywilejów. Druga warstwa to Firewall, IDS i IPS – zapora, detekcja i prewencja włamań. Trzecia warstwa to kryptografia: szyfrowanie dysków, VPN i TLS. TLS całkowicie eliminuje atak MITM, ponieważ haker widzi tylko zaszyfrowane bajty. Te warstwy muszą być stosowane razem – żadna pojedyncza nie wystarczy.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -195,6 +243,9 @@
                     <li><strong>"Szyfrowanie bazy danych chroni przed wyciekiem (kradzieżą)"</strong> – Zasadniczy błąd logiczny. Samo zaszyfrowanie bazy chroni tylko przed kradzieżą fizycznego serwera lub dysku. Jeśli jednak haker zhakuje API Twojej aplikacji WWW i wywoła złośliwą kwerendę (SQL Injection), aplikacja uczynnie <em>odszyfruje</em> dla niego te dane i wyśle czystym tekstem, ponieważ sama aplikacja ma przecież klucz. Szyfrowanie to ochrona fizyczna (Data at Rest) oraz transportowa (Data in Transit), a nie warstwa chroniąca przed logiką aplikacji.</li>
                     <li><strong>Mylenie Uwierzytelniania i Autoryzacji:</strong> Błąd dyskwalifikujący. Wykładowca zapyta: "Czym jest logowanie?". Logowanie to uwierzytelnianie (AuthN). Błąd "401 Unauthorized" (mimo nazwy!) oznacza, że nie wiemy, kim jesteś. "403 Forbidden" to błąd Autoryzacji (AuthZ) – wiemy, kim jesteś, ale nie masz tam wstępu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – szyfrowanie bazy danych nie chroni przed SQL Injection. Jeśli aplikacja ma klucz, to odszyfruje dane hakerowi na żądanie. Szyfrowanie chroni przed kradzieżą fizyczną, a nie przed atakiem na logikę aplikacji. Po drugie – uwierzytelnianie to nie autoryzacja. Login i hasło to uwierzytelnianie – 'kim jesteś'. Autoryzacja to 'co ci wolno'. Kody HTTP dobrze to pokazują: 401 to brak uwierzytelnienia, 403 to brak autoryzacji mimo poprawnego logowania.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

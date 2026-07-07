@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pytanie 88</title>
+    <title>Pytanie 88 – Klasyfikacje sieci komputerowych</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/script.js"></script>
 </head>
@@ -13,27 +13,63 @@
     <div class="question-box">
         <h2 id="q-title">88. Klasyfikacje sieci komputerowych - rodzaje i charakterystyka.</h2>
 
+        <!-- ============================================================ -->
+        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- ============================================================ -->
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2.2rem; flex-shrink: 0;">🌐</span>
+                <div>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Autostrady, ulice i chodniki – sieci komputerowe jako system dróg”:</strong>
+                    <p style="margin: 0 0 8px 0; color: #1a237e; line-height: 1.7;">
+                        Sieci komputerowe najlepiej zrozumieć jako system dróg i autostrad, po których podróżują dane.<br><br>
+                        <strong>PAN (Personal Area Network)</strong> to chodnik przed Twoim domem – łączy Twoje osobiste urządzenia na kilka metrów (Bluetooth, kabel USB). <strong>LAN (Local Area Network)</strong> to osiedlowa ulica – szybka, lokalna, łączy komputery w jednym budynku (Ethernet, Wi-Fi). <strong>MAN (Metropolitan Area Network)</strong> to miejska obwodnica – spinająca kilka dzielnic w całość (światłowody w metropolii). <strong>WAN (Wide Area Network)</strong> to autostrada międzykontynentalna – łączy miasta, kraje i kontynenty (Internet). Routery i przełączniki to węzły przesiadkowe, a pakiety danych to samochody sunące po tych drogach z zawrotną prędkością.
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a237e; line-height: 1.8;">
+                        <li><strong>🔵 PAN</strong> – chodnik przed domem: Bluetooth, zasięg kilku metrów.</li>
+                        <li><strong>🟠 LAN</strong> – osiedlowa ulica: Ethernet, Wi-Fi, budynek lub kampus.</li>
+                        <li><strong>🟢 MAN / Backbone</strong> – miejska obwodnica: światłowody w metropolii, >100 Mb/s.</li>
+                        <li><strong>🟣 WAN</strong> – autostrada międzykontynentalna: Internet, satelity, kable podmorskie.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- KEYWORDS – ACTIVE RECALL TAGS                               -->
+        <!-- ============================================================ -->
         <div class="keywords-box" style="margin-bottom: 25px;">
-            <span class="keywords-title">Kryteria oceny i Słowa kluczowe (Active Recall):</span>
+            <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">PAN, LAN, MAN, WAN, Backbone (Szkieletowa)</span>
             <span class="keyword-tag">Hosty, Tor transmisji, Węzły intersieciowe</span>
             <span class="keyword-tag">10 Mb/s – 1 Gb/s (LAN), >100 Mb/s (MAN)</span>
             <span class="keyword-tag">Transmisja szeregowa vs równoległa</span>
             <span class="keyword-tag">Klient-Serwer, Peer-to-Peer (P2P)</span>
             <span class="keyword-tag">Global computing</span>
+            <span class="keyword-tag">Protokół komunikacyjny (TCP/IP)</span>
+            <span class="keyword-tag">Topologia sieci (gwiazda, magistrala, pierścień)</span>
+            <span class="keyword-tag">Przepływność (przepustowość)</span>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <div class="answer-step">
-                <strong>1. Podstawowe elementy (Środowisko sieciowe)</strong> <br><br>
+            <!-- PART 1: PODSTAWOWE ELEMENTY -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Podstawowe elementy (Środowisko sieciowe)</strong> <br><br>
                 Przez sieć komputerową rozumie się zbiór wzajemnie połączonych <strong>komputerów autonomicznych</strong> zdolnych do wymiany informacji w cyfrowych formatach danych. Zanim podzielimy sieci pod kątem wielkości, musimy poznać jej klocki budulcowe. Standardowe środowisko tworzą:<br><br>
                 • <strong>Komputery (Hosty):</strong> Serwery o większej mocy obliczeniowej świadczące usługi, oraz maszyny użytkowników (stacje robocze) o mniejszej mocy.<br>
                 • <strong>Tor transmisji danych (Medium):</strong> Zapewnia fizyczne połączenie. Może być przewodowy (skrętka, światłowód) lub bezprzewodowy.<br>
                 • <strong>Urządzenia intersieciowe (Węzły):</strong> Sprzęt kierujący ruchem, taki jak przełączniki (switche) czy routery.<br><br>
                 Całość spina <strong>protokół komunikacyjny</strong> – zbiór zasad i procedur transmisji danych między elementami sieci.
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zacznijmy od fundamentów. Każda sieć – niezależnie od wielkości – składa się z trzech elementów: hostów, czyli komputerów końcowych, medium transmisyjnego – kabla lub fal radiowych, oraz urządzeń intersieciowych – switchy i routerów, które kierują ruchem. Całość spina protokół, czyli zbiór zasad, według których te urządzenia się komunikują. Proszę spojrzeć na pierwszy schemat – pokazuje on przepływ danych od stacji roboczej przez przełącznik i router aż do sieci WAN.”
+                </div>
             </div>
 
+            <!-- SVG 1: KOMPONENTY SPRZĘTOWE -->
             <svg viewBox="0 0 800 200" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
                 <text x="400" y="30" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#2c3e50">Komponenty sprzętowe w typowej sieci</text>
 
@@ -63,15 +99,20 @@
                 <text x="730" y="100" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">WAN</text>
             </svg>
 
-            <div class="answer-step">
-                <strong>2. Klasyfikacja ze względu na zasięg geograficzny</strong> <br><br>
+            <!-- PART 2: KLASYFIKACJA ZE WZGLĘDU NA ZASIĘG -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Klasyfikacja ze względu na zasięg geograficzny</strong> <br><br>
                 Podstawowa klasyfikacja oparta jest na dystansie, na jaki przenoszone są informacje. Skala rośnie od jednego stanowiska aż po cały świat:<br><br>
                 • <strong>PAN (Personal Area Network):</strong> Obejmuje zasięg kilku metrów (np. Bluetooth), łącząc osobiste urządzenia.<br>
                 • <strong>LAN (Local Area Network):</strong> Ograniczona zwykle do budynku lub kampusu (do kilku kilometrów). Wykorzystuje transmisję bezpołączeniową o przepływnościach <strong>10 Mb/s – 1 Gb/s</strong> (np. Wi-Fi, Ethernet).<br>
                 • <strong>MAN (Metropolitan) i Sieci Szkieletowe (Backbone):</strong> Historycznie kluczowe sieci o przepływnościach >100 Mb/s (standardy DQDB i FDDI na światłowodach). MAN obsługiwał metropolie, a Backbone łączył LAN-y dużych korporacji. Dziś są wypierane przez szybkie linki WAN.<br>
                 • <strong>WAN (Wide Area Network):</strong> Sieć o <strong>zasięgu globalnym</strong>. Bazuje na istniejącej infrastrukturze telekomunikacyjnej, a jej najpotężniejszym i najszybciej rozwijanym standardem komercyjnym jest Internet.
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Klasyfikacja według zasięgu to podstawa. PAN – kilka metrów, Bluetooth między telefonem a słuchawkami. LAN – budynek, Ethernet i Wi-Fi, przepływności od 10 Mb/s do 1 Gb/s. MAN – metropolia, światłowody, >100 Mb/s, standardy DQDB i FDDI. WAN – globalny zasięg, Internet, kable podmorskie i satelity. Proszę spojrzeć na planszę z okręgami – im większy okrąg, tym większy zasięg. Warto też pamiętać, że MAN i Backbone są dziś często zastępowane szybkimi łączami WAN.”
+                </div>
             </div>
 
+            <!-- SVG 2: WIZUALIZACJA ZASIĘGU -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
                 <defs>
                     <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -108,13 +149,18 @@
                 </g>
             </svg>
 
-            <div class="answer-step">
-                <strong>3. Klasyfikacja ze względu na architekturę ról</strong> <br><br>
+            <!-- PART 3: KLASYFIKACJA ZE WZGLĘDU NA ROLE -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Klasyfikacja ze względu na architekturę ról</strong> <br><br>
                 Niezależnie od rozmiaru, komputery w sieci mogą przyjmować różne role logiczne:<br><br>
                 • <strong>Klient-Serwer:</strong> Główny ciężar spoczywa na serwerze. To on przechowuje dane i świadczy usługi, podczas gdy stacje robocze (klienci) wysyłają do niego żądania.<br>
                 • <strong>Peer-to-Peer (P2P):</strong> Pełne równouprawnienie (brak serwera centralnego). Każdy komputer udostępnia zasoby i jednocześnie z nich korzysta (np. sieci BitTorrent).
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Niezależnie od zasięgu, sieci dzielimy też według ról. Model klient-serwer to hierarchia: serwer przechowuje dane i świadczy usługi, klienci wysyłają żądania. Model P2P to równość – każdy komputer jest jednocześnie klientem i serwerem, jak w BitTorrencie. W P2P nie ma centralnego punktu awarii, ale trudniej zarządzać bezpieczeństwem. Proszę spojrzeć na planszę – pokazuje ona te dwa modele wizualnie.”
+                </div>
             </div>
 
+            <!-- SVG 3: ARCHITEKTURA RÓL -->
             <svg viewBox="0 0 800 200" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
                 <text x="200" y="30" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1976d2">Architektura Klient-Serwer</text>
                 <rect x="160" y="70" width="80" height="60" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
@@ -145,14 +191,19 @@
                 <line x1="552" y1="140" x2="648" y2="140" stroke="#388e3c" stroke-width="2"/>
             </svg>
 
-            <div class="answer-step">
-                <strong>4. Transmisja i trendy: Global Computing</strong> <br><br>
+            <!-- PART 4: TRANSMISJA I TRENDY -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">4. Transmisja i trendy: Global Computing</strong> <br><br>
                 Z perspektywy najniższych warstw, w urządzeniach intersieciowych wyróżnia się dwa typy transmisji danych:<br>
                 • <strong>Równoległa:</strong> Równoczesna transmisja wielu bitów na raz (szybka lokalnie, podatna na zakłócenia na dystansie).<br>
                 • <strong>Szeregowa:</strong> Bity przesyłane są sekwencyjnie w czasie, jeden po drugim (standard dla najszybszych połączeń odległościowych, jak światłowody).<br><br>
                 Obecnie wspólnym wyznacznikiem rozwoju jest zacieranie się tych klasycznych podziałów. Nazywamy to trendem <strong>Global Computing</strong>. Oznacza on budowę rozproszonych systemów o światowym zasięgu (jak chmury obliczeniowe w Internecie), gdzie zasoby udostępniane są globalnie i przezroczysto dla końcowego użytkownika.
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec o transmisji i trendach. Mamy dwa typy: równoległą – wiele bitów naraz, szybka lokalnie, oraz szeregową – bity jeden po drugim, standard dla światłowodów i WAN-ów. Współcześnie granice między PAN, LAN, MAN i WAN się zacierają – mówimy o Global Computing. Chmury obliczeniowe, CDN-y, serwery rozsiane po całym świecie – użytkownik nie wie i nie musi wiedzieć, gdzie fizycznie są jego dane. To jest właśnie Global Computing: zasoby globalne, dostęp lokalny, przezroczystość lokalizacji.”
+                </div>
             </div>
 
+            <!-- SVG 4: TRANSMISJA -->
             <svg viewBox="0 0 800 180" width="100%" style="background:#f8f9fa; border:2px solid #e0e6ed; border-radius:10px; margin: 0 0 25px 0;">
                 <text x="200" y="30" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c2185b">Transmisja Szeregowa</text>
                 <rect x="50" y="60" width="30" height="40" rx="3" fill="#34495e"/>
@@ -187,16 +238,60 @@
                 <text x="600" y="150" font-family="sans-serif" font-size="11" font-style="italic" fill="#7f8c8d" text-anchor="middle">Równoczesna transmisja wielu bitów</text>
             </svg>
 
-            <div style="margin-top: 15px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- ======================================================== -->
+            <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
+                <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Częste haczyki z sieci):</strong>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
+                    <li><strong>MAN a WAN – nie mylić metropolii z globalnością:</strong> MAN to sieć miejska (np. światłowody w obrębie jednego miasta). WAN to sieć globalna (Internet). Egzaminator może zapytać: „Czy MAN to to samo co mały WAN?” – odpowiedź brzmi NIE, to osobna kategoria o specyficznych standardach (DQDB, FDDI).</li>
+                    <li><strong>Backbone (szkieletowa) – nie rozmiar, a funkcja:</strong> Sieć szkieletowa nie jest definiowana przez zasięg, ale przez funkcję – to główna magistrala łącząca mniejsze sieci LAN. Może być częścią MAN lub WAN.</li>
+                    <li><strong>Przepływność LAN: 10 Mb/s – 1 Gb/s:</strong> To zakres historyczny i współczesny. Egzaminator może zapytać o konkretne wartości – Ethernet zaczynał od 10 Mb/s, dziś standardem jest 1 Gb/s w skrętce.</li>
+                    <li><strong>P2P a bezpieczeństwo:</strong> W P2P nie ma centralnego serwera, więc nie ma jednego punktu awarii, ale też nie ma centralnego zarządzania bezpieczeństwem – każdy peer odpowiada za siebie.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, najczęstsze pułapki to mylenie MAN z WAN – MAN to metropolia, WAN to globalny zasięg. Backbone to funkcja, nie rozmiar – łączy LAN-y w ramach organizacji. Przepływności LAN: od historycznych 10 Mb/s do dzisiejszego 1 Gb/s. No i P2P – brak centralnego serwera to zaleta w zakresie odporności na awarie, ale wyzwanie w zakresie bezpieczeństwa.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                               -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Klasyfikacje sieci komputerowych:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ sieci</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Zasięg</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przepływność</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Przykład</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">PAN</td><td style="padding: 10px;">Kilka metrów</td><td style="padding: 10px;">Do kilku Mb/s</td><td style="padding: 10px;">Bluetooth, USB</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">LAN</td><td style="padding: 10px;">Budynek / kampus (kilka km)</td><td style="padding: 10px;">10 Mb/s – 1 Gb/s</td><td style="padding: 10px;">Ethernet, Wi-Fi</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">MAN / Backbone</td><td style="padding: 10px;">Metropolia (kilkadziesiąt km)</td><td style="padding: 10px;">>100 Mb/s</td><td style="padding: 10px;">DQDB, FDDI (światłowody)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">WAN</td><td style="padding: 10px;">Globalny (tysiące km)</td><td style="padding: 10px;">Różna (od Mb/s do Tb/s)</td><td style="padding: 10px;">Internet, sieci satelitarne</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Klient-Serwer</td><td style="padding: 10px;" colspan="3">Serwer centralny świadczy usługi, klienci wysyłają żądania. Łatwe zarządzanie, jeden punkt awarii.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Peer-to-Peer (P2P)</td><td style="padding: 10px;" colspan="3">Każdy host jest równocześnie klientem i serwerem. Brak centralnego punktu awarii, trudniejsze bezpieczeństwo.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
+            <!-- ======================================================== -->
+            <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
+                    🧠 <strong>Grokking means truly understanding.</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Sieci komputerowe to system dróg dla danych. PAN to chodnik, LAN to osiedlowa ulica, MAN to obwodnica, WAN to autostrada międzykontynentalna. Routery i przełączniki to węzły przesiadkowe, pakiety to pojazdy, a protokoły to kodeks drogowy. Zrozumienie tej hierarchii – od Bluetootha w słuchawkach po kable podmorskie spinające kontynenty – to fundament wiedzy każdego inżyniera sieci i nie tylko. Global Computing zaciera granice między tymi kategoriami, ale sama klasyfikacja pozostaje podstawą egzaminu.</span>
+                </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia (Źródło opracowania):</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Kryminalistyka cyfrowa", Rozdział 3.1 (Klasyfikacja sieci komputerowych), str. 84 oraz inżynierskie opracowanie własne.
+                    „Kryminalistyka cyfrowa”, Rozdział 3.1 (Klasyfikacja sieci komputerowych), str. 84 oraz inżynierskie opracowanie własne.
                 </span>
             </div>
 
-        </div>
-    </div>
-
-</div>
+        </div><!-- /answer-section -->
+    </div><!-- /question-box -->
+</div><!-- /container -->
 </body>
 </html>

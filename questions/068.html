@@ -14,11 +14,11 @@
         <h2 id="q-title">068. Model przyrostowy a model iteracyjny: charakterystyka, role osobowe, zalety, wady, zastosowanie.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🚗</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Budowa samochodu: dwa podejścia, jeden cel”:</strong>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Budowa samochodu: dwa podejścia, jeden cel":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
                         Wyobraź sobie, że masz zbudować samochód. Możesz to zrobić na dwa sposoby. <strong>Sposób pierwszy (przyrostowy):</strong> najpierw budujesz deskorolkę z silnikiem – jeździ, ale nie ma dachu. Potem dodajesz karoserię – już wygląda jak auto. Na końcu montujesz radio i klimatyzację. W każdej chwili masz działający pojazd, który stopniowo zyskuje nowe funkcje.
                     </p>
@@ -58,6 +58,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>W praktyce oba modele są często łączone:</strong> każdy przyrost przechodzi przez kilka iteracji, a każda iteracja może dodawać nowy przyrost. Nowoczesny Agile (Scrum) łączy obie idee.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Podstawowa różnica jest taka: model przyrostowy dodaje nowe funkcje do działającego rdzenia – jak dokładanie kolejnych klocków do budowli. Model iteracyjny szlifuje całość – jak rzeźbiarz, który za każdym razem poprawia całą rzeźbę. W przyrostowym każdy kawałek przechodzi przez mini-Waterfall. W iteracyjnym każda wersja to kompletny, choć niedoskonały system. W praktyce oba modele są łączone – na przykład w Scrumie każdy Sprint dostarcza przyrost, a kolejne Sprinty iterują nad tym, co już powstało."
+                </div>
             </div>
 
             <!-- SVG: Porównanie wizualne -->
@@ -141,6 +144,9 @@
                         </span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oba modele różnią się rolami i procesem. W przyrostowym kluczową rolę odgrywa Project Manager, który dzieli system na funkcjonalne kawałki, oraz Architekt, który musi od początku przewidzieć rozbudowę. W iteracyjnym najważniejszy jest Product Owner i UX Designer, bo to oni zbierają feedback i decydują, co poprawiamy w kolejnej iteracji. Model przyrostowy świetnie sprawdza się przy MVP, gdzie chcemy szybko dostarczyć część wartości. Model iteracyjny jest lepszy, gdy wymagania są niejasne i musimy je odkrywać przez prototypowanie."
+                </div>
             </div>
 
             <!-- 3. Przykład praktyczny -->
@@ -148,25 +154,31 @@
                 <strong style="font-size: 1.2rem; color: #c2185b;">3. Przykład: System do rezerwacji sal konferencyjnych</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Podejście przyrostowe:</strong> Przyrost 1 – tylko przeglądanie dostępnych sal. Przyrost 2 – dodanie rezerwacji z potwierdzeniem email. Przyrost 3 – dodanie panelu administratora. Każdy przyrost działa samodzielnie, a użytkownicy mogą korzystać z systemu od razu po pierwszym.<br>
-                    <strong>Podejście iteracyjne:</strong> Iteracja 1 – prototyp z listą sal (działa tylko wyświetlanie, reszta to „atrapy”). Iteracja 2 – dodajemy logikę rezerwacji, ale UI jest surowe. Iteracja 3 – szlifujemy UI, dodajemy walidację, poprawiamy wydajność. Po każdej iteracji cały system jest lepszy, a nie większy.
+                    <strong>Podejście iteracyjne:</strong> Iteracja 1 – prototyp z listą sal (działa tylko wyświetlanie, reszta to „atrapy"). Iteracja 2 – dodajemy logikę rezerwacji, ale UI jest surowe. Iteracja 3 – szlifujemy UI, dodajemy walidację, poprawiamy wydajność. Po każdej iteracji cały system jest lepszy, a nie większy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Spójrzmy na konkretny przykład systemu rezerwacji sal. W podejściu przyrostowym pierwszy przyrost daje użytkownikom możliwość przeglądania sal – już mogą z tego korzystać. Drugi przyrost dodaje rezerwacje, trzeci panel administratora. W podejściu iteracyjnym pierwsza wersja to prototyp, gdzie większość funkcji to atrapy. Druga iteracja dodaje prawdziwą logikę, trzecia szlifuje interfejs i wydajność. W przyrostowym system rośnie wszerz, w iteracyjnym – w głąb. To bardzo ważna różnica, którą egzaminatorzy często sprawdzają."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Różnice, które musisz znać):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Przyrostowy = iteracyjny, to synonimy”</strong> – NIE. Przyrostowy dodaje nowe rzeczy do działającego systemu. Iteracyjny szlifuje całość przez kolejne wersje. Na egzaminie oczekują, że wskażesz tę różnicę.</li>
-                    <li><strong>„Model iteracyjny nie wymaga planowania”</strong> – Wręcz przeciwnie. Każda iteracja jest planowana, ale plan obejmuje tylko tę jedną iterację, a nie cały projekt na dwa lata do przodu.</li>
-                    <li><strong>„W modelu przyrostowym nie można się cofnąć”</strong> – Można, ale wymaga to zmian w architekturze. Przyrosty powinny być projektowane tak, by nie blokowały przyszłych dodatków (zasada Open-Closed).</li>
+                    <li><strong>„Przyrostowy = iteracyjny, to synonimy"</strong> – NIE. Przyrostowy dodaje nowe rzeczy do działającego systemu. Iteracyjny szlifuje całość przez kolejne wersje. Na egzaminie oczekują, że wskażesz tę różnicę.</li>
+                    <li><strong>„Model iteracyjny nie wymaga planowania"</strong> – Wręcz przeciwnie. Każda iteracja jest planowana, ale plan obejmuje tylko tę jedną iterację, a nie cały projekt na dwa lata do przodu.</li>
+                    <li><strong>„W modelu przyrostowym nie można się cofnąć"</strong> – Można, ale wymaga to zmian w architekturze. Przyrosty powinny być projektowane tak, by nie blokowały przyszłych dodatków (zasada Open-Closed).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki. Po pierwsze, przyrostowy i iteracyjny to nie synonimy – przyrostowy dodaje nowe funkcje, iteracyjny udoskonala całość. Na egzaminie trzeba wyraźnie wskazać tę różnicę. Po drugie, model iteracyjny nie jest chaotyczny – każda iteracja jest planowana, ale plan obejmuje tylko najbliższą iterację. Po trzecie, w modelu przyrostowym można się cofać, ale wymaga to zmian w architekturze, dlatego przyrosty projektuje się zgodnie z zasadą Open-Closed – otwarte na rozbudowę, zamknięte na modyfikacje."
+                </div>
             </div>
 
             <!-- Grokking -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Przyrostowy i iteracyjny to dwie strony tej samej monety – obie są reakcją na sztywność Waterfalla. Przyrostowy mówi: „Dostarczajmy po kawałku, od razu użyteczne”. Iteracyjny mówi: „Uczmy się na błędach, udoskonalajmy całość”. Gdy połączysz oba – jak w Scrumie – otrzymujesz proces, który dostarcza wartość szybko i stale ją ulepsza. Prawdziwy inżynier nie wybiera jednego, tylko świadomie miesza oba podejścia.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Przyrostowy i iteracyjny to dwie strony tej samej monety – obie są reakcją na sztywność Waterfalla. Przyrostowy mówi: „Dostarczajmy po kawałku, od razu użyteczne". Iteracyjny mówi: „Uczmy się na błędach, udoskonalajmy całość". Gdy połączysz oba – jak w Scrumie – otrzymujesz proces, który dostarcza wartość szybko i stale ją ulepsza. Prawdziwy inżynier nie wybiera jednego, tylko świadomie miesza oba podejścia.</span>
                 </p>
             </div>
 
@@ -174,7 +186,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Software Engineering: A Practitioner's Approach” (Roger S. Pressman) – rozdziały o modelach ewolucyjnych · „Agile Software Development” (Alistair Cockburn) · Manifest Agile.
+                    „Software Engineering: A Practitioner's Approach" (Roger S. Pressman) – rozdziały o modelach ewolucyjnych · „Agile Software Development" (Alistair Cockburn) · Manifest Agile.
                 </span>
             </div>
 

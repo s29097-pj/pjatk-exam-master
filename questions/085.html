@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏢</span>
                 <div>
@@ -25,6 +25,12 @@
                         Czym mikroprocesor różni się od procesora? Historycznie, procesor składał się z wielu oddzielnych szaf. <strong>Mikroprocesor</strong> to cały procesor (CPU) upchnięty na jednym małym układzie scalonym (krzemowym chipie).<br><br>
                         Wyobraź go sobie jako ultranowoczesny biurowiec. <strong>Control Unit (CU)</strong> to zarząd na najwyższym piętrze, który wydaje polecenia. <strong>ALU i FPU</strong> to działy księgowości, które na potęgę przeliczają liczby. <strong>Rejestry</strong> to biurka księgowych (dostęp natychmiastowy). Ponieważ chodzenie po dokumenty do archiwum miejskiego (RAM) zajmuje wieki, korporacja wynajęła podręczne szafy pancerne na swoim piętrze – to <strong>Pamięć Cache (L1, L2, L3)</strong>. Wszystko po to, by księgowi nie musieli czekać na dane.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #3e2723; line-height: 1.8;">
+                        <li><strong>🔵 ALU i FPU</strong> – działy księgowości: jedni liczą całkowite (int), drudzy ułamki (float/double).</li>
+                        <li><strong>🟠 Cache L1, L2, L3</strong> – podręczne szafy pancerne na piętrze, coraz większe, ale coraz wolniejsze.</li>
+                        <li><strong>🟢 Potokowość (Pipelining)</strong> – taśma produkcyjna: pranie, suszenie i prasowanie różnych partii ubrań jednocześnie.</li>
+                        <li><strong>🟣 Rdzenie i wątki (Hyper-Threading)</strong> – dodatkowe biurka dla księgowych, którzy czekają na dokumenty z archiwum.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -38,9 +44,13 @@
             <span class="keyword-tag">Hierarchia Pamięci Cache (L1, L2, L3)</span>
             <span class="keyword-tag">Taktowanie (Częstotliwość zegara)</span>
             <span class="keyword-tag">Szerokość słowa (32-bit vs 64-bit)</span>
-            <span class="keyword-tag">Rdzenie i Wątki (Hyper-Threading)</span>
+            <span class="keyword-tag">Rdzenie i Wątki (Hyper-Threading / SMT)</span>
             <span class="keyword-tag">Potokowość (Pipelining)</span>
             <span class="keyword-tag">IPC (Instructions Per Clock)</span>
+            <span class="keyword-tag">Rejestry (PC, Akumulator, Flagi)</span>
+            <span class="keyword-tag">Jednostka Sterująca (CU)</span>
+            <span class="keyword-tag">Architektura RISC vs CISC</span>
+            <span class="keyword-tag">Mikroarchitektura a architektura ISA</span>
         </div>
 
         <!-- ============================================================ -->
@@ -52,158 +62,238 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c2185b;">1. Organizacja wewnętrzna mikroprocesora</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Choć na zewnątrz to tylko czarny kwadrat, w środku kryje się miasto zbudowane z miliardów tranzystorów. Oprócz standardowego ALU i CU, w nowoczesnym mikroprocesorze znajdziemy specyficzne dedykowane bloki:
+                    Choć na zewnątrz to tylko czarny kwadrat, w środku kryje się miasto zbudowane z miliardów tranzystorów. Oprócz standardowego ALU i CU, w nowoczesnym mikroprocesorze znajdziemy dedykowane bloki: <strong>FPU</strong> (Floating-Point Unit – koprocesor do liczb zmiennoprzecinkowych), <strong>pamięć Cache</strong> (L1, L2, L3) oraz <strong>rejestry</strong> (PC, akumulator, rejestr flag). Całość pracuje w architekturze potokowej, gdzie wiele instrukcji jest przetwarzanych jednocześnie na różnych etapach.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, mikroprocesor to cały CPU na jednym kawałku krzemu. W środku mamy kilka kluczowych bloków. ALU – jednostka arytmetyczno-logiczna do operacji na liczbach całkowitych. FPU – koprocesor zmiennoprzecinkowy do ułamków, kiedyś był osobnym układem. CU – jednostka sterująca, która dekoduje instrukcje i wysyła sygnały do innych bloków. Rejestry – ultraszybka pamięć wewnątrz CPU. No i hierarchia cache – L1 najszybszy, L2 większy, L3 współdzielony między rdzeniami. Proszę spojrzeć na planszę – pokazuje ona fizyczny układ tych bloków na chipie.”
+                </div>
             </div>
 
-            <!-- SVG 1: ORGANIZACJA MIKROPROCESORA -->
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="#fce4ec" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Fizyczna Architektura Pojedynczego Rdzenia CPU</text>
+            <!-- SVG 1: ORGANIZACJA MIKROPROCESORA (ULEPSZONY) -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <filter id="shadowCPU"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.12"/></filter>
+                    <marker id="arrowGreyCPU" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowGreyCPURev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#546e7a"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="320" fill="#fce4ec" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#880e4f">Fizyczna Architektura Pojedynczego Rdzenia CPU (Die)</text>
 
-                <!-- Obudowa Procesora -->
-                <rect x="80" y="45" width="500" height="220" rx="8" fill="#fff" stroke="#c2185b" stroke-width="3" stroke-dasharray="8,4"/>
-                <text x="90" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c2185b">Granica Krzemowego Chipu (Die)</text>
+                <!-- Obudowa Procesora (Die) -->
+                <rect x="60" y="45" width="520" height="255" rx="10" fill="#fff" stroke="#c2185b" stroke-width="3" stroke-dasharray="8,4" filter="url(#shadowCPU)"/>
+                <text x="75" y="65" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c2185b">Granica Krzemowego Chipu (Die)</text>
 
                 <!-- Jednostki Wykonawcze -->
-                <rect x="100" y="80" width="140" height="40" rx="4" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
-                <text x="170" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">ALU (Liczby całkowite)</text>
+                <rect x="80" y="80" width="150" height="50" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="155" y="102" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">ALU</text>
+                <text x="155" y="118" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">Liczby całkowite (int)</text>
 
-                <rect x="260" y="80" width="140" height="40" rx="4" fill="#ffcdd2" stroke="#e53935" stroke-width="2"/>
-                <text x="330" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">FPU (Zmiennoprzec.)</text>
+                <rect x="250" y="80" width="150" height="50" rx="6" fill="#ffcdd2" stroke="#e53935" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="325" y="102" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">FPU</text>
+                <text x="325" y="118" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Zmiennoprzecinkowe (float/double)</text>
 
-                <!-- Jednostka sterująca i rejestry -->
-                <rect x="100" y="135" width="300" height="35" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
-                <text x="250" y="157" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17" text-anchor="middle">REJESTRY (PC, Akumulator, Flagi)</text>
+                <!-- Rejestry -->
+                <rect x="80" y="145" width="320" height="40" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="240" y="165" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17" text-anchor="middle">REJESTRY (PC, Akumulator, Flagi, ogólnego przeznaczenia)</text>
+                <text x="240" y="179" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Ultraszybka pamięć wewnątrz CPU – dostęp w 1 cykl zegara</text>
 
-                <rect x="420" y="80" width="140" height="90" rx="4" fill="#bbdefb" stroke="#1e88e5" stroke-width="2"/>
-                <text x="490" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">CU (Dekoder)</text>
-                <text x="490" y="145" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Control Unit</text>
+                <!-- CU (Dekoder) -->
+                <rect x="420" y="80" width="140" height="105" rx="6" fill="#bbdefb" stroke="#1e88e5" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="490" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">CU (Control Unit)</text>
+                <text x="490" y="135" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Dekoder instrukcji</text>
+                <text x="490" y="155" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">Wysyła sygnały</text>
+                <text x="490" y="170" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">do ALU, FPU, pamięci</text>
 
                 <!-- Cache Hierarchy -->
-                <rect x="100" y="190" width="460" height="25" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="330" y="207" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Pamięć CACHE L1 (Najszybsza, osobna dla Danych i Instrukcji)</text>
+                <rect x="80" y="200" width="480" height="28" rx="5" fill="#c8e6c9" stroke="#388e3c" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="320" y="219" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Pamięć CACHE L1 (najszybsza, ~32-64 KB, osobna dla danych i instrukcji)</text>
 
-                <rect x="100" y="225" width="460" height="25" rx="4" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                <text x="330" y="242" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Pamięć CACHE L2 (Większa, wspólna)</text>
+                <rect x="80" y="238" width="480" height="28" rx="5" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="320" y="257" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Pamięć CACHE L2 (większa, ~256-512 KB na rdzeń, wolniejsza od L1)</text>
 
                 <!-- Płyta Główna (Poza CPU) -->
-                <rect x="630" y="190" width="150" height="60" rx="4" fill="#cfd8dc" stroke="#546e7a" stroke-width="2"/>
-                <text x="705" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">PAMIĘĆ RAM</text>
-                <text x="705" y="235" font-family="sans-serif" font-size="10" fill="#263238" text-anchor="middle">(Powolna, off-chip)</text>
+                <rect x="630" y="200" width="165" height="70" rx="6" fill="#cfd8dc" stroke="#546e7a" stroke-width="2" filter="url(#shadowCPU)"/>
+                <text x="712" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">PAMIĘĆ RAM</text>
+                <text x="712" y="242" font-family="sans-serif" font-size="9" fill="#263238" text-anchor="middle">Cache L3 (współdzielony)</text>
+                <text x="712" y="258" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">DDR4/DDR5 (off-chip)</text>
 
                 <!-- Strzałki -->
-                <path d="M 560 220 L 630 220" fill="none" stroke="#546e7a" stroke-width="4" marker-end="url(#arrowGreyB)" marker-start="url(#arrowGreyBRev)"/>
-                <text x="595" y="215" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Szyna</text>
+                <path d="M 560 235 L 630 235" fill="none" stroke="#546e7a" stroke-width="4" marker-end="url(#arrowGreyCPU)" marker-start="url(#arrowGreyCPURev)"/>
+                <text x="595" y="228" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Szyna</text>
 
-                <!-- Notatka FPU -->
-                <rect x="630" y="80" width="150" height="60" rx="4" fill="#fff" stroke="#ff8a80" stroke-dasharray="4,2"/>
-                <text x="705" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Wiedza inżynierska:</text>
-                <text x="705" y="115" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">FPU to Koprocesor</text>
-                <text x="705" y="127" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">odpowiedzialny tylko za</text>
-                <text x="705" y="139" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">ułamki (zmiennoprzecinkowe).</text>
+                <!-- Legenda FPU -->
+                <rect x="630" y="80" width="165" height="85" rx="6" fill="#fff" stroke="#ff8a80" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <text x="712" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">🧠 Wiedza inżynierska:</text>
+                <text x="712" y="118" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">FPU to Koprocesor</text>
+                <text x="712" y="133" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">odpowiedzialny tylko za</text>
+                <text x="712" y="148" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">ułamki (float, double).</text>
+                <text x="712" y="163" font-family="sans-serif" font-size="9" fill="#424242" text-anchor="middle">Kiedyś był osobnym układem.</text>
 
-                <defs>
-                    <marker id="arrowGreyB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
-                    <marker id="arrowGreyBRev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#546e7a"/></marker>
-                </defs>
+                <!-- Dolna notka -->
+                <text x="410" y="310" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Hierarchia pamięci: Rejestry (1 cykl) → L1 (~3-5 cykli) → L2 (~10-20 cykli) → L3 (~30-50 cykli) → RAM (~200+ cykli)</text>
             </svg>
 
             <!-- PART 2: CECHY I PARAMETRY -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1976d2;">2. Najważniejsze parametry mikroprocesora</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Egzaminator chce sprawdzić, czy nie jesteś ofiarą marketingu i rozumiesz prawdziwą specyfikację techniczną.
+                    Egzaminator chce sprawdzić, czy nie jesteś ofiarą marketingu i rozumiesz prawdziwą specyfikację techniczną. Poniżej trzy kluczowe parametry, które odróżniają inżyniera od laika.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Architektura słowa (32-bit vs 64-bit):</strong> "Szerokość słowa" to rozmiar rejestrów wewnętrznych. Procesor 64-bitowy potrafi w jednym cyklu operować na znacznie większych liczbach oraz, co najważniejsze, potrafi zaadresować gigantyczne ilości pamięci RAM (powyżej ograniczenia 4GB narzuconego przez architekturę 32-bit).</li>
-                    <li><strong>Wielordzeniowość (Multicore):</strong> Procesor to fizyczny układ. Rdzeń to pojedyncza jednostka obliczeniowa <em>wewnątrz</em> tego układu. Posiadanie 8 rdzeni oznacza, że system operacyjny widzi 8 osobnych "mózgów" i może im zlecić 8 różnych zadań jednocześnie (Architektura MIMD).</li>
+                    <li><strong>Architektura słowa (32-bit vs 64-bit):</strong> „Szerokość słowa” to rozmiar rejestrów wewnętrznych. Procesor 64-bitowy potrafi w jednym cyklu operować na znacznie większych liczbach oraz, co najważniejsze, potrafi zaadresować gigantyczne ilości pamięci RAM (powyżej ograniczenia 4GB narzuconego przez architekturę 32-bit – 2³² ≈ 4 miliardy adresów).</li>
+                    <li><strong>Wielordzeniowość (Multicore):</strong> Procesor to fizyczny układ. Rdzeń to pojedyncza jednostka obliczeniowa <em>wewnątrz</em> tego układu. Posiadanie 8 rdzeni oznacza, że system operacyjny widzi 8 osobnych „mózgów” i może im zlecić 8 różnych zadań jednocześnie (architektura MIMD – Multiple Instruction, Multiple Data).</li>
                     <li><strong>Wielowątkowość (Hyper-Threading / SMT):</strong> Sprzętowa sztuczka. Procesor oszukuje system operacyjny, że ma dwa razy więcej rdzeni niż w rzeczywistości (np. 8 rdzeni fizycznych, 16 logicznych wątków). Gdy jeden wątek czeka na dane z pamięci RAM (traci czas), rdzeń natychmiast przełącza się na drugi wątek i wykonuje jego zadania, unikając bezczynności.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Jeśli chodzi o parametry, to musimy odróżnić marketing od inżynierii. Po pierwsze – szerokość słowa: 32-bit vs 64-bit. To nie tylko większe liczby, ale przede wszystkim możliwość zaadresowania więcej niż 4 GB RAM-u. Po drugie – rdzenie fizyczne: każdy to osobna jednostka wykonawcza na chipie. Po trzecie – wątki logiczne (Hyper-Threading): to nie są dodatkowe rdzenie, tylko sprytne wykorzystanie czasu, gdy rdzeń czeka na dane z RAM-u. Proszę spojrzeć na planszę – pokazuje ona, że 8 rdzeni fizycznych z HT daje 16 wątków logicznych, ale nie oznacza to podwojenia wydajności.”
+                </div>
             </div>
+
+            <!-- SVG 2: RDZENIE I WĄTKI -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <filter id="shadowCore"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/></filter>
+                </defs>
+                <rect x="0" y="0" width="820" height="230" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Rdzenie fizyczne vs Wątki logiczne (Hyper-Threading / SMT)</text>
+
+                <!-- Scenariusz: 4 rdzenie, 8 wątków -->
+                <text x="410" y="52" font-family="sans-serif" font-size="11" fill="#1565c0" text-anchor="middle">Przykład: Procesor 4-rdzeniowy z Hyper-Threading = 8 wątków logicznych</text>
+
+                <!-- Rdzeń 1 -->
+                <rect x="50" y="70" width="160" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadowCore)"/>
+                <text x="130" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rdzeń 1 (fizyczny)</text>
+                <rect x="65" y="110" width="130" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="130" y="130" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Wątek 1 (główny)</text>
+                <rect x="65" y="148" width="130" height="30" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" stroke-dasharray="3,2"/>
+                <text x="130" y="168" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wątek 2 (HT – zapasowy)</text>
+
+                <!-- Rdzeń 2 -->
+                <rect x="230" y="70" width="160" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadowCore)"/>
+                <text x="310" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rdzeń 2 (fizyczny)</text>
+                <rect x="245" y="110" width="130" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="310" y="130" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Wątek 3 (główny)</text>
+                <rect x="245" y="148" width="130" height="30" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" stroke-dasharray="3,2"/>
+                <text x="310" y="168" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wątek 4 (HT – zapasowy)</text>
+
+                <!-- Rdzeń 3 -->
+                <rect x="410" y="70" width="160" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadowCore)"/>
+                <text x="490" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rdzeń 3 (fizyczny)</text>
+                <rect x="425" y="110" width="130" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="490" y="130" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Wątek 5 (główny)</text>
+                <rect x="425" y="148" width="130" height="30" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" stroke-dasharray="3,2"/>
+                <text x="490" y="168" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wątek 6 (HT – zapasowy)</text>
+
+                <!-- Rdzeń 4 -->
+                <rect x="590" y="70" width="160" height="120" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadowCore)"/>
+                <text x="670" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Rdzeń 4 (fizyczny)</text>
+                <rect x="605" y="110" width="130" height="30" rx="4" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+                <text x="670" y="130" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">Wątek 7 (główny)</text>
+                <rect x="605" y="148" width="130" height="30" rx="4" fill="#e3f2fd" stroke="#1976d2" stroke-width="1" stroke-dasharray="3,2"/>
+                <text x="670" y="168" font-family="sans-serif" font-size="10" fill="#1565c0" text-anchor="middle">Wątek 8 (HT – zapasowy)</text>
+
+                <!-- Wyjaśnienie -->
+                <text x="410" y="218" font-family="sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle">🟦 Wątki główne (4) – zawsze aktywne. 🟦 Wątki HT (4) – aktywne tylko, gdy główny wątek czeka na dane (np. z RAM).</text>
+            </svg>
 
             <!-- PART 3: POTOKOWOŚĆ I IPC -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #388e3c;">3. Zwiększanie wydajności: Pipelining (Potokowość) i IPC</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Dawniej procesory wykonywały jedną instrukcję od początku (Fetch) do końca (Execute), zanim przeszły do następnej. Było to jak pranie w pralni: piorę koszule, suszę, składam, a dopiero potem wrzucam spodnie. <strong>Potokowość (Pipelining)</strong> sprawia, że gdy koszule idą do suszarki, do pralki od razu wrzucamy spodnie. To pozwala wykonywać fragmenty różnych instrukcji w tym samym cyklu zegara!
+                    Dawniej procesory wykonywały jedną instrukcję od początku (Fetch) do końca (Execute), zanim przeszły do następnej. Było to jak pranie w pralni: piorę koszule, suszę, składam, a dopiero potem wrzucam spodnie. <strong>Potokowość (Pipelining)</strong> sprawia, że gdy koszule idą do suszarki, do pralki od razu wrzucamy spodnie. To pozwala wykonywać fragmenty różnych instrukcji w tym samym cyklu zegara! <strong>IPC (Instructions Per Clock)</strong> to metryka mówiąca, ile instrukcji średnio wykonuje procesor w jednym cyklu – nowoczesne procesory osiągają IPC na poziomie 4-6.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kluczowym mechanizmem zwiększania wydajności jest potokowość. Zamiast wykonywać instrukcje sekwencyjnie – fetch, decode, execute, write i dopiero następna – procesor nakłada te etapy. W cyklu nr 3 sprzęt jednocześnie pobiera instrukcję 3, dekoduje instrukcję 2 i wykonuje instrukcję 1. To jak taśma produkcyjna. Ważna jest też metryka IPC – instrukcje na cykl. Nowoczesny procesor o niższym taktowaniu, ale wyższym IPC, może być szybszy niż stary procesor o wysokim GHz. To obala mit gigaherców – proszę spojrzeć na planszę.”
+                </div>
             </div>
 
-            <!-- SVG 2: PIPELINING -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e8f5e9" opacity="0.4"/>
+            <!-- SVG 3: PIPELINING (ULEPSZONY) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowDarkPipe" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#e8f5e9" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2e7d32">Optymalizacja Czasu: Wykonanie Sekwencyjne vs Potokowe (Pipeline)</text>
 
                 <!-- Oś czasu -->
-                <line x1="120" y1="45" x2="780" y2="45" stroke="#90a4ae" stroke-width="2"/>
-                <text x="75" y="48" font-family="sans-serif" font-size="11" font-weight="bold" fill="#546e7a">Cykle Zegara:</text>
-                <text x="150" y="40" font-family="sans-serif" font-size="11" fill="#78909c">1</text>
-                <text x="210" y="40" font-family="sans-serif" font-size="11" fill="#78909c">2</text>
-                <text x="270" y="40" font-family="sans-serif" font-size="11" fill="#78909c">3</text>
-                <text x="330" y="40" font-family="sans-serif" font-size="11" fill="#78909c">4</text>
-                <text x="390" y="40" font-family="sans-serif" font-size="11" fill="#78909c">5</text>
-                <text x="450" y="40" font-family="sans-serif" font-size="11" fill="#78909c">6</text>
-                <text x="510" y="40" font-family="sans-serif" font-size="11" fill="#78909c">7</text>
-                <text x="570" y="40" font-family="sans-serif" font-size="11" fill="#78909c">8</text>
+                <line x1="120" y1="48" x2="780" y2="48" stroke="#90a4ae" stroke-width="2"/>
+                <text x="75" y="52" font-family="sans-serif" font-size="11" font-weight="bold" fill="#546e7a">Cykle:</text>
+                <text x="150" y="43" font-family="sans-serif" font-size="10" fill="#78909c">1</text>
+                <text x="210" y="43" font-family="sans-serif" font-size="10" fill="#78909c">2</text>
+                <text x="270" y="43" font-family="sans-serif" font-size="10" fill="#78909c">3</text>
+                <text x="330" y="43" font-family="sans-serif" font-size="10" fill="#78909c">4</text>
+                <text x="390" y="43" font-family="sans-serif" font-size="10" fill="#78909c">5</text>
+                <text x="450" y="43" font-family="sans-serif" font-size="10" fill="#78909c">6</text>
+                <text x="510" y="43" font-family="sans-serif" font-size="10" fill="#78909c">7</text>
+                <text x="570" y="43" font-family="sans-serif" font-size="10" fill="#78909c">8</text>
 
                 <!-- BEZ POTOKOWOŚCI -->
-                <text x="100" y="80" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d32f2f" text-anchor="end">Brak Potoku:</text>
-                
-                <!-- Instrukcja 1 -->
-                <rect x="120" y="65" width="60" height="20" fill="#bbdefb" stroke="#fff"/>
-                <rect x="180" y="65" width="60" height="20" fill="#90caf9" stroke="#fff"/>
-                <rect x="240" y="65" width="60" height="20" fill="#64b5f6" stroke="#fff"/>
-                <rect x="300" y="65" width="60" height="20" fill="#42a5f5" stroke="#fff"/>
-                <text x="240" y="80" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Instrukcja 1 (F-D-E-W)</text>
+                <text x="95" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#d32f2f" text-anchor="end">Brak potoku:</text>
 
-                <!-- Instrukcja 2 czeka -->
-                <rect x="360" y="65" width="60" height="20" fill="#c8e6c9" stroke="#fff"/>
-                <rect x="420" y="65" width="60" height="20" fill="#a5d6a7" stroke="#fff"/>
-                <rect x="480" y="65" width="60" height="20" fill="#81c784" stroke="#fff"/>
-                <rect x="540" y="65" width="60" height="20" fill="#66bb6a" stroke="#fff"/>
-                <text x="480" y="80" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Instrukcja 2 (F-D-E-W)</text>
+                <!-- Instrukcja 1 (sekwencyjnie) -->
+                <rect x="120" y="68" width="60" height="22" fill="#bbdefb" stroke="#fff" rx="2"/>
+                <text x="150" y="83" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Fetch</text>
+                <rect x="180" y="68" width="60" height="22" fill="#90caf9" stroke="#fff" rx="2"/>
+                <text x="210" y="83" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Decode</text>
+                <rect x="240" y="68" width="60" height="22" fill="#64b5f6" stroke="#fff" rx="2"/>
+                <text x="270" y="83" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Execute</text>
+                <rect x="300" y="68" width="60" height="22" fill="#42a5f5" stroke="#fff" rx="2"/>
+                <text x="330" y="83" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Write</text>
+                <text x="390" y="83" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1">→ 1 instrukcja / 4 cykle</text>
 
-                <path d="M 120 100 L 780 100" fill="none" stroke="#cfd8dc" stroke-dasharray="2,4"/>
+                <path d="M 120 105 L 780 105" fill="none" stroke="#cfd8dc" stroke-dasharray="2,4"/>
 
                 <!-- Z POTOKOWOŚCIĄ -->
-                <text x="100" y="140" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="end">Z Potokiem (Pipeline):</text>
+                <text x="95" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="end">Z potokiem:</text>
 
-                <!-- Instr 1 -->
-                <rect x="120" y="115" width="60" height="20" fill="#bbdefb" stroke="#fff"/>
-                <text x="150" y="130" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Fetch</text>
-                <rect x="180" y="115" width="60" height="20" fill="#90caf9" stroke="#fff"/>
-                <text x="210" y="130" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Decode</text>
-                <rect x="240" y="115" width="60" height="20" fill="#64b5f6" stroke="#fff"/>
-                <text x="270" y="130" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">Execute</text>
-                <rect x="300" y="115" width="60" height="20" fill="#42a5f5" stroke="#fff"/>
-                <text x="330" y="130" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">Write</text>
-                
-                <!-- Instr 2 nakłada się -->
-                <rect x="180" y="140" width="60" height="20" fill="#c8e6c9" stroke="#fff"/>
-                <text x="210" y="155" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Fetch</text>
-                <rect x="240" y="140" width="60" height="20" fill="#a5d6a7" stroke="#fff"/>
-                <text x="270" y="155" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Decode</text>
-                <rect x="300" y="140" width="60" height="20" fill="#81c784" stroke="#fff"/>
-                <text x="330" y="155" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Execute</text>
-                <rect x="360" y="140" width="60" height="20" fill="#66bb6a" stroke="#fff"/>
-                <text x="390" y="155" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">Write</text>
+                <!-- Instrukcja 1 -->
+                <rect x="120" y="118" width="60" height="22" fill="#bbdefb" stroke="#fff" rx="2"/>
+                <text x="150" y="133" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Fetch I1</text>
+                <rect x="180" y="118" width="60" height="22" fill="#90caf9" stroke="#fff" rx="2"/>
+                <text x="210" y="133" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Decode I1</text>
+                <rect x="240" y="118" width="60" height="22" fill="#64b5f6" stroke="#fff" rx="2"/>
+                <text x="270" y="133" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Execute I1</text>
+                <rect x="300" y="118" width="60" height="22" fill="#42a5f5" stroke="#fff" rx="2"/>
+                <text x="330" y="133" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Write I1</text>
 
-                <!-- Instr 3 nakłada się -->
-                <rect x="240" y="165" width="60" height="20" fill="#ffe0b2" stroke="#fff"/>
-                <text x="270" y="180" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Fetch</text>
-                <rect x="300" y="165" width="60" height="20" fill="#ffcc80" stroke="#fff"/>
-                <text x="330" y="180" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Decode</text>
-                <rect x="360" y="165" width="60" height="20" fill="#ffb74d" stroke="#fff"/>
-                <text x="390" y="180" font-family="sans-serif" font-size="10" fill="#000" text-anchor="middle">Execute</text>
-                <rect x="420" y="165" width="60" height="20" fill="#ffa726" stroke="#fff"/>
-                <text x="450" y="180" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">Write</text>
+                <!-- Instrukcja 2 (nakłada się) -->
+                <rect x="180" y="145" width="60" height="22" fill="#c8e6c9" stroke="#fff" rx="2"/>
+                <text x="210" y="160" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Fetch I2</text>
+                <rect x="240" y="145" width="60" height="22" fill="#a5d6a7" stroke="#fff" rx="2"/>
+                <text x="270" y="160" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Decode I2</text>
+                <rect x="300" y="145" width="60" height="22" fill="#81c784" stroke="#fff" rx="2"/>
+                <text x="330" y="160" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Execute I2</text>
+                <rect x="360" y="145" width="60" height="22" fill="#66bb6a" stroke="#fff" rx="2"/>
+                <text x="390" y="160" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Write I2</text>
 
-                <!-- Marker na osi -->
-                <rect x="240" y="110" width="60" height="85" fill="none" stroke="#e53935" stroke-width="2" stroke-dasharray="4,2"/>
-                <text x="305" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828">W Cyklu nr 3 sprzęt wykonuje 3 różne etapy trzech różnych instrukcji NARAZ!</text>
+                <!-- Instrukcja 3 (nakłada się) -->
+                <rect x="240" y="172" width="60" height="22" fill="#ffe0b2" stroke="#fff" rx="2"/>
+                <text x="270" y="187" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Fetch I3</text>
+                <rect x="300" y="172" width="60" height="22" fill="#ffcc80" stroke="#fff" rx="2"/>
+                <text x="330" y="187" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Decode I3</text>
+                <rect x="360" y="172" width="60" height="22" fill="#ffb74d" stroke="#fff" rx="2"/>
+                <text x="390" y="187" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Execute I3</text>
+                <rect x="420" y="172" width="60" height="22" fill="#ffa726" stroke="#fff" rx="2"/>
+                <text x="450" y="187" font-family="sans-serif" font-size="9" fill="#fff" text-anchor="middle">Write I3</text>
 
+                <!-- Ramka zaznaczająca cykl 3 -->
+                <rect x="240" y="113" width="60" height="85" fill="none" stroke="#e53935" stroke-width="2.5" stroke-dasharray="4,2" rx="4"/>
+                <text x="270" y="112" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Cykl 3</text>
+
+                <!-- Opis pod wykresem -->
+                <text x="410" y="228" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">W 3. cyklu sprzęt wykonuje jednocześnie: Execute I1 + Decode I2 + Fetch I3!</text>
             </svg>
+
+            <!-- PART 3.5: MIT GIGAHERCÓW – IPC -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.15rem; color: #e65100;">3.5. „Mit Gigaherców” – dlaczego IPC jest ważniejsze niż GHz</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Wydajność procesora ≠ częstotliwość zegara.</strong> Wzór na realną wydajność to: <strong>Wydajność = Częstotliwość × IPC</strong>. Nowoczesny procesor Apple M1 przy 3,2 GHz i IPC ≈ 6 wykonuje około 19 miliardów instrukcji na sekundę. Stary Pentium 4 przy 4 GHz i IPC ≈ 1 wykonywał tylko 4 miliardy. Różnica jest kolosalna, mimo że Pentium miał wyższe taktowanie! Dlatego egzaminatorzy oczekują, że nie powiesz „im więcej GHz, tym lepiej”.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Warto podkreślić, że sam zegar w GHz to nie wszystko. Liczy się iloczyn częstotliwości i IPC – instrukcji na cykl. Procesor 3 GHz z IPC równym 5 wykona 15 miliardów instrukcji na sekundę. Stary procesor 4 GHz z IPC równym 1 wykona tylko 4 miliardy. To dlatego nowoczesny układ ARM w telefonie potrafi być szybszy od starego desktopowego CPU o wyższym taktowaniu. To się nazywa mit gigaherców – i egzaminatorzy bardzo to lubią.”
+                </div>
+            </div>
 
             <!-- ======================================================== -->
             <!-- PUŁAPKI EGZAMINACYJNE                                   -->
@@ -211,9 +301,32 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity zegara i wydajności):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Mit Gigaherców" (The Megahertz Myth):</strong> Powszechnie uważa się, że im więcej GHz, tym szybszy procesor. Egzaminatorzy "ścinają" za to bez litości! Zegar o częstotliwości 4 GHz wyznacza tylko *liczbę cykli*. Ważniejszy jest wskaźnik <strong>IPC (Instructions Per Clock)</strong>. Nowoczesny procesor ARM Apple wykonujący 5 instrukcji w jednym cyklu (IPC=5) przy zegarze 3 GHz zniszczy wydajnościowo stary procesor Pentium 4 działający przy 4 GHz, który wykonuje tylko 1 instrukcję (IPC=1).</li>
-                    <li><strong>Wątek to to samo co Rdzeń:</strong> Nie! Rdzeń to krzem (hardware). Wątek logiczny to wirtualny "pomocnik", który korzysta z tego samego krzemu, gdy rdzeń akurat czeka na odczyt z pamięci. Włączenie Hyper-Threadingu nie podwaja mocy obliczeniowej – daje zazwyczaj około 15-30% przyrostu wydajności.</li>
+                    <li><strong>„Mit Gigaherców” (The Megahertz Myth):</strong> Powszechnie uważa się, że im więcej GHz, tym szybszy procesor. Egzaminatorzy „ścinają” za to bez litości! Zegar o częstotliwości 4 GHz wyznacza tylko <em>liczbę cykli</em>. Ważniejszy jest wskaźnik <strong>IPC (Instructions Per Clock)</strong>. Nowoczesny procesor ARM Apple wykonujący 5 instrukcji w jednym cyklu (IPC=5) przy zegarze 3 GHz zniszczy wydajnościowo stary procesor Pentium 4 działający przy 4 GHz, który wykonuje tylko 1 instrukcję (IPC=1).</li>
+                    <li><strong>Wątek to to samo co Rdzeń:</strong> Nie! Rdzeń to krzem (hardware). Wątek logiczny to wirtualny „pomocnik”, który korzysta z tego samego krzemu, gdy rdzeń akurat czeka na odczyt z pamięci. Włączenie Hyper-Threadingu nie podwaja mocy obliczeniowej – daje zazwyczaj około 15-30% przyrostu wydajności.</li>
+                    <li><strong>Cache L3 jest szybszy niż L1:</strong> Odwrotnie! Im niższy numer, tym szybsza i mniejsza pamięć. L1 to kilka KB dostępnych w 3-5 cykli. L3 to dziesiątki MB dostępnych w 30-50 cykli. RAM to setki cykli. Hierarchia pamięci to kluczowe pojęcie.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, największe pułapki to trzy mity. Mit pierwszy – gigaherce. Samo taktowanie nic nie znaczy bez IPC. Trzeba mnożyć, a nie patrzeć na jedną liczbę. Mit drugi – wątki to nie rdzenie. Hyper-Threading daje 15-30% przyrostu, a nie 100%. Mit trzeci – hierarchia cache. L1 jest najszybszy i najmniejszy, L3 najwolniejszy i największy. Im dalej od CPU, tym wolniej – to fundamentalna zasada projektowania systemów komputerowych.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                               -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Organizacja i cechy mikroprocesora:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha / Blok</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Funkcja</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Ważne!</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">ALU + FPU</td><td style="padding: 10px;">Wykonują obliczenia (int i float)</td><td style="padding: 10px;">FPU to koprocesor – kiedyś osobny układ.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">CU (Control Unit)</td><td style="padding: 10px;">Dekoduje instrukcje, steruje sygnałami</td><td style="padding: 10px;">„Dyrygent” – nie liczy, tylko wydaje polecenia.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Cache L1, L2, L3</td><td style="padding: 10px;">Hierarchia szybkiej pamięci podręcznej</td><td style="padding: 10px;">L1: najmniejszy, najszybszy. L3: największy, najwolniejszy.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Potokowość (Pipelining)</td><td style="padding: 10px;">Równoległe przetwarzanie etapów instrukcji</td><td style="padding: 10px;">Fetch, Decode, Execute, Write – jednocześnie dla różnych instrukcji.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">IPC</td><td style="padding: 10px;">Instrukcje na cykl zegara</td><td style="padding: 10px;">Wydajność = Częstotliwość × IPC. Obala mit GHz.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Rdzeń vs Wątek</td><td style="padding: 10px;">Fizyczny vs logiczny</td><td style="padding: 10px;">HT daje ~15-30% przyrostu, nie 100%.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">32-bit vs 64-bit</td><td style="padding: 10px;">Szerokość rejestrów i szyny adresowej</td><td style="padding: 10px;">64-bit = więcej niż 4 GB RAM (2³² adresów).</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -222,7 +335,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Ewolucja mikroprocesora to historia walki o to, aby krzemowy "kalkulator" nie musiał bezczynnie czekać. Pipelining pozwala prać, suszyć i prasować w tym samym czasie. Wielordzeniowość i Hyper-Threading pozwala zająć procesor czymś innym, gdy brakuje danych. A pamięć Cache L1 i L2 powstała po to, by te najważniejsze dane zawsze leżały tuż obok procesora, unikając podróży długą, wąską szyną do zewnętrznego modułu RAM. Jeśli znasz ten mechanizm, potrafisz wytłumaczyć sens optymalizacji kodu.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Ewolucja mikroprocesora to historia walki o to, aby krzemowy „kalkulator” nie musiał bezczynnie czekać. Pipelining pozwala prać, suszyć i prasować w tym samym czasie. Wielordzeniowość i Hyper-Threading pozwala zająć procesor czymś innym, gdy brakuje danych. A pamięć Cache L1 i L2 powstała po to, by te najważniejsze dane zawsze leżały tuż obok procesora, unikając podróży długą, wąską szyną do zewnętrznego modułu RAM. Jeśli znasz ten mechanizm, potrafisz wytłumaczyć sens optymalizacji kodu.</span>
                 </p>
             </div>
 
@@ -230,7 +343,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Computer Organization and Architecture" (William Stallings) · Pojęcia IPC, Multithreading, SMT i zasady działania mechanizmu potokowego procesorów RISC/CISC.
+                    „Computer Organization and Architecture” (William Stallings) · „Computer Architecture: A Quantitative Approach” (Hennessy & Patterson) · Pojęcia IPC, Multithreading, SMT i zasady działania mechanizmu potokowego procesorów RISC/CISC.
                 </span>
             </div>
 

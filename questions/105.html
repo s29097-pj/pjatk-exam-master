@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -66,6 +66,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Potok renderowania w OpenGL to sekwencja etapów, przez które przechodzą dane od zdefiniowania geometrii w buforach, aż do pojawienia się kolorowych pikseli na ekranie. Kluczowe jest to, że w nowoczesnym OpenGL (core profile) <strong>etapy Vertex Shader i Fragment Shader są w pełni programowalne</strong> – piszemy je w języku GLSL (OpenGL Shading Language). Pozostałe etapy (montaż prymitywów, rasteryzacja, testy) są realizowane przez sprzęt i można je tylko konfigurować.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, potok renderowania to taśma produkcyjna w GPU. Zaczynamy od buforów VBO – tam są surowe wierzchołki. Vertex Shader – pierwszy programowalny etap – przetwarza każdy wierzchołek osobno, nakładając macierze MVP. Potem montaż prymitywów składa trójkąty, rasteryzacja tnie je na fragmenty, a Fragment Shader maluje każdy fragment kolorem z tekstury i światłem. Na końcu test głębi odrzuca to, co zasłonięte, i obraz trafia do bufora ramki. Dwa etapy są programowalne: Vertex Shader i Fragment Shader – reszta to sprzęt. Proszę spojrzeć na planszę z pełnym schematem.”
+                </div>
             </div>
 
             <!-- SVG: PEŁNY SCHEMAT POTOKU RENDEROWANIA OPENGL -->
@@ -82,29 +85,29 @@
                 <!-- Dane wejściowe -->
                 <rect x="30" y="55" width="160" height="60" rx="6" fill="#ffcc80" stroke="#ef6c00" stroke-width="2"/>
                 <text x="110" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">VBO / VAO</text>
-                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#bf360c">Wierzchołki + indeksy</text>
+                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">Wierzchołki + indeksy</text>
 
                 <path d="M 190 85 L 230 85" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
 
                 <!-- Vertex Shader -->
                 <rect x="240" y="50" width="180" height="70" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="3"/>
                 <text x="330" y="75" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Vertex Shader</text>
-                <text x="330" y="95" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Programowalny (GLSL)</text>
-                <text x="330" y="110" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Transformacje MVP</text>
+                <text x="330" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">Programowalny (GLSL)</text>
+                <text x="330" y="110" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Transformacje MVP</text>
 
                 <path d="M 420 85 L 460 85" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
 
                 <!-- Montaż prymitywów -->
                 <rect x="470" y="55" width="150" height="60" rx="6" fill="#e0e0e0" stroke="#546e7a" stroke-width="2"/>
-                <text x="545" y="82" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f">Montaż prymitywów</text>
-                <text x="545" y="100" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Trójkąty, linie, punkty</text>
+                <text x="545" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Montaż prymitywów</text>
+                <text x="545" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Trójkąty, linie, punkty</text>
 
                 <path d="M 620 85 L 660 85" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
 
                 <!-- Rasteryzacja -->
                 <rect x="670" y="50" width="130" height="70" rx="6" fill="#e0e0e0" stroke="#546e7a" stroke-width="2"/>
-                <text x="735" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f">Rasteryzacja</text>
-                <text x="735" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Fragmenty (piksele)</text>
+                <text x="735" y="75" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Rasteryzacja</text>
+                <text x="735" y="95" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Fragmenty (piksele)</text>
 
                 <!-- Strzałka w dół do Fragment Shadera -->
                 <path d="M 735 120 L 735 160" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
@@ -112,16 +115,16 @@
                 <!-- Fragment Shader -->
                 <rect x="570" y="165" width="200" height="70" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
                 <text x="670" y="190" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Fragment Shader</text>
-                <text x="670" y="210" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">Programowalny (GLSL)</text>
-                <text x="670" y="225" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Kolor, tekstury, światło</text>
+                <text x="670" y="210" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#2e7d32">Programowalny (GLSL)</text>
+                <text x="670" y="225" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Kolor, tekstury, światło</text>
 
                 <!-- Strzałka w dół do testów -->
                 <path d="M 670 235 L 670 270" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
 
                 <!-- Testy i mieszanie -->
                 <rect x="530" y="275" width="280" height="50" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="670" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Test głębi / Blending / Stencil</text>
-                <text x="670" y="314" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#546e7a">Odrzucanie zasłoniętych, mieszanie przezroczystości</text>
+                <text x="670" y="295" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Test głębi / Blending / Stencil</text>
+                <text x="670" y="314" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Odrzucanie zasłoniętych, mieszanie przezroczystości</text>
 
                 <!-- Strzałka do bufora ramki -->
                 <path d="M 670 325 L 670 360" fill="none" stroke="#455a64" stroke-width="2.5" marker-end="url(#arrowPipe)"/>
@@ -129,20 +132,20 @@
                 <!-- Bufor ramki -->
                 <rect x="530" y="365" width="280" height="50" rx="6" fill="#ffcc80" stroke="#ef6c00" stroke-width="2"/>
                 <text x="670" y="388" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Bufor ramki (Framebuffer)</text>
-                <text x="670" y="405" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#bf360c">Kolor + Głębokość → Ekran</text>
+                <text x="670" y="405" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">Kolor + Głębokość → Ekran</text>
 
                 <!-- Legenda -->
                 <rect x="30" y="160" width="200" height="60" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
-                <text x="130" y="182" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">🔵 Programowalne etapy</text>
-                <text x="130" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#546e7a">⚪ Stałe, konfigurowalne etapy</text>
+                <text x="130" y="182" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">🔵 Programowalne etapy</text>
+                <text x="130" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">⚪ Stałe, konfigurowalne etapy</text>
 
                 <!-- Uniform i atrybuty -->
                 <rect x="30" y="400" width="200" height="100" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
-                <text x="130" y="422" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Rodzaje danych wejściowych</text>
-                <text x="130" y="442" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">attribute – per wierzchołek</text>
-                <text x="130" y="458" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">uniform – stałe dla całego wywołania</text>
-                <text x="130" y="474" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">varying – interpolowane między VS i FS</text>
-                <text x="130" y="490" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">(w nowym GLSL: in / out)</text>
+                <text x="130" y="422" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Rodzaje danych wejściowych</text>
+                <text x="130" y="442" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">attribute – per wierzchołek</text>
+                <text x="130" y="458" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">uniform – stałe dla całego wywołania</text>
+                <text x="130" y="474" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">varying – interpolowane między VS i FS</text>
+                <text x="130" y="490" text-anchor="middle" font-family="monospace" font-size="11" fill="#1565c0">(w nowym GLSL: in / out)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -153,6 +156,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Vertex Shader</strong> jest pierwszym programowalnym etapem potoku. Jest wykonywany <strong>niezależnie dla każdego wierzchołka</strong> – GPU uruchamia ten sam kod na tysiącach rdzeni jednocześnie. Jego główne zadanie to <strong>transformacja współrzędnych wierzchołka</strong> z przestrzeni modelu (lokalnej) do przestrzeni przycięcia (clip space) za pomocą macierzy <strong>MVP (Model-View-Projection)</strong>. Dodatkowo przygotowuje dane, które mają być interpolowane – np. współrzędne tekstur, wektory normalnych, kolory.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Vertex Shader to pierwszy programowalny etap. Jest wykonywany niezależnie dla każdego wierzchołka – GPU uruchamia go na tysiącach rdzeni jednocześnie. Jego główne zadanie: pomnożyć współrzędne wierzchołka przez macierz MVP. Model – umieszcza obiekt w świecie. View – ustawia kamerę. Projection – rzutuje perspektywicznie na ekran. Wynik zapisujemy do wbudowanej zmiennej gl_Position. Dodatkowo przesyłamy dane do Fragment Shadera – UV, normalne, kolory – które będą interpolowane. Proszę spojrzeć na planszę z transformacją MVP.”
+                </div>
                 <div style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Prosty Vertex Shader (GLSL):</strong><br>
                     <code style="font-size:0.85rem;">
@@ -177,36 +183,36 @@
                 <!-- Przestrzeń modelu -->
                 <rect x="30" y="55" width="150" height="100" rx="6" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
                 <text x="105" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Model</text>
-                <text x="105" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Lokalny układ</text>
-                <text x="105" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">współrzędnych</text>
+                <text x="105" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">Lokalny układ</text>
+                <text x="105" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">współrzędnych</text>
 
                 <text x="200" y="110" font-family="sans-serif" font-size="16" fill="#546e7a">→ M →</text>
 
                 <!-- Przestrzeń świata -->
                 <rect x="250" y="55" width="150" height="100" rx="6" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
                 <text x="325" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Świat (World)</text>
-                <text x="325" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Wspólny układ</text>
-                <text x="325" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">dla całej sceny</text>
+                <text x="325" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">Wspólny układ</text>
+                <text x="325" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">dla całej sceny</text>
 
                 <text x="420" y="110" font-family="sans-serif" font-size="16" fill="#546e7a">→ V →</text>
 
                 <!-- Przestrzeń kamery -->
                 <rect x="470" y="55" width="150" height="100" rx="6" fill="#64b5f6" stroke="#1976d2" stroke-width="2"/>
                 <text x="545" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Widok (View)</text>
-                <text x="545" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">Układ kamery</text>
-                <text x="545" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">(Eye Space)</text>
+                <text x="545" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">Układ kamery</text>
+                <text x="545" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">(Eye Space)</text>
 
                 <text x="640" y="110" font-family="sans-serif" font-size="16" fill="#546e7a">→ P →</text>
 
                 <!-- Przestrzeń przycięcia -->
                 <rect x="670" y="55" width="130" height="100" rx="6" fill="#42a5f5" stroke="#0d47a1" stroke-width="2"/>
                 <text x="735" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff">Clip</text>
-                <text x="735" y="100" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e3f2fd">Przycięcie</text>
-                <text x="735" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e3f2fd">(gl_Position)</text>
+                <text x="735" y="100" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e3f2fd">Przycięcie</text>
+                <text x="735" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e3f2fd">(gl_Position)</text>
 
                 <!-- Opis -->
-                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">M – Model: przesunięcie, obrót, skala obiektu w świecie. V – View: pozycja i orientacja kamery.</text>
-                <text x="410" y="222" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">P – Projection: rzutowanie perspektywiczne (kąt widzenia, near/far). Iloczyn MVP = P · V · M.</text>
+                <text x="410" y="200" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">M – Model: przesunięcie, obrót, skala obiektu w świecie. V – View: pozycja i orientacja kamery.</text>
+                <text x="410" y="222" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#546e7a">P – Projection: rzutowanie perspektywiczne (kąt widzenia, near/far). Iloczyn MVP = P · V · M.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -217,6 +223,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Rasteryzacja to stały, sprzętowy etap, który konwertuje geometrię (trójkąty, linie) na <strong>fragmenty</strong> – potencjalne piksele na ekranie. Dla każdego trójkąta GPU sprawdza, które piksele siatki ekranu znajdują się wewnątrz niego. Dla każdego takiego piksela tworzony jest fragment, a jego atrybuty (kolor, UV, normalna) są <strong>interpolowane liniowo</strong> na podstawie wartości w wierzchołkach. Fragment nie jest jeszcze pikselem – może zostać odrzucony w późniejszych testach.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Rasteryzacja to stały, sprzętowy etap. GPU bierze trójkąt i sprawdza, które piksele siatki ekranu leżą wewnątrz niego. Dla każdego takiego piksela tworzy fragment. Atrybuty – kolor, UV, normalna – są interpolowane liniowo z wartości w wierzchołkach. To ważne: fragment to jeszcze nie piksel. Może zostać odrzucony przez test głębi lub inne testy. Rasteryzacja jest nieprogramowalna – możemy ją tylko konfigurować, np. wybrać tryb wypełnienia: wypełnienie, linie, punkty.”
+                </div>
             </div>
 
             <!-- SVG: RASTERYZACJA TRÓJKĄTA -->
@@ -226,11 +235,11 @@
 
                 <!-- Wierzchołki -->
                 <circle cx="200" cy="80" r="8" fill="#1565c0" stroke="#fff" stroke-width="2"/>
-                <text x="200" y="65" font-family="monospace" font-size="11" fill="#0d47a1">V0 (x,y, UV, color)</text>
+                <text x="200" y="65" font-family="monospace" font-size="12" fill="#0d47a1">V0 (x,y, UV, color)</text>
                 <circle cx="500" cy="210" r="8" fill="#1565c0" stroke="#fff" stroke-width="2"/>
-                <text x="510" y="225" font-family="monospace" font-size="11" fill="#0d47a1">V1</text>
+                <text x="510" y="225" font-family="monospace" font-size="12" fill="#0d47a1">V1</text>
                 <circle cx="350" cy="140" r="8" fill="#1565c0" stroke="#fff" stroke-width="2"/>
-                <text x="360" y="135" font-family="monospace" font-size="11" fill="#0d47a1">V2</text>
+                <text x="360" y="135" font-family="monospace" font-size="12" fill="#0d47a1">V2</text>
 
                 <!-- Trójkąt -->
                 <polygon points="200,80 500,210 350,140" fill="none" stroke="#1565c0" stroke-width="3"/>
@@ -246,8 +255,8 @@
                 <!-- Opis -->
                 <rect x="560" y="60" width="230" height="80" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="1"/>
                 <text x="675" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f">Fragmenty (zakolorowane)</text>
-                <text x="675" y="108" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">Piksele, które znajdują się</text>
-                <text x="675" y="126" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#546e7a">wewnątrz trójkąta.</text>
+                <text x="675" y="108" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Piksele, które znajdują się</text>
+                <text x="675" y="126" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">wewnątrz trójkąta.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -258,6 +267,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Fragment Shader (Pixel Shader)</strong> to drugi programowalny etap. Jest wykonywany <strong>dla każdego fragmentu</strong> wygenerowanego przez rasteryzator. Otrzymuje interpolowane dane z Vertex Shadera (UV, kolory, normalne) i na ich podstawie oblicza ostateczny kolor piksela. To tu odbywa się próbkowanie tekstur, obliczanie oświetlenia (model Phonga, Blinna, PBR), mapowanie normalnych, cieniowanie i efekty specjalne. Wynikiem jest kolor RGBA (oraz opcjonalnie wartość głębokości), który trafia do bufora ramki.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Fragment Shader to drugi programowalny etap – tu dzieje się cała magia kolorów. Jest uruchamiany dla każdego fragmentu. Dostaje interpolowane dane z Vertex Shadera: współrzędne UV, normalne, kolory. Na tej podstawie próbkuje tekstury, oblicza oświetlenie – Phong, Blinn, PBR – i zwraca ostateczny kolor piksela. To najbardziej obciążający etap: dla sceny w 4K może być wywołany ponad 8 milionów razy na klatkę. Dlatego optymalizuje się go przez wczesne odrzucanie fragmentów – stąd test głębi przed Fragment Shaderem. Proszę spojrzeć na planszę – pokazuje ona przepływ od tekstury przez Fragment Shader do bufora ramki.”
+                </div>
                 <div style="background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Prosty Fragment Shader (GLSL):</strong><br>
                     <code style="font-size:0.85rem;">
@@ -279,30 +291,30 @@
 
                 <!-- Tekstura -->
                 <rect x="40" y="55" width="160" height="140" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="120" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Tekstura</text>
+                <text x="120" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Tekstura</text>
                 <rect x="60" y="95" width="120" height="80" fill="#fff" stroke="#81c784" stroke-width="1" rx="2"/>
                 <circle cx="110" cy="125" r="6" fill="#e65100"/>
-                <text x="110" y="118" font-family="sans-serif" font-size="8" fill="#e65100">UV</text>
+                <text x="110" y="118" font-family="sans-serif" font-size="11" fill="#e65100">UV</text>
 
                 <!-- Strzałka próbkowania -->
                 <path d="M 200 125 L 300 125" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowSample)"/>
 
                 <!-- Fragment Shader -->
                 <rect x="310" y="55" width="160" height="140" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="390" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20">Fragment Shader</text>
-                <text x="390" y="105" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">texture()</text>
-                <text x="390" y="125" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">+ oświetlenie</text>
-                <text x="390" y="145" text-anchor="middle" font-family="monospace" font-size="10" fill="#1b5e20">+ normal map</text>
+                <text x="390" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Fragment Shader</text>
+                <text x="390" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">texture()</text>
+                <text x="390" y="125" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">+ oświetlenie</text>
+                <text x="390" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#1b5e20">+ normal map</text>
 
                 <!-- Strzałka do bufora -->
                 <path d="M 470 125 L 570 125" fill="none" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrowSample)"/>
 
                 <!-- Bufor ramki / Ekran -->
                 <rect x="580" y="55" width="200" height="140" rx="6" fill="#ffcc80" stroke="#ef6c00" stroke-width="2"/>
-                <text x="680" y="80" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Bufor ramki</text>
-                <text x="680" y="105" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#bf360c">Ostateczny kolor</text>
+                <text x="680" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Bufor ramki</text>
+                <text x="680" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#bf360c">Ostateczny kolor</text>
                 <rect x="650" y="115" width="60" height="50" fill="#ff8f00" rx="3"/>
-                <text x="680" y="145" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fff">piksel</text>
+                <text x="680" y="145" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff">piksel</text>
 
                 <defs>
                     <marker id="arrowSample" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e65100"/></marker>
@@ -317,6 +329,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zanim fragment zostanie ostatecznie zapisany do bufora ramki, przechodzi przez kilka testów. Najważniejszy to <strong>Depth Test (Z-buffer)</strong> – porównanie głębokości obecnego fragmentu z wartością zapisaną w buforze głębokości. Jeśli fragment jest dalej niż już zapisany piksel, jest odrzucany. Dzięki temu obiekty bliższe kamery przesłaniają te dalsze, niezależnie od kolejności rysowania. Dla przezroczystości używa się <strong>Blendingu</strong> – kolor fragmentu jest mieszany z kolorem już obecnym w buforze według zadanego równania (np. alpha blending).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przed zapisem do bufora ramki fragment przechodzi testy. Najważniejszy to test głębi – Z-buffer. Porównuje głębokość nowego fragmentu z zapisaną. Jeśli nowy jest dalej – odrzucamy go. Dzięki temu bliższe obiekty przesłaniają dalsze, niezależnie od kolejności rysowania. Przy przezroczystościach używamy blendowania – mieszamy kolor nowego fragmentu z już zapisanym. I tu uwaga: nieprzezroczyste rysujemy od przodu do tyłu, przezroczyste od tyłu do przodu. Kolejność ma znaczenie dla poprawności wizualnej.”
+                </div>
                 <div style="background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🧠 Kolejność ma znaczenie:</strong> Obiekty nieprzezroczyste rysuj od przodu do tyłu (wczesne odrzucenie przez Z-buffer oszczędza pracę Fragment Shadera). Obiekty przezroczyste – od tyłu do przodu (mieszanie musi być wykonane we właściwej kolejności).
                 </div>
@@ -333,6 +348,9 @@
                     <li><strong>gl_Position to współrzędne w przestrzeni przycięcia (clip space)</strong>, a nie piksele ekranu. Dopiero po podziale perspektywicznym (wykonywanym sprzętowo) i transformacji viewportu stają się pikselami.</li>
                     <li><strong>W nowoczesnym OpenGL (core profile) nie ma domyślnych shaderów</strong> – musisz napisać własny Vertex Shader i Fragment Shader, inaczej nic nie zostanie narysowane.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, cztery kluczowe pułapki. Po pierwsze – Vertex Shader widzi tylko jeden wierzchołek, nie zna sąsiadów. Po drugie – Fragment Shader dostaje dane już zinterpolowane, ale z korekcją perspektywiczną. Po trzecie – gl_Position to nie piksele ekranu, tylko współrzędne w przestrzeni przycięcia. Po czwarte – w nowoczesnym OpenGL core profile nie ma domyślnych shaderów. Jeśli nie napiszemy własnego Vertex Shadera i Fragment Shadera, nic nie zostanie narysowane. To fundamentalna zmiana względem starego OpenGL z fixed pipeline.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

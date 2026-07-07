@@ -14,16 +14,16 @@
         <h2 id="q-title">064. Podejście oparte o komponenty i podsystemy.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧩</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od monolitycznej cegły do pudełka klocków LEGO”:</strong>
+                    <strong style="font-size: 1.15rem; color: #0d47a1; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Od monolitycznej cegły do pudełka klocków LEGO":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a237e; line-height: 1.7;">
                         Wyobraź sobie dwie zabawki. Pierwsza to rzeźba wyrzeźbiona z jednego ogromnego bloku drewna – piękna, ale gdy pęknie jej noga, cała rzeźba ląduje w śmietniku. Druga to zestaw klocków LEGO – każdy klocek pasuje do innych, ma wystandaryzowane wypustki, a gdy jeden się zgubi, wymieniasz go na inny, nie rujnując całej budowli.
                     </p>
                     <p style="margin: 0; color: #1a237e; line-height: 1.7;">
-                        <strong>Podejście oparte na komponentach</strong> to właśnie budowanie systemów jak z klocków – z niezależnych, wymienialnych modułów, które komunikują się przez ściśle zdefiniowane interfejsy. <strong>Podsystemy</strong> to większe grupy takich klocków, które razem realizują jakąś większą funkcję (np. „obsługa płatności” składa się z komponentów: Bramka, Walidator, GeneratorFaktur). Zamiast jednej, gigantycznej aplikacji (monolitu), tworzysz sieć współpracujących, ale niezależnych części. Gdy jedna się psuje, reszta działa dalej.
+                        <strong>Podejście oparte na komponentach</strong> to właśnie budowanie systemów jak z klocków – z niezależnych, wymienialnych modułów, które komunikują się przez ściśle zdefiniowane interfejsy. <strong>Podsystemy</strong> to większe grupy takich klocków, które razem realizują jakąś większą funkcję (np. „obsługa płatności" składa się z komponentów: Bramka, Walidator, GeneratorFaktur). Zamiast jednej, gigantycznej aplikacji (monolitu), tworzysz sieć współpracujących, ale niezależnych części. Gdy jedna się psuje, reszta działa dalej.
                     </p>
                 </div>
             </div>
@@ -59,8 +59,11 @@
                     <li>Może być rozwijana, testowana i wdrażana niezależnie od reszty systemu.</li>
                 </ul>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Podsystem</strong> to logiczna grupa powiązanych komponentów, które razem realizują większą funkcję. Na przykład podsystem „Zarządzanie użytkownikami” może zawierać komponenty: Rejestracja, Logowanie, Resetowanie hasła, Profil.
+                    <strong>Podsystem</strong> to logiczna grupa powiązanych komponentów, które razem realizują większą funkcję. Na przykład podsystem „Zarządzanie użytkownikami" może zawierać komponenty: Rejestracja, Logowanie, Resetowanie hasła, Profil.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Komponent to niezależna, wymienialna jednostka oprogramowania z jasno zdefiniowanym interfejsem. Ma cztery kluczowe cechy: interfejs jako kontrakt, wymienialność – mogę podmienić jeden na drugi, hermetyzację – świat nie wie, co w środku, oraz niezależność – można go rozwijać i testować osobno. Podsystem to grupa powiązanych komponentów realizujących większą funkcję – na przykład podsystem płatności składa się z bramki, walidatora i generatora faktur. Proszę spojrzeć na planszę – porównuje ona monolit, gdzie wszystko jest w jednym procesie, z architekturą komponentową, gdzie mamy niezależne, wymienialne moduły."
+                </div>
             </div>
 
             <!-- SVG: Monolit vs Komponenty -->
@@ -113,9 +116,12 @@
                     Cała idea komponentów opiera się na dwóch filarach, które każdy inżynier powinien znać jak pacierz:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Wysoka Spójność (High Cohesion):</strong> Wszystko wewnątrz komponentu jest ze sobą ściśle powiązane i dotyczy jednej odpowiedzialności. Jeśli komponent nazywa się „SilnikPłatności”, nie powinien zajmować się wysyłaniem newsletterów. Łatwiej go wtedy zrozumieć, przetestować i rozwijać.</li>
+                    <li><strong>Wysoka Spójność (High Cohesion):</strong> Wszystko wewnątrz komponentu jest ze sobą ściśle powiązane i dotyczy jednej odpowiedzialności. Jeśli komponent nazywa się „SilnikPłatności", nie powinien zajmować się wysyłaniem newsletterów. Łatwiej go wtedy zrozumieć, przetestować i rozwijać.</li>
                     <li><strong>Luźne Powiązania (Loose Coupling):</strong> Komponenty wiedzą o sobie jak najmniej. Komunikują się przez stabilne interfejsy, a nie przez bezpośrednie wywołania wewnętrznych metod. Dzięki temu zmiana w komponencie A nie wymusza zmian w B, C i D.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Architektura komponentowa opiera się na dwóch filarach. Wysoka spójność oznacza, że wszystko wewnątrz komponentu dotyczy jednej odpowiedzialności – komponent SilnikPłatności nie powinien zajmować się wysyłaniem newsletterów. Luźne powiązania oznaczają, że komponenty komunikują się przez stabilne interfejsy i wiedzą o sobie jak najmniej. Dzięki temu zmiana w komponencie A nie wymusza zmian w B, C i D. Te dwie zasady – wysokiej spójności i luźnych powiązań – to fundament, na którym opiera się cała idea komponentów."
+                </div>
             </div>
 
             <!-- 3. Interfejsy i kontrakty -->
@@ -124,6 +130,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kluczem do wszystkiego jest <strong>interfejs</strong> (API) – publiczny zestaw operacji, które komponent udostępnia światu. Interfejs jest jak gniazdko elektryczne: nie obchodzi Cię, jak prąd płynie w ścianach – wkładasz wtyczkę i działa. Możesz wymienić całą instalację w domu, a gniazdko pozostaje takie samo. W oprogramowaniu: możesz przepisać komponent od zera, ale jeśli zachowasz ten sam interfejs, reszta systemu nawet tego nie zauważy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Interfejs to klucz do całej architektury komponentowej. To jak gniazdko elektryczne – nie obchodzi nas, jak prąd płynie w ścianach, wkładamy wtyczkę i działa. Możemy wymienić całą instalację w domu, a gniazdko zostaje takie samo. Tak samo w oprogramowaniu – możemy przepisać komponent od zera, ale jeśli zachowamy ten sam interfejs, reszta systemu nawet nie zauważy zmiany. Interfejs to kontrakt, którego nie można złamać – dlatego mówimy o programowaniu do interfejsów, nie do implementacji. Proszę spojrzeć na planszę pokazującą hierarchię od systemu przez podsystemy do komponentów i interfejsów."
+                </div>
             </div>
 
             <!-- SVG: Hierarchia system -> podsystem -> komponent -->
@@ -167,23 +176,29 @@
                     Rozważmy typowy sklep internetowy. Zamiast jednej gigantycznej aplikacji, dzielimy go na podsystemy i komponenty:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Podsystem „Katalog Produktów”</strong> – komponenty: Wyszukiwarka, Przeglądarka, SzczegółyProduktu.</li>
-                    <li><strong>Podsystem „Koszyk i Zamówienia”</strong> – komponenty: Koszyk, SkładanieZamówienia, HistoriaZamówień.</li>
-                    <li><strong>Podsystem „Płatności”</strong> – komponenty: BramkaPayU, BramkaStripe, GeneratorFaktur.</li>
+                    <li><strong>Podsystem „Katalog Produktów"</strong> – komponenty: Wyszukiwarka, Przeglądarka, SzczegółyProduktu.</li>
+                    <li><strong>Podsystem „Koszyk i Zamówienia"</strong> – komponenty: Koszyk, SkładanieZamówienia, HistoriaZamówień.</li>
+                    <li><strong>Podsystem „Płatności"</strong> – komponenty: BramkaPayU, BramkaStripe, GeneratorFaktur.</li>
                 </ul>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Gdy pojawia się nowa, lepsza bramka płatności (np. Blik), dodajesz nowy komponent implementujący ten sam interfejs <code>IPaymentGateway</code>. Reszta systemu – koszyk, zamówienia, historia – nie wymaga żadnych zmian. Podmiana jednego klocka nie burzy całej budowli.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Weźmy przykład sklepu internetowego. Zamiast monolitu dzielimy go na podsystemy: Katalog Produktów, Koszyk i Zamówienia oraz Płatności. Każdy podsystem składa się z komponentów. Gdy na rynku pojawia się Blik, dodajemy nowy komponent implementujący ten sam interfejs IPaymentGateway – reszta systemu, koszyk, zamówienia, historia, nie wymaga żadnych zmian. To jest właśnie siła podejścia komponentowego – podmieniamy jeden klocek, a cała budowla stoi dalej. Gdyby to był monolit, musielibyśmy zmieniać kod w wielu miejscach i redeployować całość."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy komponentowe):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Podzielę system na 100 mikroskopijnych komponentów, to będzie idealnie”</strong> – Granica jest tam, gdzie koszt komunikacji między komponentami przewyższa korzyści z ich niezależności. Komponent, który ma 2 metody i 20 linii kodu, to przerost formy nad treścią.</li>
-                    <li><strong>„Interfejsy są dla słabych – ja będę wołał metody bezpośrednio”</strong> – Bez interfejsów nie ma wymienialności. Gdy klasa A zależy od konkretnej klasy B, a nie od interfejsu IB, zmiana B niszczy A. To się nazywa „kruche oprogramowanie”.</li>
-                    <li><strong>„Komponent = klasa w Javie/C#”</strong> – NIE. Komponent może składać się z wielu klas, plików konfiguracyjnych, a nawet osobnej bazy danych. To jednostka wdrożeniowa, a nie tylko językowy konstrukt.</li>
+                    <li><strong>„Podzielę system na 100 mikroskopijnych komponentów, to będzie idealnie"</strong> – Granica jest tam, gdzie koszt komunikacji między komponentami przewyższa korzyści z ich niezależności. Komponent, który ma 2 metody i 20 linii kodu, to przerost formy nad treścią.</li>
+                    <li><strong>„Interfejsy są dla słabych – ja będę wołał metody bezpośrednio"</strong> – Bez interfejsów nie ma wymienialności. Gdy klasa A zależy od konkretnej klasy B, a nie od interfejsu IB, zmiana B niszczy A. To się nazywa „kruche oprogramowanie".</li>
+                    <li><strong>„Komponent = klasa w Javie/C#"</strong> – NIE. Komponent może składać się z wielu klas, plików konfiguracyjnych, a nawet osobnej bazy danych. To jednostka wdrożeniowa, a nie tylko językowy konstrukt.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki w podejściu komponentowym. Po pierwsze, nadmierny podział – komponent z dwiema metodami i dwudziestoma liniami kodu to przerost formy nad treścią; granica jest tam, gdzie koszt komunikacji przewyższa korzyści. Po drugie, pomijanie interfejsów – bez nich nie ma wymienialności, a system staje się kruchy, bo zmiana jednej klasy niszczy wszystkie od niej zależne. Po trzecie, błędne utożsamianie komponentu z pojedynczą klasą – komponent to jednostka wdrożeniowa, która może zawierać wiele klas, pliki konfiguracyjne, a nawet własną bazę danych."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -198,7 +213,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Component-Based Software Engineering” (Clemens Szyperski) · „Software Architecture in Practice” (Bass, Clements, Kazman) · „Clean Architecture” (Robert C. Martin).
+                    „Component-Based Software Engineering" (Clemens Szyperski) · „Software Architecture in Practice" (Bass, Clements, Kazman) · „Clean Architecture" (Robert C. Martin).
                 </span>
             </div>
 

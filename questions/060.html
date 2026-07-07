@@ -14,16 +14,16 @@
         <h2 id="q-title">060. Proces i produkty obiektowej analizy wymagań.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #4a148c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(74,20,140,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #4a148c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(74,20,140,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧱</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Z klocków LEGO nie budujesz od razu zamku”:</strong>
+                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Z klocków LEGO nie budujesz od razu zamku":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a0033; line-height: 1.7;">
-                        Gdy dostajesz pudełko klocków LEGO z obrazkiem zamku na opakowaniu, nie chwytasz za pierwszą klockę i nie składasz jej „na czuja”. Najpierw analizujesz: jakie mam klocki? (obiekty), jak je połączyć? (relacje), co ma być ruchome? (zachowania). Dopiero potem budujesz zgodnie z instrukcją.
+                        Gdy dostajesz pudełko klocków LEGO z obrazkiem zamku na opakowaniu, nie chwytasz za pierwszą klockę i nie składasz jej „na czuja". Najpierw analizujesz: jakie mam klocki? (obiekty), jak je połączyć? (relacje), co ma być ruchome? (zachowania). Dopiero potem budujesz zgodnie z instrukcją.
                     </p>
                     <p style="margin: 0; color: #1a0033; line-height: 1.7;">
-                        <strong>Obiektowa analiza wymagań</strong> to właśnie tworzenie takiej instrukcji dla systemu informatycznego. Zamiast pisać listę funkcji („system ma to, system ma tamto”), identyfikujesz <strong>obiekty świata rzeczywistego</strong> (Klient, Zamówienie, Produkt) i ich wzajemne powiązania. W ten sposób tworzysz precyzyjny model, który jest niezależny od języka programowania i zrozumiały zarówno dla programisty, jak i dla użytkownika. To kluczowy etap, który łączy świat biznesu ze światem kodu.
+                        <strong>Obiektowa analiza wymagań</strong> to właśnie tworzenie takiej instrukcji dla systemu informatycznego. Zamiast pisać listę funkcji („system ma to, system ma tamto"), identyfikujesz <strong>obiekty świata rzeczywistego</strong> (Klient, Zamówienie, Produkt) i ich wzajemne powiązania. W ten sposób tworzysz precyzyjny model, który jest niezależny od języka programowania i zrozumiały zarówno dla programisty, jak i dla użytkownika. To kluczowy etap, który łączy świat biznesu ze światem kodu.
                     </p>
                 </div>
             </div>
@@ -50,11 +50,14 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">1. Co to jest obiektowa analiza wymagań?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Obiektowa analiza wymagań (OOA) to proces modelowania problemu w kategoriach obiektów – czyli rzeczy, pojęć lub bytów, które istnieją w świecie rzeczywistym i mają znaczenie dla systemu. Zamiast pytać „Jakie funkcje ma system?”, pytamy „Z jakich obiektów składa się domena i jakie są między nimi zależności?”.
+                    Obiektowa analiza wymagań (OOA) to proces modelowania problemu w kategoriach obiektów – czyli rzeczy, pojęć lub bytów, które istnieją w świecie rzeczywistym i mają znaczenie dla systemu. Zamiast pytać „Jakie funkcje ma system?", pytamy „Z jakich obiektów składa się domena i jakie są między nimi zależności?".
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     OOA łączy pozyskiwanie wymagań (patrz pytanie 059) z modelowaniem przy użyciu notacji <strong>UML (Unified Modeling Language)</strong>. Jej celem jest stworzenie <strong>modelu pojęciowego</strong>, który jest niezależny od implementacji, ale stanowi fundament dla projektowania obiektowego.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Obiektowa analiza wymagań to podejście, które zamiast pytać 'jakie funkcje ma system', pyta 'z jakich obiektów składa się domena i jakie są między nimi zależności'. Identyfikujemy obiekty świata rzeczywistego – Klient, Zamówienie, Produkt – i modelujemy je za pomocą UML. Kluczowe jest to, że model pojęciowy, który tworzymy, jest niezależny od implementacji – nie zawiera szczegółów technicznych, tylko odzwierciedla świat biznesu. To fundament, na którym później budujemy projekt techniczny. Proszę zapamiętać: OOA to modelowanie problemu, a nie rozwiązania."
+                </div>
             </div>
 
             <!-- 2. Proces obiektowej analizy (schemat) -->
@@ -116,6 +119,12 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proces obiektowej analizy wymagań składa się z czterech głównych etapów, które powtarzamy iteracyjnie. Zaczynamy od identyfikacji przypadków użycia – rysujemy diagramy UC z aktorami i scenariuszami. Następnie budujemy model pojęciowy, czyli diagram klas analitycznych pokazujący obiekty i ich relacje. Trzeci krok to modelowanie zachowań – diagramy sekwencji pokazujące przepływ komunikatów w czasie oraz diagramy stanów dla obiektów o złożonym cyklu życia. Na końcu walidujemy modele z użytkownikami i tworzymy dokumentację – Dokument Wizji i SRS. Proszę spojrzeć na planszę – pętla iteracji oznacza, że wracamy i doprecyzowujemy modele w kolejnych cyklach."
+                </div>
+            </div>
+
             <!-- 3. Produkty (artefakty) -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">3. Produkty obiektowej analizy wymagań – co otrzymujesz na wyjściu?</strong>
@@ -160,31 +169,43 @@
                 <text x="565" y="200" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">diagramy aktywności (procesy biznesowe)</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Efektem OOA jest pięć głównych artefaktów. Dokument Wizji opisuje problem, rozwiązanie i zakres na wysokim poziomie. Model Przypadków Użycia to diagramy UC ze szczegółowymi scenariuszami – głównym, alternatywnymi i wyjątkami. Model Pojęciowy to diagram klas analitycznych pokazujący obiekty, ich atrybuty i powiązania – bez szczegółów implementacyjnych. Diagramy Interakcji, głównie sekwencji, pokazują przepływ komunikatów między obiektami w czasie. Diagramy Zachowań – stanów i aktywności – modelują cykl życia obiektów i procesy biznesowe. Razem tworzą kompletny obraz wymagań, zrozumiały zarówno dla biznesu, jak i dla zespołu technicznego."
+                </div>
+            </div>
+
             <!-- 4. Przykład praktyczny -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #4a148c;">4. Przykład: analiza systemu „Wypożyczalnia samochodów”</strong>
+                <strong style="font-size: 1.2rem; color: #4a148c;">4. Przykład: analiza systemu „Wypożyczalnia samochodów"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Aby zobaczyć, jak OOA działa w praktyce, prześledźmy ją na konkretnym, prostym przykładzie.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Krok 1: Przypadki użycia</strong> – najpierw identyfikujemy aktorów (Klient, Pracownik wypożyczalni) i ich cele. Powstają UC: „Wypożycz samochód”, „Zwróć samochód”, „Zarejestruj klienta”. Rysujemy diagram UC.
+                    <strong>Krok 1: Przypadki użycia</strong> – najpierw identyfikujemy aktorów (Klient, Pracownik wypożyczalni) i ich cele. Powstają UC: „Wypożycz samochód", „Zwróć samochód", „Zarejestruj klienta". Rysujemy diagram UC.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Krok 2: Model pojęciowy</strong> – identyfikujemy obiekty: Samochód (marka, model, nr rejestracyjny), Klient (imię, nazwisko, prawo jazdy), Wypożyczenie (data od, data do, status). Tworzymy diagram klas z powiązaniami: Klient 1–* Wypożyczenie, Samochód 1–0..1 Wypożyczenie.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Krok 3: Zachowania</strong> – dla UC „Wypożycz samochód” rysujemy diagram sekwencji: Klient → System → Samochód (sprawdzenie dostępności, blokada, potwierdzenie). Diagram stanów dla obiektu Wypożyczenie pokazuje stany: Nowe, Aktywne, Zakończone.
+                    <strong>Krok 3: Zachowania</strong> – dla UC „Wypożycz samochód" rysujemy diagram sekwencji: Klient → System → Samochód (sprawdzenie dostępności, blokada, potwierdzenie). Diagram stanów dla obiektu Wypożyczenie pokazuje stany: Nowe, Aktywne, Zakończone.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Spójrzmy na konkretny przykład – system wypożyczalni samochodów. W pierwszym kroku identyfikujemy aktorów: Klient i Pracownik, oraz przypadki użycia: Wypożycz samochód, Zwróć samochód, Zarejestruj klienta. W drugim kroku budujemy model pojęciowy – obiekty Samochód, Klient i Wypożyczenie z atrybutami i powiązaniami. W trzecim kroku dla każdego przypadku użycia rysujemy diagram sekwencji pokazujący, jak komunikaty przepływają między obiektami. Dla Wypożyczenia dodajemy diagram stanów: Nowe, Aktywne, Zakończone. Ten przykład pokazuje, jak OOA prowadzi nas od ogólnego opisu do precyzyjnego modelu."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Modelowanie obiektowe – częste błędy):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Model pojęciowy = diagram klas projektowych”</strong> – NIE. Model analityczny pokazuje świat rzeczywisty, bez szczegółów implementacyjnych (np. bez typów kolekcji, metod get/set). Nie zawiera operacji, tylko atrybuty i relacje. Projektowanie przyjdzie później.</li>
-                    <li><strong>„Trzeba wymodelować wszystko naraz”</strong> – Wręcz przeciwnie. OOA jest iteracyjna: najpierw modelujesz najważniejsze 20% obiektów, które dają 80% wartości. Szczegóły dodajesz w kolejnych iteracjach. Próba stworzenia kompletnego modelu na początku prowadzi do paraliżu analitycznego.</li>
-                    <li><strong>„Diagramy UML to tylko ozdobniki”</strong> – UML to nie rysunki dla menadżerów. Precyzyjna notacja pozwala na jednoznaczną komunikację i wykrywanie niespójności. Np. jeśli w diagramie klas jest „Wypożyczenie – Samochód” z liczebnością 1, a w UC „Zwróć samochód” pojawia się opóźnienie, model wymaga korekty (np. dodania obiektu Kara).</li>
+                    <li><strong>„Model pojęciowy = diagram klas projektowych"</strong> – NIE. Model analityczny pokazuje świat rzeczywisty, bez szczegółów implementacyjnych (np. bez typów kolekcji, metod get/set). Nie zawiera operacji, tylko atrybuty i relacje. Projektowanie przyjdzie później.</li>
+                    <li><strong>„Trzeba wymodelować wszystko naraz"</strong> – Wręcz przeciwnie. OOA jest iteracyjna: najpierw modelujesz najważniejsze 20% obiektów, które dają 80% wartości. Szczegóły dodajesz w kolejnych iteracjach. Próba stworzenia kompletnego modelu na początku prowadzi do paraliżu analitycznego.</li>
+                    <li><strong>„Diagramy UML to tylko ozdobniki"</strong> – UML to nie rysunki dla menadżerów. Precyzyjna notacja pozwala na jednoznaczną komunikację i wykrywanie niespójności. Np. jeśli w diagramie klas jest „Wypożyczenie – Samochód" z liczebnością 1, a w UC „Zwróć samochód" pojawia się opóźnienie, model wymaga korekty (np. dodania obiektu Kara).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki w OOA. Po pierwsze, mylenie modelu pojęciowego z projektowym – model analityczny nie zawiera metod ani szczegółów implementacyjnych, to czysty obraz domeny. Po drugie, próba wymodelowania wszystkiego naraz – OOA jest iteracyjna, zaczynamy od najważniejszych 20% obiektów. Po trzecie, traktowanie UML-a jak ozdobników – to precyzyjna notacja, która pozwala wykryć niespójności między diagramami, na przykład gdy liczebność w diagramie klas nie zgadza się ze scenariuszem w przypadku użycia."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -199,7 +220,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Applying UML and Patterns” (Craig Larman) – kompendium OOA · „Object-Oriented Software Engineering” (Ivar Jacobson) · „UML Distilled” (Martin Fowler) – zwięzłe źródło o notacji.
+                    „Applying UML and Patterns" (Craig Larman) – kompendium OOA · „Object-Oriented Software Engineering" (Ivar Jacobson) · „UML Distilled" (Martin Fowler) – zwięzłe źródło o notacji.
                 </span>
             </div>
 

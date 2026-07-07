@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #3949ab; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(57,73,171,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🪞</span>
                 <div>
@@ -66,92 +66,95 @@
                     W standardowej algebrze liniowej obrót i skalowanie daje się łatwo zapisać jako mnożenie macierzy. Z przesunięciem jest problem, ponieważ to <strong>dodawanie stałej</strong>. <br><br>
                     Rozwiązaniem są <strong>Współrzędne Jednorodne</strong>: punkt 2D zapisujemy jako [x, y, 1], a punkt 3D jako [x, y, z, 1]. Dodając jeden wymiar, sprawiamy, że przesunięcie staje się zwykłym mnożeniem macierzy. W przestrzeni 2D używamy macierzy 3x3, a w 3D macierzy 4x4. Ta konwencja jest sercem OpenGL, DirectX, Unity i każdego silnika graficznego.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, problem jest fundamentalny: obrót i skalowanie to mnożenie macierzy, ale przesunięcie to dodawanie stałej. Jak to pogodzić? Wprowadzamy współrzędne jednorodne – punkt 2D zapisujemy jako [x, y, 1], a punkt 3D jako [x, y, z, 1]. Dodajemy jeden wymiar i nagle przesunięcie staje się zwykłym mnożeniem macierzy. W 2D używamy macierzy 3x3, w 3D – 4x4. To jest absolutny fundament OpenGL, DirectX, Unity – każdy silnik graficzny na świecie używa tej konwencji. Proszę spojrzeć na planszę z macierzami translacji, obrotu i skalowania.”
+                </div>
                 <div style="background: #e8eaf6; border-left: 5px solid #3949ab; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Piękno jednorodności:</strong> Każda transformacja afiniczna 2D jest mnożeniem przez macierz 3x3. Każda transformacja 3D jest mnożeniem przez macierz 4x4. GPU ma wbudowane mnożenie przez macierz 4x4 i robi to niewyobrażalnie szybko.
                 </div>
             </div>
 
-            <!-- SVG: PORÓWNANIE TRANSFORMACJI 2D (TRS) -->
-            <svg viewBox="0 0 820 450" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <!-- SVG: PORÓWNANIE TRANSFORMACJI 2D (TRS) – POPRAWIONA CZYTELNOŚĆ -->
+            <svg viewBox="0 0 820 460" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <pattern id="gridAff" width="40" height="40" patternUnits="userSpaceOnUse">
                         <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/>
                     </pattern>
                 </defs>
-                <rect x="0" y="0" width="820" height="450" fill="url(#gridAff)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a237e">Wizualizacja trzech podstawowych transformacji afinicznych 2D</text>
+                <rect x="0" y="0" width="820" height="460" fill="url(#gridAff)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1a237e">Wizualizacja trzech podstawowych transformacji afinicznych 2D</text>
 
                 <!-- 1. TRANSLACJA -->
-                <rect x="25" y="55" width="240" height="160" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
-                <text x="145" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Przesunięcie (Translation)</text>
-                <polygon points="80,170 100,90 180,130" fill="#bbdefb" stroke="#1565c0" stroke-width="3"/>
-                <polygon points="160,130 180,50 260,90" fill="#42a5f5" stroke="#1565c0" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
-                <text x="220" y="180" font-family="sans-serif" font-size="11" fill="#0d47a1">+ T(dx, dy)</text>
-                <text x="145" y="205" font-family="monospace" font-size="10" fill="#546e7a">x' = x + dx; y' = y + dy</text>
+                <rect x="25" y="55" width="240" height="170" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="145" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Przesunięcie (Translation)</text>
+                <polygon points="80,175 100,95 180,135" fill="#bbdefb" stroke="#1565c0" stroke-width="3"/>
+                <polygon points="160,135 180,55 260,95" fill="#42a5f5" stroke="#1565c0" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
+                <text x="220" y="190" font-family="sans-serif" font-size="12" fill="#0d47a1">+ T(dx, dy)</text>
+                <text x="145" y="215" font-family="monospace" font-size="11" fill="#546e7a">x' = x + dx; y' = y + dy</text>
 
                 <!-- 2. ROTACJA -->
-                <rect x="290" y="55" width="240" height="160" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Obrót (Rotation)</text>
-                <polygon points="340,170 360,90 440,130" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
-                <polygon points="320,120 380,60 450,130" fill="#66bb6a" stroke="#2e7d32" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
-                <path d="M 390 100 Q 420 90 440 110" fill="none" stroke="#ff8f00" stroke-width="2"/>
-                <text x="430" y="105" font-family="monospace" font-size="10" fill="#e65100">θ</text>
-                <text x="410" y="205" font-family="monospace" font-size="10" fill="#546e7a">x' = x*cosθ - y*sinθ</text>
+                <rect x="290" y="55" width="240" height="170" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Obrót (Rotation)</text>
+                <polygon points="340,175 360,95 440,135" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+                <polygon points="320,125 380,65 450,135" fill="#66bb6a" stroke="#2e7d32" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
+                <path d="M 390 105 Q 420 95 440 115" fill="none" stroke="#ff8f00" stroke-width="2.5"/>
+                <text x="435" y="108" font-family="monospace" font-size="12" fill="#e65100">θ</text>
+                <text x="410" y="215" font-family="monospace" font-size="11" fill="#546e7a">x' = x·cosθ - y·sinθ</text>
 
                 <!-- 3. SKALOWANIE -->
-                <rect x="555" y="55" width="240" height="160" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
-                <text x="675" y="80" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Skalowanie (Scaling)</text>
-                <polygon points="610,170 630,90 710,130" fill="#ffe0b2" stroke="#e65100" stroke-width="3"/>
-                <polygon points="590,160 610,70 730,120" fill="#ffb74d" stroke="#e65100" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
-                <text x="675" y="205" font-family="monospace" font-size="10" fill="#546e7a">x' = x * Sx; y' = y * Sy</text>
+                <rect x="555" y="55" width="240" height="170" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+                <text x="675" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Skalowanie (Scaling)</text>
+                <polygon points="610,175 630,95 710,135" fill="#ffe0b2" stroke="#e65100" stroke-width="3"/>
+                <polygon points="590,165 610,75 730,125" fill="#ffb74d" stroke="#e65100" stroke-width="3" stroke-dasharray="6,4" opacity="0.8"/>
+                <text x="675" y="215" font-family="monospace" font-size="11" fill="#546e7a">x' = x · Sx; y' = y · Sy</text>
 
                 <!-- SEKCJA MACIERZY – JAK TO ROBIMY -->
-                <rect x="80" y="240" width="660" height="180" rx="10" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2"/>
-                <text x="410" y="268" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c">Jak to działa? Współrzędne Jednorodne (Macierze 3x3 w 2D)</text>
+                <rect x="60" y="250" width="700" height="190" rx="10" fill="#f3e5f5" stroke="#8e24aa" stroke-width="2"/>
+                <text x="410" y="280" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Jak to działa? Współrzędne Jednorodne (Macierze 3x3 w 2D)</text>
 
-                <!-- Macierze wizualnie -->
-                <g transform="translate(120, 285)">
-                    <text x="40" y="-5" font-family="sans-serif" font-size="10" font-weight="bold" fill="#4a148c">Translacja</text>
-                    <rect x="0" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="20" font-family="monospace" font-size="10">1</text>
-                    <rect x="30" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="20" font-family="monospace" font-size="10">0</text>
-                    <rect x="60" y="0" width="30" height="30" fill="#ce93d8" stroke="#8e24aa" stroke-width="1"/><text x="75" y="20" font-family="monospace" font-size="10">Tx</text>
-                    <rect x="0" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="50" font-family="monospace" font-size="10">0</text>
-                    <rect x="30" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="50" font-family="monospace" font-size="10">1</text>
-                    <rect x="60" y="30" width="30" height="30" fill="#ce93d8" stroke="#8e24aa" stroke-width="1"/><text x="75" y="50" font-family="monospace" font-size="10">Ty</text>
-                    <rect x="0" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="30" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="60" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="80" font-family="monospace" font-size="10">1</text>
+                <!-- Macierze wizualnie – większe i czytelniejsze -->
+                <g transform="translate(110, 295)">
+                    <text x="45" y="-5" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Translacja</text>
+                    <rect x="0" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="23" font-family="monospace" font-size="12">1</text>
+                    <rect x="36" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="23" font-family="monospace" font-size="12">0</text>
+                    <rect x="72" y="0" width="36" height="36" fill="#ce93d8" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="23" font-family="monospace" font-size="12">Tx</text>
+                    <rect x="0" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="59" font-family="monospace" font-size="12">0</text>
+                    <rect x="36" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="59" font-family="monospace" font-size="12">1</text>
+                    <rect x="72" y="36" width="36" height="36" fill="#ce93d8" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="59" font-family="monospace" font-size="12">Ty</text>
+                    <rect x="0" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="36" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="72" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="95" font-family="monospace" font-size="12">1</text>
                 </g>
 
-                <g transform="translate(300, 285)">
-                    <text x="40" y="-5" font-family="sans-serif" font-size="10" font-weight="bold" fill="#4a148c">Obrót</text>
-                    <rect x="0" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="20" font-family="monospace" font-size="10">c</text>
-                    <rect x="30" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="20" font-family="monospace" font-size="10">-s</text>
-                    <rect x="60" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="20" font-family="monospace" font-size="10">0</text>
-                    <rect x="0" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="50" font-family="monospace" font-size="10">s</text>
-                    <rect x="30" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="50" font-family="monospace" font-size="10">c</text>
-                    <rect x="60" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="50" font-family="monospace" font-size="10">0</text>
-                    <rect x="0" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="30" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="60" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="80" font-family="monospace" font-size="10">1</text>
+                <g transform="translate(290, 295)">
+                    <text x="45" y="-5" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Obrót</text>
+                    <rect x="0" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="23" font-family="monospace" font-size="12">c</text>
+                    <rect x="36" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="23" font-family="monospace" font-size="12">-s</text>
+                    <rect x="72" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="23" font-family="monospace" font-size="12">0</text>
+                    <rect x="0" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="59" font-family="monospace" font-size="12">s</text>
+                    <rect x="36" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="59" font-family="monospace" font-size="12">c</text>
+                    <rect x="72" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="59" font-family="monospace" font-size="12">0</text>
+                    <rect x="0" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="36" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="72" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="95" font-family="monospace" font-size="12">1</text>
                 </g>
 
-                <g transform="translate(480, 285)">
-                    <text x="40" y="-5" font-family="sans-serif" font-size="10" font-weight="bold" fill="#4a148c">Skala</text>
-                    <rect x="0" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="20" font-family="monospace" font-size="10">Sx</text>
-                    <rect x="30" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="20" font-family="monospace" font-size="10">0</text>
-                    <rect x="60" y="0" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="20" font-family="monospace" font-size="10">0</text>
-                    <rect x="0" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="50" font-family="monospace" font-size="10">0</text>
-                    <rect x="30" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="50" font-family="monospace" font-size="10">Sy</text>
-                    <rect x="60" y="30" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="50" font-family="monospace" font-size="10">0</text>
-                    <rect x="0" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="15" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="30" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="45" y="80" font-family="monospace" font-size="10">0</text>
-                    <rect x="60" y="60" width="30" height="30" fill="#e1bee7" stroke="#8e24aa" stroke-width="1"/><text x="75" y="80" font-family="monospace" font-size="10">1</text>
+                <g transform="translate(470, 295)">
+                    <text x="45" y="-5" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Skala</text>
+                    <rect x="0" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="23" font-family="monospace" font-size="12">Sx</text>
+                    <rect x="36" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="23" font-family="monospace" font-size="12">0</text>
+                    <rect x="72" y="0" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="23" font-family="monospace" font-size="12">0</text>
+                    <rect x="0" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="59" font-family="monospace" font-size="12">0</text>
+                    <rect x="36" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="59" font-family="monospace" font-size="12">Sy</text>
+                    <rect x="72" y="36" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="59" font-family="monospace" font-size="12">0</text>
+                    <rect x="0" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="18" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="36" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="54" y="95" font-family="monospace" font-size="12">0</text>
+                    <rect x="72" y="72" width="36" height="36" fill="#e1bee7" stroke="#8e24aa" stroke-width="1.5"/><text x="90" y="95" font-family="monospace" font-size="12">1</text>
                 </g>
 
-                <text x="660" y="320" font-family="sans-serif" font-size="11" fill="#4a148c">Kolumny macierzy to obrazy</text>
-                <text x="660" y="338" font-family="sans-serif" font-size="11" fill="#4a148c">wektorów bazowych [1,0] i [0,1]</text>
-                <text x="660" y="356" font-family="sans-serif" font-size="11" fill="#4a148c">po transformacji.</text>
+                <text x="640" y="330" font-family="sans-serif" font-size="12" fill="#4a148c">Kolumny macierzy to obrazy</text>
+                <text x="640" y="350" font-family="sans-serif" font-size="12" fill="#4a148c">wektorów bazowych [1,0] i [0,1]</text>
+                <text x="640" y="370" font-family="sans-serif" font-size="12" fill="#4a148c">po transformacji.</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -163,30 +166,33 @@
                     Największą siłą macierzy jest możliwość łączenia (mnożenia) ich w jedną super-macierz. Chcesz obrócić i przesunąć? <code>M_końcowa = T * R</code>. GPU wykonuje jedno mnożenie, a nie dwa. <br><br>
                     <strong>Uwaga na kolejność!</strong> Mnożenie macierzy nie jest przemienne. <strong>Obrót * Przesunięcie ≠ Przesunięcie * Obrót</strong>. Przyjmuje się, że najpierw skalujemy (S), potem obracamy (R), a na końcu przesuwamy (T): <code>M = T * R * S</code>. Jeśli zrobisz to w złej kolejności, obiekt "ucieknie" z ekranu lub zacznie się dziwnie deformować. W OpenGL i DirectX stosuje się konwencję mnożenia od prawej do lewej.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kolejność transformacji jest absolutnie kluczowa. Mnożenie macierzy nie jest przemienne. Jeśli najpierw przesuniemy, a potem obrócimy – obiekt zacznie krążyć po orbicie, zamiast obracać się w miejscu. Złota zasada: najpierw skalujemy, potem obracamy, na końcu przesuwamy. Zapisujemy to jako M = T · R · S, mnożąc od prawej do lewej. W silnikach graficznych właśnie w tej kolejności buduje się macierz modelu. Proszę spojrzeć na planszę – porównuje ona poprawną i błędną kolejność.”
+                </div>
             </div>
 
-            <!-- SVG: KOLEJNOŚĆ TRANSFORMACJI -->
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridAff)" opacity="0.4"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Kolejność transformacji ma znaczenie! (R*T vs T*R)</text>
-                
-                <!-- Scenariusz A: R * T (Obrót potem Przesunięcie) -->
-                <rect x="30" y="55" width="360" height="180" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
-                <text x="210" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Poprawnie: T * R * S</text>
-                <circle cx="100" cy="160" r="15" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <circle cx="180" cy="120" r="15" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <circle cx="260" cy="120" r="15" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <path d="M 60 220 Q 150 120 240 80" fill="none" stroke="#0d47a1" stroke-width="2" stroke-dasharray="4,3"/>
-                <text x="210" y="230" font-family="sans-serif" font-size="10" fill="#546e7a">Obiekt obraca się wokół własnej osi, potem jedzie w prawo.</text>
+            <!-- SVG: KOLEJNOŚĆ TRANSFORMACJI – POPRAWIONA CZYTELNOŚĆ -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridAff)" opacity="0.4"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Kolejność transformacji ma znaczenie! (T·R vs R·T)</text>
 
-                <!-- Scenariusz B: T * R (Przesunięcie potem Obrót) -->
-                <rect x="430" y="55" width="360" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
-                <text x="610" y="80" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Błąd: R * T</text>
-                <circle cx="500" cy="160" r="15" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <circle cx="580" cy="160" r="15" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <circle cx="660" cy="160" r="15" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <path d="M 460 100 Q 550 80 650 200" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="4,3"/>
-                <text x="610" y="230" font-family="sans-serif" font-size="10" fill="#546e7a">Obiekt odjechał daleko w prawo, a teraz krąży po orbicie!</text>
+                <!-- Scenariusz A: T * R * S (Poprawnie) -->
+                <rect x="30" y="55" width="360" height="195" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="210" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">✅ Poprawnie: T · R · S</text>
+                <circle cx="100" cy="170" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                <circle cx="180" cy="130" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                <circle cx="260" cy="130" r="18" fill="#bbdefb" stroke="#1565c0" stroke-width="2.5"/>
+                <path d="M 60 230 Q 150 130 240 90" fill="none" stroke="#0d47a1" stroke-width="2.5" stroke-dasharray="6,4"/>
+                <text x="210" y="242" font-family="sans-serif" font-size="12" fill="#546e7a">Obiekt obraca się wokół własnej osi, potem jedzie w prawo.</text>
+
+                <!-- Scenariusz B: R * T (Błąd) -->
+                <rect x="430" y="55" width="360" height="195" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="610" y="82" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">❌ Błąd: R · T</text>
+                <circle cx="500" cy="175" r="18" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <circle cx="580" cy="175" r="18" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <circle cx="660" cy="175" r="18" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <path d="M 460 110 Q 550 90 650 210" fill="none" stroke="#c62828" stroke-width="2.5" stroke-dasharray="6,4"/>
+                <text x="610" y="242" font-family="sans-serif" font-size="12" fill="#546e7a">Obiekt odjechał daleko w prawo, a teraz krąży po orbicie!</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -198,40 +204,43 @@
                     W przestrzeni 3D zasada jest identyczna, tylko macierze rosną do rozmiaru 4x4. Dodajemy dodatkowy wymiar W. Dla obrotu mamy osobne macierze wokół osi X, Y i Z. Aby obrócić obiekt wokół dowolnej osi, używamy wzoru Rodriguesa.<br><br>
                     W silnikach graficznych rozdziela się macierz modelu (ułożenie obiektu w świecie) od macierzy widoku (pozycja kamery) i projekcji. Ich iloczyn to słynna macierz MVP, przez którą mnożymy każdy wierzchołek w Vertex Shaderze.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W 3D używamy macierzy 4x4. Zasada jest identyczna jak w 2D, tylko mamy trzy osie obrotu: X, Y i Z. Do obrotu wokół dowolnej osi służy wzór Rodriguesa. W praktyce silników graficznych rozdzielamy macierz modelu, widoku i projekcji – ich iloczyn to słynna macierz MVP, przez którą mnożymy każdy wierzchołek w Vertex Shaderze. To jest serce potoku renderowania OpenGL i DirectX. Proszę spojrzeć na planszę – pokazuje ona sześcian poddany skalowaniu i obrotowi oraz macierz obrotu wokół osi Z.”
+                </div>
             </div>
 
-            <!-- SVG: TRANSFORMACJE 3D -->
-            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="280" fill="url(#gridAff)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Transformacje 3D – Macierze 4x4 w akcji</text>
+            <!-- SVG: TRANSFORMACJE 3D – POPRAWIONA CZYTELNOŚĆ -->
+            <svg viewBox="0 0 820 320" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="320" fill="url(#gridAff)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">Transformacje 3D – Macierze 4x4 w akcji</text>
 
-                <!-- Sześcian jednostkowy w 3 rzutach -->
-                <g transform="translate(60, 60)">
-                    <text x="60" y="-10" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Sześcian Jednostkowy</text>
-                    <polygon points="0,50 50,30 130,30 80,50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                    <polygon points="0,50 80,50 80,90 0,90" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
-                    <polygon points="0,50 0,90 50,70 50,30" fill="#81c784" stroke="#2e7d32" stroke-width="2"/>
-                </g>
-                
-                <g transform="translate(350, 60)">
-                    <text x="60" y="-10" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Skalowanie (2, 0.5, 1)</text>
-                    <polygon points="0,50 50,60 130,40 80,30" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
-                    <polygon points="0,50 80,30 80,70 0,90" fill="#ffcc80" stroke="#e65100" stroke-width="2"/>
-                    <polygon points="0,50 0,90 50,80 50,60" fill="#ffb74d" stroke="#e65100" stroke-width="2"/>
+                <!-- Sześcian jednostkowy -->
+                <g transform="translate(60, 55)">
+                    <text x="60" y="-5" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20">Sześcian Jednostkowy</text>
+                    <polygon points="0,60 60,38 140,38 80,60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                    <polygon points="0,60 80,60 80,105 0,105" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2.5"/>
+                    <polygon points="0,60 0,105 60,83 60,38" fill="#81c784" stroke="#2e7d32" stroke-width="2.5"/>
                 </g>
 
-                <g transform="translate(620, 60)">
-                    <text x="60" y="-10" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Obrót wokół Y (45°)</text>
-                    <polygon points="0,50 40,20 120,20 80,50" fill="#bbdefb" stroke="#1976d2" stroke-width="2"/>
-                    <polygon points="0,50 80,50 80,90 0,90" fill="#90caf9" stroke="#1976d2" stroke-width="2"/>
-                    <polygon points="0,50 0,90 40,60 40,20" fill="#64b5f6" stroke="#1976d2" stroke-width="2"/>
+                <g transform="translate(360, 55)">
+                    <text x="60" y="-5" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Skalowanie (2, 0.5, 1)</text>
+                    <polygon points="0,60 60,72 140,52 80,40" fill="#ffe0b2" stroke="#e65100" stroke-width="2.5"/>
+                    <polygon points="0,60 80,40 80,85 0,105" fill="#ffcc80" stroke="#e65100" stroke-width="2.5"/>
+                    <polygon points="0,60 0,105 60,95 60,72" fill="#ffb74d" stroke="#e65100" stroke-width="2.5"/>
+                </g>
+
+                <g transform="translate(640, 55)">
+                    <text x="60" y="-5" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1">Obrót wokół Y (45°)</text>
+                    <polygon points="0,60 50,28 130,28 80,60" fill="#bbdefb" stroke="#1976d2" stroke-width="2.5"/>
+                    <polygon points="0,60 80,60 80,105 0,105" fill="#90caf9" stroke="#1976d2" stroke-width="2.5"/>
+                    <polygon points="0,60 0,105 50,73 50,28" fill="#64b5f6" stroke="#1976d2" stroke-width="2.5"/>
                 </g>
 
                 <!-- Macierz Obrót 3D wokół Z -->
-                <rect x="280" y="190" width="280" height="70" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
-                <text x="420" y="212" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#4a148c">Macierz 4x4 Obrót wokół osi Z:</text>
-                <text x="420" y="232" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">| cosθ  -sinθ  0  0 |</text>
-                <text x="420" y="250" text-anchor="middle" font-family="monospace" font-size="11" fill="#4a148c">| sinθ   cosθ  0  0 |</text>
+                <rect x="220" y="210" width="380" height="85" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                <text x="410" y="235" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c">Macierz 4x4 Obrót wokół osi Z:</text>
+                <text x="410" y="258" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">| cosθ  -sinθ  0  0 |</text>
+                <text x="410" y="278" text-anchor="middle" font-family="monospace" font-size="13" fill="#4a148c">| sinθ   cosθ  0  0 |</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -256,6 +265,9 @@
                     <li><strong>Obrót w 3D: Wokół której osi?</strong> Obrót wokół osi X, Y i Z ma inne macierze. Obrót wokół Y jest inaczej zorientowany (kąt rośnie zgodnie z regułą prawej dłoni).</li>
                     <li><strong>GPU a macierze:</strong> Karty graficzne operują na macierzach 4x4. Vertex Shader obowiązkowo musi wyznaczyć <code>gl_Position</code> (współrzędne przycięcia), mnożąc wierzchołek przez macierz MVP.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, cztery kluczowe pułapki. Po pierwsze – mnożenie macierzy nie jest przemienne. Kolejność T·R·S jest święta. Po drugie – współrzędne jednorodne są niezbędne, bo przesunięcie nie jest liniowe, a dodanie wymiaru rozwiązuje ten problem. Po trzecie – obrót w 3D zależy od osi: wokół X, Y i Z to różne macierze. Po czwarte – GPU mnoży każdy wierzchołek przez macierz 4x4 MVP w Vertex Shaderze, to fundamentalna operacja potoku graficznego.”
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -265,32 +277,32 @@
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Transformacje afiniczne:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="background: #eceff1;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rodzaj</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Macierz 2D (3x3)</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Macierz 3D (4x4)</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Własności</th>
-                        </tr>
+                    <tr style="background: #eceff1;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rodzaj</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Macierz 2D (3x3)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Macierz 3D (4x4)</th>
+                        <th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Własności</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Translacja</td>
-                            <td style="padding: 10px;"><code>[[1,0,Tx],[0,1,Ty],[0,0,1]]</code></td>
-                            <td style="padding: 10px;"><code>[[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]</code></td>
-                            <td style="padding: 10px;">Zachowuje orientację</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Obrót</td>
-                            <td style="padding: 10px;"><code>[[c,-s,0],[s,c,0],[0,0,1]]</code></td>
-                            <td style="padding: 10px;">Zależy od osi (X/Y/Z)</td>
-                            <td style="padding: 10px;">Izometria (zachowuje długości)</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Skalowanie</td>
-                            <td style="padding: 10px;"><code>[[Sx,0,0],[0,Sy,0],[0,0,1]]</code></td>
-                            <td style="padding: 10px;"><code>[[Sx,0,0,0],[0,Sy,0,0],[0,0,Sz,0],[0,0,0,1]]</code></td>
-                            <td style="padding: 10px;">Jednolite (Sx=Sy) zachowuje kąty</td>
-                        </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Translacja</td>
+                        <td style="padding: 10px;"><code>[[1,0,Tx],[0,1,Ty],[0,0,1]]</code></td>
+                        <td style="padding: 10px;"><code>[[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]</code></td>
+                        <td style="padding: 10px;">Zachowuje orientację</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Obrót</td>
+                        <td style="padding: 10px;"><code>[[c,-s,0],[s,c,0],[0,0,1]]</code></td>
+                        <td style="padding: 10px;">Zależy od osi (X/Y/Z)</td>
+                        <td style="padding: 10px;">Izometria (zachowuje długości)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-weight: bold; color: #0d47a1;">Skalowanie</td>
+                        <td style="padding: 10px;"><code>[[Sx,0,0],[0,Sy,0],[0,0,1]]</code></td>
+                        <td style="padding: 10px;"><code>[[Sx,0,0,0],[0,Sy,0,0],[0,0,Sz,0],[0,0,0,1]]</code></td>
+                        <td style="padding: 10px;">Jednolite (Sx=Sy) zachowuje kąty</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

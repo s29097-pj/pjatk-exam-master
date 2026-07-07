@@ -14,11 +14,11 @@
         <h2 id="q-title">072. Instalacja i przekazanie systemu. Wdrażanie, zakres oraz strategie wprowadzania systemu IT do środowiska docelowego.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📦</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Przeprowadzka do nowego biura”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Przeprowadzka do nowego biura":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
                         Wyobraź sobie, że Twoja firma przeprowadza się do nowoczesnego biurowca. Nie możesz po prostu w poniedziałek zamknąć starego biura i otworzyć nowego – to katastrofa. Musisz zaplanować: jak przenieść meble i dokumenty (migracja danych), kiedy przeprowadzić pracowników (szkolenia), co zrobić, jeśli w nowym budynku nie działa winda (rollback). I najważniejsze: czy przenosisz wszystkich naraz (Big Bang), piętro po piętrze (etapowo), czy może przez tydzień działają oba biura jednocześnie (równolegle)?
                     </p>
@@ -55,6 +55,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zakres wdrożenia zależy od złożoności systemu. Dla prostej aplikacji webowej może to być po prostu <code>git push</code> i uruchomienie pipeline CI/CD. Dla systemu bankowego wdrożenie trwa miesiącami, wymaga kilku zespołów i obejmuje testy w weekendy, by nie zakłócać pracy banku w tygodniu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wdrożenie to nie tylko kopiowanie plików – to złożony proces, który obejmuje instalację, konfigurację, migrację danych, szkolenia i testy akceptacyjne. To moment prawdy dla całego projektu. Dla prostej aplikacji webowej to może być jeden przycisk w CI/CD. Dla systemu bankowego to operacja trwająca miesiącami, z testami w weekendy, by nie zakłócać pracy. Zakres wdrożenia zależy od skali i krytyczności systemu."
+                </div>
             </div>
 
             <!-- 2. Strategie wdrożenia (główny schemat) -->
@@ -117,11 +120,17 @@
                 <text x="665" y="314" font-family="sans-serif" font-size="10" fill="#004d40" text-anchor="middle">📄 Dokumentacja</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy trzy główne strategie wdrożenia. Big Bang – wyłączamy stary system i od razu włączamy nowy. Jest szybko i tanio, ale ryzyko jest wysokie. Strategia etapowa – wdrażamy system modułami lub działami, każdy etap to osobny mini-projekt. Ryzyko jest średnie, ale trwa dłużej. Strategia równoległa – oba systemy działają jednocześnie, użytkownicy testują nowy, ale mogą wrócić do starego. To najbezpieczniejsza, ale i najdroższa opcja. Wybór zależy od krytyczności systemu: dla banku wybieramy równoległą, dla aplikacji do pizzy wystarczy Big Bang. Proszę spojrzeć na planszę."
+                </div>
+            </div>
+
             <!-- 3. Migracja danych -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">3. Migracja danych – najtrudniejszy element</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Migracja danych to przeniesienie informacji ze starego systemu (lub arkuszy Excela) do nowego. To często najbardziej niedoszacowane zadanie. Stary system może mieć 20 lat, nieudokumentowane reguły i niespójne dane (np. ten sam klient zapisany jako „Kowalski Jan” i „Jan Kowalski”). Proces migracji składa się z:
+                    Migracja danych to przeniesienie informacji ze starego systemu (lub arkuszy Excela) do nowego. To często najbardziej niedoszacowane zadanie. Stary system może mieć 20 lat, nieudokumentowane reguły i niespójne dane (np. ten sam klient zapisany jako „Kowalski Jan" i „Jan Kowalski"). Proces migracji składa się z:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Ekstrakcji</strong> – wyciągnięcie danych z systemu źródłowego.</li>
@@ -129,6 +138,9 @@
                     <li><strong>Ładowania</strong> – wstawienie danych do nowego systemu.</li>
                     <li><strong>Walidacji</strong> – porównanie, czy w nowym systemie jest tyle samo rekordów, sumy się zgadzają itp.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Migracja danych to często najbardziej niedoszacowany element wdrożenia. Stare systemy mają niespójne dane – ten sam klient zapisany na różne sposoby. Proces migracji to cztery kroki: ekstrakcja, czyli wyciągnięcie danych, czyszczenie i transformacja – ujednolicenie formatów, usunięcie duplikatów, ładowanie do nowego systemu i walidacja – sprawdzenie, czy wszystko się zgadza. Migrację trzeba testować wielokrotnie na kopii danych, nigdy na produkcji od razu."
+                </div>
             </div>
 
             <!-- 4. Plan awaryjny i przekazanie -->
@@ -138,25 +150,31 @@
                     Każda strategia wdrożenia musi zawierać <strong>plan rollbacku</strong> – czyli możliwość powrotu do poprzedniego stanu, jeśli coś pójdzie nie tak. W Big Bang oznacza to przywrócenie starego systemu z backupu. W strategii równoległej – po prostu wyłączenie nowego systemu i kontynuowanie pracy na starym. Rollback musi być przetestowany przed wdrożeniem.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Po udanym wdrożeniu następuje <strong>przekazanie systemu do utrzymania</strong>. Zespół wdrożeniowy przekazuje dokumentację techniczną, procedury operacyjne i wiedzę zespołowi utrzymaniowemu. To formalny moment, w którym odpowiedzialność za system przechodzi z „budowniczych” na „konserwatorów”.
+                    Po udanym wdrożeniu następuje <strong>przekazanie systemu do utrzymania</strong>. Zespół wdrożeniowy przekazuje dokumentację techniczną, procedury operacyjne i wiedzę zespołowi utrzymaniowemu. To formalny moment, w którym odpowiedzialność za system przechodzi z „budowniczych" na „konserwatorów".
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Każda strategia wdrożenia musi mieć plan B, czyli rollback. To możliwość powrotu do starego systemu, jeśli coś pójdzie nie tak. Rollback trzeba przetestować przed wdrożeniem – nie można go wymyślać na gorąco, gdy system już nie działa. Po udanym wdrożeniu następuje formalne przekazanie systemu do utrzymania – zespół projektowy przekazuje dokumentację i wiedzę zespołowi, który będzie się nim opiekował przez kolejne lata. To moment, w którym odpowiedzialność przechodzi z budowniczych na konserwatorów."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy wdrożeniowe):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Szkolenia zrobimy po wdrożeniu”</strong> – Jeśli użytkownicy nie wiedzą, jak korzystać z systemu, wdrożenie jest porażką niezależnie od jakości kodu. Szkolenia muszą się odbyć przed lub w trakcie cut-over.</li>
-                    <li><strong>„Migrację danych zrobimy ręcznie”</strong> – Ręczna migracja 10 000 rekordów to pewność błędów. Zawsze automatyzuj skryptami ETL i testuj migrację wielokrotnie na kopii danych.</li>
-                    <li><strong>„Big Bang jest zawsze zły”</strong> – Dla małych aplikacji z niskim ryzykiem Big Bang jest najtańszy i najszybszy. Problem pojawia się przy systemach krytycznych.</li>
+                    <li><strong>„Szkolenia zrobimy po wdrożeniu"</strong> – Jeśli użytkownicy nie wiedzą, jak korzystać z systemu, wdrożenie jest porażką niezależnie od jakości kodu. Szkolenia muszą się odbyć przed lub w trakcie cut-over.</li>
+                    <li><strong>„Migrację danych zrobimy ręcznie"</strong> – Ręczna migracja 10 000 rekordów to pewność błędów. Zawsze automatyzuj skryptami ETL i testuj migrację wielokrotnie na kopii danych.</li>
+                    <li><strong>„Big Bang jest zawsze zły"</strong> – Dla małych aplikacji z niskim ryzykiem Big Bang jest najtańszy i najszybszy. Problem pojawia się przy systemach krytycznych.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki wdrożeniowe. Po pierwsze, odkładanie szkoleń na po wdrożeniu – użytkownicy muszą umieć korzystać z systemu w momencie startu. Po drugie, ręczna migracja danych – przy większych zbiorach to gwarancja błędów, zawsze automatyzujemy i testujemy. Po trzecie, mit, że Big Bang jest zawsze zły – dla małych aplikacji z niskim ryzykiem to najszybsza i najtańsza opcja. Problem zaczyna się przy systemach krytycznych, gdzie stawką są ludzkie życie lub miliony złotych."
+                </div>
             </div>
 
             <!-- Grokking -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Wdrożenie to nie „ostatni krok” – to kulminacja miesięcy lub lat pracy. Najlepszy kod na świecie jest bezwartościowy, jeśli system nie działa na produkcji. Dlatego wdrożenie planuje się od początku projektu, nie na tydzień przed deadlinem. Im wcześniej pomyślisz o migracji, szkoleniach i rollbacku, tym spokojniej prześpisz noc po cut-overze.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Wdrożenie to nie „ostatni krok" – to kulminacja miesięcy lub lat pracy. Najlepszy kod na świecie jest bezwartościowy, jeśli system nie działa na produkcji. Dlatego wdrożenie planuje się od początku projektu, nie na tydzień przed deadlinem. Im wcześniej pomyślisz o migracji, szkoleniach i rollbacku, tym spokojniej prześpisz noc po cut-overze.</span>
                 </p>
             </div>
 
@@ -164,7 +182,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    PMBOK Guide (PMI) – rozdział o zamykaniu projektu · „ITIL Service Transition” – najlepsze praktyki wdrożeniowe · „Continuous Delivery” (Jez Humble, David Farley).
+                    PMBOK Guide (PMI) – rozdział o zamykaniu projektu · „ITIL Service Transition" – najlepsze praktyki wdrożeniowe · „Continuous Delivery" (Jez Humble, David Farley).
                 </span>
             </div>
 

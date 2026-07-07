@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left: 6px solid #ff8f00; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(255,143,0,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🎨</span>
                 <div>
@@ -65,6 +65,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Współrzędne UV</strong> to para liczb (u, v) z zakresu najczęściej [0, 1], przypisana do każdego wierzchołka siatki 3D. Działają one jak <strong>instrukcja dla GPU</strong>: „gdy rysujesz trójkąt między wierzchołkami A, B i C, kolory dla pikseli wewnątrz pobieraj z tekstury, interpolując współrzędne UV wzdłuż powierzchni trójkąta”. U to kierunek poziomy tekstury (od lewej do prawej), V to kierunek pionowy (od dołu do góry). Wartość (0,0) oznacza lewy dolny róg obrazka, a (1,1) – prawy górny róg.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, współrzędne UV to fundament teksturowania. To para liczb z zakresu zero-jeden przypisana do każdego wierzchołka. Działają jak pinezki – mówią GPU, w którym miejscu na płaskim obrazku znajduje się dany punkt siatki 3D. GPU interpoluje te współrzędne wzdłuż powierzchni trójkąta i dla każdego piksela pobiera kolor z odpowiedniego miejsca tekstury. U to kierunek poziomy, V to pionowy. Dlaczego UV, a nie XY? Bo X, Y i Z są już zajęte przez geometrię 3D. Proszę spojrzeć na planszę – pokazuje ona, jak trójkąt na siatce 3D mapuje się na obszar na teksturze.”
+                </div>
                 <div style="background: #fff3e0; border-left: 5px solid #ef6c00; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 10px 0;">
                     <strong>🔑 Dlaczego UV, a nie XY?</strong> X, Y i Z są już zajęte przez współrzędne geometryczne w przestrzeni 3D. Historycznie litery U i V zostały wybrane jako kolejne w alfabecie do opisu dwuwymiarowej przestrzeni tekstury.
                 </div>
@@ -123,6 +126,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Texel (TEXture ELement)</strong> to pojedynczy punkt próbkowania na teksturze – odpowiednik piksela, ale w przestrzeni UV, a nie ekranu. Kiedy renderujemy obiekt 3D, powstaje fundamentalny problem: <strong>jeden piksel na ekranie może odpowiadać wielu tekselom</strong> (gdy obiekt jest daleko i tekstura się minifikuje) lub <strong>jeden teksel może pokrywać wiele pikseli ekranu</strong> (gdy kamera podjeżdża blisko i tekstura się magnifikuje). GPU musi zdecydować, który kolor przypisać pikselowi – i tu wkracza <strong>filtrowanie</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Kluczowy problem w teksturowaniu: texel to nie piksel. Texel to element tekstury – jeden punkt koloru na obrazku. Piksel to punkt na ekranie. Gdy obiekt jest daleko, jeden piksel ekranu może obejmować wiele tekseli – mamy minifikację i ryzyko aliasingu. Gdy obiekt jest blisko, jeden teksel może pokrywać wiele pikseli ekranu – mamy magnifikację i efekt pikselozy. GPU musi jakoś zdecydować, który kolor teksela przypisać pikselowi ekranu. Do tego służą właśnie techniki filtrowania. Proszę spojrzeć na planszę – porównuje ona te dwa przypadki.”
+                </div>
             </div>
 
             <!-- SVG: MAGNIFIKACJA vs MINIFIKACJA -->
@@ -164,6 +170,9 @@
                     <li><strong>Trilinear (trójliniowe):</strong> Rozszerzenie bilinearnego – dodatkowo interpoluje między dwoma poziomami mipmapy. Eliminuje ostre przejścia między poziomami mipmap.</li>
                     <li><strong>Anisotropic (anizotropowe):</strong> Uwzględnia kąt patrzenia na powierzchnię. Tekstura na powierzchni oglądanej pod kątem (np. daleka droga) jest filtrowana z większą liczbą próbek w kierunku skrótu perspektywicznego. Znacznie poprawia ostrość.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Filtrowanie to matematyczny przepis na wybór koloru, gdy współrzędne UV nie trafiają idealnie w środek teksela. Mamy cztery główne metody. Nearest neighbor – najszybszy, bierze najbliższy teksel, ale powoduje pikselozę. Bilinear – bierze średnią z 4 sąsiadów, daje gładszy obraz. Trilinear – dodaje interpolację między poziomami mipmap, eliminuje ostre przejścia. Anisotropic – uwzględnia kąt patrzenia, kluczowy dla powierzchni oglądanych pod kątem, jak droga w grach. Proszę spojrzeć na planszę z porównaniem Nearest i Bilinear.”
+                </div>
             </div>
 
             <!-- SVG: FILTROWANIE – NEAREST vs BILINEAR -->
@@ -223,6 +232,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Mipmapping</strong> (od łac. <em>multum in parvo</em> – „wiele w małym”) to technika, w której dla tekstury generuje się serię coraz mniejszych wersji (o połowę mniejszych w każdym wymiarze), aż do rozmiaru 1×1 piksel. GPU automatycznie wybiera odpowiedni poziom mipmapy w zależności od odległości obiektu od kamery. Dla odległego obiektu używa mniejszej, rozmytej wersji – to eliminuje aliasing i migotanie. Dodatkowy koszt pamięci to tylko 1/3 oryginalnego rozmiaru tekstury.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mipmapping to jedna z najważniejszych technik w teksturowaniu. Generujemy serię coraz mniejszych wersji tekstury – każda o połowę mniejsza od poprzedniej – tworząc piramidę. GPU automatycznie wybiera odpowiedni poziom w zależności od odległości. Dla odległego obiektu używa małej, rozmytej wersji, eliminując aliasing i migotanie. Koszt? Tylko jedna trzecia dodatkowej pamięci VRAM. Bez mipmappingu odległe tekstury migoczą i 'schodkują'. Proszę spojrzeć na planszę z piramidą mipmap.”
+                </div>
             </div>
 
             <!-- SVG: PIRAMIDA MIPMAP -->
@@ -263,6 +275,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Standardowo współrzędne UV są w zakresie [0, 1]. Ale w grach często celowo wykracza się poza ten zakres, by uzyskać efekt <strong>kafelkowania (tiling)</strong> – np. wielokrotne powtórzenie wzoru cegły na dużej ścianie. Tryb adresowania określa, co GPU ma zrobić z wartościami UV poza [0,1]:
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; margin-bottom: 16px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Tryby adresowania określają, co GPU robi, gdy współrzędne UV wyjdą poza zakres zero-jeden. Repeat – tekstura powtarza się jak kafelki, idealne do podłóg i ścian. Clamp to Edge – wartości są przycinane do krawędzi, zapobiega artefaktom na brzegach modeli. Mirrored Repeat – co drugie powtórzenie jest lustrzanym odbiciem, daje efekt ciągłości bez widocznych szwów. Proszę spojrzeć na planszę – pokazuje ona wizualnie wszystkie trzy tryby.”
+                </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
                     <div style="flex: 1; min-width: 200px; background: #ffebee; border-radius: 10px; padding: 14px; border: 1px solid #ef9a9a;">
                         <strong style="color:#b71c1c;">🔄 Repeat (GL_REPEAT)</strong><br>
@@ -368,6 +383,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Tekstura to nie tylko obrazek z kolorem. We współczesnym renderingu PBR (Physically Based Rendering) używa się wielu map, z których każda przechowuje inne dane:
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; margin-bottom: 16px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „We współczesnym renderingu PBR tekstura to nie tylko kolor. Mamy wiele map: albedo – podstawowy kolor bez cieni, normal map – wektory normalnych dające złudzenie wypukłości, roughness i metalness – decydujące o rozpraszaniu i odbiciach światła. Każda mapa przechowuje inne dane w kanałach RGB i jest próbkowana w Fragment Shaderze. To fundament fizycznie opartego renderowania.”
+                </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;">
                     <div style="flex: 1; min-width: 150px; background: #f3e5f5; border-radius: 10px; padding: 14px; border: 1px solid #ce93d8;">
                         <strong>🎨 Albedo / Diffuse</strong><br>
@@ -395,6 +413,9 @@
                     <li><strong>Filtrowanie anizotropowe nie jest domyślne</strong> – trzeba je jawnie włączyć w ustawieniach samplera. Koszt wydajnościowy jest niewielki na nowoczesnych GPU, a różnica w jakości ogromna.</li>
                     <li><strong>Kompresja DXT/BC jest stratna.</strong> Nie używaj jej do tekstur, które wymagają bezstratnej jakości (np. mapy normalnych). Są specjalne formaty (BC5/3Dc) zoptymalizowane dla wektorów normalnych.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, cztery kluczowe pułapki. Po pierwsze – UV to nie piksele, to współrzędne znormalizowane. Po drugie – brak mipmappingu powoduje aliasing. Po trzecie – filtrowanie anizotropowe trzeba jawnie włączyć, a daje ogromną różnicę w jakości. Po czwarte – kompresja DXT jest stratna, nie nadaje się do map normalnych – tam używamy specjalnych formatów jak BC5. Warto też pamiętać, że nowoczesny OpenGL core profile nie ma domyślnych tekstur – wszystko trzeba jawnie załadować i skonfigurować.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

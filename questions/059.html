@@ -14,17 +14,17 @@
         <h2 id="q-title">059. Przedmiot i działania inżynierii wymagań.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left: 6px solid #c2185b; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(194,24,91,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔎</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zbuduj mi domek na drzewie”:</strong>
+                    <strong style="font-size: 1.15rem; color: #880e4f; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Zbuduj mi domek na drzewie":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
-                        Wyobraź sobie, że Twój klient mówi: <em>„Zbuduj mi domek na drzewie”</em>. Jesteś konstruktorem. Bierzesz się do roboty: mocne belki, drabina sznurowa, małe okienko. Dostarczasz gotowy domek, a klient wpada w furię: <em>„Gdzie jest wanna z hydromasażem?!”</em> Okazuje się, że klient miał na myśli luksusowy apartament na dębie, z widokiem na jezioro i elektrycznością. Ty zbudowałeś chatkę dla dzieci.
+                        Wyobraź sobie, że Twój klient mówi: <em>„Zbuduj mi domek na drzewie"</em>. Jesteś konstruktorem. Bierzesz się do roboty: mocne belki, drabina sznurowa, małe okienko. Dostarczasz gotowy domek, a klient wpada w furię: <em>„Gdzie jest wanna z hydromasażem?!"</em> Okazuje się, że klient miał na myśli luksusowy apartament na dębie, z widokiem na jezioro i elektrycznością. Ty zbudowałeś chatkę dla dzieci.
                     </p>
                     <p style="margin: 0; color: #4a148c; line-height: 1.7;">
                         Cały problem polegał na tym, że <strong>wymagania nie zostały pozyskane, przeanalizowane ani zweryfikowane</strong>. Inżynieria wymagań to dziedzina, która zajmuje się właśnie tym – systematycznym zbieraniem, dokumentowaniem i sprawdzaniem, co klient NAPRAWDĘ chce. Bez tego każdy projekt IT to loteria, a Twoja aplikacja będzie jak domek na drzewie – zbudowana solidnie, ale kompletnie nieprzydatna użytkownikowi.
-                </p>
+                    </p>
                 </div>
             </div>
         </div>
@@ -56,10 +56,13 @@
                     Podstawowy podział wymagań wygląda następująco:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Wymagania funkcjonalne</strong> – opisują CO system ma robić. Np. „System umożliwia logowanie przez login i hasło”, „System wysyła e-mail z potwierdzeniem zamówienia”. Odpowiadają na pytanie: „Jakie funkcje?”</li>
-                    <li><strong>Wymagania niefunkcjonalne</strong> – opisują JAK system ma działać. Np. „Strona ładuje się w mniej niż 2 sekundy”, „System obsługuje 1000 równoczesnych użytkowników”, „Dane są szyfrowane AES-256”. Odpowiadają na pytania: „Jak szybko? Jak bezpiecznie? Jak niezawodnie?”</li>
+                    <li><strong>Wymagania funkcjonalne</strong> – opisują CO system ma robić. Np. „System umożliwia logowanie przez login i hasło", „System wysyła e-mail z potwierdzeniem zamówienia". Odpowiadają na pytanie: „Jakie funkcje?"</li>
+                    <li><strong>Wymagania niefunkcjonalne</strong> – opisują JAK system ma działać. Np. „Strona ładuje się w mniej niż 2 sekundy", „System obsługuje 1000 równoczesnych użytkowników", „Dane są szyfrowane AES-256". Odpowiadają na pytania: „Jak szybko? Jak bezpiecznie? Jak niezawodnie?"</li>
                     <li><strong>Wymagania domenowe</strong> – wynikające z konkretnej branży (np. przepisy prawa bankowego, standardy medyczne HL7).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Inżynieria wymagań to systematyczny proces odkrywania, analizowania, dokumentowania i sprawdzania wymagań. Dzielimy je na trzy główne kategorie. Wymagania funkcjonalne opisują CO system ma robić – na przykład system umożliwia logowanie. Wymagania niefunkcjonalne opisują JAK system ma działać – na przykład strona ładuje się w mniej niż dwie sekundy, system obsługuje tysiąc równoczesnych użytkowników. Wymagania domenowe wynikają z konkretnej branży, jak standardy medyczne czy przepisy bankowe. To fundamentalny podział, który musicie znać na egzaminie."
+                </div>
             </div>
 
             <!-- 2. Klasyfikacja wymagań (schemat) -->
@@ -78,18 +81,24 @@
                 <!-- Poziom 1 -->
                 <polygon points="410,50 310,100 510,100" fill="#f8bbd0" stroke="#c2185b" stroke-width="2"/>
                 <text x="410" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Wizja / Cele biznesowe</text>
-                <text x="410" y="95" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">„Zwiększyć sprzedaż online o 20%”</text>
+                <text x="410" y="95" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">„Zwiększyć sprzedaż online o 20%"</text>
 
                 <!-- Poziom 2 -->
                 <polygon points="410,110 270,170 550,170" fill="#f48fb1" stroke="#c2185b" stroke-width="2"/>
                 <text x="410" y="145" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Wymagania użytkownika</text>
-                <text x="410" y="162" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">User Stories: „Jako klient chcę filtrować produkty po cenie”</text>
+                <text x="410" y="162" font-family="sans-serif" font-size="8" fill="#6a1b9a" text-anchor="middle">User Stories: „Jako klient chcę filtrować produkty po cenie"</text>
 
                 <!-- Poziom 3 -->
                 <polygon points="410,180 220,230 600,230" fill="#f06292" stroke="#c2185b" stroke-width="2"/>
                 <text x="410" y="210" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Wymagania systemowe</text>
-                <text x="410" y="225" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Specyfikacja: „API GET /products?min_price=X&max_price=Y zwraca JSON w < 200ms”</text>
+                <text x="410" y="225" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Specyfikacja: „API GET /products?min_price=X&max_price=Y zwraca JSON w < 200ms"</text>
             </svg>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wymagania tworzą piramidę – od ogółu do szczegółu. Na szczycie mamy wizję i cele biznesowe, na przykład zwiększenie sprzedaży online o dwadzieścia procent. Poniżej są wymagania użytkownika wyrażone jako User Stories – jako klient chcę filtrować produkty po cenie. Na samym dole, najbardziej szczegółowe, są wymagania systemowe – API zwracające JSON w mniej niż dwieście milisekund. Ta hierarchia pomaga nam śledzić, jak ogólne cele biznesowe przekładają się na konkretne funkcje techniczne."
+                </div>
+            </div>
 
             <!-- 3. Działania inżynierii wymagań (schemat procesu) -->
             <div class="answer-step" style="margin-bottom: 24px;">
@@ -149,6 +158,12 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Inżynieria wymagań składa się z czterech grup działań, które tworzą zamkniętą pętlę. Pierwsze – pozyskiwanie, czyli wywiady, warsztaty i obserwacje. Drugie – analiza, gdzie klasyfikujemy i priorytetyzujemy wymagania. Trzecie – specyfikacja, czyli tworzenie dokumentu SRS, User Stories lub prototypów. Czwarte – walidacja, gdzie sprawdzamy, czy dobrze zrozumieliśmy potrzeby. Całość spina zarządzanie wymaganiami – śledzenie zmian i macierz pokrycia. Proszę spojrzeć na planszę – pokazuje ona cały proces z pętlą iteracji, bo inżynieria wymagań to proces ciągły, nie jednorazowy."
+                </div>
+            </div>
+
             <!-- 4. Szczegółowe techniki pozyskiwania -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c2185b;">4. Jak wydobyć wymagania? – Techniki pozyskiwania</strong>
@@ -158,24 +173,30 @@
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Wywiady indywidualne</strong> – rozmowy 1:1 z interesariuszami. Pozwalają zgłębić szczegóły, ale są czasochłonne.</li>
                     <li><strong>Warsztaty grupowe (JAD – Joint Application Development)</strong> – sesja z wieloma interesariuszami naraz. Szybka, ale wymaga sprawnego facylitatora.</li>
-                    <li><strong>Obserwacja (Shadowing)</strong> – patrzysz, jak użytkownik wykonuje swoją pracę. Odkrywasz rzeczy, których sam by nie opisał („bo to przecież oczywiste”).</li>
+                    <li><strong>Obserwacja (Shadowing)</strong> – patrzysz, jak użytkownik wykonuje swoją pracę. Odkrywasz rzeczy, których sam by nie opisał („bo to przecież oczywiste").</li>
                     <li><strong>Ankiety / Kwestionariusze</strong> – dobre dla dużej grupy, ale dają płytkie odpowiedzi.</li>
-                    <li><strong>Prototypowanie</strong> – pokazujesz makietę, a użytkownik reaguje. Najlepsza metoda na uniknięcie „domku na drzewie”.</li>
+                    <li><strong>Prototypowanie</strong> – pokazujesz makietę, a użytkownik reaguje. Najlepsza metoda na uniknięcie „domku na drzewie".</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy pięć głównych technik pozyskiwania wymagań. Wywiady indywidualne dają głębokie zrozumienie, ale są czasochłonne. Warsztaty grupowe są szybsze, ale wymagają dobrego facylitatora. Obserwacja, czyli shadowing, pozwala odkryć rzeczy, których użytkownik by nie opisał – bo są dla niego oczywiste. Ankiety sprawdzają się przy dużej grupie. I wreszcie prototypowanie – pokazujesz makietę, a użytkownik reaguje. To najlepsza metoda na uniknięcie syndromu 'domku na drzewie', czyli zbudowania czegoś, co technicznie działa, ale nie rozwiązuje problemu użytkownika."
+                </div>
             </div>
 
             <!-- 5. Dokumenty i artefakty -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c2185b;">5. Co powstaje w wyniku inżynierii wymagań?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Rezultatem procesu są konkretne artefakty – dokumenty i modele, które stają się „kontraktem” między zespołem a klientem:
+                    Rezultatem procesu są konkretne artefakty – dokumenty i modele, które stają się „kontraktem" między zespołem a klientem:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>SRS (Software Requirements Specification)</strong> – formalny dokument z listą wszystkich wymagań. Stosowany w Waterfallu i dużych projektach regulowanych (banki, medycyna).</li>
-                    <li><strong>User Stories</strong> – w Agile zamiast SRS mamy historyjki: „Jako [rola] chcę [funkcja], aby [korzyść]”. Lekkie, elastyczne, ale niekompletne bez kryteriów akceptacji.</li>
+                    <li><strong>User Stories</strong> – w Agile zamiast SRS mamy historyjki: „Jako [rola] chcę [funkcja], aby [korzyść]". Lekkie, elastyczne, ale niekompletne bez kryteriów akceptacji.</li>
                     <li><strong>Przypadki użycia (Use Cases)</strong> – opisują interakcję użytkownika z systemem (scenariusz główny + alternatywne).</li>
-                    <li><strong>Macierz pokrycia wymagań (Traceability Matrix)</strong> – tabela łącząca każde wymaganie z testem, kodem i celem biznesowym. Zapobiega „zapomnianym” funkcjom.</li>
+                    <li><strong>Macierz pokrycia wymagań (Traceability Matrix)</strong> – tabela łącząca każde wymaganie z testem, kodem i celem biznesowym. Zapobiega „zapomnianym" funkcjom.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Efektem inżynierii wymagań są cztery główne artefakty. SRS, czyli Software Requirements Specification, to formalny dokument z listą wszystkich wymagań – stosowany w Waterfallu i projektach regulowanych. User Stories to zwinne odpowiedniki – jako rola chcę funkcja, aby korzyść. Przypadki użycia opisują interakcję użytkownika z systemem, ze scenariuszem głównym i alternatywnymi. Macierz pokrycia wymagań, czyli Traceability Matrix, łączy każde wymaganie z testem i kodem, co zapobiega zapominaniu o funkcjach. W Agile używamy głównie User Stories, w Waterfallu SRS – musicie znać oba podejścia."
+                </div>
             </div>
 
             <!-- 6. Walidacja vs Weryfikacja -->
@@ -191,16 +212,22 @@
                 <p style="margin: 6px 0; line-height: 1.7; color: #2c3e50;">
                     <em>Przykład:</em> Zbudowałeś aplikację, która generuje raporty dokładnie według specyfikacji SRS (weryfikacja OK). Ale użytkownicy mówią, że raporty są nieczytelne i nie potrzebują połowy wykresów (walidacja FAIL). Zbudowałeś produkt dobrze technicznie, ale nie ten, który był potrzebny.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „To jedno z najczęstszych pytań egzaminacyjnych. Weryfikacja to sprawdzanie, czy budujemy produkt poprawnie – czy kod jest zgodny ze specyfikacją, czy dokument SRS jest spójny. Walidacja to sprawdzanie, czy budujemy właściwy produkt – czy to, co zbudowaliśmy, naprawdę rozwiązuje problem użytkownika. Przykład: aplikacja generuje raporty dokładnie według SRS – weryfikacja OK. Ale użytkownicy mówią, że raporty są nieczytelne i nie potrzebują połowy wykresów – walidacja FAIL. Zbudowaliśmy produkt dobrze technicznie, ale nie ten, który był potrzebny. To rozróżnienie jest kluczowe."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Grzechy inżynierii wymagań):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Użytkownik wie, czego chce”</strong> – FAŁSZ. Użytkownicy często nie potrafią zwerbalizować swoich potrzeb. Mówią o rozwiązaniach („chcę przycisk”), a nie o problemach („chcę szybko znaleźć zamówienie”). Rolą analityka jest odkrycie prawdziwej potrzeby za deklarowanym żądaniem.</li>
-                    <li><strong>„Wymagania raz spisane są stałe”</strong> – MIT. Wymagania ewoluują wraz ze zrozumieniem problemu. Sztywne trzymanie się pierwotnych zapisów prowadzi do katastrofy. Dlatego Agile zakłada, że wymagania będą się zmieniać, i buduje mechanizmy zarządzania tą zmianą.</li>
-                    <li><strong>„Wymagania niefunkcjonalne są mniej ważne”</strong> – BŁĄD. System, który działa funkcjonalnie, ale ładuje się 30 sekund (wydajność), nie ma backupu (niezawodność) i nie spełnia RODO (zgodność z prawem) – to system bezużyteczny. Wymagania niefunkcjonalne często decydują o sukcesie lub porażce.</li>
+                    <li><strong>„Użytkownik wie, czego chce"</strong> – FAŁSZ. Użytkownicy często nie potrafią zwerbalizować swoich potrzeb. Mówią o rozwiązaniach („chcę przycisk"), a nie o problemach („chcę szybko znaleźć zamówienie"). Rolą analityka jest odkrycie prawdziwej potrzeby za deklarowanym żądaniem.</li>
+                    <li><strong>„Wymagania raz spisane są stałe"</strong> – MIT. Wymagania ewoluują wraz ze zrozumieniem problemu. Sztywne trzymanie się pierwotnych zapisów prowadzi do katastrofy. Dlatego Agile zakłada, że wymagania będą się zmieniać, i buduje mechanizmy zarządzania tą zmianą.</li>
+                    <li><strong>„Wymagania niefunkcjonalne są mniej ważne"</strong> – BŁĄD. System, który działa funkcjonalnie, ale ładuje się 30 sekund (wydajność), nie ma backupu (niezawodność) i nie spełnia RODO (zgodność z prawem) – to system bezużyteczny. Wymagania niefunkcjonalne często decydują o sukcesie lub porażce.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe mity inżynierii wymagań. Po pierwsze, użytkownik nie zawsze wie, czego chce – często mówi o rozwiązaniach, nie o problemach, a rolą analityka jest odkrycie prawdziwej potrzeby. Po drugie, wymagania nie są stałe – ewoluują wraz ze zrozumieniem problemu i sztywne trzymanie się pierwotnych zapisów prowadzi do katastrofy. Po trzecie, wymagania niefunkcjonalne nie są mniej ważne – system, który działa funkcjonalnie, ale ładuje się trzydzieści sekund, nie ma backupu i nie spełnia RODO, jest po prostu bezużyteczny."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -215,7 +242,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Software Requirements” (Karl Wiegers, Joy Beatty) – biblia inżynierii wymagań · „Agile Software Requirements” (Dean Leffingwell) · PMBOK Guide (PMI) – rozdział o zbieraniu wymagań.
+                    „Software Requirements" (Karl Wiegers, Joy Beatty) – biblia inżynierii wymagań · „Agile Software Requirements" (Dean Leffingwell) · PMBOK Guide (PMI) – rozdział o zbieraniu wymagań.
                 </span>
             </div>
 

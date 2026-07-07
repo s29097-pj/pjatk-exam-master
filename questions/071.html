@@ -14,11 +14,11 @@
         <h2 id="q-title">071. Środowiska i narzędzia wspomagające procesy programowe: architektura systemów kontroli wersji, systemy usprawniające przepływ pracy i zarządzania zadaniami.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); border-left: 6px solid #283593; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(40,53,147,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🚧</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Dyspozytornia na budowie autostrady”:</strong>
+                    <strong style="font-size: 1.15rem; color: #1a237e; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Dyspozytornia na budowie autostrady":</strong>
                     <p style="margin: 0 0 8px 0; color: #0d1b3e; line-height: 1.7;">
                         Wyobraź sobie gigantyczną budowę autostrady. Pracują na niej setki robotników, koparek i ciężarówek. Bez centralnej dyspozytorni – chaos murowany. Ktoś wysypałby żwir tam, gdzie miał być asfalt. Dwóch kierowców wjechałoby w ten sam odcinek. Nikt nie wiedziałby, która część jest skończona, a która wymaga poprawki. <strong>Dyspozytornia</strong> to centrum dowodzenia: ma wielką mapę (repozytorium kodu), na bieżąco śledzi każdy ruch (commity), zapobiega kolizjom (merge conflicts), i zawsze wie, jaki jest najnowszy stan prac na każdym odcinku.
                     </p>
@@ -104,19 +104,60 @@
                 <text x="580" y="178" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Pracujesz offline, commit lokalnie</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Systemy kontroli wersji dzielą się na dwie architektury. Scentralizowana, jak SVN, ma jedno centralne repozytorium – awaria serwera oznacza, że nikt nie pracuje. Rozproszona, jak Git, daje każdemu programiście pełną kopię repozytorium z całą historią. Dzięki temu można pracować offline, commitować lokalnie, a zmiany synchronizować później. Git stał się de facto standardem branżowym właśnie dzięki tej elastyczności. Proszę spojrzeć na planszę – porównuje ona obie architektury."
+                </div>
+            </div>
+
             <!-- 2. Kluczowe pojęcia Git -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #283593;">2. Git – słownik pojęć, które musisz znać</strong>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Repozytorium (repo)</strong> – cały projekt z historią zmian.</li>
-                    <li><strong>Commit</strong> – „migawka” stanu projektu w danym momencie. Każdy commit ma unikalny hash (SHA-1).</li>
+                    <li><strong>Commit</strong> – „migawka" stanu projektu w danym momencie. Każdy commit ma unikalny hash (SHA-1).</li>
                     <li><strong>Branch (gałąź)</strong> – osobna linia rozwoju. Pozwala pracować nad funkcją bez psucia głównego kodu.</li>
                     <li><strong>Merge</strong> – łączenie dwóch gałęzi w jedną (np. feature branch do main).</li>
                     <li><strong>Pull Request (PR)</strong> – prośba o włączenie zmian z gałęzi do gałęzi głównej; to też narzędzie Code Review.</li>
                     <li><strong>Clone</strong> – kopia repozytorium na Twój komputer. W Git to pełna kopia.</li>
                     <li><strong>Push / Pull</strong> – wysyłanie / pobieranie zmian do/z zdalnego repozytorium.</li>
-                    <li><strong>Rebase</strong> – przepisanie historii tak, by wyglądała liniowo (zamiast „rozwidlonych” merge commitów).</li>
+                    <li><strong>Rebase</strong> – przepisanie historii tak, by wyglądała liniowo (zamiast „rozwidlonych" merge commitów).</li>
                 </ul>
+
+                <!-- SVG: Pojęcia Git – branch, merge, commit -->
+                <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-top:16px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+                    <rect x="0" y="0" width="820" height="200" fill="#e8eaf6" opacity="0.3"/>
+                    <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">Git – podstawowe pojęcia: branch, commit, merge</text>
+
+                    <!-- Gałąź main -->
+                    <text x="60" y="60" font-family="monospace" font-size="11" font-weight="bold" fill="#0d47a1">main</text>
+                    <circle cx="100" cy="90" r="10" fill="#1565c0"/>
+                    <circle cx="170" cy="90" r="10" fill="#1565c0"/>
+                    <circle cx="240" cy="90" r="10" fill="#1565c0"/>
+                    <line x1="100" y1="90" x2="240" y2="90" stroke="#1565c0" stroke-width="3"/>
+                    <text x="100" y="115" font-family="monospace" font-size="8" fill="#0d47a1" text-anchor="middle">C1</text>
+                    <text x="170" y="115" font-family="monospace" font-size="8" fill="#0d47a1" text-anchor="middle">C2</text>
+                    <text x="240" y="115" font-family="monospace" font-size="8" fill="#0d47a1" text-anchor="middle">C3</text>
+
+                    <!-- Gałąź feature -->
+                    <text x="170" y="45" font-family="monospace" font-size="11" font-weight="bold" fill="#2e7d32">feature</text>
+                    <path d="M 170 90 Q 170 65 250 65 L 320 65 Q 350 65 350 90" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                    <circle cx="280" cy="65" r="10" fill="#4caf50"/>
+                    <circle cx="350" cy="65" r="10" fill="#4caf50"/>
+                    <text x="280" y="52" font-family="monospace" font-size="8" fill="#1b5e20" text-anchor="middle">F1</text>
+                    <text x="350" y="52" font-family="monospace" font-size="8" fill="#1b5e20" text-anchor="middle">F2</text>
+
+                    <!-- Merge -->
+                    <path d="M 350 65 Q 350 140 410 140 Q 470 140 470 90" fill="none" stroke="#e65100" stroke-width="3" stroke-dasharray="6,4"/>
+                    <circle cx="410" cy="140" r="10" fill="#ff9800"/>
+                    <text x="410" y="155" font-family="monospace" font-size="8" fill="#e65100" text-anchor="middle">merge commit</text>
+
+                    <text x="410" y="185" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Branch pozwala pracować niezależnie. Merge łączy zmiany z powrotem do gałęzi głównej.</text>
+                </svg>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Git operuje kilkoma kluczowymi pojęciami. Repozytorium to cały projekt z historią. Commit to migawka stanu projektu – każdy ma unikalny hash. Branch, czyli gałąź, to osobna linia rozwoju, która pozwala pracować nad funkcją bez psucia głównego kodu. Merge łączy gałęzie z powrotem. Pull Request to prośba o włączenie zmian i jednocześnie narzędzie do Code Review. W Git commit jest lokalny – dopiero push wysyła zmiany na serwer. To bardzo ważna różnica w porównaniu do SVN. Proszę spojrzeć na planszę – pokazuje ona, jak gałąź feature odchodzi od main i jak merge łączy je z powrotem."
+                </div>
             </div>
 
             <!-- 3. GitFlow i Trunk-Based -->
@@ -132,6 +173,9 @@
                         <span style="font-size:0.85rem;">Wszyscy pracują na jednej gałęzi (<code>main</code>), a krótko żyjące gałęzie feature są szybko mergowane. Wymaga CI/CD i dojrzałego zespołu. Standard w nowoczesnych mikroserwisach.</span>
                     </div>
                 </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dwie główne strategie pracy z gałęziami to GitFlow i Trunk-Based Development. GitFlow używa wielu długo żyjących gałęzi: main, develop, feature, release i hotfix. Jest dobry dla dużych projektów z wersjami, ale wprowadza sporo ceremonii. Trunk-Based to przeciwieństwo – wszyscy pracują na jednej gałęzi main, a feature branche są krótko żyjące i szybko mergowane. Wymaga to dojrzałego zespołu i solidnego CI/CD, ale daje najszybszy feedback i jest standardem w nowoczesnych mikroserwisach."
+                </div>
             </div>
 
             <!-- 4. Systemy CI/CD i zarządzania zadaniami -->
@@ -143,6 +187,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     <strong>Zarządzanie zadaniami</strong> (issue tracking) to narzędzia do organizacji pracy zespołu: <strong>Jira, Trello, Asana, GitHub Issues</strong>. Umożliwiają tworzenie zadań (ticketów), przypisywanie ich do osób, śledzenie statusów (To Do → In Progress → Done) i mierzenie prędkości zespołu (Velocity).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „CI/CD to filozofia automatycznego budowania, testowania i wdrażania kodu po każdym commicie. Narzędzia takie jak GitHub Actions, Jenkins czy GitLab CI uruchamiają pipeline: build, testy, staging, produkcja. Dzięki temu błędy są wychwytywane natychmiast, a wdrożenia są przewidywalne. Zarządzanie zadaniami przez Jirę, Trello czy GitHub Issues pozwala śledzić, kto nad czym pracuje, w jakim statusie jest zadanie i jaka jest prędkość zespołu. Te dwa filary – automatyzacja i organizacja – są niezbędne w każdym profesjonalnym zespole programistycznym."
+                </div>
             </div>
 
             <!-- SVG: Pipeline CI/CD -->
@@ -180,10 +227,13 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Narzędziowe wpadki):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Git to to samo co GitHub”</strong> – Git to system kontroli wersji (narzędzie lokalne). GitHub/GitLab/Bitbucket to hosting dla repozytoriów Git z dodatkowymi funkcjami (PR, Issues, CI/CD).</li>
-                    <li><strong>„Commit oznacza wysłanie na serwer”</strong> – W Git commit jest lokalny. Dopiero <code>git push</code> wysyła zmiany na zdalne repozytorium. To jedna z najczęstszych pomyłek początkujących.</li>
-                    <li><strong>„CI/CD to tylko Jenkins”</strong> – Istnieje wiele narzędzi CI/CD (GitHub Actions, GitLab CI, CircleCI, TeamCity). Wszystkie realizują tę samą ideę: automatyzację build-test-deploy.</li>
+                    <li><strong>„Git to to samo co GitHub"</strong> – Git to system kontroli wersji (narzędzie lokalne). GitHub/GitLab/Bitbucket to hosting dla repozytoriów Git z dodatkowymi funkcjami (PR, Issues, CI/CD).</li>
+                    <li><strong>„Commit oznacza wysłanie na serwer"</strong> – W Git commit jest lokalny. Dopiero <code>git push</code> wysyła zmiany na zdalne repozytorium. To jedna z najczęstszych pomyłek początkujących.</li>
+                    <li><strong>„CI/CD to tylko Jenkins"</strong> – Istnieje wiele narzędzi CI/CD (GitHub Actions, GitLab CI, CircleCI, TeamCity). Wszystkie realizują tę samą ideę: automatyzację build-test-deploy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe pułapki. Po pierwsze, Git to nie to samo co GitHub – Git to system kontroli wersji, a GitHub to hosting dla repozytoriów Git. Po drugie, commit w Git jest lokalny – dopiero push wysyła zmiany na serwer. Po trzecie, CI/CD to nie tylko Jenkins – istnieje wiele narzędzi takich jak GitHub Actions, GitLab CI czy CircleCI, które realizują tę samą ideę automatyzacji."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -198,7 +248,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Pro Git” (Scott Chacon, Ben Straub) – oficjalna dokumentacja Git · Dokumentacja GitHub Actions / GitLab CI · „Continuous Delivery” (Jez Humble, David Farley).
+                    „Pro Git" (Scott Chacon, Ben Straub) – oficjalna dokumentacja Git · Dokumentacja GitHub Actions / GitLab CI · „Continuous Delivery" (Jez Humble, David Farley).
                 </span>
             </div>
 

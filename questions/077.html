@@ -16,11 +16,11 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #5e35b1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(94,53,177,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-left: 6px solid #5e35b1; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(94,53,177,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⚖️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Młotek, który potrafi myśleć”:</strong>
+                    <strong style="font-size: 1.15rem; color: #311b92; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Młotek, który potrafi myśleć":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a1a2e; line-height: 1.7;">
                         Zwykły młotek jest moralnie neutralny. Możesz nim zbudować dom dla bezdomnego albo kogoś skrzywdzić. Odpowiedzialność ponosi wyłącznie człowiek trzymający trzonek.<br><br>
                         Jednak <strong>oprogramowanie to nie jest zwykły młotek</strong>. Oprogramowanie podejmuje decyzje <em>skalowalnie</em> i często <em>autonomicznie</em>. Algorytm w banku w ułamku sekundy decyduje o odrzuceniu 10 tysięcy wniosków kredytowych. Algorytm w autonomicznym aucie decyduje, w co uderzyć podczas wypadku. Etyka komputerowa zaczyna się tam, gdzie kod staje się prawem (tzw. "Code is Law"). To dziedzina, która bada, jak my – inżynierowie – powinniśmy projektować te "myślące młotki", by nie zniszczyły społeczeństwa.
@@ -55,6 +55,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Etyka komputerowa to dział etyki zawodowej zajmujący się analizą moralnych konsekwencji tworzenia i wykorzystywania technologii informatycznych. Klasyczną i wymaganą na egzaminach podstawą jest teoria <strong>Jamesa Moora (1985)</strong>, który zdefiniował zjawisko <em>"Luki pojęciowej / Próżni legislacyjnej" (Policy Vacuum)</em>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Etyka komputerowa to dziedzina, która narodziła się z obserwacji Jamesa Moora z 1985 roku. Zauważył on, że technologia rozwija się wykładniczo, błyskawicznie, a prawo i normy społeczne nadążają za nią liniowo, bardzo powoli. W efekcie powstaje tak zwana 'próżnia legislacyjna' – sytuacja, w której nie ma jeszcze przepisów regulujących nową technologię. I to właśnie w tej próżni, zanim pojawi się RODO czy AI Act, jedynym zabezpieczeniem społeczeństwa jest etyka inżyniera. To od nas zależy, czy algorytm będzie dyskryminował, czy nie."
+                </div>
             </div>
 
             <!-- SVG 1: POLICY VACUUM -->
@@ -65,7 +68,7 @@
                 <!-- Osie -->
                 <line x1="80" y1="210" x2="750" y2="210" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
                 <text x="730" y="235" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Czas</text>
-                
+
                 <line x1="80" y1="210" x2="80" y2="50" stroke="#37474f" stroke-width="3" marker-end="url(#arrowDark)"/>
                 <text x="50" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 50 130)">Złożoność / Postęp</text>
 
@@ -83,10 +86,10 @@
                 <path d="M 350 182 L 350 162" fill="none" stroke="#7b1fa2" stroke-width="2"/>
                 <path d="M 500 173 L 500 115" fill="none" stroke="#7b1fa2" stroke-width="2"/>
                 <path d="M 600 166 L 600 80" fill="none" stroke="#7b1fa2" stroke-width="2"/>
-                
+
                 <!-- Obszar próżni -->
                 <path d="M 200 195 Q 450 185 700 50 L 700 160 Z" fill="#e1bee7" opacity="0.4"/>
-                
+
                 <!-- Tekst Próżni -->
                 <rect x="350" y="90" width="220" height="40" rx="6" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
                 <text x="460" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#7b1fa2" text-anchor="middle">"POLICY VACUUM" (Luka Prawna)</text>
@@ -107,6 +110,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Richard Mason zebrał problemy etyki IT w akronim <strong>PAPA</strong>. To absolutna podstawa każdej odpowiedzi z tego zakresu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Model PAPA Richarda Masona z 1986 roku to cztery filary etyki komputerowej. P jak Privacy – prywatność: kto i na jakich zasadach ma prawo gromadzić nasze dane. A jak Accuracy – dokładność i odpowiedzialność: kto ponosi winę za błędy oprogramowania, na przykład gdy algorytm medyczny zaszkodzi pacjentowi. Drugie P jak Property – własność intelektualna: do kogo należy kod, problem piractwa i patentów na oprogramowanie. Drugie A jak Accessibility – dostępność: problem wykluczenia cyfrowego i dostępności aplikacji dla osób z niepełnosprawnościami. Te cztery litery pokrywają praktycznie każdy dylemat etyczny w IT."
+                </div>
             </div>
 
             <!-- SVG 2: MODEL PAPA -->
@@ -158,6 +164,9 @@
                     <li><strong>Bańki informacyjne (Filter Bubbles) i Polaryzacja:</strong> Algorytmy YouTube'a, Facebooka czy TikToka są projektowane w jednym celu: maksymalizacja czasu spędzonego przed ekranem (User Engagement). Efekt uboczny? Algorytmy promują radykalne i fałszywe treści, bo one wywołują najsilniejsze emocje, niszcząc tym samym debatę publiczną.</li>
                     <li><strong>Deepfake i Dezinformacja:</strong> Oprogramowanie zatarło granicę między dowodem a fikcją. Możliwość generowania wideo i audio dowolnej osoby pociąga za sobą gigantyczne ryzyko dla demokracji (np. spreparowane wideo prezydenta wywołującego wojnę).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Model PAPA to fundament, ale współczesność dorzuciła nowe, potężniejsze dylematy. Algorytmiczna stronniczość – AI uczy się na danych historycznych i jeśli w przeszłości dyskryminowano kobiety przy rekrutacji, algorytm zautomatyzuje tę dyskryminację, ukrywając ją w czarnej skrzynce. Bańki informacyjne – algorytmy mediów społecznościowych są projektowane, by maksymalizować zaangażowanie, a to promuje radykalne treści, niszcząc debatę publiczną. Deepfake – oprogramowanie zatarło granicę między prawdą a fikcją, stwarzając gigantyczne ryzyko dla demokracji. Jako inżynierowie musimy być świadomi tych zagrożeń."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -169,6 +178,9 @@
                     <li><strong>"Jeśli coś jest zgodne z prawem, jest etyczne."</strong> – Ogromny błąd! Prawo to absolutne minimum moralne i – jak pokazał Moor – jest opóźnione. Przed wprowadzeniem dyrektywy RODO zbieranie i sprzedawanie danych medycznych przez aplikacje zliczające kalorie było często legalne (bo nikt o tym wcześniej nie pomyślał), ale z punktu widzenia inżynierii było skrajnie nieetyczne.</li>
                     <li><strong>"Technologia jest neutralna, winni są tylko użytkownicy."</strong> – Błąd. Projekt technologii kształtuje zachowania (tzw. affordancje). Jeśli tworzysz algorytm randkowy, który pozwala użytkownikom sortować ludzi tylko po kolorze skóry, to Ty jako inżynier aktywnie projektujesz system promujący uprzedzenia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwa największe mity do obalenia. Po pierwsze, zgodność z prawem nie oznacza etyczności – prawo jest opóźnione wobec technologii, jak udowodnił Moor. Przed RODO sprzedawanie danych medycznych przez aplikacje było legalne, ale skrajnie nieetyczne. Po drugie, technologia nie jest neutralna – to my, inżynierowie, projektujemy jej zachowania. Jeśli tworzę algorytm randkowy z filtrem po kolorze skóry, to ja aktywnie promuję uprzedzenia. Odpowiedzialność spoczywa na projektancie, nie tylko na użytkowniku."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -177,7 +189,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Studiując architekturę, bazy danych i algorytmy, zyskujesz wiedzę, jak działa <strong>Maszyna</strong>. Etyka komputerowa to ta część inżynierii, która przypomina Ci, że na końcu każdego kabla sieciowego, każdego rekordu w bazie danych i każdego sklasyfikowanego obiektu przez AI znajduje się <strong>Człowiek</strong>. Zły inżynier mówi: "Spełniłem wymagania biznesowe i dostałem zapłatę". Prawdziwy Profesjonalista (zgodnie z Kodeksem IEEE/ACM) potrafi odmówić napisania kodu, który jest krzywdzący dla społeczeństwa, nawet jeśli pracodawca tego żąda.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Studiując architekturę, bazy danych i algorytmy, zyskujesz wiedzę, jak działa <strong>Maszyna</strong>. Etyka komputerowa to ta część inżynierii, która przypomina Ci, że na końcu każdego kabla sieciowego, każdego rekordu w bazie danych i każdego sklasyfikowanego obiektu przez AI znajduje się <strong>Człowiek</strong>. Zły inżynier mówi: „Spełniłem wymagania biznesowe i dostałem zapłatę". Prawdziwy Profesjonalista (zgodnie z Kodeksem IEEE/ACM) potrafi odmówić napisania kodu, który jest krzywdzący dla społeczeństwa, nawet jeśli pracodawca tego żąda.</span>
                 </p>
             </div>
 

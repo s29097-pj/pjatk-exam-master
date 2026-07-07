@@ -13,11 +13,11 @@
     <div class="question-box">
         <h2 id="q-title">056. Definicja i rola inżynierii oprogramowania.</h2>
 
-        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%); border-left: 6px solid #0277bd; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(2,119,189,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏗️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Buda dla psa kontra Drapacz Chmur”:</strong>
+                    <strong style="font-size: 1.15rem; color: #01579b; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Buda dla psa kontra Drapacz Chmur":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a2a3a; line-height: 1.7;">
                         Czym różni się <strong>Programowanie</strong> od <strong>Inżynierii Oprogramowania</strong>?<br><br>
                         Jeśli chcesz zbudować <strong>budę dla psa</strong> (napisać prosty skrypt dla siebie), po prostu bierzesz deski, młotek, gwoździe i zaczynasz zbijasz. Jeśli wyjdzie krzywo – trudno, poprawisz jutro. Koszt błędu jest zerowy. To jest Programowanie.<br><br>
@@ -42,7 +42,7 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #0277bd;">1. Formalna definicja (wg IEEE) i Trzy Filary</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zgodnie z definicją IEEE (Instytut Inżynierów Elektryków i Elektroników), Inżynieria oprogramowania to: <em>„Zastosowanie systematycznego, zdyscyplinowanego i mierzalnego podejścia do tworzenia, eksploatacji oraz pielęgnacji oprogramowania”</em>. Opiera się ona na trzech fundamentalnych filarach, które podtrzymują jakość produktu.
+                    Zgodnie z definicją IEEE (Instytut Inżynierów Elektryków i Elektroników), Inżynieria oprogramowania to: <em>„Zastosowanie systematycznego, zdyscyplinowanego i mierzalnego podejścia do tworzenia, eksploatacji oraz pielęgnacji oprogramowania"</em>. Opiera się ona na trzech fundamentalnych filarach, które podtrzymują jakość produktu.
                 </p>
             </div>
 
@@ -79,7 +79,13 @@
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #c2185b;">2. Rola Inżynierii: Odpowiedź na „Kryzys Oprogramowania”</strong>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Inżynieria oprogramowania, według definicji IEEE, to systematyczne, zdyscyplinowane i mierzalne podejście do tworzenia, eksploatacji i pielęgnacji oprogramowania. Opiera się na trzech filarach, które widać na planszy. Metody – czyli jak to robimy, na przykład wzorce projektowe czy analiza wymagań. Procesy – w jakiej kolejności, na przykład Scrum czy cykl życia oprogramowania. Narzędzia – czym to robimy, czyli Git, Jira, Jenkins. Te trzy filary spaja zapewnienie jakości, czyli Quality Assurance. Proszę zauważyć, że sama znajomość języka programowania to tylko mały wycinek metod – inżynier musi ogarniać wszystkie trzy obszary."
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c2185b;">2. Rola Inżynierii: Odpowiedź na „Kryzys Oprogramowania"</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Pojęcie to powstało w 1968 r. na konferencji NATO. W tamtych czasach sprzęt (Hardware) taniał i stawał się potężniejszy, co pozwalało na pisanie coraz większych programów. Niestety, okazało się, że <strong>złożoność kodu rosła szybciej, niż ludzki mózg potrafił ją ogarnąć</strong>. Projekty masowo przekraczały budżety, spóźniały się o lata lub nie działały wcale. Zrozumiano, że programowania nie da się traktować jak wolnej sztuki – trzeba je ustrukturyzować.
                 </p>
@@ -96,12 +102,12 @@
                     </pattern>
                 </defs>
                 <rect x="0" y="0" width="820" height="280" fill="url(#gridGraph)"/>
-                
+
                 <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#c2185b">Wykres Boehm'a: Koszt naprawy błędu w czasie (Cost of Defect)</text>
 
                 <line x1="80" y1="230" x2="750" y2="230" stroke="#37474f" stroke-width="3"/>
                 <line x1="80" y1="230" x2="80" y2="50" stroke="#37474f" stroke-width="3"/>
-                
+
                 <text x="40" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" transform="rotate(-90 40 140)" text-anchor="middle">Koszt naprawy ($)</text>
                 <text x="415" y="260" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Fazy Cyklu Życia Projektu</text>
 
@@ -112,7 +118,7 @@
                 <text x="680" y="245" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c2185b" text-anchor="middle">Produkcja (Utrzymanie)</text>
 
                 <path d="M 150 220 Q 400 220 540 150 T 680 60" fill="none" stroke="#d81b60" stroke-width="4"/>
-                
+
                 <circle cx="150" cy="220" r="5" fill="#d81b60"/>
                 <text x="150" y="205" font-family="monospace" font-size="11" fill="#c2185b" text-anchor="middle">1x</text>
 
@@ -135,6 +141,12 @@
             </svg>
 
             <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Inżynieria oprogramowania narodziła się jako odpowiedź na kryzys oprogramowania z lat sześćdziesiątych. Sprzęt stawał się coraz potężniejszy, a ludzie nie radzili sobie ze złożonością kodu. Projekty masowo przekraczały budżety i opóźniały się. Kluczową rolą inżynierii jest zarządzanie kosztem zmiany. Proszę spojrzeć na wykres Boehma: błąd znaleziony na etapie wymagań kosztuje jeden razy, ale ten sam błąd odkryty na produkcji kosztuje sto razy więcej. Dlatego inżynieria każe nam najwięcej uwagi poświęcać początkowym fazom projektu – wymaganiom i architekturze – żeby uniknąć katastrofy na końcu."
+                </div>
+            </div>
+
+            <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Coder vs Computer Scientist vs Software Engineer</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     To klasyczne pytanie, które bada Twoje zrozumienie własnego zawodu inżyniera. Informatyka teoretyczna (Computer Science) odkrywa algorytmy. Programista po prostu pisze kod. Inżynier oprogramowania odpowiada za <strong>cały cykl życia, budżet i utrzymanie</strong>.
@@ -149,7 +161,7 @@
                 <rect x="100" y="50" width="280" height="25" fill="#f57c00" rx="4"/>
                 <rect x="100" y="65" width="280" height="10" fill="#f57c00"/>
                 <text x="240" y="68" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Informatyka Teoretyczna (CS)</text>
-                
+
                 <text x="240" y="95" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Skupiona na odkryciach i teorii.</text>
                 <text x="240" y="115" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Optymalizacja algorytmów (Big-O).</text>
                 <text x="240" y="135" font-family="sans-serif" font-size="11" fill="#4e342e" text-anchor="middle">• Działa w idealnych, matematycznych warunkach.</text>
@@ -162,7 +174,7 @@
                 <text x="580" y="95" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Skupiona na rozwiązywaniu problemów klienta.</text>
                 <text x="580" y="115" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Ograniczona budżetem, zespołem i czasem.</text>
                 <text x="580" y="135" font-family="sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle">• Skupiona na czytelności kodu i architekturze.</text>
-                
+
                 <path d="M 390 100 L 430 100" fill="none" stroke="#78909c" stroke-width="3" marker-end="url(#arrowGrey)"/>
                 <text x="410" y="90" font-family="sans-serif" font-size="10" font-weight="bold" fill="#546e7a" text-anchor="middle">Zastosowanie</text>
 
@@ -171,12 +183,21 @@
                 </defs>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Ważne jest rozróżnienie między informatykiem a inżynierem oprogramowania. Informatyka teoretyczna skupia się na algorytmach i dowodach matematycznych – działa w idealnych warunkach. Inżynieria oprogramowania musi dodatkowo uwzględnić ograniczenia rzeczywistego świata: budżet, zespół, czas, czytelność kodu dla innych programistów i koszty utrzymania. Inżynier nie tylko pisze kod – projektuje architekturę, zarządza wymaganiami i myśli o tym, jak system będzie rozwijany przez kolejne lata. Proszę spojrzeć na porównanie na planszy."
+                </div>
+            </div>
+
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione haczyki wykładowców):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>"Oprogramowanie to tylko kod źródłowy"</strong> – Zasadniczy błąd! Z punktu widzenia inżynierii, produktem oprogramowania jest Kod + Dokumentacja Techniczna + Dane Konfiguracyjne + Testy. Bez dokumentacji i testów, zostawiasz po sobie tzw. "Legacy Code" (kod dziedziczony, którego nikt nie chce dotykać).</li>
                     <li><strong>Paradoks Pielęgnacji (Maintenance)</strong> – Wielu myśli, że większość pracy to tworzenie systemu. Błąd. Aż <strong>60% - 80%</strong> całkowitego kosztu i czasu życia oprogramowania to <em>Pielęgnacja</em> (poprawianie błędów na produkcji, dostosowywanie do nowych wersji OS, dodawanie ficzerów). Inżynieria istnieje po to, by kod można było łatwo modyfikować przez kolejne lata.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Dwie największe pułapki. Po pierwsze, oprogramowanie to nie tylko kod – to także dokumentacja, testy i dane konfiguracyjne. Bez nich zostawiamy po sobie tak zwany legacy code, którego nikt nie chce dotykać. Po drugie, paradoks pielęgnacji – większość kosztów, od sześćdziesięciu do osiemdziesięciu procent, to nie tworzenie nowego systemu, ale jego utrzymanie: poprawki błędów, dostosowywanie do nowych wersji systemu operacyjnego, dodawanie funkcji. Dlatego inżynieria kładzie taki nacisk na czytelność kodu i architekturę – po to, by kod można było łatwo modyfikować przez kolejne lata."
+                </div>
             </div>
 
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
@@ -189,7 +210,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Inżynieria Oprogramowania” (Ian Sommerville) – biblia przedmiotu · „Software Engineering: A Practitioner's Approach” (Roger S. Pressman).
+                    „Inżynieria Oprogramowania" (Ian Sommerville) – biblia przedmiotu · „Software Engineering: A Practitioner's Approach" (Roger S. Pressman).
                 </span>
             </div>
 

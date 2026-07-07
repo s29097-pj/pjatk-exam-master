@@ -14,11 +14,11 @@
         <h2 id="q-title">062. Strategie i produkty projektowania architektury oprogramowania.</h2>
 
         <!-- Aha! Moment -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏛️</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa metra kontra lista przystanków”:</strong>
+                    <strong style="font-size: 1.15rem; color: #004d40; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Mapa metra kontra lista przystanków":</strong>
                     <p style="margin: 0 0 8px 0; color: #1a3a3a; line-height: 1.7;">
                         Wyobraź sobie, że masz wybudować system metra w milionowym mieście. Możesz podejść do tego na dwa sposoby: albo tworzysz szczegółową listę wszystkich stacji i tuneli (lista przystanków), albo najpierw rysujesz mapę całej sieci – gdzie są główne węzły, jak linie się krzyżują, gdzie potrzebujesz zajezdni. <strong>Architektura oprogramowania to właśnie ta mapa metra.</strong>
                     </p>
@@ -50,11 +50,14 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">1. Architektura oprogramowania – co to takiego?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>Architektura oprogramowania</strong> to zbiór podstawowych decyzji projektowych, które dotyczą struktury systemu – jego komponentów, ich właściwości, relacji między nimi oraz zasad rządzących ich projektowaniem i ewolucją. Architektura odpowiada na pytania: „Z czego składa się system?”, „Jak te części się komunikują?” i „Dlaczego tak, a nie inaczej?”.
+                    <strong>Architektura oprogramowania</strong> to zbiór podstawowych decyzji projektowych, które dotyczą struktury systemu – jego komponentów, ich właściwości, relacji między nimi oraz zasad rządzących ich projektowaniem i ewolucją. Architektura odpowiada na pytania: „Z czego składa się system?", „Jak te części się komunikują?" i „Dlaczego tak, a nie inaczej?".
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Dobra architektura to nie ta, która jest „najnowocześniejsza” lub „najmodniejsza”. To ta, która <strong>spełnia wymagania niefunkcjonalne</strong> (wydajność, skalowalność, bezpieczeństwo) przy akceptowalnym koszcie i umożliwia ewolucję systemu w przyszłości.
+                    Dobra architektura to nie ta, która jest „najnowocześniejsza" lub „najmodniejsza". To ta, która <strong>spełnia wymagania niefunkcjonalne</strong> (wydajność, skalowalność, bezpieczeństwo) przy akceptowalnym koszcie i umożliwia ewolucję systemu w przyszłości.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Architektura oprogramowania to zbiór fundamentalnych decyzji projektowych. Odpowiada na trzy pytania: z czego składa się system, jak te części się komunikują i dlaczego wybrano takie a nie inne rozwiązanie. Dobra architektura to nie ta najmodniejsza, tylko ta, która spełnia wymagania niefunkcjonalne – wydajność, skalowalność, bezpieczeństwo – przy akceptowalnym koszcie i umożliwia ewolucję systemu w przyszłości. To jak mapa metra – pokazuje główne węzły i połączenia, a nie każdy szczegół implementacyjny."
+                </div>
             </div>
 
             <!-- 2. Strategie architektoniczne (mapa) -->
@@ -128,6 +131,12 @@
                 <text x="660" y="280" font-family="sans-serif" font-size="10" fill="#b71c1c" text-anchor="middle">aplikacje CRUD</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Mamy sześć głównych strategii architektonicznych. Monolit – cała aplikacja jako jeden proces, prosty we wdrożeniu, ale trudny w skalowaniu. Warstwowa – podział na prezentację, logikę i dane, daje izolację odpowiedzialności. Mikroserwisy – niezależne małe serwisy, świetnie skalują się i umożliwiają niezależne wdrożenia, ale wprowadzają złożoność sieciową. SOA z szyną ESB sprawdza się przy integracji dużych systemów korporacyjnych. Event-Driven opiera się na zdarzeniach i daje luźne powiązania, ale trudny w debugowaniu. Hexagonalna izoluje logikę biznesową od zewnętrznych zależności. Proszę spojrzeć na planszę – każda strategia ma swoje zalety i wady."
+                </div>
+            </div>
+
             <!-- 3. Proces projektowania architektury -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">3. Proces projektowania architektury – od wymagań do decyzji</strong>
@@ -141,13 +150,16 @@
                     <li><strong>Decyzje o technologiach</strong> – języki, frameworki, middleware, platforma chmurowa vs on-premise.</li>
                     <li><strong>Dokumentowanie decyzji</strong> – każda decyzja powinna być zapisana z uzasadnieniem (ADR).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proces projektowania architektury składa się z pięciu kluczowych kroków. Zaczynamy od identyfikacji atrybutów jakościowych – które wymagania niefunkcjonalne są najważniejsze, bo to one determinują wybór strategii. Potem podejmujemy decyzje o strukturze – monolit czy mikroserwisy, podział na moduły. Następnie decyzje o komunikacji – REST czy kolejki. Potem wybór technologii. I najważniejsze – każdą decyzję dokumentujemy jako ADR, czyli Architecture Decision Record, z uzasadnieniem dlaczego tak, a nie inaczej. Bez tego nowi członkowie zespołu nigdy nie zrozumieją powodów stojących za architekturą."
+                </div>
             </div>
 
             <!-- 4. Produkty architektury -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">4. Produkty projektowania architektury – co zostaje po architekcie?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Architekt nie tylko „myśli”. Dostarcza konkretne artefakty, które służą zespołowi przez cały cykl życia systemu:
+                    Architekt nie tylko „myśli". Dostarcza konkretne artefakty, które służą zespołowi przez cały cykl życia systemu:
                 </p>
             </div>
 
@@ -205,6 +217,12 @@
                 <text x="700" y="227" font-family="sans-serif" font-size="10" font-weight="bold" fill="#004d40" text-anchor="middle">+1: Scenariuszy (UC)</text>
             </svg>
 
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Architekt dostarcza cztery główne artefakty. Dokument Architektury – opis struktury i celów strategicznych. ADR, czyli Architecture Decision Records – rejestr decyzji z uzasadnieniem, dlaczego wybrano dane rozwiązanie. Diagramy UML – komponentów, wdrożenia, pakietów i sekwencji. Oraz prototypy i spike'i – działające fragmenty kodu sprawdzające hipotezy technologiczne. Standardem opisu architektury jest Model 4+1 Philippe'a Kruchtena – pięć widoków: logiczny, procesów, fizyczny, rozwoju i scenariuszy. Każdy widok pokazuje system z innej perspektywy, adresowanej do różnych interesariuszy."
+                </div>
+            </div>
+
             <!-- 5. Ważne decyzje -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">5. Jak wybrać odpowiednią strategię? (Nie ma jednego słusznego wyboru)</strong>
@@ -217,16 +235,22 @@
                     <li><strong>System bankowy</strong> → Architektura warstwowa + ścisłe granice modułów. Bezpieczeństwo i spójność danych są ważniejsze niż elastyczność wdrożeń.</li>
                     <li><strong>IoT / systemy czasu rzeczywistego</strong> → Event-Driven. Luźne powiązania i asynchroniczność są kluczowe dla przepustowości.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Wybór strategii zależy od kontekstu. Startup z MVP powinien wybrać monolit – jest najszybszy w implementacji. Netflix czy Allegro potrzebują mikroserwisów dla niezależnego skalowania. System bankowy stawia na architekturę warstwową, bo bezpieczeństwo i spójność danych są ważniejsze niż elastyczność. IoT i systemy czasu rzeczywistego wybierają Event-Driven dla luźnych powiązań i asynchroniczności. Nie ma jednej słusznej strategii – każda to kompromis między sprzecznymi siłami."
+                </div>
             </div>
 
             <!-- Pułapki egzaminacyjne -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity architektoniczne):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>„Architektura sama się wyłoni”</strong> – Owszem, ale będzie to architektura przypadkowa (Big Ball of Mud). Świadomy wybór architektury na początku zapobiega chaosowi, który potem kosztuje fortunę na refaktoryzację.</li>
-                    <li><strong>„Mikroserwisy są zawsze lepsze od monolitu”</strong> – Mikroserwisy rozwiązują problemy, które większość aplikacji nie ma (skala Netflixa). Dla małego zespołu to dodatkowa złożoność sieciowa, problemy ze spójnością danych i trudniejszy debugging.</li>
-                    <li><strong>„Dokumentacja architektury to strata czasu, kod jest samodokumentujący”</strong> – Kod pokazuje JAK, ale nie pokazuje DLACZEGO. Nowy programista nigdy nie zrozumie, dlaczego wybrano kolejkę RabbitMQ zamiast Kafki, patrząc tylko na kod. ADR odpowiada na to pytanie.</li>
+                    <li><strong>„Architektura sama się wyłoni"</strong> – Owszem, ale będzie to architektura przypadkowa (Big Ball of Mud). Świadomy wybór architektury na początku zapobiega chaosowi, który potem kosztuje fortunę na refaktoryzację.</li>
+                    <li><strong>„Mikroserwisy są zawsze lepsze od monolitu"</strong> – Mikroserwisy rozwiązują problemy, które większość aplikacji nie ma (skala Netflixa). Dla małego zespołu to dodatkowa złożoność sieciowa, problemy ze spójnością danych i trudniejszy debugging.</li>
+                    <li><strong>„Dokumentacja architektury to strata czasu, kod jest samodokumentujący"</strong> – Kod pokazuje JAK, ale nie pokazuje DLACZEGO. Nowy programista nigdy nie zrozumie, dlaczego wybrano kolejkę RabbitMQ zamiast Kafki, patrząc tylko na kod. ADR odpowiada na to pytanie.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Trzy największe mity architektoniczne. Po pierwsze, architektura sama się nie wyłoni – bez świadomych decyzji powstanie chaos zwany Big Ball of Mud. Po drugie, mikroserwisy nie zawsze są lepsze – dla małego zespołu to dodatkowa złożoność, której nie potrzebują. Po trzecie, kod nie jest samodokumentujący – pokazuje JAK, ale nie DLACZEGO podjęto daną decyzję. Dlatego tak ważne są ADR – Architecture Decision Records."
+                </div>
             </div>
 
             <!-- Grokking -->
@@ -241,7 +265,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    „Software Architecture in Practice” (Len Bass, Paul Clements, Rick Kazman) · „Clean Architecture” (Robert C. Martin) · „Designing Data-Intensive Applications” (Martin Kleppmann) · Model 4+1 (Philippe Kruchten).
+                    „Software Architecture in Practice" (Len Bass, Paul Clements, Rick Kazman) · „Clean Architecture" (Robert C. Martin) · „Designing Data-Intensive Applications" (Martin Kleppmann) · Model 4+1 (Philippe Kruchten).
                 </span>
             </div>
 
