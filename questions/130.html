@@ -16,7 +16,7 @@
         <!-- ============================================================ -->
         <!-- GROKKING-STYLE METAPHOR OPENING                             -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f0f4c3 0%, #e0f2f1 100%); border-left: 6px solid #827717; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(130,119,23,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f0f4c3 0%, #e0f2f1 100%); border-left: 6px solid #827717; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(130,119,23,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⛰️</span>
                 <div>
@@ -55,6 +55,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Algorytmy heurystyczne stosujemy niemal wyłącznie do problemów <strong>NP-trudnych</strong>, takich jak Problem Komiwojażera (TSP) – szukanie najkrótszej trasy przez N miast. Złożoność algorytmu dokładnego (sprawdzającego wszystkie opcje) wynosi $O(n!)$. Przy 20 miastach liczba tras wynosi 2.4 tryliona. Nawet superkomputery tego nie policzą przed śmiercią Wszechświata. Heurystyka (np. <em>Algorytm Najbliższego Sąsiada</em>) znajduje trasę w ułamku sekundy. Nie będzie ona optymalna, ale będzie bliska optymalnej.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, heurystyki stosujemy do problemów NP-trudnych, gdzie dokładne rozwiązanie jest niemożliwe w rozsądnym czasie. Klasyczny przykład to Problem Komiwojażera – dla 20 miast mamy 2,4 tryliona możliwych tras. Algorytm dokładny liczyłby to 77 tysięcy lat. Heurystyka najbliższego sąsiada znajduje rozwiązanie w ułamku sekundy. Nie będzie idealne, ale będzie wystarczająco dobre – to właśnie kompromis heurystyczny. Proszę spojrzeć na planszę – porównanie czasu obliczeń obu podejść.”
+                </div>
             </div>
 
             <!-- SVG 1: EKSPLOZJA KOMBINATORYCZNA -->
@@ -65,20 +68,20 @@
                 <!-- Brute Force Side -->
                 <rect x="40" y="50" width="340" height="140" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
                 <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Algorytm Dokładny (Brute Force)</text>
-                
+
                 <text x="210" y="100" font-family="monospace" font-size="11" fill="#c62828" text-anchor="middle">10 Miast = 3.6 Miliona tras</text>
                 <text x="210" y="125" font-family="monospace" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">20 Miast = 2,432,902,008,176,640,000 tras</text>
-                
+
                 <rect x="80" y="145" width="260" height="30" rx="4" fill="#ffcdd2"/>
                 <text x="210" y="164" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Czas obliczeń: 77 000 Lat</text>
 
                 <!-- Heuristic Side -->
                 <rect x="440" y="50" width="340" height="140" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
                 <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Heurystyka (Najbliższy Sąsiad)</text>
-                
+
                 <text x="610" y="100" font-family="monospace" font-size="11" fill="#2e7d32" text-anchor="middle">Wybierz zawsze najbliższe miasto</text>
                 <text x="610" y="125" font-family="monospace" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Odrzuca analizę innych ścieżek</text>
-                
+
                 <rect x="480" y="145" width="260" height="30" rx="4" fill="#c8e6c9"/>
                 <text x="610" y="164" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Czas obliczeń: 0.002 Sekundy</text>
 
@@ -93,6 +96,9 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Zwykłe heurystyki konstrukcyjne są zachłanne. Krok po kroku wybierają to, co wydaje się najlepsze w <em>danym momencie</em>. Konsekwencją jest utknięcie w <strong>Optimum Lokalnym</strong>. Algorytm "wspina się na górę" i gdy każdy kolejny krok prowadzi w dół, zatrzymuje się, uznając, że znalazł szczyt. Nie widzi, że za doliną znajduje się prawdziwy, globalny szczyt.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Największą wadą prostych heurystyk jest pułapka optimum lokalnego. Algorytm wspina się na najbliższe wzniesienie i gdy widzi, że każdy kolejny krok prowadzi w dół, kończy pracę. Nie wie, że za doliną jest prawdziwy szczyt – Mount Everest. To jak wspinacz we mgle, który wszedł na pagórek i myśli, że zdobył najwyższą górę. Właśnie dlatego potrzebujemy metaheurystyk – algorytmów, które potrafią zejść w dół, by później wejść wyżej. Proszę spojrzeć na planszę – optimum lokalne i globalne na wykresie krajobrazu rozwiązań.”
+                </div>
             </div>
 
             <!-- SVG 2: LOCAL OPTIMUM -->
@@ -102,7 +108,7 @@
 
                 <!-- Terrain path -->
                 <path d="M 50 180 Q 150 150, 250 80 T 350 120 T 600 40 T 750 180" fill="none" stroke="#455a64" stroke-width="4"/>
-                
+
                 <!-- Y Axis -->
                 <line x1="50" y1="180" x2="50" y2="40" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryH)"/>
                 <text x="40" y="110" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle" transform="rotate(-90 40 110)">Jakość rozwiązania</text>
@@ -141,6 +147,9 @@
                     <li><strong>Symulowane Wyżarzanie (Simulated Annealing):</strong> Algorytm wzorowany na stygnięciu metalu. Na początku pozwala na "złe" ruchy (w dół doliny) z wysokim prawdopodobieństwem. W miarę "stygnięcia" (czasu), algorytm uspokaja się i tylko wspina, gwarantując przeszukanie szerszego terenu.</li>
                     <li><strong>Algorytmy Genetyczne (GA):</strong> Używają ewolucji Darwina. Mają całą populację tras. Najgorsze trasy umierają. Najlepsze się "krzyżują" (wymieniają segmentami miast). Zawsze istnieje też mały procent <em>Mutacji</em>, który pozwala wyrzucić rozwiązanie w zupełnie inną, niezbadaną część przestrzeni.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Aby uciec z optimum lokalnego, inżynierowie stworzyli metaheurystyki – algorytmy inspirowane naturą. Symulowane wyżarzanie naśladuje stygnięcie metalu – na początku pozwala na złe ruchy, potem już tylko się wspina. Algorytmy genetyczne naśladują ewolucję Darwina – mamy populację rozwiązań, krzyżujemy najlepsze i dodajemy losowe mutacje, które wyrzucają nas w nowe rejony przestrzeni. To są potężne narzędzia do problemów NP-trudnych. Proszę spojrzeć na planszę – cykl algorytmu genetycznego: populacja, selekcja, krzyżowanie, mutacja.”
+                </div>
             </div>
 
             <!-- SVG 3: GENETIC ALGORITHM -->
@@ -149,7 +158,7 @@
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Metaheurystyka: Cykl Algorytmu Genetycznego</text>
 
                 <!-- Pętla Ewolucji -->
-                
+
                 <!-- 1. Populacja -->
                 <rect x="60" y="80" width="120" height="50" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
                 <text x="120" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">1. Populacja</text>
@@ -174,7 +183,7 @@
                 <path d="M 180 105 L 250 105" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryGA)"/>
                 <path d="M 370 105 L 440 105" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryGA)"/>
                 <path d="M 560 105 L 630 105" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryGA)"/>
-                
+
                 <path d="M 690 130 L 690 180 L 120 180 L 120 130" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryGA)"/>
                 <text x="405" y="172" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Kolejna Generacja (Pokolenie n+1)</text>
 
@@ -192,6 +201,9 @@
                     <li><strong>"Heurystyka służy do przyspieszania sortowania":</strong> Egzaminator Cię obleje! Algorytmy takie jak Quicksort to algorytmy <em>dokładne</em> – zawsze dają idealny wynik w czasie $O(n \log n)$. Heurystyki nie mają zastosowania w zadaniach klasy P (wielomianowych), ponieważ tam perfekcyjne rozwiązanie jest "tanie". Używamy ich <strong>wyłącznie</strong> do zagadnień kombinatorycznych i problemów NP-trudnych.</li>
                     <li><strong>"Algorytm genetyczny w końcu znajdzie najlepsze rozwiązanie":</strong> Niekoniecznie. Żadna heurystyka, ani metaheurystyka, nie daje absolutnie <em>żadnych matematycznych gwarancji</em> znalezienia globalnego optimum. Może jedynie dać rozwiązanie bardzo zbliżone do optimum. Często nie potrafimy nawet udowodnić, czy wynik z GA to już optimum, czy tylko bardzo silne optimum lokalne.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, dwie kluczowe pułapki. Po pierwsze – heurystyki nie służą do przyspieszania sortowania. Quicksort to algorytm dokładny, zawsze daje idealny wynik. Heurystyki stosujemy tylko do problemów NP-trudnych, gdzie dokładne rozwiązanie jest niemożliwe w rozsądnym czasie. Po drugie – algorytmy genetyczne nie dają gwarancji znalezienia globalnego optimum. Żadna heurystyka nie daje matematycznej gwarancji optymalności. Dają tylko rozwiązania przybliżone – wystarczająco dobre w praktyce.”
+                </div>
             </div>
 
             <!-- ======================================================== -->

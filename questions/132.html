@@ -14,9 +14,9 @@
         <h2 id="q-title">132. Sztuczne sieci neuronowe.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 6px solid #6a1b9a; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(106,27,154,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧠</span>
                 <div>
@@ -26,6 +26,12 @@
                         Każdy kierownik (<strong>Neuron w Warstwie Ukrytej</strong>) patrzy na te dane, ale nadaje im różną ważność (<strong>Wagi</strong>). Kierownik A uważa, że dochód jest najważniejszy (waga = 0.9), a kierownik B patrzy tylko na historię długów. Każdy z nich ma też swoje własne "uprzedzenia" i próg tolerancji (<strong>Bias</strong>). Ostateczną decyzję podejmuje Prezes (<strong>Warstwa Wyjściowa</strong>).<br><br>
                         Co się dzieje, gdy Prezes da kredyt bankrutowi? Ponosi ogromną stratę (<strong>Funkcja Kosztu</strong>). Wtedy krzyczy na kierowników, kierownicy krzyczą na ankieterów, zmuszając wszystkich do zmiany swoich priorytetów (zmiany Wag i Biasów), żeby następnym razem nie popełnić tego samego błędu. Ten proces "krzyku w dół hierarchii" to w matematyce <strong>Wsteczna Propagacja Błędu (Backpropagation)</strong>.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #311b92; line-height: 1.8;">
+                        <li><strong>🟣 Ankieterzy (Warstwa Wejściowa)</strong> – zbierają surowe fakty, nie interpretują ich.</li>
+                        <li><strong>🔵 Kierownicy (Warstwy Ukryte)</strong> – ważą informacje, każdy ma swoje priorytety (wagi) i uprzedzenia (bias).</li>
+                        <li><strong>🟢 Prezes (Warstwa Wyjściowa)</strong> – podejmuje ostateczną decyzję: kredyt przyznany lub odrzucony.</li>
+                        <li><strong>🔴 Krzyk w dół (Backpropagation)</strong> – błąd wędruje od prezesa przez kierowników do ankieterów, korygując wszystkie priorytety.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,248 +48,487 @@
             <span class="keyword-tag">Wsteczna Propagacja Błędu (Backpropagation)</span>
             <span class="keyword-tag">Spadek Gradientu (Gradient Descent)</span>
             <span class="keyword-tag">Przeuczenie (Overfitting)</span>
+            <span class="keyword-tag">Regularyzacja (L1/L2, Dropout)</span>
+            <span class="keyword-tag">Deep Learning</span>
+            <span class="keyword-tag">CNN / RNN</span>
+            <span class="keyword-tag">Learning Rate (Szybkość uczenia)</span>
+            <span class="keyword-tag">Epoka / Batch / Iteracja</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: PERCEPTRON -->
+            <!-- ======================================================== -->
+            <!-- PART 1: PERCEPTRON – PODSTAWOWA CEGIEŁKA                 -->
+            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">1. Fundament architektoniczny: Sztuczny Neuron (Perceptron)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Pojedynczy neuron to prosta maszyna matematyczna. Pobiera on sygnały wejściowe ($x$), mnoży każdy z nich przez odpowiednią wagę ($w$), sumuje je wszystkie i dodaje wartość obciążenia (Bias, $b$). Jednak najważniejszą częścią neuronu jest <strong>Nieliniowa Funkcja Aktywacji</strong>. Jeśli byśmy z niej zrezygnowali, cała sieć neuronowa z miliardem neuronów stałaby się matematycznie tożsama z jedną, prostą funkcją liniową i straciłaby zdolność rozwiązywania złożonych problemów!
+                    Pojedynczy neuron to prosta maszyna matematyczna. Pobiera on sygnały wejściowe (<strong>x₁, x₂, x₃...</strong>), mnoży każdy z nich przez odpowiednią <strong>wagę (w)</strong>, sumuje je wszystkie i dodaje wartość obciążenia (<strong>Bias, b</strong>). Jednak najważniejszą częścią neuronu jest <strong>Nieliniowa Funkcja Aktywacji</strong>. Jeśli byśmy z niej zrezygnowali, cała sieć neuronowa z miliardem neuronów stałaby się matematycznie tożsama z jedną, prostą funkcją liniową i straciłaby zdolność rozwiązywania złożonych problemów! To właśnie nieliniowość funkcji aktywacji sprawia, że sieć może aproksymować dowolnie skomplikowane odwzorowania – jest to tzw. <strong>Twierdzenie o Uniwersalnej Aproksymacji</strong>.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zacznijmy od podstawowej cegiełki – sztucznego neuronu, zwanego też perceptronem. Proszę spojrzeć na planszę. Neuron bierze sygnały wejściowe – na przykład piksele obrazka czy dane z czujników – i każdy z tych sygnałów mnoży przez odpowiednią wagę. Wagi to kluczowy element – to one decydują, które informacje są ważne, a które mniej. Potem wszystko sumujemy, dodajemy bias – to taki próg pobudzenia – i przepuszczamy przez funkcję aktywacji. Bez funkcji aktywacji cała sieć byłaby tylko mnożeniem macierzy, czyli funkcją liniową – nie rozwiązałaby żadnego naprawdę trudnego problemu. To funkcja aktywacji wprowadza nieliniowość i daje sieci prawdziwą moc.”
+                </div>
             </div>
 
-            <!-- SVG 1: PERCEPTRON -->
-            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="250" fill="#f3e5f5" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Matematyczny model Sztucznego Neuronu</text>
-
-                <!-- Wejścia -->
-                <circle cx="80" cy="80" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
-                <text x="80" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₁</text>
-
-                <circle cx="80" cy="140" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
-                <text x="80" y="145" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₂</text>
-
-                <circle cx="80" cy="200" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
-                <text x="80" y="205" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₃</text>
-
-                <!-- Sumator -->
-                <circle cx="350" cy="140" r="40" fill="#e1bee7" stroke="#8e24aa" stroke-width="3"/>
-                <text x="350" y="148" font-family="sans-serif" font-size="28" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Σ</text>
-
-                <!-- Strzałki wejść z wagami -->
-                <path d="M 100 80 L 315 130" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
-                <rect x="180" y="85" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
-                <text x="195" y="100" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₁</text>
-
-                <path d="M 100 140 L 310 140" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
-                <rect x="180" y="130" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
-                <text x="195" y="145" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₂</text>
-
-                <path d="M 100 200 L 315 150" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
-                <rect x="180" y="175" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
-                <text x="195" y="190" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₃</text>
-
-                <!-- Bias -->
-                <circle cx="280" cy="60" r="20" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
-                <text x="280" y="65" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">b</text>
-                <path d="M 300 70 L 330 105" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgNN)"/>
-                <text x="310" y="50" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Bias (Przesunięcie)</text>
-
-                <!-- Funkcja Aktywacji -->
-                <path d="M 390 140 L 450 140" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrowPurp)"/>
-                <rect x="460" y="100" width="100" height="80" rx="8" fill="#fff" stroke="#0288d1" stroke-width="3"/>
-                <text x="510" y="125" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Funkcja</text>
-                <text x="510" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Aktywacji</text>
-                
-                <!-- Ikona funkcji nieliniowej (ReLU) -->
-                <path d="M 480 165 L 510 165 L 530 145" fill="none" stroke="#0288d1" stroke-width="2"/>
-                
-                <!-- Wyjście -->
-                <path d="M 560 140 L 640 140" fill="none" stroke="#0288d1" stroke-width="3" marker-end="url(#arrowBlueNN)"/>
-                <text x="700" y="145" font-family="monospace" font-size="16" font-weight="bold" fill="#01579b" text-anchor="middle">y = f(Σ+b)</text>
-
-                <!-- Równanie na dole -->
-                <rect x="230" y="210" width="360" height="25" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
-                <text x="410" y="227" font-family="monospace" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Wyjście y = Aktywacja( (x₁*w₁) + (x₂*w₂) + (x₃*w₃) + b )</text>
-
+            <!-- SVG 1: PERCEPTRON – MODEL MATEMATYCZNY -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowPurp" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4a148c"/></marker>
                     <marker id="arrowOrgNN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
                     <marker id="arrowBlueNN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0288d1"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="260" fill="#f3e5f5" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Matematyczny model Sztucznego Neuronu (Perceptron)</text>
+
+                <!-- Wejścia -->
+                <circle cx="80" cy="80" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="85" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₁</text>
+                <circle cx="80" cy="145" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="150" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₂</text>
+                <circle cx="80" cy="210" r="20" fill="#fff" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="80" y="215" font-family="monospace" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">x₃</text>
+
+                <!-- Sumator -->
+                <circle cx="350" cy="145" r="40" fill="#e1bee7" stroke="#8e24aa" stroke-width="3"/>
+                <text x="350" y="153" font-family="sans-serif" font-size="28" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Σ</text>
+
+                <!-- Strzałki z wagami -->
+                <path d="M 100 80 L 315 130" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="85" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="100" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₁</text>
+                <path d="M 100 145 L 310 145" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="135" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="150" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₂</text>
+                <path d="M 100 210 L 315 160" fill="none" stroke="#4a148c" stroke-width="2" marker-end="url(#arrowPurp)"/>
+                <rect x="180" y="180" width="30" height="20" rx="4" fill="#fff" stroke="#ce93d8"/>
+                <text x="195" y="195" font-family="monospace" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">w₃</text>
+
+                <!-- Bias -->
+                <circle cx="280" cy="55" r="20" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
+                <text x="280" y="60" font-family="monospace" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">b</text>
+                <path d="M 300 65 L 330 105" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgNN)"/>
+                <text x="305" y="48" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Bias</text>
+
+                <!-- Funkcja Aktywacji -->
+                <path d="M 390 145 L 450 145" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrowPurp)"/>
+                <rect x="460" y="100" width="110" height="90" rx="8" fill="#fff" stroke="#0288d1" stroke-width="3"/>
+                <text x="515" y="128" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Funkcja</text>
+                <text x="515" y="144" font-family="sans-serif" font-size="12" font-weight="bold" fill="#01579b" text-anchor="middle">Aktywacji</text>
+                <text x="515" y="168" font-family="sans-serif" font-size="10" fill="#0277bd" text-anchor="middle">ReLU / Sigmoid</text>
+
+                <!-- Wyjście -->
+                <path d="M 570 145 L 640 145" fill="none" stroke="#0288d1" stroke-width="3" marker-end="url(#arrowBlueNN)"/>
+                <text x="700" y="150" font-family="monospace" font-size="15" font-weight="bold" fill="#01579b" text-anchor="middle">y = f(Σ + b)</text>
+
+                <!-- Równanie na dole -->
+                <rect x="200" y="228" width="420" height="26" fill="#f5f5f5" stroke="#cfd8dc" rx="4"/>
+                <text x="410" y="246" font-family="monospace" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">Wyjście y = f( (x₁·w₁) + (x₂·w₂) + (x₃·w₃) + b )</text>
             </svg>
 
-            <!-- PART 2: ARCHITEKTURA -->
+            <!-- ======================================================== -->
+            <!-- PART 2: ARCHITEKTURA SIECI I FORWARD PASS               -->
+            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura Sieci i Propagacja w Przód (Forward Pass)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Pojedynczy neuron niewiele potrafi. Sieć neuronowa to tysiące takich neuronów ułożonych w warstwy: <strong>Warstwę Wejściową</strong> (surowe dane, np. piksele obrazka), <strong>Warstwy Ukryte</strong> (szukające wzorców, kształtów i relacji) oraz <strong>Warstwę Wyjściową</strong> (dokonującą ostatecznej klasyfikacji, np. "To jest Kot na 90%"). Przepływ danych od wejścia do wyjścia (przemnażanie wielkich macierzy) to właśnie <em>Propagacja w przód</em>. Jeśli sieć ma więcej niż jedną warstwę ukrytą, mówimy o uczeniu głębokim (<strong>Deep Learning</strong>).
+                    Pojedynczy neuron niewiele potrafi. Prawdziwa siła tkwi w połączeniu tysięcy neuronów w <strong>warstwy</strong>. Wyróżniamy trzy rodzaje warstw: <strong>Warstwę Wejściową</strong> (przyjmuje surowe dane – np. 784 piksele obrazka MNIST 28×28), <strong>Warstwy Ukryte</strong> (gdzie zachodzi właściwe „myślenie” – wykrywanie krawędzi, kształtów, tekstur) oraz <strong>Warstwę Wyjściową</strong> (dokonującą klasyfikacji – np. 10 neuronów dla cyfr 0–9). Przepływ danych od wejścia przez wszystkie warstwy do wyjścia to <strong>Propagacja w Przód (Forward Pass)</strong>. Matematycznie to po prostu seria mnożeń macierzy: <strong>Y = f( W₃ · f( W₂ · f( W₁ · X + b₁ ) + b₂ ) + b₃ )</strong>. Jeśli sieć ma więcej niż jedną warstwę ukrytą, mówimy o <strong>Deep Learning</strong> – uczeniu głębokim.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gdy połączymy wiele neuronów w warstwy, otrzymujemy sieć neuronową. Proszę spojrzeć na planszę – mamy trzy rodzaje warstw. Warstwa wejściowa to po prostu dane – każdy neuron to jedna cecha, na przykład jeden piksel obrazka. Warstwy ukryte to serce sieci – tam odbywa się przetwarzanie, wykrywanie wzorców. Im więcej warstw ukrytych, tym głębsza sieć – stąd nazwa Deep Learning. Warstwa wyjściowa daje nam odpowiedź – na przykład prawdopodobieństwo, że na obrazku jest kot. Przepływ danych od wejścia do wyjścia to propagacja w przód – to zwykłe mnożenie macierzy, tylko na ogromną skalę. Dla sieci z miliardem parametrów to miliardy operacji zmiennoprzecinkowych na każdą próbkę.”
+                </div>
             </div>
 
-            <!-- SVG 2: ARCHITECTURE -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wielowarstwowy Perceptron (Gęsto Połączona Sieć)</text>
+            <!-- SVG 2: ARCHITEKTURA SIECI -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowBlueNN2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0288d1"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Wielowarstwowy Perceptron – Gęsto Połączona Sieć (Fully Connected)</text>
 
                 <!-- Input Layer -->
-                <text x="150" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0288d1" text-anchor="middle">Warstwa Wejściowa</text>
-                <circle cx="150" cy="90" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
-                <circle cx="150" cy="140" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
-                <circle cx="150" cy="190" r="15" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+                <text x="130" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0288d1" text-anchor="middle">Warstwa Wejściowa</text>
+                <text x="130" y="76" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(np. 784 piksele)</text>
+                <circle cx="130" cy="100" r="13" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+                <circle cx="130" cy="145" r="13" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
+                <circle cx="130" cy="190" r="13" fill="#b3e5fc" stroke="#0288d1" stroke-width="2"/>
 
                 <!-- Hidden Layer 1 -->
-                <text x="410" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Warstwy Ukryte (Deep Learning)</text>
-                <circle cx="350" cy="80" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="350" cy="120" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="350" cy="160" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="350" cy="200" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="370" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Warstwy Ukryte</text>
+                <text x="370" y="76" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(Deep Learning)</text>
+                <circle cx="320" cy="92" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="320" cy="130" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="320" cy="168" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="320" cy="206" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
 
                 <!-- Hidden Layer 2 -->
-                <circle cx="470" cy="80" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="470" cy="120" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="470" cy="160" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
-                <circle cx="470" cy="200" r="15" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="430" cy="92" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="430" cy="130" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="430" cy="168" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="430" cy="206" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+
+                <!-- Hidden Layer 3 (dodatkowa dla podkreślenia Deep Learning) -->
+                <circle cx="530" cy="110" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="530" cy="150" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <circle cx="530" cy="190" r="13" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
 
                 <!-- Output Layer -->
-                <text x="670" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32" text-anchor="middle">Warstwa Wyjściowa</text>
-                <circle cx="670" cy="110" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="730" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">"Pies"</text>
+                <text x="680" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32" text-anchor="middle">Warstwa Wyjściowa</text>
+                <text x="680" y="76" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(np. 10 klas cyfr)</text>
+                <circle cx="680" cy="120" r="13" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="720" y="124" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20">Kot: 92%</text>
+                <circle cx="680" cy="165" r="13" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="720" y="169" font-family="sans-serif" font-size="10" fill="#37474f">Pies: 6%</text>
+                <circle cx="680" cy="205" r="13" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="720" y="209" font-family="sans-serif" font-size="10" fill="#37474f">Ptak: 2%</text>
 
-                <circle cx="670" cy="170" r="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="730" y="175" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">"Kot"</text>
+                <!-- Połączenia między warstwami (uproszczone – kilka linii reprezentujących gęste połączenia) -->
+                <g stroke="#cfd8dc" stroke-width="0.8" opacity="0.7">
+                    <!-- Input → H1 -->
+                    <line x1="143" y1="100" x2="307" y2="92"/><line x1="143" y1="100" x2="307" y2="130"/>
+                    <line x1="143" y1="145" x2="307" y2="130"/><line x1="143" y1="145" x2="307" y2="168"/>
+                    <line x1="143" y1="190" x2="307" y2="168"/><line x1="143" y1="190" x2="307" y2="206"/>
+                    <!-- H1 → H2 -->
+                    <line x1="333" y1="92" x2="417" y2="92"/><line x1="333" y1="130" x2="417" y2="130"/>
+                    <line x1="333" y1="168" x2="417" y2="168"/><line x1="333" y1="206" x2="417" y2="206"/>
+                    <line x1="333" y1="92" x2="417" y2="130"/><line x1="333" y1="130" x2="417" y2="92"/>
+                    <!-- H2 → H3 -->
+                    <line x1="443" y1="92" x2="517" y2="110"/><line x1="443" y1="130" x2="517" y2="150"/>
+                    <line x1="443" y1="168" x2="517" y2="190"/><line x1="443" y1="206" x2="517" y2="150"/>
+                    <!-- H3 → Output -->
+                    <line x1="543" y1="110" x2="667" y2="120"/><line x1="543" y1="150" x2="667" y2="165"/>
+                    <line x1="543" y1="190" x2="667" y2="205"/><line x1="543" y1="110" x2="667" y2="165"/>
+                </g>
 
-                <!-- Connections (Generative representation) -->
-                <!-- Input to H1 -->
-                <path d="M 165 90 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 90 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 90 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 90 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                
-                <path d="M 165 140 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 140 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 140 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 140 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <path d="M 165 190 L 335 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 190 L 335 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 190 L 335 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 165 190 L 335 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <!-- H1 to H2 -->
-                <path d="M 365 80 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 80 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 80 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 80 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <path d="M 365 120 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 120 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 120 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 120 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <path d="M 365 160 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 160 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 160 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 160 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <path d="M 365 200 L 455 80" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 200 L 455 120" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 200 L 455 160" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 365 200 L 455 200" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <!-- H2 to Out -->
-                <path d="M 485 80 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 485 80 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                
-                <path d="M 485 120 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 485 120 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                
-                <path d="M 485 160 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 485 160 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                
-                <path d="M 485 200 L 655 110" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-                <path d="M 485 200 L 655 170" fill="none" stroke="#cfd8dc" stroke-width="1"/>
-
-                <!-- Arrow indicating flow -->
-                <path d="M 220 25 L 600 25" fill="none" stroke="#0288d1" stroke-width="4" marker-end="url(#arrowBlueNN)"/>
-                <text x="410" y="18" font-family="sans-serif" font-size="11" font-weight="bold" fill="#01579b" text-anchor="middle">Propagacja w Przód (Zgadywanie)</text>
-
+                <!-- Strzałka przepływu -->
+                <path d="M 180 30 L 630 30" fill="none" stroke="#0288d1" stroke-width="4" marker-end="url(#arrowBlueNN2)"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="11" font-weight="bold" fill="#01579b" text-anchor="middle">Propagacja w Przód (Forward Pass) → Zgadywanie</text>
             </svg>
 
-            <!-- PART 3: LEARNING (BACKPROP & GRADIENT DESCENT) -->
+            <!-- ======================================================== -->
+            <!-- PART 3: FUNKCJE AKTYWACJI – SERCE NIELINIOWOŚCI          -->
+            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Uczenie Sieci: Wsteczna Propagacja i Spadek Gradientu</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">3. Funkcje Aktywacji – „Klucz do nieliniowości”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Początkowo sieć ma losowe wagi. Gdy "zgadnie" źle, obliczamy <strong>Funkcję Kosztu (Loss Function)</strong>, czyli matematyczną karę za to, jak bardzo się pomyliła. Następnie używamy potężnego algorytmu: <strong>Wstecznej Propagacji Błędu (Backpropagation)</strong>. Oparty na regule łańcuchowej z analizy matematycznej (Chain Rule z pochodnych), oblicza on, jak bardzo każdy pojedynczy neuron z głębi sieci przyczynił się do tego końcowego błędu.
+                    Bez funkcji aktywacji cała sieć redukuje się do jednej transformacji liniowej – niezależnie od liczby warstw. Funkcja aktywacji wprowadza <strong>nieliniowość</strong>, umożliwiając sieci modelowanie dowolnie złożonych zależności. Trzy najważniejsze funkcje to:
                 </p>
-                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Mając te informacje, odpalamy <strong>Spadek Gradientu (Gradient Descent)</strong>. To tak, jakbyśmy niewidomego postawili na szczycie wielowymiarowej góry (Góry Błędów). Bada on stopą stromość zbocza (Gradient/Pochodną) i robi krok w dół. Po tysiącach takich kroków dociera na dno doliny – to moment, w którym sieć jest "nauczona" i błąd jest zminimalizowany.
-                </p>
+                <ul style="line-height: 2; padding-left: 24px; color: #bf360c;">
+                    <li><strong>Sigmoid (σ)</strong> – „wygładza” wartości do przedziału (0,1). Historycznie popularna, dziś rzadko używana w warstwach ukrytych ze względu na problem <strong>zanikającego gradientu</strong> (vanishing gradient) – dla bardzo dużych/małych wartości pochodna jest bliska zeru, co zatrzymuje uczenie.</li>
+                    <li><strong>Tanh (tangens hiperboliczny)</strong> – podobna do sigmoidy, ale wyśrodkowana wokół zera (zakres od –1 do 1). Również cierpi na zanikający gradient, ale jest „lepsza” od sigmoidy w warstwach ukrytych.</li>
+                    <li><strong>ReLU (Rectified Linear Unit)</strong> – obecny standard. Działa prosto: <code>f(x) = max(0, x)</code>. Dla wartości dodatnich przepuszcza sygnał bez zmian, dla ujemnych – zwraca zero. Jest szybka, nie cierpi na zanikający gradient (pochodna to 0 lub 1). Problemem są tzw. <strong>„martwe neurony”</strong> – neurony które zawsze dają 0, bo spadły w obszar ujemny i nigdy się nie „obudzą”. Warianty: Leaky ReLU, ELU, GELU.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Funkcje aktywacji to absolutnie kluczowy element sieci neuronowych. Proszę zapamiętać: bez nich cała sieć to tylko mnożenie macierzy – funkcja liniowa, która nie potrafi rozwiązać nawet prostego problemu XOR. Dlatego potrzebujemy nieliniowości. Historycznie używano sigmoidy – ładnie wygładza wartości do przedziału od zera do jedynki. Ale sigmoida ma poważną wadę: dla bardzo dużych lub bardzo małych wartości jej pochodna jest praktycznie zerowa. A skoro pochodna jest zerowa, to backpropagation nie ma jak poprawić wag – sieć przestaje się uczyć. To się nazywa problem zanikającego gradientu. Dziś standardem jest ReLU – funkcja prosta jak drut: jeśli x jest dodatnie, przepuszczamy; jeśli ujemne – dajemy zero. Jest szybka i nie ma problemu zanikającego gradientu. Ma tylko jedną wadę: tak zwane martwe neurony, które raz dostaną ujemną wartość i już nigdy się nie aktywują. Ale na to też są rozwiązania – Leaky ReLU czy ELU.”
+                </div>
             </div>
 
-            <!-- SVG 3: GRADIENT DESCENT -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#fff" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Wizualizacja uczenia: Spadek Gradientu (Gradient Descent)</text>
+            <!-- SVG 3: PORÓWNANIE FUNKCJI AKTYWACJI -->
+            <svg viewBox="0 0 820 310" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="310" fill="#fff8e1" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Porównanie Funkcji Aktywacji: Sigmoid, Tanh, ReLU</text>
 
-                <!-- Parabola -->
-                <path d="M 150 50 Q 410 250 670 50" fill="none" stroke="#37474f" stroke-width="4"/>
+                <!-- Panel 1: Sigmoid -->
+                <rect x="20" y="38" width="250" height="255" rx="8" fill="#fff" stroke="#e65100" stroke-width="1.5"/>
+                <text x="145" y="58" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#bf360c">Sigmoid: σ(x) = 1/(1+e⁻ˣ)</text>
+                <!-- Osie -->
+                <line x1="40" y1="200" x2="250" y2="200" stroke="#90a4ae" stroke-width="1"/>
+                <line x1="145" y1="60" x2="145" y2="250" stroke="#90a4ae" stroke-width="1"/>
+                <!-- Krzywa sigmoidy -->
+                <path d="M 40 245 Q 60 240 90 210 Q 110 185 145 200 Q 180 215 200 190 Q 220 165 250 155" fill="none" stroke="#e65100" stroke-width="3"/>
+                <text x="240" y="148" font-family="sans-serif" font-size="9" fill="#bf360c">(0,1)</text>
+                <text x="145" y="270" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Wada: zanikający gradient</text>
 
-                <!-- Osie Y (Błąd) -->
-                <line x1="120" y1="200" x2="120" y2="40" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
-                <text x="110" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle" transform="rotate(-90 110 120)">Funkcja Kosztu (Błąd)</text>
+                <!-- Panel 2: Tanh -->
+                <rect x="285" y="38" width="250" height="255" rx="8" fill="#fff" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="410" y="58" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">Tanh: tanh(x) = (eˣ−e⁻ˣ)/(eˣ+e⁻ˣ)</text>
+                <line x1="305" y1="200" x2="515" y2="200" stroke="#90a4ae" stroke-width="1"/>
+                <line x1="410" y1="60" x2="410" y2="250" stroke="#90a4ae" stroke-width="1"/>
+                <path d="M 305 240 Q 330 225 360 200 Q 390 180 410 200 Q 430 220 460 200 Q 490 175 515 160" fill="none" stroke="#1565c0" stroke-width="3"/>
+                <text x="505" y="153" font-family="sans-serif" font-size="9" fill="#0d47a1">(−1,1)</text>
+                <text x="410" y="270" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Wyśrodkowana wokół 0</text>
 
-                <!-- Osie X (Wagi) -->
-                <line x1="120" y1="200" x2="700" y2="200" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
-                <text x="410" y="215" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wartość Wag Sieci</text>
+                <!-- Panel 3: ReLU -->
+                <rect x="550" y="38" width="250" height="255" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="675" y="58" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1b5e20">ReLU: f(x) = max(0, x)</text>
+                <line x1="570" y1="200" x2="780" y2="200" stroke="#90a4ae" stroke-width="1"/>
+                <line x1="675" y1="60" x2="675" y2="250" stroke="#90a4ae" stroke-width="1"/>
+                <path d="M 570 200 L 675 200 L 780 110" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                <text x="770" y="103" font-family="sans-serif" font-size="9" fill="#1b5e20">[0, ∞)</text>
+                <text x="675" y="270" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Standard w Deep Learning</text>
 
-                <!-- Kroki uczenia (Piłka tocząca się w dół) -->
-                
-                <!-- Epoka 1 (Wysoki błąd) -->
-                <circle cx="180" cy="85" r="10" fill="#f44336" stroke="#c62828" stroke-width="2"/>
-                <text x="180" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Start (Losowe wagi)</text>
-                <path d="M 195 95 L 245 115" fill="none" stroke="#f44336" stroke-width="2" marker-end="url(#arrowRedGD)"/>
+                <!-- Podsumowanie -->
+                <text x="410" y="300" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">ReLU dominuje w warstwach ukrytych · Sigmoid/Tanh tylko w warstwie wyjściowej (klasyfikacja binarna)</text>
+            </svg>
 
-                <!-- Epoka 2 -->
-                <circle cx="260" cy="120" r="10" fill="#f57c00" stroke="#e65100" stroke-width="2"/>
-                <path d="M 275 125 L 325 140" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgGD)"/>
+            <!-- ======================================================== -->
+            <!-- PART 4: UCZENIE – BACKPROPAGATION                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Uczenie Sieci: Funkcja Straty, Backpropagation i Gradient Descent</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Początkowo sieć ma <strong>losowe wagi</strong> – jej przewidywania są bezużyteczne. Proces uczenia przebiega w cyklu:
+                </p>
+                <ol style="line-height: 2; padding-left: 24px; color: #b71c1c;">
+                    <li><strong>Forward Pass</strong> – przepuszczamy dane przez sieć, otrzymujemy przewidywanie.</li>
+                    <li><strong>Obliczenie Funkcji Straty (Loss Function)</strong> – mierzymy, jak bardzo sieć się pomyliła. Dla regresji: MSE (błąd średniokwadratowy), dla klasyfikacji: Cross-Entropy (entropia krzyżowa).</li>
+                    <li><strong>Backpropagation (Wsteczna Propagacja Błędu)</strong> – używając <strong>reguły łańcuchowej (Chain Rule)</strong> z rachunku różniczkowego, obliczamy gradient funkcji straty względem <strong>każdej wagi</strong> w sieci. Błąd „przepływa” od warstwy wyjściowej przez wszystkie warstwy ukryte aż do wejścia.</li>
+                    <li><strong>Aktualizacja Wag (Gradient Descent)</strong> – każda waga jest przesuwana o niewielki krok w kierunku przeciwnym do gradientu (w dół funkcji straty). Wielkość tego kroku to <strong>Learning Rate (η)</strong>.</li>
+                </ol>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ten cykl powtarzamy tysiące razy na tysiącach przykładów treningowych, aż funkcja straty osiągnie minimum – wtedy sieć jest „nauczona”.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Uczenie sieci neuronowej to proces iteracyjny. Zaczynamy od losowych wag – sieć zgaduje na chybił-trafił. Potem patrzymy, jak bardzo się pomyliła – to jest funkcja straty. Im większy błąd, tym większa strata. Teraz kluczowy moment: wsteczna propagacja błędu. Używamy reguły łańcuchowej – to jest czysta analiza matematyczna, pochodne funkcji złożonych – żeby obliczyć, jak bardzo każda waga w sieci przyczyniła się do tego błędu. To trochę jak audyt w firmie – idziemy od prezesa przez wszystkich kierowników do ankieterów i sprawdzamy, kto zawinił. Gdy już wiemy, kto i jak bardzo się pomylił, robimy krok w przeciwnym kierunku – to jest spadek gradientu. Odejmujemy od każdej wagi mały kawałek gradientu pomnożony przez learning rate. Learning rate to krytyczny parametr – za duży i przeskoczymy minimum, za mały i będziemy się uczyć wieczność. Ten cały cykl – forward pass, strata, backpropagation, aktualizacja wag – powtarzamy tysiące razy.”
+                </div>
+            </div>
 
-                <!-- Epoka 3 -->
-                <circle cx="340" cy="143" r="10" fill="#fbc02d" stroke="#f57f17" stroke-width="2"/>
-                <path d="M 355 145 L 395 150" fill="none" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrowYelGD)"/>
-
-                <!-- Cel (Minimum) -->
-                <circle cx="410" cy="151" r="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="175" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Minimum Globalne</text>
-                <text x="410" y="188" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">(Sieć jest nauczona!)</text>
-
-                <rect x="520" y="80" width="260" height="40" fill="#ffebee" stroke="#d32f2f" rx="4"/>
-                <text x="650" y="98" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">Learning Rate (Szybkość Uczenia)</text>
-                <text x="650" y="112" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">To wielkość kroku. Zbyt duża – przeskoczy minimum!</text>
-
+            <!-- SVG 4: GRADIENT DESCENT – WIZUALIZACJA -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowGryGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
                     <marker id="arrowRedGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f44336"/></marker>
                     <marker id="arrowOrgGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
                     <marker id="arrowYelGD" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#fbc02d"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="230" fill="#fff" opacity="0.4"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Wizualizacja Uczenia: Spadek Gradientu (Gradient Descent)</text>
+
+                <!-- Parabola (funkcja straty) -->
+                <path d="M 140 55 Q 410 230 680 55" fill="none" stroke="#37474f" stroke-width="3"/>
+
+                <!-- Osie -->
+                <line x1="110" y1="200" x2="110" y2="40" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
+                <text x="100" y="120" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle" transform="rotate(-90 100 120)">Funkcja Straty (Błąd)</text>
+                <line x1="110" y1="200" x2="710" y2="200" stroke="#90a4ae" stroke-width="2" marker-end="url(#arrowGryGD)"/>
+                <text x="410" y="218" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Wartości Wag Sieci</text>
+
+                <!-- Kroki uczenia -->
+                <circle cx="175" cy="80" r="10" fill="#f44336" stroke="#c62828" stroke-width="2"/>
+                <text x="175" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Start</text>
+                <path d="M 190 90 L 235 115" fill="none" stroke="#f44336" stroke-width="2" marker-end="url(#arrowRedGD)"/>
+
+                <circle cx="250" cy="120" r="10" fill="#f57c00" stroke="#e65100" stroke-width="2"/>
+                <text x="250" y="108" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Epoka 50</text>
+                <path d="M 265 128 L 310 142" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgGD)"/>
+
+                <circle cx="325" cy="146" r="10" fill="#fbc02d" stroke="#f57f17" stroke-width="2"/>
+                <text x="325" y="134" font-family="sans-serif" font-size="9" fill="#f57f17" text-anchor="middle">Epoka 200</text>
+                <path d="M 340 150 L 375 153" fill="none" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrowYelGD)"/>
+
+                <circle cx="390" cy="155" r="12" fill="#4caf50" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="390" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Minimum</text>
+                <text x="390" y="175" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Sieć nauczona!</text>
+
+                <!-- Learning Rate info -->
+                <rect x="530" y="65" width="260" height="55" fill="#ffebee" stroke="#d32f2f" rx="6"/>
+                <text x="660" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">⚠️ Learning Rate (η) – Szybkość Uczenia</text>
+                <text x="660" y="100" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Za duży krok → przeskoczy minimum</text>
+                <text x="660" y="113" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Za mały krok → uczy się zbyt wolno</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- PART 5: PRZEUCZENIE I REGULARYZACJA                      -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #d32f2f;">5. Przeuczenie (Overfitting) i Regularyzacja – „Gdy uczeń zna podręcznik na pamięć, ale nie rozumie”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Przeuczenie (Overfitting)</strong> to sytuacja, w której sieć zamiast odkryć ogólne wzorce, <strong>zapamiętuje dane treningowe na pamięć</strong> wraz z ich szumem. Na danych treningowych osiąga błąd bliski zeru, ale na nowych, nieznanych przykładach – całkowicie zawodzi. Jest to szczególnie groźne, gdy sieć ma bardzo dużo parametrów (wag), a danych treningowych jest mało.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Metody zapobiegania przeuczeniu (Regularyzacja):</strong>
+                </p>
+                <ul style="line-height: 2; padding-left: 24px; color: #7f0000;">
+                    <li><strong>Regularyzacja L1 (Lasso)</strong> – dodaje karę za duże wartości wag (suma wartości bezwzględnych wag). Prowadzi do <strong>rzadkich modeli</strong> – wiele wag staje się zerami.</li>
+                    <li><strong>Regularyzacja L2 (Ridge / Weight Decay)</strong> – dodaje karę za kwadraty wag. Wagi są „ściągane” ku zeru, ale rzadko osiągają dokładnie zero.</li>
+                    <li><strong>Dropout</strong> – podczas każdej iteracji treningu <strong>losowo wyłączamy</strong> pewien procent neuronów (np. 50%). Zmusza to sieć do tego, by nie polegała na pojedynczych neuronach, tylko budowała redundancję i ogólne reprezentacje. To najskuteczniejsza technika w Deep Learning.</li>
+                    <li><strong>Early Stopping</strong> – przerywamy trening, gdy błąd na zbiorze walidacyjnym przestaje spadać (a zaczyna rosnąć).</li>
+                    <li><strong>Data Augmentation</strong> – sztuczne powiększanie zbioru treningowego (obracanie, przycinanie, szumienie obrazków).</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przeuczenie to jedna z największych pułapek w uczeniu maszynowym. Proszę sobie wyobrazić studenta, który zamiast zrozumieć materiał, uczy się na pamięć wszystkich odpowiedzi z zeszłorocznych egzaminów. Gdy dostanie nowe pytanie – polegnie. Tak samo sieć neuronowa: jeśli ma za dużo parametrów, a za mało danych, to zamiast odkryć ogólne prawidłowości, zapamięta szum i przypadkowe korelacje. Na szczęście mamy na to kilka sposobów. Dropout to moim zdaniem najciekawszy – podczas treningu losowo wyłączamy połowę neuronów. To tak, jakbyśmy w korporacji co drugi dzień zwalniali losowych pracowników – pozostali muszą być na tyle kompetentni, żeby firma mimo wszystko działała. Sieć uczy się wtedy solidnych, ogólnych reprezentacji. Regularyzacja L1 i L2 to z kolei matematyczne kary za zbyt duże wagi – nie pozwalamy sieci na ekstremalne wartości parametrów. A early stopping to po prostu przerwanie nauki, zanim sieć zacznie zapamiętywać dane na blachę.”
+                </div>
+            </div>
+
+            <!-- SVG 5: OVERFITTING – WIZUALIZACJA -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="#fff5f5" opacity="0.4"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Przeuczenie (Overfitting) vs Dobre Dopasowanie</text>
+
+                <!-- Panel Lewy: Dobre dopasowanie -->
+                <rect x="20" y="35" width="380" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="210" y="55" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#1b5e20">✅ Dobre Dopasowanie (Good Fit)</text>
+                <!-- Punkty danych -->
+                <circle cx="70" cy="170" r="3" fill="#37474f"/><circle cx="110" cy="155" r="3" fill="#37474f"/>
+                <circle cx="150" cy="140" r="3" fill="#37474f"/><circle cx="190" cy="120" r="3" fill="#37474f"/>
+                <circle cx="230" cy="95" r="3" fill="#37474f"/><circle cx="270" cy="85" r="3" fill="#37474f"/>
+                <circle cx="310" cy="90" r="3" fill="#37474f"/><circle cx="350" cy="100" r="3" fill="#37474f"/>
+                <!-- Gładka krzywa -->
+                <path d="M 60 175 Q 130 160 190 120 Q 250 80 310 90 Q 350 97 370 105" fill="none" stroke="#2e7d32" stroke-width="3"/>
+                <text x="210" y="205" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Niski błąd na danych treningowych i testowych</text>
+
+                <!-- Panel Prawy: Przeuczenie -->
+                <rect x="420" y="35" width="380" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="610" y="55" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#b71c1c">❌ Przeuczenie (Overfitting)</text>
+                <!-- Punkty danych (te same) -->
+                <circle cx="470" cy="170" r="3" fill="#37474f"/><circle cx="510" cy="155" r="3" fill="#37474f"/>
+                <circle cx="550" cy="140" r="3" fill="#37474f"/><circle cx="590" cy="120" r="3" fill="#37474f"/>
+                <circle cx="630" cy="95" r="3" fill="#37474f"/><circle cx="670" cy="85" r="3" fill="#37474f"/>
+                <circle cx="710" cy="90" r="3" fill="#37474f"/><circle cx="750" cy="100" r="3" fill="#37474f"/>
+                <!-- Wykręcona krzywa przechodząca przez wszystkie punkty -->
+                <path d="M 460 180 Q 475 165 470 170 Q 490 160 510 155 Q 525 150 550 140 Q 570 128 590 120 Q 610 100 630 95 Q 655 82 670 85 Q 690 88 710 90 Q 735 95 750 100 Q 765 110 770 108" fill="none" stroke="#c62828" stroke-width="3"/>
+                <text x="610" y="205" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Błąd treningowy = 0%, ale fatalna generalizacja</text>
+
+                <!-- Strzałka porównawcza -->
+                <text x="410" y="225" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7f0000" text-anchor="middle">Im bardziej złożony model względem ilości danych → tym większe ryzyko przeuczenia</text>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 6: RODZAJE SIECI NEURONOWYCH                        -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00695c;">6. Rodzaje Sieci Neuronowych – „Różne narzędzia do różnych zadań”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Oprócz klasycznych sieci gęsto połączonych (Fully Connected), istnieją wyspecjalizowane architektury:
+                </p>
+                <ul style="line-height: 2; padding-left: 24px; color: #004d40;">
+                    <li><strong>CNN (Konwolucyjne Sieci Neuronowe)</strong> – zaprojektowane do przetwarzania danych o strukturze siatki (obrazy, wideo). Używają filtrów (jąder konwolucyjnych), które „przesuwają się” po obrazie, wykrywając lokalne wzorce: krawędzie, tekstury, kształty. Warstwy poolingowe redukują wymiary. CNN zrewolucjonizowały computer vision.</li>
+                    <li><strong>RNN (Rekurencyjne Sieci Neuronowe)</strong> – dla danych sekwencyjnych (tekst, mowa, szeregi czasowe). Mają „pamięć” – wyjście z poprzedniego kroku jest podawane jako dodatkowe wejście w następnym. Warianty: LSTM (Long Short-Term Memory) i GRU – rozwiązują problem zanikającego gradientu w długich sekwencjach.</li>
+                    <li><strong>Transformery</strong> – nowoczesna architektura (od 2017 r.), która porzuciła rekurencję na rzecz mechanizmu <strong>uwagi (Attention)</strong>. Podstawa modeli GPT, BERT, ChatGPT. Równoległe przetwarzanie całej sekwencji naraz.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oprócz klasycznych sieci gęsto połączonych mamy kilka wyspecjalizowanych architektur. CNN – sieci konwolucyjne – to absolutny standard w analizie obrazów. Zamiast łączyć każdy piksel z każdym neuronem, używamy małych filtrów, które przesuwają się po obrazie i wykrywają lokalne wzorce – najpierw krawędzie, potem kształty, a na końcu całe obiekty. Dzięki temu sieć jest odporna na przesunięcia i ma znacznie mniej parametrów. RNN z kolei radzą sobie z sekwencjami – tekstem, mową, notowaniami giełdowymi. Mają pętlę sprzężenia zwrotnego – informacja z poprzedniego kroku wpływa na bieżący. LSTM i GRU to ulepszone wersje RNN, które potrafią zapamiętywać informacje przez setki kroków. No i wreszcie transformery – architektura, która stoi za ChatGPT i wszystkimi nowoczesnymi modelami językowymi. Ich sekret to mechanizm uwagi – sieć sama decyduje, na które części wejścia powinna zwrócić uwagę.”
+                </div>
+            </div>
+
+            <!-- SVG 6: RODZAJE SIECI – CNN i RNN -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="240" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#00695c">Specjalistyczne Architektury: CNN (Konwolucyjna) i RNN (Rekurencyjna)</text>
+
+                <!-- Panel CNN -->
+                <rect x="15" y="35" width="385" height="190" rx="8" fill="#fff" stroke="#00897b" stroke-width="1.5"/>
+                <text x="207" y="55" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#004d40">CNN – Konwolucyjna Sieć Neuronowa (Obrazy)</text>
+                <!-- Wejście -->
+                <rect x="25" y="70" width="55" height="55" rx="3" fill="#b2dfdb" stroke="#00897b" stroke-width="1"/>
+                <text x="52" y="102" font-family="sans-serif" font-size="8" fill="#004d40" text-anchor="middle">Obraz</text>
+                <text x="52" y="114" font-family="sans-serif" font-size="7" fill="#546e7a" text-anchor="middle">28×28×3</text>
+                <!-- Konwolucja -->
+                <rect x="100" y="70" width="70" height="55" rx="3" fill="#80cbc4" stroke="#00897b" stroke-width="1"/>
+                <text x="135" y="95" font-family="sans-serif" font-size="8" fill="#004d40" text-anchor="middle">Konwolucja</text>
+                <text x="135" y="108" font-family="sans-serif" font-size="7" fill="#546e7a" text-anchor="middle">Filtry 3×3</text>
+                <path d="M 80 97 L 100 97" fill="none" stroke="#00897b" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+                <!-- Pooling -->
+                <rect x="190" y="70" width="65" height="55" rx="3" fill="#4db6ac" stroke="#00897b" stroke-width="1"/>
+                <text x="222" y="95" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">Pooling</text>
+                <text x="222" y="108" font-family="sans-serif" font-size="7" fill="#e0f2f1" text-anchor="middle">MaxPool 2×2</text>
+                <path d="M 170 97 L 190 97" fill="none" stroke="#00897b" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+                <!-- FC -->
+                <rect x="275" y="70" width="60" height="55" rx="3" fill="#00897b" stroke="#004d40" stroke-width="1"/>
+                <text x="305" y="95" font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle">FC</text>
+                <text x="305" y="108" font-family="sans-serif" font-size="7" fill="#e0f2f1" text-anchor="middle">Klasyfikacja</text>
+                <path d="M 255 97 L 275 97" fill="none" stroke="#00897b" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+                <!-- Wyjście -->
+                <text x="355" y="100" font-family="sans-serif" font-size="9" font-weight="bold" fill="#004d40">→ Kot</text>
+                <text x="207" y="145" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Filtry uczą się hierarchii cech: krawędzie → tekstury → części obiektów → całe obiekty</text>
+                <text x="207" y="170" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Zastosowania: klasyfikacja obrazów, detekcja obiektów, segmentacja</text>
+                <text x="207" y="195" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Przykłady: VGG, ResNet, EfficientNet, YOLO</text>
+
+                <!-- Panel RNN -->
+                <rect x="420" y="35" width="385" height="190" rx="8" fill="#fff" stroke="#4527a0" stroke-width="1.5"/>
+                <text x="612" y="55" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#311b92">RNN – Rekurencyjna Sieć Neuronowa (Sekwencje)</text>
+                <!-- Rozwinięcie w czasie -->
+                <rect x="435" y="75" width="50" height="40" rx="6" fill="#d1c4e9" stroke="#4527a0" stroke-width="1.5"/>
+                <text x="460" y="99" font-family="sans-serif" font-size="9" font-weight="bold" fill="#311b92" text-anchor="middle">RNN</text>
+                <rect x="515" y="75" width="50" height="40" rx="6" fill="#d1c4e9" stroke="#4527a0" stroke-width="1.5"/>
+                <text x="540" y="99" font-family="sans-serif" font-size="9" font-weight="bold" fill="#311b92" text-anchor="middle">RNN</text>
+                <rect x="595" y="75" width="50" height="40" rx="6" fill="#d1c4e9" stroke="#4527a0" stroke-width="1.5"/>
+                <text x="620" y="99" font-family="sans-serif" font-size="9" font-weight="bold" fill="#311b92" text-anchor="middle">RNN</text>
+                <!-- Strzałki między krokami -->
+                <path d="M 485 95 L 515 95" fill="none" stroke="#4527a0" stroke-width="1.5" marker-end="url(#arrowPurpRNN)"/>
+                <path d="M 565 95 L 595 95" fill="none" stroke="#4527a0" stroke-width="1.5" marker-end="url(#arrowPurpRNN)"/>
+                <!-- Pętla rekurencyjna -->
+                <path d="M 620 80 Q 640 65 620 75" fill="none" stroke="#7c4dff" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <!-- Wejścia -->
+                <text x="460" y="70" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">x₁ („Ala”)</text>
+                <text x="540" y="70" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">x₂ („ma”)</text>
+                <text x="620" y="70" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">x₃ („kota”)</text>
+                <!-- Wyjścia -->
+                <text x="460" y="130" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">y₁</text>
+                <text x="540" y="130" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">y₂</text>
+                <text x="620" y="130" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">y₃</text>
+                <text x="612" y="165" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Pamięć stanu (hidden state) przekazywana między krokami czasowymi</text>
+                <text x="612" y="185" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Warianty: LSTM, GRU – bramki kontrolujące przepływ informacji</text>
+                <text x="612" y="203" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">Transformery (GPT) zastępują RNN mechanizmem Attention</text>
+
+                <defs>
+                    <marker id="arrowTeal" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#00897b"/></marker>
+                    <marker id="arrowPurpRNN" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#4527a0"/></marker>
+                </defs>
+            </svg>
+
+            <!-- ======================================================== -->
+            <!-- PART 7: ZASTOSOWANIA PRAKTYCZNE                          -->
+            <!-- ======================================================== -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">7. Zastosowania praktyczne – „Gdzie sieci neuronowe zmieniają świat”</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
+                    <div style="flex: 1; min-width: 180px; background: #e8f5e9; border-radius: 10px; padding: 14px; border: 1px solid #81c784;">
+                        <strong>👁️ Computer Vision</strong><br>
+                        <span style="font-size:0.85rem;">Klasyfikacja obrazów, rozpoznawanie twarzy, autonomiczne pojazdy, diagnostyka medyczna (RTG, MRI).</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #e3f2fd; border-radius: 10px; padding: 14px; border: 1px solid #64b5f6;">
+                        <strong>💬 NLP (Przetwarzanie Języka)</strong><br>
+                        <span style="font-size:0.85rem;">Tłumaczenie maszynowe, chatboty (ChatGPT), analiza sentymentu, podsumowywanie tekstów.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; background: #fff3e0; border-radius: 10px; padding: 14px; border: 1px solid #ffb74d;">
+                        <strong>🎮 Inne</strong><br>
+                        <span style="font-size:0.85rem;">Generowanie obrazów (DALL·E, Stable Diffusion), synteza mowy, systemy rekomendacyjne, gry (AlphaGo).</span>
+                    </div>
+                </div>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec warto podkreślić, że sieci neuronowe to nie tylko teoria – one realnie zmieniają świat. W medycynie potrafią wykrywać nowotwory na zdjęciach RTG lepiej niż radiolog. W autonomicznych samochodach przetwarzają obraz z kamer w czasie rzeczywistym. NLP – przetwarzanie języka naturalnego – to domena transformerów: ChatGPT, tłumaczenia Google, asystenci głosowi. No i generowanie obrazów – Stable Diffusion czy DALL·E tworzą fotorealistyczne obrazy z opisu tekstowego. To wszystko opiera się na tych samych fundamentach, które omówiliśmy: perceptron, funkcja aktywacji, backpropagation i gradient descent. Tylko skala jest niewyobrażalna – miliardy parametrów.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- PUŁAPKI EGZAMINACYJNE                                    -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o AI):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Funkcja Schodkowa to dobra funkcja aktywacji"</strong> – Fundamentalny błąd matematyczny! Funkcja schodkowa (Step function - np. 0 jeśli ujemne, 1 jeśli dodatnie) była używana w latach 50. Problem? Jej pochodna (Gradient) wszędzie wynosi zero! Skoro wynosi zero, <em>Backpropagation</em> i <em>Gradient Descent</em> nie mają pojęcia, w którym kierunku poprawić wagi. Z tego powodu dziś używamy różniczkowalnych funkcji takich jak <strong>ReLU (Rectified Linear Unit)</strong> czy Sigmoid.</li>
+                    <li><strong>"Funkcja Schodkowa to dobra funkcja aktywacji"</strong> – Fundamentalny błąd matematyczny! Funkcja schodkowa (Step function – np. 0 jeśli ujemne, 1 jeśli dodatnie) była używana w latach 50. Problem? Jej pochodna (Gradient) wszędzie wynosi zero! Skoro wynosi zero, <em>Backpropagation</em> i <em>Gradient Descent</em> nie mają pojęcia, w którym kierunku poprawić wagi. Z tego powodu dziś używamy różniczkowalnych funkcji takich jak <strong>ReLU (Rectified Linear Unit)</strong> czy Sigmoid.</li>
                     <li><strong>Zjawisko Przeuczenia (Overfitting):</strong> Jeśli sieć ma 10 milionów parametrów (wag), a dostarczysz jej tylko 100 zdjęć psów do nauki, sieć ich nie "zrozumie". Zamiast tego bezmyślnie <strong>zapamięta je na pamięć</strong>. Na danych treningowych uzyska błąd 0%, ale zaprezentowana z nowym zdjęciem psa z internetu – całkowicie zawiedzie. Rolą inżyniera AI jest dodawanie kar dla sieci (Regularyzacja L1/L2) lub "wyłączanie" losowych neuronów (Dropout), by wymusić na sieci szukanie ogólnych wzorców, a nie uczenie się danych na blachę.</li>
+                    <li><strong>"Więcej warstw = zawsze lepiej"</strong> – Nieprawda. Głębsze sieci są trudniejsze w treningu (problem zanikającego/eksplodującego gradientu). ResNet rozwiązał ten problem przez <strong>skip connections</strong> (połączenia pomijające), ale to nie znaczy, że zawsze warto dodawać warstwy bez zastanowienia.</li>
+                    <li><strong>Learning Rate</strong> – zbyt duży powoduje oscylacje i brak zbieżności, zbyt mały – ekstremalnie wolne uczenie. To jeden z najważniejszych hiperparametrów do dostrojenia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największa pułapka – i to jest częste pytanie egzaminacyjne – to przekonanie, że funkcja schodkowa nadaje się na funkcję aktywacji. Otóż nie nadaje się, i to z bardzo konkretnego powodu matematycznego: jej pochodna jest wszędzie zerowa. A bez niezerowej pochodnej algorytm backpropagation nie ma informacji, w którą stronę przesunąć wagi. Druga pułapka to przeuczenie – sieć zamiast generalizować, zapamiętuje dane treningowe. Rozwiązania to regularyzacja, dropout i early stopping. Trzecia rzecz – więcej warstw nie zawsze znaczy lepiej. Głębokie sieci cierpią na problem zanikającego gradientu i bez odpowiednich technik, takich jak skip connections w ResNet, mogą uczyć się gorzej niż płytsze odpowiedniki. No i learning rate – jeśli jest za duży, sieć nigdy nie osiągnie minimum, tylko będzie oscylować wokół niego.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Sztuczne Sieci Neuronowe:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Element</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowy szczegół</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Perceptron</td><td style="padding: 10px;">Neuron: sumuje ważone wejścia + bias, przepuszcza przez funkcję aktywacji</td><td style="padding: 10px;">Bez funkcji aktywacji → tylko funkcja liniowa</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Funkcja Aktywacji</td><td style="padding: 10px;">Wprowadza nieliniowość. ReLU (standard), Sigmoid/Tanh (historyczne)</td><td style="padding: 10px;">Funkcja schodkowa NIE działa (pochodna = 0)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Forward Pass</td><td style="padding: 10px;">Przepływ danych od wejścia do wyjścia: mnożenie macierzy</td><td style="padding: 10px;">Deep Learning = >1 warstwa ukryta</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Funkcja Straty</td><td style="padding: 10px;">Mierzy błąd: MSE (regresja), Cross-Entropy (klasyfikacja)</td><td style="padding: 10px;">Musi być różniczkowalna</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Backpropagation</td><td style="padding: 10px;">Oblicza gradient błędu względem każdej wagi (reguła łańcuchowa)</td><td style="padding: 10px;">Błąd płynie od wyjścia do wejścia</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Gradient Descent</td><td style="padding: 10px;">Aktualizacja wag: w = w – η·∇L</td><td style="padding: 10px;">η (learning rate) – krytyczny hiperparametr</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Overfitting</td><td style="padding: 10px;">Sieć zapamiętuje dane, zamiast generalizować</td><td style="padding: 10px;">Rozwiązania: Dropout, L1/L2, Early Stopping</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">CNN</td><td style="padding: 10px;">Filtry konwolucyjne → obrazy, wideo</td><td style="padding: 10px;">Wykrywanie hierarchii cech wizualnych</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">RNN / LSTM / Transformer</td><td style="padding: 10px;">Dane sekwencyjne: tekst, mowa, szeregi czasowe</td><td style="padding: 10px;">Attention (Transformery) → ChatGPT, GPT-4</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -292,7 +537,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla opinii publicznej sieci neuronowe to "czarne skrzynki", które symulują ludzki mózg. Dla inżyniera to po prostu astronomicznie wielkie, parametryczne aproksymatory funkcji nieliniowych. Nie ma w nich świadomości – są tylko wagi, macierze, gradienty i optymalizacja. Prawdziwa magia nie leży w tym, że sieć "myśli", lecz w fakcie, że korzystając z tak podstawowych praw analizy matematycznej jak reguła łańcuchowa, sieć potrafi milimetr po milimetrze dostrajać miliony swoich wag, dopóki sama z siebie nie dopasuje się do rozwiązania najtrudniejszych problemów analitycznych świata.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla opinii publicznej sieci neuronowe to „czarne skrzynki", które symulują ludzki mózg. Dla inżyniera to po prostu astronomicznie wielkie, parametryczne aproksymatory funkcji nieliniowych. Nie ma w nich świadomości – są tylko wagi, macierze, gradienty i optymalizacja. Prawdziwa magia nie leży w tym, że sieć „myśli", lecz w fakcie, że korzystając z tak podstawowych praw analizy matematycznej jak reguła łańcuchowa, sieć potrafi milimetr po milimetrze dostrajać miliony swoich wag, dopóki sama z siebie nie dopasuje się do rozwiązania najtrudniejszych problemów analitycznych świata.</span>
                 </p>
             </div>
 
@@ -300,7 +545,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Deep Learning" (Ian Goodfellow, Yoshua Bengio, Aaron Courville) – Rozdziały: Algorytmy optymalizacyjne, Propagacja wsteczna, Przeuczenie.
+                    „Deep Learning” (Ian Goodfellow, Yoshua Bengio, Aaron Courville) – Rozdziały 6–8: Feedforward Networks, Regularization, Optimization · „Neural Networks and Deep Learning” (Michael Nielsen) – Rozdziały 1–3: Perceptron, Backpropagation, Gradient Descent · „Attention Is All You Need” (Vaswani et al., 2017) – Architektura Transformerów · Notatki własne z kursów Deep Learning (Stanford CS231n, fast.ai).
                 </span>
             </div>
 

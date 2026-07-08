@@ -14,9 +14,9 @@
         <h2 id="q-title">138. Identyfikacja oczekiwań użytkowników i pozyskiwanie wymagań z zastosowaniem metod badań jakościowych i ilościowych.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">✈️</span>
                 <div>
@@ -27,6 +27,11 @@
                         <strong>Badania Jakościowe (Qualitative)</strong> to wejście do kokpitu z notatnikiem i siedzenie obok pilota podczas lotu (Shadowing). Nagle zauważasz: <em>"Aha! Przycisk zrzutu paliwa jest tuż pod uchwytem na kubek. Kiedy samolot wpada w turbulencje, piloci próbują łapać rozlaną kawę i przypadkowo uderzają w panel"</em>.<br><br>
                         W Inżynierii Wymagań (Requirements Engineering) potrzebujesz obu. Jakościowe mówią Ci "DLACZEGO" i "JAK", a Ilościowe "ILE" i "CZY TO WAŻNE STATYSTYCZNIE".
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00363a; line-height: 1.8;">
+                        <li><strong>🔵 Badania Jakościowe</strong> – odpowiadają na „Dlaczego?” i „Jak?”. Eksploracja, wywiady, obserwacje.</li>
+                        <li><strong>🟠 Badania Ilościowe</strong> – odpowiadają na „Ile?” i „Jak często?”. Ankiety, telemetria, testy A/B.</li>
+                        <li><strong>🟣 Triangulacja</strong> – łączenie obu metod: jakościowe odkrywają problem, ilościowe weryfikują jego skalę.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -37,16 +42,19 @@
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Inżynieria Wymagań (Requirements Engineering)</span>
-            <span class="keyword-tag">Badania Jakościowe (Qualitative - WHY/HOW)</span>
-            <span class="keyword-tag">Badania Ilościowe (Quantitative - HOW MANY)</span>
-            <span class="keyword-tag">Wywiady Pogłębione (IDI - In-Depth Interviews)</span>
+            <span class="keyword-tag">Badania Jakościowe (Qualitative – WHY/HOW)</span>
+            <span class="keyword-tag">Badania Ilościowe (Quantitative – HOW MANY)</span>
+            <span class="keyword-tag">Wywiady Pogłębione (IDI)</span>
             <span class="keyword-tag">Shadowing (Obserwacja uczestnicząca)</span>
             <span class="keyword-tag">Ankiety (Surveys) / Skala Likerta</span>
             <span class="keyword-tag">Triangulacja Metodologiczna</span>
+            <span class="keyword-tag">Testy A/B</span>
+            <span class="keyword-tag">Model Kano</span>
+            <span class="keyword-tag">Wymagania jawne / ukryte</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -54,16 +62,19 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00838f;">1. Odkrywanie nieznanego: Badania Jakościowe (Qualitative)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Służą do <strong>eksploracji</strong>. Pozwalają analitykowi odkryć problemy, o których istnieniu nawet nie wiedział, że powinien zapytać. Odpowiadają na pytania "Jak użytkownik pracuje?" oraz "Dlaczego podejmuje takie decyzje?". Dostarczają danych nieustrukturyzowanych (tekst, emocje, nagrania). Metody obejmują:
+                    Służą do <strong>eksploracji</strong>. Pozwalają analitykowi odkryć problemy, o których istnieniu nawet nie wiedział, że powinien zapytać. Odpowiadają na pytania „Jak użytkownik pracuje?” oraz „Dlaczego podejmuje takie decyzje?”. Dostarczają danych nieustrukturyzowanych (tekst, emocje, nagrania), które wymagają interpretacji. Metody obejmują:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Wywiady Pogłębione (IDI - In-Depth Interviews):</strong> Sesje 1 na 1. Umożliwiają drążenie tematu techniką "5x Dlaczego" (Root Cause Analysis).</li>
-                    <li><strong>Obserwacja (Shadowing / Contextual Inquiry):</strong> Najbardziej wiarygodna technika. Ludzie kłamią w wywiadach ("Tak, używam systemu zgodnie z procedurą"). Patrząc im przez ramię widzisz, że mają hasła zapisane na żółtych karteczkach na monitorze. Zbierasz <em>wymagania ukryte</em> (Implicit requirements).</li>
-                    <li><strong>Grupy Zogniskowane (Focus Groups):</strong> Dyskusja w grupie 5-8 użytkowników moderowana przez analityka. Dobra do zderzania różnych opinii, ale podatna na myślenie grupowe (Groupthink).</li>
+                    <li><strong>Wywiady Pogłębione (IDI – In-Depth Interviews):</strong> Sesje 1 na 1, ustrukturyzowane lub półustrukturyzowane. Umożliwiają drążenie tematu techniką <strong>„5 razy Dlaczego”</strong> (Root Cause Analysis), która pomaga dotrzeć do prawdziwej przyczyny problemu, a nie tylko jego objawu.</li>
+                    <li><strong>Obserwacja (Shadowing / Contextual Inquiry):</strong> Najbardziej wiarygodna technika. Ludzie często mówią w wywiadach co innego, niż robią („Tak, używam systemu zgodnie z procedurą”). Patrząc im przez ramię, widzisz, że hasła są zapisane na żółtych karteczkach na monitorze, a dane eksportują do Excela, bo system jest zbyt wolny. Zbierasz <em>wymagania ukryte</em> (Implicit requirements).</li>
+                    <li><strong>Grupy Fokusowe (Focus Groups):</strong> Dyskusja w grupie 5–8 użytkowników moderowana przez analityka. Dobra do zderzania różnych opinii i generowania burzy pomysłów, ale podatna na myślenie grupowe (Groupthink) i dominację najgłośniejszych jednostek.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pozyskiwanie wymagań zaczynamy od badań jakościowych. Nie możemy dać użytkownikowi czystej kartki i zapytać »czego potrzebujesz« – to się kończy listą życzeń bez pokrycia w rzeczywistości. Zamiast tego idziemy do jego biura i obserwujemy, jak pracuje. To się nazywa contextual inquiry – badanie kontekstowe. Patrzymy przez ramię i widzimy, że pani w księgowości nie używa naszego systemu, tylko Excela, bo nasz interfejs ładuje się 8 sekund, a ona ma normę 200 faktur na godzinę. To jest wymaganie ukryte – ona by go nigdy w ankiecie nie zgłosiła. Wywiady pogłębione pozwalają drążyć techniką pięciu razy »dlaczego« – dochodzimy do prawdziwej przyczyny, zamiast leczyć objawy.”
+                </div>
             </div>
 
-            <!-- SVG 1: QUALITATIVE -->
+            <!-- SVG 1: QUALITATIVE (zachowany, odświeżone kolory) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#e0f7fa" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#006064">Badania Jakościowe (Wąska grupa, Głęboki kontekst)</text>
@@ -91,23 +102,25 @@
                 <rect x="650" y="80" width="140" height="60" rx="6" fill="#e0f2f1" stroke="#388e3c" stroke-width="2"/>
                 <text x="720" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Wymaganie Użyteczności:</text>
                 <text x="720" y="125" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Zaprojektować Undo (Cofnij)</text>
-
             </svg>
 
             <!-- PART 2: BADANIA ILOŚCIOWE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">2. Weryfikacja statystyczna: Badania Ilościowe (Quantitative)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Gdy po wywiadach z 5 osobami wiesz już, czego szukać, musisz udowodnić <strong>biznesowi</strong>, że problem dotyczy nie tylko tych pięciu malkontentów, ale całego rynku (walidacja hipotez). Badania ilościowe dają twarde, ustrukturyzowane liczby. Służą do priorytetyzacji wymagań.
+                    Gdy po wywiadach z 5 osobami wiesz już, czego szukać, musisz udowodnić <strong>biznesowi</strong>, że problem dotyczy nie tylko tych pięciu malkontentów, ale całego rynku (walidacja hipotez). Badania ilościowe dają twarde, ustrukturyzowane liczby. Służą do priorytetyzacji wymagań na podstawie ich statystycznej istotności.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Ankiety i Kwestionariusze (Surveys):</strong> Wysyłane do tysięcy użytkowników. Zawierają pytania zamknięte lub Skalę Likerta (np. oceń od 1 do 5 jak łatwy w użyciu jest nowy panel).</li>
-                    <li><strong>Analityka i Telemetria:</strong> Śledzenie logów w aplikacji. Jakie funkcje są używane najczęściej? Na którym ekranie użytkownicy najdłużej "wiszą"?</li>
-                    <li><strong>Testy A/B:</strong> Udostępnienie grupie A "starej" wersji interfejsu, a grupie B "nowej" i matematyczne zmierzenie, w której grupie wzrosła np. konwersja (sprzedaż).</li>
+                    <li><strong>Ankiety i Kwestionariusze (Surveys):</strong> Wysyłane do tysięcy użytkowników. Zawierają pytania zamknięte lub <strong>Skalę Likerta</strong> (np. oceń od 1 do 5, jak łatwy w użyciu jest nowy panel). Pozwalają wychwycić rozkład opinii w populacji.</li>
+                    <li><strong>Analityka i Telemetria:</strong> Śledzenie logów w aplikacji. Jakie funkcje są używane najczęściej? Na którym ekranie użytkownicy najdłużej „wiszą”? Gdzie porzucają proces? To dane obiektywne, niezależne od deklaracji.</li>
+                    <li><strong>Testy A/B:</strong> Udostępnienie grupie A „starej” wersji interfejsu, a grupie B „nowej” i matematyczne zmierzenie, w której grupie wzrosła np. konwersja (sprzedaż) lub spadł czas wykonania zadania. To ostateczny test hipotezy przed wdrożeniem na całą bazę.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gdy już mamy hipotezę z badań jakościowych – na przykład, że kasa w sklepie internetowym jest zbyt wolna – musimy to zweryfikować ilościowo. Bo to, że jeden klient narzekał w wywiadzie, nie znaczy, że przepisujemy cały system. Wysyłamy ankietę do 10 tysięcy użytkowników z pytaniem: »Jak oceniasz szybkość finalizacji zamówienia?«. Jeśli 78% daje ocenę 1 lub 2 w skali Likerta, to mamy twardy dowód. Albo patrzymy w telemetrię: 62% koszyków jest porzucanych na trzecim kroku. To jest bezdyskusyjny argument dla biznesu, żeby zainwestować w optymalizację. A testy A/B to już wisienka na torcie – dajemy połowie użytkowników nowy, szybszy interfejs, połowie stary, i mierzymy, gdzie konwersja jest wyższa. Decyzja staje się matematycznie uzasadniona.”
+                </div>
             </div>
 
-            <!-- SVG 2: QUANTITATIVE -->
+            <!-- SVG 2: QUANTITATIVE (zachowany, drobne poprawki) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Badania Ilościowe (Masowa skala, Weryfikacja statystyczna)</text>
@@ -115,7 +128,7 @@
                 <!-- Zbiór użytkowników (Kropki) -->
                 <rect x="40" y="50" width="200" height="140" rx="8" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
                 <text x="140" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Próba N = 10,000</text>
-                
+
                 <circle cx="80" cy="100" r="4" fill="#e65100"/>
                 <circle cx="100" cy="90" r="4" fill="#e65100"/>
                 <circle cx="120" cy="110" r="4" fill="#e65100"/>
@@ -134,7 +147,7 @@
                 <!-- Wykres Słupkowy (Ankieta) -->
                 <rect x="320" y="50" width="240" height="140" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <text x="440" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Głosowanie na Nowe Funkcje</text>
-                
+
                 <line x1="340" y1="170" x2="540" y2="170" stroke="#90a4ae" stroke-width="2"/>
                 <line x1="340" y1="170" x2="340" y2="80" stroke="#90a4ae" stroke-width="2"/>
 
@@ -161,16 +174,72 @@
                 </defs>
             </svg>
 
-            <!-- PART 3: TRIANGULACJA -->
+            <!-- PART 3: MODEL KANO (NOWA SEKCJA ROZSZERZAJĄCA) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #4a148c;">3. Złoty standard inżynierii: Triangulacja Metodologiczna</strong>
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">3. Priorytetyzacja wymagań: Model Kano</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Nigdy nie należy opierać wymagań systemu na jednym źródle danych. Ankieta z zamkniętymi pytaniami często "narzuca" użytkownikom tok myślenia inżyniera. Obserwacja z kolei dotyczy zbyt małej grupy, aby decydować o inwestowaniu milionów w nową funkcję.<br><br>
-                    <strong>Triangulacja</strong> to cykl inżynierski: Rozpoczynamy od <em>Badań Jakościowych</em> aby odkryć problem -> Formułujemy Hipotezę -> Uruchamiamy <em>Badania Ilościowe</em> aby sprawdzić, czy 80% rynku ma ten sam problem -> Wpisujemy zweryfikowany fakt do Backlogu Projektu jako oficjalne <em>Wymaganie</em>.
+                    Po zebraniu wymagań metodami jakościowymi i ilościowymi pojawia się pytanie: które z nich wdrożyć w pierwszej kolejności? Z pomocą przychodzi <strong>Model Kano</strong> (prof. Noriaki Kano), który klasyfikuje wymagania według ich wpływu na satysfakcję użytkownika. To potężne narzędzie do podejmowania decyzji produktowych, które dzieli wymagania na trzy kategorie:
                 </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Wymagania Podstawowe (Must-Be):</strong> Ich spełnienie nie zwiększa satysfakcji – użytkownik uważa je za oczywiste. Ale ich brak powoduje ogromną frustrację. Przykład: bezpieczeństwo transakcji, zapisanie danych po kliknięciu „Zapisz”.</li>
+                    <li><strong>Wymagania Wydajnościowe (Performance):</strong> Mają liniowy wpływ na satysfakcję. Im lepiej są wykonane, tym większa satysfakcja. Przykład: szybkość działania systemu, liczba kliknięć do wykonania zadania. To one są głównym polem rywalizacji konkurencyjnej.</li>
+                    <li><strong>Wymagania Ekscytujące (Delighters):</strong> Ich brak nie powoduje frustracji – użytkownik się ich nie spodziewa. Ale ich obecność wywołuje zachwyt i pozytywne zaskoczenie. Przykład: dark mode, inteligentne podpowiedzi, animacje. Z czasem Delightery stają się Performance, a potem Must-Be.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Model Kano to kompas w gąszczu zebranych wymagań. Dzieli je na trzy grupy. Po pierwsze, Must-Be – rzeczy absolutnie podstawowe. Jeśli system nie zapisuje danych, nikt nie będzie zachwycony, że to robi – ale wszyscy będą wściekli, jeśli tego nie robi. Po drugie, Performance – tu walka toczy się o każdą milisekundę i każdy klik mniej. Im szybciej, tym lepiej. Po trzecie, Delightery – to rzeczy, których użytkownik się nie spodziewa, a które go zachwycą. Na przykład inteligentne sortowanie wyników albo animacja potwierdzenia. Ale uwaga – Delightery szybko się starzeją. To, co dziś zachwyca, za rok staje się standardem, a za dwa lata – wymaganiem podstawowym.”
+                </div>
             </div>
 
-            <!-- SVG 3: TRIANGULATION -->
+            <!-- SVG 3: MODEL KANO (NOWY) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Model Kano – Priorytetyzacja wymagań na podstawie satysfakcji użytkownika</text>
+
+                <!-- Osie -->
+                <line x1="80" y1="230" x2="750" y2="230" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowKano)"/>
+                <line x1="80" y1="230" x2="80" y2="40" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowKano)"/>
+
+                <text x="410" y="255" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">Stopień realizacji wymagania →</text>
+                <text x="70" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 70 135)">Satysfakcja użytkownika →</text>
+                <text x="400" y="245" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">(od "niezrealizowane" do "w pełni zrealizowane")</text>
+
+                <!-- Krzywe Kano -->
+                <!-- Excitement / Delighters -->
+                <path d="M 90 230 Q 200 230 350 90 Q 500 40 730 30" fill="none" stroke="#7b1fa2" stroke-width="3"/>
+                <text x="680" y="45" font-family="sans-serif" font-size="11" font-weight="bold" fill="#7b1fa2">Delighters (Ekscytujące)</text>
+                <text x="680" y="58" font-family="sans-serif" font-size="9" fill="#7b1fa2">„Nie spodziewam się, ale kocham!”</text>
+
+                <!-- Performance / Linear -->
+                <line x1="90" y1="230" x2="730" y2="90" stroke="#1565c0" stroke-width="3"/>
+                <text x="350" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">Performance (Wydajnościowe)</text>
+                <text x="350" y="128" font-family="sans-serif" font-size="9" fill="#0d47a1">„Im szybciej/lepiej, tym bardziej jestem zadowolony”</text>
+
+                <!-- Must-Be / Basic -->
+                <path d="M 90 60 Q 350 60 550 170 Q 650 210 730 230" fill="none" stroke="#c62828" stroke-width="3"/>
+                <text x="200" y="55" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828">Must-Be (Podstawowe)</text>
+                <text x="200" y="68" font-family="sans-serif" font-size="9" fill="#c62828">„Oczywiste. Ich brak = frustracja”</text>
+
+                <!-- Obszar neutralny -->
+                <text x="85" y="243" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Neutralnie</text>
+
+                <defs>
+                    <marker id="arrowKano" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                </defs>
+            </svg>
+
+            <!-- PART 4: TRIANGULACJA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00838f;">4. Złoty standard inżynierii: Triangulacja Metodologiczna</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Nigdy nie należy opierać wymagań systemu na jednym źródle danych. Ankieta z zamkniętymi pytaniami często „narzuca” użytkownikom tok myślenia inżyniera. Obserwacja z kolei dotyczy zbyt małej grupy, aby decydować o inwestowaniu milionów w nową funkcję.<br><br>
+                    <strong>Triangulacja</strong> to cykl inżynierski: Rozpoczynamy od <em>Badań Jakościowych</em>, aby odkryć problem i sformułować hipotezę. Następnie uruchamiamy <em>Badania Ilościowe</em>, aby sprawdzić, czy 80% rynku ma ten sam problem i czy jest on statystycznie istotny. Dopiero po tym fakcie wpisujemy zweryfikowane wymaganie do Backlogu Projektu jako oficjalną User Story.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Złotą zasadą inżynierii wymagań jest triangulacja. Nigdy nie ufamy jednemu źródłu. Zaczynamy od jakościowego wywiadu – odkrywamy, że kasa w sklepie jest wolna. Formułujemy hipotezę: »interfejs ma za dużo przycisków«. Testujemy to ilościowo – testem A/B. Grupa A dostaje stary interfejs, grupa B nowy, uproszczony. Patrzymy na średni czas transakcji. Jeśli w grupie B spadł o 20%, a próba jest istotna statystycznie – dopiero wtedy wpisujemy to do backlogu jako oficjalne wymaganie. Bez triangulacji ryzykujemy, że zbudujemy system dla jednej głośnej osoby, zamiast dla całego rynku.”
+                </div>
+            </div>
+
+            <!-- SVG 4: TRIANGULATION (zachowany) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Proces pozyskiwania wymagań: Triangulacja</text>
@@ -206,7 +275,7 @@
 
                 <!-- Feedback Loop -->
                 <path d="M 760 140 L 760 160 L 120 160 L 120 135" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrowGryTri)"/>
-                <text x="440" y="155" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Testy nowego interfejsu (Iteracja)</text>
+                <text x="440" y="155" font-family="sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">Testy nowego interfejsu (Iteracja Agile)</text>
 
                 <defs>
                     <marker id="arrowGryTri" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#607d8b"/></marker>
@@ -220,9 +289,33 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity o pozyskiwaniu wymagań):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Użytkownicy wiedzą, czego chcą, wystarczy dać im ankietę"</strong> – Historyczny błąd inżynierii! Jak mawiał Henry Ford: <em>"Gdybym zapytał ludzi czego chcą, powiedzieliby, że szybszego konia"</em>. Ankiety (metody Ilościowe) nadają się tylko do oceny już znanych zjawisk. Wysłanie ankiety z pustym polem "czego brakuje w systemie?" zaowocuje koncertem życzeń nienadającym się do wdrożenia. Prawdziwe potrzeby trzeba <strong>wyabstrahować</strong> z badań Jakościowych poprzez dogłębną analizę pracy klienta.</li>
-                    <li><strong>"Dane analityczne (Ilościowe) są zawsze obiektywne i prawdomówne"</strong> – Nic bardziej mylnego. Istnieje zjawisko zwane w statystyce <em>GIGO (Garbage In, Garbage Out)</em>. Jeśli źle skonstruujesz pytania w kwestionariuszu (np. pytania sugerujące: "Prawda, że nowy interfejs jest świetny?"), otrzymasz 10,000 odpowiedzi "Tak", z których biznesowo nic nie wynika. Surowe liczby nie chronią przed złym warsztatem badawczym.</li>
+                    <li><strong>„Użytkownicy wiedzą, czego chcą – wystarczy dać im ankietę”.</strong> Historyczny błąd inżynierii! Jak mawiał Henry Ford: <em>„Gdybym zapytał ludzi, czego chcą, powiedzieliby, że szybszego konia”</em>. Ankiety (metody Ilościowe) nadają się tylko do oceny już znanych zjawisk. Wysłanie ankiety z pustym polem „czego brakuje w systemie?” zaowocuje koncertem życzeń nienadającym się do wdrożenia. Prawdziwe potrzeby trzeba <strong>wyabstrahować</strong> z badań Jakościowych poprzez dogłębną analizę pracy klienta.</li>
+                    <li><strong>„Dane analityczne (Ilościowe) są zawsze obiektywne i prawdomówne”.</strong> Nic bardziej mylnego. Istnieje zjawisko <em>GIGO (Garbage In, Garbage Out)</em>. Jeśli źle skonstruujesz pytania w kwestionariuszu (np. pytania sugerujące: „Prawda, że nowy interfejs jest świetny?”), otrzymasz 10 000 odpowiedzi „Tak”, z których biznesowo nic nie wynika. Surowe liczby nie chronią przed złym warsztatem badawczym.</li>
+                    <li><strong>Brak triangulacji:</strong> Poleganie wyłącznie na jednym wywiadzie („Bo prezes tak chce”) lub tylko na suchej statystyce („Bo 50% klikało ten przycisk”) prowadzi do katastrofalnych decyzji produktowych. Kluczem jest połączenie kontekstu (Qual) ze skalą (Quant).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największą pułapką jest założenie, że użytkownicy potrafią wprost wyrazić swoje potrzeby. Henry Ford doskonale to ujął – ludzie powiedzieliby, że chcą szybszych koni, a nie samochodu. Dlatego same ankiety nie wystarczą – musimy obserwować pracę i wyciągać wnioski. Drugą pułapką jest GIGO – jeśli źle sformułujemy pytanie, choćby było sugestywne, to nawet 10 tysięcy odpowiedzi nie da nam prawdy. Trzecia rzecz to brak triangulacji. Decyzja o budowie funkcji za milion dolarów nie może opierać się na jednym wywiadzie z jednym klientem, ani wyłącznie na suchym wykresie. Musimy połączyć głęboki kontekst z twardą statystyką – dopiero wtedy mamy pełny obraz.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Pozyskiwanie wymagań:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Metoda / Narzędzie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowy cel</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wywiad Pogłębiony (IDI)</td><td style="padding: 10px;">Jakościowy</td><td style="padding: 10px;">Zrozumieć głębokie motywacje i przyczyny („5 razy Dlaczego”).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Shadowing / Contextual Inquiry</td><td style="padding: 10px;">Jakościowy</td><td style="padding: 10px;">Odkryć wymagania ukryte i rzeczywisty przebieg pracy.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Grupa Fokusowa</td><td style="padding: 10px;">Jakościowy</td><td style="padding: 10px;">Zderzyć opinie, wygenerować pomysły (uwaga na Groupthink).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Ankieta / Skala Likerta</td><td style="padding: 10px;">Ilościowy</td><td style="padding: 10px;">Zmierzyć rozkład opinii w dużej populacji.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Telemetria / Analityka</td><td style="padding: 10px;">Ilościowy</td><td style="padding: 10px;">Obiektywnie zmierzyć zachowania (kliknięcia, czas, porzucenia).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Testy A/B</td><td style="padding: 10px;">Ilościowy</td><td style="padding: 10px;">Eksperymentalnie potwierdzić przewagę nowego rozwiązania.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Model Kano</td><td style="padding: 10px;">Priorytetyzacja</td><td style="padding: 10px;">Skategoryzować wymagania na Must-Be, Performance, Delighters.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Triangulacja</td><td style="padding: 10px;">Proces</td><td style="padding: 10px;">Połączyć Qual + Quant dla uzyskania pełnego, wiarygodnego obrazu.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -231,7 +324,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Największym błędem programistów jest budowanie systemu na podstawie specyfikacji od razu "wyciągniętej z głowy" menedżera. Pozyskiwanie wymagań to praca detektywa, a nie stenotypisty. Metody Jakościowe są Twoim szkłem powiększającym – pozwalają wejść w buty klienta, zobaczyć jego frustrację i pojąć logikę procesów. Metody Ilościowe to Twoja tarcza analityczna – chronią Cię przed zbudowaniem za milion dolarów funkcji, której będzie używała tylko jedna osoba, z którą akurat przeprowadziłeś wywiad. Zbudowanie użytecznego i pożądanego na rynku oprogramowania jest możliwe tylko wtedy, gdy bezwzględna statystyka (Quant) zostanie osadzona w głębokim ludzkim kontekście (Qual).</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Największym błędem programistów jest budowanie systemu na podstawie specyfikacji od razu „wyciągniętej z głowy” menedżera. Pozyskiwanie wymagań to praca detektywa, a nie stenotypisty. Metody Jakościowe są Twoim szkłem powiększającym – pozwalają wejść w buty klienta, zobaczyć jego frustrację i pojąć logikę procesów. Metody Ilościowe to Twoja tarcza analityczna – chronią Cię przed zbudowaniem za milion dolarów funkcji, której będzie używała tylko jedna osoba, z którą akurat przeprowadziłeś wywiad. Zbudowanie użytecznego i pożądanego na rynku oprogramowania jest możliwe tylko wtedy, gdy bezwzględna statystyka (Quant) zostanie osadzona w głębokim ludzkim kontekście (Qual).</span>
                 </p>
             </div>
 
@@ -239,7 +332,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Inżynieria wymagań" (K. Wiegers, J. Beatty) – Rozdziały o Elicitation i Business Analysis · Metodologia User-Centered Design (UCD) & UX Research (Nielsen Norman Group).
+                    „Inżynieria wymagań” (K. Wiegers, J. Beatty) – Rozdziały o Elicitation i Business Analysis · Metodologia User-Centered Design (UCD) & UX Research (Nielsen Norman Group) · Model Kano (Noriaki Kano) – klasyfikacja i priorytetyzacja wymagań.
                 </span>
             </div>
 

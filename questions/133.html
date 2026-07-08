@@ -14,9 +14,9 @@
         <h2 id="q-title">133. Klasyfikacja, regresja i regresja logistyczna.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📊</span>
                 <div>
@@ -27,6 +27,11 @@
                         <strong>Klasyfikacja (Bramkarz):</strong> Pytasz bramkarza w klubie: <em>"Czy mogę wejść?"</em>. Odpowiedź brzmi "Tak" (klasa 1) albo "Nie" (klasa 0). Nie można wejść do klubu w 37%. Odpowiedź jest <strong>dyskretna</strong> (wybór ze skończonej puli "szufladek").<br><br>
                         Zrozumienie tej granicy to podstawa, by nie wpaść w największą pułapkę nazewnictwa w historii IT – Regresję Logistyczną.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #003300; line-height: 1.8;">
+                        <li><strong>🟢 Regresja</strong> – przewidywanie wartości ciągłej: cena, temperatura, wzrost. Wyjście to liczba rzeczywista.</li>
+                        <li><strong>🔴 Klasyfikacja</strong> – przypisywanie etykiety (klasy): spam/nie-spam, zdrowy/chory, kot/pies. Wyjście dyskretne.</li>
+                        <li><strong>🟠 Regresja Logistyczna</strong> – mimo nazwy „regresja”, jest klasyfikatorem! Zwraca prawdopodobieństwo przynależności do klasy.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -43,10 +48,13 @@
             <span class="keyword-tag">Regresja Logistyczna (Binary Classification!)</span>
             <span class="keyword-tag">Funkcja Sigmoidalna (Sigmoid / Logistic function)</span>
             <span class="keyword-tag">Wartości odstające (Outliers)</span>
+            <span class="keyword-tag">Próg decyzyjny (Threshold)</span>
+            <span class="keyword-tag">Prawdopodobieństwo (Probability)</span>
+            <span class="keyword-tag">Log-Loss / Cross-Entropy</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -54,8 +62,14 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. Fundamentalny Podział: Regresja vs Klasyfikacja</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Uczenie maszynowe to tak naprawdę szukanie funkcji matematycznej $f(x) = y$, która najlepiej opisuje zebrane dane. Typ problemu zależy wyłącznie od natury zmiennej wyjściowej $y$. 
+                    Uczenie maszynowe to tak naprawdę szukanie funkcji matematycznej <strong>f(x) = y</strong>, która najlepiej opisuje zebrane dane. Typ problemu zależy wyłącznie od natury zmiennej wyjściowej <strong>y</strong>. Jeśli <strong>y</strong> jest liczbą rzeczywistą (np. cena domu, temperatura jutra o 14:00), mamy do czynienia z <strong>regresją</strong>. Model przewiduje wartość na ciągłej osi liczbowej. Jeśli <strong>y</strong> jest etykietą, kategorią (np. „spam”/„nie spam”, „kot”/„pies”), mówimy o <strong>klasyfikacji</strong>. W klasyfikacji binarnej etykiety to często 0 i 1. Klasyfikacja wieloklasowa rozszerza to na więcej kategorii (np. rozpoznawanie cyfr 0–9).
                 </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Regresja liniowa jest najprostszym przykładem regresji – dopasowuje prostą (lub hiperpłaszczyznę) do danych, minimalizując błąd średniokwadratowy (MSE). W klasyfikacji natomiast szukamy <strong>granicy decyzyjnej</strong>, która oddziela od siebie klasy.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zacznijmy od fundamentalnego podziału uczenia nadzorowanego na regresję i klasyfikację. Proszę spojrzeć na planszę – po lewej stronie widzimy regresję. Tu przewidujemy wartości ciągłe, na przykład cenę domu w funkcji metrażu. Odpowiedź może wynosić dokładnie 452 300 zł i 50 groszy – to dowolna liczba rzeczywista. Po prawej stronie mamy klasyfikację – chcemy na przykład stwierdzić, czy guz jest złośliwy czy łagodny. Tu odpowiedź jest dyskretna: albo 0, albo 1. Nie ma wartości pośrednich. Ta różnica determinuje wszystko: wybór algorytmu, sposób oceny modelu, nawet to, jak interpretujemy wyniki.”
+                </div>
             </div>
 
             <!-- SVG 1: REGRESSION VS CLASSIFICATION -->
@@ -66,7 +80,7 @@
                 <!-- Panel Lewy: Regresja Liniowa -->
                 <rect x="40" y="50" width="340" height="180" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
                 <text x="210" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1" text-anchor="middle">Regresja (np. Liniowa)</text>
-                
+
                 <!-- Osie -->
                 <line x1="70" y1="200" x2="350" y2="200" stroke="#90a4ae" stroke-width="2"/>
                 <line x1="70" y1="200" x2="70" y2="90" stroke="#90a4ae" stroke-width="2"/>
@@ -86,11 +100,14 @@
                 <line x1="70" y1="190" x2="340" y2="90" stroke="#1565c0" stroke-width="3"/>
                 <text x="280" y="80" font-family="monospace" font-size="11" font-weight="bold" fill="#1565c0">y = wx + b</text>
 
+                <text x="210" y="130" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Wynik: dowolna liczba</text>
+                <text x="210" y="142" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">np. 452 300.50 zł</text>
+
 
                 <!-- Panel Prawy: Klasyfikacja -->
                 <rect x="440" y="50" width="340" height="180" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
                 <text x="610" y="75" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Klasyfikacja (Dyskretna)</text>
-                
+
                 <!-- Osie -->
                 <line x1="470" y1="200" x2="750" y2="200" stroke="#90a4ae" stroke-width="2"/>
                 <line x1="470" y1="200" x2="470" y2="90" stroke="#90a4ae" stroke-width="2"/>
@@ -102,38 +119,45 @@
                 <circle cx="530" cy="150" r="5" fill="#4caf50"/>
                 <circle cx="520" cy="120" r="5" fill="#4caf50"/>
                 <circle cx="560" cy="170" r="5" fill="#4caf50"/>
+                <text x="560" y="140" font-family="sans-serif" font-size="8" fill="#2e7d32">Klasa 0 (zdrowy)</text>
 
                 <!-- Punkty klasy 1 (Czerwone kwadraty) -->
                 <rect x="680" y="100" width="10" height="10" fill="#f44336"/>
                 <rect x="650" y="130" width="10" height="10" fill="#f44336"/>
                 <rect x="710" y="140" width="10" height="10" fill="#f44336"/>
                 <rect x="690" y="170" width="10" height="10" fill="#f44336"/>
+                <text x="690" y="115" font-family="sans-serif" font-size="8" fill="#c62828">Klasa 1 (chory)</text>
 
                 <!-- Granica Decyzyjna (Decision Boundary) -->
                 <line x1="570" y1="90" x2="630" y2="200" stroke="#c62828" stroke-width="3" stroke-dasharray="6,4"/>
                 <text x="635" y="100" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828">Granica</text>
                 <text x="635" y="112" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828">Decyzyjna</text>
-
             </svg>
 
             <!-- PART 2: THE PROBLEM WITH LINEAR REGRESSION FOR CLASSIFICATION -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #d32f2f;">2. Dlaczego Regresja Liniowa nie nadaje się do Klasyfikacji?</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Skoro potrafimy wyciągnąć linię prostą, moglibyśmy spróbować użyć Regresji Liniowej do klasyfikacji pacjentów na Zdrowych (Y=0) i Chorych (Y=1). Ustalilibyśmy próg: wszystko poniżej 0.5 to Zdrowy, a powyżej to Chory. 
-                    Niestety, <strong>Regresja Liniowa jest koszmarnie wrażliwa na wartości odstające (Outliers)</strong>. Pojawienie się jednego pacjenta z gigantycznym guzem spowoduje sztuczne pociągnięcie całej linii w górę, co przesunie punkt przecięcia 0.5 i zrujnuje diagnozę dla normalnych przypadków!
+                    Skoro potrafimy wyznaczyć linię prostą, moglibyśmy spróbować użyć Regresji Liniowej do klasyfikacji pacjentów na Zdrowych (Y=0) i Chorych (Y=1). Ustalilibyśmy próg: wszystko poniżej 0.5 to Zdrowy, a powyżej to Chory.
+                    Niestety, <strong>Regresja Liniowa jest koszmarnie wrażliwa na wartości odstające (Outliers)</strong>. Pojawienie się jednego pacjenta z gigantycznym guzem spowoduje sztuczne pociągnięcie całej linii w górę, co przesunie punkt przecięcia 0.5 i zrujnuje diagnozę dla normalnych przypadków! Ponadto, regresja liniowa może produkować wartości spoza przedziału [0,1], co nie ma sensu przy interpretacji jako prawdopodobieństwa. Dlatego potrzebujemy mechanizmu, który „zgniecie” wyniki do przedziału (0,1) i będzie odporny na skrajne obserwacje.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Dlaczego nie możemy po prostu użyć regresji liniowej do klasyfikacji? Proszę spojrzeć na planszę. Gdybyśmy mieli tylko te zielone i czerwone punkty blisko siebie, prosta regresji mogłaby jakoś oddzielić klasy. Ale wystarczy jeden ekstremalny przypadek – jeden pacjent z bardzo dużym guzem – i linia zostaje dramatycznie przekręcona. W efekcie zdrowi pacjenci zostają błędnie sklasyfikowani jako chorzy. To pokazuje fundamentalną wadę regresji liniowej w klasyfikacji: jest zbyt wrażliwa na wartości odstające i nie ogranicza wyniku do przedziału od 0 do 1. Potrzebujemy czegoś, co jest odporne na outliery i daje wyniki w formie prawdopodobieństwa.”
+                </div>
             </div>
 
             <!-- SVG 2: THE OUTLIER PROBLEM -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowOrgLR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#fff" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Problem Outlierów: Dlaczego linia prosta zawodzi w klasyfikacji</text>
 
                 <!-- Osie -->
                 <line x1="100" y1="180" x2="750" y2="180" stroke="#90a4ae" stroke-width="2"/>
                 <line x1="100" y1="180" x2="100" y2="40" stroke="#90a4ae" stroke-width="2"/>
-                
+
                 <text x="80" y="180" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="end">Y=0</text>
                 <text x="80" y="80" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="end">Y=1</text>
                 <text x="410" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Cecha (np. Rozmiar Guza)</text>
@@ -143,20 +167,20 @@
                 <text x="75" y="133" font-family="monospace" font-size="10" fill="#757575" text-anchor="end">0.5</text>
 
                 <!-- Normal Data -->
-                <!-- Y=0 (Zdrowi) -->
                 <circle cx="150" cy="180" r="6" fill="#4caf50"/>
                 <circle cx="200" cy="180" r="6" fill="#4caf50"/>
                 <circle cx="250" cy="180" r="6" fill="#4caf50"/>
+                <text x="200" y="168" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Zdrowi (Y=0)</text>
 
-                <!-- Y=1 (Chorzy) -->
                 <rect x="350" y="74" width="12" height="12" fill="#f44336"/>
                 <rect x="400" y="74" width="12" height="12" fill="#f44336"/>
                 <rect x="450" y="74" width="12" height="12" fill="#f44336"/>
+                <text x="400" y="65" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">Chorzy (Y=1)</text>
 
                 <!-- Ideal Line (Without Outlier) -->
                 <line x1="100" y1="200" x2="500" y2="40" stroke="#4caf50" stroke-width="3" stroke-dasharray="6,4"/>
-                <text x="180" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32">Idealna granica 0.5</text>
-                
+                <text x="180" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32">Idealna granica 0.5 (bez outliera)</text>
+
                 <!-- The Outlier -->
                 <rect x="700" y="74" width="12" height="12" fill="#d32f2f" stroke="#b71c1c" stroke-width="2"/>
                 <text x="706" y="65" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Ekstremalny Outlier</text>
@@ -169,21 +193,20 @@
                 <ellipse cx="380" cy="180" rx="60" ry="20" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2"/>
                 <path d="M 380 160 L 380 140" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgLR)"/>
                 <text x="380" y="130" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">BŁĄD! Chorzy widoczni jako < 0.5</text>
-
-                <defs>
-                    <marker id="arrowOrgLR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                </defs>
             </svg>
 
             <!-- PART 3: LOGISTIC REGRESSION & SIGMOID -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">3. Ratunek: Regresja Logistyczna i "Królowa Sigmoida"</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">3. Ratunek: Regresja Logistyczna i „Królowa Sigmoida”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Aby naprawić ten problem, inżynierowie stworzyli <strong>Regresję Logistyczną</strong>. Bierze ona tradycyjne równanie prostej ($z = wx+b$) i wrzuca je w matematyczną "zgniatarkę" zwaną <strong>Funkcją Sigmoidalną (Sigmoid)</strong>. Sigmoida jest genialna: wszystko, co ogromnie na minusie zgniata blisko $0$, a wszystko ogromnie na plusie zgniata blisko $1$.
+                    Aby naprawić ten problem, inżynierowie stworzyli <strong>Regresję Logistyczną</strong>. Bierze ona tradycyjne równanie prostej (<strong>z = wx + b</strong>) i wrzuca je w matematyczną „zgniatarkę” zwaną <strong>Funkcją Sigmoidalną (Sigmoid)</strong>. Sigmoida jest genialna: wszystko, co ogromnie na minusie zgniata blisko <strong>0</strong>, a wszystko ogromnie na plusie zgniata blisko <strong>1</strong>. Wzór sigmoidy: <strong>σ(z) = 1 / (1 + e⁻ᶻ)</strong>.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Dzięki temu model nie zwraca już chaotycznych liczb od $-\infty$ do $+\infty$, ale perfekcyjnie skalibrowane <strong>Prawdopodobieństwo (od 0.0 do 1.0)</strong>, np. $P=0.85$ (Jest 85% szans, że pacjent jest chory). Regresja Logistyczna jest więc z matematycznego punktu widzenia modelem prawdopodobieństwa, wykorzystywanym w 100% do zadań <strong>Klasyfikacji binarnej</strong>.
+                    Dzięki temu model nie zwraca już chaotycznych liczb od –∞ do +∞, ale perfekcyjnie skalibrowane <strong>Prawdopodobieństwo (od 0.0 do 1.0)</strong>, np. P=0.85 (Jest 85% szans, że pacjent jest chory). Regresja Logistyczna jest więc z matematycznego punktu widzenia modelem prawdopodobieństwa, wykorzystywanym w 100% do zadań <strong>Klasyfikacji binarnej</strong>. Funkcją kosztu jest tu <strong>Log-Loss (Cross-Entropy)</strong>, która silnie karze pewne, a błędne prognozy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Rozwiązaniem problemu outlierów i nieograniczonych wartości jest regresja logistyczna. Proszę spojrzeć na planszę. Bierzemy zwykłą kombinację liniową – wx plus b – i przepuszczamy ją przez funkcję sigmoidalną. Ta funkcja ma kształt litery S. Dla bardzo ujemnych argumentów daje wartość bliską zeru, dla bardzo dodatnich – bliską jedynce. W rezultacie, nawet jeśli trafi się ekstremalny outlier, sigmoida po prostu przyciśnie jego wpływ do 1.0 – nie pozwoli, by zepsuł cały model. Wynikiem regresji logistycznej jest zawsze liczba z przedziału od 0 do 1, którą interpretujemy jako prawdopodobieństwo przynależności do klasy pozytywnej. To jest kluczowe: regresja logistyczna, mimo nazwy, jest klasyfikatorem. Zwraca prawdopodobieństwo, a nie wartość ciągłą.”
+                </div>
             </div>
 
             <!-- SVG 3: SIGMOID -->
@@ -194,7 +217,7 @@
                 <!-- Osie -->
                 <line x1="410" y1="220" x2="410" y2="50" stroke="#90a4ae" stroke-width="2"/>
                 <line x1="100" y1="200" x2="720" y2="200" stroke="#90a4ae" stroke-width="2"/>
-                
+
                 <text x="400" y="215" font-family="monospace" font-size="12" fill="#546e7a" text-anchor="end">0</text>
                 <text x="730" y="215" font-family="monospace" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">z = wx+b</text>
                 <text x="375" y="60" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">P(y=1)</text>
@@ -209,8 +232,6 @@
                 <text x="250" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Próg Decyzyjny (Threshold)</text>
 
                 <!-- Sigmoid Curve -->
-                <!-- M x,y C x1,y1 x2,y2 x,y -->
-                <!-- Bottom tail -->
                 <path d="M 100 198 C 250 198, 350 195, 410 130 C 470 65, 570 62, 720 62" fill="none" stroke="#1565c0" stroke-width="4"/>
 
                 <!-- Równanie funkcji -->
@@ -219,9 +240,42 @@
 
                 <!-- Odporność na outliery -->
                 <circle cx="680" cy="62" r="5" fill="#d32f2f"/>
-                <text x="680" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Ekstremalny Outlier (Ignorowany!)</text>
+                <text x="680" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Ekstremalny Outlier</text>
                 <text x="680" y="55" font-family="sans-serif" font-size="8" fill="#b71c1c" text-anchor="middle">Sigmoida blokuje go na max 1.0</text>
+            </svg>
 
+            <!-- SVG 4: TRANSFORMACJA OD PROSTEJ DO PRAWDOPODOBIEŃSTWA (dodatkowa ilustracja) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Od prostej do prawdopodobieństwa – transformacja sigmoidalna</text>
+
+                <!-- Panel Lewy: Prosta wx+b -->
+                <rect x="30" y="45" width="360" height="200" rx="8" fill="#fff" stroke="#7b1fa2" stroke-width="1.5"/>
+                <text x="210" y="65" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#4a148c">Krok 1: Kombinacja liniowa</text>
+                <line x1="70" y1="200" x2="350" y2="200" stroke="#90a4ae" stroke-width="1.5"/>
+                <line x1="70" y1="200" x2="70" y2="80" stroke="#90a4ae" stroke-width="1.5"/>
+                <text x="60" y="140" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle" transform="rotate(-90 60 140)">z</text>
+                <line x1="70" y1="180" x2="350" y2="80" stroke="#7b1fa2" stroke-width="3"/>
+                <text x="330" y="90" font-family="monospace" font-size="12" font-weight="bold" fill="#7b1fa2">z = wx + b</text>
+                <text x="210" y="180" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Wynik: dowolna liczba (–∞, +∞)</text>
+                <text x="210" y="192" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Nadaje się tylko do regresji</text>
+
+                <!-- Strzałka -->
+                <text x="400" y="150" font-family="sans-serif" font-size="28" fill="#6a1b9a">→</text>
+                <text x="400" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Sigmoid</text>
+
+                <!-- Panel Prawy: Prawdopodobieństwo -->
+                <rect x="430" y="45" width="360" height="200" rx="8" fill="#fff" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="610" y="65" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">Krok 2: Prawdopodobieństwo</text>
+                <line x1="470" y1="200" x2="750" y2="200" stroke="#90a4ae" stroke-width="1.5"/>
+                <line x1="470" y1="200" x2="470" y2="80" stroke="#90a4ae" stroke-width="1.5"/>
+                <text x="460" y="140" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle" transform="rotate(-90 460 140)">P(y=1)</text>
+                <!-- Sigmoid -->
+                <path d="M 470 198 C 550 198, 590 195, 610 140 C 630 85, 690 82, 750 82" fill="none" stroke="#1565c0" stroke-width="3"/>
+                <line x1="470" y1="140" x2="750" y2="140" stroke="#f57c00" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="740" y="135" font-family="sans-serif" font-size="8" fill="#e65100">Threshold 0.5</text>
+                <text x="610" y="180" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Wynik: prawdopodobieństwo [0,1]</text>
+                <text x="610" y="192" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Idealne do klasyfikacji binarnej</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -232,7 +286,29 @@
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
                     <li><strong>"Regresja Logistyczna to algorytm do przewidywania wartości ciągłych"</strong> – BŁĄD, który automatycznie kończy egzamin! Mimo wbudowanego w nazwę słowa "regresja" (co jest niefortunną zaszłością historyczną z dziedziny statystyki), Regresja Logistyczna jest algorytmem <strong>KLASYFIKACJI BINARNEJ</strong>. Jej ostatecznym celem jest przydzielenie pacjenta do szufladki 0 lub 1. Używa po prostu "regresyjnego" wzoru pod maską, aby obliczyć prawdopodobieństwo przed ostatecznym cięciem progiem decyzyjnym.</li>
                     <li><strong>Mylenie wyjścia modelu z klasą:</strong> Regresja Logistyczna fizycznie zwraca wartość od 0.0 do 1.0. To jednak NIE jest klasa. To Prawdopodobieństwo. Aby otrzymać klasę (np. "Spam"), inżynier musi nałożyć na ten wynik sztuczny <em>Threshold</em> (Próg). Zwykle wynosi on 0.5. Ale w medycynie (gdzie wolisz fałszywy alarm niż przeoczenie guza), inżynier ustawi próg np. na 0.15. W ten sposób z jednej Regresji Logistycznej możemy uzyskać różne "agresywności" klasyfikatora.</li>
+                    <li><strong>Regresja liniowa a klasyfikacja wieloklasowa:</strong> Regresji liniowej nie da się bezpośrednio zastosować do klasyfikacji z więcej niż dwiema klasami. Regresję logistyczną rozszerza się do wielu klas przez <strong>One-vs-Rest (OvR)</strong> lub <strong>Softmax</strong> (regresja wielomianowa).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największą pułapką, na którą komisja z pewnością zwróci uwagę, jest pomylenie regresji logistycznej ze zwykłą regresją. Regresja logistyczna, mimo nazwy, służy do klasyfikacji, a nie do przewidywania wartości ciągłych. Jej wynikiem jest prawdopodobieństwo – liczba między 0 a 1. Drugą kwestią jest próg decyzyjny. To nie jest stała wartość – w zależności od zastosowania możemy go zmieniać. W bankowości, gdzie fałszywy alarm kosztuje mniej niż przeoczenie oszusta, ustawimy niski próg. W diagnostyce medycznej też często obniżamy próg, żeby nie przegapić żadnego chorego. I wreszcie: regresja liniowa nie nadaje się do klasyfikacji właśnie przez outliery i nieograniczone wartości – to pokazuje, dlaczego potrzebujemy sigmoidy.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Klasyfikacja i Regresja:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Cecha</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Regresja Liniowa</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Regresja Logistyczna</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Typ problemu</td><td style="padding: 10px;">Regresja (ciągłe y)</td><td style="padding: 10px;">Klasyfikacja binarna (dyskretne y)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wyjście modelu</td><td style="padding: 10px;">y ∈ (–∞, +∞)</td><td style="padding: 10px;">P(y=1) ∈ (0, 1)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Funkcja kosztu</td><td style="padding: 10px;">MSE (Mean Squared Error)</td><td style="padding: 10px;">Log-Loss / Cross-Entropy</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wrażliwość na outliery</td><td style="padding: 10px;">Bardzo wysoka</td><td style="padding: 10px;">Niska (sigmoida ogranicza wpływ)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Funkcja wiążąca</td><td style="padding: 10px;">Tożsamość (f(x)=x)</td><td style="padding: 10px;">Sigmoid (σ(x) = 1/(1+e⁻ˣ))</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Próg decyzyjny</td><td style="padding: 10px;">Nie dotyczy</td><td style="padding: 10px;">Zwykle 0.5, ale konfigurowalny</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -249,7 +325,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Uczenie maszynowe" (Andrew Ng, materiały Stanford/Coursera) – Classification vs Regression, Sigmoid Function, Logistic Regression limits.
+                    "Uczenie maszynowe" (Andrew Ng, materiały Stanford/Coursera) – Classification vs Regression, Sigmoid Function, Logistic Regression limits · „Introduction to Statistical Learning” (James, Witten, Hastie, Tibshirani) – Rozdział 4: Classification.
                 </span>
             </div>
 

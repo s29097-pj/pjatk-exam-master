@@ -14,9 +14,9 @@
         <h2 id="q-title">135. Modelowanie procesów biznesowych – podejścia i metody.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🧑‍🍳</span>
                 <div>
@@ -26,6 +26,12 @@
                         <strong>Modelowanie procesów biznesowych (BPM)</strong> to wzięcie kartki papieru i rozrysowanie tej restauracji krok po kroku: <em>Zdarzenie</em> (Klient składa zamówienie) ➔ <em>Zadanie dla Kelnera</em> (Wbicie do systemu) ➔ <em>Bramka decyzyjna</em> (Czy to danie wegańskie?) ➔ <em>Zadanie dla Kucharza</em>. <br><br>
                         Inżynieria procesów pozwala nam nie tylko ustandaryzować pracę, ale przede wszystkim znaleźć tak zwane <strong>Wąskie Gardła (Bottlenecks)</strong>. Jeśli kucharz czeka 10 minut na obranie ziemniaków przez pomocnika, system informatyczny, który napiszemy, musi zautomatyzować lub przyspieszyć ten konkretny fragment. Model to język, w którym Biznes dogaduje się z Programistami.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #003300; line-height: 1.8;">
+                        <li><strong>🟢 As-Is</strong> – mapa obecnego chaosu: znajdujemy wąskie gardła i zbędne kroki.</li>
+                        <li><strong>🔵 To-Be</strong> – projekt przyszłości: proces uproszczony i gotowy do automatyzacji.</li>
+                        <li><strong>🟠 BPMN 2.0</strong> – uniwersalny język graficzny: zdarzenia, zadania, bramki, baseny i tory.</li>
+                        <li><strong>🟣 EPC / UML</strong> – alternatywy w ekosystemach SAP i inżynierii oprogramowania.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -41,10 +47,14 @@
             <span class="keyword-tag">Baseny i Tory (Pools & Lanes)</span>
             <span class="keyword-tag">EPC (Event-driven Process Chain)</span>
             <span class="keyword-tag">UML (Diagram Aktywności)</span>
+            <span class="keyword-tag">Optymalizacja procesów</span>
+            <span class="keyword-tag">Wąskie gardło (Bottleneck)</span>
+            <span class="keyword-tag">KPI (Key Performance Indicators)</span>
+            <span class="keyword-tag">Automatyzacja i robotyzacja (RPA)</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -52,23 +62,33 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. Podejścia do modelowania: Diagnoza kontra Projektowanie</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zanim zaczniemy cokolwiek optymalizować lub pisać oprogramowanie, analityk biznesowy musi zdecydować, w jakiej fazie życia znajduje się organizacja. Rozróżniamy dwa kluczowe podejścia operacyjne:
+                    Zanim zaczniemy cokolwiek optymalizować lub pisać oprogramowanie, analityk biznesowy musi zdecydować, w jakiej fazie życia znajduje się organizacja. Rozróżniamy dwa kluczowe podejścia operacyjne oraz dwa podejścia analityczne do zbierania wymagań:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Modelowanie As-Is (Stan Obecny):</strong> Mapowanie brutalnej rzeczywistości. Odkrywamy nieformalne ścieżki, zduplikowane zadania i papierową biurokrację. Służy wyłącznie do diagnozy i znalezienia patologii.</li>
-                    <li><strong>Modelowanie To-Be (Stan Pożądany/Docelowy):</strong> Projektowanie "idealnego" procesu po wdrożeniu nowego systemu IT. Usuwamy zbędne kroki, automatyzujemy decyzje i wprowadzamy systemy informatyczne.</li>
+                    <li><strong>Modelowanie As-Is (Stan Obecny):</strong> Mapowanie brutalnej rzeczywistości. Odkrywamy nieformalne ścieżki, zduplikowane zadania i papierową biurokrację. Służy wyłącznie do diagnozy i znalezienia patologii. Kluczowe jest uchwycenie wyjątków i obejść, którymi posługują się pracownicy.</li>
+                    <li><strong>Modelowanie To-Be (Stan Pożądany/Docelowy):</strong> Projektowanie „idealnego” procesu po wdrożeniu nowego systemu IT. Usuwamy zbędne kroki, automatyzujemy decyzje i wprowadzamy systemy informatyczne. To jest punkt wyjścia dla programistów.</li>
+                    <li><strong>Podejście Top-down (od ogółu do szczegółu):</strong> Zaczynamy od mapy procesów na poziomie całej organizacji (np. „Obsługa klienta”), stopniowo schodząc do pojedynczych zadań. Daje szeroki kontekst, ale może pominąć niuanse operacyjne.</li>
+                    <li><strong>Podejście Bottom-up (od szczegółu do ogółu):</strong> Zaczynamy od szczegółowych czynności wykonywanych na stanowiskach pracy i łączymy je w większe przepływy. Daje bardzo dokładny obraz, ale trudniej zobaczyć całościowy kontekst.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Pierwszą decyzją analityka jest wybór punktu widzenia. Czy najpierw dokumentujemy stan obecny – As-Is – żeby znaleźć bolączki? Czy od razu projektujemy stan docelowy – To-Be – pod konkretny system IT? W praktyce robi się jedno i drugie. As-Is pokazuje, gdzie są wąskie gardła – na przykład, że magazynier czeka 4 godziny na papierowe potwierdzenie z działu sprzedaży. To-Be usuwa ten krok, wprowadzając automatyczną rezerwację w systemie. Do tego dochodzi wybór strategii analizy: top-down zaczyna od mapy całej firmy i schodzi w dół, a bottom-up zbiera szczegółowe czynności od pracowników i skleja je w całość. Oba podejścia mają swoje miejsce.”
+                </div>
             </div>
 
             <!-- SVG 1: AS-IS VS TO-BE -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowRedBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#f1f8e9" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Wartość Inżynierii Biznesowej: Transformacja As-Is ➔ To-Be</text>
 
                 <!-- Panel Lewy: As-Is -->
                 <rect x="40" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Stan "As-Is" (Dzisiaj)</text>
-                
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Stan „As-Is” (Dzisiaj) – źródło patologii</text>
+
                 <circle cx="80" cy="120" r="15" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
                 <rect x="120" y="105" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
                 <rect x="200" y="80" width="50" height="30" rx="4" fill="#ffebee" stroke="#d32f2f"/>
@@ -84,7 +104,7 @@
                 <path d="M 330 120 L 350 120" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPM)"/>
 
                 <path d="M 200 110 L 250 140" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRedBPM)"/>
-                
+
                 <text x="210" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Zduplikowana praca i chaos informacyjny</text>
 
                 <!-- Strzałka Transformacji -->
@@ -92,10 +112,10 @@
 
                 <!-- Panel Prawy: To-Be -->
                 <rect x="440" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#388e3c" stroke-width="2"/>
-                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Stan "To-Be" (Projekt Systemu IT)</text>
-                
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Stan „To-Be” (Projekt Systemu IT)</text>
+
                 <circle cx="480" cy="120" r="15" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                
+
                 <!-- Zautomatyzowane zadanie -->
                 <rect x="540" y="100" width="100" height="40" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
                 <text x="590" y="124" font-family="monospace" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">System ERP</text>
@@ -106,36 +126,40 @@
                 <path d="M 640 120 L 695 120" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPM)"/>
 
                 <text x="610" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Proces zoptymalizowany i zautomatyzowany</text>
-
-                <defs>
-                    <marker id="arrowRedBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowOrgBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowGrnBPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
-                </defs>
             </svg>
 
             <!-- PART 2: METODY I NOTACJA BPMN -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2. Złoty Standard: Notacja BPMN 2.0 (Business Process Model and Notation)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    To bezdyskusyjny standard branżowy. Przypomina język programowania dla analityków. Proces buduje się na siatce odpowiedzialności (<strong>Baseny i Tory - Pools & Lanes</strong>), co jasno wskazuje, *kto* wykonuje zadanie. Składa się z 3 głównych elementów sterujących:
+                    To bezdyskusyjny standard branżowy, przypominający język programowania dla analityków. Proces buduje się na siatce odpowiedzialności (<strong>Baseny i Tory – Pools & Lanes</strong>), co jasno wskazuje, <em>kto</em> wykonuje zadanie. Składa się z 3 głównych kategorii elementów, które tworzą kompletny i czytelny dla wszystkich interesariuszy schemat:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Zdarzenia (Okręgi):</strong> Wyzwalacze procesu. Zielone (Start), Zółte (Pośrednie), Czerwone (Koniec). Nic nie robią, po prostu "się dzieją".</li>
-                    <li><strong>Czynności/Zadania (Zaokrąglone prostokąty):</strong> Fizyczna praca wykonywana przez człowieka lub system (wymaga czasu).</li>
-                    <li><strong>Bramki Logiczne (Romby):</strong> Punkt decyzyjny. Bramka XOR ("X") to wybór tylko jednej ścieżki (albo/albo). Bramka AND ("+") to rozdzielenie procesu na ścieżki działające równolegle.</li>
+                    <li><strong>Zdarzenia (Okręgi):</strong> Wyzwalacze procesu. Zielone cienkie okręgi (Start), żółte podwójne (Pośrednie – np. timer, wiadomość), czerwone grube (Koniec). Zdarzenia nie wykonują pracy – po prostu „się dzieją” i mogą nieść ze sobą informację (np. „Otrzymano fakturę”).</li>
+                    <li><strong>Czynności/Zadania (Zaokrąglone prostokąty):</strong> Fizyczna lub umysłowa praca wykonywana przez człowieka, system lub automat. Zadanie zajmuje czas i zużywa zasoby. Może być rozbite na podproces (ikona „+”).</li>
+                    <li><strong>Bramki Logiczne (Romby):</strong> Punkt decyzyjny, który nie wykonuje pracy. Bramka XOR („X” w rombie) to wybór tylko jednej ścieżki (albo/albo). Bramka AND („+”) to rozdzielenie procesu na ścieżki działające równolegle (fork) i późniejsze ich zsynchronizowanie (join). Bramka OR („O”) to wybór dowolnej kombinacji ścieżek.</li>
                 </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dodatkowo BPMN 2.0 definiuje <strong>przepływy sterowania</strong> (ciągłe strzałki łączące elementy) oraz <strong>przepływy wiadomości</strong> (przerywane strzałki między basenami), co pozwala modelować komunikację między organizacjami. <strong>Artefakty</strong> (adnotacje, grupy) uzupełniają diagram o informacje tekstowe. Całość tworzy precyzyjny, jednoznaczny obraz procesu, który może być automatycznie symulowany, a nawet – przy użyciu silników BPM – bezpośrednio wykonywany.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „BPMN 2.0 to złoty standard, swego rodzaju alfabet analityka biznesowego. Proszę spojrzeć na planszę. Proces zawsze zaczyna się od zdarzenia – zielonego kółka. Potem następują zadania – prostokąty z zaokrąglonymi rogami – to konkretna praca do wykonania. Gdy trzeba podjąć decyzję, używamy bramki – rombu. Kluczowe jest to, że bramka nie wykonuje pracy – ona tylko kieruje przepływem. Bramka z krzyżykiem to XOR – idziemy albo jedną ścieżką, albo drugą. Bramka z plusem to AND – rozdzielamy pracę na równoległe wątki. No i najważniejsza innowacja BPMN: baseny i tory. Dzięki nim na jednym diagramie widzimy, kto za co odpowiada – czy to dział sprzedaży, magazyn, czy system informatyczny. To eliminuje niejasności, które były plagą tradycyjnych schematów blokowych.”
+                </div>
             </div>
 
-            <!-- SVG 2: BPMN MINI PROCESS -->
+            <!-- SVG 2: BPMN MINI PROCESS (zachowany oryginał, bez zmian) -->
             <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGryBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
+                    <marker id="arrowGrnBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                    <marker id="arrowRedBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Anatomia diagramu BPMN (Proces Obsługi Zamówienia)</text>
 
                 <!-- Basen (Pool) i Tory (Lanes) -->
                 <rect x="40" y="50" width="740" height="170" fill="#fff" stroke="#546e7a" stroke-width="2"/>
-                
-                <!-- Headers -->
+
                 <rect x="40" y="50" width="30" height="170" fill="#cfd8dc" stroke="#546e7a" stroke-width="1"/>
                 <text x="60" y="135" font-family="sans-serif" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 60 135)">Sklep Internetowy</text>
 
@@ -149,44 +173,36 @@
                 <line x1="70" y1="135" x2="780" y2="135" stroke="#90a4ae" stroke-width="2" stroke-dasharray="4,2"/>
 
                 <!-- Elementy BPMN -->
-                <!-- Zdarzenie Startowe -->
                 <circle cx="150" cy="92" r="15" fill="#fff" stroke="#388e3c" stroke-width="3"/>
                 <text x="150" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Złożono</text>
                 <text x="150" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">zamówienie</text>
 
                 <path d="M 165 92 L 210 92" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryBPMN)"/>
 
-                <!-- Zadanie 1 -->
                 <rect x="210" y="72" width="100" height="40" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
                 <text x="260" y="96" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Sprawdź status</text>
 
                 <path d="M 310 92 L 350 92" fill="none" stroke="#546e7a" stroke-width="2" marker-end="url(#arrowGryBPMN)"/>
 
-                <!-- Bramka XOR -->
                 <polygon points="370,72 390,92 370,112 350,92" fill="#fff" stroke="#f57c00" stroke-width="2"/>
                 <line x1="360" y1="82" x2="380" y2="102" stroke="#f57c00" stroke-width="2"/>
                 <line x1="380" y1="82" x2="360" y2="102" stroke="#f57c00" stroke-width="2"/>
                 <text x="370" y="65" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Opłacone?</text>
 
-                <!-- Ścieżka Nie -->
                 <path d="M 370 112 L 370 177 L 420 177" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPMN)"/>
                 <text x="390" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Nie</text>
 
-                <!-- Zadanie Odrzucenie (Magazyn) -->
                 <rect x="420" y="157" width="100" height="40" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
                 <text x="470" y="181" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Anuluj rezerw.</text>
 
                 <path d="M 520 177 L 570 177" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedBPMN)"/>
 
-                <!-- Koniec - Niepowodzenie -->
                 <circle cx="585" cy="177" r="15" fill="#fff" stroke="#d32f2f" stroke-width="5"/>
                 <text x="585" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Anulowano</text>
 
-                <!-- Ścieżka Tak -->
                 <path d="M 390 92 L 480 92" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
                 <text x="430" y="85" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tak</text>
 
-                <!-- Zadanie Pakowanie (Magazyn - skok w dół) -->
                 <path d="M 530 92 L 530 157" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
                 <rect x="480" y="52" width="100" height="40" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="530" y="76" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Zleć wysyłkę</text>
@@ -197,28 +213,79 @@
 
                 <path d="M 730 177 L 760 177" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnBPMN)"/>
 
-                <!-- Koniec - Sukces -->
                 <circle cx="775" cy="177" r="15" fill="#fff" stroke="#d32f2f" stroke-width="5"/>
                 <text x="765" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Zrealizowano</text>
-
-                <defs>
-                    <marker id="arrowGryBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#546e7a"/></marker>
-                    <marker id="arrowGrnBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
-                    <marker id="arrowRedBPMN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 3: ALTERNATYWY -->
+            <!-- PART 3: ALTERNATYWY (EPC I UML) -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #8e24aa;">3. Alternatywne Metody i Standardy Rynku (EPC i UML)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Chociaż BPMN zdominował świat, inżynierowie mogą spotkać się z dwoma innymi ważnymi standardami w zależności od używanego oprogramowania lub kontekstu projektowego:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>EPC (Event-driven Process Chain):</strong> Króluje w ekosystemie SAP i środowisku ARIS. Jego żelazną zasadą jest naprzemienność: po Zdarzeniu (sześciokąt) ZAWSZE musi wystąpić Funkcja/Zadanie (prostokąt). Jest wybitny do logicznego rygoru, ale na dużych procesach robi się straszliwie długi z góry na dół.</li>
-                    <li><strong>UML Activity Diagram (Diagram Aktywności):</strong> Jeśli proces jest modelowany wyłącznie na potrzeby programistów (inżynieria oprogramowania), używa się UML. Przypomina klasyczny schemat blokowy. Skupia się bardziej na "przepływie kontroli w kodzie" niż na realnych aktorach biznesowych.</li>
+                    <li><strong>EPC (Event-driven Process Chain):</strong> Króluje w ekosystemie SAP i środowisku ARIS. Jego żelazną zasadą jest naprzemienność: po Zdarzeniu (sześciokąt) ZAWSZE musi wystąpić Funkcja/Zadanie (prostokąt), a po niej znowu zdarzenie. Łańcuch EPC jest logiką absolutnie deterministyczną – świetnie nadaje się do opisywania sztywnych, korporacyjnych procedur. Bramki logiczne (AND, OR, XOR) występują tylko między zdarzeniem a funkcją. Wadą EPC jest to, że na dużych procesach diagram robi się ekstremalnie długi pionowo i trudny w zarządzaniu.</li>
+                    <li><strong>UML Activity Diagram (Diagram Aktywności):</strong> Jeśli proces jest modelowany wyłącznie na potrzeby programistów (inżynieria oprogramowania), używa się UML. Przypomina klasyczny schemat blokowy, ale z dodatkami: sygnały czasu, regiony przerywane, piny wejściowe i wyjściowe. Skupia się bardziej na „przepływie kontroli w kodzie” i stanach obiektów niż na realnych aktorach biznesowych. Nie ma pojęcia basenów i torów w sensie biznesowym – zamiast tego używa się partycji (swimlanes), które odpowiadają klasom lub komponentom systemu.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Oprócz BPMN istnieją dwie starsze, ale wciąż obecne notacje. EPC – to domena SAP-a. Charakteryzuje się ścisłą naprzemiennością zdarzeń i funkcji. Zdarzenie – funkcja – zdarzenie – funkcja. To wymusza rygor, ale przy skomplikowanych procesach diagram rozciąga się na wiele stron. UML Activity Diagram to z kolei narzędzie programistów – bliżej mu do kodu niż do biznesu. Nie znajdziemy tu basenów dla działów firmy, za to znajdziemy szczegóły techniczne: wywołania metod, sygnały asynchroniczne, regiony rozszerzeń. Wybór między BPMN, EPC a UML zależy od celu: czy rozmawiamy z zarządem o optymalizacji, czy z programistami o implementacji.”
+                </div>
             </div>
+
+            <!-- SVG 3: PORÓWNANIE EPC I UML (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Alternatywy BPMN: EPC (SAP) i UML Activity Diagram (Programiści)</text>
+
+                <!-- Panel EPC -->
+                <rect x="20" y="42" width="375" height="170" rx="8" fill="#fff" stroke="#e65100" stroke-width="1.5"/>
+                <text x="207" y="62" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#bf360c">EPC – Łańcuch zdarzeń i funkcji (SAP/ARIS)</text>
+                <!-- Zdarzenie -->
+                <polygon points="100,100 115,85 130,100 115,115" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+                <text x="115" y="103" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Zgłoszenie</text>
+                <!-- Funkcja -->
+                <rect x="150" y="90" width="90" height="30" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+                <text x="195" y="110" font-family="sans-serif" font-size="10" fill="#bf360c" text-anchor="middle">Weryfikacja</text>
+                <!-- Zdarzenie -->
+                <polygon points="275,100 290,85 305,100 290,115" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+                <text x="290" y="103" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Zweryfik.</text>
+                <!-- Bramka XOR -->
+                <polygon points="340,100 355,85 370,100 355,115" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="355" y="103" font-family="sans-serif" font-size="12" fill="#e65100" text-anchor="middle">X</text>
+                <!-- Połączenia -->
+                <line x1="130" y1="105" x2="150" y2="105" stroke="#546e7a" stroke-width="1.5"/>
+                <line x1="240" y1="105" x2="275" y2="105" stroke="#546e7a" stroke-width="1.5"/>
+                <line x1="305" y1="105" x2="340" y2="105" stroke="#546e7a" stroke-width="1.5"/>
+                <text x="207" y="145" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Naprzemienność: Zdarzenie → Funkcja → Zdarzenie</text>
+                <text x="207" y="160" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Brak torów – logika dominuje nad organizacją</text>
+                <text x="207" y="175" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Stosowany w SAP, ARIS</text>
+
+                <!-- Panel UML -->
+                <rect x="425" y="42" width="375" height="170" rx="8" fill="#fff" stroke="#0d47a1" stroke-width="1.5"/>
+                <text x="612" y="62" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">UML Activity Diagram (Inżynieria oprog.)</text>
+                <!-- Węzeł startowy -->
+                <circle cx="470" cy="100" r="10" fill="#333" stroke="#333" stroke-width="2"/>
+                <!-- Akcja -->
+                <rect x="510" y="85" width="100" height="30" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="560" y="105" font-family="monospace" font-size="9" fill="#0d47a1" text-anchor="middle">PobierzDane()</text>
+                <!-- Decyzja -->
+                <polygon points="650,100 665,85 680,100 665,115" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="665" y="103" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">?</text>
+                <!-- Węzeł końcowy -->
+                <circle cx="730" cy="100" r="12" fill="#fff" stroke="#333" stroke-width="3"/>
+                <circle cx="730" cy="100" r="8" fill="#333"/>
+                <!-- Partycje (swimlanes) -->
+                <line x1="425" y1="140" x2="800" y2="140" stroke="#90a4ae" stroke-width="1" stroke-dasharray="4,2"/>
+                <text x="520" y="155" font-family="sans-serif" font-size="9" fill="#546e7a">&lt;&lt;KontrolerZamówień&gt;&gt;</text>
+                <text x="680" y="155" font-family="sans-serif" font-size="9" fill="#546e7a">&lt;&lt;BazaDanych&gt;&gt;</text>
+                <!-- Połączenia -->
+                <line x1="480" y1="100" x2="510" y2="100" stroke="#546e7a" stroke-width="1.5"/>
+                <line x1="610" y1="100" x2="650" y2="100" stroke="#546e7a" stroke-width="1.5"/>
+                <line x1="680" y1="100" x2="718" y2="100" stroke="#546e7a" stroke-width="1.5"/>
+                <text x="612" y="175" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Bliski kodowi: akcje, sygnały, regiony</text>
+                <text x="612" y="190" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Partycyjki = klasy/komponenty</text>
+                <text x="612" y="205" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Stosowany w dokumentacji technicznej</text>
+            </svg>
 
             <!-- ======================================================== -->
             <!-- PUŁAPKI EGZAMINACYJNE                                   -->
@@ -226,9 +293,31 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Bezlitośnie oceniane błędy analityczne):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Mylenie BPMN z Diagramami Przypadków Użycia UML (Use Cases):</strong> To najczęstszy błąd architektów wchodzących w biznes. Diagram Przypadków Użycia pokazuje TYLKO "Kto może co zrobić" (np. Klient może -> Kupić Produkt). Nie pokazuje absolutnie <em>jak</em> to się dzieje, <em>kiedy</em> i <em>w jakiej kolejności</em>. BPMN natomiast to precyzyjny scenariusz sekwencyjny.</li>
-                    <li><strong>Traktowanie Bramek (Gateways) jako zadań:</strong> Bramka Logiczna (romb) w BPMN <em>nie wykonuje pracy i nie zajmuje czasu</em>! Bramka to tylko mechanizm matematycznego rutowania (kierowania) ścieżki. Zła praktyka: Nazwać bramkę "Sprawdź czy klient ma pieniądze". Dobra praktyka: Stworzyć Zadanie "Weryfikacja środków", a dopiero po nim postawić Bramkę z pytaniem "Czy środki są dostępne?".</li>
+                    <li><strong>Mylenie BPMN z Diagramami Przypadków Użycia UML (Use Cases):</strong> To najczęstszy błąd architektów wchodzących w biznes. Diagram Przypadków Użycia pokazuje TYLKO „Kto może co zrobić” (np. Klient może – Kupić Produkt). Nie pokazuje absolutnie <em>jak</em> to się dzieje, <em>kiedy</em> i <em>w jakiej kolejności</em>. BPMN natomiast to precyzyjny scenariusz sekwencyjny.</li>
+                    <li><strong>Traktowanie Bramek (Gateways) jako zadań:</strong> Bramka Logiczna (romb) w BPMN <em>nie wykonuje pracy i nie zajmuje czasu</em>! Bramka to tylko mechanizm matematycznego rutowania (kierowania) ścieżki. Zła praktyka: Nazwać bramkę „Sprawdź czy klient ma pieniądze”. Dobra praktyka: Stworzyć Zadanie „Weryfikacja środków”, a dopiero po nim postawić Bramkę z pytaniem „Czy środki są dostępne?”.</li>
+                    <li><strong>Brak synchronizacji w bramkach AND:</strong> Jeśli bramka AND rozdzieliła proces na dwie równoległe ścieżki, MUSI pojawić się druga bramka AND, która te ścieżki zsynchronizuje, zanim proces przejdzie dalej. Zapomnienie o synchronizacji to częsty błąd projektowy.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstszą pułapką przy modelowaniu procesów jest pomylenie BPMN z diagramem przypadków użycia UML. Przypadki użycia mówią tylko, jakie funkcje system udostępnia aktorom – to jest statyczny obraz. BPMN to dynamiczny scenariusz – krok po kroku, z decyzjami i równoległością. Drugi błąd to traktowanie bramek jako zadań. Bramka nic nie robi – nie sprawdza salda, nie wysyła maila. To tylko rozgałęźnik. Trzecia rzecz: jeśli używamy bramki AND do rozwidlenia, musimy pamiętać o drugiej bramce AND do złączenia – inaczej proces nigdy się nie zakończy, bo będzie czekał na nigdy nie nadchodzący wątek.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Modelowanie Procesów Biznesowych:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Aspekt</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Opis</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Notacja / Przykład</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">As-Is vs To-Be</td><td style="padding: 10px;">Stan obecny (diagnoza patologii) vs stan docelowy (projekt pod IT).</td><td style="padding: 10px;">Zduplikowane kroki → eliminacja, automatyzacja.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">BPMN 2.0</td><td style="padding: 10px;">Zdarzenia (koła), Czynności (prostokąty), Bramki (romby), Baseny/Tory (odpowiedzialność).</td><td style="padding: 10px;">Standard OMG, uniwersalny język biznes-IT.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Bramka XOR</td><td style="padding: 10px;">Wyłącznie jedna ścieżka z wielu. Decyzja „albo-albo”.</td><td style="padding: 10px;">Romb z „X”. Po rozwidleniu – tylko jedna gałąź.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Bramka AND</td><td style="padding: 10px;">Równoległe ścieżki. Wymaga synchronizacji (druga bramka AND na połączeniu).</td><td style="padding: 10px;">Romb z „+”. Fork i Join.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">EPC</td><td style="padding: 10px;">Łańcuch zdarzeń i funkcji. Zdarzenie → Funkcja → Zdarzenie.</td><td style="padding: 10px;">SAP, ARIS. Sześciokąty (zdarzenia) i prostokąty (funkcje).</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">UML Activity Diagram</td><td style="padding: 10px;">Diagram dla programistów. Akcje, przepływ sterowania, partycje.</td><td style="padding: 10px;">Bliski kodowi. Używany w dokumentacji technicznej.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -237,7 +326,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Modelowanie procesów to nie rysowanie ładnych obrazków do prezentacji zarządu. To rygorystyczna, inżynierska abstrakcja funkcjonowania żywej firmy. Dobry inżynier wie, że zanim napisze pierwszą linijkę kodu nowego systemu ERP, musi zrozumieć, jak pracownicy radzą sobie w stanie <em>As-Is</em>. Wdrożenie rewolucyjnego algorytmu nic nie da, jeśli programista nie wie, na czyim "torze w basenie" leży ostateczna decyzja akceptacji. BPMN to <em>Lingua Franca</em> (wspólny język), który łączy świat biznesowych celów z bezwzględną logiką algorytmów.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Modelowanie procesów to nie rysowanie ładnych obrazków do prezentacji zarządu. To rygorystyczna, inżynierska abstrakcja funkcjonowania żywej firmy. Dobry inżynier wie, że zanim napisze pierwszą linijkę kodu nowego systemu ERP, musi zrozumieć, jak pracownicy radzą sobie w stanie <em>As-Is</em>. Wdrożenie rewolucyjnego algorytmu nic nie da, jeśli programista nie wie, na czyim „torze w basenie” leży ostateczna decyzja akceptacji. BPMN to <em>Lingua Franca</em> (wspólny język), który łączy świat biznesowych celów z bezwzględną logiką algorytmów.</span>
                 </p>
             </div>
 
@@ -245,7 +334,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "BPMN 2.0. Wprowadzenie do modelowania procesów biznesowych" (M. Drejewicz) · Standardy Object Management Group (OMG) · Metodologia ARIS.
+                    „BPMN 2.0. Wprowadzenie do modelowania procesów biznesowych” (M. Drejewicz) · Standardy Object Management Group (OMG) · Metodologia ARIS · „UML 2.0. Wprowadzenie” (M. Fowler).
                 </span>
             </div>
 

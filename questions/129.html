@@ -13,10 +13,7 @@
     <div class="question-box">
         <h2 id="q-title">129. Drzewa decyzyjne.</h2>
 
-        <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
-        <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 6px solid #2e7d32; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(46,125,50,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🌳</span>
                 <div>
@@ -45,183 +42,176 @@
 
         <div id="q-content" class="answer-section">
 
-            <!-- ======================================================== -->
-            <!-- PART 1: ANATOMIA DRZEWA DECYZYJNEGO                    -->
-            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #2e7d32;">1. Anatomia drzewa decyzyjnego – „Pytania, gałęzie i odpowiedzi”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Drzewo decyzyjne to struktura hierarchiczna. <strong>Węzeł korzenia</strong> zawiera wszystkie dane. Każdy <strong>węzeł wewnętrzny</strong> zadaje jedno pytanie (test na atrybucie), np. „czy temperatura > 20°C?”. <strong>Gałęzie</strong> reprezentują odpowiedzi (tak/nie). <strong>Liście</strong> zawierają ostateczną decyzję (klasę lub wartość liczbową). Celem jest zbudowanie możliwie najpłytszego drzewa, które idealnie separuje dane.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, drzewo decyzyjne to hierarchia pytań. Zaczynamy od korzenia – pierwszego, najlepszego pytania. W zależności od odpowiedzi idziemy w lewo lub w prawo do kolejnego węzła. Na końcu każdej ścieżki jest liść – ostateczna decyzja. To proste, intuicyjne i całkowicie interpretowalne – możemy narysować drzewo na kartce i wytłumaczyć każdą decyzję. Proszę spojrzeć na planszę – klasyczny przykład: czy grać w tenisa w zależności od pogody.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+            <svg viewBox="0 0 820 330" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs><pattern id="gridTree" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8ecf1" stroke-width="0.6"/></pattern></defs>
-                <rect x="0" y="0" width="820" height="300" fill="url(#gridTree)" opacity="0.5"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#1b5e20">Anatomia drzewa decyzyjnego – od pytań do decyzji</text>
+                <rect x="0" y="0" width="820" height="330" fill="url(#gridTree)" opacity="0.5"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#1b5e20">Anatomia drzewa decyzyjnego – od pytań do decyzji</text>
 
-                <!-- Korzeń -->
-                <rect x="310" y="50" width="200" height="45" rx="8" fill="#ffcc80" stroke="#ef6c00" stroke-width="3"/>
-                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Pogoda = ? (Korzeń)</text>
+                <rect x="285" y="52" width="250" height="52" rx="10" fill="#ffcc80" stroke="#ef6c00" stroke-width="3.5"/>
+                <text x="410" y="84" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100">Pogoda = ? (Korzeń)</text>
 
-                <!-- Gałęzie -->
-                <line x1="360" y1="95" x2="200" y2="145" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
-                <text x="280" y="125" font-size="9" fill="#e65100">Słonecznie</text>
-                <line x1="460" y1="95" x2="620" y2="145" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
-                <text x="540" y="125" font-size="9" fill="#e65100">Deszczowo</text>
+                <line x1="350" y1="104" x2="185" y2="160" stroke="#ef6c00" stroke-width="2.5" marker-end="url(#arrTree1)"/>
+                <text x="265" y="135" font-family="sans-serif" font-size="11" fill="#e65100">Słonecznie</text>
+                <line x1="470" y1="104" x2="635" y2="160" stroke="#ef6c00" stroke-width="2.5" marker-end="url(#arrTree1)"/>
+                <text x="555" y="135" font-family="sans-serif" font-size="11" fill="#e65100">Deszczowo</text>
 
-                <!-- Węzeł lewy -->
-                <rect x="100" y="150" width="200" height="45" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
-                <text x="200" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Wilgotność ≤ 70%?</text>
-                <line x1="200" y1="195" x2="120" y2="240" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrTree1)"/>
-                <text x="160" y="225" font-size="8" fill="#e65100">Tak</text>
-                <line x1="200" y1="195" x2="280" y2="240" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrTree1)"/>
-                <text x="240" y="225" font-size="8" fill="#e65100">Nie</text>
+                <rect x="80" y="165" width="220" height="52" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5"/>
+                <text x="190" y="197" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">Wilgotność ≤ 70%?</text>
+                <line x1="190" y1="217" x2="105" y2="268" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
+                <text x="148" y="248" font-family="sans-serif" font-size="10" fill="#e65100">Tak</text>
+                <line x1="190" y1="217" x2="275" y2="268" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
+                <text x="235" y="248" font-family="sans-serif" font-size="10" fill="#e65100">Nie</text>
 
-                <!-- Liście -->
-                <rect x="50" y="245" width="100" height="35" rx="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="100" y="267" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20">Gram w tenisa</text>
-                <rect x="250" y="245" width="100" height="35" rx="15" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="300" y="267" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c">Zostaję w domu</text>
+                <rect x="35" y="275" width="110" height="42" rx="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="90" y="301" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Gram w tenisa</text>
+                <rect x="245" y="275" width="110" height="42" rx="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="300" y="301" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Zostaję w domu</text>
 
-                <!-- Węzeł prawy -->
-                <rect x="520" y="150" width="200" height="45" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
-                <text x="620" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e65100">Wiatr = Słaby?</text>
-                <line x1="620" y1="195" x2="560" y2="240" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrTree1)"/>
-                <line x1="620" y1="195" x2="680" y2="240" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrTree1)"/>
+                <rect x="530" y="165" width="220" height="52" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5"/>
+                <text x="640" y="197" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#e65100">Wiatr = Słaby?</text>
+                <line x1="640" y1="217" x2="575" y2="268" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
+                <line x1="640" y1="217" x2="705" y2="268" stroke="#ef6c00" stroke-width="2" marker-end="url(#arrTree1)"/>
 
-                <rect x="510" y="245" width="100" height="35" rx="15" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="560" y="267" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20">Gram w tenisa</text>
-                <rect x="630" y="245" width="100" height="35" rx="15" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
-                <text x="680" y="267" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c">Zostaję w domu</text>
-                <defs><marker id="arrTree1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef6c00"/></marker></defs>
+                <rect x="505" y="275" width="110" height="42" rx="20" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="560" y="301" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Gram w tenisa</text>
+                <rect x="675" y="275" width="110" height="42" rx="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2.5"/>
+                <text x="730" y="301" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Zostaję w domu</text>
+                <defs><marker id="arrTree1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ef6c00"/></marker></defs>
             </svg>
 
-            <!-- ======================================================== -->
-            <!-- PART 2: ENTROPIA I ZYSK INFORMACYJNY                  -->
-            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">2. Entropia i zysk informacyjny – „Mierzenie chaosu przed i po pytaniu”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Skąd komputer wie, które pytanie jest najlepsze? Używa matematyki. <strong>Entropia</strong> mierzy nieuporządkowanie zbioru. Worek z 50 jabłkami i 50 pomarańczami ma wysoką entropię (chaos). Worek z samymi jabłkami ma entropię równą 0 (idealny porządek). <strong>Zysk informacyjny (Information Gain)</strong> oblicza, o ile spadła entropia po zadaniu konkretnego pytania. Algorytm wybiera to pytanie, które daje największy spadek entropii – czyli najszybciej porządkuje dane.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Entropia to miara chaosu. Im bardziej wymieszane klasy w zbiorze, tym wyższa entropia. Gdy zbiór jest czysty – same jabłka albo same pomarańcze – entropia spada do zera. Algorytm wybiera pytanie, które daje największy zysk informacyjny – czyli największy spadek entropii. To matematyczne kryterium wyboru najlepszego podziału. Proszę spojrzeć na planszę – porównanie worka z chaosem i worka uporządkowanego.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="url(#gridTree)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">Entropia i Zysk Informacyjny – sortowanie chaosu</text>
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="260" fill="url(#gridTree)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#0d47a1">Entropia i Zysk Informacyjny – sortowanie chaosu</text>
 
-                <rect x="40" y="50" width="200" height="150" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="140" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Wysoka entropia (Chaos)</text>
-                <g transform="translate(60, 95)">
-                    <circle cx="20" cy="20" r="8" fill="#e53935"/><circle cx="50" cy="20" r="8" fill="#43a047"/>
-                    <circle cx="80" cy="20" r="8" fill="#e53935"/><circle cx="20" cy="50" r="8" fill="#43a047"/>
-                    <circle cx="50" cy="50" r="8" fill="#e53935"/><circle cx="80" cy="50" r="8" fill="#43a047"/>
+                <rect x="35" y="55" width="225" height="170" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="147" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Wysoka entropia (Chaos)</text>
+                <g transform="translate(60, 105)">
+                    <circle cx="22" cy="22" r="10" fill="#e53935"/><circle cx="60" cy="22" r="10" fill="#43a047"/>
+                    <circle cx="98" cy="22" r="10" fill="#e53935"/><circle cx="22" cy="60" r="10" fill="#43a047"/>
+                    <circle cx="60" cy="60" r="10" fill="#e53935"/><circle cx="98" cy="60" r="10" fill="#43a047"/>
                 </g>
-                <text x="140" y="170" font-size="10" fill="#b71c1c">50% 🍎, 50% 🍊</text>
+                <text x="147" y="195" font-family="sans-serif" font-size="12" fill="#b71c1c">50% 🍎, 50% 🍊</text>
 
-                <text x="270" y="130" font-family="sans-serif" font-size="20" fill="#e65100">→</text>
+                <text x="280" y="145" font-family="sans-serif" font-size="24" fill="#e65100">→</text>
 
-                <rect x="310" y="50" width="200" height="150" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Niska entropia (Porządek)</text>
-                <g transform="translate(340, 95)">
-                    <circle cx="20" cy="20" r="8" fill="#e53935"/><circle cx="50" cy="20" r="8" fill="#e53935"/>
-                    <circle cx="80" cy="20" r="8" fill="#e53935"/><circle cx="20" cy="50" r="8" fill="#e53935"/>
-                    <circle cx="50" cy="50" r="8" fill="#e53935"/><circle cx="80" cy="50" r="8" fill="#e53935"/>
+                <rect x="325" y="55" width="225" height="170" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="437" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Niska entropia (Porządek)</text>
+                <g transform="translate(355, 105)">
+                    <circle cx="22" cy="22" r="10" fill="#e53935"/><circle cx="60" cy="22" r="10" fill="#e53935"/>
+                    <circle cx="98" cy="22" r="10" fill="#e53935"/><circle cx="22" cy="60" r="10" fill="#e53935"/>
+                    <circle cx="60" cy="60" r="10" fill="#e53935"/><circle cx="98" cy="60" r="10" fill="#e53935"/>
                 </g>
-                <text x="410" y="170" font-size="10" fill="#1b5e20">100% 🍎, 0% 🍊</text>
+                <text x="437" y="195" font-family="sans-serif" font-size="12" fill="#1b5e20">100% 🍎, 0% 🍊</text>
 
-                <rect x="560" y="60" width="230" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
-                <text x="675" y="85" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1">Zysk Informacyjny</text>
-                <text x="675" y="115" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">IG = H(rodzic) −</text>
-                <text x="675" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#1565c0">Σ p(dziecko)·H(dziecko)</text>
+                <rect x="580" y="70" width="210" height="130" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2.5"/>
+                <text x="685" y="98" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0d47a1">Zysk Informacyjny</text>
+                <text x="685" y="130" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">IG = H(rodzic) −</text>
+                <text x="685" y="155" text-anchor="middle" font-family="monospace" font-size="12" fill="#1565c0">Σ p(dziecko)·H(dziecko)</text>
             </svg>
 
-            <!-- ======================================================== -->
-            <!-- PART 3: GINI IMPURITY – ALTERNATYWA DLA ENTROPII       -->
-            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #e65100;">3. Indeks Giniego (Gini Impurity) – „Prostsza miara nieczystości”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Algorytm <strong>CART (Classification and Regression Trees)</strong> zamiast entropii używa <strong>indeksu Giniego</strong>. Mierzy on, jak często losowo wybrany element zostałby błędnie sklasyfikowany, gdyby przypisać mu etykietę zgodnie z rozkładem klas w węźle. Gini = 0 oznacza idealną czystość. Gini jest szybszy obliczeniowo (brak logarytmów) i daje podobne wyniki co entropia.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Indeks Giniego to alternatywa dla entropii, używana w algorytmie CART. Zamiast logarytmów używa sumy kwadratów prawdopodobieństw – przez co jest szybszy obliczeniowo. Gini równe zero to czysty węzeł, Gini równe 0.5 to maksymalny chaos przy dwóch klasach. W praktyce obie miary dają bardzo podobne drzewa. Proszę spojrzeć na planszę – porównanie wzorów na entropię i Gini.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="200" fill="url(#gridTree)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">Indeks Giniego vs Entropia</text>
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="url(#gridTree)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#e65100">Indeks Giniego vs Entropia</text>
 
-                <rect x="30" y="50" width="360" height="120" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
-                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100">Entropia (ID3, C4.5)</text>
-                <text x="210" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#bf360c">H = −Σ p(x)·log₂(p(x))</text>
-                <text x="210" y="135" text-anchor="middle" font-size="10" fill="#546e7a">Wymaga logarytmów, nieco wolniejsza.</text>
+                <rect x="30" y="55" width="365" height="135" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2.5"/>
+                <text x="212" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100">Entropia (ID3, C4.5)</text>
+                <text x="212" y="120" text-anchor="middle" font-family="monospace" font-size="13" fill="#bf360c">H = −Σ p(x)·log₂(p(x))</text>
+                <text x="212" y="152" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Wymaga logarytmów, nieco wolniejsza.</text>
 
-                <rect x="430" y="50" width="360" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
-                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Gini Impurity (CART)</text>
-                <text x="610" y="108" text-anchor="middle" font-family="monospace" font-size="11" fill="#2e7d32">G = 1 − Σ p(x)²</text>
-                <text x="610" y="135" text-anchor="middle" font-size="10" fill="#546e7a">Bez logarytmów, szybsza, preferuje czystsze podziały.</text>
+                <rect x="425" y="55" width="365" height="135" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="607" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Gini Impurity (CART)</text>
+                <text x="607" y="120" text-anchor="middle" font-family="monospace" font-size="13" fill="#2e7d32">G = 1 − Σ p(x)²</text>
+                <text x="607" y="152" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Bez logarytmów, szybsza, preferuje czystsze podziały.</text>
             </svg>
 
-            <!-- ======================================================== -->
-            <!-- PART 4: PRZEUCZENIE I PRZYCINANIE (PRUNING)           -->
-            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">4. Przeuczenie i przycinanie – „Kiedy drzewo widzi za dużo”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Jeśli pozwolimy drzewu rosnąć bez ograniczeń, nauczy się ono danych treningowych na pamięć – łącznie z ich błędami i szumem. To <strong>przeuczenie (overfitting)</strong>. Takie drzewo idealnie działa na danych, na których się uczyło, ale kompletnie zawodzi na nowych. <strong>Przycinanie (pruning)</strong> to technika usuwania zbędnych gałęzi. Pre-pruning zatrzymuje wzrost drzewa wcześniej (np. minimalna liczba próbek w liściu), post-pruning najpierw buduje pełne drzewo, a potem odcina najsłabsze gałęzie.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przeuczenie to największe ryzyko. Drzewo bez ograniczeń uczy się szumu – ma idealną dokładność na treningu, ale na nowych danych zawodzi. Walczymy z tym przez przycinanie. Pre-pruning – ograniczamy głębokość drzewa z góry. Post-pruning – budujemy pełne drzewo, a potem odcinamy najsłabsze gałęzie według kryterium kosztu i złożoności. Proszę spojrzeć na planszę – porównanie drzewa przeuczonego i przyciętego.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridTree)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#b71c1c">Przeuczenie (Overfitting) vs Przycinanie (Pruning)</text>
+            <svg viewBox="0 0 820 270" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="270" fill="url(#gridTree)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#b71c1c">Przeuczenie (Overfitting) vs Przycinanie (Pruning)</text>
 
-                <rect x="40" y="50" width="340" height="180" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
-                <text x="210" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c">Drzewo przeuczone (bez przycinania)</text>
-                <path d="M 100 200 Q 120 100 160 130 T 220 100 T 280 150" fill="none" stroke="#c62828" stroke-width="4"/>
-                <text x="210" y="180" font-size="10" fill="#b71c1c">Dopasowuje się do każdego szumu.</text>
-                <text x="210" y="195" font-size="10" fill="#b71c1c">Świetne na treningu, słabe na nowych danych.</text>
+                <rect x="35" y="55" width="360" height="190" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2.5"/>
+                <text x="215" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">Drzewo przeuczone (bez przycinania)</text>
+                <path d="M 95 210 Q 115 100 165 135 T 225 100 T 285 160" fill="none" stroke="#c62828" stroke-width="4.5"/>
+                <text x="215" y="195" font-family="sans-serif" font-size="12" fill="#b71c1c">Dopasowuje się do każdego szumu.</text>
+                <text x="215" y="215" font-family="sans-serif" font-size="12" fill="#b71c1c">Świetne na treningu, słabe na nowych danych.</text>
 
-                <rect x="440" y="50" width="340" height="180" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="610" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20">Drzewo przycięte (z pruningiem)</text>
-                <path d="M 500 200 Q 530 140 600 100 T 660 140 T 700 180" fill="none" stroke="#2e7d32" stroke-width="4"/>
-                <text x="610" y="180" font-size="10" fill="#1b5e20">Gładsze, ogólniejsze reguły.</text>
-                <text x="610" y="195" font-size="10" fill="#1b5e20">Lepiej generalizuje na nowych danych.</text>
+                <rect x="425" y="55" width="360" height="190" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+                <text x="605" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">Drzewo przycięte (z pruningiem)</text>
+                <path d="M 495 210 Q 525 140 605 100 T 675 140 T 715 185" fill="none" stroke="#2e7d32" stroke-width="4.5"/>
+                <text x="605" y="195" font-family="sans-serif" font-size="12" fill="#1b5e20">Gładsze, ogólniejsze reguły.</text>
+                <text x="605" y="215" font-family="sans-serif" font-size="12" fill="#1b5e20">Lepiej generalizuje na nowych danych.</text>
             </svg>
 
-            <!-- ======================================================== -->
-            <!-- PART 5: LASY LOSOWE I BOOSTING – „MĄDROŚĆ TŁUMU”     -->
-            <!-- ======================================================== -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #6a1b9a;">5. Lasy losowe i Boosting – „Sto drzew widzi więcej niż jedno”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Pojedyncze drzewo jest niestabilne – mała zmiana danych może całkowicie zmienić jego strukturę. <strong>Las losowy (Random Forest)</strong> buduje setki drzew na losowych podzbiorach danych i uśrednia ich wyniki (głosowanie). <strong>XGBoost / Gradient Boosting</strong> buduje drzewa sekwencyjnie – każde kolejne drzewo uczy się na błędach poprzedniego. To najpotężniejsze algorytmy współczesnego uczenia maszynowego, wygrywające konkursy Kaggle.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Pojedyncze drzewo jest słabe i niestabilne. Dlatego łączymy je w zespoły. Las losowy buduje setki drzew na losowych fragmentach danych i bierze średnią – to redukuje wariancję. Gradient Boosting, czyli XGBoost, buduje drzewa po kolei – każde następne uczy się na błędach poprzedniego – to redukuje obciążenie. Te metody zespołowe to dziś absolutna czołówka uczenia maszynowego. Proszę spojrzeć na planszę – porównanie lasu losowego i boostingu.”
+                </div>
             </div>
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="url(#gridTree)" opacity="0.3"/>
-                <text x="410" y="28" font-family="sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#4a148c">Metody zespołowe: Las losowy i Boosting</text>
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="url(#gridTree)" opacity="0.3"/>
+                <text x="410" y="28" font-family="sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#4a148c">Metody zespołowe: Las losowy i Boosting</text>
 
-                <rect x="40" y="50" width="280" height="180" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
-                <text x="180" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c">Random Forest (Bagging)</text>
-                <g transform="translate(60, 100)">
-                    <circle cx="20" cy="20" r="15" fill="#e1bee7" stroke="#8e24aa"/><text x="20" y="24" font-size="7" text-anchor="middle">T1</text>
-                    <circle cx="70" cy="20" r="15" fill="#e1bee7" stroke="#8e24aa"/><text x="70" y="24" font-size="7" text-anchor="middle">T2</text>
-                    <circle cx="120" cy="20" r="15" fill="#e1bee7" stroke="#8e24aa"/><text x="120" y="24" font-size="7" text-anchor="middle">T3</text>
-                    <text x="70" y="60" font-size="10" fill="#4a148c" text-anchor="middle">Wynik = głosowanie</text>
+                <rect x="30" y="55" width="290" height="195" rx="10" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2.5"/>
+                <text x="175" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c">Random Forest (Bagging)</text>
+                <g transform="translate(50, 112)">
+                    <circle cx="25" cy="25" r="20" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/><text x="25" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T1</text>
+                    <circle cx="85" cy="25" r="20" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/><text x="85" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T2</text>
+                    <circle cx="145" cy="25" r="20" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/><text x="145" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T3</text>
+                    <text x="85" y="72" font-family="sans-serif" font-size="12" fill="#4a148c" text-anchor="middle">Wynik = głosowanie</text>
                 </g>
-                <rect x="340" y="50" width="440" height="180" rx="8" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
-                <text x="560" y="78" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1a237e">Gradient Boosting (XGBoost, LightGBM)</text>
-                <g transform="translate(360, 100)">
-                    <circle cx="20" cy="20" r="15" fill="#c5cae9" stroke="#3949ab"/><text x="20" y="24" font-size="7" text-anchor="middle">T1</text>
-                    <text x="45" y="25" font-size="14">→</text>
-                    <circle cx="80" cy="20" r="15" fill="#9fa8da" stroke="#3949ab"/><text x="80" y="24" font-size="7" text-anchor="middle">T2</text>
-                    <text x="105" y="25" font-size="14">→</text>
-                    <circle cx="140" cy="20" r="15" fill="#7986cb" stroke="#3949ab"/><text x="140" y="24" font-size="7" text-anchor="middle">T3</text>
-                    <text x="70" y="60" font-size="10" fill="#1a237e" text-anchor="middle">Każde drzewo uczy się na błędach poprzednika.</text>
+
+                <rect x="340" y="55" width="450" height="195" rx="10" fill="#e8eaf6" stroke="#3949ab" stroke-width="2.5"/>
+                <text x="565" y="85" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1a237e">Gradient Boosting (XGBoost, LightGBM)</text>
+                <g transform="translate(360, 112)">
+                    <circle cx="25" cy="25" r="20" fill="#c5cae9" stroke="#3949ab" stroke-width="2"/><text x="25" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T1</text>
+                    <text x="55" y="30" font-family="sans-serif" font-size="16">→</text>
+                    <circle cx="95" cy="25" r="20" fill="#9fa8da" stroke="#3949ab" stroke-width="2"/><text x="95" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T2</text>
+                    <text x="125" y="30" font-family="sans-serif" font-size="16">→</text>
+                    <circle cx="165" cy="25" r="20" fill="#7986cb" stroke="#3949ab" stroke-width="2"/><text x="165" y="30" font-family="sans-serif" font-size="10" text-anchor="middle">T3</text>
+                    <text x="95" y="72" font-family="sans-serif" font-size="12" fill="#1a237e" text-anchor="middle">Każde drzewo uczy się na błędach poprzednika.</text>
                 </g>
-                <text x="410" y="240" text-anchor="middle" font-size="10" fill="#546e7a">Las losowy redukuje wariancję. Boosting redukuje obciążenie (bias).</text>
+                <text x="410" y="255" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#546e7a">Las losowy redukuje wariancję. Boosting redukuje obciążenie (bias).</text>
             </svg>
 
-            <!-- ======================================================== -->
-            <!-- PART 6: PUŁAPKI EGZAMINACYJNE                            -->
-            <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.05rem;">⚠️ Pułapki egzaminacyjne:</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
@@ -229,28 +219,25 @@
                     <li><strong>Drzewa regresyjne ≠ klasyfikacyjne.</strong> W liściach drzewa regresyjnego znajduje się średnia wartość zmiennej docelowej, a nie etykieta. Podział jest optymalizowany pod kątem minimalizacji wariancji (MSE).</li>
                     <li><strong>Interpretowalność to miecz obosieczny.</strong> Drzewa są łatwe do wizualizacji i wytłumaczenia, ale są bardzo wrażliwe na zmiany danych. Niewielka zmiana w zbiorze treningowym może dać zupełnie inne drzewo.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Komisjo, trzy kluczowe pułapki. Po pierwsze – ID3 i C4.5 używają entropii, a CART używa indeksu Giniego – to różne miary podziału. Po drugie – drzewa regresyjne to nie klasyfikacyjne; w liściach mają średnią, nie etykietę. Po trzecie – drzewa są interpretowalne, ale niestabilne; mała zmiana danych może dać zupełnie inne drzewo. Dlatego właśnie łączymy je w lasy losowe – by tę niestabilność uśrednić.”
+                </div>
             </div>
 
-            <!-- ======================================================== -->
-            <!-- CHEAT-SHEET                                              -->
-            <!-- ======================================================== -->
             <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
                 <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Drzewa decyzyjne:</strong>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead><tr style="background: #eceff1;"><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Pojęcie</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Opis</th><th style="padding:10px; text-align:left; border-bottom:2px solid #546e7a;">Zastosowanie / Algorytm</th></tr></thead>
                     <tbody>
-                        <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Entropia</td><td style="padding:10px;">Miara chaosu (niepewności)</td><td style="padding:10px;">ID3, C4.5</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Gini Impurity</td><td style="padding:10px;">Prawdopodobieństwo błędnej klasyfikacji</td><td style="padding:10px;">CART (Classification And Regression Trees)</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Przycinanie (Pruning)</td><td style="padding:10px;">Usuwanie zbędnych gałęzi by walczyć z przeuczeniem</td><td style="padding:10px;">Pre-pruning (max_depth), Post-pruning (koszt-złożoność)</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Random Forest</td><td style="padding:10px;">Zespół wielu drzew (Bagging)</td><td style="padding:10px;">Redukcja wariancji, większa dokładność</td></tr>
-                        <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">XGBoost</td><td style="padding:10px;">Sekwencyjne drzewa (Gradient Boosting)</td><td style="padding:10px;">Najlepsze wyniki w konkursach ML</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#2e7d32;">Entropia</td><td style="padding:10px;">Miara chaosu (niepewności)</td><td style="padding:10px;">ID3, C4.5</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#e65100;">Gini Impurity</td><td style="padding:10px;">Prawdopodobieństwo błędnej klasyfikacji</td><td style="padding:10px;">CART (Classification And Regression Trees)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#c62828;">Przycinanie (Pruning)</td><td style="padding:10px;">Usuwanie zbędnych gałęzi by walczyć z przeuczeniem</td><td style="padding:10px;">Pre-pruning (max_depth), Post-pruning (koszt-złożoność)</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#1565c0;">Random Forest</td><td style="padding:10px;">Zespół wielu drzew (Bagging)</td><td style="padding:10px;">Redukcja wariancji, większa dokładność</td></tr>
+                    <tr><td style="padding:10px; font-weight:bold; color:#6a1b9a;">XGBoost</td><td style="padding:10px;">Sekwencyjne drzewa (Gradient Boosting)</td><td style="padding:10px;">Najlepsze wyniki w konkursach ML</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- ======================================================== -->
-            <!-- STOPKA – GROKKING-STYLE PODSUMOWANIE                     -->
-            <!-- ======================================================== -->
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
@@ -258,9 +245,6 @@
                 </p>
             </div>
 
-            <!-- ======================================================== -->
-            <!-- ŹRÓDŁA                                                   -->
-            <!-- ======================================================== -->
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
