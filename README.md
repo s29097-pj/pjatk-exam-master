@@ -27,7 +27,7 @@ Projekt został zbudowany zgodnie z zasadą **Zero-Backend**, co czyni go idealn
 Aplikacja nie wymaga serwera. Aby zacząć naukę:
 1. Sklonuj repozytorium.
 2. Otwórz plik index.html w dowolnej nowoczesnej przeglądarce.
-3. (Opcjonalnie) Wypchnij projekt na **GitHub Pages**, aby uczyć się wygodnie na tablecie lub telefonie.
+3. Projekt jest również na **GitHub Pages**, aby uczyć się wygodnie na tablecie lub telefonie.
 
 ## 📂 Nota od autora
 Zastrzegam: nie robię poprawek na życzenie (to nie helpdesk), ale jak znajdziecie błąd merytoryczny w którymś z pytań – dajcie znać, wtedy zaktualizuję bazę!
