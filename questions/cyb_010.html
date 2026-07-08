@@ -14,18 +14,23 @@
         <h2 id="q-title">010. Ataki Man-in-the-Middle (MitM) – Wektory ataku w warstwach L2-L7.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🕵️‍♂️</span>
                 <div>
                     <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Fałszywy Listonosz i Niewidzialna Przepompownia”:</strong>
                     <p style="margin: 0 0 8px 0; color: #4a148c; line-height: 1.7;">
-                        Większość ludzi myśli, że atak hakerski to "włamanie" na komputer ofiary. W ataku <strong>Man-in-the-Middle (MitM)</strong> haker wcale nie musi znać Twojego hasła ani przełamywać Twojego firewalla. Zamiast tego staje się <em>Fałszywym Listonoszem</em>.<br><br>
+                        Większość ludzi myśli, że atak hakerski to „włamanie" na komputer ofiary. W ataku <strong>Man-in-the-Middle (MitM)</strong> haker wcale nie musi znać Twojego hasła ani przełamywać Twojego firewalla. Zamiast tego staje się <em>Fałszywym Listonoszem</em>.<br><br>
                         Wyobraź sobie, że wysyłasz poufny list do banku. Listonosz (Haker) odbiera go, otwiera nad parą, czyta zawartość (np. Twoje hasło), następnie kopiuje, zamyka list w nowej kopercie i grzecznie zanosi do banku. Kiedy bank odpowiada, listonosz robi to samo. Ty myślisz, że rozmawiasz bezpośrednio z bankiem. Bank myśli, że rozmawia bezpośrednio z Tobą. <strong>Komunikacja działa idealnie, systemy nie zgłaszają błędów, a mimo to cały Wasz ruch jest podsłuchiwany i potencjalnie modyfikowany w locie.</strong><br><br>
                         W inżynierii bezpieczeństwa ataki MitM uderzają w absolutny fundament sieci – zaufanie. Wykorzystują fakt, że protokoły (ARP, DNS, BGP) zostały zaprojektowane w latach 80., kiedy zakładano, że każdy uczestnik sieci ma dobre intencje.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a148c; line-height: 1.8;">
+                        <li><strong>🔴 ARP Spoofing (L2)</strong> – zatrucie tablic ARP w sieci lokalnej. Przechwycenie ruchu między ofiarą a bramą.</li>
+                        <li><strong>🟠 Evil Twin / DNS Spoofing (L2/L7)</strong> – fałszywy punkt dostępowy i serwer DNS. Podszywanie się pod znane domeny.</li>
+                        <li><strong>🟣 SSL Stripping (L7)</strong> – degradacja szyfrowanego HTTPS do jawnego HTTP. Obejście TLS.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,27 +47,36 @@
             <span class="keyword-tag">SSL Stripping (Downgrade Attack)</span>
             <span class="keyword-tag">HSTS (HTTP Strict Transport Security)</span>
             <span class="keyword-tag">Certificate Pinning</span>
-            <span class="keyword-tag">Rogue CA (Fałszywy Urząd Certyfikacji)</span>
+            <span class="keyword-tag">Rogue CA / Fałszywy Certyfikat</span>
+            <span class="keyword-tag">BGP Hijacking</span>
+            <span class="keyword-tag">Zero Trust Network</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: ARP SPOOFING (LAYER 2) -->
+            <!-- PART 1: ARP SPOOFING (LAYER 2) – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">1. Przejęcie sieci lokalnej (LAN): ARP Spoofing (Poisoning)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Protokół ARP (Address Resolution Protocol) służy do mapowania adresów IP (Warstwa 3) na fizyczne adresy sprzętowe MAC (Warstwa 2). ARP jest protokołem <em>bezstanowym i pozbawionym uwierzytelniania</em>. Oznacza to, że każda karta sieciowa w LAN ślepo uwierzy w każdą informację ARP, którą otrzyma.
+                    Protokół ARP (Address Resolution Protocol) służy do mapowania adresów IP (Warstwa 3) na fizyczne adresy sprzętowe MAC (Warstwa 2). Jest to protokół <strong>bezstanowy i pozbawiony uwierzytelniania</strong>. Każda karta sieciowa w LAN ślepo ufa każdej odpowiedzi ARP, którą otrzyma – nawet jeśli o nią nie pytała.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Atakujący masowo wysyła tzw. <strong>Gratuitous ARP</strong> (niepytane odpowiedzi ARP). Mówi do komputera Ofiary: <em>"Hej, ja jestem Routerem (Bramą Domyślną)!"</em>, podając IP routera, ale swój własny adres MAC. Jednocześnie mówi do Routera: <em>"Hej, ja jestem komputerem Ofiary!"</em>. W ułamku sekundy tablice ARP obu urządzeń zostają "zatrute" (Poisoned). Cały ruch sieciowy z komputera ofiary, zamiast trafić do routera, trafia na kartę sieciową atakującego, który przekazuje go dalej po cichu dokonując inspekcji (Sniffing).
+                    Atakujący masowo wysyła tzw. <strong>Gratuitous ARP</strong> (niepytane odpowiedzi ARP). Mówi do komputera Ofiary: <em>„Hej, ja jestem Routerem (Bramą Domyślną)!"</em>, podając IP routera, ale swój własny adres MAC. Jednocześnie mówi do Routera: <em>„Hej, ja jestem komputerem Ofiary!"</em>. W ułamku sekundy tablice ARP obu urządzeń zostają „zatrute" (Poisoned). Cały ruch sieciowy zamiast między ofiarą a routerem płynie przez kartę sieciową atakującego, który może go podsłuchiwać (Sniffing), modyfikować w locie, a nawet blokować wybrane pakiety. Atak jest skuteczny tylko w obrębie jednej domeny rozgłoszeniowej (broadcast domain), czyli w lokalnym segmencie sieci.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Pierwszy i najprostszy atak MitM odbywa się na warstwie drugiej – ARP Spoofing. Proszę spojrzeć na planszę. Mamy trzy urządzenia w lokalnej sieci: ofiarę z adresem MAC AA, router z MAC BB i hakera z MAC CC. Haker wysyła fałszywe pakiety ARP – mówi ofierze: to ja jestem routerem, a routerowi: to ja jestem ofiarą. Oba urządzenia aktualizują swoje tablice ARP i od tej pory cały ruch między ofiarą a internetem przechodzi przez kartę sieciową hakera. Co ważne, haker włącza IP forwarding i przekazuje pakiety dalej – komunikacja działa normalnie, więc nikt nic nie zauważa. To jest zatrucie tablic ARP – protokół ARP nie ma żadnego uwierzytelniania, powstał w czasach, gdy sieciom ufano."
+                </div>
             </div>
 
-            <!-- SVG 1: ARP SPOOFING -->
+            <!-- SVG 1: ARP SPOOFING (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowRedMitM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowBlueMitM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#ffebee" opacity="0.3"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">ARP Cache Poisoning: Podmiana tożsamości sprzętowej w sieci LAN</text>
 
@@ -71,7 +85,7 @@
                 <text x="120" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Ofiara (PC)</text>
                 <text x="120" y="85" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">IP: 10.0.0.5</text>
                 <text x="120" y="100" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">MAC: AA:AA:AA</text>
-                
+
                 <rect x="60" y="140" width="120" height="40" rx="4" fill="#e3f2fd" stroke="#1976d2"/>
                 <text x="120" y="152" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zatruta Tablica ARP</text>
                 <text x="120" y="165" font-family="monospace" font-size="9" font-weight="bold" fill="#d32f2f" text-anchor="middle">10.0.0.1 -> CC:CC:CC</text>
@@ -103,27 +117,25 @@
                 <path d="M 180 120 L 350 120" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueMitM)"/>
                 <path d="M 470 120 L 640 120" fill="none" stroke="#1565c0" stroke-width="3" marker-end="url(#arrowBlueMitM)"/>
                 <text x="410" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Przekazywanie ruchu (IP Forwarding)</text>
-
-                <defs>
-                    <marker id="arrowRedMitM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowBlueMitM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 2: EVIL TWIN & DNS SPOOFING -->
+            <!-- PART 2: EVIL TWIN & DNS SPOOFING – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #f57c00;">2. Infrastruktura Zła: Evil Twin, Rogue DHCP i DNS Spoofing</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Poza "zatruwaniem" istniejącej sieci, hakerzy często stawiają własną fałszywą infrastrukturę, by ofiary same się do nich podłączały.
+                    Poza „zatruwaniem" istniejącej sieci, hakerzy często stawiają własną fałszywą infrastrukturę, by ofiary same się do nich podłączały. To podejście nie wymaga przełamywania żadnych zabezpieczeń – wykorzystuje naturalne zachowanie urządzeń, które automatycznie łączą się z silniejszym sygnałem Wi-Fi i ufają pierwszej napotkanej odpowiedzi DHCP/DNS.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Evil Twin (Zły Bliźniak):</strong> Atakujący stawia w kawiarni fałszywy punkt dostępowy (Rogue AP) o nazwie takiej samej jak darmowe Wi-Fi w lokalu (np. <code>Starbucks_Free</code>), ale z silniejszym sygnałem. Laptopy ofiar automatycznie przeskakują na sieć hakera.</li>
-                    <li><strong>Rogue DHCP:</strong> W sieci kablowej lub Wi-Fi atakujący uruchamia własny serwer DHCP. Jako pierwszy rozdaje adresy IP dla nowych komputerów. Kluczem jest tu <strong>podanie swojego własnego adresu IP jako domyślnego serwera DNS</strong> (DNS Hijacking).</li>
-                    <li><strong>DNS Spoofing:</strong> Skoro haker kontroluje DNS ofiary (lub podrobił zapytanie w locie), na prośbę przeglądarki <em>"Podaj IP dla bank.pl"</em>, maszyna hakera zwraca adres IP własnego, fałszywego serwera klonującego wygląd banku. Ofiara podaje swój login bezpośrednio hakerowi.</li>
+                    <li><strong>Evil Twin (Zły Bliźniak):</strong> Atakujący stawia w kawiarni fałszywy punkt dostępowy (Rogue AP) o nazwie takiej samej jak darmowe Wi-Fi w lokalu (np. <code>Starbucks_Free</code>), ale z silniejszym sygnałem. Laptopy i telefony ofiar automatycznie przeskakują na sieć hakera.</li>
+                    <li><strong>Rogue DHCP:</strong> W sieci kablowej lub Wi-Fi atakujący uruchamia własny serwer DHCP. Jako pierwszy rozdaje adresy IP dla nowych komputerów. Kluczem jest podanie swojego własnego adresu IP jako domyślnego serwera DNS (DNS Hijacking).</li>
+                    <li><strong>DNS Spoofing:</strong> Skoro haker kontroluje DNS ofiary, na prośbę przeglądarki <em>„Podaj IP dla bank.pl"</em>, maszyna hakera zwraca adres IP własnego, fałszywego serwera klonującego wygląd banku. Ofiara widzi identyczną stronę logowania i podaje swój login bezpośrednio hakerowi.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Drugi wektor to postawienie własnej, fałszywej infrastruktury. Proszę spojrzeć na planszę. Haker stawia laptopa z silną kartą Wi-Fi, nadaje mu nazwę identyczną jak sieć kawiarni – to jest Evil Twin. Ofiara łączy się z silniejszym sygnałem i jest w sieci hakera. Haker uruchamia własny serwer DHCP i DNS. Kiedy ofiara wpisuje bank.pl, fałszywy DNS zwraca nie prawdziwy adres IP banku, tylko adres serwera hakera. Na tym serwerze haker ma idealną kopię strony logowania. Ofiara wpisuje login i hasło – i trafia ono prosto do hakera. Atak nie wymaga żadnego włamania – wykorzystuje to, że urządzenia automatycznie ufają pierwszemu DHCP i DNS, jakie napotkają."
+                </div>
             </div>
 
-            <!-- SVG 2: EVIL TWIN & DNS -->
+            <!-- SVG 2: EVIL TWIN & DNS (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Klonowanie Usług: Atak Evil Twin i DNS Spoofing</text>
@@ -141,18 +153,16 @@
                 <!-- Haker Serwer -->
                 <rect x="330" y="60" width="160" height="120" rx="8" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
                 <text x="410" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Serwer Hakera (MitM)</text>
-                
-                <!-- Fałszywy DNS -->
+
                 <rect x="350" y="100" width="120" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
                 <text x="410" y="114" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Moduł Rogue DNS</text>
                 <text x="410" y="126" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">bank.pl -> IP_HAKERA</text>
 
-                <!-- Phishing Page -->
                 <rect x="350" y="140" width="120" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
                 <text x="410" y="154" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Fałszywa Strona Banku</text>
                 <text x="410" y="166" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">Nasłuch na porcie 80</text>
 
-                <!-- Real Bank (Ignored) -->
+                <!-- Real Bank -->
                 <rect x="620" y="60" width="120" height="80" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
                 <text x="680" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Prawdziwy Bank</text>
                 <text x="680" y="110" font-family="monospace" font-size="10" fill="#2e7d32" text-anchor="middle">IP: 8.8.8.8</text>
@@ -162,21 +172,53 @@
                 <line x1="540" y1="85" x2="570" y2="115" stroke="#d32f2f" stroke-width="4"/>
                 <line x1="570" y1="85" x2="540" y2="115" stroke="#d32f2f" stroke-width="4"/>
                 <text x="555" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Ruch w ogóle tu nie dociera!</text>
-
             </svg>
 
-            <!-- PART 3: HTTPS BYPASS & HSTS -->
+            <!-- PART 3: HTTPS BYPASS & HSTS – ROZBUDOWANE O SSL STRIPPING KROK PO KROKU -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">3. Rozbijanie Szyfrowania: SSL Stripping i Fałszywe Certyfikaty</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Standardową obroną przed MitM jest szyfrowanie asymetryczne w protokole HTTPS (TLS/SSL). Skoro ruch jest zaszyfrowany, to nawet jeśli haker przejmie sieć, widzi tylko bełkot. Inżynierowie przestępczości stworzyli dwie metody obejścia (Bypassy):
+                    Standardową obroną przed MitM jest szyfrowanie w protokole HTTPS (TLS/SSL). Jednak szyfrowanie można obejść – inżynierowie ataku stworzyli trzy główne techniki:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Downgrade Attack (SSL Stripping):</strong> Haker staje w środku komunikacji. Kiedy ofiara wpisuje <code>bank.pl</code>, nawiązuje się pierwsze połączenie nieszyfrowane (HTTP). Haker przechwytuje je. Haker otwiera zaszyfrowane połączenie HTTPS z prawdziwym bankiem, ale do komputera ofiary wysyła <strong>przerobioną stronę banku z wymuszonym HTTP</strong> (usuwając literkę 's' ze wszystkich linków). Ofiara loguje się przez stary, nieszyfrowany tekst na stronie hakera.</li>
-                    <li><strong>Obrona (HSTS):</strong> Aby zablokować SSL Stripping, serwery wysyłają nagłówek <strong>HSTS (HTTP Strict Transport Security)</strong>. Mówi on przeglądarce: "Od teraz przez 2 lata zgadzaj się rozmawiać z moją domeną <em>wyłącznie</em> przez HTTPS. Jeśli ktoś zaproponuje HTTP, natychmiast odrzuć połączenie bez pytania użytkownika!".</li>
-                    <li><strong>Rogue CA (Fałszywy Certyfikat):</strong> W atakach korporacyjnych (albo przez służby specjalne dysponujące np. Pegasusem), atakujący zmusza komputer ofiary do zainstalowania swojego własnego, fałszywego <em>Certyfikatu Głównego Urzędu Certyfikacji (Root CA)</em>. Gdy to zrobi, może na żywo generować w pełni zaufane klucze HTTPS dla dowolnej domeny. Wtedy przeglądarka <strong>nie pokaże kłódki błędu</strong>. Obroną w aplikacjach mobilnych jest <strong>Certificate Pinning</strong> (aplikacja ma wkodowany hash (odcisk palca) oryginalnego certyfikatu banku i ignoruje inne, nawet te certyfikowane przez system operacyjny).</li>
+                    <li><strong>SSL Stripping (Downgrade Attack):</strong> Haker staje w środku komunikacji. Ofiara wpisuje w przeglądarce <code>bank.pl</code> – to pierwsze żądanie idzie nieszyfrowanym HTTP (port 80). Haker przechwytuje je. Następnie sam otwiera bezpieczne połączenie HTTPS z prawdziwym bankiem. Ale do ofiary <strong>wysyła przerobioną stronę, gdzie wszystkie linki wskazują na HTTP</strong> – usuwa literkę 's' z każdego adresu. Ofiara loguje się przez nieszyfrowany kanał, a haker widzi login i hasło w czystym tekście. W przeglądarce ofiary nie ma ikony kłódki, ale użytkownicy rzadko to zauważają.</li>
+                    <li><strong>HSTS (HTTP Strict Transport Security):</strong> Obrona przed SSL Stripping. Serwer wysyła nagłówek <code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code>. Mówi on przeglądarce: „Od teraz przez rok łącz się z tą domeną tylko przez HTTPS. Jeśli ktoś zaproponuje HTTP, natychmiast odrzuć połączenie – nie pytaj użytkownika". Domeny mogą być też wpisane na listę <strong>HSTS Preload</strong> w kodzie przeglądarki – wtedy nawet pierwsze połączenie jest wymuszane jako HTTPS.</li>
+                    <li><strong>Rogue CA / Certificate Pinning:</strong> W atakach typu „legalny MitM" (np. korporacyjne firewalle NGFW do inspekcji ruchu) lub przez służby, na komputerze ofiary instaluje się fałszywy <strong>Główny Urząd Certyfikacji (Root CA)</strong>. Od tej pory haker może na żywo generować w pełni zaufane certyfikaty dla dowolnej domeny – przeglądarka pokazuje zieloną kłódkę. Obroną w aplikacjach mobilnych jest <strong>Certificate Pinning</strong> – aplikacja ma zaszyty odcisk palca (hash) prawdziwego certyfikatu banku i odrzuca każdy inny, nawet zaufany przez system.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Nawet jeśli ruch jest szyfrowany HTTPS, haker ma na to sposoby. Pierwszy to SSL Stripping. Proszę spojrzeć na planszę. Ofiara wpisuje bank.pl – pierwsze połączenie idzie HTTP. Haker przechwytuje je, sam łączy się z bankiem przez HTTPS, ale do ofiary wysyła stronę z linkami na HTTP – usuwa wszędzie literkę 's'. Ofiara wysyła hasło niezaszyfrowane. Broni nas HSTS – serwer mówi przeglądarce: od dziś tylko HTTPS. Nawet jeśli haker spróbuje downgrade'u, przeglądarka odmówi. Jeszcze silniejsze jest HSTS Preload – domena wpisana na stałe w kod Chroma. Drugi bypass to fałszywy certyfikat – jeśli haker zainstaluje na komputerze ofiary swój Root CA, może generować certyfikaty dla każdej domeny i przeglądarka pokaże zieloną kłódkę. Dlatego aplikacje mobilne używają Certificate Pinning – mają na sztywno zaszyty hash prawdziwego certyfikatu banku."
+                </div>
             </div>
+
+            <!-- SVG 3: SSL STRIPPING KROK PO KROKU (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowRedSSL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnSSL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">SSL Stripping krok po kroku – degradacja HTTPS → HTTP</text>
+
+                <!-- Krok 1 -->
+                <rect x="25" y="42" width="770" height="50" rx="6" fill="#fff" stroke="#f57c00" stroke-width="1.5"/>
+                <text x="45" y="60" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100">Krok 1: Ofiara wpisuje „bank.pl" w przeglądarce → żądanie HTTP (port 80)</text>
+                <text x="45" y="78" font-family="monospace" font-size="9" fill="#c62828">Przeglądarka domyślnie próbuje HTTP, jeśli nie wpisano https://</text>
+
+                <text x="410" y="108" font-family="sans-serif" font-size="18" fill="#f57c00" text-anchor="middle">↓ Haker przechwytuje (ARP Spoofing / Evil Twin) ↓</text>
+
+                <!-- Krok 2 -->
+                <rect x="25" y="120" width="770" height="65" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="45" y="138" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">Krok 2: Haker odbiera żądanie HTTP od ofiary i sam otwiera bezpieczne połączenie HTTPS z bankiem</text>
+                <text x="45" y="155" font-family="monospace" font-size="9" fill="#c62828">Haker → Bank: TLS Handshake, certyfikat OK, nawiązane szyfrowane połączenie</text>
+                <text x="45" y="172" font-family="monospace" font-size="9" fill="#c62828">Bank odsyła stronę logowania z kłódką do hakera.</text>
+
+                <text x="410" y="202" font-family="sans-serif" font-size="18" fill="#c62828" text-anchor="middle">↓ Haker modyfikuje odpowiedź przed wysłaniem do ofiary ↓</text>
+
+                <!-- Krok 3 -->
+                <rect x="25" y="214" width="770" height="50" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+                <text x="45" y="232" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c">Krok 3: Haker wysyła ofierze stronę banku, ale zamienia wszystkie linki https:// → http://</text>
+                <text x="45" y="250" font-family="monospace" font-size="9" fill="#c62828">Ofiara widzi stronę banku (bez kłódki), loguje się → login i hasło wysłane JAWNYM HTTP do hakera!</text>
+            </svg>
 
             <!-- ======================================================== -->
             <!-- PUŁAPKI EGZAMINACYJNE                                   -->
@@ -184,9 +226,31 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe mity o MitM):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Ataki MitM dotyczą tylko niezabezpieczonych, publicznych sieci Wi-Fi"</strong> – To niebezpieczny mit. O ile ARP Spoofing i Evil Twin to domena sieci LAN/WLAN, ataki MitM potrafią być przeprowadzane globalnie! Przykładem jest <strong>BGP Hijacking (Przejęcie protokołu BGP)</strong> w Warstwie 3/4. Atakujący (często wrogie państwa posiadające potężnych dostawców ISP) ogłaszają do globalnej tablicy routingu BGP, że to przez ich terytorium wiedzie najszybsza droga do serwerów Google czy Facebooka. Ruch z połowy świata jest fizycznie kierowany przez routery hakera, gdzie poddawany jest głębokiej inspekcji przed wypuszczeniem w dalszą drogę. W publicznym Internecie nie ma "bezpiecznych sieci".</li>
-                    <li><strong>"Używam VPN, więc nie da się zrobić na mnie MitM."</strong> – VPN (Virtual Private Network) tworzy szyfrowany tunel do bramy, chroniąc ruch przed administratorem lokalnej sieci (np. w kawiarni). Jeśli jednak atakujący przechwycił DNS <em>zanim</em> nawiązano tunel, lub użył ataku na styk VPN-u, a sam protokół w tunelu nie jest dodatkowo szyfrowany (brak End-to-End Encryption), VPN staje się bezwartościowy. Poza tym, w korporacjach tzw. <em>NGFW (Next-Gen Firewalls)</em> dokonują legalnego, zinstytucjonalizowanego MitM za pomocą własnych certyfikatów CA, aby kontrolować zawartość (DPI) tuneli pracowników. Pamiętaj: to, co dla hakera jest atakiem, dla SOC jest mechanizmem inspekcyjnym.</li>
+                    <li><strong>„Ataki MitM dotyczą tylko niezabezpieczonych, publicznych sieci Wi-Fi".</strong> – To niebezpieczny mit. O ile ARP Spoofing i Evil Twin to domena sieci LAN/WLAN, ataki MitM potrafią być przeprowadzane globalnie! Przykładem jest <strong>BGP Hijacking (Przejęcie protokołu BGP)</strong> w Warstwie 3/4. Atakujący (często wrogie państwa posiadające potężnych dostawców ISP) ogłaszają do globalnej tablicy routingu BGP, że to przez ich terytorium wiedzie najszybsza droga do serwerów Google czy Facebooka. Ruch z połowy świata jest fizycznie kierowany przez routery hakera, gdzie poddawany jest głębokiej inspekcji przed wypuszczeniem w dalszą drogę. W publicznym Internecie nie ma „bezpiecznych sieci".</li>
+                    <li><strong>„Używam VPN, więc nie da się zrobić na mnie MitM."</strong> – VPN tworzy szyfrowany tunel do bramy, chroniąc przed administratorem lokalnej sieci (np. w kawiarni). Jeśli jednak atakujący przechwycił DNS <em>zanim</em> nawiązano tunel, lub użył ataku na styk VPN-u, a sam protokół w tunelu nie jest dodatkowo szyfrowany (brak End-to-End Encryption), VPN staje się bezwartościowy. Poza tym, w korporacjach NGFW dokonują legalnego, zinstytucjonalizowanego MitM za pomocą własnych certyfikatów CA, aby kontrolować zawartość (DPI) tuneli pracowników. Pamiętaj: to, co dla hakera jest atakiem, dla SOC jest mechanizmem inspekcyjnym.</li>
+                    <li><strong>„HTTPS = pełne bezpieczeństwo przed MitM"</strong> – SSL Stripping i Rogue CA pokazują, że HTTPS jest tylko tak silne, jak zaufanie do urzędów certyfikacji i świadomość użytkownika. HSTS, Certificate Pinning i HSTS Preload to niezbędne warstwy dodatkowe.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Pierwszy mit: że MitM to tylko niezabezpieczone Wi-Fi. To nieprawda – BGP Hijacking pozwala przechwycić ruch na skalę globalną, między krajami. Drugi mit: że VPN chroni przed MitM. VPN chroni przed lokalnym administratorem, ale nie przed atakiem na DNS przed nawiązaniem tunelu ani przed fałszywym certyfikatem. Zresztą korporacje same robią legalny MitM na pracownikach przez NGFW. Trzeci mit: że HTTPS wystarczy. SSL Stripping obchodzi HTTPS, jeśli nie ma HSTS. A fałszywy Root CA na komputerze ofiary daje hakerowi zieloną kłódkę dla każdej domeny. Bez Certificate Pinning i HSTS Preload HTTPS jest podatne."
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat‑Sheet – Ataki MitM według warstw OSI:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warstwa</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Atak</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Mechanizm</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Obrona</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">L2</td><td style="padding: 10px;">ARP Spoofing</td><td style="padding: 10px;">Zatrucie tablic ARP Gratuitous ARP</td><td style="padding: 10px;">Dynamic ARP Inspection (DAI), statyczne wpisy ARP</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">L2</td><td style="padding: 10px;">Evil Twin / Rogue AP</td><td style="padding: 10px;">Fałszywy AP o silniejszym sygnale</td><td style="padding: 10px;">WIDS/WIPS, lista zaufanych SSID</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">L3/L4</td><td style="padding: 10px;">BGP Hijacking</td><td style="padding: 10px;">Fałszywe ogłoszenia routingu BGP</td><td style="padding: 10px;">RPKI, monitoring tras</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">L7</td><td style="padding: 10px;">DNS Spoofing</td><td style="padding: 10px;">Fałszywa odpowiedź DNS z IP hakera</td><td style="padding: 10px;">DNSSEC, DNS over HTTPS (DoH)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">L7</td><td style="padding: 10px;">SSL Stripping</td><td style="padding: 10px;">Degradacja HTTPS → HTTP</td><td style="padding: 10px;">HSTS, HSTS Preload</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">L7</td><td style="padding: 10px;">Rogue CA / Fałszywy certyfikat</td><td style="padding: 10px;">Zainstalowany złośliwy Root CA</td><td style="padding: 10px;">Certificate Pinning, CT (Certificate Transparency)</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -195,7 +259,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego programisty protokoły sieciowe to "magia, która po prostu przesyła JSONy z frontendu na backend". Dla architekta cyberbezpieczeństwa każdy punkt przesiadkowy w modelu OSI to wektor ataku polegającego na sfałszowaniu tożsamości. Przechwytywanie ruchu sieciowego (MitM) uczy pokory wobec zaufania sprzętowego: routery wierzą adresom MAC na słowo (ARP Spoofing), laptopy bez mrugnięcia okiem łączą się z silniejszą siecią Wi-Fi (Rogue AP), a przeglądarki ślepo ufają systemowym urzędom certyfikacji. Bezpieczna architektura (Zero Trust) to założenie, że cała sieć między Tobą a odbiorcą jest już z definicji skompromitowana. Z tego powodu inżynierowie wprowadzili żelazne rozwiązania warstwy aplikacyjnej, takie jak Certificate Pinning czy HSTS Preloading.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego programisty protokoły sieciowe to „magia, która po prostu przesyła JSONy z frontendu na backend". Dla architekta cyberbezpieczeństwa każdy punkt przesiadkowy w modelu OSI to wektor ataku polegającego na sfałszowaniu tożsamości. Przechwytywanie ruchu sieciowego (MitM) uczy pokory wobec zaufania sprzętowego: routery wierzą adresom MAC na słowo (ARP Spoofing), laptopy bez mrugnięcia okiem łączą się z silniejszą siecią Wi-Fi (Rogue AP), a przeglądarki ślepo ufają systemowym urzędom certyfikacji. Bezpieczna architektura (Zero Trust) to założenie, że cała sieć między Tobą a odbiorcą jest już z definicji skompromitowana. Z tego powodu inżynierowie wprowadzili żelazne rozwiązania warstwy aplikacyjnej, takie jak Certificate Pinning czy HSTS Preloading.</span>
                 </p>
             </div>
 

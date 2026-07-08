@@ -14,9 +14,9 @@
         <h2 id="q-title">008. Ataki typu Distributed Denial of Service (DDoS).</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🌊</span>
                 <div>
@@ -27,6 +27,11 @@
                         <strong>DDoS Wolumetryczny (Warstwy 3/4):</strong> Nagle w tej samej sekundzie przez drzwi wdziera się 10 000 podstawionych statystów (Botnet). Wszyscy krzyczą. Budynek fizycznie nie mieści tylu osób, drzwi pękają, a prawdziwi klienci nie mają jak wejść.<br><br>
                         <strong>DDoS Aplikacyjny - L7 (np. Slowloris):</strong> Do restauracji wchodzi tylko 50 elegancko ugrzecznionych panów. Siadają przy wszystkich stolikach i zamawiają po jednej szklance wody. Piją ją przez 10 godzin (utrzymywanie otwartych połączeń). W restauracji jest absolutna cisza, nie ma tłumu, ale <em>żaden prawdziwy klient nie może zjeść obiadu, bo brakuje zasobów (stolików)</em>.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #002147; line-height: 1.8;">
+                        <li><strong>🌊 Wolumetryczny (L3/L4)</strong> – zapchanie łącza internetowego ofiary (UDP Flood, SYN Flood, ICMP Flood).</li>
+                        <li><strong>🔄 Amplifikacja (DNS, NTP)</strong> – wykorzystanie serwerów publicznych do zwielokrotnienia ruchu w kierunku ofiary.</li>
+                        <li><strong>🐢 Aplikacyjny (L7)</strong> – wyczerpanie zasobów serwera aplikacji (Slowloris, HTTP Flood), przy minimalnym użyciu łącza.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -37,16 +42,18 @@
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Botnet / C&C (Command and Control)</span>
-            <span class="keyword-tag">Amplifikacja i Odbicie (Reflection/Amplification)</span>
-            <span class="keyword-tag">Wyczerpanie stanu (State Exhaustion - SYN Flood)</span>
-            <span class="keyword-tag">SYN Cookies (Obrona)</span>
-            <span class="keyword-tag">Warstwa 7 / Ataki Aplikacyjne (Slowloris)</span>
+            <span class="keyword-tag">Amplifikacja / Odbicie (Reflection)</span>
+            <span class="keyword-tag">Wyczerpanie stanu (SYN Flood)</span>
+            <span class="keyword-tag">SYN Cookies</span>
+            <span class="keyword-tag">Slowloris / RUDY (Low & Slow)</span>
             <span class="keyword-tag">IP Spoofing</span>
-            <span class="keyword-tag">BGP Anycast / Scrubbing Centers</span>
+            <span class="keyword-tag">BGP Anycast / Scrubbing Center</span>
+            <span class="keyword-tag">WAF / Rate Limiting</span>
+            <span class="keyword-tag">DNS Amplification (Factor x40+)</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -59,51 +66,52 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Atakujący fałszuje nagłówek pakietu IP, wpisując jako adres źródłowy (Source IP) adres swojej Ofiary (<em>IP Spoofing</em>). Następnie wysyła do publicznego, źle skonfigurowanego serwera DNS lub NTP malutkie zapytanie (np. 64 bajty) typu "Podaj mi wszystkie możliwe rekordy dla tej domeny". Serwer DNS posłusznie generuje odpowiedź o wielkości np. 3000 bajtów i wysyła ją do... Ofiary! <strong>Mnożnik (Amplification Factor)</strong> wynosi tu ponad 40x. Jeśli haker wyśle 1 Gbps zapytań, w Ofiarę uderzy fala 40 Gbps.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pierwsza kategoria to ataki wolumetryczne warstwy trzeciej i czwartej. Ich celem jest po prostu zapchanie łącza ofiary. Najbardziej podstępny wariant to atak z amplifikacją. Haker fałszuje adres źródłowy – wpisuje tam IP ofiary – i wysyła małe zapytanie do publicznego serwera DNS. Serwer odpowiada gigantyczną paczką, która trafia do ofiary. Mnożnik bywa czterdziestokrotny, a dla NTP – nawet pięciusetkrotny. To znaczy, że haker wysyłając jeden gigabit na sekundę zapytań, generuje czterdzieści gigabitów na sekundę ataku na ofiarę. I robi to cudzymi serwerami, ukrywając swoje IP. To jest właśnie mechanizm odbicia i wzmocnienia."
+                </div>
             </div>
 
             <!-- SVG 1: AMPLIFICATION ATTACK -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Mechanika ataku UDP Reflection/Amplification (DNS)</text>
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowOrgA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowRedA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Mechanika ataku UDP Reflection/Amplification (DNS) – krok po kroku</text>
 
                 <!-- Atakujący -->
-                <rect x="40" y="80" width="100" height="80" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
-                <text x="90" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Botnet</text>
-                <text x="90" y="130" font-family="monospace" font-size="10" fill="#d32f2f" text-anchor="middle">(Haker)</text>
+                <rect x="30" y="85" width="100" height="70" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="80" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Botnet</text>
+                <text x="80" y="132" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">(Haker)</text>
 
                 <!-- Serwer DNS (Amplifier) -->
-                <rect x="360" y="50" width="100" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="410" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer</text>
-                <text x="410" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">DNS</text>
+                <rect x="360" y="55" width="100" height="140" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+                <text x="410" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer DNS</text>
                 <circle cx="410" cy="140" r="25" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
                 <text x="410" y="145" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">x40</text>
                 <text x="410" y="175" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Wzmacniacz</text>
 
                 <!-- Ofiara -->
-                <rect x="680" y="80" width="100" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="730" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Ofiara</text>
-                <text x="730" y="130" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">IP: 10.0.0.5</text>
+                <rect x="690" y="85" width="100" height="70" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="740" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Ofiara</text>
+                <text x="740" y="132" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">IP: 10.0.0.5</text>
 
-                <!-- Faza 1: Zapytanie ze sfałszowanym IP -->
-                <path d="M 140 120 L 350 120" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgA)"/>
-                <rect x="160" y="65" width="170" height="45" rx="4" fill="#fff3e0" stroke="#f57c00"/>
-                <text x="245" y="80" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">1. Pytanie ANY (64 Bajty)</text>
-                <text x="245" y="92" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Src IP (Fałszywy): 10.0.0.5</text>
-                <text x="245" y="104" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">Dst IP: Serwer DNS</text>
+                <!-- Faza 1: Zapytanie -->
+                <path d="M 130 120 L 350 120" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgA)"/>
+                <rect x="160" y="65" width="170" height="50" rx="4" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="245" y="80" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">1. Zapytanie ANY (64 Bajty)</text>
+                <text x="245" y="93" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">Src IP (Fałszywy): 10.0.0.5</text>
+                <text x="245" y="106" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">Dst IP: Serwer DNS</text>
 
-                <!-- Faza 2: Gigantyczna odpowiedź do ofiary -->
-                <path d="M 460 100 L 670 100" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
-                <path d="M 460 120 L 670 120" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
-                <path d="M 460 140 L 670 140" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
+                <!-- Faza 2: Odpowiedź -->
+                <path d="M 460 100 L 680 100" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
+                <path d="M 460 120 L 680 120" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
+                <path d="M 460 140 L 680 140" fill="none" stroke="#d32f2f" stroke-width="6" marker-end="url(#arrowRedA)"/>
 
-                <rect x="490" y="160" width="160" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
-                <text x="570" y="173" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">2. Odpowiedź (3000 Bajtów)</text>
-                <text x="570" y="185" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Odbija się prosto w ofiarę!</text>
-
-                <defs>
-                    <marker id="arrowOrgA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowRedA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                </defs>
+                <rect x="500" y="165" width="170" height="35" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="585" y="180" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">2. Odpowiedź (3000 Bajtów)</text>
+                <text x="585" y="193" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Trafia prosto do Ofiary!</text>
             </svg>
 
             <!-- PART 2: WYCZERPANIE STANU (SYN FLOOD) -->
@@ -115,10 +123,18 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Atakujący wysyła miliony pakietów <code>SYN</code>. Ofiara (serwer) na każdy taki pakiet rezerwuje kawałek pamięci RAM (blok TCB), odpowiada <code>SYN-ACK</code> i <strong>czeka na potwierdzenie</strong> (<code>ACK</code>). Ponieważ atakujący sfałszował swoje IP (lub celowo milczy), potwierdzenie <code>ACK</code> nigdy nie nadchodzi. Serwer zostaje sparaliżowany przez tysiące "półotwartych" połączeń, odrzucając każdego nowego, legalnego klienta. Rozwiązaniem inżynieryjnym są <strong>SYN Cookies</strong> (serwer koduje stan sesji kryptograficznie w odpowiedzi i w ogóle nie alokuje dla niej pamięci RAM, dopóki klient nie wróci z ważnym ACK).
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Drugi rodzaj ataku nie wymaga dużej przepustowości – wystarczy mu wyczerpanie pamięci serwera. To jest SYN Flood, atak na samą naturę protokołu TCP. Serwer dostaje SYN, rezerwuje pamięć, odpowiada SYN-ACK i czeka na ACK. Atakujący tych ACK nigdy nie wysyła. Po kilku sekundach kolejka półotwartych połączeń jest pełna i serwer odrzuca każde nowe połączenie – także to od prawdziwego klienta. To jest wyczerpanie stanu. Obrona to SYN Cookies – serwer zamiast rezerwować pamięć, koduje wszystkie dane sesji w samym numerze sekwencyjnym SYN-ACK. Jeśli klient wróci z ACK, serwer odtwarza stan. Jeśli nie – nic nie stracił, bo nic nie alokował."
+                </div>
             </div>
 
             <!-- SVG 2: SYN FLOOD -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowRedSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowOrgSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#fff5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Wyczerpanie Pamięci: Atak TCP SYN Flood</text>
 
@@ -136,23 +152,19 @@
                 <rect x="460" y="50" width="140" height="140" rx="8" fill="#fff" stroke="#455a64" stroke-width="2"/>
                 <text x="530" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Serwer (Ofiara)</text>
 
-                <!-- Pamięć (Stos pół-otwartych) -->
+                <!-- Pamięć -->
                 <rect x="480" y="80" width="100" height="90" fill="#cfd8dc" stroke="#90a4ae"/>
                 <text x="530" y="100" font-family="sans-serif" font-size="9" font-weight="bold" fill="#37474f" text-anchor="middle">Pamięć RAM (Kolejka)</text>
-
                 <rect x="490" y="110" width="80" height="12" fill="#ef9a9a"/>
                 <text x="530" y="120" font-family="monospace" font-size="8" fill="#b71c1c" text-anchor="middle">SYN_RECV (Oczekuje)</text>
-
                 <rect x="490" y="125" width="80" height="12" fill="#ef9a9a"/>
                 <text x="530" y="135" font-family="monospace" font-size="8" fill="#b71c1c" text-anchor="middle">SYN_RECV (Oczekuje)</text>
-
                 <rect x="490" y="140" width="80" height="12" fill="#ef9a9a"/>
                 <text x="530" y="150" font-family="monospace" font-size="8" fill="#b71c1c" text-anchor="middle">SYN_RECV (Oczekuje)</text>
-
                 <rect x="490" y="155" width="80" height="12" fill="#d32f2f"/>
                 <text x="530" y="165" font-family="monospace" font-size="8" fill="#fff" text-anchor="middle">KOLEJKA PEŁNA!</text>
 
-                <!-- SYN-ACK W próżnię -->
+                <!-- SYN-ACK -->
                 <path d="M 450 145 L 250 145" fill="none" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowOrgSYN)"/>
                 <text x="350" y="160" font-family="monospace" font-size="10" fill="#e65100" text-anchor="middle">[SYN-ACK] - Do fałszywych IP</text>
 
@@ -165,12 +177,6 @@
                 <path d="M 680 120 L 610 120" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnSYN)"/>
                 <line x1="620" y1="100" x2="600" y2="140" stroke="#d32f2f" stroke-width="4"/>
                 <text x="660" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Odrzucono!</text>
-
-                <defs>
-                    <marker id="arrowRedSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowOrgSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowGrnSYN" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                </defs>
             </svg>
 
             <!-- PART 3: ATAKI APLIKACYJNE (L7) -->
@@ -182,10 +188,16 @@
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Koronnym przykładem jest <strong>Slowloris</strong>. Atakujący wysyła legalne żądanie HTTP: <code>GET / HTTP/1.1</code>. Jednak zamiast zakończyć żądanie podwójnym znakiem nowej linii (<code>\r\n\r\n</code>), wysyła tylko pojedyncze nagłówki z ogromnym opóźnieniem (np. co 10 sekund). Silnik serwera (np. Apache) rezerwuje fizyczny wątek procesora (Thread) i potulnie czeka na koniec żądania. Przepustowość ataku to żałosne kilka kilobajtów na sekundę (niewidoczne dla firewalli sieciowych), ale w ciągu minuty zamraża wszystkie 1024 dostępne wątki na serwerze webowym, zabijając aplikację.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Trzecia kategoria to ataki warstwy siódmej – aplikacyjne. Tu już nie chodzi o pasmo, tylko o wyczerpanie zasobów serwera WWW. Slowloris to mistrz kamuflażu. Nawiązuje pełne połączenie TCP, wysyła poprawny nagłówek HTTP GET, ale celowo nie kończy zapytania – nie wysyła podwójnego znaku nowej linii. Zamiast tego co 15 sekund wysyła kolejny fałszywy nagłówek. Serwer trzyma otwarty wątek i czeka. Sto takich połączeń i pula wątków Apache'a jest wyczerpana. Z punktu widzenia firewalla sieciowego wszystko jest legalne: pełny handshake TCP, poprawny HTTP. Tylko WAF lub reverse proxy z timeoutem może to wykryć. Dlatego ochrona przed DDoS musi być wielowarstwowa – od BGP Anycast na warstwie sieciowej, po WAF na warstwie aplikacji."
+                </div>
             </div>
 
-            <!-- SVG 3: SLOWLORIS -->
+            <!-- SVG 3: SLOWLORIS (zachowany) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowPurpSL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">DDoS L7 (Low & Slow): Mechanika ataku Slowloris</text>
 
@@ -194,7 +206,7 @@
                 <text x="90" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a" text-anchor="middle">Slowloris</text>
                 <text x="90" y="110" font-family="sans-serif" font-size="9" fill="#4a148c" text-anchor="middle">(Kilka maszyn)</text>
 
-                <!-- Zatrute zapytanie HTTP -->
+                <!-- Zatrute zapytanie -->
                 <rect x="180" y="55" width="280" height="90" rx="6" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
                 <text x="320" y="75" font-family="monospace" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">GET / HTTP/1.1\r\n</text>
                 <text x="320" y="90" font-family="monospace" font-size="11" fill="#6a1b9a" text-anchor="middle">Host: victim.com\r\n</text>
@@ -205,23 +217,84 @@
                 <path d="M 140 100 L 180 100" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowPurpSL)"/>
                 <path d="M 460 100 L 500 100" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowPurpSL)"/>
 
-                <!-- Serwer Webowy (Zamrożone Wątki) -->
+                <!-- Serwer Webowy -->
                 <rect x="500" y="50" width="280" height="110" rx="8" fill="#fff" stroke="#455a64" stroke-width="2"/>
                 <text x="640" y="70" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Serwer Apache / Nginx</text>
 
-                <!-- Wątki -->
                 <rect x="520" y="85" width="240" height="20" rx="2" fill="#ef9a9a" stroke="#d32f2f"/>
-                <text x="640" y="98" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 1: Zawieszony (Czeka na dane)</text>
-
+                <text x="640" y="98" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 1: Zawieszony</text>
                 <rect x="520" y="110" width="240" height="20" rx="2" fill="#ef9a9a" stroke="#d32f2f"/>
-                <text x="640" y="123" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 2: Zawieszony (Czeka na dane)</text>
-
+                <text x="640" y="123" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Wątek 2: Zawieszony</text>
                 <rect x="520" y="135" width="240" height="20" rx="2" fill="#d32f2f" stroke="#b71c1c"/>
-                <text x="640" y="148" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">PULA WĄTKÓW WYCZERPANA (Padł)</text>
+                <text x="640" y="148" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">PULA WĄTKÓW WYCZERPANA</text>
+            </svg>
 
+            <!-- PART 4: OBRONA (NOWA SEKCJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Architektura Obrony: BGP Anycast, Scrubbing Centers i WAF</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Obrona przed DDoS nie może opierać się wyłącznie na lokalnym firewallu – gdy atak wolumetryczny przekracza przepustowość łącza, pakiety nie docierają nawet do firewalla. Dlatego stosuje się wielowarstwową obronę:
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>BGP Anycast i Scrubbing Centers:</strong> Ruch ofiary jest przechwytywany przez globalną sieć centrów czyszczących (np. Cloudflare, Akamai, AWS Shield). Ogromne farmy serwerów analizują ruch, odrzucają pakiety ataku, a czysty ruch przesyłają do chronionego serwera tunelami GRE. Dzięki rozproszeniu geograficznemu (Anycast) atak jest rozpraszany na wiele punktów.</li>
+                    <li><strong>SYN Cookies i Rate Limiting (L4):</strong> Serwer nie alokuje zasobów dla półotwartych połączeń, a limitowanie liczby nowych sesji z jednego IP zapobiega wyczerpaniu stanu.</li>
+                    <li><strong>WAF i Reverse Proxy (L7):</strong> Web Application Firewall analizuje treść zapytań HTTP, wykrywając i blokując ataki typu Slowloris, HTTP Flood czy SQL Injection wplecione w ruch DDoS.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Obrona przed DDoS musi być warstwowa i delegowana w górę łącza. Nie możemy bronić się lokalnym firewallem, jeśli łącze jest już zapchane. Dlatego korzystamy z BGP Anycast – nasz adres IP jest ogłaszany z kilkunastu centrów danych na całym świecie. Atak rozprasza się na te punkty. Scrubbing center odfiltrowuje złośliwy ruch, a czyste pakiety przesyła do nas tunelem. Na poziomie L4 stosujemy SYN Cookies – serwer nie rezerwuje pamięci dla półotwartych sesji. Na poziomie L7 stawiamy WAF, który widzi, że zapytanie HTTP nigdy się nie kończy i po 5 sekundach zrywa takie połączenie. To jest obrona w głąb – każda warstwa radzi sobie z innym typem ataku.”
+                </div>
+            </div>
+
+            <!-- SVG 4: BGP ANYCAST (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
-                    <marker id="arrowPurpSL" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                    <marker id="arrowAny" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowClean" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#e8f5e9" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Obrona przed DDoS: BGP Anycast i Scrubbing Center</text>
+
+                <!-- Botnet -->
+                <rect x="30" y="100" width="80" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="70" y="124" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Botnet</text>
+
+                <!-- Atakujący ruch -->
+                <path d="M 110 120 L 170 90" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowAny)"/>
+                <path d="M 110 120 L 170 150" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowAny)"/>
+                <path d="M 110 120 L 170 120" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowAny)"/>
+
+                <!-- Scrubbing Centers (Anycast) -->
+                <rect x="180" y="55" width="120" height="40" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="240" y="70" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Scrubbing Center</text>
+                <text x="240" y="84" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(Lokalizacja A)</text>
+
+                <rect x="180" y="110" width="120" height="40" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="240" y="125" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Scrubbing Center</text>
+                <text x="240" y="139" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(Lokalizacja B)</text>
+
+                <rect x="180" y="165" width="120" height="40" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="240" y="180" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Scrubbing Center</text>
+                <text x="240" y="194" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(Lokalizacja C)</text>
+
+                <!-- Anycast IP -->
+                <rect x="160" y="30" width="160" height="20" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="240" y="44" font-family="monospace" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">IP 203.0.113.5 (Anycast)</text>
+
+                <!-- Czysty ruch -->
+                <path d="M 300 75 L 500 120" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowClean)"/>
+                <path d="M 300 130 L 500 120" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowClean)"/>
+                <path d="M 300 185 L 500 120" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowClean)"/>
+
+                <rect x="420" y="85" width="60" height="30" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="450" y="104" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">GRE</text>
+
+                <!-- Serwer chroniony -->
+                <rect x="520" y="100" width="100" height="40" rx="4" fill="#fff" stroke="#2e7d32" stroke-width="3"/>
+                <text x="570" y="124" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Twój Serwer</text>
+
+                <!-- Złośliwy ruch odrzucony -->
+                <text x="130" y="225" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828">Ruch ataku (DROP)</text>
+                <text x="450" y="225" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32">Czysty ruch (Tunnel GRE)</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -230,9 +303,29 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki architektoniczne):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Zablokujemy adresy IP atakujących na naszym lokalnym firewallu."</strong> – To najczęstszy, fatalny błąd inżynierów. Jeśli dysponujesz łączem internetowym od dostawcy (ISP) o przepustowości 1 Gbps, a uderza w Ciebie atak rzędu 50 Gbps, Twój lokalny firewall może perfekcyjnie zrzucać (DROP) te pakiety, ale <strong>rura na zewnątrz budynku jest już fizycznie zapchana!</strong> Legalny klient nie dociśnie się do Twojego firewalla. Obronę przed DDoS wolumetrycznym <em>trzeba delegować "w górę" rzeki</em> (Upstream) – za pomocą tzw. <strong>BGP Anycast</strong> i centrów czyszczących (Scrubbing Centers firm takich jak Cloudflare czy Akamai), które dysponują rurami o przepustowości terabitów na sekundę, oddzielając ziarno od plew i przesyłając do Ciebie tylko czysty ruch ukrytym tunelem GRE.</li>
-                    <li><strong>Mylenie ataku UDP Flood z SYN Flood:</strong> Wykładowca może zapytać: "Czy atak UDP Reflection polega na niezamknięciu trójetapowego uścisku dłoni?". Nie! UDP z definicji nie ma żadnych uścisków dłoni, to protokół strzelający "na ślepo" w próżnię. Wyczerpanie stanu (State Exhaustion) dotyczy protokołu TCP (czyli ataku SYN Flood), gdzie serwer musi fizycznie alokować pamięć RAM dla śledzenia stanu każdego połączenia.</li>
+                    <li><strong>„Zablokujemy adresy IP atakujących na naszym lokalnym firewallu.”</strong> – To najczęstszy, fatalny błąd inżynierów. Jeśli dysponujesz łączem internetowym od dostawcy (ISP) o przepustowości 1 Gbps, a uderza w Ciebie atak rzędu 50 Gbps, Twój lokalny firewall może perfekcyjnie zrzucać (DROP) te pakiety, ale <strong>rura na zewnątrz budynku jest już fizycznie zapchana!</strong> Legalny klient nie dociśnie się do Twojego firewalla. Obronę przed DDoS wolumetrycznym <em>trzeba delegować „w górę" rzeki</em> (Upstream) – za pomocą tzw. <strong>BGP Anycast</strong> i centrów czyszczących (Scrubbing Centers firm takich jak Cloudflare czy Akamai), które dysponują rurami o przepustowości terabitów na sekundę, oddzielając ziarno od plew i przesyłając do Ciebie tylko czysty ruch ukrytym tunelem GRE.</li>
+                    <li><strong>Mylenie ataku UDP Flood z SYN Flood:</strong> Wykładowca może zapytać: „Czy atak UDP Reflection polega na niezamknięciu trójetapowego uścisku dłoni?". Nie! UDP z definicji nie ma żadnych uścisków dłoni, to protokół strzelający „na ślepo" w próżnię. Wyczerpanie stanu (State Exhaustion) dotyczy protokołu TCP (czyli ataku SYN Flood), gdzie serwer musi fizycznie alokować pamięć RAM dla śledzenia stanu każdego połączenia.</li>
+                    <li><strong>„Slowloris wymaga ogromnego botnetu”</strong> – Wręcz przeciwnie. Jedna maszyna może przeprowadzić skuteczny atak Slowloris na źle skonfigurowany serwer Apache. To czyni go wyjątkowo groźnym w porównaniu z atakami wolumetrycznymi, które wymagają tysięcy zainfekowanych hostów.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największa pułapka to wiara, że lokalny firewall wystarczy. Jeśli atak ma 50 Gbps, a nasze łącze 1 Gbps, to pakiety nawet nie dotrą do firewalla – łącze jest zapchane u operatora. Obronę trzeba delegować wyżej – do scrubbing center przez BGP Anycast. Druga pułapka: mylenie UDP z TCP. UDP Reflection nie ma handshake'u – wykorzystuje IP spoofing i bezpołączeniowość. SYN Flood to zupełnie inna technika, oparta na wyczerpaniu stanu TCP. Trzecia: Slowloris nie potrzebuje botnetu – jedna maszyna może powiesić cały serwer, bo atakuje na poziomie aplikacji, a nie pasma."
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Ataki DDoS:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ ataku</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warstwa</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Mechanizm</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Obrona</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">UDP Reflection / Amplification</td><td style="padding: 10px;">L3/L4</td><td style="padding: 10px;">IP Spoofing + serwery UDP (DNS, NTP) → wzmocnienie x40–x500</td><td style="padding: 10px;">BGP Anycast, Scrubbing Centers, blokada IP spoofingu (BCP38)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SYN Flood</td><td style="padding: 10px;">L4</td><td style="padding: 10px;">Miliony SYN bez ACK → wyczerpanie tablicy stanów TCP</td><td style="padding: 10px;">SYN Cookies, Rate Limiting, firewalle stanowe</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">HTTP Flood</td><td style="padding: 10px;">L7</td><td style="padding: 10px;">Ogromna liczba pozornie legalnych zapytań HTTP GET/POST</td><td style="padding: 10px;">WAF, CAPTCHA, analiza behawioralna</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Slowloris / RUDY</td><td style="padding: 10px;">L7</td><td style="padding: 10px;">Powolne wysyłanie nagłówków HTTP, brak zakończenia żądania → wyczerpanie puli wątków</td><td style="padding: 10px;">Reverse Proxy (Nginx), timeouty nagłówków, WAF</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -243,6 +336,14 @@
                     🧠 <strong>Grokking means truly understanding.</strong><br>
                     <span style="font-size: 0.9rem; opacity: 0.85;">DDoS to nie awaria systemu, to mistrzowskie, wrogie wykorzystanie praw fizyki i założeń projektowych samego internetu. Ojcowie protokołu TCP/IP projektowali go w epoce zaufania – zakładali, że nadawca podaje swój prawdziwy adres (stąd podatność na IP Spoofing). Z kolei protokół HTTP projektowano z myślą o powolnych łączach modemowych (stąd serwer grzecznie czeka na pakiety w ataku Slowloris). Współczesna architektura odporna na DDoS to potężne wyzwanie polegające na zrzuceniu ciężaru obrony wolumetrycznej na krawędź internetu (Chmura/CDN) oraz precyzyjnym strojeniu logiki samej aplikacji (WAF, Rate Limiting), by ignorowała żądania maszyn i obsługiwała wyłącznie ludzi.</span>
                 </p>
+            </div>
+
+            <!-- ŹRÓDŁA -->
+            <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
+                <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
+                <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
+                    „DDoS Attacks: Evolution, Detection, Prevention, Reaction, and Tolerance" (B.B. Gupta) · Dokumentacja techniczna Cloudflare (BGP Anycast, Scrubbing) · RFC 4987 (TCP SYN Flooding) · OWASP – Slowloris.
+                </span>
             </div>
 
         </div><!-- /answer-section -->

@@ -14,9 +14,9 @@
         <h2 id="q-title">001. Uprawnienia podstawowe i specjalne w systemach uniksowych.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🔐</span>
                 <div>
@@ -24,8 +24,14 @@
                     <p style="margin: 0 0 8px 0; color: #002147; line-height: 1.7;">
                         Wyobraź sobie system plików Linuxa jako wielki biurowiec. <br><br>
                         <strong>Uprawnienia podstawowe</strong> to po prostu Twój identyfikator pracowniczy (UID/GID). Określa on, czy do danego pokoju możesz wejść (<code>Execute - x</code>), czy możesz w nim czytać dokumenty (<code>Read - r</code>) i czy wolno Ci po nich pisać (<code>Write - w</code>). Masz swoje biurko (Właściciel), pokój zespołu (Grupa) i korytarze (Pozostali).<br><br>
-                        Jednak czasem zwykły pracownik musi skorzystać z sejfu dyrektora (np. zmienić własne hasło w pliku <code>/etc/shadow</code>). Nie możemy dać pracownikowi klucza do całego sejfu! Zamiast tego, wieszamy na drzwiach sejfu <strong>Magiczny Identyfikator Dyrektora (SUID)</strong>. Pracownik, podchodząc do tych konkretnych drzwi, na czas wykonywania tej jednej operacji <em>staje się</em> technicznie dyrektorem (dziedziczy jego uprawnienia). Jeśli ten "Magiczny Identyfikator" zawiesimy na niewłaściwym programie (np. edytorze tekstu), pracownik zyska pełną władzę nad budynkiem. W cyberbezpieczeństwie to klucz do przejmowania systemów!
+                        Jednak czasem zwykły pracownik musi skorzystać z sejfu dyrektora (np. zmienić własne hasło w pliku <code>/etc/shadow</code>). Nie możemy dać pracownikowi klucza do całego sejfu! Zamiast tego, wieszamy na drzwiach sejfu <strong>Magiczny Identyfikator Dyrektora (SUID)</strong>. Pracownik, podchodząc do tych konkretnych drzwi, na czas wykonywania tej jednej operacji <em>staje się</em> technicznie dyrektorem (dziedziczy jego uprawnienia). Jeśli ten „Magiczny Identyfikator” zawiesimy na niewłaściwym programie (np. edytorze tekstu), pracownik zyska pełną władzę nad budynkiem. W cyberbezpieczeństwie to klucz do przejmowania systemów!
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #002147; line-height: 1.8;">
+                        <li><strong>🔵 rwx (Read, Write, Execute)</strong> – podstawowe atrybuty dostępu: czytanie, zapis, wykonanie.</li>
+                        <li><strong>🟢 UGO (User, Group, Others)</strong> – trzy klasy dostępu: właściciel, grupa i pozostali.</li>
+                        <li><strong>🔴 SUID (4000)</strong> – tymczasowe przejęcie uprawnień właściciela pliku podczas wykonania.</li>
+                        <li><strong>🟠 Sticky Bit (1000)</strong> – ochrona przed usuwaniem cudzych plików w katalogach współdzielonych.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,142 +48,167 @@
             <span class="keyword-tag">Sticky Bit (1000)</span>
             <span class="keyword-tag">LPE (Local Privilege Escalation)</span>
             <span class="keyword-tag">UMASK</span>
+            <span class="keyword-tag">EUID / RUID</span>
+            <span class="keyword-tag">GTFOBins</span>
+            <span class="keyword-tag">chmod / chown</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: PODSTAWOWE -->
+            <!-- PART 1: PODSTAWOWE – ROZBUDOWANE O NOTACJĘ OKTALNĄ KROK PO KROKU -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">1. Uprawnienia Podstawowe (Architektura rwx)</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">1. Uprawnienia Podstawowe: Architektura rwx i notacja oktalna</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Model uniksowy dzieli uprawnienia na trzy klasy: <strong>Właściciel (User/Owner)</strong>, <strong>Grupa (Group)</strong> oraz <strong>Pozostali (Others)</strong>. Dla każdej z tych klas definiujemy 3 bity: <code>Read (r=4)</code>, <code>Write (w=2)</code>, <code>Execute (x=1)</code>. W ujęciu inżynieryjnym jest to po prostu 9-bitowa maska bitowa.
+                    Model uniksowy dzieli uprawnienia na trzy klasy: <strong>Właściciel (User/Owner)</strong>, <strong>Grupa (Group)</strong> oraz <strong>Pozostali (Others)</strong>. Dla każdej z tych klas definiujemy 3 bity: <code>Read (r=4)</code>, <code>Write (w=2)</code>, <code>Execute (x=1)</code>. W ujęciu inżynieryjnym jest to po prostu 9-bitowa maska bitowa, którą zapisujemy w systemie oktalnym (ósemkowym) dla zwięzłości. Każda cyfra oktalna (0–7) reprezentuje dokładnie 3 bity uprawnień dla jednej klasy.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <em>Kruczek z bezpieczeństwa:</em> Bit <code>Execute (x)</code> działa inaczej dla plików i katalogów. Dla pliku oznacza prawo do uruchomienia go jako programu. Dla katalogu oznacza <strong>prawo do wejścia do niego</strong> (komenda <code>cd</code>) i odpytania jego węzłów (i-node). Brak <code>x</code> na katalogu całkowicie odcina dostęp do plików wewnątrz, nawet jeśli same pliki mają uprawnienia <code>777</code>!
+                    <strong>Jak czytać notację oktalną?</strong> Dla każdej cyfry: <strong>4</strong> to Read (r), <strong>2</strong> to Write (w), <strong>1</strong> to Execute (x). Sumujemy wartości dla pożądanych uprawnień. Na przykład <strong>7 = 4+2+1</strong> (rwx – pełne uprawnienia), <strong>5 = 4+0+1</strong> (r-x – odczyt i wykonanie, bez zapisu), <strong>0</strong> oznacza całkowity brak dostępu. Trzy cyfry: pierwsza dla właściciela, druga dla grupy, trzecia dla pozostałych. Zatem <code>chmod 754 plik</code> oznacza: właściciel rwx, grupa r-x, pozostali r--.
                 </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <em>Kruczek egzaminacyjny:</em> Bit <code>Execute (x)</code> działa inaczej dla plików i katalogów. Dla pliku oznacza prawo do uruchomienia go jako programu. Dla katalogu oznacza <strong>prawo do wejścia do niego</strong> (komenda <code>cd</code>) i odczytania listy plików (i-node). Brak <code>x</code> na katalogu całkowicie odcina dostęp do plików wewnątrz, nawet jeśli same pliki mają uprawnienia <code>777</code>! To klasyczne pytanie egzaminacyjne.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, zacznijmy od fundamentów. Uprawnienia w Linuxie to model trójklasowy: właściciel, grupa i pozostali. Dla każdej klasy definiujemy trzy bity: Read, Write i Execute. Inżynierowie nie zapisują tego słownie, tylko w notacji oktalnej – to jest system ósemkowy. Każda cyfra od zera do siedmiu to suma trzech bitów. Cztery to Read, dwa to Write, jeden to Execute. Siedem to pełne uprawnienia: cztery plus dwa plus jeden. Pięć to odczyt i wykonanie, bez zapisu. I tak dalej. Proszę spojrzeć na planszę – kolorami pokazałem, jak to działa. I kluczowa rzecz: bit execute na katalogu to nie jest »uruchamianie«, tylko prawo do wejścia do środka. Bez niego nie wejdziemy do katalogu, nawet jeśli ma on chmod 777. To jest bardzo częste pytanie na egzaminie.”
+                </div>
             </div>
 
-            <!-- SVG 1: BASIC PERMISSIONS -->
-            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Reprezentacja Znakowa, Binarna i Oktalna: chmod 754</text>
+            <!-- SVG 1: BASIC PERMISSIONS – ROZBUDOWANY O KROK PO KROKU -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Notacja oktalna krok po kroku: chmod 754 plik.sh</text>
 
-                <!-- Główny ciąg -->
-                <text x="410" y="65" font-family="monospace" font-size="28" font-weight="bold" fill="#2c3e50" text-anchor="middle">- r w x r - x r - -</text>
+                <!-- Główny ciąg znakowy -->
+                <text x="410" y="58" font-family="monospace" font-size="24" font-weight="bold" fill="#2c3e50" text-anchor="middle">- r w x r - x r - -</text>
 
-                <!-- Podział na sekcje -->
                 <!-- Typ pliku -->
-                <rect x="185" y="80" width="30" height="120" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
-                <text x="200" y="110" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Typ</text>
-                <text x="200" y="130" font-family="monospace" font-size="14" font-weight="bold" fill="#263238" text-anchor="middle">-</text>
-                <text x="200" y="160" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle" transform="rotate(-90 200 160)">Plik Zwykły</text>
+                <rect x="205" y="72" width="30" height="110" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="220" y="100" font-family="sans-serif" font-size="9" font-weight="bold" fill="#455a64" text-anchor="middle">Typ</text>
 
                 <!-- USER -->
-                <rect x="235" y="80" width="120" height="120" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
-                <text x="295" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">User (u)</text>
-                <text x="295" y="130" font-family="monospace" font-size="16" font-weight="bold" fill="#2e7d32" text-anchor="middle">1 1 1</text>
-                <line x1="245" y1="145" x2="345" y2="145" stroke="#a5d6a7" stroke-width="2"/>
-                <text x="295" y="170" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">4+2+1 = 7</text>
+                <rect x="250" y="72" width="120" height="110" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+                <text x="310" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">User (u)</text>
+                <text x="310" y="118" font-family="monospace" font-size="14" font-weight="bold" fill="#2e7d32" text-anchor="middle">r w x</text>
+                <text x="310" y="138" font-family="monospace" font-size="12" fill="#1b5e20" text-anchor="middle">4 + 2 + 1</text>
+                <rect x="295" y="148" width="30" height="22" rx="4" fill="#a5d6a7" stroke="#2e7d32"/>
+                <text x="310" y="164" font-family="monospace" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">7</text>
 
                 <!-- GROUP -->
-                <rect x="370" y="80" width="120" height="120" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
-                <text x="430" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f57f17" text-anchor="middle">Group (g)</text>
-                <text x="430" y="130" font-family="monospace" font-size="16" font-weight="bold" fill="#f57f17" text-anchor="middle">1 0 1</text>
-                <line x1="380" y1="145" x2="480" y2="145" stroke="#fff59d" stroke-width="2"/>
-                <text x="430" y="170" font-family="sans-serif" font-size="16" font-weight="bold" fill="#f57f17" text-anchor="middle">4+0+1 = 5</text>
+                <rect x="385" y="72" width="120" height="110" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+                <text x="445" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f57f17" text-anchor="middle">Group (g)</text>
+                <text x="445" y="118" font-family="monospace" font-size="14" font-weight="bold" fill="#f57f17" text-anchor="middle">r - x</text>
+                <text x="445" y="138" font-family="monospace" font-size="12" fill="#f57f17" text-anchor="middle">4 + 0 + 1</text>
+                <rect x="430" y="148" width="30" height="22" rx="4" fill="#fff59d" stroke="#fbc02d"/>
+                <text x="445" y="164" font-family="monospace" font-size="14" font-weight="bold" fill="#f57f17" text-anchor="middle">5</text>
 
                 <!-- OTHERS -->
-                <rect x="505" y="80" width="120" height="120" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
-                <text x="565" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Others (o)</text>
-                <text x="565" y="130" font-family="monospace" font-size="16" font-weight="bold" fill="#c62828" text-anchor="middle">1 0 0</text>
-                <line x1="515" y1="145" x2="615" y2="145" stroke="#ef9a9a" stroke-width="2"/>
-                <text x="565" y="170" font-family="sans-serif" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">4+0+0 = 4</text>
+                <rect x="520" y="72" width="120" height="110" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="580" y="95" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Others (o)</text>
+                <text x="580" y="118" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">r - -</text>
+                <text x="580" y="138" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">4 + 0 + 0</text>
+                <rect x="565" y="148" width="30" height="22" rx="4" fill="#ef9a9a" stroke="#c62828"/>
+                <text x="580" y="164" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">4</text>
 
-                <rect x="235" y="210" width="390" height="25" fill="#f5f5f5" rx="4"/>
-                <text x="430" y="226" font-family="monospace" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Komenda: chmod 754 plik.sh</text>
+                <!-- Podsumowanie oktalne -->
+                <rect x="250" y="210" width="390" height="28" fill="#f5f5f5" rx="4" stroke="#cfd8dc"/>
+                <text x="445" y="229" font-family="monospace" font-size="13" font-weight="bold" fill="#455a64" text-anchor="middle">chmod 754 plik.sh  →  rwxr-xr--</text>
 
+                <!-- Dodatkowa ramka z przykładami -->
+                <rect x="660" y="72" width="135" height="155" rx="6" fill="#fff" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="727" y="92" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Szybka ściąga:</text>
+                <text x="670" y="110" font-family="monospace" font-size="10" fill="#37474f">7 = rwx (4+2+1)</text>
+                <text x="670" y="128" font-family="monospace" font-size="10" fill="#37474f">6 = rw- (4+2)</text>
+                <text x="670" y="146" font-family="monospace" font-size="10" fill="#37474f">5 = r-x (4+1)</text>
+                <text x="670" y="164" font-family="monospace" font-size="10" fill="#37474f">4 = r-- (4)</text>
+                <text x="670" y="182" font-family="monospace" font-size="10" fill="#37474f">0 = --- (brak)</text>
+                <text x="670" y="200" font-family="monospace" font-size="10" fill="#37474f">chmod 600 = -rw-------</text>
+                <text x="670" y="218" font-family="monospace" font-size="10" fill="#37474f">chmod 755 = rwxr-xr-x</text>
+
+                <text x="410" y="258" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Każda cyfra oktalna (0-7) to 3 bity: Read(4) + Write(2) + Execute(1). Trzy cyfry = User, Group, Others.</text>
             </svg>
 
-            <!-- PART 2: SUID / SGID -->
+            <!-- PART 2: SUID / SGID – ROZBUDOWANE O GTFOBins -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #d32f2f;">2. Eskalacja kontrolowana: SUID i SGID</strong>
+                <strong style="font-size: 1.2rem; color: #d32f2f;">2. Eskalacja kontrolowana: SUID (4000) i SGID (2000)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    <strong>SUID (Set User ID - wartość 4000)</strong> oraz <strong>SGID (Set Group ID - wartość 2000)</strong> to czwarty, ukryty oktet. Ustawienie bitu SUID (widoczne jako <code>s</code> w miejscu <code>x</code> właściciela) sprawia, że plik podczas wykonywania otrzymuje <strong>Efektywne Uprawnienia (EUID) właściciela pliku</strong>, a nie użytkownika, który go uruchomił.<br>
-                    Jest to fundament działania komend takich jak <code>passwd</code> czy <code>sudo</code>. Wymagają one zapisu do wrażliwych plików systemowych.
+                    <strong>SUID (Set User ID – wartość 4000)</strong> oraz <strong>SGID (Set Group ID – wartość 2000)</strong> to czwarty, ukryty oktet w notacji <code>chmod</code>. Ustawienie bitu SUID (widoczne jako <code>s</code> w miejscu <code>x</code> właściciela) sprawia, że plik podczas wykonywania otrzymuje <strong>Efektywne Uprawnienia (EUID) właściciela pliku</strong>, a nie użytkownika, który go uruchomił. Jest to fundament działania komend takich jak <code>passwd</code> czy <code>sudo</code>.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>SGID</strong> działa podobnie, ale dziedziczy uprawnienia grupy. Dodatkowo, SGID ustawiony na <strong>katalogu</strong> sprawia, że każdy nowo utworzony w nim plik automatycznie dziedziczy grupę tego katalogu (a nie grupę tworzącego użytkownika). To kluczowe dla katalogów współdzielonych w zespołach.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #b71c1c; font-weight: bold;">
-                    Kontekst Cyberbezpieczeństwa:
+                    Kontekst Cyberbezpieczeństwa – wektory ataku (GTFOBins):
                 </p>
                 <p style="margin: 0 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Atakujący na serwerze Linux po uzyskaniu dostępu do konta standardowego (np. <code>www-data</code>) zawsze wykonuje komendę <code>find / -perm -4000 2>/dev/null</code>. Szuka źle skonfigurowanych plików SUID należących do roota (np. <code>vim</code>, <code>find</code>, <code>cp</code>). Uruchomienie takiego pliku ze specjalnym parametrem (tzw. techniki <em>GTFOBins</em>) natychmiast daje mu powłokę (shell) z uprawnieniami administratora!
+                    Atakujący na serwerze Linux po uzyskaniu dostępu do konta standardowego (np. <code>www-data</code>) zawsze wykonuje komendę <code>find / -perm -4000 2>/dev/null</code>. Szuka źle skonfigurowanych plików SUID należących do roota. Jeśli znajdzie np. <code>/usr/bin/find</code> z SUID roota, może użyć techniki z repozytorium <strong>GTFOBins</strong>: <code>find . -exec /bin/sh -p \;</code> i natychmiast otrzymuje powłokę roota. Dlatego audyt SUID to pierwszy krok hardeningu serwera – każdy zbędny bit SUID należy usunąć.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Przechodzimy do uprawnień specjalnych – to jest absolutny core egzaminu. SUID, czyli Set User ID, to bit o wartości cztery tysiące. Proszę spojrzeć na planszę. Zwykły użytkownik john, z UID tysiąc, uruchamia program passwd. Ten program ma ustawiony bit SUID i należy do roota. W momencie uruchomienia, jądro systemu tymczasowo podmienia efektywne UID procesu na zero – czyli root. Dzięki temu john może zapisać swoje nowe hasło do pliku /etc/shadow, który normalnie jest dostępny tylko dla roota. Po zakończeniu programu uprawnienia wracają do normy. To elegancki mechanizm, ale niesie ogromne ryzyko. W cyberbezpieczeństwie szukamy wszystkich plików SUID roota komendą find / -perm -4000. Jeśli znajdziemy tam edytor vim albo program find z SUID, to atakujący może w 5 sekund zdobyć powłokę roota. Istnieje całe repozytorium GTFOBins, które dokumentuje takie wektory ataku. Dlatego audyt SUID to podstawa hardeningu serwera.”
+                </div>
             </div>
 
-            <!-- SVG 2: SUID EXPLANATION -->
-            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="260" fill="#fff5f5" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Mechanika SUID (Na przykładzie zmiany hasła: /usr/bin/passwd)</text>
-
-                <!-- Użytkownik "john" -->
-                <rect x="40" y="90" width="100" height="50" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
-                <text x="90" y="115" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zwykły User</text>
-                <text x="90" y="130" font-family="monospace" font-size="10" fill="#1565c0" text-anchor="middle">UID: 1000</text>
-
-                <!-- Brak SUID (Scenariusz hipotetyczny / błędny) -->
-                <path d="M 140 100 L 250 65" fill="none" stroke="#78909c" stroke-width="2" stroke-dasharray="4,2"/>
-                <rect x="260" y="45" width="140" height="50" rx="4" fill="#cfd8dc" stroke="#78909c"/>
-                <text x="330" y="65" font-family="monospace" font-size="11" font-weight="bold" fill="#37474f" text-anchor="middle">/bin/cat</text>
-                <text x="330" y="80" font-family="monospace" font-size="11" fill="#455a64" text-anchor="middle">-rwxr-xr-x</text>
-
-                <path d="M 400 70 L 530 70" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRedSUID)"/>
-                <text x="465" y="60" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Odmowa!</text>
-
-                <!-- Z SUID (Poprawne) -->
-                <path d="M 140 120 L 250 160" fill="none" stroke="#1565c0" stroke-width="3"/>
-
-                <rect x="260" y="140" width="140" height="70" rx="4" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
-                <text x="330" y="160" font-family="monospace" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">/usr/bin/passwd</text>
-                <text x="330" y="175" font-family="monospace" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">-rw<tspan fill="#e53935" font-size="16">s</tspan>r-xr-x</text>
-                <text x="330" y="195" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">Właściciel: ROOT</text>
-
-                <!-- Transformacja -->
-                <path d="M 400 175 L 530 175" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnSUID)"/>
-                <text x="465" y="165" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">EUID = 0 (Root)</text>
-                <text x="465" y="190" font-family="sans-serif" font-size="9" fill="#388e3c" text-anchor="middle">Tymczasowa władza</text>
-
-                <!-- Cel: /etc/shadow -->
-                <rect x="540" y="90" width="120" height="100" rx="8" fill="#fff" stroke="#424242" stroke-width="3"/>
-                <rect x="585" y="70" width="30" height="20" rx="4" fill="none" stroke="#424242" stroke-width="3"/>
-                <path d="M 590 70 L 590 60 A 10 10 0 0 1 610 60 L 610 70" fill="none" stroke="#424242" stroke-width="3"/>
-
-                <text x="600" y="125" font-family="monospace" font-size="11" font-weight="bold" fill="#212121" text-anchor="middle">/etc/shadow</text>
-                <text x="600" y="145" font-family="monospace" font-size="10" fill="#424242" text-anchor="middle">-rw-------</text>
-                <text x="600" y="170" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">Tylko Root może</text>
-                <text x="600" y="180" font-family="sans-serif" font-size="9" fill="#d32f2f" text-anchor="middle">zapisać nowe hasło!</text>
-
+            <!-- SVG 2: SUID EXPLANATION – ROZBUDOWANY O WEKTOR ATAKU -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowRedSUID" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
                     <marker id="arrowGrnSUID" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowAtk" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#b71c1c"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="280" fill="#fff5f5" opacity="0.4"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Mechanika SUID i wektor ataku (GTFOBins)</text>
+
+                <!-- Użytkownik "john" -->
+                <rect x="30" y="80" width="95" height="50" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+                <text x="77" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Zwykły User</text>
+                <text x="77" y="120" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">UID: 1000</text>
+
+                <!-- Legalna ścieżka SUID -->
+                <path d="M 125 95 L 240 60" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+                <rect x="245" y="42" width="145" height="45" rx="4" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+                <text x="317" y="60" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">/usr/bin/passwd</text>
+                <text x="317" y="74" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">-rwsr-xr-x (root)</text>
+                <path d="M 390 64 L 490 64" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnSUID)"/>
+                <rect x="500" y="48" width="100" height="35" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="550" y="70" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">EUID=0 → OK</text>
+
+                <!-- Nielegalna ścieżka (GTFOBins) -->
+                <path d="M 125 110 L 240 150" fill="none" stroke="#b71c1c" stroke-width="2.5" stroke-dasharray="5,3"/>
+                <rect x="245" y="135" width="145" height="45" rx="4" fill="#ffcdd2" stroke="#b71c1c" stroke-width="2"/>
+                <text x="317" y="153" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">/usr/bin/find</text>
+                <text x="317" y="167" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">-rwsr-xr-x (root)</text>
+                <path d="M 390 157 L 490 157" fill="none" stroke="#b71c1c" stroke-width="3" marker-end="url(#arrowAtk)"/>
+                <rect x="500" y="140" width="110" height="35" rx="6" fill="#ffcdd2" stroke="#b71c1c"/>
+                <text x="555" y="162" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">SHELL ROOTA!</text>
+
+                <!-- Sekcja ataku -->
+                <rect x="30" y="200" width="760" height="65" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="218" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">⚠️ Wektor ataku LPE (Local Privilege Escalation) – GTFOBins</text>
+                <text x="50" y="238" font-family="monospace" font-size="10" fill="#c62828">$ find / -perm -4000 -type f 2>/dev/null   # Znajdź wszystkie pliki SUID</text>
+                <text x="50" y="254" font-family="monospace" font-size="10" fill="#c62828">$ /usr/bin/find . -exec /bin/sh -p \;        # Jeśli find ma SUID roota → shell roota!</text>
             </svg>
 
-            <!-- PART 3: STICKY BIT -->
+            <!-- PART 3: STICKY BIT – ROZBUDOWANY O PRZYKŁADY -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #f57c00;">3. Ochrona w strefie publicznej: Sticky Bit (1000)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Wyobraź sobie katalog <code>/tmp</code>. To miejsce, gdzie każdy użytkownik i program w systemie może tworzyć tymczasowe pliki. Uprawnienia takiego katalogu to <code>777</code> (wszyscy mogą czytać, pisać i wchodzić). Skoro jest <code>777</code>, to użytkownik "A" może złośliwie usunąć ważny plik użytkownika "B"!
+                    Wyobraź sobie katalog <code>/tmp</code>. To miejsce, gdzie każdy użytkownik i program w systemie może tworzyć tymczasowe pliki. Uprawnienia takiego katalogu to <code>777</code> (wszyscy mogą czytać, pisać i wchodzić). Problem: skoro katalog ma <code>777</code>, to użytkownik „A” może złośliwie usunąć ważny plik użytkownika „B”! Aby temu zapobiec, inżynierowie dodali <strong>Sticky Bit (oznaczany jako <code>t</code> w miejscu <code>x</code> dla pozostałych)</strong>. Uprawnienia stają się <code>1777</code>, co widać jako <code>drwxrwxrwt</code>.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Aby temu zapobiec, inżynierowie dodali <strong>Sticky Bit (oznaczany jako <code>t</code>)</strong> nałożony na folder. Uprawnienia stają się <code>1777</code>, co widać jako <code>drwxrwxrwt</code>. <br>
-                    <strong>Zasada Sticky Bit:</strong> Plik znajdujący się w takim katalogu może usunąć lub zmienić mu nazwę TYLKO i wyłącznie właściciel tego pliku, właściciel całego katalogu, lub użytkownik root. Znosi to toksyczny efekt uprawnienia "write" nadanego "pozostałym" w katalogach współdzielonych.
+                    <strong>Zasada Sticky Bit:</strong> Plik znajdujący się w takim katalogu może usunąć lub zmienić mu nazwę TYLKO i wyłącznie: <strong>właściciel pliku</strong>, <strong>właściciel katalogu</strong>, lub <strong>root</strong>. Nawet jeśli „pozostali” mają prawo zapisu do katalogu (write), nie mogą kasować cudzych plików. Sticky Bit jest standardowo ustawiony na <code>/tmp</code> i <code>/var/tmp</code>. Bez niego system byłby ekstremalnie podatny na ataki typu race condition i denial of service.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Sticky Bit to trzeci z bitów specjalnych, o wartości oktalnej jeden zero zero zero. Proszę spojrzeć na planszę. Katalog /tmp ma uprawnienia 1777 – to jest siedem-siedem-siedem plus sticky bit. Normalnie, gdy katalog ma prawo zapisu dla wszystkich, każdy może usuwać w nim wszystko. To byłby chaos – Alice tworzy plik, a Bob go kasuje. Sticky Bit mówi: stop. Możesz tworzyć własne pliki, możesz czytać cudze, ale usuwać możesz tylko swoje. Wyjątkiem jest root i właściciel katalogu. To zabezpieczenie jest absolutnie krytyczne – bez niego system nie mógłby mieć współdzielonych katalogów tymczasowych. Sticky bit widać jako literę »t« na końcu uprawnień: drwxrwxrwt. Jeśli widzicie wielkie »T«, to znaczy, że bit jest ustawiony, ale brakuje execute dla pozostałych – to błąd konfiguracji.”
+                </div>
             </div>
 
-            <!-- SVG 3: STICKY BIT -->
+            <!-- SVG 3: STICKY BIT (zachowany, z drobnymi poprawkami) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGrnSB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRedSB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#fff3e0" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Działanie Sticky Bit w katalogu /tmp (chmod 1777)</text>
 
@@ -201,29 +232,59 @@
                 <circle cx="720" cy="115" r="20" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
                 <text x="720" y="120" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Bob</text>
                 <path d="M 690 115 L 510 115" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRedSB)"/>
-                <line x1="510" y1="95" x2="510" y2="135" stroke="#d32f2f" stroke-width="6"/> <!-- Ściana -->
+                <line x1="510" y1="95" x2="510" y2="135" stroke="#d32f2f" stroke-width="6"/>
                 <text x="600" y="105" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">rm (Usuń)</text>
                 <text x="600" y="130" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Blokada Sticky Bit!</text>
 
                 <!-- Notatka na dole -->
                 <rect x="280" y="160" width="260" height="25" fill="#fbe9e7" rx="4"/>
                 <text x="410" y="177" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">Pomimo chmod 777 w katalogu, Bob nie ma prawa usunąć pliku Alice.</text>
-
-                <defs>
-                    <marker id="arrowGrnSB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                    <marker id="arrowRedSB" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                </defs>
             </svg>
 
+            <!-- PART 4: UMASK (NOWA SEKCJA DODANA DLA PEŁNI OBRAZU) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #6a1b9a;">4. Domyślne uprawnienia: UMASK – „Odwrócona maska tworzenia”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Gdy tworzysz nowy plik lub katalog, system nie nadaje mu losowych uprawnień – używa <strong>maski umask</strong>. Jest to wartość odejmowana od maksymalnych uprawnień domyślnych (666 dla plików, 777 dla katalogów). Standardowa wartość umask to <code>022</code>, co daje nowym plikom uprawnienia <code>644</code> (666 – 022), a katalogom <code>755</code> (777 – 022). Umask można sprawdzić komendą <code>umask</code> i tymczasowo zmienić: <code>umask 027</code> (bardziej restrykcyjna – grupa tylko odczyt, pozostali brak dostępu). Wartość umask jest dziedziczona z konfiguracji systemowej (<code>/etc/profile</code>, <code>/etc/login.defs</code>).
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec warto wspomnieć o umask – masce domyślnych uprawnień. To nie jest bit specjalny jak SUID czy Sticky, ale mechanizm kontrolujący, jakie uprawnienia dostają nowo tworzone pliki. Standardowy umask to zero-dwa-dwa. Oznacza to, że od maksymalnych uprawnień – sześć-sześć-sześć dla plików, siedem-siedem-siedem dla katalogów – odejmujemy zero-dwa-dwa. Wychodzi sześć-cztery-cztery dla plików i siedem-pięć-pięć dla katalogów. Można to zmienić komendą umask – na przykład umask zero-dwa-siedem da bardziej restrykcyjne uprawnienia, gdzie grupa ma tylko odczyt, a pozostali zero. To ważne przy konfiguracji serwerów wielodostępnych.”
+                </div>
+            </div>
+
             <!-- ======================================================== -->
-            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- PUŁAPKI EGZAMINACYJNE – ROZBUDOWANE                     -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Pytania dla specjalistów Security):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Wielkie S/T kontra małe s/t:</strong> Wykładowca zapyta: "Uruchamiam <code>ls -l</code> i widzę uprawnienie <code>-rwS------</code>. Co oznacza wielkie S?". Odpowiedź inżynierska: Wielkie <code>S</code> lub wielkie <code>T</code> oznacza błąd konfiguracji (tzw. zjawisko "broken bit"). Oznacza to, że administrator nałożył SUID (4000), ale plik pod spodem <strong>nie posiada bitu wykonywalności (<code>x</code>)</strong>! Plik z wielkim <code>S</code> i tak się nie uruchomi. Prawidłowo skonfigurowany SUID nadpisuje się na małym <code>x</code> tworząc małe <code>s</code> (np. <code>-rws------</code>).</li>
-                    <li><strong>SUID na skryptach BASH / Python:</strong> Pytanie: "Nadaję <code>chmod 4755 skrypt.sh</code> (SUID), w którym wpisałem komendy roota, ale to nie działa. Dlaczego?". Odpowiedź: Większość współczesnych kerneli Linuxa (w celach bezpieczeństwa) całkowicie ignoruje bity SUID na plikach interpretowanych (skryptach tekstowych, shebangach `#!/bin/bash`). SUID zadziała tylko i wyłącznie na skompilowanych plikach binarnych (ELF, C/C++). Inaczej każdy atakujący mógłby trywialnie nadpisać skrypt tekstowy.</li>
+                    <li><strong>Wielkie S/T kontra małe s/t:</strong> Pytanie: „Uruchamiam <code>ls -l</code> i widzę uprawnienie <code>-rwS------</code>. Co oznacza wielkie S?”. Odpowiedź inżynierska: Wielkie <code>S</code> lub wielkie <code>T</code> oznacza błąd konfiguracji (tzw. zjawisko „broken bit”). Oznacza to, że administrator nałożył SUID (4000), ale plik pod spodem <strong>nie posiada bitu wykonywalności (<code>x</code>)</strong>! Plik z wielkim <code>S</code> i tak się nie uruchomi. Prawidłowo skonfigurowany SUID nadpisuje się na małym <code>x</code> tworząc małe <code>s</code> (np. <code>-rws------</code>).</li>
+                    <li><strong>SUID na skryptach BASH / Python:</strong> Pytanie: „Nadaję <code>chmod 4755 skrypt.sh</code> (SUID), w którym wpisałem komendy roota, ale to nie działa. Dlaczego?”. Odpowiedź: Większość współczesnych kerneli Linuxa (w celach bezpieczeństwa) całkowicie ignoruje bity SUID na plikach interpretowanych (skryptach tekstowych, shebangach <code>#!/bin/bash</code>). SUID zadziała tylko i wyłącznie na skompilowanych plikach binarnych (ELF, C/C++). Inaczej każdy atakujący mógłby trywialnie nadpisać skrypt tekstowy.</li>
+                    <li><strong>Znaczenie <code>x</code> na katalogu:</strong> Pytanie: „Katalog ma uprawnienia <code>drw-rw-rw-</code>. Czy użytkownik spoza grupy może odczytać plik w tym katalogu, jeśli plik ma <code>-rwxrwxrwx</code>?”. Odpowiedź: NIE. Brak bitu <code>x</code> na katalogu oznacza, że użytkownik nie może w ogóle „wejść” do środka i odpytać i-node'ów. Nawet jeśli plik ma 777, pozostali nie mają do niego dostępu, bo nie przejdą przez katalog.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Na egzaminie na pewno padnie pytanie o wielkie S i wielkie T. To jest klasyk. Wielkie S oznacza, że administrator ustawił SUID, ale zapomniał o bicie execute – plik ma na przykład rw- zamiast rwx. Wtedy SUID jest bezużyteczny. Drugie częste pytanie: dlaczego SUID nie działa na skryptach. Odpowiedź: kernel ignoruje SUID na plikach tekstowych z shebangiem – to zabezpieczenie przed trywialną eskalacją. SUID działa tylko na binarkach ELF. I trzecia rzecz: bit execute na katalogu. Bez niego nie da się wejść do katalogu, nawet jeśli pliki w środku mają 777. To jest najczęstszy błąd początkujących administratorów.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Uprawnienia w systemach uniksowych:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Bit / Komenda</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Wartość oktalna</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Znaczenie i efekt</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Read (r)</td><td style="padding: 10px;">4</td><td style="padding: 10px;">Odczyt zawartości pliku / listowanie zawartości katalogu (potrzebne też x).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Write (w)</td><td style="padding: 10px;">2</td><td style="padding: 10px;">Modyfikacja pliku / tworzenie i usuwanie plików w katalogu.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Execute (x)</td><td style="padding: 10px;">1</td><td style="padding: 10px;">Uruchomienie pliku / wejście do katalogu (cd + odczyt i-node).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SUID</td><td style="padding: 10px;">4000</td><td style="padding: 10px;">Plik wykonuje się z EUID właściciela. Widoczne jako <code>s</code> w miejscu <code>x</code> User.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SGID</td><td style="padding: 10px;">2000</td><td style="padding: 10px;">Plik wykonuje się z EGID grupy. Na katalogu: nowe pliki dziedziczą grupę.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Sticky Bit</td><td style="padding: 10px;">1000</td><td style="padding: 10px;">W katalogu: tylko właściciel pliku może go usunąć. Widoczne jako <code>t</code>.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wielkie S / T</td><td style="padding: 10px;">–</td><td style="padding: 10px;">Błąd: SUID/Sticky ustawione, ale brak <code>x</code> pod spodem.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">find / -perm -4000</td><td style="padding: 10px;">–</td><td style="padding: 10px;">Znajduje wszystkie pliki SUID – pierwszy krok audytu bezpieczeństwa.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -240,7 +301,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Linux. Programowanie systemowe" (Robert Love) – System plików, Uprawnienia plików. · GTFOBins (Dokumentacja wektorów ataków wykorzystujących SUID).
+                    „Linux. Programowanie systemowe” (Robert Love) – System plików, Uprawnienia plików. · GTFOBins (Dokumentacja wektorów ataków wykorzystujących SUID) · „The Linux Programming Interface” (Michael Kerrisk) – Rozdział 15: File Attributes.
                 </span>
             </div>
 

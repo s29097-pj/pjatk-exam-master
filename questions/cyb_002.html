@@ -14,9 +14,9 @@
         <h2 id="q-title">002. Narzędzia analizy logów.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">⛏️</span>
                 <div>
@@ -26,6 +26,11 @@
                         Twoim zadaniem w Cyberbezpieczeństwie (Threat Hunting / DFIR) jest znalezienie w tym mule kilku mikroskopijnych samorodków złota – <strong>IoC (Indicators of Compromise)</strong>, czyli np. adresu IP hakera, dziwnego zapytania SQL, czy logowania o 3:00 w nocy z terytorium obcego państwa.<br><br>
                         Nie zrobisz tego gołymi rękami. Potrzebujesz do tego trzech rodzajów narzędzi: <strong>Sit do szybkiego przesiewania</strong> (Narzędzia CLI: <code>grep</code>, <code>awk</code>), <strong>Przemysłowych kopalni z taśmociągami</strong> (Systemy SIEM: Splunk, ELK) oraz <strong>Zautomatyzowanych detektorów kruszcu</strong> (Korelacja i reguły Sigma).
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00251a; line-height: 1.8;">
+                        <li><strong>🔵 Narzędzia CLI (grep, awk, jq)</strong> – skalpel chirurga: szybki triage na żywym serwerze.</li>
+                        <li><strong>🟢 Systemy SIEM / ELK Stack</strong> – taśmociąg: centralne zbieranie, parsowanie i indeksowanie terabajtów.</li>
+                        <li><strong>🔴 Korelacja i reguły Sigma</strong> – detektor kruszcu: automatyczne wykrywanie wzorców ataku.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,81 +47,111 @@
             <span class="keyword-tag">Wyrażenia Regularne (Regex / Grok)</span>
             <span class="keyword-tag">Centralizacja logów (Syslog / Forwardery)</span>
             <span class="keyword-tag">Reguły Sigma / YARA</span>
+            <span class="keyword-tag">Log Poisoning / Forging</span>
+            <span class="keyword-tag">Common Information Model (CIM)</span>
+            <span class="keyword-tag">Alert Triage / False Positive</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
             <!-- PART 1: CLI (CHIRURGICZNY SKALPEL) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #00695c;">1. Triage (Szybka diagnoza): Skalpel linii komend (CLI)</strong>
+                <strong style="font-size: 1.2rem; color: #00695c;">1. Triage (Szybka diagnoza): Skalpel linii komend (CLI) – „Live Response”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Kiedy trwa aktywny atak (Incydent Response) i właśnie zalogowałeś się na zaatakowany serwer przez SSH, nie masz czasu czekać, aż logi zindeksują się w wielkim systemie graficznym. Używasz wbudowanych narzędzi uniksowych do tzw. <em>Live Triage'u</em>. Wykorzystując mechanizm "potoków" (Pipes <code>|</code>), inżynier przetwarza ogromne pliki tekstowe (np. <code>/var/log/auth.log</code> lub <code>/var/log/nginx/access.log</code>) w ułamki sekund.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>grep / egrep:</strong> Wyciąga z pliku tylko te linie, które pasują do wzorca lub wyrażenia regularnego (Regex). Np. <code>grep "Failed password"</code>.</li>
-                    <li><strong>awk:</strong> Potężny język do obróbki tekstu w kolumnach. Pozwala wyizolować np. tylko 11-tą kolumnę z logu, w której znajduje się adres IP atakującego.</li>
-                    <li><strong>sort | uniq -c:</strong> Matematyczne podsumowanie. Sortuje wyciągnięte adresy IP i liczy wystąpienia. Błyskawicznie demaskuje ataki Brute-Force (np. pokazuje IP, z którego było 5000 błędnych prób).</li>
+                    <li><strong>grep / egrep:</strong> Filtruje linie na podstawie wzorca tekstowego lub wyrażenia regularnego (Regex). Podstawa triage'u – np. <code>grep "Failed password" /var/log/auth.log</code>.</li>
+                    <li><strong>awk:</strong> Potężny procesor tekstu kolumnowego. Pozwala wyizolować konkretną kolumnę (np. <code>$11</code> – adres IP). Umożliwia też proste operacje arytmetyczne i warunkowe na przepływających danych.</li>
+                    <li><strong>sed:</strong> Edytor strumieniowy – do zamiany tekstu w locie (np. usuwanie znaków specjalnych, formatowanie dat).</li>
+                    <li><strong>sort | uniq -c | sort -nr:</strong> Matematyczne podsumowanie. Sortuje dane, zlicza unikalne wystąpienia i wyświetla ranking (najczęstsze na górze). Błyskawicznie demaskuje ataki Brute-Force.</li>
+                    <li><strong>jq:</strong> Niezbędny do analizy logów w formacie JSON. Pozwala filtrować i wyciągać pola z obiektów JSON bezpośrednio z linii komend.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pierwszym narzędziem analityka bezpieczeństwa nie jest drogi system SIEM, tylko terminal. Gdy trwa atak, liczy się każda sekunda. Łączymy się przez SSH i odpalamy potok komend. Na planszy widzimy klasyczny pipeline: cat pokazuje surowy log, grep filtruje tylko nieudane logowania, awk wyciąga jedenastą kolumnę – czyli adres IP atakującego, sort i uniq zliczają wystąpienia. W 2 sekundy widzę, że IP 192.168.1.50 próbowało zalogować się 4832 razy – to ewidentny atak brute-force. Natychmiast blokuję to IP na firewallu. To się nazywa triage na żywo – nie czekamy na indeksację w SIEM-ie.”
+                </div>
             </div>
 
-            <!-- SVG 1: CLI PIPELINE -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#263238" opacity="0.95"/>
-                <text x="410" y="25" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle" fill="#80cbc4">Potok Basha: Odkrywanie ataku Brute-Force na żywo</text>
-
-                <!-- Command line -->
-                <rect x="40" y="40" width="740" height="35" rx="4" fill="#000" stroke="#37474f"/>
-                <text x="50" y="62" font-family="monospace" font-size="13" font-weight="bold" fill="#4caf50">root@server:~#</text>
-                <text x="175" y="62" font-family="monospace" font-size="13" font-weight="bold" fill="#fff">cat /var/log/auth.log | <tspan fill="#64b5f6">grep "Failed password"</tspan> | <tspan fill="#ffb74d">awk '{print $11}'</tspan> | <tspan fill="#e57373">sort | uniq -c | sort -nr</tspan></text>
-
-                <!-- Processing Pipeline Visualization -->
-                <!-- Step 1: Raw logs -->
-                <rect x="60" y="100" width="180" height="90" rx="4" fill="#37474f" stroke="#546e7a"/>
-                <text x="150" y="120" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Surowe Logi (cat)</text>
-                <text x="150" y="140" font-family="monospace" font-size="9" fill="#b0bec5" text-anchor="middle">Oct 12 10:11 Failed pass...</text>
-                <text x="150" y="155" font-family="monospace" font-size="9" fill="#b0bec5" text-anchor="middle">Oct 12 10:12 Session open...</text>
-                <text x="150" y="170" font-family="monospace" font-size="9" fill="#b0bec5" text-anchor="middle">Oct 12 10:12 Failed pass...</text>
-
-                <path d="M 245 145 L 285 145" fill="none" stroke="#64b5f6" stroke-width="3" marker-end="url(#arrowBlueC)"/>
-                <text x="265" y="135" font-family="monospace" font-size="10" font-weight="bold" fill="#64b5f6" text-anchor="middle">grep</text>
-
-                <!-- Step 2: Extract IP -->
-                <rect x="295" y="100" width="180" height="90" rx="4" fill="#37474f" stroke="#546e7a"/>
-                <text x="385" y="120" font-family="monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Ekstrakcja (awk)</text>
-                <text x="385" y="145" font-family="monospace" font-size="10" fill="#b0bec5" text-anchor="middle">192.168.1.50</text>
-                <text x="385" y="160" font-family="monospace" font-size="10" fill="#b0bec5" text-anchor="middle">192.168.1.50</text>
-
-                <path d="M 480 145 L 520 145" fill="none" stroke="#ffb74d" stroke-width="3" marker-end="url(#arrowOrgC)"/>
-                <text x="500" y="135" font-family="monospace" font-size="10" font-weight="bold" fill="#ffb74d" text-anchor="middle">uniq</text>
-
-                <!-- Step 3: Result -->
-                <rect x="530" y="100" width="230" height="90" rx="4" fill="#1b5e20" stroke="#4caf50" stroke-width="2"/>
-                <text x="645" y="120" font-family="monospace" font-size="11" font-weight="bold" fill="#a5d6a7" text-anchor="middle">Wynik (Agregacja)</text>
-                <text x="645" y="150" font-family="monospace" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle"><tspan fill="#e57373">4832</tspan> 192.168.1.50</text>
-                <text x="645" y="170" font-family="monospace" font-size="14" fill="#b0bec5" text-anchor="middle"><tspan fill="#e57373">   3</tspan> 10.0.0.15</text>
-
+            <!-- SVG 1: CLI PIPELINE – ROZBUDOWANY -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowBlueC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64b5f6"/></marker>
                     <marker id="arrowOrgC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ffb74d"/></marker>
+                    <marker id="arrowGrnC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4caf50"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#263238" opacity="0.95"/>
+                <text x="410" y="25" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle" fill="#80cbc4">Potok Basha: Odkrywanie ataku Brute-Force na żywo (Live Triage)</text>
+
+                <!-- Command line -->
+                <rect x="30" y="42" width="760" height="35" rx="4" fill="#000" stroke="#37474f"/>
+                <text x="40" y="64" font-family="monospace" font-size="12" font-weight="bold" fill="#4caf50">root@server:~#</text>
+                <text x="165" y="64" font-family="monospace" font-size="12" font-weight="bold" fill="#fff">cat /var/log/auth.log | <tspan fill="#64b5f6">grep "Failed password"</tspan> | <tspan fill="#ffb74d">awk '{print $11}'</tspan> | <tspan fill="#ef5350">sort | uniq -c | sort -nr</tspan></text>
+
+                <!-- Processing Pipeline Visualization -->
+                <!-- Step 1: Raw logs -->
+                <rect x="45" y="100" width="160" height="110" rx="4" fill="#37474f" stroke="#546e7a"/>
+                <text x="125" y="118" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Krok 1: Surowe Logi</text>
+                <text x="55" y="135" font-family="monospace" font-size="8" fill="#b0bec5">Oct 12 10:11 Failed pass..</text>
+                <text x="55" y="150" font-family="monospace" font-size="8" fill="#90a4ae">Oct 12 10:12 Session open.</text>
+                <text x="55" y="165" font-family="monospace" font-size="8" fill="#b0bec5">Oct 12 10:12 Failed pass..</text>
+                <text x="55" y="180" font-family="monospace" font-size="8" fill="#90a4ae">Oct 12 10:13 Session close</text>
+                <text x="55" y="195" font-family="monospace" font-size="8" fill="#b0bec5">Oct 12 10:13 Failed pass..</text>
+
+                <path d="M 210 155 L 245 155" fill="none" stroke="#64b5f6" stroke-width="2.5" marker-end="url(#arrowBlueC)"/>
+                <text x="227" y="145" font-family="monospace" font-size="9" font-weight="bold" fill="#64b5f6" text-anchor="middle">grep</text>
+
+                <!-- Step 2: Filtered -->
+                <rect x="255" y="100" width="160" height="110" rx="4" fill="#1a237e" stroke="#283593"/>
+                <text x="335" y="118" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Krok 2: Filtrowanie</text>
+                <text x="265" y="140" font-family="monospace" font-size="8" fill="#bbdefb">...Failed password for</text>
+                <text x="265" y="155" font-family="monospace" font-size="8" fill="#bbdefb">...Failed password for</text>
+                <text x="265" y="170" font-family="monospace" font-size="8" fill="#bbdefb">...Failed password for</text>
+                <text x="265" y="185" font-family="monospace" font-size="8" fill="#bbdefb">...Failed password for</text>
+
+                <path d="M 420 155 L 455 155" fill="none" stroke="#ffb74d" stroke-width="2.5" marker-end="url(#arrowOrgC)"/>
+                <text x="437" y="145" font-family="monospace" font-size="9" font-weight="bold" fill="#ffb74d" text-anchor="middle">awk</text>
+
+                <!-- Step 3: Extracted IPs -->
+                <rect x="465" y="100" width="130" height="110" rx="4" fill="#1b5e20" stroke="#2e7d32"/>
+                <text x="530" y="118" font-family="monospace" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Krok 3: Ekstrakcja</text>
+                <text x="480" y="150" font-family="monospace" font-size="10" fill="#a5d6a7">192.168.1.50</text>
+                <text x="480" y="168" font-family="monospace" font-size="10" fill="#a5d6a7">192.168.1.50</text>
+                <text x="480" y="186" font-family="monospace" font-size="10" fill="#a5d6a7">10.0.0.15</text>
+
+                <path d="M 600 155 L 635 155" fill="none" stroke="#4caf50" stroke-width="2.5" marker-end="url(#arrowGrnC)"/>
+                <text x="617" y="145" font-family="monospace" font-size="9" font-weight="bold" fill="#4caf50" text-anchor="middle">uniq</text>
+
+                <!-- Step 4: Result -->
+                <rect x="645" y="100" width="150" height="110" rx="4" fill="#b71c1c" stroke="#f44336" stroke-width="2"/>
+                <text x="720" y="118" font-family="monospace" font-size="10" font-weight="bold" fill="#ffcdd2" text-anchor="middle">Krok 4: Wynik</text>
+                <text x="660" y="150" font-family="monospace" font-size="14" font-weight="bold" fill="#fff"><tspan fill="#ffeb3b">4832</tspan> 192.168.1.50</text>
+                <text x="660" y="175" font-family="monospace" font-size="14" fill="#ef9a9a"><tspan fill="#ffeb3b">   3</tspan> 10.0.0.15</text>
             </svg>
 
-            <!-- PART 2: SIEM & ELK -->
+            <!-- PART 2: SIEM & ELK – ROZBUDOWANE O PARSOWANIE GROK -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Przemysłowa Skala: Systemy SIEM i Architektura Centralna</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Przemysłowa Skala: Systemy SIEM i Architektura ELK</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Logi trzymane na serwerach produkcyjnych są bezużyteczne z punktu widzenia bezpieczeństwa – atakujący po udanym włamaniu po prostu używa komendy <code>rm -rf /var/log/*</code> i kasuje ślady. Dlatego w korporacjach buduje się <strong>Systemy SIEM (Security Information and Event Management)</strong>.
+                    Logi trzymane lokalnie na serwerach są bezużyteczne z punktu widzenia bezpieczeństwa – atakujący po udanym włamaniu używa <code>rm -rf /var/log/*</code> i zaciera ślady. Dlatego w korporacjach buduje się <strong>Systemy SIEM (Security Information and Event Management)</strong>, które w czasie rzeczywistym przesyłają logi do bezpiecznej, centralnej lokalizacji.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Najpopularniejszym otwartym standardem jest <strong>ELK Stack</strong> (Elasticsearch, Logstash, Kibana) lub komercyjny <strong>Splunk</strong>. Ich idea opiera się na ciągłym strumieniowaniu logów z endpointów (poprzez agentów np. Filebeat) przez bezpieczny kanał TLS do <em>centralnej, niemutowalnej bazy danych</em>. Tam Logstash zajmuje się <strong>Parsowaniem</strong> (za pomocą wzorców Grok), czyli cięciem luźnego tekstu na indeksowalne zmienne (np. pole <code>src_ip</code>, <code>username</code>), co pozwala na błyskawiczne przeszukiwanie terabajtów danych w ułamku sekundy w dashboardach Kibany.
+                    Najpopularniejszym stosem open-source jest <strong>ELK Stack</strong>: Elasticsearch (baza NoSQL do przechowywania i indeksowania), Logstash (silnik parsowania i transformacji danych), Kibana (dashboard i wizualizacja). W środowiskach komercyjnych dominuje <strong>Splunk</strong>. Kluczowym elementem jest <strong>parsowanie Grok</strong> w Logstash – zamiana surowego, nieustrukturyzowanego tekstu na indeksowalne pola JSON (np. wydobycie adresu IP, nazwy użytkownika i znacznika czasu z linii logu). Dzięki temu możemy przeszukiwać terabajty danych w ułamku sekundy i budować dashboardy.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Gdy mamy więcej niż jeden serwer, analiza przez SSH i grep przestaje działać. Musimy logi scentralizować. Proszę spojrzeć na planszę – architektura ELK składa się z trzech warstw. Zbieranie: agenty takie jak Filebeat wysyłają logi przez bezpieczne TLS do centralnego brokera. Parsowanie: Logstash używa wzorców Grok, które są jak zaawansowane wyrażenia regularne – tną surowy tekst na pola JSON: source_ip, username, timestamp. Indeksowanie: Elasticsearch przechowuje te dane i umożliwia błyskawiczne wyszukiwanie. Na końcu Kibana pokazuje dashboardy i alerty. Kluczowe jest to, że haker – nawet jeśli wyczyści lokalne logi na serwerze – nie ma już dostępu do centralnego SIEM-u. To jest zasada nieodwracalności logów.”
+                </div>
             </div>
 
-            <!-- SVG 2: SIEM ARCHITECTURE -->
+            <!-- SVG 2: SIEM ARCHITECTURE (zachowany, ulepszony) -->
             <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowBlueS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowPurpS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                    <marker id="arrowGrnS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Architektura scentralizowana: Ekosystem ELK / SIEM</text>
 
@@ -134,62 +169,91 @@
                 <text x="90" y="182" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Syslog (Port 514)</text>
 
                 <!-- Atakujacy -->
-                <circle cx="90" cy="220" r="15" fill="#d32f2f"/>
-                <text x="90" y="225" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Haker</text>
+                <circle cx="90" cy="225" r="15" fill="#d32f2f"/>
+                <text x="90" y="230" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Haker</text>
                 <path d="M 115 210 L 140 180" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2"/>
                 <text x="160" y="215" font-family="sans-serif" font-size="9" fill="#c62828">Kasuje lokalnie!</text>
-                <text x="160" y="225" font-family="sans-serif" font-size="9" fill="#c62828">(Za późno)</text>
+                <text x="160" y="225" font-family="sans-serif" font-size="9" fill="#c62828">(Za późno – log w SIEM!)</text>
 
                 <!-- Data stream lines -->
-                <path d="M 145 70 Q 220 70 220 120" fill="none" stroke="#1565c0" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
-                <path d="M 145 120 L 220 120" fill="none" stroke="#1565c0" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
-                <path d="M 145 170 Q 220 170 220 120" fill="none" stroke="#1565c0" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
+                <path d="M 145 70 Q 220 70 220 120" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
+                <path d="M 145 120 L 220 120" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
+                <path d="M 145 170 Q 220 170 220 120" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arrowBlueS)"/>
                 <rect x="180" y="105" width="20" height="25" fill="#fff" stroke="#1565c0"/>
                 <text x="190" y="120" font-family="sans-serif" font-size="8" font-weight="bold" fill="#1565c0" text-anchor="middle">TLS</text>
 
                 <!-- Logstash / Parser -->
                 <rect x="250" y="70" width="130" height="100" rx="8" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
-                <text x="315" y="110" font-family="sans-serif" font-size="14" font-weight="bold" fill="#4a148c" text-anchor="middle">1. Parsowanie</text>
-                <text x="315" y="130" font-family="sans-serif" font-size="11" fill="#6a1b9a" text-anchor="middle">(Logstash)</text>
+                <text x="315" y="110" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4a148c" text-anchor="middle">1. Parsowanie</text>
+                <text x="315" y="128" font-family="sans-serif" font-size="11" fill="#6a1b9a" text-anchor="middle">(Logstash + Grok)</text>
                 <text x="315" y="145" font-family="monospace" font-size="9" fill="#4a148c" text-anchor="middle">Tekst -> JSON</text>
 
                 <path d="M 385 120 L 430 120" fill="none" stroke="#8e24aa" stroke-width="3" marker-end="url(#arrowPurpS)"/>
 
                 <!-- Elasticsearch / DB -->
                 <rect x="440" y="70" width="140" height="100" rx="8" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
-                <text x="510" y="110" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">2. Baza / Indeks</text>
-                <text x="510" y="130" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">(Elasticsearch)</text>
+                <text x="510" y="110" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1b5e20" text-anchor="middle">2. Baza / Indeks</text>
+                <text x="510" y="128" font-family="sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">(Elasticsearch)</text>
                 <text x="510" y="145" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Szybkie wyszukiwanie</text>
 
                 <path d="M 585 120 L 630 120" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnS)"/>
 
                 <!-- Kibana / Dashboard -->
                 <rect x="640" y="70" width="140" height="100" rx="8" fill="#ffe0b2" stroke="#f57c00" stroke-width="2"/>
-                <text x="710" y="110" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e65100" text-anchor="middle">3. Dashboard</text>
-                <text x="710" y="130" font-family="sans-serif" font-size="11" fill="#ef6c00" text-anchor="middle">(Kibana)</text>
+                <text x="710" y="110" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">3. Dashboard</text>
+                <text x="710" y="128" font-family="sans-serif" font-size="11" fill="#ef6c00" text-anchor="middle">(Kibana)</text>
                 <text x="710" y="145" font-family="sans-serif" font-size="9" fill="#e65100" text-anchor="middle">Wykresy i Alerty</text>
-
-                <defs>
-                    <marker id="arrowBlueS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                    <marker id="arrowPurpS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
-                    <marker id="arrowGrnS" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 3: CORRELATION & THREAT HUNTING -->
+            <!-- SVG 2.5: GROK PARSING (NOWA GRAFIKA – KROK PO KROKU) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="280" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Jak działa parsowanie Grok? Krok po kroku</text>
+
+                <!-- Krok 1: Surowy log -->
+                <rect x="25" y="42" width="770" height="55" rx="6" fill="#37474f" stroke="#546e7a" stroke-width="2"/>
+                <text x="45" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffb74d">Krok 1: Surowy log (nieustrukturyzowany tekst)</text>
+                <text x="45" y="82" font-family="monospace" font-size="11" fill="#cfd8dc">Oct 12 10:13:44 server sshd[12345]: Failed password for root from 192.168.1.50 port 22 ssh2</text>
+
+                <!-- Strzałka -->
+                <text x="410" y="115" font-family="sans-serif" font-size="20" fill="#8e24aa" text-anchor="middle">↓</text>
+
+                <!-- Krok 2: Wzorzec Grok -->
+                <rect x="25" y="122" width="770" height="55" rx="6" fill="#fff" stroke="#8e24aa" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="45" y="142" font-family="sans-serif" font-size="11" font-weight="bold" fill="#6a1b9a">Krok 2: Wzorzec Grok (wyrażenie regularne dla logu)</text>
+                <text x="45" y="162" font-family="monospace" font-size="11" fill="#4a148c">%{SYSLOGBASE} sshd[%{POSINT:pid}]: Failed password for %{USER:user} from %{IP:src_ip} port %{INT:port} ssh2</text>
+
+                <!-- Strzałka -->
+                <text x="410" y="195" font-family="sans-serif" font-size="20" fill="#8e24aa" text-anchor="middle">↓</text>
+
+                <!-- Krok 3: Wynikowy JSON -->
+                <rect x="25" y="202" width="770" height="65" rx="6" fill="#e1bee7" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="45" y="222" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c">Krok 3: Wynikowy obiekt JSON (indeksowalny w Elasticsearch)</text>
+                <text x="45" y="240" font-family="monospace" font-size="10" fill="#1a1a2e">{</text>
+                <text x="60" y="255" font-family="monospace" font-size="10" fill="#1a1a2e">"user": "root", "src_ip": "192.168.1.50", "pid": "12345", "timestamp": "Oct 12 10:13:44"</text>
+                <text x="45" y="268" font-family="monospace" font-size="10" fill="#1a1a2e">}</text>
+            </svg>
+
+            <!-- PART 3: CORRELATION & THREAT HUNTING – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Korelacja Zdarzeń i Reguły Sigma (Mózg Analityczny)</strong>
+                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Korelacja Zdarzeń i Reguły Sigma – „Mózg Analityczny”</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Logi oglądane pojedynczo rzadko wskazują na atak. Prawdziwa moc systemów obronnych leży w <strong>Korelacji Zdarzeń</strong>. Silnik korelacyjny (np. w systemach takich jak Wazuh czy moduł SIEM w Splunku) bada zdarzenia w "oknach czasowych".
+                    Logi oglądane pojedynczo rzadko wskazują na atak. Pojedyncze „Failed password” to normalne zjawisko – każdy czasem pomyli hasło. Prawdziwa moc systemów obronnych leży w <strong>Korelacji Zdarzeń</strong>. Silnik korelacyjny (np. w Wazuh, Splunk ES, Elastic Security) analizuje zdarzenia w oknach czasowych. Wykrywa wzorce: „jeśli w ciągu 60 sekund wystąpi >10 Failed password dla tego samego użytkownika, A NASTĘPNIE wystąpi Success – wygeneruj alert krytyczny”.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Aby inżynierowie Security z całego świata nie musieli wymyślać koła na nowo, wprowadzono format <strong>Sigma</strong>. Jest to generyczny standard pisania reguł detekcji (podobnie jak YARA dla malware'u), który potrafi przetłumaczyć sygnaturę ataku (np. "uruchomienie powłoki PowerShell zakodowanej w Base64") na składnię gotową do wklejenia w systemie Splunk, Elastic lub QRadar.
+                    Aby nie wymyślać koła na nowo, społeczność stworzyła format <strong>Sigma</strong>. Jest to generyczny, YAML-owy standard pisania reguł detekcji. Jedną regułę Sigma można automatycznie przekonwertować (za pomocą narzędzia `sigmac`) na zapytanie w składni Splunk, Elastic, QRadar czy Azure Sentinel. To uniwersalny język threat huntingu.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Samo zbieranie logów to dopiero połowa sukcesu. Prawdziwa wartość leży w korelacji. Proszę spojrzeć na planszę. Oś czasu: mamy serię nieudanych logowań – to jeszcze nie jest alarm, bo każdy może pomylić hasło. Ale jeśli w ciągu 5 minut widzę 100 nieudanych prób, a potem nagle jedno udane logowanie – to jest klasyczny atak brute-force. Silnik korelacyjny łączy te punkty i generuje alert. A żeby nie pisać reguł od zera, używamy standardu Sigma. To jest jak YARA dla logów – uniwersalny język reguł, który działa na każdej platformie. Jedną regułę Sigma możesz wrzucić i do Splunka, i do Elastica. To jest obecnie złoty standard w Security Operations.”
+                </div>
             </div>
 
-            <!-- SVG 3: CORRELATION ENGINE -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#fff5f5" opacity="0.4"/>
+            <!-- SVG 3: CORRELATION ENGINE (zachowany, ulepszony) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGryTime" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#fff5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Korelacja: Pojedyncze logi są ślepe, okno czasowe demaskuje atak</text>
 
                 <!-- Oś czasu -->
@@ -197,38 +261,28 @@
                 <text x="520" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#546e7a" text-anchor="middle">Oś Czasu (T)</text>
 
                 <!-- Zdarzenia -->
-                <circle cx="100" cy="120" r="8" fill="#f44336"/>
-                <text x="100" y="100" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Evt 1: Failed SSH</text>
-
-                <circle cx="150" cy="120" r="8" fill="#f44336"/>
-                <text x="150" y="80" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Evt 2: Failed SSH</text>
-
-                <circle cx="200" cy="120" r="8" fill="#f44336"/>
-
-                <circle cx="250" cy="120" r="8" fill="#f44336"/>
-                <text x="250" y="60" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Evt N: Failed SSH</text>
-
+                <circle cx="90" cy="120" r="8" fill="#f44336"/>
+                <text x="90" y="100" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Evt 1: Failed</text>
+                <circle cx="130" cy="120" r="8" fill="#f44336"/>
+                <text x="130" y="80" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Evt 2: Failed</text>
+                <circle cx="170" cy="120" r="8" fill="#f44336"/>
+                <circle cx="210" cy="120" r="8" fill="#f44336"/>
+                <text x="210" y="60" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">... Evt N: Failed</text>
                 <circle cx="320" cy="120" r="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
                 <text x="320" y="100" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Success SSH!</text>
-
-                <circle cx="450" cy="120" r="12" fill="#ff9800" stroke="#e65100" stroke-width="2"/>
-                <text x="450" y="80" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">sudo (Root execution)</text>
+                <circle cx="460" cy="120" r="12" fill="#ff9800" stroke="#e65100" stroke-width="2"/>
+                <text x="460" y="80" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">sudo (Root)</text>
 
                 <!-- Okno korelacji -->
-                <path d="M 80 150 L 80 160 L 470 160 L 470 150" fill="none" stroke="#d32f2f" stroke-width="2"/>
-                <text x="275" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Okno korelacji (np. 5 minut)</text>
-
-                <path d="M 275 185 L 275 200 L 590 200 L 590 120" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2"/>
+                <path d="M 70 150 L 70 165 L 490 165 L 490 150" fill="none" stroke="#d32f2f" stroke-width="2"/>
+                <text x="280" y="180" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Okno korelacji (np. 5 minut)</text>
+                <path d="M 280 190 L 280 205 L 620 205 L 620 120" fill="none" stroke="#d32f2f" stroke-width="2" stroke-dasharray="4,2"/>
 
                 <!-- Alert Engine -->
-                <rect x="600" y="80" width="160" height="80" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
-                <text x="680" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">CRITICAL ALERT</text>
-                <text x="680" y="125" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Reguła Sigma: M-01</text>
-                <text x="680" y="140" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">"Brute Force -> Root"</text>
-
-                <defs>
-                    <marker id="arrowGryTime" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
-                </defs>
+                <rect x="630" y="75" width="160" height="90" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="3"/>
+                <text x="710" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">⚠️ CRITICAL ALERT</text>
+                <text x="710" y="118" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">Reguła Sigma: M-01</text>
+                <text x="710" y="135" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">"Brute Force → Sukces"</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -237,9 +291,33 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki inżynierii bezpieczeństwa):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Logowanie nadmiernej ilości danych (Log Poisoning & PII):</strong> Błędem nowicjuszy jest zasada "logujemy wszystko". Prowadzi to do dwóch katastrof. Po pierwsze: łamanie RODO/GDPR poprzez zapisywanie haseł użytkowników (tzw. <em>credentials in cleartext</em>) lub danych kart płatniczych do plików <code>.log</code>. Atakujący, włamując się do SIEMa, ma podane bazy danych na tacy! Po drugie: <em>Log Forging / Poisoning</em>. Jeśli logujesz surowy, nieprzeskalowany User-Agent z zapytania HTTP, haker może wstawić tam kod PHP lub złośliwe makro, uderzając bezpośrednio w platformę analityczną!</li>
-                    <li><strong>Mylenie Logstash z Elasticsearch:</strong> Wykładowcy często pytają o architekturę ELK. <em>Elasticsearch</em> to BAZA DANYCH (NoSQL, silnik indeksujący oparty o Lucene). Nie potrafi sam inteligentnie pociąć logów z Firewalla! Od tego jest <em>Logstash</em> (lub lżejszy Filebeat) – to silnik procesujący, swoisty "tłumacz", który używając wyrażeń regularnych (Grok Patterns) parsuje np. niestandardowy log z routera Cisco na czysty obiekt JSON przed wysłaniem go do bazy.</li>
+                    <li><strong>Logowanie nadmiernej ilości danych (Log Poisoning & RODO):</strong> Błędem nowicjuszy jest zasada „logujemy wszystko”. Prowadzi to do dwóch katastrof. Po pierwsze: łamanie RODO/GDPR poprzez zapisywanie haseł użytkowników (credentials in cleartext) lub numerów kart płatniczych do plików <code>.log</code>. Po drugie: <em>Log Forging / Poisoning</em> – jeśli logujesz surowy User-Agent z zapytania HTTP, haker może wstawić tam kod JavaScript lub makro, atakując analityka przeglądającego logi w Kibanie.</li>
+                    <li><strong>Mylenie Logstash z Elasticsearch:</strong> Częste pytanie egzaminacyjne. <em>Elasticsearch</em> to BAZA DANYCH (NoSQL, oparta o Apache Lucene). <em>Logstash</em> (lub Filebeat z modułami) to SILNIK PARSOWANIA – to on tnie surowy tekst na pola JSON przed zapisaniem do bazy.</li>
+                    <li><strong>Brak korelacji = szum informacyjny:</strong> Bez okien czasowych i reguł korelacji SIEM jest bezużyteczny. Codziennie systemy generują tysiące błędów logowania. Tylko połączone sekwencje zdarzeń (np. skanowanie portów + exploit + eskalacja) wskazują na atak.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Pierwszą pułapką jest log poisoning – jeśli nie sanityzujemy danych wejściowych przed zapisaniem do logu, haker może wstrzyknąć złośliwy kod w pole User-Agent. Gdy analityk otworzy taki log w przeglądarce Kibany, kod może się wykonać. Drugą jest RODO – nie wolno logować danych wrażliwych, jak hasła czy numery kart. Trzecia rzecz: mylenie komponentów ELK. Elasticsearch to baza, Logstash to parser – to częste pytanie. I najważniejsze: bez korelacji nie ma detekcji. Pojedyncze zdarzenia to szum. Dopiero sekwencja w oknie czasowym – na przykład 100 failed logins i nagle success – uruchamia alarm. Reguły Sigma dają nam gotowe wzorce takich sekwencji.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Narzędzia analizy logów:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Warstwa / Narzędzie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Typ</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa funkcja</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">grep, awk, sed, jq</td><td style="padding: 10px;">CLI (Triage)</td><td style="padding: 10px;">Błyskawiczny triage na żywo, potoki (pipes), ekstrakcja kolumn.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">sort | uniq -c | sort -nr</td><td style="padding: 10px;">CLI (Agregacja)</td><td style="padding: 10px;">Szybkie zliczanie i ranking – wykrywanie brute-force.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Syslog / Forwardery</td><td style="padding: 10px;">Transport</td><td style="padding: 10px;">Bezpieczne (TLS) przesyłanie logów do centralnego SIEM.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Logstash (ELK) + Grok</td><td style="padding: 10px;">Parsowanie</td><td style="padding: 10px;">Zamiana nieustrukturyzowanego tekstu na indeksowalny JSON.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Elasticsearch</td><td style="padding: 10px;">Baza danych</td><td style="padding: 10px;">NoSQL, indeksowanie i ultraszybkie wyszukiwanie pełnotekstowe.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Kibana / Splunk</td><td style="padding: 10px;">Wizualizacja</td><td style="padding: 10px;">Dashboardy, wykresy, alerty, przeszukiwanie ad-hoc.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Korelacja zdarzeń</td><td style="padding: 10px;">Detekcja</td><td style="padding: 10px;">Łączenie sekwencji zdarzeń w oknie czasu w celu wykrycia ataku.</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Reguły Sigma</td><td style="padding: 10px;">Standaryzacja</td><td style="padding: 10px;">Uniwersalny język reguł detekcji, konwertowalny na składnię różnych SIEM.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -256,7 +334,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Blue Team Field Manual (BTFM)" (Alan J White) · Dokumentacja architektury Elastic Security / Splunk Enterprise Security · Repozytorium formatu detekcji reguł Sigma (SigmaHQ).
+                    „Blue Team Field Manual (BTFM)” (Alan J White) · Dokumentacja architektury Elastic Security / Splunk Enterprise Security · Repozytorium formatu detekcji reguł Sigma (SigmaHQ) · „The Logstash Book” (James Turnbull).
                 </span>
             </div>
 

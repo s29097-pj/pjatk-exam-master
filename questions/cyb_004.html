@@ -14,9 +14,9 @@
         <h2 id="q-title">004. Metody i narzędzia wykorzystywane przy łamaniu haseł.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%); border-left: 6px solid #5d4037; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(93,64,55,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%); border-left: 6px solid #5d4037; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(93,64,55,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🪓</span>
                 <div>
@@ -27,6 +27,12 @@
                         <strong>Atak Słownikowy (Dictionary Attack):</strong> To sprytny włamywacz, który wie, że ludzie są przewidywalni. Zamiast kręcić od zera, ma notes z najczęstszymi kodami świata (słynny plik <code>rockyou.txt</code> z Kali Linuxa). Sprawdza <code>123456</code>, <code>password</code>, <code>qwerty</code>. Rozwiązuje 80% kłódek w 5 sekund!<br><br>
                         W inżynierii bezpieczeństwa nigdy nie odzyskujemy samego hasła. My <strong>odtwarzamy skrót (Hash)</strong>. Generujemy miliony haseł na sekundę, przepuszczamy je przez funkcję skrótu (np. MD5, SHA-256) i sprawdzamy, czy wynikowy zlepek znaków pasuje do tego, który wykradliśmy z bazy danych.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #1a1a1a; line-height: 1.8;">
+                        <li><strong>🪓 Brute-Force</strong> – gwarantuje sukces, ale czas może być astronomiczny. Ostatnia deska ratunku.</li>
+                        <li><strong>📖 Atak słownikowy</strong> – błyskawiczny, wykorzystuje przewidywalność ludzkich wyborów.</li>
+                        <li><strong>🔄 Atak hybrydowy / regułowy</strong> – słownik + mutacje (admin → Admin123, @dm1n).</li>
+                        <li><strong>🌈 Tęczowe Tablice</strong> – gotowa baza hash→hasło, pokonana przez Sól (Salt).</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -39,166 +45,227 @@
             <span class="keyword-tag">Atak Offline vs Online</span>
             <span class="keyword-tag">Brute-Force / Atak Słownikowy (Dictionary)</span>
             <span class="keyword-tag">Rule-based Attack (Mutacje)</span>
+            <span class="keyword-tag">Mask Attack (Hashcat)</span>
             <span class="keyword-tag">Tęczowe Tablice (Rainbow Tables)</span>
             <span class="keyword-tag">Hashcat (GPU Acceleration) / John the Ripper (CPU)</span>
             <span class="keyword-tag">THC Hydra (Online Protocols)</span>
-            <span class="keyword-tag">KDF (Key Derivation Function: bcrypt, PBKDF2)</span>
-            <span class="keyword-tag">Sól (Salt)</span>
+            <span class="keyword-tag">KDF (Key Derivation Function: bcrypt, PBKDF2, Argon2)</span>
+            <span class="keyword-tag">Sól (Salt) – ochrona przed Rainbow Tables</span>
+            <span class="keyword-tag">Hash ≠ Szyfrowanie</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: METODY ŁAMANIA -->
+            <!-- PART 1: METODY ŁAMANIA – ROZBUDOWANE O ONLINE VS OFFLINE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #5d4037;">1. Fundament Metodologiczny: Jak łamiemy hasła (Algorytmy Offline)</strong>
+                <strong style="font-size: 1.2rem; color: #5d4037;">1. Fundament Metodologiczny: Atak Online vs Offline i 4 główne algorytmy</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Kiedy atakujący pobierze z serwera plik <code>/etc/shadow</code> lub bazę SQL, wykonuje <strong>Atak Offline</strong>. Oznacza to, że może łamać z prędkością swojego sprzętu, bez ryzyka zablokowania konta przez serwer. Wyróżniamy 4 główne podejścia matematyczne:
+                    Pierwszym i najważniejszym rozróżnieniem w łamaniu haseł jest podział na <strong>atak online</strong> i <strong>atak offline</strong>. W ataku online (np. brute-force SSH przez Hydrę) komunikujemy się bezpośrednio z żywym serwerem – każda próba logowania przechodzi przez sieć i jest limitowana przez przepustowość łącza, mechanizmy rate-limiting i blokady kont. W ataku offline posiadamy już wykradziony plik z hashami (np. <code>/etc/shadow</code> lub zrzut bazy SQL) i możemy łamać z maksymalną prędkością naszego sprzętu, bez żadnych ograniczeń ze strony serwera. To fundamentalna różnica – atak offline jest o rzędy wielkości szybszy i cichszy.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W ataku offline wyróżniamy 4 główne podejścia:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Atak Słownikowy (Dictionary):</strong> Przepuszczanie przez funkcję hashującą milionów gotowych słów z plików tekstowych (np. <code>rockyou.txt</code>). Bardzo szybkie, ale pokona je najprostsze hasło niebędące słowem.</li>
-                    <li><strong>Atak Hybrydowy / Oparty na regułach (Rule-based):</strong> Narzędzie bierze słowo ze słownika i stosuje matematyczne mutacje. Np. bierze <code>admin</code> i dodaje cyfry na końcu (<code>admin1</code>, <code>admin123</code>), zamienia małe litery na wielkie, lub używa leetspeak (<code>@dm1n</code>).</li>
-                    <li><strong>Atak Brute-Force:</strong> Generowanie każdej możliwej permutacji znaków (a, b, c... aa, ab, ac...). Ostatnia deska ratunku.</li>
-                    <li><strong>Tęczowe Tablice (Rainbow Tables):</strong> Podejście <em>Time-Memory Tradeoff (TMTO)</em>. Polega na wygenerowaniu przeogromnej bazy danych (często w terabajtach), która zawiera pary: <code>[Czysty Tekst] <-> [Gotowy Hash]</code>. Zamiast liczyć, atakujący po prostu robi <code>SELECT</code> w bazie. Dziś metoda ta umiera dzięki stosowaniu Soli (Salt).</li>
+                    <li><strong>Atak Słownikowy (Dictionary):</strong> Przepuszczanie przez funkcję hashującą milionów gotowych słów z plików (np. <code>rockyou.txt</code> – 14 milionów unikalnych haseł). Błyskawiczny, ale zawodzi przy hasłach niebędących słowami.</li>
+                    <li><strong>Atak Hybrydowy / Regułowy (Rule-based):</strong> Narzędzie bierze słowo ze słownika i stosuje matematyczne mutacje: dodawanie cyfr na końcu (<code>admin123</code>), zamiana liter na wielkie, podmiana znaków na Leetspeak (<code>@dm1n</code>). Reguły w Hashcat są niezwykle elastyczne i mogą zawierać dziesiątki operacji na jednym słowie.</li>
+                    <li><strong>Atak Maskowy (Mask Attack – Hashcat):</strong> Ewolucja brute-force. Zamiast sprawdzać wszystkie kombinacje, definiujemy wzorzec hasła. Jeśli wiemy z polityki firmy, że hasło to „wielka litera + 5 małych + 2 cyfry”, definiujemy maskę <code>?u?l?l?l?l?l?d?d</code>. To radykalnie zmniejsza przestrzeń poszukiwań.</li>
+                    <li><strong>Tęczowe Tablice (Rainbow Tables):</strong> Podejście Time-Memory Tradeoff (TMTO). Gigantyczna baza danych zawierająca gotowe pary hash→hasło. Nie wymaga mocy obliczeniowej – tylko szybkiego dysku. Całkowicie pokonane przez sól (Salt).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pierwszą rzeczą, którą musicie zrozumieć, jest fundamentalna różnica między atakiem online a offline. W ataku online – na przykład przez Hydrę – wysyłamy pakiety przez sieć do serwera SSH. Serwer może nas zablokować po 3 próbach, loguje każdą próbę, a prędkość to maksymalnie kilka tysięcy prób na sekundę. W ataku offline mamy skradziony plik z hashami – siedzimy u siebie w piwnicy z kartą graficzną RTX 4090 i Hashcatem. Żaden serwer nas nie ogranicza. Hashcat potrafi liczyć sto miliardów hashów MD5 na sekundę na jednej karcie. To jest przepaść. Dlatego tak ważne jest, żeby chronić pliki z hashami przed wyciekiem – bo gdy już wyciekną, jedyne co nas ratuje, to dobry algorytm KDF i sól.”
+                </div>
             </div>
 
-            <!-- SVG 1: METHODS -->
-            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="250" fill="#efebe9" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#3e2723">Wizualizacja wektorów ataku kryptograficznego Offline</text>
-
-                <!-- Target Hash -->
-                <rect x="310" y="200" width="200" height="40" rx="4" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="410" y="225" font-family="monospace" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Cel: 5d41402abc4b2a76b9719...</text>
-
-                <!-- Dictionary Attack -->
-                <rect x="60" y="60" width="140" height="90" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="130" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Słownikowy</text>
-                <text x="130" y="95" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">1. "qwerty"</text>
-                <text x="130" y="110" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">2. "123456"</text>
-                <text x="130" y="125" font-family="monospace" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">3. "admin"</text>
-
-                <path d="M 130 150 L 310 200" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBluePw)"/>
-                <rect x="180" y="160" width="40" height="20" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
-                <text x="200" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">Hash()</text>
-
-                <!-- Rule-based Attack -->
-                <rect x="250" y="60" width="140" height="90" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="320" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">Hybrydowy (Reguły)</text>
-                <text x="320" y="95" font-family="monospace" font-size="9" fill="#f57c00" text-anchor="middle">"admin" + Rule(A->@)</text>
-                <text x="320" y="110" font-family="monospace" font-size="9" fill="#f57c00" text-anchor="middle">"admin" + Rule(Append 1)</text>
-                <text x="320" y="125" font-family="monospace" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">=> "@dmin1"</text>
-
-                <path d="M 320 150 L 410 200" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgPw)"/>
-                <rect x="345" y="165" width="40" height="20" rx="4" fill="#fff3e0" stroke="#f57c00"/>
-                <text x="365" y="179" font-family="sans-serif" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">Hash()</text>
-
-                <!-- Brute-Force -->
-                <rect x="430" y="60" width="140" height="90" rx="6" fill="#fff" stroke="#388e3c" stroke-width="2"/>
-                <text x="500" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Brute-Force</text>
-                <text x="500" y="95" font-family="monospace" font-size="9" fill="#388e3c" text-anchor="middle">1. "a"</text>
-                <text x="500" y="110" font-family="monospace" font-size="9" fill="#388e3c" text-anchor="middle">2. "b"</text>
-                <text x="500" y="125" font-family="monospace" font-size="9" fill="#388e3c" text-anchor="middle">... 9.9 biliona cykli ...</text>
-
-                <path d="M 500 150 L 450 200" fill="none" stroke="#388e3c" stroke-width="2" marker-end="url(#arrowGrnPw)"/>
-                <rect x="450" y="165" width="40" height="20" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
-                <text x="470" y="179" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Hash()</text>
-
-                <!-- Rainbow Tables -->
-                <rect x="620" y="60" width="140" height="90" rx="6" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
-                <text x="690" y="80" font-family="sans-serif" font-size="12" font-weight="bold" fill="#4a148c" text-anchor="middle">Rainbow Tables</text>
-                <text x="690" y="95" font-family="monospace" font-size="8" fill="#8e24aa" text-anchor="middle">[5d41...] -> "admin"</text>
-                <text x="690" y="110" font-family="monospace" font-size="8" fill="#8e24aa" text-anchor="middle">[b10a...] -> "test"</text>
-                <text x="690" y="125" font-family="sans-serif" font-size="9" font-weight="bold" fill="#4a148c" text-anchor="middle">Brak przeliczania!</text>
-
-                <path d="M 690 150 L 510 200" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowPurpPw)"/>
-                <rect x="580" y="160" width="45" height="20" rx="4" fill="#f3e5f5" stroke="#8e24aa"/>
-                <text x="602" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#4a148c" text-anchor="middle">LOOKUP</text>
-
+            <!-- SVG 1: METHODS (zachowany, ulepszony o mask attack) -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowBluePw" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
                     <marker id="arrowOrgPw" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
                     <marker id="arrowGrnPw" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
                     <marker id="arrowPurpPw" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="260" fill="#efebe9" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#3e2723">Wizualizacja wektorów ataku kryptograficznego (Offline)</text>
+
+                <!-- Target Hash -->
+                <rect x="310" y="215" width="200" height="35" rx="4" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="410" y="237" font-family="monospace" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Cel: 5d41402abc4b2a76b9719...</text>
+
+                <!-- Dictionary Attack -->
+                <rect x="40" y="55" width="150" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="115" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Słownikowy</text>
+                <text x="115" y="92" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">"password"</text>
+                <text x="115" y="107" font-family="monospace" font-size="9" fill="#1565c0" text-anchor="middle">"123456"</text>
+                <text x="115" y="122" font-family="monospace" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">"admin" → ZNALEZIONE</text>
+                <path d="M 115 135 L 310 215" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBluePw)"/>
+
+                <!-- Rule-based -->
+                <rect x="220" y="55" width="150" height="80" rx="6" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="295" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Hybrydowy (Reguły)</text>
+                <text x="295" y="92" font-family="monospace" font-size="9" fill="#f57c00" text-anchor="middle">admin → Admin123</text>
+                <text x="295" y="107" font-family="monospace" font-size="9" fill="#f57c00" text-anchor="middle">admin → @dm1n</text>
+                <text x="295" y="122" font-family="monospace" font-size="9" font-weight="bold" fill="#e65100" text-anchor="middle">rule: sa@ so0 si1 se3</text>
+                <path d="M 295 135 L 400 215" fill="none" stroke="#f57c00" stroke-width="2" marker-end="url(#arrowOrgPw)"/>
+
+                <!-- Mask Attack -->
+                <rect x="400" y="55" width="150" height="80" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="475" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">Maskowy (Wzorzec)</text>
+                <text x="475" y="92" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">Maska: ?u?l?l?l?l?d?d</text>
+                <text x="475" y="107" font-family="monospace" font-size="9" fill="#2e7d32" text-anchor="middle">Generuje: Aaaa00 .. Zzzz99</text>
+                <text x="475" y="122" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Przestrzeń: 26⁵×10²</text>
+                <path d="M 475 135 L 450 215" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrnPw)"/>
+
+                <!-- Rainbow Tables -->
+                <rect x="580" y="55" width="200" height="80" rx="6" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
+                <text x="680" y="75" font-family="sans-serif" font-size="11" font-weight="bold" fill="#4a148c" text-anchor="middle">Rainbow Tables (TMTO)</text>
+                <text x="680" y="92" font-family="monospace" font-size="8" fill="#8e24aa" text-anchor="middle">[5d41...] → "admin"</text>
+                <text x="680" y="107" font-family="monospace" font-size="8" fill="#8e24aa" text-anchor="middle">[b10a...] → "test"</text>
+                <text x="680" y="122" font-family="sans-serif" font-size="9" font-weight="bold" fill="#4a148c" text-anchor="middle">Bez przeliczania – SELECT!</text>
+                <path d="M 680 135 L 510 215" fill="none" stroke="#8e24aa" stroke-width="2" marker-end="url(#arrowPurpPw)"/>
+
+                <text x="410" y="255" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Każda metoda przepuszcza kandydata przez Hash() i porównuje z celem. Rainbow Table omija Hash() – robi lookup.</text>
             </svg>
 
-            <!-- PART 2: KALI LINUX ARSENAL -->
+            <!-- PART 2: KALI LINUX ARSENAL – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Arsenał Analityka: Flagowe narzędzia systemu Kali Linux</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Arsenał Analityka: Narzędzia Kali Linux i ich architektura</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Narzędzia zawarte w dystrybucjach typu Pentest (Kali/Parrot) precyzyjnie dzielą się na atakujące wykradzione bazy danych (Offline) oraz forsujące aktywne serwery (Online).
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Hashcat (Offline / GPU):</strong> Absolutny król branży. Zaprojektowany do wykorzystywania tysięcy rdzeni kart graficznych (OpenCL/CUDA). Karta RTX potrafi policzyć na Hashcacie 100 miliardów hashów MD5 w <em>sekundę</em>. To narzędzie wymaga wyizolowanego pliku z hashami.</li>
-                    <li><strong>John the Ripper (Offline / CPU):</strong> Klasyk środowisk uniksowych. Opiera się na architekturze procesora centralnego (CPU). Choć wolniejszy od Hashcata przy prostych hashash, jest niezastąpiony przy formatach, których GPU nie trawi (np. własnościowe hasła plików ZIP/RAR, portfele kryptowalut, pliki <code>/etc/shadow</code>) oraz posiada świetny mechanizm <em>Auto-Detekcji Formatów</em>.</li>
-                    <li><strong>THC Hydra / Medusa (Online / Network):</strong> Te narzędzia <strong>nie łamią hashów</strong>! One atakują żywe usługi sieciowe. Moduły Hydry "rozmawiają" protokołami RDP, SSH, FTP, SMB, HTTP-Form, rzucając w serwer żądaniami logowania (brute-force po sieci). Są potwornie głośne, zostawiają gigantyczne ślady w logach i są limitowane przez przepustowość sieci (max kilka tysięcy prób na sekundę).</li>
+                    <li><strong>Hashcat (Offline / GPU):</strong> Absolutny król branży. Wykorzystuje tysiące rdzeni kart graficznych przez OpenCL/CUDA. Karta RTX 4090 potrafi liczyć ~100 miliardów hashów MD5 na sekundę. Obsługuje ponad 300 formatów hashów. Kluczowe tryby: <code>-a 0</code> (słownikowy), <code>-a 1</code> (kombinacyjny – łączenie dwóch słowników), <code>-a 3</code> (maskowy – brute-force z maską), <code>-a 6/7</code> (hybrydowy – słownik + maska).</li>
+                    <li><strong>John the Ripper (Offline / CPU):</strong> Klasyk uniksowy, optymalizowany pod CPU (AVX, SSE). Wolniejszy od Hashcata na prostych hashash, ale niezastąpiony przy formatach niszowych: pliki ZIP/RAR, arkusze Excel, klucze SSH, portfele kryptowalut. Ma świetny mechanizm auto-detekcji formatu.</li>
+                    <li><strong>THC Hydra / Medusa (Online / Network):</strong> Nie łamią hashów – atakują żywe usługi sieciowe. Moduły Hydry „rozmawiają” przez RDP, SSH, FTP, HTTP-POST, rzucając w serwer żądaniami logowania. Są głośne – zostawiają tysiące wpisów w logach – i limitowane przez sieć (max kilka tysięcy prób/s).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W arsenale mamy trzy główne narzędzia. Hashcat – król wydajności. On w pełni wykorzystuje GPU. Na jednej karcie RTX 4090 potrafi liczyć sto miliardów MD5 na sekundę. Ma tryby: słownikowy, kombinacyjny, maskowy i hybrydowy. John the Ripper – klasyk, mistrz CPU. Radzi sobie z formatami, których GPU nie trawi: pliki ZIP, arkusze Excel, klucze prywatne SSH. Hydra – jedyne narzędzie online. Ona nie łamie hashów, tylko atakuje żywe serwery przez sieć: SSH, RDP, formularze HTTP. Jest powolna i głośna – zostawia ślady w logach. Dlatego w teście penetracyjnym używamy jej bardzo ostrożnie.”
+                </div>
             </div>
 
-            <!-- SVG 2: KALI TOOLS ARCHITECTURE -->
-            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="240" fill="#e3f2fd" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Ekosystem narzędzi (Kali Linux): Offline (Hashe) kontra Online (Sieć)</text>
-
-                <!-- OFFLINE SECTION -->
-                <rect x="40" y="50" width="340" height="170" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Środowisko OFFLINE</text>
-
-                <rect x="60" y="90" width="100" height="40" rx="4" fill="#bbdefb" stroke="#1565c0"/>
-                <text x="110" y="108" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">Hashcat</text>
-                <text x="110" y="122" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(CUDA / GPU)</text>
-
-                <rect x="60" y="140" width="100" height="40" rx="4" fill="#bbdefb" stroke="#1565c0"/>
-                <text x="110" y="158" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">John</text>
-                <text x="110" y="172" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">(AVX / CPU)</text>
-
-                <path d="M 160 110 L 250 135" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueK)"/>
-                <path d="M 160 160 L 250 135" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueK)"/>
-
-                <rect x="260" y="110" width="100" height="50" rx="4" fill="#cfd8dc" stroke="#455a64" stroke-dasharray="4,2"/>
-                <text x="310" y="130" font-family="monospace" font-size="10" font-weight="bold" fill="#263238" text-anchor="middle">hash.txt</text>
-                <text x="310" y="145" font-family="sans-serif" font-size="8" fill="#455a64" text-anchor="middle">Predkość: Biliony/s</text>
-
-                <!-- ONLINE SECTION -->
-                <rect x="440" y="50" width="340" height="170" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Środowisko ONLINE</text>
-
-                <rect x="460" y="115" width="100" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
-                <text x="510" y="133" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">THC Hydra</text>
-                <text x="510" y="147" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(Sieć TCP/IP)</text>
-
-                <path d="M 560 135 L 650 135" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedK)"/>
-                <rect x="580" y="115" width="50" height="15" fill="#fff"/>
-                <text x="605" y="125" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">SSH :22</text>
-
-                <rect x="660" y="110" width="100" height="50" rx="4" fill="#e8f5e9" stroke="#2e7d32"/>
-                <text x="710" y="130" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer Zewnętrzny</text>
-                <text x="710" y="145" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Prędkość: Tysiące/s</text>
-
-                <!-- Ściana między nimi -->
-                <line x1="410" y1="40" x2="410" y2="230" stroke="#90a4ae" stroke-width="2" stroke-dasharray="8,4"/>
-
+            <!-- SVG 2: KALI TOOLS (zachowany, ulepszony) -->
+            <svg viewBox="0 0 820 260" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowBlueK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
                     <marker id="arrowRedK" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="260" fill="#e3f2fd" opacity="0.4"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Ekosystem narzędzi: Offline (Hashe, GPU/CPU) kontra Online (Sieć)</text>
+
+                <!-- OFFLINE SECTION -->
+                <rect x="30" y="45" width="360" height="195" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="210" y="68" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Środowisko OFFLINE (Wykradzione hashe)</text>
+
+                <rect x="50" y="85" width="130" height="55" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <text x="115" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Hashcat</text>
+                <text x="115" y="122" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">GPU: CUDA / OpenCL</text>
+                <text x="115" y="134" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">~100 GH/s (MD5)</text>
+
+                <rect x="50" y="150" width="130" height="55" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <text x="115" y="170" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">John the Ripper</text>
+                <text x="115" y="187" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">CPU: AVX / SSE</text>
+                <text x="115" y="199" font-family="sans-serif" font-size="9" fill="#0d47a1" text-anchor="middle">Niszowe formaty</text>
+
+                <path d="M 180 112 L 260 155" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueK)"/>
+                <path d="M 180 177 L 260 155" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueK)"/>
+                <rect x="265" y="135" width="110" height="45" rx="4" fill="#cfd8dc" stroke="#455a64" stroke-dasharray="4,2"/>
+                <text x="320" y="155" font-family="monospace" font-size="10" font-weight="bold" fill="#263238" text-anchor="middle">hash.txt</text>
+                <text x="320" y="170" font-family="sans-serif" font-size="8" fill="#455a64" text-anchor="middle">Szybkość: miliardy/s</text>
+                <text x="320" y="182" font-family="sans-serif" font-size="8" fill="#455a64" text-anchor="middle">Brak ograniczeń</text>
+
+                <!-- ONLINE SECTION -->
+                <rect x="430" y="45" width="360" height="195" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="610" y="68" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Środowisko ONLINE (Żywe usługi)</text>
+
+                <rect x="450" y="115" width="130" height="55" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="515" y="135" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">THC Hydra</text>
+                <text x="515" y="152" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">SSH, RDP, HTTP-POST</text>
+                <text x="515" y="164" font-family="sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Sieć TCP/IP</text>
+
+                <path d="M 580 142 L 640 142" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowRedK)"/>
+                <rect x="645" y="120" width="130" height="45" rx="4" fill="#e8f5e9" stroke="#2e7d32"/>
+                <text x="710" y="140" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer</text>
+                <text x="710" y="155" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Limit: ~tysiące prób/s</text>
+                <text x="710" y="167" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Loguje każdą próbę!</text>
+
+                <!-- Alert -->
+                <rect x="610" y="175" width="165" height="25" fill="#ffebee" rx="4" stroke="#d32f2f"/>
+                <text x="692" y="192" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">⚠️ Głośny – zostawia ślady!</text>
+
+                <!-- Ściana -->
+                <line x1="415" y1="45" x2="415" y2="240" stroke="#90a4ae" stroke-width="2" stroke-dasharray="8,4"/>
+                <text x="415" y="250" font-family="sans-serif" font-size="9" font-weight="bold" fill="#546e7a" text-anchor="middle">Atak OFFLINE = szybszy i cichszy. Atak ONLINE = wolny i widoczny w logach.</text>
             </svg>
 
-            <!-- PART 3: OBRONA KRYPTOGRAFICZNA -->
+            <!-- PART 3: OBRONA KRYPTOGRAFICZNA – ROZBUDOWANE Z GRAFIKĄ SALT+KDF KROK PO KROKU -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Inżynieria Obrony: Salt oraz KDF (Key Derivation Function)</strong>
+                <strong style="font-size: 1.2rem; color: #d32f2f;">3. Inżynieria Obrony: Salt, KDF (bcrypt, Argon2) i Key Stretching</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Jak obrońcy pokonali Hashcata i terabajtowe Rainbow Tables? Wprowadzając dwie zabójcze innowacje kryptograficzne:
+                    Jak obrońcy pokonali Hashcata i terabajtowe Rainbow Tables? Wprowadzając dwie zabójcze innowacje kryptograficzne, które działają razem:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Sól (Salt):</strong> Generowany losowo ciąg znaków dopisywany do hasła każdego użytkownika <em>przed</em> hashowaniem (np. `hash(hasło + sol)`). Nawet jeśli dwóch użytkowników ma hasło `admin`, ich hashe w bazie będą zupełnie inne. Sól <strong>całkowicie niszczy skuteczność Rainbow Tables</strong>, wymuszając na atakującym generowanie bazy od nowa dla każdego pojedynczego użytkownika.</li>
-                    <li><strong>KDF i Iteracje (bcrypt, Argon2, PBKDF2):</strong> Hashcat jest szybki, bo algorytmy takie jak MD5 czy SHA-1 zostały zaprojektowane przez inżynierów by działać ekstremalnie szybko (do weryfikacji plików). Było to błędem! Nowoczesne funkcje hashowania haseł (np. <strong>bcrypt</strong>) mają wbudowany czynnik kosztu (Cost Factor/Work Factor). Celowo wykonują pętlę matematyczną np. 10 000 razy na jedno hasło. Serwer weryfikując login użytkownika nie zauważy straty 0.2 sekundy. Jednak dla atakującego z Hashcatem oznacza to spadek wydajności z bilionów prób na sekundę do zaledwie kilkuset! Złamanie hasła nagle zajmuje stulecia, nawet na układach GPU.</li>
+                    <li><strong>Sól (Salt):</strong> Losowy ciąg (min. 16 bajtów) generowany dla każdego użytkownika osobno i przechowywany obok hasha. Nawet jeśli dwóch użytkowników ma hasło <code>admin</code>, z różną solą ich hashe będą zupełnie inne. Sól całkowicie niszczy skuteczność Rainbow Tables i uniemożliwia atak „jedno hasło – wiele kont”.</li>
+                    <li><strong>KDF i Iteracje (bcrypt, Argon2, PBKDF2):</strong> Nowoczesne algorytmy celowo spowalniają hashowanie. Wykonują pętlę matematyczną np. 10 000 razy na jedno hasło. Serwer nie zauważa opóźnienia 0.3 sekundy przy logowaniu, ale Hashcat spowalnia z miliardów do kilkuset prób na sekundę. Złamanie jednego hasha nagle zajmuje stulecia.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Obrona przed łamaniem haseł opiera się na dwóch filarach. Pierwszy to sól – losowy ciąg doklejany do hasła przed hashowaniem. Proszę spojrzeć na planszę – Alice i Bob mają identyczne hasło 'admin'. Bez soli ich hashe byłyby identyczne – atakujący łamie jedno i zna hasła obojga. Z solą każdy hash jest inny, nawet dla tego samego hasła. Sól niszczy też Rainbow Tables. Drugi filar to KDF – Key Derivation Function. Algorytmy bcrypt, Argon2 czy PBKDF2 celowo są powolne. Wykonują tysiące iteracji – zaokrąglają hasło w pętli. Dla użytkownika logowanie trwa 0.3 sekundy – niezauważalnie. Dla Hashcata to katastrofa – z miliarda prób na sekundę spada do kilkuset. I to jest właśnie key stretching – rozciąganie klucza w czasie.”
+                </div>
             </div>
+
+            <!-- SVG 3: SALT I KDF KROK PO KROKU (NOWA) -->
+            <svg viewBox="0 0 820 300" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="300" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Jak Sól i KDF chronią przed atakami? Krok po kroku</text>
+
+                <!-- Panel Lewy: Bez soli -->
+                <rect x="25" y="42" width="370" height="120" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="210" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">❌ Bez soli (słaba ochrona)</text>
+                <text x="45" y="82" font-family="monospace" font-size="9" fill="#c62828">Alice: hash("admin") = 5d41402abc...</text>
+                <text x="45" y="98" font-family="monospace" font-size="9" fill="#c62828">Bob:   hash("admin") = 5d41402abc...</text>
+                <text x="45" y="118" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c">Identyczne hashe! Rainbow Table działa.</text>
+                <text x="45" y="134" font-family="sans-serif" font-size="9" fill="#c62828">Atakujący łamie jedno → zna hasła wszystkich z "admin".</text>
+
+                <!-- Panel Prawy: Z solą -->
+                <rect x="425" y="42" width="370" height="120" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="610" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">✅ Z solą (silna ochrona)</text>
+                <text x="445" y="82" font-family="monospace" font-size="9" fill="#1b5e20">Alice: hash("admin" + "a3f7...") = b10a8d...</text>
+                <text x="445" y="98" font-family="monospace" font-size="9" fill="#1b5e20">Bob:   hash("admin" + "9c2e...") = f4e2c...</text>
+                <text x="445" y="118" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32">Różne hashe! Rainbow Table bezużyteczna.</text>
+                <text x="445" y="134" font-family="sans-serif" font-size="9" fill="#2e7d32">Każdy użytkownik ma własną sól.</text>
+
+                <!-- Sekcja KDF -->
+                <rect x="25" y="178" width="770" height="110" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+                <text x="410" y="200" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Mechanizm Key Stretching (KDF): bcrypt – iteracyjne spowalnianie</text>
+
+                <!-- Przepływ -->
+                <rect x="45" y="215" width="120" height="35" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+                <text x="105" y="236" font-family="monospace" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">hasło + sól</text>
+
+                <path d="M 165 232 L 220 232" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueSalt)"/>
+
+                <!-- Pętla iteracji -->
+                <rect x="225" y="210" width="200" height="45" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="325" y="228" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">bcrypt (cost=12)</text>
+                <text x="325" y="244" font-family="monospace" font-size="9" fill="#e65100" text-anchor="middle">hash = SHA256( ... 2¹² iteracji)</text>
+
+                <path d="M 425 232 L 480 232" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlueSalt)"/>
+
+                <rect x="485" y="215" width="120" height="35" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="545" y="236" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20" text-anchor="middle">hash końcowy</text>
+
+                <!-- Podsumowanie liczb -->
+                <rect x="640" y="210" width="140" height="45" rx="4" fill="#ffebee" stroke="#c62828"/>
+                <text x="710" y="228" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Dla Hashcata:</text>
+                <text x="710" y="244" font-family="monospace" font-size="9" fill="#c62828">1 GH/s → 500 H/s!</text>
+
+                <text x="410" y="280" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Sól = unikalność. KDF = spowolnienie. Razem = hasło nie do złamania w rozsądnym czasie.</text>
+
+                <defs>
+                    <marker id="arrowBlueSalt" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
+            </svg>
 
             <!-- ======================================================== -->
             <!-- PUŁAPKI EGZAMINACYJNE                                   -->
@@ -206,9 +273,32 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki bezpieczeństwa haseł):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Sól służy do spowalniania łamania haseł"</strong> – Klasyczny błąd! Sól absolutnie <strong>nie spowalnia</strong> obliczeń karty graficznej podczas ataku Brute-Force/Słownikowego. Dodanie soli (np. 16 bajtów) sprawia tylko, że hasło jest dłuższe dla wektora wejściowego. Sól uderza wyłącznie w wektor Tęczowych Tablic (Rainbow Tables) oraz zapobiega wykrywaniu duplikatów haseł w bazie. Za <em>spowalnianie</em> obliczeń odpowiadają Iteracje i Key Stretching (PBKDF2/bcrypt).</li>
-                    <li><strong>"Hashowanie to to samo co Szyfrowanie (Encryption)"</strong> – Powiedz to na egzaminie, a natychmiast go nie zdasz. Szyfrowanie (np. AES/RSA) jest procesem <strong>dwukierunkowym</strong> – używając klucza deszyfrującego, odwracasz proces i wracasz do czystego tekstu. Hashowanie (MD5, SHA-2) to funkcja <strong>jednokierunkowa</strong>. Matematycznie tracisz dane, niszczysz je na zawsze tworząc stałej długości skrót ("odcisk palca"). Łamanie hashy nie jest deszyfrowaniem – jest procesem <em>odgadywania</em> wejścia metodą prób i błędów, by otrzymać ten sam odcisk palca (tzw. kolizję).</li>
+                    <li><strong>„Sól służy do spowalniania łamania haseł”</strong> – Klasyczny błąd! Sól absolutnie <strong>nie spowalnia</strong> obliczeń karty graficznej podczas ataku Brute-Force czy słownikowego. Sól uderza wyłącznie w Tęczowe Tablice oraz zapobiega wykrywaniu duplikatów haseł. Za <em>spowalnianie</em> odpowiadają Iteracje i Key Stretching (KDF: bcrypt, PBKDF2, Argon2).</li>
+                    <li><strong>„Hashowanie to to samo co Szyfrowanie (Encryption)”</strong> – Szyfrowanie (AES/RSA) jest procesem <strong>dwukierunkowym</strong> – używając klucza, odwracasz proces. Hashowanie (MD5, SHA-2) to funkcja <strong>jednokierunkowa</strong> – matematycznie tracisz dane, tworzysz „odcisk palca”. Łamanie hashów to nie deszyfrowanie – to <em>odgadywanie</em> wejścia metodą prób i błędów.</li>
+                    <li><strong>„MD5 jest bezpieczny do haseł, bo jest szybki”</strong> – Szybkość MD5 to jego największa WADA przy hasłach. Hashcat robi 100 miliardów MD5/s. Do haseł używamy powolnych KDF: bcrypt, Argon2id. Szybkość jest wrogiem bezpieczeństwa haseł.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsza pułapka to mylenie roli soli z rolą KDF. Sól nie spowalnia – sól daje unikalność. Jeśli dwóch użytkowników ma to samo hasło, bez soli ich hashe są identyczne. Z solą każdy hash jest inny. Sól zabija Rainbow Tables. Za spowolnienie odpowiada KDF – bcrypt, Argon2 – który celowo wykonuje tysiące iteracji. Druga pułapka: hashowanie to nie szyfrowanie. Nie da się 'odszyfrować' hasha. My tylko zgadujemy, jakie hasło da taki sam skrót. I trzecia: szybkość jest wrogiem bezpieczeństwa haseł. MD5 i SHA-1 są bezużyteczne do haseł właśnie dlatego, że są za szybkie. Do haseł używamy powolnych algorytmów.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Łamanie haseł:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kategoria</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Narzędzie / Metoda</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowa cecha</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Offline (hashe)</td><td style="padding: 10px;">Hashcat (GPU)</td><td style="padding: 10px;">~100 GH/s (MD5). Tryby: słownikowy, maskowy, hybrydowy, kombinacyjny.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Offline (hashe)</td><td style="padding: 10px;">John the Ripper (CPU)</td><td style="padding: 10px;">Niszowe formaty (ZIP, RAR, SSH keys). Auto-detekcja formatu.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Online (sieć)</td><td style="padding: 10px;">THC Hydra / Medusa</td><td style="padding: 10px;">Atak na żywe usługi: SSH, RDP, HTTP-POST. Głośny i powolny.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Metoda ataku</td><td style="padding: 10px;">Słownikowy (Dictionary)</td><td style="padding: 10px;">Błyskawiczny. Plik rockyou.txt (14M haseł).</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Metoda ataku</td><td style="padding: 10px;">Maskowy (Mask Attack)</td><td style="padding: 10px;">Hashcat -a 3. Definiujemy wzorzec: ?u?l?l?l?l?d?d.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Obrona</td><td style="padding: 10px;">Sól (Salt)</td><td style="padding: 10px;">Unikalność. Niszczy Rainbow Tables. Nie spowalnia!</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Obrona</td><td style="padding: 10px;">KDF (bcrypt, Argon2, PBKDF2)</td><td style="padding: 10px;">Celowe spowolnienie przez iteracje. Wróg Hashcata.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -217,7 +307,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla amatora bezpieczeństwo haseł kończy się na włączeniu w formularzu wymogu "Znak specjalny i 8 znaków". Dla inżyniera cyberbezpieczeństwa łamanie haseł to bezwzględny wyścig zbrojeń sprzętowych. Narzędzia z Kali Linuxa (Hashcat, John, Hydra) uświadamiają nam brutalną matematyczną prawdę – nie ma hasła nie do złamania, jest tylko kwestia czasu i kosztów prądu zasilającego układy GPU atakującego. Architektura bezpieczeństwa opiera się na tym, by tak skonstruować funkcje KDF (np. Argon2id) i tak nasycić logowanie solą, by po pobraniu bazy przez hakera, odtworzenie pojedynczego skrótu kosztowało go więcej pieniędzy w prądzie, niż wynosi potencjalny zysk z kradzieży.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla amatora bezpieczeństwo haseł kończy się na włączeniu w formularzu wymogu „Znak specjalny i 8 znaków”. Dla inżyniera cyberbezpieczeństwa łamanie haseł to bezwzględny wyścig zbrojeń sprzętowych. Narzędzia z Kali Linuxa (Hashcat, John, Hydra) uświadamiają nam brutalną matematyczną prawdę – nie ma hasła nie do złamania, jest tylko kwestia czasu i kosztów prądu zasilającego układy GPU atakującego. Architektura bezpieczeństwa opiera się na tym, by tak skonstruować funkcje KDF (np. Argon2id) i tak nasycić logowanie solą, by po pobraniu bazy przez hakera, odtworzenie pojedynczego skrótu kosztowało go więcej pieniędzy w prądzie, niż wynosi potencjalny zysk z kradzieży.</span>
                 </p>
             </div>
 
@@ -225,7 +315,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Kryptografia w praktyce" (Niels Ferguson, Bruce Schneier) · Dokumentacja techniczna Hashcat Wiki oraz John the Ripper. · OWASP Password Storage Cheat Sheet.
+                    „Kryptografia w praktyce” (Niels Ferguson, Bruce Schneier) · Dokumentacja techniczna Hashcat Wiki oraz John the Ripper · OWASP Password Storage Cheat Sheet · RFC 7914 (Argon2).
                 </span>
             </div>
 

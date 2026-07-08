@@ -14,9 +14,9 @@
         <h2 id="q-title">011. Rola zespołu SOC (Security Operations Center).</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">👁️‍🗨️</span>
                 <div>
@@ -24,9 +24,14 @@
                     <p style="margin: 0 0 8px 0; color: #002147; line-height: 1.7;">
                         Wielu ludzi myli SOC z działem IT (Helpdeskiem) lub NOC (Network Operations Center). To fundamentalny błąd. <br><br>
                         NOC to mechanicy. Zależy im na tym, aby samolot (serwer) po prostu leciał. Jeśli silnik zgaśnie, odpalają go ponownie. Liczy się dla nich <strong>Dostępność (Uptime)</strong>.<br><br>
-                        <strong>SOC (Security Operations Center)</strong> to z kolei Wieża Kontroli Lotów wyposażona w radary wojskowe. Analityka SOC w ogóle nie obchodzi, czy serwer uległ awarii z powodu braku prądu. Analityk patrzy na radary i zadaje jedno pytanie: <em>"Czy powodem zgaśnięcia silnika było wstrzyknięcie złośliwego kodu, a samolot właśnie został przejęty przez wroga?"</em>.<br><br>
+                        <strong>SOC (Security Operations Center)</strong> to z kolei Wieża Kontroli Lotów wyposażona w radary wojskowe. Analityka SOC w ogóle nie obchodzi, czy serwer uległ awarii z powodu braku prądu. Analityk patrzy na radary i zadaje jedno pytanie: <em>„Czy powodem zgaśnięcia silnika było wstrzyknięcie złośliwego kodu, a samolot właśnie został przejęty przez wroga?"</em>.<br><br>
                         SOC nie instaluje kabli ani nie naprawia drukarek. To scentralizowana komórka wywiadowczo-obronna, która za pomocą triady <strong>Ludzie, Procesy i Technologie</strong> ma tylko dwa cele: drastycznie skrócić czas wykrycia włamania (MTTD) i czas usunięcia zagrożenia (MTTR).
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #002147; line-height: 1.8;">
+                        <li><strong>👥 Ludzie (People)</strong> – trójstopniowa eskalacja: Tier 1 (Triage), Tier 2 (IR), Tier 3 (Threat Hunting).</li>
+                        <li><strong>⚙️ Procesy (Process)</strong> – Playbooki, Runbooki, cykl reagowania NIST/SANS PICERL.</li>
+                        <li><strong>🖥️ Technologie (Technology)</strong> – SIEM, SOAR, EDR, Threat Intelligence Platform.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -43,28 +48,87 @@
             <span class="keyword-tag">MTTD (Mean Time to Detect) & MTTR (Mean Time to Respond)</span>
             <span class="keyword-tag">Playbooks & Runbooks</span>
             <span class="keyword-tag">Proaktywność (Threat Hunting)</span>
+            <span class="keyword-tag">SOC vs NOC vs CSIRT</span>
+            <span class="keyword-tag">Model operacyjny: In-house / MSSP / Hybrydowy</span>
+            <span class="keyword-tag">Purple Teaming</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: LUDZIE I HIERARCHIA -->
+            <!-- PART 0: SOC VS NOC VS CSIRT (NOWA SEKCJA) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">1. Architektura Ludzka (People): Model Eskalacji Tier 1-3</strong>
+                <strong style="font-size: 1.2rem; color: #00838f;">1. Czym NIE jest SOC: SOC vs NOC vs CSIRT – trzy różne światy</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Skuteczny SOC nie polega na zatrudnieniu 20 jednakowych inżynierów. Opiera się na ścisłej, militarnej hierarchii eskalacji zdarzeń. Pozwala to na odsianie "szumu" (False Positives) od rzeczywistych ataków na poziomie bazowym, zachowując czas najdroższych ekspertów do walki z wyrafinowanymi zagrożeniami (APT).
+                    Jednym z najczęstszych błędów na egzaminie jest pomylenie kompetencji trzech zespołów operacyjnych. <strong>SOC (Security Operations Center)</strong> koncentruje się na bezpieczeństwie – wykrywaniu i reagowaniu na cyberzagrożenia. <strong>NOC (Network Operations Center)</strong> dba o ciągłość działania infrastruktury – SLA, uptime, wydajność. <strong>CSIRT (Computer Security Incident Response Team)</strong> to z kolei wyspecjalizowana grupa, często międzywydziałowa, aktywowana tylko podczas poważnych incydentów – ich zadaniem jest koordynacja kryzysowa, komunikacja z zarządem i mediami oraz decyzje strategiczne (np. czy płacić okup).
                 </p>
-                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Tier 1 (Triage Specialist / Alert Analyst):</strong> "Piechota". Pracują w systemie 24/7/365. Przeglądają setki surowych alarmów generowanych przez maszyny. Ich zadaniem jest weryfikacja (Triage): <em>Czy ten alert to błąd maszyny, czy prawdziwy atak?</em> Jeśli to atak, otwierają "Tiket" i przekazują wyżej. Zamykają 80% spraw operując ściśle według <em>Playbooków</em>.</li>
-                    <li><strong>Tier 2 (Incident Responder):</strong> "Siły specjalne". Przejmują zweryfikowane incydenty. Przeprowadzają głęboką korelację – analizują ruch sieciowy (PCAP), pamięć RAM i logi stykowe, aby zrozumieć rozmiar ataku. To oni wydają rozkaz "odcięcia zainfekowanej sieci" (Containment).</li>
-                    <li><strong>Tier 3 (Threat Hunter / DFIR):</strong> "Wywiad i Snajperzy". Często w ogóle nie patrzą na alerty. Zakładają z góry, że <em>firma została już zhakowana</em> (Assume Breach). Proaktywnie szukają ukrytych wrogów w sieci. Zajmują się też inżynierią wsteczną (Reverse Engineering) złośliwego oprogramowania i informatyką śledczą (DFIR - Digital Forensics and Incident Response).</li>
-                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    SOC może być zorganizowany w trzech modelach operacyjnych: <strong>In-house</strong> (własny zespół 24/7), <strong>MSSP</strong> (Managed Security Service Provider – outsourcing do firmy zewnętrznej) oraz <strong>Hybrydowy</strong> (MSSP monitoruje 24/7, eskalacje trafiają do wewnętrznego zespołu). Wybór modelu zależy od budżetu, dojrzałości organizacji i wymogów compliance.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zacznijmy od fundamentalnego rozróżnienia, bo to częste pytanie egzaminacyjne. SOC to nie jest NOC. NOC – Network Operations Center – dba o uptime, SLA, wydajność łączy. Jeśli serwer padnie, NOC go restartuje. SOC patrzy na ten sam serwer i pyta: czy padł z powodu awarii dysku, czy dlatego, że haker wstrzyknął malware? SOC koncentruje się na bezpieczeństwie. Jest jeszcze CSIRT – to zespół kryzysowy, który zbiera się tylko podczas poważnych incydentów. CSIRT podejmuje decyzje strategiczne: czy płacić okup, czy informować UODO, czy dzwonić do prawników. SOC działa 24/7, CSIRT – doraźnie. I ostatnia rzecz: modele organizacyjne. Możemy mieć SOC wewnętrzny, outsourcowany do MSSP, albo hybrydowy – gdzie MSSP monitoruje w nocy, a nasi analitycy w dzień."
+                </div>
             </div>
 
-            <!-- SVG 1: SOC TIERS -->
+            <!-- SVG 0: SOC VS NOC (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="220" fill="#e0f7fa" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#006064">SOC vs NOC vs CSIRT – trzy różne światy operacyjne</text>
+
+                <!-- NOC -->
+                <rect x="30" y="50" width="230" height="145" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="145" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0d47a1" text-anchor="middle">NOC (Network Ops)</text>
+                <text x="145" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Cel: Dostępność (Uptime)</text>
+                <text x="145" y="115" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Dba o: SLA, routing, łącza</text>
+                <text x="145" y="135" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Reakcja na: awarie sprzętu</text>
+                <text x="145" y="155" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Metryka: 99,99% uptime</text>
+                <text x="145" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">„Czy serwer pinguje?"</text>
+
+                <!-- SOC -->
+                <rect x="295" y="50" width="230" height="145" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b71c1c" text-anchor="middle">SOC (Security Ops)</text>
+                <text x="410" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Cel: Bezpieczeństwo</text>
+                <text x="410" y="115" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Dba o: detekcję i reakcję</text>
+                <text x="410" y="135" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Reakcja na: ataki, złośliwy kod</text>
+                <text x="410" y="155" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Metryka: MTTD, MTTR</text>
+                <text x="410" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">„Czy ktoś właśnie kradnie dane?"</text>
+
+                <!-- CSIRT -->
+                <rect x="560" y="50" width="230" height="145" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="675" y="75" font-family="sans-serif" font-size="13" font-weight="bold" fill="#e65100" text-anchor="middle">CSIRT (Crisis Response)</text>
+                <text x="675" y="95" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Cel: Zarządzanie kryzysowe</text>
+                <text x="675" y="115" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Dba o: komunikację, decyzje</text>
+                <text x="675" y="135" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Reakcja na: poważne incydenty</text>
+                <text x="675" y="155" font-family="sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Metryka: czas do komunikatu</text>
+                <text x="675" y="175" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">„Czy informujemy UODO?"</text>
+            </svg>
+
+            <!-- PART 1: LUDZIE I HIERARCHIA -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Architektura Ludzka (People): Model Eskalacji Tier 1-3</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Skuteczny SOC nie polega na zatrudnieniu 20 jednakowych inżynierów. Opiera się na ścisłej, militarnej hierarchii eskalacji zdarzeń. Pozwala to na odsianie „szumu" (False Positives) od rzeczywistych ataków na poziomie bazowym, zachowując czas najdroższych ekspertów do walki z wyrafinowanymi zagrożeniami (APT). Każdy poziom ma ściśle zdefiniowane kompetencje i zakres odpowiedzialności.
+                </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Tier 1 (Triage Specialist / Alert Analyst):</strong> „Piechota". Pracują w systemie 24/7/365, często na trzy zmiany. Przeglądają setki surowych alarmów generowanych przez maszyny (SIEM, EDR). Ich zadaniem jest weryfikacja (Triage): <em>Czy ten alert to błąd maszyny (False Positive), czy prawdziwy atak?</em> Jeśli to atak, otwierają „Ticket" i przekazują wyżej. Zamykają 80% spraw, operując ściśle według <strong>Playbooków</strong>. To często młodsi stażem analitycy – potrzebują jasnych procedur, a nie kreatywnego myślenia.</li>
+                    <li><strong>Tier 2 (Incident Responder):</strong> „Siły specjalne". Przejmują zweryfikowane incydenty od Tier 1. Przeprowadzają głęboką analizę – badają ruch sieciowy (PCAP), zrzuty pamięci RAM, logi systemowe, aby określić rozmiar i zasięg ataku. To oni wydają rozkaz „odcięcia zainfekowanej sieci" (Containment) i koordynują działania naprawcze.</li>
+                    <li><strong>Tier 3 (Threat Hunter / DFIR):</strong> „Wywiad i Snajperzy". Często w ogóle nie patrzą na alerty. Zakładają z góry, że <em>firma została już zhakowana</em> (Assume Breach). Proaktywnie szukają ukrytych wrogów w sieci, polując na anomalie, których nie wykryły automatyczne reguły SIEM. Zajmują się inżynierią wsteczną (Reverse Engineering) złośliwego oprogramowania, analizą śledczą (DFIR) i tworzeniem nowych reguł detekcji dla Tier 1.</li>
+                </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę spojrzeć na planszę – to jest fundament organizacyjny SOC. Mamy trzy poziomy eskalacji. Na dole, Tier 1 – to analitycy pierwszej linii. Ich zadaniem jest triage – weryfikacja alertów. 80% alarmów z SIEM-a to fałszywe alarmy – ktoś zapomniał hasła, ktoś podłączył nowy pendrive. Tier 1 to odsiewa według gotowych procedur – Playbooków. Jeśli alarm jest prawdziwy, eskaluje do Tier 2. Tam siedzą doświadczeni Incident Responderzy – oni badają skalę ataku, analizują ruch sieciowy i decydują o izolacji. Tier 3 to elita – Threat Hunterzy. Oni nie czekają na alerty – zakładają, że wróg już jest w środku i aktywnie go szukają. Analizują malware, tworzą nowe reguły detekcji dla Tier 1. I proszę zauważyć strzałkę na dole – feedback loop. To, co odkryje Tier 3, wraca jako nowe Playbooki dla Tier 1. To jest ciągły cykl uczenia się organizacji."
+                </div>
+            </div>
+
+            <!-- SVG 1: SOC TIERS (zachowany) -->
             <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGrySOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#cfd8dc"/></marker>
+                    <marker id="arrowOrgSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowRedSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowGrnSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="250" fill="#e3f2fd" opacity="0.3"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Struktura Eskalacji Incydentów (Architektura Ludzka SOC)</text>
 
@@ -101,29 +165,29 @@
                 <!-- Feedback Loop -->
                 <path d="M 610 50 Q 330 50 330 170" fill="none" stroke="#388e3c" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowGrnSOC)"/>
                 <text x="470" y="45" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tworzenie nowych reguł detekcji (Tuning)</text>
-
-                <defs>
-                    <marker id="arrowGrySOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#cfd8dc"/></marker>
-                    <marker id="arrowOrgSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowRedSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowGrnSOC" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
-                </defs>
             </svg>
 
             <!-- PART 2: TECHNOLOGIE (SIEM & SOAR) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #4a148c;">2. Stos Technologiczny (Technology): Od SIEM do SOAR</strong>
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Stos Technologiczny (Technology): Od SIEM do SOAR</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Ludzki umysł nie jest w stanie przeanalizować miliona logów generowanych przez serwery każdej godziny. SOC opiera się na agresywnej technologicznej agregacji danych (Big Data). Głównym "mózgiem" operacyjnym jest system <strong>SIEM (Security Information and Event Management)</strong>, który zbiera logi z EDR (Endpointów), Firewalli i systemów w Chmurze, parsuje je i poszukuje matematycznych korelacji (np. "5 błędnych logowań, a potem udane logowanie z VPN w Chinach").
+                    Ludzki umysł nie jest w stanie przeanalizować miliona logów generowanych przez serwery każdej godziny. SOC opiera się na agresywnej technologicznej agregacji danych (Big Data). Głównym „mózgiem" operacyjnym jest system <strong>SIEM (Security Information and Event Management)</strong>, który zbiera logi z EDR (Endpointów), Firewalli i systemów w Chmurze, parsuje je i poszukuje matematycznych korelacji (np. „5 błędnych logowań, a potem udane logowanie z VPN w Chinach").
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Największym wrogiem nowoczesnych SOC jest <strong>Alert Fatigue (Zmęczenie alertami)</strong>. Z powodu zbyt dużej ilości fałszywych alarmów, analitycy ignorują wskaźniki włamań (Incydent z firmą Target – alert o włamaniu świecił się na czerwono, ale zginął w gąszczu innych powiadomień). <br>
-                    Aby temu zapobiec, inżynierowie wdrażają <strong>SOAR (Security Orchestration, Automation, and Response)</strong>. To system "robotyczny", który podłącza się do SIEMa. Jeśli SOAR widzi podejrzany adres IP, nie budzi analityka – <em>sam</em> wysyła zapytanie do bazy VirusTotal. Jeśli VirusTotal potwierdzi wirusa, SOAR <em>sam</em> blokuje to IP na firewallu i izoluje zainfekowany komputer z Active Directory. Analityk rano dostaje tylko gotowy raport z udanej obrony!
+                    Największym wrogiem nowoczesnych SOC jest <strong>Alert Fatigue (Zmęczenie alertami)</strong>. Z powodu zbyt dużej ilości fałszywych alarmów, analitycy ignorują wskaźniki włamań (Incydent z firmą Target – alert o włamaniu świecił się na czerwono, ale zginął w gąszczu innych powiadomień). Aby temu zapobiec, inżynierowie wdrażają <strong>SOAR (Security Orchestration, Automation, and Response)</strong>. To system „robotyczny", który podłącza się do SIEM-a. Jeśli SOAR widzi podejrzany adres IP, nie budzi analityka – <em>sam</em> wysyła zapytanie do bazy VirusTotal. Jeśli VirusTotal potwierdzi wirusa, SOAR <em>sam</em> blokuje to IP na firewallu i izoluje zainfekowany komputer z Active Directory. Analityk rano dostaje tylko gotowy raport z udanej obrony.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Technologiczny stos SOC to dwa kluczowe systemy: SIEM i SOAR. SIEM – to potężna baza danych, która zbiera logi z setek urządzeń: firewalle, endpointy, serwery, chmura. I szuka w nich wzorców: 5 nieudanych logowań, a potem sukces z zagranicznego IP – to jest korelacja. Problemem jest Alert Fatigue – gdy SIEM generuje za dużo fałszywych alarmów, analitycy przestają na nie reagować. To był przypadek Targeta – alert o włamaniu był, ale utonął w szumie. Rozwiązaniem jest SOAR – platforma automatyzacji. SOAR sam sprawdza podejrzane IP w VirusTotal, sam blokuje je na firewallu, sam izoluje komputer. Analityk dostaje gotowy raport, zamiast klikać ręcznie 15 razy. SOAR to robot, który odciąża ludzi i radykalnie skraca czas reakcji."
+                </div>
             </div>
 
-            <!-- SVG 2: SOAR AUTOMATION -->
+            <!-- SVG 2: SOAR AUTOMATION (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowPurpSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
+                    <marker id="arrowOrgSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowGrnSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Automatyzacja Reakcji: Jak SOAR ratuje SOC przed Alert Fatigue</text>
 
@@ -137,15 +201,13 @@
                 <!-- SOAR -->
                 <rect x="230" y="50" width="220" height="120" rx="8" fill="#fff" stroke="#c62828" stroke-width="3"/>
                 <text x="340" y="75" font-family="sans-serif" font-size="16" font-weight="bold" fill="#b71c1c" text-anchor="middle">S O A R (Robot)</text>
-                
-                <!-- SOAR Steps -->
+
                 <rect x="250" y="90" width="180" height="25" rx="4" fill="#ffebee"/>
                 <text x="340" y="107" font-family="monospace" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">1. Odpytaj API VirusTotal (Threat Intel)</text>
 
                 <rect x="250" y="125" width="180" height="25" rx="4" fill="#ffebee"/>
                 <text x="340" y="142" font-family="monospace" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">2. Otwórz Ticket w JIRA ze statusem "Wysoki"</text>
 
-                <!-- Actions output -->
                 <path d="M 450 80 L 530 60" fill="none" stroke="#e65100" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowOrgSOC2)"/>
                 <rect x="540" y="40" width="120" height="40" rx="4" fill="#fff3e0" stroke="#f57c00"/>
                 <text x="600" y="55" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Integracja z Firewallem</text>
@@ -156,36 +218,36 @@
                 <text x="600" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Integracja z EDR</text>
                 <text x="600" y="170" font-family="monospace" font-size="9" fill="#bf360c" text-anchor="middle">Izolacja Host'a</text>
 
-                <!-- To Analyst -->
                 <path d="M 450 110 L 680 110" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrowGrnSOC2)"/>
                 <rect x="690" y="80" width="100" height="60" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
                 <text x="740" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Analityk</text>
                 <text x="740" y="125" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">Weryfikuje efekty</text>
-
-                <defs>
-                    <marker id="arrowPurpSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8e24aa"/></marker>
-                    <marker id="arrowOrgSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowGrnSOC2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 3: PROCESY I METRYKI (INCIDENT RESPONSE) -->
+            <!-- PART 3: PROCESY I METRYKI -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #2e7d32;">3. Procesy i Metryki: Złoty Standard Reagowania (NIST/SANS)</strong>
+                <strong style="font-size: 1.2rem; color: #2e7d32;">4. Procesy i Metryki: Złoty Standard Reagowania (NIST / SANS PICERL)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zarządzanie SOC to nie jest improwizacja. Podczas ataku ransomware (gdy znikają terabajty danych klienta, a na ekranie widnieje żądanie okupu), w firmie wybucha panika. Rola SOC polega na żelaznym egzekwowaniu zaplanowanych wcześniej procesów (<strong>Playbooks / Runbooks</strong>) opartych np. na modelu SANS (PICERL).
+                    Zarządzanie SOC to nie improwizacja. Podczas ataku ransomware (gdy znikają terabajty danych klienta, a na ekranie widnieje żądanie okupu), w firmie wybucha panika. Rola SOC polega na żelaznym egzekwowaniu zaplanowanych wcześniej procesów: <strong>Playbooki</strong> (ogólne scenariusze reagowania na konkretne typy incydentów – np. „Ransomware Playbook", „Phishing Playbook") i <strong>Runbooki</strong> (szczegółowe instrukcje techniczne krok po kroku – np. „jak odizolować hosta przez API CrowdStrike").
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Cała skuteczność SOC mierzona jest dwoma brutalnymi metrykami czasu:
+                    Cała skuteczność SOC mierzona jest dwoma brutalnymi metrykami czasu. Trzecia kluczowa metryka to <strong>MTTC (Mean Time to Contain)</strong> – czas od wykrycia do zatrzymania rozprzestrzeniania się ataku. Te trzy metryki razem tworzą obraz dojrzałości operacyjnej SOC.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>MTTD (Mean Time to Detect) - Średni czas detekcji:</strong> Jak szybko zorientowaliśmy się, że haker jest w sieci? Średnia globalna wynosi ponad 200 dni! Dobry SOC obniża ten czas do minut.</li>
-                    <li><strong>MTTR (Mean Time to Respond) - Średni czas reakcji:</strong> Jak szybko po wykryciu zamknęliśmy lukę i wyrzuciliśmy hakera z sieci (Containment & Eradication).</li>
+                    <li><strong>MTTD (Mean Time to Detect):</strong> Jak szybko od momentu włamania odkryliśmy intruza? Średnia globalna to ponad 200 dni. Dojrzały SOC z Threat Huntingiem skraca to do minut.</li>
+                    <li><strong>MTTR (Mean Time to Respond):</strong> Czas od wykrycia do pełnego usunięcia zagrożenia i powrotu do normalnego stanu (Recovery).</li>
+                    <li><strong>MTTC (Mean Time to Contain):</strong> Czas od wykrycia do odcięcia atakującego od reszty sieci – najważniejszy moment, który zapobiega katastrofie.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Procesy to kręgosłup SOC. Mamy dwa rodzaje dokumentacji. Playbook – to ogólny scenariusz: co robimy, gdy dostaniemy alert o ransomware. Runbook – to szczegółowa instrukcja techniczna: zaloguj się do konsoli EDR, kliknij 'isolate host', wykonaj API call do firewalla. Playbook mówi co, Runbook mówi jak. Proszę spojrzeć na planszę – cykl reagowania według NIST ma sześć faz. Kluczowe są dwie: Containment – odcięcie zainfekowanego hosta od sieci, oraz Eradication – usunięcie malware. I tu jest pułapka: nie wolno zaczynać od Eradication! Najpierw izolujemy, potem czyścimy. Całość mierzymy metrykami: MTTD – jak szybko wykryliśmy, MTTR – jak szybko zareagowaliśmy, i MTTC – jak szybko powstrzymaliśmy rozprzestrzenianie. W dobrym SOC te czasy to minuty, nie dni."
+                </div>
             </div>
 
-            <!-- SVG 3: INCIDENT RESPONSE CYCLE -->
+            <!-- SVG 3: INCIDENT RESPONSE CYCLE (zachowany) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGrnSOC3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="180" fill="#f1f8e9" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Procedury: Cykl Reagowania na Incydenty (NIST / SANS PICERL)</text>
 
@@ -229,10 +291,6 @@
 
                 <path d="M 300 145 L 300 155 L 530 155 L 530 145" fill="none" stroke="#d32f2f" stroke-width="2"/>
                 <text x="415" y="170" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Miernik: MTTR (Kluczowy dla biznesu)</text>
-
-                <defs>
-                    <marker id="arrowGrnSOC3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                </defs>
             </svg>
 
             <!-- ======================================================== -->
@@ -241,9 +299,33 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Mity Architektury SOC):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Mylenie Containment (Powstrzymanie) z Eradication (Eliminacja):</strong> Wykładowca podaje scenariusz: "Wykryto ransomware na laptopie księgowego. Analityk SOC używa antywirusa, aby skasować złośliwy plik .exe z dysku (Eradication)". <strong>Kardynalny błąd z naruszeniem procedur SANS/NIST!</strong> Jeśli po wykryciu zaczniesz od razu kasować pliki, złośliwe oprogramowanie, które aktualnie działa w pamięci RAM, może wykryć atak obrońcy i awaryjnie zainfekować całą resztę sieci lub samousunąć klucze deszyfrujące. Prawidłowa procedura nakazuje najpierw <strong>Containment</strong> (Odcięcie fizyczne od sieci internet / kwarantanna portu na switchu). Dopiero gdy pacjent jest odizolowany i przestał zarażać innych (oraz zgrano RAM do analizy śledczej DFIR), można przystąpić do chirurgicznego usuwania (Eradication) i odbudowy z czystego nośnika (Recovery).</li>
-                    <li><strong>"Więcej alertów z SIEM oznacza lepszy SOC."</strong> – Kompletna bzdura pokazująca niezrozumienie <em>Alert Fatigue</em>. Złe wdrożenie SIEM (domyślne reguły) generuje milion fałszywych alarmów (np. błędne logowanie użytkownika, bo zapomniał hasła). System, który "świeci się cały czas na czerwono", jest systemem wyłączonym przez umysł ludzki. Dojrzałość SOC polega na <em>Tuning-u</em> (wyciszaniu fałszywych alarmów) i tworzeniu korelacji wysokiej pewności z użyciem narzędzi SOAR.</li>
+                    <li><strong>Mylenie Containment (Powstrzymanie) z Eradication (Eliminacja):</strong> Scenariusz egzaminacyjny: „Wykryto ransomware na laptopie księgowego. Analityk SOC używa antywirusa, aby skasować złośliwy plik .exe z dysku (Eradication)". <strong>Kardynalny błąd z naruszeniem procedur NIST!</strong> Jeśli po wykryciu zaczniesz od razu kasować pliki, malware działające w RAM może wykryć atak obrońcy i awaryjnie rozprzestrzenić się na całą sieć lub usunąć klucze deszyfrujące. Prawidłowa procedura: najpierw <strong>Containment</strong> (odcięcie od sieci), potem zgranie RAM do analizy DFIR, a dopiero na końcu Eradication i Recovery.</li>
+                    <li><strong>„Więcej alertów z SIEM oznacza lepszy SOC."</strong> – Kompletna bzdura. Złe wdrożenie SIEM (domyślne reguły) generuje miliony fałszywych alarmów. System, który „świeci się cały czas na czerwono", jest systemem wyłączonym przez umysł ludzki – analitycy ignorują go zupełnie. Dojrzałość SOC polega na <em>Tuningu</em> (wyciszaniu fałszywych alarmów) i tworzeniu korelacji wysokiej pewności z użyciem SOAR.</li>
+                    <li><strong>„SOC = CSIRT"</strong> – CSIRT to zespół zarządzania kryzysowego, aktywowany podczas poważnych incydentów. SOC działa 24/7 i monitoruje infrastrukturę na bieżąco. CSIRT podejmuje decyzje biznesowe (prawnicy, PR, zarząd), SOC – decyzje techniczne.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Klasyczna pułapka to pomylenie Containment z Eradication. Zawsze najpierw izolujemy – odcinamy hosta od sieci, żeby malware się nie rozprzestrzenił. Potem zgrywamy RAM do analizy śledczej. Dopiero na końcu usuwamy wirusa. Jeśli zrobimy odwrotnie, malware może spanikować i zaszyfrować całą sieć. Drugi błąd: wiara, że więcej alertów to lepszy SOC. To prowadzi do Alert Fatigue – analitycy ignorują wszystko. Dobry SOC tuninguje SIEM i automatyzuje odpowiedzi przez SOAR. Trzeci błąd: mylenie SOC z CSIRT. SOC to monitoring 24/7, CSIRT to zespół kryzysowy zbierany ad-hoc."
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat‑Sheet – SOC:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Element</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Rola / Funkcja</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowy szczegół</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Tier 1</td><td style="padding: 10px;">Triage alertów, filtrowanie False Positives</td><td style="padding: 10px;">Pracuje 24/7/365 wg Playbooków, zamyka ~80% alertów</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Tier 2</td><td style="padding: 10px;">Incident Response, głęboka analiza</td><td style="padding: 10px;">Analizuje PCAP, RAM, logi. Decyduje o Containment</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Tier 3</td><td style="padding: 10px;">Threat Hunting, DFIR, Reverse Engineering</td><td style="padding: 10px;">Assume Breach. Proaktywnie szuka ukrytych zagrożeń</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SIEM</td><td style="padding: 10px;">Zbieranie i korelacja logów z całej infrastruktury</td><td style="padding: 10px;">Bez tuningu generuje Alert Fatigue</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">SOAR</td><td style="padding: 10px;">Automatyzacja reakcji (Playbooki jako kod)</td><td style="padding: 10px;">Sam blokuje IP, izoluje hosty, wysyła bilety</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">MTTD</td><td style="padding: 10px;">Średni czas od włamania do wykrycia</td><td style="padding: 10px;">Średnia globalna: ~200 dni. Cel SOC: minuty</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">MTTR / MTTC</td><td style="padding: 10px;">Średni czas reakcji / powstrzymania</td><td style="padding: 10px;">Containment PRZED Eradication</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">SOC vs NOC vs CSIRT</td><td style="padding: 10px;">Bezpieczeństwo vs Dostępność vs Zarządzanie kryzysowe</td><td style="padding: 10px;">SOC = monitoring 24/7, CSIRT = zespół ad‑hoc</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -252,7 +334,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla biznesu i zwykłych programistów bezpieczeństwo często oznacza "zablokowanie ataku przez antywirus". Inżynierzy cyberbezpieczeństwa wiedzą jednak, że nie da się zatrzymać grup APT dysponujących budżetem wywiadu wojskowego (Zero-Days, Phishing). Dlatego rola nowoczesnego SOC nie polega na stawianiu murów (to robi dział IT), ale na stworzeniu "Systemu Odpornościowego" organizmu. SOC to ludzie uzbrojeni w zautomatyzowane procesy (SOAR), którzy akceptują fakt, że wirus przedostanie się do ciała, ale dzięki doskonałej widoczności (SIEM / EDR) odnajdą go (Threat Hunting) i odizolują (Containment), zanim zainfekuje organy krytyczne dla życia organizacji.</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla biznesu i zwykłych programistów bezpieczeństwo często oznacza „zablokowanie ataku przez antywirus". Inżynierzy cyberbezpieczeństwa wiedzą jednak, że nie da się zatrzymać grup APT dysponujących budżetem wywiadu wojskowego (Zero-Days, Phishing). Dlatego rola nowoczesnego SOC nie polega na stawianiu murów (to robi dział IT), ale na stworzeniu „Systemu Odpornościowego" organizmu. SOC to ludzie uzbrojeni w zautomatyzowane procesy (SOAR), którzy akceptują fakt, że wirus przedostanie się do ciała, ale dzięki doskonałej widoczności (SIEM / EDR) odnajdą go (Threat Hunting) i odizolują (Containment), zanim zainfekuje organy krytyczne dla życia organizacji.</span>
                 </p>
             </div>
 
@@ -260,7 +342,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Blue Team Handbook: SOC, SIEM, and Threat Hunting" (Don Murdoch) · Przewodnik obsługi incydentów komputerowych wg NIST (NIST SP 800-61 Rev. 2) · Ramy działania SANS (PICERL).
+                    „Blue Team Handbook: SOC, SIEM, and Threat Hunting" (Don Murdoch) · Przewodnik obsługi incydentów komputerowych wg NIST (NIST SP 800-61 Rev. 2) · Ramy działania SANS (PICERL) · „The Modern SOC" (Joseph Muniz).
                 </span>
             </div>
 

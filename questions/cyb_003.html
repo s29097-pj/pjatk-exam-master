@@ -14,9 +14,9 @@
         <h2 id="q-title">003. Narzędzia analizy i zarządzania ruchem sieciowym.</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 6px solid #1565c0; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(21,101,192,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🛂</span>
                 <div>
@@ -27,6 +27,11 @@
                         <strong>Analiza aktywna (Zwiad):</strong> Wysyłasz własne opancerzone drony (<code>Nmap</code>), które pukają do drzwi magazynów (portów) i na podstawie echa (flagi TCP) oceniają, czy magazyn jest otwarty, jakiego systemu operacyjnego używa i czy jest podatny na atak.<br><br>
                         <strong>Zarządzanie i Detekcja (Bramki i Celnicy):</strong> Budujesz w poprzek drogi zaporę. <code>iptables / nftables</code> to szlaban, który zrzuca pakiety na podstawie twardych reguł (np. blokada IP). Z kolei <code>Snort / Suricata (NIDS/IPS)</code> to psy tropiące – otwierają paczki w locie i jeśli wyczują sygnaturę narkotyków (Malware), natychmiast odcinają drogę.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #002147; line-height: 1.8;">
+                        <li><strong>🔵 Analiza pasywna</strong> – tcpdump, Wireshark: przechwytywanie i inspekcja pakietów bez ingerencji.</li>
+                        <li><strong>🔴 Analiza aktywna</strong> – Nmap: skanowanie portów, OS fingerprinting, odkrywanie hostów.</li>
+                        <li><strong>🟠 Zarządzanie i ochrona</strong> – iptables/nftables (firewall), Snort/Suricata (NIDS/NIPS), NetFlow.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -39,14 +44,17 @@
             <span class="keyword-tag">PCAP (Packet Capture)</span>
             <span class="keyword-tag">Tryb Promiscuous</span>
             <span class="keyword-tag">Filtry BPF (Berkeley Packet Filter)</span>
-            <span class="keyword-tag">Nmap (Stealth SYN Scan)</span>
+            <span class="keyword-tag">Nmap (Stealth SYN Scan -sS)</span>
             <span class="keyword-tag">NIDS / NIPS (Snort, Suricata)</span>
             <span class="keyword-tag">NetFlow / IPFIX</span>
-            <span class="keyword-tag">iptables / nftables (Zarządzanie ruchem)</span>
+            <span class="keyword-tag">iptables / nftables (Netfilter)</span>
+            <span class="keyword-tag">SPAN Port / Mirroring</span>
+            <span class="keyword-tag">Full Packet Capture vs metadane</span>
+            <span class="keyword-tag">Incident Response (Live Triage)</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
@@ -54,97 +62,106 @@
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #1565c0;">1. Głęboka Analiza Pasywna: tcpdump i Wireshark (PCAP)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    To podstawowe narzędzia DFIR (Digital Forensics). Przestawiają one kartę sieciową (NIC) w <strong>tryb Promiscuous</strong>, co pozwala karcie przechwytywać ruch adresowany do innych maszyn w tym samym segmencie sieci (omijając stos sieciowy systemu operacyjnego dzięki bibliotekom <code>libpcap/Npcap</code>).
+                    To podstawowe narzędzia DFIR (Digital Forensics and Incident Response). Przestawiają one kartę sieciową (NIC) w <strong>tryb Promiscuous</strong>, co pozwala karcie przechwytywać ruch adresowany do innych maszyn w tym samym segmencie sieci. Kluczowym elementem jest biblioteka <code>libpcap</code> (Unix) / <code>Npcap</code> (Windows), która realizuje przechwytywanie na poziomie jądra systemu.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Narzędzia te parsują warstwy modelu OSI z surowych zer i jedynek na formy czytelne dla człowieka. Kluczem inżynieryjnym do operowania na gigabajtowych plikach jest znajomość <strong>składni BPF (Berkeley Packet Filter)</strong>, która pozwala odrzucić szum sieciowy jeszcze na poziomie jądra systemu operacyjnego.
+                    Narzędzia te parsują warstwy modelu OSI z surowych zer i jedynek na formy czytelne dla człowieka. <strong>Filtry BPF (Berkeley Packet Filter)</strong> pozwalają odrzucić szum sieciowy jeszcze na poziomie jądra, zanim dane trafią do przestrzeni użytkownika. Przykład: <code>tcpdump -i eth0 'tcp port 443 and host 10.0.0.1'</code> przechwytuje tylko ruch HTTPS z/do konkretnego hosta.
                 </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Wireshark</strong> dodaje do tego graficzny interfejs i tzw. <strong>Dissectors</strong> – wyspecjalizowane parsery dla setek protokołów, które automatycznie rozkładają surowe bajty na czytelne pola (Ethernet → IP → TCP → HTTP → JSON).
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Pierwsza grupa narzędzi to analiza pasywna – tcpdump i Wireshark. Proszę spojrzeć na planszę. Karta sieciowa normalnie odbiera tylko pakiety zaadresowane do siebie. W trybie promiscuous przechwytuje wszystko, co przepływa przez segment. To jest możliwe dzięki bibliotece libpcap. Kluczową umiejętnością inżyniera jest filtrowanie BPF – bez tego na łączu 10-gigabitowym zgubimy się w szumie. Filtr piszemy jeszcze przed uruchomieniem przechwytywania i jest on wykonywany w jądrze systemu – to gwarantuje wydajność. Wireshark idzie krok dalej – ma dissectors, czyli wbudowane parsery dla setek protokołów. Klikamy w pakiet i widzimy rozbitą strukturę: ramka Ethernet, nagłówek IP, segment TCP i na końcu payload HTTP – wszystko czytelnie opisane.”
+                </div>
             </div>
 
-            <!-- SVG 1: PACKET CAPTURE AND BPF -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zasada działania PCAP i parsowanie warstw OSI</text>
-
-                <!-- Raw bits on cable -->
-                <line x1="40" y1="90" x2="160" y2="90" stroke="#78909c" stroke-width="4"/>
-                <text x="100" y="80" font-family="monospace" font-size="11" fill="#455a64" text-anchor="middle">101100101110...</text>
-                <text x="100" y="110" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Surowy ruch na kablu</text>
-
-                <path d="M 160 90 L 190 90" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue1)"/>
-
-                <!-- NIC & BPF Filter -->
-                <rect x="200" y="50" width="120" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="260" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0d47a1" text-anchor="middle">NIC (Promiscuous)</text>
-
-                <rect x="210" y="80" width="100" height="40" fill="#ffebee" stroke="#d32f2f"/>
-                <text x="260" y="95" font-family="monospace" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">BPF Filter:</text>
-                <text x="260" y="110" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">tcp port 80</text>
-
-                <!-- Filtered packets out -->
-                <path d="M 320 90 L 370 90" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrn1)"/>
-
-                <!-- Wireshark Dissector -->
-                <rect x="380" y="50" width="380" height="150" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
-                <text x="570" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Aplikacja: Wireshark (Dissector)</text>
-
-                <!-- Headers breakdown -->
-                <rect x="400" y="90" width="80" height="30" fill="#cfd8dc" stroke="#90a4ae"/>
-                <text x="440" y="105" font-family="sans-serif" font-size="9" font-weight="bold" fill="#37474f" text-anchor="middle">Ethernet L2</text>
-                <text x="440" y="115" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">MAC Src/Dst</text>
-
-                <rect x="480" y="90" width="80" height="30" fill="#bbdefb" stroke="#1e88e5"/>
-                <text x="520" y="105" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">IPv4 L3</text>
-                <text x="520" y="115" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">IP Src/Dst</text>
-
-                <rect x="560" y="90" width="80" height="30" fill="#c8e6c9" stroke="#43a047"/>
-                <text x="600" y="105" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">TCP L4</text>
-                <text x="600" y="115" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Port 80</text>
-
-                <rect x="640" y="90" width="100" height="90" fill="#fff3e0" stroke="#f57c00"/>
-                <text x="690" y="115" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Payload L7</text>
-                <text x="690" y="135" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">GET /admin HTTP</text>
-                <text x="690" y="150" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">Auth: Basic...</text>
-
-                <rect x="400" y="155" width="220" height="25" fill="#f5f5f5" rx="4"/>
-                <text x="510" y="172" font-family="sans-serif" font-size="9" font-weight="bold" fill="#455a64" text-anchor="middle">Rozłożenie bitów na abstrakcje strukturalne</text>
-
+            <!-- SVG 1: PACKET CAPTURE AND BPF (zachowany, ulepszony) -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowBlue1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
                     <marker id="arrowGrn1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="230" fill="#e3f2fd" opacity="0.3"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zasada działania PCAP i parsowanie warstw modelu OSI</text>
+
+                <!-- Raw bits on cable -->
+                <line x1="40" y1="95" x2="160" y2="95" stroke="#78909c" stroke-width="4"/>
+                <text x="100" y="82" font-family="monospace" font-size="11" fill="#455a64" text-anchor="middle">101100101110...</text>
+                <text x="100" y="115" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Surowy ruch na kablu</text>
+
+                <path d="M 160 95 L 190 95" fill="none" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue1)"/>
+
+                <!-- NIC & BPF Filter -->
+                <rect x="200" y="55" width="120" height="80" rx="6" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+                <text x="260" y="75" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">NIC (Promiscuous)</text>
+                <rect x="210" y="85" width="100" height="40" fill="#ffebee" stroke="#d32f2f"/>
+                <text x="260" y="100" font-family="monospace" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Filtr BPF:</text>
+                <text x="260" y="115" font-family="monospace" font-size="9" fill="#c62828" text-anchor="middle">tcp port 80</text>
+
+                <path d="M 320 95 L 370 95" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowGrn1)"/>
+
+                <!-- Wireshark Dissector -->
+                <rect x="380" y="55" width="400" height="150" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+                <text x="580" y="78" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1b5e20" text-anchor="middle">Aplikacja: Wireshark (Dissectors – parsery protokołów)</text>
+
+                <rect x="400" y="95" width="85" height="30" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="442" y="110" font-family="sans-serif" font-size="9" font-weight="bold" fill="#37474f" text-anchor="middle">Ethernet L2</text>
+                <text x="442" y="120" font-family="sans-serif" font-size="8" fill="#546e7a" text-anchor="middle">MAC Src/Dst</text>
+
+                <rect x="490" y="95" width="85" height="30" fill="#bbdefb" stroke="#1e88e5"/>
+                <text x="532" y="110" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">IPv4 L3</text>
+                <text x="532" y="120" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">IP Src/Dst</text>
+
+                <rect x="580" y="95" width="85" height="30" fill="#c8e6c9" stroke="#43a047"/>
+                <text x="622" y="110" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">TCP L4</text>
+                <text x="622" y="120" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">Port 80</text>
+
+                <rect x="670" y="95" width="95" height="90" fill="#fff3e0" stroke="#f57c00"/>
+                <text x="717" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Payload L7</text>
+                <text x="717" y="140" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">GET /admin</text>
+                <text x="717" y="155" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">HTTP/1.1</text>
+                <text x="717" y="170" font-family="monospace" font-size="9" fill="#d32f2f" text-anchor="middle">Auth: Basic...</text>
+
+                <rect x="400" y="160" width="260" height="25" fill="#f5f5f5" rx="4"/>
+                <text x="530" y="177" font-family="sans-serif" font-size="9" font-weight="bold" fill="#455a64" text-anchor="middle">Rozłożenie surowych bitów na czytelne struktury</text>
             </svg>
 
             <!-- PART 2: NMAP I ZWIAD AKTYWNY -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #d32f2f;">2. Aktywny Zwiad i Fingerprinting: Nmap</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Nmap to nie jest tylko "skaner portów". To potężne narzędzie do inwentaryzacji sieci (Shadow IT discovery) i tzw. OS Fingerprintingu (odgadywania systemu operacyjnego celu na podstawie analizy anomalii w strukturze okien TCP/IP).
+                    Nmap to znacznie więcej niż „skaner portów”. To potężne narzędzie do inwentaryzacji sieci (Shadow IT discovery), wykrywania aktywnych hostów (<code>-sn</code>), identyfikacji wersji usług (<code>-sV</code>) oraz tzw. <strong>OS Fingerprintingu</strong> (<code>-O</code>). Ten ostatni działa poprzez analizę subtelnych różnic w implementacji stosu TCP/IP przez różne systemy operacyjne – np. kolejność opcji TCP, rozmiar okna początkowego, zachowanie przy fragmentacji.
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #b71c1c; font-weight: bold;">
-                    Kontekst Cyberbezpieczeństwa – Skanowanie Stealth (Half-Open):
+                    Kluczowy mechanizm: Skanowanie Stealth SYN (Half-Open):
                 </p>
                 <p style="margin: 0 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Standardowe połączenie TCP polega na trójetapowym uścisku dłoni (Three-Way Handshake: SYN -> SYN/ACK -> ACK). Problem w tym, że pełne połączenie od razu zapisuje się w logach aplikacji (np. Nginx). Aby uniknąć detekcji na poziomie aplikacji, inżynierowie używają skanowania <code>Nmap -sS</code> (SYN Scan). Atakujący wysyła <code>SYN</code>. Ofiara odpowiada <code>SYN/ACK</code> (czyli mówi: "port jest otwarty"). Wtedy atakujący natychmiast przerywa proces wysyłając <code>RST</code> (Reset)! Połączenie nigdy się nie nawiązuje w pełni, więc serwer WWW go nie loguje, ale my zyskaliśmy wiedzę o otwartym porcie.
+                    Standardowe połączenie TCP wymaga trójetapowego uścisku dłoni (Three-Way Handshake: SYN → SYN/ACK → ACK). Pełne połączenie jest logowane przez aplikację (np. w access.log Nginx). Aby uniknąć detekcji, używamy <code>Nmap -sS</code> (SYN Scan): atakujący wysyła SYN, ofiara odpowiada SYN/ACK, ale zamiast dokończyć handshake (ACK), atakujący natychmiast wysyła <strong>RST (Reset)</strong>. Połączenie nigdy nie zostaje w pełni ustanowione, więc nie trafia do logów aplikacji, ale Nmap zdobył już informację o otwartym porcie. Dodatkowo Nmap oferuje skrypty NSE (Nmap Scripting Engine) – np. do wykrywania podatności CVE.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Nmap to podstawowe narzędzie aktywnego zwiadu sieciowego. Proszę spojrzeć na planszę – pokazuję mechanizm skanowania stealth SYN. To nie jest pełne połączenie TCP. Wysyłamy SYN, dostajemy SYN/ACK – i w tym momencie już wiemy, że port jest otwarty. Ale zamiast dokończyć handshake, wysyłamy RST – reset. Efekt? Port jest zmapowany, ale w logach aplikacji – na przykład Nginx – nie ma śladu. To się nazywa half-open scanning. Dodatkowo Nmap potrafi zgadnąć system operacyjny celu – OS fingerprinting – analizując drobne różnice w implementacji stosu TCP. Ma też wbudowany silnik skryptowy NSE do automatycznego testowania podatności. To szwajcarski scyzoryk każdego pentestera i audytora bezpieczeństwa.”
+                </div>
             </div>
 
-            <!-- SVG 2: NMAP SYN SCAN -->
+            <!-- SVG 2: NMAP SYN SCAN (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowBlue2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                    <marker id="arrowGrn2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                    <marker id="arrowRed2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#fff5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">Mechanika skanowania Nmap SYN "Stealth" Scan (-sS)</text>
 
                 <!-- Attacker -->
                 <rect x="60" y="60" width="100" height="120" rx="8" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
                 <text x="110" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#b71c1c" text-anchor="middle">Skaner</text>
-                <text x="110" y="145" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">(Nmap)</text>
+                <text x="110" y="145" font-family="monospace" font-size="12" fill="#c62828" text-anchor="middle">(Nmap -sS)</text>
 
                 <!-- Target -->
                 <rect x="660" y="60" width="100" height="120" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
                 <text x="710" y="125" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">Serwer</text>
                 <text x="710" y="145" font-family="monospace" font-size="12" fill="#2e7d32" text-anchor="middle">(Target)</text>
-
-                <!-- Pakiety (Linie) -->
 
                 <!-- 1. SYN -->
                 <path d="M 180 80 L 640 80" fill="none" stroke="#1565c0" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrowBlue2)"/>
@@ -158,85 +175,113 @@
                 <path d="M 180 160 L 640 160" fill="none" stroke="#d32f2f" stroke-width="4" marker-end="url(#arrowRed2)"/>
                 <text x="410" y="150" font-family="monospace" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">3. Flaga [RST] "A to nie, przepraszam!"</text>
 
-                <rect x="250" y="180" width="320" height="25" fill="#f5f5f5" rx="4"/>
-                <text x="410" y="197" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Cel osiągnięty: Nmap wie o otwartym porcie bez nawiązania sesji.</text>
-
-                <defs>
-                    <marker id="arrowBlue2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                    <marker id="arrowGrn2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
-                    <marker id="arrowRed2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                </defs>
+                <rect x="240" y="185" width="340" height="22" fill="#f5f5f5" rx="4"/>
+                <text x="410" y="200" font-family="sans-serif" font-size="10" font-weight="bold" fill="#455a64" text-anchor="middle">Port otwarty – wiedza zdobyta bez pełnego logowania w aplikacji.</text>
             </svg>
 
             <!-- PART 3: ZARZĄDZANIE I OCHRONA (NIDS/IPS & FIREWALL) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #f57c00;">3. Ochrona obwodu: NIDS, NIPS oraz Firewalle</strong>
+                <strong style="font-size: 1.2rem; color: #f57c00;">3. Ochrona obwodu: NIDS, NIPS oraz Firewalle (iptables/nftables)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zarządzanie ruchem wymaga architektury "In-Band" (w linii) lub "Out-of-Band" (poza linią ruchu). Rozróżnienie to jest fundamentem projektowania bezpiecznych sieci.
+                    Zarządzanie ruchem wymaga zrozumienia architektury „In-Band” (w linii) vs „Out-of-Band” (poza linią). Rozróżnienie to ma fundamentalne znaczenie dla wydajności i niezawodności sieci.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>iptables / nftables:</strong> Narzędzie wbudowane w kernel Linuxa (Netfilter). Służy do ścisłego zarządzania ruchem (routing, NAT) oraz jako firewall L3/L4 (zrzucanie pakietów na podstawie portów i IP). Operuje w głównej linii (Inline).</li>
-                    <li><strong>NIDS (Network Intrusion Detection System) np. Snort/Zeek:</strong> Podpina się go "z boku" do przełącznika (Switch) na specjalnym porcie kopiującym ruch (<strong>SPAN Port / Port Mirroring</strong>). Analizuje zawartość ładunku (L7) pod kątem sygnatur złośliwego oprogramowania. Jeśli coś znajdzie, <em>tylko wysyła alarm (Alert)</em>. Złośliwy pakiet i tak już dotarł do ofiary. W zamian NIDS nie opóźnia ruchu w sieci.</li>
-                    <li><strong>NIPS (Network Intrusion Prevention System):</strong> Ten sam silnik co NIDS, ale fizycznie wpięty w poprzek kabla (Inline). Analizuje pakiet i ma moc, aby fizycznie go <em>Dropnąć</em> (zniszczyć), zanim dotrze do celu. Minus? Jeśli silnik NIPS ulegnie awarii, cała sieć firmowa przestaje działać (pojedynczy punkt awarii - SPOF).</li>
+                    <li><strong>iptables / nftables (Netfilter):</strong> Wbudowane w kernel Linuxa. Działają w trybie Inline – każdy pakiet przechodzi przez łańcuchy reguł (INPUT, OUTPUT, FORWARD). Umożliwiają filtrowanie L3/L4, NAT, masquerading. <code>nftables</code> to nowoczesny następca <code>iptables</code> z lepszą wydajnością i czytelniejszą składnią.</li>
+                    <li><strong>NIDS (Network Intrusion Detection System) – Snort, Suricata, Zeek:</strong> Tryb Out-of-Band. Podłączany do portu SPAN (Switched Port Analyzer) na przełączniku, który kopiuje ruch. NIDS analizuje payload (L7) w poszukiwaniu sygnatur ataków. Jeśli znajdzie – generuje alert (i tylko alert). Nie wpływa na opóźnienia, nie jest SPOF (Single Point of Failure).</li>
+                    <li><strong>NIPS (Network Intrusion Prevention System):</strong> Ten sam silnik (Snort/Suricata) co NIDS, ale fizycznie wpięty Inline. Ma moc DROPowania złośliwych pakietów, zanim dotrą do serwera. Minus: jest pojedynczym punktem awarii – jeśli padnie, cała sieć za nim traci łączność.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Trzecia grupa to narzędzia ochrony – firewalle i systemy IDS/IPS. Proszę spojrzeć na planszę. Po lewej stronie NIDS – Snort podpięty przez port SPAN. To jest tryb out-of-band. Snort dostaje kopię ruchu, analizuje, ale nie może go zatrzymać. Jeśli znajdzie atak – wysyła alert do SIEM-a. To bezpieczne architektonicznie, bo awaria Snorta nie zrywa łącza. Po prawej NIPS – ten sam Snort, ale wpięty inline, w poprzek kabla. Ma moc DROPowania pakietów – realnie blokuje atak. Ale jest pojedynczym punktem awarii. W enterprise zazwyczaj łączy się oba podejścia. No i fundament: iptables na każdym serwerze linuxowym – to hostowy firewall w kernelu, który odrzuca ruch zanim dotrze do aplikacji. nftables to jego nowoczesny następca, który scala wiele narzędzi w jedno.”
+                </div>
             </div>
 
-            <!-- SVG 3: NIDS VS NIPS -->
-            <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-                <rect x="0" y="0" width="820" height="220" fill="#fff8e1" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#f57f17">Architektura: NIDS (Out-of-Band) kontra NIPS (Inline)</text>
-
-                <!-- Panel Lewy: NIDS -->
-                <rect x="40" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">NIDS (Tylko Detekcja - Out of Band)</text>
-
-                <rect x="60" y="100" width="40" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
-                <text x="80" y="118" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Internet</text>
-
-                <rect x="320" y="100" width="40" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
-                <text x="340" y="118" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Serwer</text>
-
-                <!-- Main line -->
-                <path d="M 100 115 L 320 115" fill="none" stroke="#37474f" stroke-width="3" marker-end="url(#arrowGry3)"/>
-
-                <!-- Switch / Mirror -->
-                <circle cx="210" cy="115" r="8" fill="#1565c0"/>
-                <path d="M 210 123 L 210 160" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowBlue3)"/>
-                <text x="250" y="140" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1565c0" text-anchor="middle">SPAN Port</text>
-                <text x="250" y="150" font-family="sans-serif" font-size="8" fill="#1565c0" text-anchor="middle">(Kopia ruchu)</text>
-
-                <rect x="170" y="160" width="80" height="30" rx="4" fill="#ffe0b2" stroke="#f57c00"/>
-                <text x="210" y="178" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">SNORT (NIDS)</text>
-
-                <!-- Panel Prawy: NIPS -->
-                <rect x="440" y="50" width="340" height="150" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
-                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">NIPS (Prewencja - Inline)</text>
-
-                <rect x="460" y="100" width="40" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
-                <text x="480" y="118" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Internet</text>
-
-                <rect x="720" y="100" width="40" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
-                <text x="740" y="118" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Serwer</text>
-
-                <!-- Line into IPS -->
-                <path d="M 500 115 L 570 115" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRed3)"/>
-
-                <!-- IPS Block -->
-                <rect x="570" y="95" width="80" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
-                <text x="610" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828" text-anchor="middle">SNORT (NIPS)</text>
-                <text x="610" y="128" font-family="sans-serif" font-size="8" fill="#b71c1c" text-anchor="middle">Reguła: DROP</text>
-
-                <!-- Line blocked -->
-                <path d="M 650 115 L 720 115" fill="none" stroke="#388e3c" stroke-width="3" stroke-dasharray="2,2"/>
-                <line x1="660" y1="105" x2="680" y2="125" stroke="#d32f2f" stroke-width="3"/>
-                <line x1="680" y1="105" x2="660" y2="125" stroke="#d32f2f" stroke-width="3"/>
-                <text x="670" y="145" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Atak ZABLOKOWANY!</text>
-
+            <!-- SVG 3: NIDS VS NIPS (zachowany) -->
+            <svg viewBox="0 0 820 240" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <defs>
                     <marker id="arrowGry3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/></marker>
                     <marker id="arrowBlue3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
                     <marker id="arrowRed3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
                 </defs>
+                <rect x="0" y="0" width="820" height="240" fill="#fff8e1" opacity="0.4"/>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#f57f17">Architektura: NIDS (Out-of-Band) kontra NIPS (Inline)</text>
+
+                <!-- Panel Lewy: NIDS -->
+                <rect x="30" y="50" width="360" height="165" rx="8" fill="#fff" stroke="#f57c00" stroke-width="2"/>
+                <text x="210" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e65100" text-anchor="middle">NIDS – Detekcja (Out-of-Band)</text>
+
+                <rect x="50" y="105" width="40" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="70" y="123" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Internet</text>
+                <rect x="330" y="105" width="40" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="350" y="123" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Serwer</text>
+                <path d="M 90 120 L 330 120" fill="none" stroke="#37474f" stroke-width="3" marker-end="url(#arrowGry3)"/>
+
+                <circle cx="210" cy="120" r="8" fill="#1565c0"/>
+                <path d="M 210 128 L 210 170" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowBlue3)"/>
+                <text x="260" y="148" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1565c0">SPAN Port</text>
+                <text x="260" y="158" font-family="sans-serif" font-size="8" fill="#1565c0">(Kopia ruchu)</text>
+                <rect x="170" y="172" width="80" height="28" rx="4" fill="#ffe0b2" stroke="#f57c00"/>
+                <text x="210" y="190" font-family="sans-serif" font-size="10" font-weight="bold" fill="#d32f2f" text-anchor="middle">SNORT (NIDS)</text>
+
+                <!-- Panel Prawy: NIPS -->
+                <rect x="430" y="50" width="360" height="165" rx="8" fill="#fff" stroke="#d32f2f" stroke-width="2"/>
+                <text x="610" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#c62828" text-anchor="middle">NIPS – Prewencja (Inline)</text>
+
+                <rect x="450" y="105" width="40" height="30" rx="4" fill="#cfd8dc" stroke="#90a4ae"/>
+                <text x="470" y="123" font-family="sans-serif" font-size="9" fill="#37474f" text-anchor="middle">Internet</text>
+                <rect x="730" y="105" width="40" height="30" rx="4" fill="#c8e6c9" stroke="#388e3c"/>
+                <text x="750" y="123" font-family="sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle">Serwer</text>
+                <path d="M 490 120 L 560 120" fill="none" stroke="#d32f2f" stroke-width="3" marker-end="url(#arrowRed3)"/>
+
+                <rect x="560" y="100" width="80" height="40" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+                <text x="600" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">SNORT (NIPS)</text>
+                <text x="600" y="133" font-family="sans-serif" font-size="8" fill="#b71c1c" text-anchor="middle">Reguła: DROP</text>
+
+                <path d="M 640 120 L 730 120" fill="none" stroke="#388e3c" stroke-width="3" stroke-dasharray="2,2"/>
+                <line x1="655" y1="110" x2="675" y2="130" stroke="#d32f2f" stroke-width="3"/>
+                <line x1="675" y1="110" x2="655" y2="130" stroke="#d32f2f" stroke-width="3"/>
+                <text x="665" y="155" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c62828" text-anchor="middle">Atak ZABLOKOWANY!</text>
+            </svg>
+
+            <!-- PART 4: NETFLOW (NOWA SEKCJA DODANA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #00897b;">4. Metadane zamiast pełnego zrzutu: NetFlow / IPFIX</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Pełne przechwytywanie pakietów (Full Packet Capture) na łączach o wysokiej przepustowości (10 Gbps+) jest technicznie niemożliwe ze względu na koszty storage'u i moc obliczeniową. Rozwiązaniem są <strong>NetFlow</strong> (Cisco) i jego otwarty standard <strong>IPFIX</strong>. Zamiast zapisywać każdy bajt payloadu, router/switch eksportuje jedynie <strong>metadane o przepływie (flow)</strong>: adres IP źródła i celu, porty, protokół, liczbę bajtów i pakietów oraz znaczniki czasu. To stanowi zaledwie około 1% oryginalnego wolumenu danych.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Dla analityka bezpieczeństwa informacja: „Serwer 10.0.0.5 wysłał 5 GB danych na IP w Chinach o 2:00 w nocy” jest w pełni wystarczająca do wygenerowania alertu o potencjalnej eksfiltracji danych – bez konieczności przeglądania surowych pakietów. NetFlow jest fundamentem monitoringu sieci korporacyjnych i uzupełnia analizę PCAP.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Pełne przechwytywanie pakietów na szybkich łączach jest niemożliwe – dyski zapchałyby się w kilka godzin. Dlatego w enterprise używa się NetFlow albo IPFIX. To jest protokół, który nie zapisuje całych pakietów, tylko metadane: kto, z kim, kiedy, jakim protokołem i ile danych przesłał. To zajmuje około jeden procent oryginalnego ruchu. Z punktu widzenia bezpieczeństwa często to wystarcza – jeśli serwer bazodanowy nagle wysyła 5 gigabajtów na adres w Rosji o trzeciej w nocy, NetFlow to wychwyci. Nie wiemy co dokładnie wysłał, ale wiemy, że to anomalia wymagająca natychmiastowej reakcji. NetFlow uzupełnia PCAP – nie zastępuje go, ale pozwala monitorować ruch tam, gdzie pełne zrzuty są nierealne.”
+                </div>
+            </div>
+
+            <!-- SVG 4: NETFLOW VS FULL PACKET CAPTURE (NOWA) -->
+            <svg viewBox="0 0 820 200" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="200" fill="#e0f2f1" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#00695c">NetFlow vs Full Packet Capture – metadane zamiast surowych danych</text>
+
+                <!-- Panel Lewy: Full Packet Capture -->
+                <rect x="25" y="42" width="370" height="140" rx="8" fill="#fff" stroke="#c62828" stroke-width="1.5"/>
+                <text x="210" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">Full Packet Capture (PCAP)</text>
+                <rect x="45" y="75" width="330" height="45" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="60" y="93" font-family="monospace" font-size="9" fill="#b71c1c">Ethernet: 00:1A:2B... → 00:3C:4D...</text>
+                <text x="60" y="106" font-family="monospace" font-size="9" fill="#b71c1c">IP: 192.168.1.1 → 10.0.0.5 | TCP: 443</text>
+                <text x="60" y="119" font-family="monospace" font-size="9" fill="#b71c1c">Payload: GET /admin HTTP/1.1...</text>
+                <text x="210" y="135" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Zapisuje każdy bajt → ~100% objętości ruchu</text>
+                <text x="210" y="148" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Łącze 10 Gbps → setki TB dziennie</text>
+                <text x="210" y="161" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Nadaje się tylko do krótkotrwałego triage'u</text>
+
+                <!-- Panel Prawy: NetFlow -->
+                <rect x="425" y="42" width="370" height="140" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="610" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">NetFlow / IPFIX (Metadane)</text>
+                <rect x="445" y="75" width="330" height="45" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+                <text x="460" y="93" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20">src_ip: 192.168.1.1 → dst_ip: 10.0.0.5</text>
+                <text x="460" y="108" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20">port: 443 | proto: TCP | bytes: 1.2 GB</text>
+                <text x="460" y="123" font-family="monospace" font-size="10" font-weight="bold" fill="#1b5e20">start: 03:14:22 | end: 03:19:45</text>
+                <text x="610" y="135" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Tylko nagłówki → ~1% objętości ruchu</text>
+                <text x="610" y="148" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Łącze 10 Gbps → kilka GB dziennie</text>
+                <text x="610" y="161" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">Idealny do długoterminowego monitoringu i trendów</text>
             </svg>
 
             <!-- ======================================================== -->
@@ -245,9 +290,32 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Ulubione podchwytliwe pytania z SecOps):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Dlaczego nie zrzucasz całego ruchu do PCAP (Full Packet Capture) na łączu 10 Gbps?"</strong> – Pułapka na wyobraźnię pojemnościową. Zapisywanie pełnego payloadu przy łączu 10Gbps zapełni dysk 100 TB w kilkanaście godzin! W profesjonalnych środowiskach zamiast PCAP loguje się tylko <strong>NetFlow / IPFIX</strong>. Są to same <em>metadane</em> (Kto, Z Kim, Kiedy, Na jakim porcie i Ile danych przesłał). Rozmiar logów kurczy się drastycznie (zajmuje ok. 1% oryginalnego ruchu), a do analizy Incydentów (Threat Hunting) informacja "IP serwera wysłało 5 GB danych o 2:00 w nocy do Rosji" często w zupełności wystarcza do podniesienia alarmu.</li>
-                    <li><strong>"Uruchomię Wiresharka z GUI na zhakowanym serwerze produkcyjnym, by sprawdzić co się dzieje."</strong> – Kardynalny błąd z dziedziny <em>Incident Response</em>! Serwer to środowisko obciążone i często pozbawione powłoki graficznej (Headless). Ponadto, atakujący mógł wstrzyknąć <em>rootkita</em>, który ukryje swój ruch sieciowy przed zainfekowanym jądrem systemu. Prawidłowe zachowanie to wykonanie zrzutu CLI (<code>tcpdump -w zrzut.pcap</code>) lub zrobienie zrzutu prosto z firewalla brzegowego, a samą analizę przeprowadza się na odizolowanej stacji analityka.</li>
+                    <li><strong>„Dlaczego nie zrzucasz całego ruchu do PCAP na łączu 10 Gbps?”</strong> – Pułapka na wyobraźnię pojemnościową. Zapisywanie pełnego payloadu przy łączu 10Gbps zapełni dysk 100 TB w kilkanaście godzin! W profesjonalnych środowiskach zamiast PCAP loguje się tylko <strong>NetFlow / IPFIX</strong> – metadane (kto, z kim, kiedy, ile danych). Rozmiar logów to ~1% oryginalnego ruchu, a do analizy incydentów informacja „serwer wysłał 5 GB o 2:00 w nocy do Rosji” często wystarcza.</li>
+                    <li><strong>„Uruchomię Wiresharka z GUI na zhakowanym serwerze produkcyjnym.”</strong> – Kardynalny błąd Incident Response! Serwer produkcyjny jest headless (bez GUI) i obciążony. Ponadto atakujący mógł zainstalować rootkita, który ukryje złośliwy ruch przed lokalnym kernelem. Prawidłowa procedura: <code>tcpdump -w zrzut.pcap</code> na serwerze, a analiza na odizolowanej stacji analityka (lub zrzut z firewalla brzegowego).</li>
+                    <li><strong>„NIDS wystarczy do ochrony – nie potrzebuję NIPS.”</strong> – NIDS tylko alarmuje – nie blokuje. Jeśli atak to eksploit zero-day, który działa w ułamku sekundy, alert z NIDS przyjdzie za późno. NIPS blokuje w locie, ale jest SPOF. W enterprise stosuje się oba: NIPS na brzegu sieci, NIDS wewnątrz do monitoringu i korelacji.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Klasyczne pytanie: dlaczego nie nagrywamy całego ruchu na szybkich łączach? Odpowiedź: bo to niemożliwe objętościowo. Dlatego używamy NetFlow – metadanych, które stanowią 1% objętości, a dają 90% informacji potrzebnych do detekcji. Druga pułapka: analiza sieci na zhakowanym hoście. Nigdy nie ufamy narzędziom na skompromitowanej maszynie – rootkit może ukrywać ruch. Zrzut robimy przez tcpdump i analizujemy offline. Trzecia rzecz: różnica między NIDS a NIPS. NIDS tylko alarmuje, NIPS blokuje. Ale NIPS to pojedynczy punkt awarii – jak padnie, sieć stoi. Dlatego w architekturze korporacyjnej łączy się oba podejścia.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Analiza i zarządzanie ruchem sieciowym:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Narzędzie / Technologia</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Tryb działania</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kluczowe zastosowanie</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">tcpdump</td><td style="padding: 10px;">CLI, pasywny, PCAP</td><td style="padding: 10px;">Szybki zrzut pakietów na serwerze (triage), filtry BPF.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wireshark</td><td style="padding: 10px;">GUI, pasywny, PCAP</td><td style="padding: 10px;">Głęboka analiza protokołów, dissectors, wizualizacja strumieni.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Nmap (-sS)</td><td style="padding: 10px;">Aktywny, skanowanie</td><td style="padding: 10px;">Stealth SYN scan, OS fingerprinting, NSE scripts.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">iptables / nftables</td><td style="padding: 10px;">Inline, kernel</td><td style="padding: 10px;">Firewall L3/L4 (filtrowanie, NAT), ochrona hosta.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Snort / Suricata (NIDS)</td><td style="padding: 10px;">Out-of-Band, SPAN</td><td style="padding: 10px;">Detekcja ataków L7, alerty bez ryzyka SPOF.</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Snort / Suricata (NIPS)</td><td style="padding: 10px;">Inline, w poprzek łącza</td><td style="padding: 10px;">Aktywna prewencja – blokowanie ataków w locie (DROP).</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">NetFlow / IPFIX</td><td style="padding: 10px;">Eksport metadanych</td><td style="padding: 10px;">Monitoring trendów, analiza eksfiltracji danych na szybkich łączach.</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -264,7 +332,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Practical Packet Analysis" (Chris Sanders) – Wireshark, BPF, Analiza protokołów. · Nmap Network Scanning (Gordon Lyon "Fyodor") · Architektura systemów Snort/Suricata.
+                    „Practical Packet Analysis” (Chris Sanders) – Wireshark, BPF, Analiza protokołów · Nmap Network Scanning (Gordon Lyon „Fyodor”) · Architektura systemów Snort/Suricata · RFC 3954 (NetFlow v9) i RFC 7011 (IPFIX).
                 </span>
             </div>
 

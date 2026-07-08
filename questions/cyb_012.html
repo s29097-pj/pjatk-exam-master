@@ -14,19 +14,25 @@
         <h2 id="q-title">012. Testy penetracyjne (Metodyka, rodzaje i architektura ataku).</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #fce4ec 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #fce4ec 0%, #ffcdd2 100%); border-left: 6px solid #c62828; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(198,40,40,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🥷</span>
                 <div>
-                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Inspektor Budowlany kontra Licencjonowany Włamywacz”:</strong>
+                    <strong style="font-size: 1.15rem; color: #b71c1c; display: block; margin-bottom: 6px;">💡 Aha! Moment – „Inspektor Budowlany kontra Licencjonowany Włamywacz":</strong>
                     <p style="margin: 0 0 8px 0; color: #4a0000; line-height: 1.7;">
                         Większość firm myli skanowanie podatności z testami penetracyjnymi. <br><br>
-                        <strong>Skanowanie Podatności (Vulnerability Scan)</strong> to <em>Inspektor Budowlany</em>. Chodzi z checklistą wokół banku i notuje: "Zamek w bocznych drzwiach to stary model firmy X. W katalogu napisano, że można go otworzyć wytrychem. Ryzyko wysokie!". Wystawia raport i idzie do domu.<br><br>
-                        <strong>Test Penetracyjny (Pentest)</strong> to wynajęty, <em>Licencjonowany Włamywacz</em>. On nie tylko widzi stary zamek. On wyciąga własny wytrych, otwiera te drzwi, wchodzi do środka, omija kamery, włamuje się do sejfu i na stosie gotówki zostawia swoją wizytówkę. Udowadnia (tzw. <strong>Proof of Concept - PoC</strong>), że luka teoretyczna prowadzi do brutalnej i praktycznej utraty danych.<br><br>
+                        <strong>Skanowanie Podatności (Vulnerability Scan)</strong> to <em>Inspektor Budowlany</em>. Chodzi z checklistą wokół banku i notuje: „Zamek w bocznych drzwiach to stary model firmy X. W katalogu napisano, że można go otworzyć wytrychem. Ryzyko wysokie!". Wystawia raport i idzie do domu.<br><br>
+                        <strong>Test Penetracyjny (Pentest)</strong> to wynajęty, <em>Licencjonowany Włamywacz</em>. On nie tylko widzi stary zamek. On wyciąga własny wytrych, otwiera te drzwi, wchodzi do środka, omija kamery, włamuje się do sejfu i na stosie gotówki zostawia swoją wizytówkę. Udowadnia (tzw. <strong>Proof of Concept – PoC</strong>), że luka teoretyczna prowadzi do brutalnej i praktycznej utraty danych.<br><br>
                         Pentest to autoryzowana, kontrolowana i udokumentowana symulacja ataku hakerskiego, której jedynym celem jest bezpieczne przełamanie zabezpieczeń <em>zanim</em> zrobią to prawdziwi przestępcy.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #4a0000; line-height: 1.8;">
+                        <li><strong>🔴 Black Box</strong> – pentester nic nie wie. Realistyczny atak zewnętrzny, ale czasochłonny i niepełny.</li>
+                        <li><strong>🟡 Gray Box</strong> – pentester ma konto zwykłego użytkownika. Złoty środek rynkowy.</li>
+                        <li><strong>🟢 White Box</strong> – pełny dostęp do kodu źródłowego i architektury. Pełne pokrycie, audyt jak insider.</li>
+                        <li><strong>🟣 PTES</strong> – standard wykonania testu: od RoE przez OSINT, exploit, pivoting, aż po raport.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -41,29 +47,35 @@
             <span class="keyword-tag">Black Box / Gray Box / White Box</span>
             <span class="keyword-tag">PoC (Proof of Concept)</span>
             <span class="keyword-tag">Red Teaming vs Pentesting</span>
+            <span class="keyword-tag">Purple Teaming</span>
             <span class="keyword-tag">Exploitation / Post-Exploitation</span>
             <span class="keyword-tag">Pivoting (Lateral Movement)</span>
+            <span class="keyword-tag">Vulnerability Assessment vs Pentest</span>
+            <span class="keyword-tag">OSINT (Open Source Intelligence)</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: PODEJŚCIA DO TESTÓW -->
+            <!-- PART 1: PODEJŚCIA DO TESTÓW – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #c62828;">1. Perspektywa Atakującego: Black, Gray i White Box</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Zanim pentester dotknie klawiatury, ustala z biznesem zakres (Scope) oraz poziom swojej początkowej wiedzy o atakowanym systemie. Wybór podejścia to zawsze kompromis między realizmem a czasem i budżetem.
+                    Zanim pentester dotknie klawiatury, ustala z biznesem zakres (Scope) oraz poziom swojej początkowej wiedzy o atakowanym systemie. Wybór podejścia to zawsze kompromis między realizmem a czasem i budżetem. Każde z trzech podejść symuluje inny profil zagrożenia.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
                     <li><strong>Black Box (Czarnoskrzynkowe):</strong> Pentester nie wie nic. Dostaje tylko nazwę firmy lub adres IP (czasem nawet tylko nazwę domeny). Musi sam odgadnąć architekturę. Najbardziej przypomina prawdziwy atak zewnętrzny (APT), ale jest najdroższy czasowo – haker może tygodniami szukać otwartego portu, omijając głębokie luki w logice aplikacji ukryte za panelem logowania.</li>
-                    <li><strong>White Box / Clear Box (Białoskrzynkowe):</strong> Pentester dostaje "klucze do królestwa": pełen kod źródłowy, dokumentację architektoniczną, a czasem i bezpośredni dostęp do deweloperów. Symuluje atak ze strony złośliwego pracownika (Insider Threat). Pozwala na 100% pokrycia i znalezienie głębokich błędów kryptograficznych, których "z zewnątrz" nikt by nie zauważył.</li>
-                    <li><strong>Gray Box (Szaroskrzynkowe):</strong> Najczęstszy standard rynkowy. Pentester dostaje poświadczenia (login i hasło) zwykłego użytkownika systemu. Omija fazę mozolnego szukania wejścia do aplikacji i od razu skupia się na eskalacji uprawnień (Privilege Escalation) – np. sprawdzeniu, czy zwykły użytkownik może skasować fakturę administratora.</li>
+                    <li><strong>White Box / Clear Box (Białoskrzynkowe):</strong> Pentester dostaje „klucze do królestwa": pełen kod źródłowy, dokumentację architektoniczną, a czasem i bezpośredni dostęp do deweloperów. Symuluje atak ze strony złośliwego pracownika (Insider Threat) lub audytora z pełnym dostępem. Pozwala na 100% pokrycia i znalezienie głębokich błędów kryptograficznych, których „z zewnątrz" nikt by nie zauważył.</li>
+                    <li><strong>Gray Box (Szaroskrzynkowe):</strong> Najczęstszy standard rynkowy. Pentester dostaje poświadczenia (login i hasło) zwykłego użytkownika systemu. Omija fazę mozolnego szukania wejścia do aplikacji i od razu skupia się na eskalacji uprawnień (Privilege Escalation) – np. sprawdzeniu, czy zwykły użytkownik może odczytać dane administratora lub zmodyfikować cudzą fakturę.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, pierwsza decyzja przed pentestem to wybór perspektywy atakującego. Black Box – pentester nic nie wie, dostaje tylko adres IP. To symulacja zewnętrznego hakera. Jest najbardziej realistyczna, ale też najdroższa i najmniej efektywna – tester może spędzić dwa tygodnie na skanowaniu portów, nie docierając do prawdziwych luk w logice biznesowej. White Box – przeciwnie: tester dostaje kod źródłowy i dokumentację. Symuluje insidera albo audytora. Znajdzie najwięcej błędów, ale realizm jest niski – prawdziwy haker nie ma kodu źródłowego. Gray Box to złoty środek – tester dostaje login zwykłego użytkownika. To najczęstszy wybór na rynku, bo od razu testujemy eskalację uprawnień, czyli to, co naprawdę boli."
+                </div>
             </div>
 
-            <!-- SVG 1: BOX TYPES -->
+            <!-- SVG 1: BOX TYPES (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#fff5f5" opacity="0.3"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Poziomy wiedzy startowej Pentestera</text>
@@ -74,7 +86,7 @@
                 <text x="150" y="110" font-family="sans-serif" font-size="10" fill="#bdbdbd" text-anchor="middle">Zewnętrzny haker</text>
                 <text x="150" y="130" font-family="monospace" font-size="10" fill="#ef5350" text-anchor="middle">Wiedza: Tylko adres IP</text>
                 <text x="150" y="150" font-family="sans-serif" font-size="10" fill="#9e9e9e" text-anchor="middle">Wysoki realizm / Niskie pokrycie</text>
-                
+
                 <circle cx="150" cy="170" r="10" fill="#424242"/>
                 <text x="150" y="174" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">🔒</text>
 
@@ -97,32 +109,39 @@
 
                 <circle cx="670" cy="170" r="10" fill="#fff" stroke="#4caf50" stroke-width="2"/>
                 <text x="670" y="174" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">🔓</text>
-
             </svg>
 
-            <!-- PART 2: METODYKA PTES -->
+            <!-- PART 2: METODYKA PTES – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Rygor Inżynierski: Metodyka PTES (Penetration Testing Execution Standard)</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Rygor Inżynierski: Metodyka PTES i kontrakt prawny (RoE)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Profesjonalny pentest nie polega na losowym wpisywaniu komend. To wysoce sformalizowany proces składający się z 7 kroków, gwarantujący, że test przyniesie wartość biznesową, a przy okazji nie zniszczy serwerów produkcyjnych.
+                    Profesjonalny pentest nie polega na losowym wpisywaniu komend. To wysoce sformalizowany proces składający się z 7 kroków, gwarantujący, że test przyniesie wartość biznesową, a przy okazji nie zniszczy serwerów produkcyjnych i nie skończy się sprawą karną.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>1. Pre-engagement & RoE:</strong> Najważniejszy etap prawno-biznesowy. Podpisanie <em>Rules of Engagement (Zasad Zaangażowania)</em>. Dokument ten określa granice: Czego NIE wolno atakować? Czy można testować DDoS? Kogo powiadomić? <strong>Brak podpisanego RoE oznacza, że pentester staje się w świetle prawa zwykłym przestępcą z art. 269 KK.</strong></li>
-                    <li><strong>2. Intelligence Gathering (OSINT):</strong> Zwiad. Zbieranie publicznie dostępnych informacji o firmie, technologiach, mailach pracowników (do Phishingu) bez bezpośredniego dotykania serwerów ofiary.</li>
-                    <li><strong>3. Threat Modeling & 4. Vulnerability Analysis:</strong> Skanowanie portów (Nmap) i szukanie dziur w zidentyfikowanych usługach. Odpowiedź na pytanie: <em>Jak ułożyłbym atak, gdybym był hakerem?</em></li>
-                    <li><strong>5. Exploitation:</strong> Uderzenie właściwe. Użycie exploitów (np. przez framework <em>Metasploit</em>) w celu uzyskania fizycznego dostępu (powłoki - shella) do serwera.</li>
+                    <li><strong>1. Pre-engagement & RoE (Rules of Engagement):</strong> Najważniejszy etap prawno-biznesowy. Podpisanie <em>Zasad Zaangażowania</em>. Dokument ten określa granice: czego NIE wolno atakować, jakie adresy IP są w scope, czy można testować DDoS, w jakich godzinach można działać, kogo powiadomić w razie awarii. <strong>Brak podpisanego RoE oznacza, że pentester staje się w świetle prawa zwykłym przestępcą (art. 269 Kodeksu Karnego)</strong>. Nawet najlepsze intencje nie chronią przed odpowiedzialnością karną za nieautoryzowane przełamanie zabezpieczeń.</li>
+                    <li><strong>2. Intelligence Gathering (OSINT):</strong> Zwiad. Zbieranie publicznie dostępnych informacji o firmie, technologiach, mailach pracowników (do Phishingu) bez bezpośredniego dotykania serwerów ofiary. Narzędzia: theHarvester, Maltego, Shodan.</li>
+                    <li><strong>3. Threat Modeling & 4. Vulnerability Analysis:</strong> Skanowanie portów (Nmap) i szukanie dziur w zidentyfikowanych usługach. Odpowiedź na pytanie: <em>Jak ułożyłbym atak, gdybym był hakerem?</em> Na tym etapie używa się skanerów podatności (Nessus, OpenVAS) oraz manualnej analizy.</li>
+                    <li><strong>5. Exploitation:</strong> Uderzenie właściwe. Użycie exploitów (np. przez framework <em>Metasploit</em>) w celu uzyskania fizycznego dostępu (powłoki – shella) do serwera.</li>
                     <li><strong>6. Post-Exploitation:</strong> Złota faza. Wszedłem na serwer – co dalej? Kradzież haseł z pamięci RAM (np. <em>Mimikatz</em>) i przeskakiwanie na kolejne, głębsze serwery wewnątrz sieci, których nie było widać z internetu (tzw. <strong>Pivoting / Lateral Movement</strong>).</li>
-                    <li><strong>7. Reporting:</strong> Cel ostateczny. Stworzenie raportu dla zarządu, opisującego nie tylko techniczny sposób złamania zabezpieczeń, ale przede wszystkim <strong>metody ich naprawy (Remediation)</strong>.</li>
+                    <li><strong>7. Reporting:</strong> Cel ostateczny. Stworzenie raportu dla zarządu i zespołu technicznego, opisującego nie tylko techniczny sposób złamania zabezpieczeń (z dowodami – PoC), ale przede wszystkim <strong>metody ich naprawy (Remediation)</strong>.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Metodyka PTES to siedem kroków, które odróżniają profesjonalny test od amatorskiego grzebania. Krok pierwszy – i najważniejszy – to Rules of Engagement. Bez tego dokumentu pentester to przestępca. RoE precyzyjnie określa, co wolno testować, w jakich godzinach, i co absolutnie wykluczamy – na przykład nie testujemy DDoS na produkcji. Potem jest OSINT – zbieramy publiczne dane o firmie z internetu. Następnie skanujemy porty i analizujemy podatności. Gdy już mamy cel, następuje eksploitacja – próbujemy wejść do środka. Ale prawdziwe złoto jest w post-eksploitacji: zdobywamy hasła, przeskakujemy między serwerami, szukamy baz danych. Na końcu piszemy raport – nie tylko z tym, co złamaliśmy, ale jak to naprawić. Raport to produkt końcowy pentestu."
+                </div>
             </div>
 
-            <!-- SVG 2: PTES FLOW -->
+            <!-- SVG 2: PTES FLOW (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGryPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
+                    <marker id="arrowOrgPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
+                    <marker id="arrowRedPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                    <marker id="arrowPurpPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ad1457"/></marker>
+                    <marker id="arrowGrnPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Cykl Życia Ataku Pentestera (PTES Methodology)</text>
 
-                <!-- Flowchart -->
-                
                 <!-- 1. Prawne -->
                 <rect x="20" y="80" width="100" height="50" rx="4" fill="#fff" stroke="#455a64" stroke-width="2"/>
                 <text x="70" y="100" font-family="sans-serif" font-size="11" font-weight="bold" fill="#263238" text-anchor="middle">1. RoE</text>
@@ -168,26 +187,52 @@
                 <!-- Pivoting line -->
                 <path d="M 620 140 L 620 170 L 470 170 L 470 140" fill="none" stroke="#ad1457" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowPurpPTES)"/>
                 <text x="545" y="185" font-family="sans-serif" font-size="10" font-weight="bold" fill="#880e4f" text-anchor="middle">Atakowanie głębszych podsieci</text>
-
-                <defs>
-                    <marker id="arrowGryPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#90a4ae"/></marker>
-                    <marker id="arrowOrgPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f57c00"/></marker>
-                    <marker id="arrowRedPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                    <marker id="arrowPurpPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ad1457"/></marker>
-                    <marker id="arrowGrnPTES" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#388e3c"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 3: RED TEAMING VS PENTEST -->
+            <!-- SVG 3: VULN SCAN VS PENTEST (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 230" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="230" fill="#f3e5f5" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Vulnerability Scan vs Pentest – nie myl tych pojęć!</text>
+
+                <!-- Panel Lewy: Vuln Scan -->
+                <rect x="25" y="42" width="360" height="170" rx="6" fill="#fff" stroke="#1565c0" stroke-width="1.5"/>
+                <text x="205" y="62" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">Skanowanie Podatności (Vulnerability Scan)</text>
+                <rect x="45" y="78" width="320" height="55" rx="4" fill="#e3f2fd" stroke="#1565c0"/>
+                <text x="205" y="95" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0d47a1" text-anchor="middle">Automatyczne narzędzie (Nessus, OpenVAS)</text>
+                <text x="205" y="112" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">Wysyła zapytania → sprawdza wersje → porównuje z bazą CVE</text>
+                <text x="205" y="126" font-family="sans-serif" font-size="9" fill="#1565c0" text-anchor="middle">Wynik: lista POTENCJALNYCH podatności</text>
+                <text x="45" y="148" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">❌ Nie weryfikuje, czy luka jest rzeczywiście eksploatowalna</text>
+                <text x="45" y="163" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">❌ Generuje dużo False Positives</text>
+                <text x="45" y="178" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">❌ Nie pokazuje wpływu biznesowego</text>
+                <text x="45" y="193" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0d47a1" text-anchor="middle">Czas: minuty. Koszt: niski. Częstotliwość: ciągła.</text>
+
+                <!-- Panel Prawy: Pentest -->
+                <rect x="435" y="42" width="360" height="170" rx="6" fill="#fff" stroke="#c62828" stroke-width="1.5"/>
+                <text x="615" y="62" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Test Penetracyjny (Pentest)</text>
+                <rect x="455" y="78" width="320" height="55" rx="4" fill="#ffebee" stroke="#c62828"/>
+                <text x="615" y="95" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">Człowiek – pentester (manualny + narzędzia)</text>
+                <text x="615" y="112" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Łączy luki w łańcuch ataku → zdobywa shell</text>
+                <text x="615" y="126" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Wynik: udowodniony Proof of Concept (PoC)</text>
+                <text x="455" y="148" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">✅ Weryfikuje rzeczywistą eksploatowalność</text>
+                <text x="455" y="163" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">✅ Pokazuje realny wpływ biznesowy (np. wyciek danych)</text>
+                <text x="455" y="178" font-family="sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle">✅ Zawiera rekomendacje naprawcze</text>
+                <text x="455" y="193" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Czas: dni–tygodnie. Koszt: wysoki. Frekwencja: roczna.</text>
+            </svg>
+
+            <!-- PART 3: RED TEAMING VS PENTEST – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #8e24aa;">3. Różnica klas: Pentesting a operacje Red Teaming</strong>
+                <strong style="font-size: 1.2rem; color: #8e24aa;">4. Różnica klas: Pentesting a Red Teaming (i Purple Teaming)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
                     Podczas egzaminów to jedno z najważniejszych pytań odsiewających. Zarówno Pentest, jak i Red Teaming używają technik hakerskich, ale ich cel i celowniki są całkowicie różne.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Test Penetracyjny:</strong> Celem jest <strong>technologia</strong> (np. nowa aplikacja webowa). Zadaniem pentestera jest znalezienie <em>jak największej liczby dziur</em> w tej konkretnej aplikacji w ograniczonym czasie (np. 2 tygodnie). Zespół obronny firmy (Blue Team) najczęściej o nim wie i wpuszcza go na białej liście firewalli, aby mógł skupić się na testowaniu logiki aplikacji, a nie marnował czasu na walkę z systemami IDS.</li>
-                    <li><strong>Red Teaming (Adversary Emulation):</strong> Celem operacji nie jest technologia, lecz <strong>ludzie i procedury (Blue Team / SOC)</strong>! Organizuje się to, gdy firma ma dojrzały dział bezpieczeństwa i chce sprawdzić jego czujność. Red Team dostaje konkretny cel biznesowy (tzw. <em>Flagę</em>): "Masz wykraść bazę danych klientów". Nie interesuje ich znajdowanie wszystkich błędów. Użyją najcichszej, najprostszej drogi (np. wyślą maila z wirusem do sprzątaczki i wejdą jej kontem). Jeśli ukradną bazę, a Blue Team tego nie wykryje przez 3 miesiące trwania operacji – SOC ponosi porażkę. Red Teaming uczy, jak obrońcy reagują w warunkach stresu bojowego.</li>
+                    <li><strong>Test Penetracyjny:</strong> Celem jest <strong>technologia</strong> (np. nowa aplikacja webowa). Zadaniem pentestera jest znalezienie <em>jak największej liczby dziur</em> w tej konkretnej aplikacji w ograniczonym czasie (np. 2 tygodnie). Zespół obronny (Blue Team) najczęściej o nim wie i wpuszcza go na białej liście firewalli, aby mógł skupić się na testowaniu logiki aplikacji, a nie marnował czasu na walkę z systemami IDS.</li>
+                    <li><strong>Red Teaming (Adversary Emulation):</strong> Celem operacji nie jest technologia, lecz <strong>ludzie i procedury (Blue Team / SOC)</strong>! Organizuje się to, gdy firma ma dojrzały dział bezpieczeństwa i chce sprawdzić jego czujność. Red Team dostaje konkretny cel biznesowy (tzw. <em>Flagę</em>): „Masz wykraść bazę danych klientów". Nie interesuje ich znajdowanie wszystkich błędów. Użyją najcichszej, najprostszej drogi (np. wyślą maila z wirusem do sprzątaczki i wejdą jej kontem). Jeśli ukradną bazę, a Blue Team tego nie wykryje przez 3 miesiące trwania operacji – SOC ponosi porażkę. Red Teaming uczy, jak obrońcy reagują w warunkach stresu bojowego.</li>
+                    <li><strong>Purple Teaming:</strong> Ewolucja współpracy. Red Team i Blue Team nie walczą przeciwko sobie – pracują razem, w jednym pomieszczeniu, nad tymi samymi scenariuszami. Red Team pokazuje na żywo, jak atakuje, a Blue Team od razu dostraja detekcję. To najbardziej efektywna metoda podnoszenia dojrzałości SOC.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „To jest pytanie, które odsiewa na egzaminie. Pentest celuje w technologię – w konkretną aplikację. Szukamy jak najwięcej dziur w ograniczonym czasie. Blue Team wie o teście, często wyłącza IDS-y, żeby pentester nie tracił czasu. Red Teaming to zupełnie inna gra. Celem nie jest aplikacja, tylko procedury obronne. Red Team ma wykraść konkretną flagę – na przykład bazę danych – i nikt w firmie o tym nie wie. Blue Team musi sam wykryć atak. Jeśli przez 3 miesiące nikt nic nie zauważy – SOC przegrywa. I jest jeszcze Purple Teaming – Red i Blue pracują razem, w jednym pokoju. Atakujący pokazuje, jak wchodzi, a obrońca od razu dostosowuje reguły w SIEM-ie. To najszybsza droga do poprawy bezpieczeństwa."
+                </div>
             </div>
 
             <!-- ======================================================== -->
@@ -196,9 +241,31 @@
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kluczowe zagadnienia prawne i pojęciowe):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>Prawo: Zgoda na atak (RoE):</strong> "Zauważyłeś lukę w zabezpieczeniach serwisu bankowego. W ramach dobrych intencji używasz exploita, by udowodnić dyrekcji, że jesteś w stanie skopiować ich bazę, i wysyłasz im o tym maila z ofertą naprawy." Co grozi Ci za to działanie? <strong>Więzienie.</strong> Bez uprzednio podpisanego kontraktu oraz dokumentu <em>Rules of Engagement</em> jesteś przestępcą komputerowym. Intencja (tzw. bycie "White Hat") nie zwalnia z odpowiedzialności prawnej w przypadku nieautoryzowanego przełamania zabezpieczeń (art. 269b Kodeksu Karnego).</li>
-                    <li><strong>Pentest a Audyt Zgodności (Compliance):</strong> Pytanie: "Zatrudniamy pentestera, aby upewnić się, że spełniamy normy bezpieczeństwa RODO/ISO 27001". To błąd myślowy! Pentester nie jest audytorem. Pentest dowodzi tylko tego, czy zabezpieczenia da się złamać technicznie w danym momencie. Możesz mieć wybitnie zabezpieczoną aplikację (brak dziur), ale jeśli hasła w bazie nie są zahasowane, lub brak procedur odzyskiwania danych – nie zdasz audytu ISO, choć pentester nie miałby punktu wejścia.</li>
+                    <li><strong>Prawo: Zgoda na atak (RoE):</strong> „Zauważyłeś lukę w zabezpieczeniach serwisu bankowego. W ramach dobrych intencji używasz exploita, by udowodnić dyrekcji, że jesteś w stanie skopiować ich bazę, i wysyłasz im o tym maila z ofertą naprawy." Co grozi Ci za to działanie? <strong>Więzienie.</strong> Bez uprzednio podpisanego kontraktu oraz dokumentu <em>Rules of Engagement</em> jesteś przestępcą komputerowym. Intencja (tzw. bycie „White Hat") nie zwalnia z odpowiedzialności prawnej w przypadku nieautoryzowanego przełamania zabezpieczeń (art. 269b Kodeksu Karnego).</li>
+                    <li><strong>Pentest a Audyt Zgodności (Compliance):</strong> Pytanie: „Zatrudniamy pentestera, aby upewnić się, że spełniamy normy bezpieczeństwa RODO/ISO 27001". To błąd myślowy! Pentester nie jest audytorem. Pentest dowodzi tylko tego, czy zabezpieczenia da się złamać technicznie w danym momencie. Możesz mieć wybitnie zabezpieczoną aplikację (brak dziur), ale jeśli hasła w bazie nie są hashowane, lub brak procedur odzyskiwania danych – nie zdasz audytu ISO, choć pentester nie miałby punktu wejścia.</li>
+                    <li><strong>Vulnerability Scan ≠ Pentest:</strong> Skaner podatności (Nessus) generuje listę potencjalnych luk, często z dużą liczbą fałszywych alarmów. Nie weryfikuje, czy luka jest rzeczywiście eksploatowalna, ani nie pokazuje łańcucha ataku. Pentest to manualna weryfikacja, łączenie luk i udowodnienie wpływu biznesowego (PoC).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Największa pułapka prawna: brak RoE. Bez podpisanego kontraktu żaden pentest nie jest legalny – nawet jeśli robisz to w dobrej wierze. Art. 269b KK jest bezlitosny. Druga pułapka: mylenie pentestu z audytem. Pentest to techniczna weryfikacja – czy da się włamać. Audyt ISO 27001 to sprawdzenie procesów, polityk, backupów. Pentester może nie znaleźć żadnej luki, a firma i tak obleje audyt, bo hasła są w plaintekście. Trzecia pułapka: mylenie skanowania podatności z pentestem. Nessus daje listę CVE, często z false positives. Pentester to człowiek, który te luki weryfikuje, łączy w łańcuch i pokazuje realny wpływ."
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat‑Sheet – Testy penetracyjne:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Aspekt</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Pentest</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Red Teaming</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Vulnerability Scan</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Cel</td><td style="padding: 10px;">Znaleźć jak najwięcej luk</td><td style="padding: 10px;">Przetestować procedury obrony (SOC)</td><td style="padding: 10px;">Lista potencjalnych podatności</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wiedza Blue Teamu</td><td style="padding: 10px;">Wie o teście (biała lista)</td><td style="padding: 10px;">Nie wie (symulacja APT)</td><td style="padding: 10px;">Zwykle ciągły, automatyczny</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Zakres</td><td style="padding: 10px;">Konkretny system/aplikacja</td><td style="padding: 10px;">Cała organizacja (ludzie, procesy, tech)</td><td style="padding: 10px;">Szeroki, wiele systemów naraz</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Metoda</td><td style="padding: 10px;">Manualny + narzędzia, PoC</td><td style="padding: 10px;">Symulacja adwersarza (ATT&CK)</td><td style="padding: 10px;">Automatyczny (Nessus, OpenVAS)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Wynik</td><td style="padding: 10px;">Raport z lukami i remediacją</td><td style="padding: 10px;">Ocena dojrzałości SOC, wnioski</td><td style="padding: 10px;">Lista CVE (często False Positives)</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Częstotliwość</td><td style="padding: 10px;">Roczna / po dużych zmianach</td><td style="padding: 10px;">Roczna / półroczna</td><td style="padding: 10px;">Ciągła (ciągły monitoring)</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -207,7 +274,7 @@
             <div style="margin-top: 28px; text-align: center; background: linear-gradient(135deg, #263238, #37474f); color: #eceff1; padding: 18px 24px; border-radius: 12px; font-family: sans-serif;">
                 <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
                     🧠 <strong>Grokking means truly understanding.</strong><br>
-                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego biznesu "bycie bezpiecznym" oznacza przejście przez zautomatyzowane skany. Dla inżyniera architektury bezpieczeństwa teoria luki nie znaczy nic, dopóki nie zostanie sprawdzona w praktyce. Testy penetracyjne to inżynieria w warunkach bojowych – pozwalają spojrzeć na własny system oczami bezwzględnego atakującego, udowadniając (Proof of Concept), czy korelacja połączonych ze sobą małych słabości w architekturze prowadzi do całkowitego przejęcia kontroli. Z kolei Red Teaming wznosi tę koncepcję wyżej – przesuwa celownik z maszyn na procedury reagowania, sprawdzając, czy milionowe inwestycje w ochronę poradzą sobie z inteligentnym, uśpionym przeciwnikiem (APT).</span>
+                    <span style="font-size: 0.9rem; opacity: 0.85;">Dla standardowego biznesu „bycie bezpiecznym" oznacza przejście przez zautomatyzowane skany. Dla inżyniera architektury bezpieczeństwa teoria luki nie znaczy nic, dopóki nie zostanie sprawdzona w praktyce. Testy penetracyjne to inżynieria w warunkach bojowych – pozwalają spojrzeć na własny system oczami bezwzględnego atakującego, udowadniając (Proof of Concept), czy korelacja połączonych ze sobą małych słabości w architekturze prowadzi do całkowitego przejęcia kontroli. Z kolei Red Teaming wznosi tę koncepcję wyżej – przesuwa celownik z maszyn na procedury reagowania, sprawdzając, czy milionowe inwestycje w ochronę poradzą sobie z inteligentnym, uśpionym przeciwnikiem (APT).</span>
                 </p>
             </div>
 
@@ -215,7 +282,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    Penetration Testing Execution Standard (PTES) · "The Web Application Hacker's Handbook" (D. Stuttard, M. Pinto) · Red Team Field Manual (RTFM) (Ben Clark).
+                    Penetration Testing Execution Standard (PTES) · „The Web Application Hacker's Handbook" (D. Stuttard, M. Pinto) · Red Team Field Manual (RTFM) (Ben Clark) · MITRE ATT&CK Framework (Adversary Emulation).
                 </span>
             </div>
 

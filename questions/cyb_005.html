@@ -14,9 +14,9 @@
         <h2 id="q-title">005. Kodowaniem oraz szyfrowanie (Różnice, architektura i wektory ataków).</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 6px solid #00695c; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,105,92,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">📜</span>
                 <div>
@@ -26,6 +26,11 @@
                         <strong>Kodowanie (Encoding)</strong> to przetłumaczenie Twojego listu na Alfabet Morse'a (błyski latarki). Zrobiłeś to, bo światło nie potrafi przesyłać "liter", musi przesyłać "kropki i kreski". Czy to jest bezpieczne? Absolutnie nie! <strong>Każdy</strong>, kto stoi na brzegu z publicznie dostępną książką do Alfabetu Morse'a, odczyta Twój list. Kodowanie zmienia <em>format</em> danych, aby maszyny mogły je obsłużyć.<br><br>
                         <strong>Szyfrowanie (Encryption)</strong> to zamknięcie listu w pancernej skrzyni i zamknięcie jej na unikalny fizyczny klucz, a następnie wysłanie jej łodzią. Nawet jeśli ktoś przejmie skrzynię, wie, że to skrzynia, ale nie zajrzy do środka. Aby to zrobić, musi posiadać identyczny lub pasujący klucz. Szyfrowanie zapewnia <em>poufność</em>.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00251a; line-height: 1.8;">
+                        <li><strong>🟢 Kodowanie</strong> – zmiana formatu dla kompatybilności. Publiczny algorytm, brak klucza. NIE chroni poufności.</li>
+                        <li><strong>🔵 Szyfrowanie</strong> – ochrona poufności. Wymaga tajnego klucza. Bez niego dane są bezużyteczne.</li>
+                        <li><strong>🟣 Hashowanie</strong> – jednokierunkowy „odcisk palca”. Nieodwracalne. Służy do weryfikacji integralności i haseł.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -40,90 +45,105 @@
             <span class="keyword-tag">Base64 / URL Encoding / Hex</span>
             <span class="keyword-tag">Obfuskacja (WAF Bypass)</span>
             <span class="keyword-tag">Zasada Kerckhoffsa</span>
-            <span class="keyword-tag">Szyfrowanie Symetryczne (AES) i Asymetryczne (RSA)</span>
+            <span class="keyword-tag">Szyfrowanie Symetryczne (AES) i Asymetryczne (RSA, ECC)</span>
+            <span class="keyword-tag">AEAD (AES-GCM) – poufność + integralność</span>
+            <span class="keyword-tag">JWT vs JWE (Token nie jest szyfrowany!)</span>
+            <span class="keyword-tag">Bit-flipping attack</span>
+            <span class="keyword-tag">HMAC (Hash-based Message Authentication Code)</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: ENCODING -->
+            <!-- PART 1: ENCODING – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00695c;">1. Kodowanie (Encoding) – Kompatybilność i Transport</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Kodowanie to <strong>algorytm bezkluczowy</strong>. Jego jedynym celem jest zapewnienie, że dane zostaną bezpiecznie (w sensie integralności strukturalnej, a nie poufności) przesłane pomiędzy systemami. Protokoły sieciowe (np. HTTP, SMTP) mają ścisłe restrykcje dotyczące akceptowanych znaków.
+                    Kodowanie to <strong>algorytm bezkluczowy, w pełni odwracalny</strong>. Jego jedynym celem jest zapewnienie, że dane zostaną bezpiecznie (w sensie integralności strukturalnej, a nie poufności) przesłane pomiędzy systemami o różnych ograniczeniach. Protokoły sieciowe (np. HTTP, SMTP) mają ścisłe restrykcje dotyczące akceptowanych znaków – nie przepuszczą surowych bajtów binarnych.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Base64:</strong> Przetwarza dowolne dane binarne (np. obrazek PNG lub zaszyfrowany klucz) na ciąg 64 bezpiecznych znaków tekstowych (litery, cyfry, <code>+</code>, <code>/</code>, z paddingiem <code>=</code> na końcu). Dzięki temu binarne dane można osadzić bezpośrednio w pliku JSON lub mailu.</li>
-                    <li><strong>URL Encoding (Procentowe):</strong> Zamienia znaki niedozwolone w adresach URL na ich odpowiedniki szesnastkowe. Np. spacja staje się <code>%20</code>, a znak <code>&</code> staje się <code>%26</code>.</li>
+                    <li><strong>Base64:</strong> Przetwarza dowolne dane binarne (obrazek PNG, zaszyfrowany klucz) na ciąg 64 bezpiecznych znaków ASCII (litery, cyfry, <code>+</code>, <code>/</code>, z paddingiem <code>=</code>). Idealny do osadzania danych binarnych w JSON, XML czy nagłówkach HTTP.</li>
+                    <li><strong>URL Encoding (Percent-encoding):</strong> Zamienia znaki niedozwolone w adresach URL na <code>%</code> i kod szesnastkowy. Spacja → <code>%20</code>, znak <code>&</code> → <code>%26</code>, polskie znaki → sekwencje UTF-8.</li>
+                    <li><strong>Hex Encoding:</strong> Reprezentacja każdego bajtu jako dwóch znaków szesnastkowych (0-9, A-F). Często używany w debugowaniu i przy wyświetlaniu hashów.</li>
                 </ul>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #b71c1c; font-weight: bold;">
-                    Wektor Ataku (Obfuskacja):
+                    Wektor Ataku – Obfuskacja (WAF Bypass):
                 </p>
                 <p style="margin: 0 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Atakujący masowo wykorzystują kodowanie do <strong>obfuskacji</strong> (zaciemniania) ładunków (Payloadów) złośliwego kodu, aby ominąć zapory WAF (Web Application Firewall). WAF może blokować frazę <code>&lt;script&gt;</code>, ale przepuści jej formę w Base64: <code>PHNjcmlwdD4=</code>. System docelowy sam zdekoduje payload i wykona atak XSS!
+                    Atakujący wykorzystują kodowanie do <strong>obejścia filtrów bezpieczeństwa</strong>. Web Application Firewall (WAF) blokuje frazę <code>&lt;script&gt;</code>, ale przepuści jej wariant w Base64: <code>PHNjcmlwdD4=</code>. Jeśli aplikacja automatycznie dekoduje dane przed użyciem, atak XSS przechodzi przez filtr. Podobnie działa double URL encoding (<code>%253C</code> zamiast <code>%3C</code>) – niektóre parsery odkodowują tylko raz, a drugie odkodowanie następuje w aplikacji.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Zacznijmy od kodowania. Proszę zapamiętać: kodowanie to nie jest zabezpieczenie. To jest transformacja formatu. Base64 bierze binarne dane i zamienia je na tekst, żeby mogły przejść przez protokoły, które nie tolerują bajtów spoza ASCII. Proszę spojrzeć na planszę – z hasła admin:123 robi się YWRtaW46MTIz. Każdy, kto to zobaczy, może to odkodować – algorytm jest publiczny i nie używa klucza. I tu jest ogromne niebezpieczeństwo: atakujący używają kodowania jako obfuskacji. Jeśli WAF blokuje słowo script, atakujący zakoduje je w Base64 i puści przez formularz. Aplikacja sama odkoduje i wykona atak XSS. Dlatego nigdy nie ufamy, że kodowanie cokolwiek chroni.”
+                </div>
             </div>
 
-            <!-- SVG 1: ENCODING -->
+            <!-- SVG 1: ENCODING (zachowany, drobne poprawki) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowGrnEnc" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00796b"/></marker>
+                    <marker id="arrowGrnEncRev" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#00796b"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#e0f2f1" opacity="0.3"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Zasada Kodowania (Np. Base64): Transformacja algorytmiczna (Brak klucza!)</text>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#004d40">Zasada Kodowania (np. Base64): Transformacja algorytmiczna – BEZ KLUCZA</text>
 
                 <!-- Input -->
                 <rect x="60" y="60" width="160" height="80" rx="6" fill="#fff" stroke="#455a64" stroke-width="2"/>
-                <text x="140" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Dane wejściowe</text>
+                <text x="140" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Plaintext (Jawny)</text>
                 <text x="140" y="115" font-family="monospace" font-size="14" font-weight="bold" fill="#004d40" text-anchor="middle">"admin:123"</text>
 
-                <!-- Process -->
+                <!-- Process arrows -->
                 <path d="M 230 85 L 340 85" fill="none" stroke="#00796b" stroke-width="3" marker-end="url(#arrowGrnEnc)"/>
                 <path d="M 340 115 L 230 115" fill="none" stroke="#00796b" stroke-width="3" marker-end="url(#arrowGrnEncRev)"/>
                 <text x="285" y="75" font-family="sans-serif" font-size="9" font-weight="bold" fill="#00695c" text-anchor="middle">Encode()</text>
                 <text x="285" y="135" font-family="sans-serif" font-size="9" font-weight="bold" fill="#00695c" text-anchor="middle">Decode()</text>
 
+                <!-- Cipher Engine -->
                 <rect x="350" y="50" width="120" height="100" rx="8" fill="#b2dfdb" stroke="#00796b" stroke-width="2"/>
                 <circle cx="410" cy="90" r="18" fill="#fff" stroke="#00796b" stroke-width="2"/>
                 <text x="410" y="95" font-family="sans-serif" font-size="14" font-weight="bold" fill="#00796b" text-anchor="middle">⚙️</text>
                 <text x="410" y="135" font-family="monospace" font-size="10" font-weight="bold" fill="#004d40" text-anchor="middle">Tabela Base64</text>
-
                 <rect x="380" y="20" width="60" height="20" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
                 <text x="410" y="34" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">PUBLICZNE</text>
 
                 <!-- Output -->
                 <path d="M 480 85 L 590 85" fill="none" stroke="#00796b" stroke-width="3" marker-end="url(#arrowGrnEnc)"/>
                 <path d="M 590 115 L 480 115" fill="none" stroke="#00796b" stroke-width="3" marker-end="url(#arrowGrnEncRev)"/>
-
                 <rect x="600" y="60" width="160" height="80" rx="6" fill="#fff" stroke="#455a64" stroke-width="2"/>
                 <text x="680" y="85" font-family="sans-serif" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Dane zakodowane</text>
                 <text x="680" y="115" font-family="monospace" font-size="13" font-weight="bold" fill="#004d40" text-anchor="middle">YWRtaW46MTIz</text>
 
                 <!-- Warning box -->
                 <rect x="140" y="170" width="540" height="30" rx="4" fill="#fff3e0" stroke="#f57c00" stroke-width="2" stroke-dasharray="4,2"/>
-                <text x="410" y="189" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Każdy, kto widzi YWRtaW46MTIz, może zdekodować hasło. Brak poufności!</text>
-
-                <defs>
-                    <marker id="arrowGrnEnc" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00796b"/></marker>
-                    <marker id="arrowGrnEncRev" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M6,0 L0,3 L6,6 Z" fill="#00796b"/></marker>
-                </defs>
+                <text x="410" y="189" font-family="sans-serif" font-size="11" font-weight="bold" fill="#e65100" text-anchor="middle">Każdy może zdekodować YWRtaW46MTIz → admin:123. Kodowanie NIE zapewnia poufności!</text>
             </svg>
 
-            <!-- PART 2: ENCRYPTION -->
+            <!-- PART 2: ENCRYPTION – ROZBUDOWANE O SYMETRYCZNE/ASYMNENTRYCZNE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #1565c0;">2. Szyfrowanie (Encryption) – Poufność i Matematyka</strong>
+                <strong style="font-size: 1.2rem; color: #1565c0;">2. Szyfrowanie (Encryption) – Poufność, Klucz i Zasada Kerckhoffsa</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Szyfrowanie to proces kryptograficzny, w którym algorytm transformacji (Szyfr) bierze dane wejściowe (Plaintext) oraz <strong>unikalny ciąg bitów zwany Kluczem (Key)</strong>. Na ich podstawie generuje niezrozumiały bełkot (Ciphertext). Zgodnie z fundamentalną <em>Zasadą Kerckhoffsa</em>, bezpieczeństwo systemu nie polega na ukrywaniu sposobu jego działania (algorytmu), lecz wyłącznie na ukryciu klucza!
+                    Szyfrowanie to proces kryptograficzny, który bierze dane wejściowe (Plaintext) oraz <strong>unikalny ciąg bitów – Klucz (Key)</strong> i generuje niezrozumiały szyfrogram (Ciphertext). Zgodnie z fundamentalną <strong>Zasadą Kerckhoffsa</strong>, bezpieczeństwo systemu opiera się wyłącznie na tajności klucza, a nie na tajności algorytmu. Algorytm (AES, ChaCha20) jest publiczny i poddany wieloletnim audytom. Dzielimy szyfrowanie na:
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Symetryczne (np. AES):</strong> Jeden klucz zamyka i otwiera sejf. Niezwykle szybkie, używane do szyfrowania dysków (BitLocker, LUKS) i masowego przesyłu danych.</li>
-                    <li><strong>Asymetryczne (np. RSA / ECC):</strong> Para kluczy. Klucz Publiczny zamyka sejf (każdy może do Ciebie napisać), ale tylko Twój prywatny, ściśle strzeżony Klucz Prywatny może go otworzyć. Rozwiązuje to problem bezpiecznej wymiany kluczy przez niezaufany Internet (wymiana TLS).</li>
+                    <li><strong>Szyfrowanie Symetryczne (AES, ChaCha20):</strong> Jeden wspólny klucz do szyfrowania i deszyfrowania. Ekstremalnie szybkie (sprzętowe wsparcie AES-NI w CPU), używane do szyfrowania dysków (LUKS, BitLocker), VPN (IPsec) i masowego przesyłu danych. Problem: jak bezpiecznie przekazać klucz drugiej stronie przez Internet?</li>
+                    <li><strong>Szyfrowanie Asymetryczne (RSA, ECC – Elliptic Curve Cryptography):</strong> Para kluczy: <strong>publiczny</strong> (udostępniany każdemu) i <strong>prywatny</strong> (ściśle chroniony). Klucz publiczny szyfruje – tylko klucz prywatny deszyfruje. Wolniejsze, więc stosuje się je do wymiany klucza sesyjnego (TLS Handshake – RSA/ECDHE) i podpisów cyfrowych. ECC wypiera RSA ze względu na mniejsze klucze przy tej samej sile.</li>
                 </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    W praktyce TLS łączy oba: asymetryczne do uzgodnienia klucza sesyjnego, symetryczne (AES-GCM) do szyfrowania właściwych danych.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Szyfrowanie to zupełnie inna kategoria niż kodowanie. Tu pojawia się pojęcie klucza. Proszę spojrzeć na planszę – mamy hasło admin:123, przepuszczamy przez algorytm AES z tajnym kluczem i otrzymujemy kompletny bełkot. Bez znajomości tego klucza nikt tego nie odczyta. Zasada Kerckhoffsa mówi: bezpieczeństwo leży w kluczu, nie w algorytmie. AES jest publiczny od 20 lat i nikt go nie złamał, bo złamanie klucza 256-bitowego wymaga więcej energii, niż produkuje Słońce. Rozróżniamy szyfrowanie symetryczne – jeden klucz do wszystkiego, szybkie, używane do danych – i asymetryczne – para kluczy: publiczny do szyfrowania, prywatny do deszyfrowania. Asymetryczne rozwiązuje problem wymiany kluczy: publikuję klucz publiczny, każdy może mi coś zaszyfrować, ale tylko ja mam klucz prywatny, żeby to odczytać. TLS w przeglądarce używa obu – asymetryczne do handshake'a, symetryczne do szyfrowania transmisji.”
+                </div>
             </div>
 
-            <!-- SVG 2: ENCRYPTION -->
+            <!-- SVG 2: ENCRYPTION (zachowany, ulepszony) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowBlueCrypt" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="220" fill="#e3f2fd" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zasada Szyfrowania (Np. AES-256): Transformacja z użyciem Klucza</text>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Zasada Szyfrowania (np. AES-256): Transformacja z użyciem tajnego Klucza</text>
 
                 <!-- Input -->
                 <rect x="40" y="70" width="160" height="80" rx="6" fill="#fff" stroke="#455a64" stroke-width="2"/>
@@ -138,8 +158,7 @@
 
                 <rect x="365" y="105" width="90" height="35" rx="4" fill="#fff" stroke="#388e3c" stroke-width="2"/>
                 <text x="410" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2e7d32" text-anchor="middle">KLUCZ 🔑</text>
-                <text x="410" y="132" font-family="monospace" font-size="8" fill="#1b5e20" text-anchor="middle">0x8F2A9...</text>
-
+                <text x="410" y="132" font-family="monospace" font-size="8" fill="#1b5e20" text-anchor="middle">0x8F2A9B...</text>
                 <rect x="380" y="30" width="60" height="20" rx="4" fill="#e8f5e9" stroke="#388e3c"/>
                 <text x="410" y="44" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">TAJNE</text>
 
@@ -150,69 +169,138 @@
                 <text x="700" y="95" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">Ciphertext (Szyfrogram)</text>
                 <text x="700" y="125" font-family="monospace" font-size="14" font-weight="bold" fill="#c62828" text-anchor="middle">T8@z!9qX#...</text>
 
-                <!-- Annotation -->
                 <rect x="140" y="175" width="540" height="25" fill="#f5f5f5" rx="4" stroke="#90a4ae"/>
-                <text x="410" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Bez znajomości tajnego Klucza odwrócenie procesu (deszyfracja) jest niemożliwe.</text>
-
-                <defs>
-                    <marker id="arrowBlueCrypt" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565c0"/></marker>
-                </defs>
+                <text x="410" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#455a64" text-anchor="middle">Bez znajomości tajnego Klucza odwrócenie procesu (deszyfracja) jest matematycznie niemożliwe.</text>
             </svg>
 
-            <!-- PART 3: THE TRIAD (Zestawienie) -->
+            <!-- PART 3: THE TRIAD + INTEGRALNOŚĆ (ROZBUDOWANE) -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #4a148c;">3. Zestawienie Świętej Trójcy: Kodowanie vs Szyfrowanie vs Hashowanie</strong>
+                <strong style="font-size: 1.2rem; color: #4a148c;">3. Święta Trójca: Kodowanie vs Szyfrowanie vs Hashowanie + Integralność (AEAD)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Aby zamknąć temat w pełni, inżynier musi dołączyć do dyskusji pojęcie <strong>Skrótu (Hashowania)</strong>. To często najsłabsze ogniwo na egzaminach z architektury bezpieczeństwa. Poniższa macierz podsumowuje różnice decydujące o architekturze aplikacji:
+                    Inżynier musi rozróżniać trzy fundamentalne operacje na danych. Do tego dochodzi czwarta – <strong>szyfrowanie uwierzytelnione (AEAD – Authenticated Encryption with Associated Data)</strong>, które łączy poufność z integralnością.
                 </p>
+                <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
+                    <li><strong>Kodowanie:</strong> Odwracalne, bez klucza. Cel: kompatybilność transportowa. Np. Base64, URL encode.</li>
+                    <li><strong>Szyfrowanie:</strong> Odwracalne, wymaga klucza. Cel: poufność. Np. AES-CBC, AES-GCM, ChaCha20-Poly1305.</li>
+                    <li><strong>Hashowanie:</strong> Nieodwracalne, bez klucza (lub z kluczem – HMAC). Cel: integralność i weryfikacja. Np. SHA-256, bcrypt (do haseł).</li>
+                </ul>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #b71c1c; font-weight: bold;">
+                    Kluczowa luka: AES-CBC nie chroni integralności!
+                </p>
+                <p style="margin: 0 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Szyfrowanie w trybie CBC (Cipher Block Chaining) zapewnia wyłącznie poufność. Atakujący, który przechwyci zaszyfrowany pakiet, może podmienić wybrane bity w szyfrogramie (tzw. <strong>bit-flipping attack</strong>), a po deszyfrowaniu otrzymamy zniekształconą wiadomość, bez wykrycia manipulacji. Dlatego współcześnie używa się trybów <strong>AEAD</strong> jak <strong>AES-GCM</strong> czy <strong>ChaCha20-Poly1305</strong>, które generują dodatkowy <strong>Authentication Tag (MAC)</strong> – kryptograficzną pieczęć, która gwarantuje, że dane nie zostały zmodyfikowane w transporcie.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Na koniec trzeba zestawić te trzy pojęcia, bo egzamin z tego robi pułapki. Kodowanie: odwracalne, bez klucza – tylko zmiana formatu. Szyfrowanie: odwracalne, z kluczem – chroni poufność. Hashowanie: nieodwracalne – odcisk palca danych, używany do haseł i weryfikacji plików. I teraz kluczowa rzecz: samo szyfrowanie nie chroni przed modyfikacją! AES w trybie CBC tylko ukrywa treść. Atakujący może podmienić bity w szyfrogramie i ani system, ani odbiorca tego nie wykryją. Dlatego w nowoczesnych systemach używamy AES-GCM – to szyfrowanie uwierzytelnione. Łączy poufność z tagiem integralności. Proszę spojrzeć na planszę – AES-CBC daje sam szyfrogram, AES-GCM dodaje Authentication Tag. Jeśli choć jeden bit zostanie zmieniony, tag się nie zgodzi i wiemy o ataku.”
+                </div>
             </div>
 
-            <!-- SVG 3: THE TRIAD COMPARISON -->
+            <!-- SVG 3: THE TRIAD COMPARISON (zachowany) -->
             <svg viewBox="0 0 820 220" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="220" fill="#f3e5f5" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Tabela Decyzyjna Architekta Bezpieczeństwa</text>
 
-                <!-- Headers -->
                 <rect x="40" y="50" width="220" height="30" fill="#00796b"/>
                 <text x="150" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">KODOWANIE (Base64)</text>
-
                 <rect x="290" y="50" width="240" height="30" fill="#1565c0"/>
-                <text x="410" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">SZYFROWANIE (AES/RSA)</text>
-
+                <text x="410" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">SZYFROWANIE (AES-GCM)</text>
                 <rect x="560" y="50" width="220" height="30" fill="#8e24aa"/>
-                <text x="670" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">HASHOWANIE (SHA-2/Bcrypt)</text>
+                <text x="670" y="70" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">HASHOWANIE (SHA-2 / bcrypt)</text>
 
-                <!-- Box 1 -->
                 <rect x="40" y="80" width="220" height="110" fill="#fff" stroke="#00796b" stroke-width="2"/>
                 <text x="150" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Cel: Użyteczność / Transport</text>
-                <text x="150" y="130" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">✔️ Odwracalne (Dwu-kierunkowe)</text>
-                <text x="150" y="150" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Brak użycia Klucza!</text>
+                <text x="150" y="130" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">✔️ Odwracalne (Dwukierunkowe)</text>
+                <text x="150" y="150" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Brak użycia Klucza</text>
                 <text x="150" y="170" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ Brak poufności</text>
 
-                <!-- Box 2 -->
                 <rect x="290" y="80" width="240" height="110" fill="#fff" stroke="#1565c0" stroke-width="2"/>
-                <text x="410" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Cel: Poufność (Sekret)</text>
-                <text x="410" y="130" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">✔️ Odwracalne (Dwu-kierunkowe)</text>
+                <text x="410" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Cel: Poufność + Integralność</text>
+                <text x="410" y="130" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">✔️ Odwracalne (z kluczem)</text>
                 <text x="410" y="150" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">✔️ Wymaga Klucza!</text>
-                <text x="410" y="170" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">✔️ Używane do Ochrony Danych</text>
+                <text x="410" y="170" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">✔️ AEAD (GCM) = szyfr + tag</text>
 
-                <!-- Box 3 -->
                 <rect x="560" y="80" width="220" height="110" fill="#fff" stroke="#8e24aa" stroke-width="2"/>
                 <text x="670" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#37474f" text-anchor="middle">Cel: Integralność / Weryfikacja</text>
-                <text x="670" y="130" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ NIEODWRACALNE (Jedno-kier.)</text>
-                <text x="670" y="150" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">✔️ Zwykle bez klucza (chyba że HMAC)</text>
-                <text x="670" y="170" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">✔️ Używane do Haseł / Plików</text>
+                <text x="670" y="130" font-family="sans-serif" font-size="10" fill="#c62828" text-anchor="middle">❌ NIEODWRACALNE (Jednokier.)</text>
+                <text x="670" y="150" font-family="sans-serif" font-size="10" fill="#455a64" text-anchor="middle">Bez klucza (lub HMAC z kluczem)</text>
+                <text x="670" y="170" font-family="sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">✔️ Hasła, sygnatury plików</text>
+            </svg>
+
+            <!-- SVG 4: AES-CBC vs AES-GCM – INTEGRALNOŚĆ (NOWA GRAFIKA) -->
+            <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <rect x="0" y="0" width="820" height="250" fill="#fff5f5" opacity="0.3"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">AES-CBC (tylko poufność) vs AES-GCM (poufność + integralność) – AEAD</text>
+
+                <!-- Panel Lewy: AES-CBC -->
+                <rect x="25" y="42" width="370" height="190" rx="6" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+                <text x="210" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b71c1c" text-anchor="middle">❌ AES-CBC – brak ochrony integralności</text>
+                <!-- Nadawca -->
+                <rect x="40" y="78" width="140" height="45" rx="4" fill="#fff" stroke="#c62828"/>
+                <text x="110" y="98" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Plaintext: "Przelej 100 zł"</text>
+                <text x="110" y="113" font-family="monospace" font-size="8" fill="#c62828" text-anchor="middle">→ AES-CBC → Ciphertext</text>
+                <!-- Atak -->
+                <rect x="145" y="135" width="130" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="210" y="154" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Atak: podmiana bitów</text>
+                <!-- Odbiorca -->
+                <rect x="40" y="178" width="140" height="45" rx="4" fill="#fff" stroke="#c62828"/>
+                <text x="110" y="198" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Deszyfruje: "Prz3lej 900 zł"</text>
+                <text x="110" y="213" font-family="sans-serif" font-size="8" fill="#c62828" text-anchor="middle">❌ System nie wykrył zmiany!</text>
+                <path d="M 110 123 L 110 135" fill="none" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrowRedInt)"/>
+                <path d="M 210 165 L 210 178" fill="none" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrowRedInt)"/>
+
+                <!-- Panel Prawy: AES-GCM -->
+                <rect x="425" y="42" width="370" height="190" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+                <text x="610" y="62" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b5e20" text-anchor="middle">✅ AES-GCM – poufność + Authentication Tag</text>
+                <rect x="440" y="78" width="140" height="45" rx="4" fill="#fff" stroke="#2e7d32"/>
+                <text x="510" y="98" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Plaintext: "Przelej 100 zł"</text>
+                <text x="510" y="113" font-family="monospace" font-size="8" fill="#2e7d32" text-anchor="middle">→ AES-GCM → Cipher + Tag</text>
+                <rect x="545" y="135" width="130" height="30" rx="4" fill="#ffcdd2" stroke="#d32f2f"/>
+                <text x="610" y="154" font-family="sans-serif" font-size="9" font-weight="bold" fill="#b71c1c" text-anchor="middle">Atak: podmiana bitów</text>
+                <rect x="440" y="178" width="140" height="45" rx="4" fill="#fff" stroke="#2e7d32"/>
+                <text x="510" y="198" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1b5e20" text-anchor="middle">Deszyfruje: Tag się nie zgadza</text>
+                <text x="510" y="213" font-family="sans-serif" font-size="8" fill="#2e7d32" text-anchor="middle">✅ Odrzuca pakiet – atak wykryty!</text>
+                <path d="M 510 123 L 510 135" fill="none" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#arrowGrnInt)"/>
+                <path d="M 610 165 L 610 178" fill="none" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#arrowGrnInt)"/>
+
+                <text x="410" y="248" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">AEAD = Encryption + Authentication. Zawsze używaj AES-GCM lub ChaCha20-Poly1305 zamiast AES-CBC.</text>
+
+                <defs>
+                    <marker id="arrowRedInt" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#c62828"/></marker>
+                    <marker id="arrowGrnInt" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#2e7d32"/></marker>
+                </defs>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- PUŁAPKI EGZAMINACYJNE – ROZBUDOWANE                     -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki bezpieczeństwa haseł i danych):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"Szyfrowanie zapobiega modyfikacji danych"</strong> – To niezwykle podchwytliwe pytanie z kryptografii! Szyfrowanie gwarantuje <strong>wyłącznie poufność</strong> (nikt nie przeczyta). Nie daje gwarancji integralności! Jeśli atakujący przejmie zaszyfrowany AES-CBC dysk lub strumień i podmieni w nim na ślepo kilka bitów ("bit-flipping attack"), podczas deszyfrowania otrzymamy zniekształcony tekst, ale algorytm <em>nie zauważy</em>, że coś było manipulowane! Aby zapewnić ochronę przed modyfikacją, musimy używać tzw. Szyfrowania Uwierzytelnionego (AEAD) jak <strong>AES-GCM</strong>, które łączy w sobie szyfr z hashem nadzorującym integralność (MAC/Tag).</li>
-                    <li><strong>"Token JWT (JSON Web Token) jest zaszyfrowany i chroni dane użytkownika"</strong> – Kardynalny błąd projektowy. Zwykły token JWT jest <strong>zakodowany w Base64Url</strong> (Encoding) i podpisany cyfrowo w celu autentykacji (Signature), ale <strong>NIE JEST ZASZYFROWANY</strong> (brak klucza szyfrującego payload). Każdy, kto przejmie Twój JWT (np. z ciasteczek lub lokalnej pamięci przeglądarki), wklei go na stronę <code>jwt.io</code> i bez problemu przeczyta wszystkie Twoje dane (np. adres email, ID, role w systemie)! Do poufności w JWT służy osobny, rzadziej stosowany standard <strong>JWE (JSON Web Encryption)</strong>.</li>
+                    <li><strong>„Szyfrowanie zapobiega modyfikacji danych”</strong> – To podchwytliwe pytanie z kryptografii! Szyfrowanie (np. AES-CBC) gwarantuje <strong>wyłącznie poufność</strong>. Aby chronić integralność, potrzebujemy trybu AEAD (AES-GCM, ChaCha20-Poly1305) z tagiem uwierzytelniającym (MAC).</li>
+                    <li><strong>„Token JWT jest zaszyfrowany i chroni dane”</strong> – Standardowy JWT jest <strong>zakodowany w Base64Url</strong> i podpisany (Signature), ale NIE zaszyfrowany. Każdy po przechwyceniu tokena może odczytać payload na <code>jwt.io</code>. Do poufności w JWT służy osobny standard JWE (JSON Web Encryption).</li>
+                    <li><strong>„Base64 chroni hasło w transporcie”</strong> – Absolutny mit. Base64 to kodowanie – odwracalne bez klucza. Hasło w Base64 to hasło jawne dla każdego, kto przechwyci ruch. Do ochrony w transporcie używamy TLS (szyfrowanie), a nie Base64.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Najczęstsza pułapka to mylenie szyfrowania z integralnością. AES-CBC chroni tylko poufność – nie wykryje manipulacji bitami. Dlatego przeszliśmy na AES-GCM. Druga pułapka: JWT. Standardowy token JWT nie jest szyfrowany – to tylko Base64 i podpis. Każdy może odczytać dane. Trzecia: Base64 nie szyfruje. Hasło w Base64 to hasło jawne. Transport chronimy TLS-em, nie kodowaniem.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – Kodowanie, Szyfrowanie, Haszowanie:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Aspekt</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Kodowanie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Szyfrowanie</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Hashowanie</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Odwracalność</td><td style="padding: 10px;">Tak (dwukierunkowe)</td><td style="padding: 10px;">Tak (z kluczem)</td><td style="padding: 10px;">Nie (jednokierunkowe)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Klucz</td><td style="padding: 10px;">Brak</td><td style="padding: 10px;">Wymagany</td><td style="padding: 10px;">Brak (lub HMAC z kluczem)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Cel</td><td style="padding: 10px;">Kompatybilność transportowa</td><td style="padding: 10px;">Poufność (+ integralność w AEAD)</td><td style="padding: 10px;">Weryfikacja integralności, hasła</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Przykład</td><td style="padding: 10px;">Base64, URL encode, Hex</td><td style="padding: 10px;">AES-GCM, ChaCha20-Poly1305</td><td style="padding: 10px;">SHA-256, bcrypt, Argon2</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Bezpieczeństwo</td><td style="padding: 10px;">Żadne – nie chroni!</td><td style="padding: 10px;">Chroni poufność</td><td style="padding: 10px;">Chroni integralność</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Pułapka</td><td style="padding: 10px;">Mylić z szyfrowaniem</td><td style="padding: 10px;">Zakładać ochronę integralności (CBC)</td><td style="padding: 10px;">Mylić z szyfrowaniem</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -229,7 +317,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Kryptografia w praktyce" (Niels Ferguson, Bruce Schneier) – Rozdział: Integralność vs Poufność. · Dokumentacja OWASP Top 10 (A02: Cryptographic Failures) · Standard RFC 4648 (Base16, Base32, and Base64 Data Encodings).
+                    „Kryptografia w praktyce” (Niels Ferguson, Bruce Schneier) – Rozdział: Integralność vs Poufność · Dokumentacja OWASP Top 10 (A02: Cryptographic Failures) · Standard RFC 4648 (Base64) · RFC 7516 (JWE) · RFC 5116 (AEAD – AES-GCM).
                 </span>
             </div>
 

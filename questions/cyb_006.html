@@ -14,9 +14,9 @@
         <h2 id="q-title">006. Kluczowe aspekty zabezpieczania systemów informatycznych (IT) i operacyjnych (OT).</h2>
 
         <!-- ============================================================ -->
-        <!-- GROKKING-STYLE METAPHOR OPENING                             -->
+        <!-- GROKKING-STYLE METAPHOR OPENING – klasa aha-box dodana      -->
         <!-- ============================================================ -->
-        <div style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
+        <div class="aha-box" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-left: 6px solid #00838f; padding: 20px 24px; margin-bottom: 28px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(0,131,143,0.15);">
             <div style="display: flex; align-items: flex-start; gap: 14px;">
                 <span style="font-size: 2.2rem; flex-shrink: 0;">🏭</span>
                 <div>
@@ -26,6 +26,11 @@
                         <strong>W systemach IT (np. systemy bankowe):</strong> Jeśli wykryjesz atakującego w sieci, natychmiast odcinasz serwery od prądu, blokujesz konta i wyłączasz usługi. Klienci będą wściekli, że nie mogą zrobić przelewu (utrata Dostępności), ale ochroniłeś ich pieniądze i dane (Poufność utrzymana). <em>IT chroni dane.</em><br><br>
                         <strong>W systemach OT (np. huta stali, elektrownia jądrowa, systemy SCADA):</strong> Jeśli nagle odetniesz zasilanie do kontrolera PLC sterującego piecem hutniczym, piec eksploduje, zabijając pracowników na hali! W świecie OT (Operational Technology) oprogramowanie wchodzi w interakcję z <strong>Prawami Fizyki</strong>. Nie możesz po prostu "zrestartować systemu w celu aktualizacji", gdy ten system steruje turbiną gazową obracającą się 3000 razy na minutę. W OT utrata Poufności (ktoś ukradł schemat) to nic w porównaniu z utratą Dostępności i Bezpieczeństwa Fizycznego (Safety), co kończy się katastrofą ekologiczną.
                     </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #00363a; line-height: 1.8;">
+                        <li><strong>🔵 IT – chroni dane</strong>: priorytet Poufność (C), szybki cykl życia, częste aktualizacje.</li>
+                        <li><strong>🟠 OT – chroni życie i mienie</strong>: priorytet Dostępność (A) i Safety, cykl życia 15–30 lat, bezdotykowe zabezpieczenia.</li>
+                        <li><strong>🟣 Model Purdue</strong> – warstwowa architektura z DMZ między światem IT a fizycznymi procesami.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -36,32 +41,39 @@
         <div class="keywords-box" style="margin-bottom: 28px;">
             <span class="keywords-title">🏷️ Kryteria oceny i Słowa kluczowe (Active Recall):</span>
             <span class="keyword-tag">Model CIA vs AIC (Availability, Integrity, Confidentiality)</span>
-            <span class="keyword-tag">SCADA / PLC / ICS</span>
-            <span class="keyword-tag">Safety (Fizyczne bezpieczeństwo)</span>
-            <span class="keyword-tag">Model Purdue (Purdue Enterprise Reference Architecture)</span>
+            <span class="keyword-tag">SCADA / PLC / ICS / DCS</span>
+            <span class="keyword-tag">Safety (Bezpieczeństwo funkcjonalne – SIL)</span>
+            <span class="keyword-tag">Model Purdue (PERA)</span>
             <span class="keyword-tag">Air-Gap (Szczelina powietrzna)</span>
-            <span class="keyword-tag">Data Diode (Dioda Danych)</span>
-            <span class="keyword-tag">Protokoły Przemysłowe (Modbus, OPC UA)</span>
+            <span class="keyword-tag">Data Diode (Dioda Danych – jednokierunkowa)</span>
+            <span class="keyword-tag">Protokoły Przemysłowe (Modbus, OPC UA, Profinet)</span>
+            <span class="keyword-tag">Virtual Patching (IPS dla OT)</span>
+            <span class="keyword-tag">Stuxnet (Air-Gap bypass przez pendrive)</span>
+            <span class="keyword-tag">ISA/IEC 62443</span>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT – GROKKING DEEP DIVE                           -->
+        <!-- MAIN CONTENT – ROZBUDOWANY O GRAFIKI I PODPOWIEDZI DLA MÓWCY -->
         <!-- ============================================================ -->
         <div id="q-content" class="answer-section">
 
-            <!-- PART 1: PARADYGMATY (CIA vs AIC) -->
+            <!-- PART 1: PARADYGMATY (CIA vs AIC) – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #00838f;">1. Zderzenie Paradygmatów: Triada CIA (IT) kontra AIC (OT)</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Bezpieczeństwo informacyjne od zawsze opierało się na triadzie CIA (Confidentiality, Integrity, Availability). W inżynierii OT (ICS/SCADA) ta hierarchia zostaje wywrócona do góry nogami. Poufność jest często najmniej istotna – odczytanie temperatury pieca przez hakera nie zniszczy huty. Ale zmiana tej temperatury (naruszenie Integralności) lub zatrzymanie chłodzenia (naruszenie Dostępności) doprowadzi do zniszczenia infrastruktury fizycznej (Safety).
+                    Bezpieczeństwo informacyjne od zawsze opierało się na triadzie CIA (Confidentiality – Poufność, Integrity – Integralność, Availability – Dostępność). W inżynierii OT (ICS/SCADA) ta hierarchia zostaje wywrócona do góry nogami. Poufność jest często najmniej istotna – odczytanie temperatury pieca przez hakera nie zniszczy huty. Ale zmiana tej temperatury (naruszenie Integralności) lub zatrzymanie chłodzenia (naruszenie Dostępności) doprowadzi do zniszczenia infrastruktury fizycznej. Dlatego w OT obowiązuje model <strong>AIC</strong>: Availability → Integrity → Confidentiality.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>IT (Information Technology):</strong> Priorytet to <strong>Poufność (C)</strong>. Dane to pieniądz. Komputery żyją w klimatyzowanych serwerowniach, aktualizacje robi się co tydzień ("Patch Tuesday"), cykl życia sprzętu to 3-5 lat.</li>
-                    <li><strong>OT (Operational Technology):</strong> Priorytet to <strong>Dostępność (A)</strong> oraz <strong>Safety (Bezpieczeństwo fizyczne)</strong>. Urządzenia (PLC/RTU) działają w kurzu, upale i wibracjach. Cykl życia to 15-30 lat! Aktualizacja (Patching) jest prawie niemożliwa, bo wymaga zatrzymania produkcji, co kosztuje miliony dolarów za każdą godzinę przestoju.</li>
+                    <li><strong>IT (Information Technology):</strong> Priorytet: <strong>Poufność (C)</strong>. Dane to pieniądz. Komputery w klimatyzowanych serwerowniach, aktualizacje co tydzień (Patch Tuesday), cykl życia sprzętu 3–5 lat. Restart i wyłączenie to codzienność.</li>
+                    <li><strong>OT (Operational Technology):</strong> Priorytet: <strong>Dostępność (A) i Safety</strong>. Sterowniki PLC/RTU pracują w temperaturach –40 do +70°C, w wilgoci i wibracjach. Cykl życia 15–30 lat. Aktualizacja wymaga zatrzymania linii produkcyjnej – koszt przestoju to setki tysięcy dolarów na godzinę. W elektrowni jądrowej restart reaktora trwa tygodnie.</li>
+                    <li><strong>Safety vs Security:</strong> W IT błąd = wyjątek 500. W OT błąd = wybuch, pożar, skażenie chemiczne. Normy <strong>IEC 61508</strong> i <strong>IEC 61511</strong> definiują poziomy nienaruszalności bezpieczeństwa (SIL – Safety Integrity Level).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Proszę Państwa, kluczowa różnica między IT a OT to odwrócenie priorytetów triady CIA. W IT najważniejsza jest poufność – nie możemy pozwolić na wyciek danych klientów. W OT najważniejsza jest dostępność i bezpieczeństwo fizyczne – safety. Jeśli haker pozna temperaturę reaktora, to wstyd. Jeśli ją zmieni albo wyłączy chłodzenie – to katastrofa. Dlatego w OT mówimy o modelu AIC, a nie CIA. Do tego dochodzi zupełnie inny cykl życia sprzętu: serwer IT wymieniamy co 3 lata, sterownik PLC pracuje 20 lat bez wyłączenia. Nie możemy go zrestartować dla aktualizacji, bo to zatrzyma produkcję na godziny, a koszt przestoju fabryki to setki tysięcy. Dlatego patching w OT to ogromne wyzwanie.”
+                </div>
             </div>
 
-            <!-- SVG 1: CIA VS AIC -->
+            <!-- SVG 1: CIA VS AIC (zachowany) -->
             <svg viewBox="0 0 820 250" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="250" fill="#e0f7fa" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#006064">Odwrócenie priorytetów projektowych: IT kontra OT</text>
@@ -95,22 +107,27 @@
                 <!-- Vs -->
                 <circle cx="410" cy="135" r="20" fill="#fff" stroke="#546e7a" stroke-width="2"/>
                 <text x="410" y="140" font-family="sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">VS</text>
-
             </svg>
 
-            <!-- PART 2: ARCHITEKTURA (PURDUE) -->
+            <!-- PART 2: ARCHITEKTURA (PURDUE) – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
-                <strong style="font-size: 1.2rem; color: #e65100;">2. Ochrona w głąb: Model Purdue i Segmentacja</strong>
+                <strong style="font-size: 1.2rem; color: #e65100;">2. Ochrona w głąb: Model Purdue (PERA) i segmentacja sieci OT</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Ponieważ protokoły przemysłowe (jak stary <em>Modbus TCP</em>) powstały w latach 70., kiedy nikt nie myślał o bezpieczeństwie (nie mają wbudowanego szyfrowania ani uwierzytelniania!), każdy kto dotrze do sieci OT, może przejąć kontrolę nad fabryką. Dlatego inżynieria OT opiera się na <strong>ekstremalnej segmentacji sieci</strong> za pomocą <strong>Modelu Purdue (PERA)</strong>.
+                    Protokoły przemysłowe (<strong>Modbus TCP</strong>, <strong>Profinet</strong>, <strong>EtherNet/IP</strong>) powstawały w latach 70–90. XX wieku, kiedy nikt nie myślał o cyberbezpieczeństwie. Nie mają wbudowanego szyfrowania ani uwierzytelniania – każdy, kto dotrze do sieci OT, może wysłać komendę „zatrzymaj pompę” i sterownik ją wykona. Dlatego bezpieczeństwo OT opiera się na <strong>ekstremalnej segmentacji sieci</strong> opisanej w <strong>Modelu Purdue</strong> (PERA – Purdue Enterprise Reference Architecture).
                 </p>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Model dzieli organizację na poziomy (Levels). Najważniejszą zasadą architektury jest to, że ruch <strong>nigdy nie może przepływać bezpośrednio z sieci IT (Level 4) do warstwy operacyjnej (Level 3 i niżej)</strong>. Pomiędzy nimi buduje się militarną strefę zdemilitaryzowaną (DMZ – Level 3.5), w której stosuje się proxy, serwery przesiadkowe (Jump Hosts) i głęboką inspekcję pakietów (DPI dla protokołów przemysłowych).
+                    Model dzieli organizację na 6 poziomów (Levels 0–5). Kluczowa zasada: <strong>ruch nigdy nie może przechodzić bezpośrednio z sieci IT (Level 4/5) do warstwy fizycznej (Level 0/1)</strong>. Pomiędzy IT a OT buduje się <strong>strefę zdemilitaryzowaną (DMZ – Level 3.5)</strong> z serwerami Jump Hosts, proxy dla protokołów przemysłowych i systemami IDS/IPS. Nowoczesny standard <strong>OPC UA</strong> (Unified Architecture) jako jeden z nielicznych protokołów OT oferuje wbudowane szyfrowanie i certyfikaty X.509 – jest promowany jako następca niebezpiecznego Modbus.
                 </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Model Purdue to fundament bezpieczeństwa przemysłowego. Proszę spojrzeć na planszę. Na samym dole – poziomy zero i jeden – to fizyczne urządzenia: czujniki, pompy, sterowniki PLC. Wyżej są stacje operatorskie SCADA, gdzie inżynierowie patrzą na wykresy. Poziomy cztery i pięć to zwykła sieć firmowa – laptopy, ERP, internet. Pomiędzy nimi jest DMZ – strefa zdemilitaryzowana z serwerami pośredniczącymi. Zasada jest taka: żaden pakiet z internetu nie może bezpośrednio trafić do PLC. Musi przejść przez firewalle i proxy w DMZ. Protokoły przemysłowe – Modbus, Profinet – powstały 40 lat temu i nie mają żadnego szyfrowania. Każdy, kto wejdzie do sieci OT, może wydawać komendy. Dlatego dostęp do tej sieci musi być absolutnie kontrolowany. Nowy standard OPC UA wprowadza szyfrowanie, ale wciąż tysiące fabryk używa starego Modbusa.”
+                </div>
             </div>
 
-            <!-- SVG 2: PURDUE MODEL -->
+            <!-- SVG 2: PURDUE MODEL (zachowany) -->
             <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowRedPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
+                </defs>
                 <rect x="0" y="0" width="820" height="280" fill="#fff3e0" opacity="0.4"/>
                 <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Architektura Segmentacji: Model Purdue (PERA)</text>
 
@@ -161,28 +178,27 @@
                 <rect x="570" y="180" width="190" height="40" rx="4" fill="#ffb74d"/>
                 <text x="665" y="195" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e65100" text-anchor="middle">Level 1 & 0 (Zarządzanie Fizyką)</text>
                 <text x="665" y="210" font-family="sans-serif" font-size="9" fill="#bf360c" text-anchor="middle">Sterowniki PLC, Sensory, Turbiny</text>
-
-                <defs>
-                    <marker id="arrowRedPM" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d32f2f"/></marker>
-                </defs>
             </svg>
 
-            <!-- PART 3: HARDWARE SECURITY -->
+            <!-- PART 3: HARDWARE SECURITY – ROZBUDOWANE -->
             <div class="answer-step" style="margin-bottom: 24px;">
                 <strong style="font-size: 1.2rem; color: #4a148c;">3. Fizyka obrony: Diody Danych (Data Diodes) i Air-Gapping</strong>
                 <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
-                    Firewalle (programowe zapory) można zhakować (exploity na soft firewalla są powszechne). W instalacjach krytycznych (np. elektrownie jądrowe) oprogramowanie to za mało. Stosuje się bariery wymuszone przez fizykę hardware'u.
+                    Firewalle programowe (np. iptables) można zhakować przez exploity. W instalacjach krytycznych (elektrownie jądrowe, obiekty wojskowe) stosuje się bariery oparte na fizyce.
                 </p>
                 <ul style="line-height: 1.9; padding-left: 24px; color: #2c3e50;">
-                    <li><strong>Dioda Danych (Unidirectional Gateway):</strong> To urządzenie sprzętowe na kablu światłowodowym. Po stronie bezpiecznej (OT) znajduje się <em>tylko</em> nadajnik lasera (TX), a po stronie niebezpiecznej (IT) <em>tylko</em> fotoreceptor (RX). Oznacza to, że sieć OT może np. wysyłać logi do IT, ale z powodu <strong>braku fizycznego lasera zwrotnego</strong>, haker z sieci IT nie ma absolutnie żadnej możliwości wysłania złośliwego pakietu do sieci OT. Żaden exploit oprogramowania nie obejdzie braku kabla.</li>
-                    <li><strong>Air-Gapping (Szczelina Powietrzna):</strong> Całkowite fizyczne odcięcie sieci OT od jakiegokolwiek połączenia ze światem zewnętrznym. Dawniej złoty standard, dziś uważany za "mit bezpieczeństwa" (Stuxnet pokazał, że izolację powietrzną pokonuje pendrive przyniesiony przez pracownika w kieszeni).</li>
+                    <li><strong>Dioda Danych (Data Diode / Unidirectional Gateway):</strong> Sprzętowe urządzenie na kablu światłowodowym. Strona bezpieczna (OT) ma <strong>tylko nadajnik lasera (TX)</strong>, strona korporacyjna (IT) – <strong>tylko fotoreceptor (RX)</strong>. Sieć OT może wysyłać logi do IT, ale haker z IT nie ma fizycznej możliwości wysłania pakietu do OT – nie ma drugiego lasera. Żaden exploit nie obejdzie braku medium transmisyjnego.</li>
+                    <li><strong>Air-Gap (Szczelina Powietrzna):</strong> Całkowite fizyczne odcięcie sieci OT od świata. Stuxnet (2010) pokazał, że Air-Gap nie jest nieprzenikniony – został pokonany przez zainfekowany pendrive w kieszeni pracownika. Dziś Air-Gap uzupełnia się o kontrolę nośników USB i ekranowanie elektromagnetyczne (TEMPEST).</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „W najbardziej krytycznych instalacjach nie ufamy nawet firewallem – bo każdy software można zhakować. Stosujemy fizyczne bariery. Data Diode to dioda danych – na światłowodzie mamy tylko jeden laser w kierunku z OT do IT. Z powrotem nie ma drugiego włókna ani lasera. Haker nie prześle ataku, bo nie ma czym. To fizyka, a nie software. Air-gap to z kolei całkowite odcięcie sieci od internetu. Ale Stuxnet pokazał, że to nie wystarczy – wirus dostał się na pendrive'ie. Dlatego dziś Air-gap uzupełniamy o kontrolę nośników USB i szafy ekranowane elektromagnetycznie.”
+                </div>
             </div>
 
-            <!-- SVG 3: DATA DIODE -->
+            <!-- SVG 3: DATA DIODE (zachowany) -->
             <svg viewBox="0 0 820 180" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
                 <rect x="0" y="0" width="820" height="180" fill="#f3e5f5" opacity="0.4"/>
-                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Sprzętowa Dioda Danych (Data Diode) - Fizyka Światła</text>
+                <text x="410" y="25" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">Sprzętowa Dioda Danych (Data Diode) – Fizyka Światła</text>
 
                 <!-- OT Side -->
                 <rect x="60" y="60" width="140" height="80" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
@@ -212,18 +228,115 @@
                 <rect x="620" y="60" width="140" height="80" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
                 <text x="690" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0d47a1" text-anchor="middle">STREFA KORPORACYJNA</text>
                 <text x="690" y="110" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1565c0" text-anchor="middle">Sieć IT (Internet)</text>
+            </svg>
 
+            <!-- PART 4: VIRTUAL PATCHING I STUXNET KILL CHAIN (NOWA SEKCJA) -->
+            <div class="answer-step" style="margin-bottom: 24px;">
+                <strong style="font-size: 1.2rem; color: #c62828;">4. Lekcja ze Stuxneta i Virtual Patching – „Gdy nie możesz załatać PLC, załataj sieć”</strong>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    <strong>Stuxnet</strong> (odkryty w 2010 r.) to przełomowy przykład cyberbroni wymierzonej w OT. Wykorzystał cztery exploity zero-day Windows, by przez zainfekowane pendrive'y przedostać się do odizolowanej (air-gapped) sieci irańskiego zakładu wzbogacania uranu w Natanz. Następnie odszukał konkretne sterowniki <strong>Siemens S7-417 PLC</strong> i zmodyfikował ich logikę – cyklicznie zmieniał prędkość wirówek, jednocześnie podszywając się pod normalne odczyty (replay attack), by operatorzy widzieli na ekranach fałszywe, bezpieczne wartości. Efekt: fizyczne zniszczenie około 1000 wirówek.
+                </p>
+                <p style="margin: 10px 0 6px 0; line-height: 1.7; color: #2c3e50;">
+                    Ponieważ w OT nie da się łatwo łatać 20-letnich sterowników, stosuje się <strong>Virtual Patching</strong>. Polega on na umieszczeniu systemu IPS (Intrusion Prevention System) z regułami dla protokołów przemysłowych (Modbus, DNP3, OPC) <strong>przed</strong> chronionym urządzeniem. IPS analizuje ruch i blokuje złośliwe komendy (np. „zapisz nową logikę do PLC” z nieautoryzowanego IP), zanim dotrą do bezbronnego sterownika. To „łatanie” nie samego urządzenia, ale drogi do niego – jedyne realne podejście w OT.
+                </p>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak to powiedzieć:</strong> „Stuxnet to przełom – pokazał, że cyberatak może fizycznie niszczyć maszyny. Dostał się przez pendrive do odizolowanej sieci, wykorzystał 4 luki zero-day, potem odszukał konkretne PLC Siemensa i zmienił ich program. Wirówki się rozpadły. Operatorzy widzieli na ekranach normalne dane – atak podmieniał odczyty. To się nazywa replay attack. I tu pojawia się koncepcja virtual patching. Nie możemy zaktualizować 20-letniego PLC – producent już nie istnieje. Ale możemy postawić przed nim IPS, który rozumie protokół Modbus i blokuje podejrzane komendy. Łata nie na urządzeniu, tylko w sieci. To jedyny sposób na bezpieczeństwo starych systemów OT.”
+                </div>
+            </div>
+
+            <!-- SVG 4: STUXNET KILL CHAIN (NOWA GRAFIKA KROK PO KROKU) -->
+            <svg viewBox="0 0 820 280" width="100%" style="background:#fafbfc; border:1px solid #e0e0e0; border-radius:12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                <defs>
+                    <marker id="arrowStux" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#b71c1c"/></marker>
+                    <marker id="arrowStuxGrn" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2e7d32"/></marker>
+                </defs>
+                <rect x="0" y="0" width="820" height="280" fill="#fff5f5" opacity="0.4"/>
+                <text x="410" y="22" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">Stuxnet – Kill Chain ataku na system OT (2010)</text>
+
+                <!-- Krok 1 -->
+                <rect x="25" y="42" width="170" height="65" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+                <text x="110" y="62" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">1. Infekcja początkowa</text>
+                <text x="110" y="78" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Zainfekowany pendrive</text>
+                <text x="110" y="92" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">podłączony przez pracownika</text>
+
+                <path d="M 195 74 L 230 74" fill="none" stroke="#b71c1c" stroke-width="2" marker-end="url(#arrowStux)"/>
+
+                <!-- Krok 2 -->
+                <rect x="235" y="42" width="170" height="65" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+                <text x="320" y="62" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">2. Propagacja w IT</text>
+                <text x="320" y="78" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">4 exploity zero-day</text>
+                <text x="320" y="92" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">(MS08-067, MS10-046...)</text>
+
+                <path d="M 405 74 L 440 74" fill="none" stroke="#b71c1c" stroke-width="2" marker-end="url(#arrowStux)"/>
+
+                <!-- Krok 3 -->
+                <rect x="445" y="42" width="170" height="65" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+                <text x="530" y="62" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">3. Przekroczenie Air-Gap</text>
+                <text x="530" y="78" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Pendrive przeniesiony</text>
+                <text x="530" y="92" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">do sieci OT (odizolowanej)</text>
+
+                <path d="M 615 74 L 650 74" fill="none" stroke="#b71c1c" stroke-width="2" marker-end="url(#arrowStux)"/>
+
+                <!-- Krok 4 -->
+                <rect x="655" y="42" width="140" height="65" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+                <text x="725" y="62" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b71c1c" text-anchor="middle">4. Cel: PLC S7-417</text>
+                <text x="725" y="78" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">Modyfikacja logiki</text>
+                <text x="725" y="92" font-family="sans-serif" font-size="9" fill="#c62828" text-anchor="middle">sterownika wirówek</text>
+
+                <!-- Dolna część: atak na proces -->
+                <rect x="25" y="130" width="770" height="130" rx="8" fill="#fff" stroke="#c62828" stroke-width="2"/>
+                <text x="410" y="152" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b71c1c" text-anchor="middle">5. Atak na proces fizyczny (Safety sabotage)</text>
+
+                <!-- Wizualizacja -->
+                <rect x="45" y="170" width="140" height="35" rx="4" fill="#ffebee" stroke="#c62828"/>
+                <text x="115" y="192" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">PLC: zmiana prędkości</text>
+                <path d="M 185 187 L 230 187" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowStux)"/>
+                <rect x="235" y="170" width="140" height="35" rx="4" fill="#ffebee" stroke="#c62828"/>
+                <text x="305" y="192" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Wirówki: awarie łożysk</text>
+                <path d="M 375 187 L 420 187" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowStux)"/>
+                <rect x="425" y="170" width="170" height="35" rx="4" fill="#ffebee" stroke="#c62828"/>
+                <text x="510" y="192" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c62828" text-anchor="middle">Replay: fałszywe odczyty</text>
+                <path d="M 595 187 L 640 187" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowStuxGrn)"/>
+                <rect x="645" y="170" width="130" height="35" rx="4" fill="#e8f5e9" stroke="#2e7d32"/>
+                <text x="710" y="192" font-family="sans-serif" font-size="9" font-weight="bold" fill="#2e7d32" text-anchor="middle">Obrońca: Virtual Patching</text>
+
+                <text x="410" y="225" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Stuxnet pokonał Air-Gap przez pendrive. Odpowiedzią obrońców jest Virtual Patching: IPS blokuje złośliwe komendy Modbus przed PLC.</text>
+                <text x="410" y="240" font-family="sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">Kluczowa lekcja: Air-Gap ≠ 100% bezpieczeństwa. Nośniki USB, dostawcy, laptopy serwisowe – wszystko to wektory ataku.</text>
             </svg>
 
             <!-- ======================================================== -->
-            <!-- PUŁAPKI EGZAMINACYJNE                                   -->
+            <!-- PUŁAPKI EGZAMINACYJNE – ROZBUDOWANE                     -->
             <!-- ======================================================== -->
             <div style="background: #fff5f5; border-left: 6px solid #dc3545; padding: 16px 20px; margin-top: 20px; border-radius: 0 10px 10px 0;">
                 <strong style="font-size: 1.1rem; color: #b71c1c;">⚠️ Pułapki Egzaminacyjne (Kruczki bezpieczeństwa Przemysłowego):</strong>
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8; color: #7f0000;">
-                    <li><strong>"W sieci OT wystarczy zrobić częsty update (Patching), aby być bezpiecznym"</strong> – Poważny błąd inżynierski! W świecie IT brak łatek to grzech. W świecie OT instalacja łatek (patching) jest często <strong>zakazana przez producenta sprzętu</strong> (Vendor). Zainstalowanie poprawki Windows na stacji kontrolnej robota medycznego lub turbiny może spowodować niekompatybilność sterowników czasu rzeczywistego (RTOS). Proces wgrania patcha wymaga planowanego przestoju fabryki (Downtime). Zamiast łatać kod na urządzeniach końcowych (które mają po 20 lat), inżynierowie OT stosują tzw. <em>Virtual Patching</em> za pomocą zapór NIPS na granicy sieci.</li>
-                    <li><strong>Mit doskonałego Air-Gappingu:</strong> Jeśli wykładowca zapyta, czy sieć izolowana od internetu jest w 100% bezpieczna, użyj słowa "Stuxnet". Ten słynny amerykańsko-izraelski wirus zniszczył w 2010 roku irańskie wirówki uranowe pomimo całkowitego fizycznego odłączenia ich od sieci (Air-Gap). Przeniósł się przez zakażone pendrive'y inżynierów zewnętrznych (Contractors), a następnie szukał w sieci OT konkretnych sterowników Siemens S7 PLC, by zmanipulować prędkość ich obrotów, zwracając fałszywe dane (replay attack) na monitory operatorów!</li>
+                    <li><strong>„W sieci OT wystarczy częsty update (Patching), aby być bezpiecznym”.</strong> – Błąd! W OT patching jest często <strong>zakazany przez producenta</strong> (certyfikacja SIL). Zainstalowanie łatki może unieważnić gwarancję i spowodować niekompatybilność z RTOS. Zamiast tego stosuje się Virtual Patching przez IPS na granicy sieci.</li>
+                    <li><strong>Mit doskonałego Air-Gappingu:</strong> Stuxnet pokonał izolację powietrzną przez pendrive. Inne wektory: laptopy serwisowe dostawców, modemy diagnostyczne, ekranowanie TEMPEST. Air-Gap to nie magiczna tarcza – to tylko jedna warstwa obrony.</li>
+                    <li><strong>„Szyfrowanie rozwiązuje problemy OT”</strong> – Większość protokołów OT (Modbus, Profinet, DNP3) nie ma szyfrowania. Nawet OPC UA, które je ma, nie jest wdrożone w tysiącach istniejących instalacji. Bezpieczeństwo OT opiera się na segmentacji, nie na kryptografii.</li>
+                    <li><strong>„Safety to to samo co Security”</strong> – Nie. Safety (bezpieczeństwo funkcjonalne) chroni przed przypadkowymi awariami (np. zwarcie). Security chroni przed celowym atakiem. W OT te dwa światy się przenikają – atakujący celowo wywołuje awarię safety, by zniszczyć sprzęt.</li>
                 </ul>
+                <div style="background: #fff8e1; border-left: 4px solid #ff8f00; padding: 10px 14px; margin-top: 10px; border-radius: 0 6px 6px 0;">
+                    <strong>🗣️ Jak odpowiedzieć komisji na pytanie o pułapki:</strong> „Klasyczna pułapka: myślenie, że w OT da się łatać systemy jak w IT. Nie da się. Sterownik PLC z certyfikacją SIL nie może być aktualizowany przez byle administratora – to unieważnia certyfikat. Stosujemy virtual patching. Drugi mit: Air-Gap jako 100% bezpieczeństwa. Stuxnet pokazał, że pendrive pokonuje szczelinę powietrzną. Trzeci: szyfrowanie. Protokoły OT jak Modbus nie mają szyfrowania. Bezpieczeństwo OT to segmentacja i kontrola dostępu, nie kryptografia. No i kluczowa różnica: safety to ochrona przed przypadkiem, security przed atakiem. W OT atakujący celowo narusza safety, by wywołać katastrofę.”
+                </div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- CHEAT-SHEET                                              -->
+            <!-- ======================================================== -->
+            <div style="background: #fafafa; border: 2px solid #546e7a; border-radius: 14px; padding: 20px; margin-top: 24px;">
+                <strong style="font-size: 1.1rem; color: #263238; display: block; margin-bottom: 12px;">📋 Egzaminacyjny Cheat-Sheet – IT vs OT:</strong>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead><tr style="background: #eceff1;"><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">Aspekt</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">IT</th><th style="padding: 10px; text-align: left; border-bottom: 2px solid #546e7a;">OT</th></tr></thead>
+                    <tbody>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Priorytet</td><td style="padding: 10px;">Poufność (CIA)</td><td style="padding: 10px;">Dostępność + Safety (AIC)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Cykl życia</td><td style="padding: 10px;">3–5 lat</td><td style="padding: 10px;">15–30 lat</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Patching</td><td style="padding: 10px;">Cotygodniowy (Patch Tuesday)</td><td style="padding: 10px;">Virtual Patching, planowane przestoje</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Protokoły</td><td style="padding: 10px;">TCP/IP, HTTP, TLS</td><td style="padding: 10px;">Modbus, Profinet, OPC UA (nieliczne szyfrowane)</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Architektura</td><td style="padding: 10px;">Płaska, chmurowa</td><td style="padding: 10px;">Model Purdue, DMZ, Data Diodes</td></tr>
+                    <tr style="border-bottom: 1px solid #e0e0e0;"><td style="padding: 10px; font-weight: bold;">Konsekwencja ataku</td><td style="padding: 10px;">Utrata danych, straty finansowe</td><td style="padding: 10px;">Zniszczenie fizyczne, utrata życia, katastrofa ekologiczna</td></tr>
+                    <tr><td style="padding: 10px; font-weight: bold;">Standardy</td><td style="padding: 10px;">ISO 27001, NIST CSF</td><td style="padding: 10px;">ISA/IEC 62443, IEC 61511 (SIL)</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ======================================================== -->
@@ -240,7 +353,7 @@
             <div style="margin-top: 20px; border-top: 1px solid #dcdde1; padding-top: 10px;">
                 <span style="color: #7f8c8d; font-size: 0.75em; font-weight: bold;">📚 Bibliografia:</span>
                 <span style="font-size: 0.85em; color: #34495e; font-style: italic;">
-                    "Industrial Cybersecurity" (Pascal Ackerman) – Model Purdue, SCADA, PLC · Analiza złośliwego oprogramowania Stuxnet (Symantec) · Standardy bezpieczeństwa przemysłowego ISA/IEC 62443.
+                    „Industrial Cybersecurity” (Pascal Ackerman) – Model Purdue, SCADA, PLC · Analiza złośliwego oprogramowania Stuxnet (Symantec) · Standardy bezpieczeństwa przemysłowego ISA/IEC 62443 · IEC 61508 / 61511 (Functional Safety).
                 </span>
             </div>
 
