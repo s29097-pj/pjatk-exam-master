@@ -37,5 +37,5 @@ Zastrzegam: nie robię poprawek na życzenie (to nie helpdesk), ale jak znajdzie
 Projekt stworzony przez studenta dla studentów.
 
 * **Kod aplikacji:** Udostępniony na licencji **[MIT](LICENSE)**. Możesz dowolnie kopiować i modyfikować silnik aplikacji (SPA).
-* **Treści edukacyjne:** Notatki, pytania oraz fragmenty publikacji (np. "Kryminalistyka cyfrowa") są cytowane na podstawie **Prawa Cytatu** (Art. 29 ustawy o prawie autorskim) wyłącznie w celach edukacyjnych. Prawa autorskie do tych treści należą do ich pierwotnych autorów/wydawców.
+* **Treści edukacyjne:** Notatki, pytania oraz fragmenty publikacji są cytowane na podstawie **Prawa Cytatu** (Art. 29 ustawy o prawie autorskim) wyłącznie w celach edukacyjnych. Prawa autorskie do tych treści należą do ich pierwotnych autorów/wydawców.
 * **Użytek:** Projekt ma charakter niekomercyjny i naukowy.
